@@ -7,11 +7,17 @@
     <Compile Update="TabsComponents\HomeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UIElementsClass.cs">
+    <Compile Update="UI\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\CustomProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Forms\FormMain.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UI\RoundPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
 </Project>

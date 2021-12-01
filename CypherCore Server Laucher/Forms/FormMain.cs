@@ -1,6 +1,7 @@
 ﻿
 using CypherCore_Server_Laucher.Classes;
 using CypherCore_Server_Laucher.TabsComponents;
+using System.Reflection;
 
 namespace CypherCore_Server_Laucher
 {
@@ -8,11 +9,13 @@ namespace CypherCore_Server_Laucher
     {
 
         ConnectionClass _connectionClass = new ConnectionClass();
-        HomeControl homeControl = new HomeControl();    
+        HomeControl homeControl = new HomeControl();
 
+    
 
         public FormMain()
         {
+
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
 

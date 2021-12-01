@@ -108,5 +108,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         }
 
+        private void HomeControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

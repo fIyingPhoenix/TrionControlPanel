@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnConnect = new System.Windows.Forms.Button();
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.customButton2 = new CypherCore_Server_Laucher.Classes.CustomButton();
-            this.btnHome = new CypherCore_Server_Laucher.Classes.CustomButton();
+            this.customButton2 = new CustomButton();
+            this.btnHome = new CustomButton();
             this.pnlTabs = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
@@ -130,7 +130,7 @@
         private Button btnConnect;
         private Panel panelMenu;
         private Panel pnlTabs;
-        private Classes.CustomButton btnHome;
-        private Classes.CustomButton customButton2;
+        private CustomButton btnHome;
+        private CustomButton customButton2;
     }
 }
