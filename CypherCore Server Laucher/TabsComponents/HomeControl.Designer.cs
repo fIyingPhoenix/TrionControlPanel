@@ -55,6 +55,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -67,6 +73,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.sPanel2.BorderColor = System.Drawing.Color.White;
+            this.sPanel2.Controls.Add(this.label4);
+            this.sPanel2.Controls.Add(this.label1);
             this.sPanel2.Controls.Add(this.lblWorldResource);
             this.sPanel2.Controls.Add(this.worldRamUsageProgressBar);
             this.sPanel2.Controls.Add(this.worldCpuUsageProgressBar);
@@ -89,9 +97,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // worldRamUsageProgressBar
             // 
+            this.worldRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldRamUsageProgressBar.FontSize = 10;
-            this.worldRamUsageProgressBar.LabebelText = "MB";
-            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(22, 64);
+            this.worldRamUsageProgressBar.LabelText = "MB";
+            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(20, 61);
             this.worldRamUsageProgressBar.MaximumValue = true;
             this.worldRamUsageProgressBar.Name = "worldRamUsageProgressBar";
             this.worldRamUsageProgressBar.Size = new System.Drawing.Size(275, 17);
@@ -101,9 +110,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // worldCpuUsageProgressBar
             // 
+            this.worldCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldCpuUsageProgressBar.FontSize = 10;
-            this.worldCpuUsageProgressBar.LabebelText = "%";
-            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(22, 113);
+            this.worldCpuUsageProgressBar.LabelText = "%";
+            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(20, 113);
             this.worldCpuUsageProgressBar.MaximumValue = false;
             this.worldCpuUsageProgressBar.Name = "worldCpuUsageProgressBar";
             this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(275, 17);
@@ -239,6 +249,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             | System.Windows.Forms.AnchorStyles.Right)));
             this.roundPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel1.BorderColor = System.Drawing.Color.White;
+            this.roundPanel1.Controls.Add(this.label5);
+            this.roundPanel1.Controls.Add(this.label2);
             this.roundPanel1.Controls.Add(this.BnetCpuUsageProgressBar);
             this.roundPanel1.Controls.Add(this.lblBnetResource);
             this.roundPanel1.Controls.Add(this.BnetRamUsageProgressBar);
@@ -250,8 +262,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // BnetCpuUsageProgressBar
             // 
+            this.BnetCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetCpuUsageProgressBar.FontSize = 10;
-            this.BnetCpuUsageProgressBar.LabebelText = "%";
+            this.BnetCpuUsageProgressBar.LabelText = "%";
             this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(20, 113);
             this.BnetCpuUsageProgressBar.MaximumValue = false;
             this.BnetCpuUsageProgressBar.Name = "BnetCpuUsageProgressBar";
@@ -273,8 +286,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // BnetRamUsageProgressBar
             // 
+            this.BnetRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetRamUsageProgressBar.FontSize = 10;
-            this.BnetRamUsageProgressBar.LabebelText = "MB";
+            this.BnetRamUsageProgressBar.LabelText = "MB";
             this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(20, 64);
             this.BnetRamUsageProgressBar.MaximumValue = true;
             this.BnetRamUsageProgressBar.Name = "BnetRamUsageProgressBar";
@@ -289,6 +303,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             | System.Windows.Forms.AnchorStyles.Right)));
             this.roundPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel2.BorderColor = System.Drawing.Color.White;
+            this.roundPanel2.Controls.Add(this.label6);
+            this.roundPanel2.Controls.Add(this.label3);
             this.roundPanel2.Controls.Add(this.totalCpuUsageProgressBar);
             this.roundPanel2.Controls.Add(this.totalRamUsageProgressBar);
             this.roundPanel2.Controls.Add(this.lblPCresource);
@@ -300,8 +316,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // totalCpuUsageProgressBar
             // 
+            this.totalCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalCpuUsageProgressBar.FontSize = 10;
-            this.totalCpuUsageProgressBar.LabebelText = "%";
+            this.totalCpuUsageProgressBar.LabelText = "%";
             this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(22, 112);
             this.totalCpuUsageProgressBar.MaximumValue = false;
             this.totalCpuUsageProgressBar.Name = "totalCpuUsageProgressBar";
@@ -312,8 +329,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // totalRamUsageProgressBar
             // 
+            this.totalRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalRamUsageProgressBar.FontSize = 10;
-            this.totalRamUsageProgressBar.LabebelText = "MB";
+            this.totalRamUsageProgressBar.LabelText = "MB";
             this.totalRamUsageProgressBar.Location = new System.Drawing.Point(22, 64);
             this.totalRamUsageProgressBar.MaximumValue = true;
             this.totalRamUsageProgressBar.Name = "totalRamUsageProgressBar";
@@ -342,6 +360,66 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             this.BnetResourceTimer.Interval = 1000;
             this.BnetResourceTimer.Tick += new System.EventHandler(this.BnetResourceTimer_Tick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label1.Location = new System.Drawing.Point(67, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 15);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Random-Access Memory  (RAM)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label2.Location = new System.Drawing.Point(62, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(181, 15);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Random-Access Memory  (RAM)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label3.Location = new System.Drawing.Point(108, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(181, 15);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Random-Access Memory  (RAM)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label4.Location = new System.Drawing.Point(67, 95);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(164, 15);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Central Processing Unit (CPU)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label5.Location = new System.Drawing.Point(62, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(164, 15);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Central Processing Unit (CPU)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label6.Location = new System.Drawing.Point(108, 94);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(164, 15);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Central Processing Unit (CPU)";
             // 
             // HomeControl
             // 
@@ -394,5 +472,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private CustomProgressBar worldCpuUsageProgressBar;
         private CustomProgressBar BnetCpuUsageProgressBar;
         private CustomProgressBar BnetRamUsageProgressBar;
+        private Label label4;
+        private Label label1;
+        private Label label5;
+        private Label label2;
+        private Label label6;
+        private Label label3;
     }
 }

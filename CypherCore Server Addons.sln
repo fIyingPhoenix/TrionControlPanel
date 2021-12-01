@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherCore Server Laucher", "CypherCore Server Laucher\CypherCore Server Laucher.csproj", "{F6473CBA-2BB1-41B9-BE46-160798701F60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherCore Server Control Panel", "CypherCore Server Laucher\CypherCore Server Control Panel.csproj", "{F6473CBA-2BB1-41B9-BE46-160798701F60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,7 +3,7 @@
 public class CustomProgressBar : ProgressBar
 {
     //Fields
-    private string labebelText = "%";
+    private string labelText = "%";
     private bool maximumValue = false;
     private int fontSize = 10;
     private Color textColor = Color.FromArgb(45, 51, 59);
@@ -12,12 +12,12 @@ public class CustomProgressBar : ProgressBar
 
     //Properties
     [Category("1 CustomButton Advance")]
-        public string LabebelText
+        public string LabelText
         {
-            get { return labebelText; }
+            get { return labelText; }
             set
             {
-                labebelText = value;
+            labelText = value;
                 this.Invalidate();
             }
         }
@@ -91,8 +91,8 @@ public class CustomProgressBar : ProgressBar
              //text
             using (Font f = new Font(font, fontSize))
             {
-                string textMinimum = $"{this.Value} {labebelText}";
-                string textMaximum = $"{this.Value} {labebelText} / {this.Maximum} {labebelText} ";
+                string textMinimum = $"{this.Value} {labelText}";
+                string textMaximum = $"{this.Value} {labelText} / {this.Maximum} {labelText} ";
                 string text = "";
 
                 if (maximumValue == false)

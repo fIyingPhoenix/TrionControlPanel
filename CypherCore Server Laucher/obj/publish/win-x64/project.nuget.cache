@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EGXfmkEreaSbBiZkcH50kjl6W3Ck+9Lf0IoFVyIeoN9RR1g/wv490zTZR+hGRnF3tMC4oM9DkZVXxedrYPSKkA==",
+  "dgSpecHash": "NGAHJaOhv5HVabIpz4MC8wGhnS/voB2eenJq6UUwoXhfo7L4wkinoa74CxtikpVJVE/lkinuiU7+h5Q0V93wXw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Andrei Caran\\source\\repos\\CypherCore Server Addons\\CypherCore Server Laucher\\CypherCore Server Laucher.csproj",
+  "projectFilePath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\CypherCore Server Control Panel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
@@ -13,8 +13,10 @@
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\mysql.data\\8.0.27\\mysql.data.8.0.27.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",

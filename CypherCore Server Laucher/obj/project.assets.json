@@ -940,9 +940,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\CypherCore Server Laucher.csproj",
-      "projectName": "CypherCore Server Laucher",
-      "projectPath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\CypherCore Server Laucher.csproj",
+      "projectUniqueName": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\CypherCore Server Control Panel.csproj",
+      "projectName": "CypherCore Server Control Panel",
+      "projectPath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\CypherCore Server Control Panel.csproj",
       "packagesPath": "C:\\Users\\Andrei Caran\\.nuget\\packages\\",
       "outputPath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Laucher\\obj\\",
       "projectStyle": "PackageReference",
