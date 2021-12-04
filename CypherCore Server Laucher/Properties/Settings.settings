@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CypherCore_Server_Laucher.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CypherCoreServerLaucher.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="WorldDatabaseName" Type="System.String" Scope="User">
@@ -15,10 +15,10 @@
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="MySQLServerUsername" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CypherCore</Value>
+      <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="MySQLServerPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CypherCore</Value>
+      <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="MySQLServerPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>
@@ -37,6 +37,9 @@
     </Setting>
     <Setting Name="TogleStayInTray" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CoreLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

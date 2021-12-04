@@ -116,6 +116,7 @@
             this.bntOpenLocation.Text = "Open Location";
             this.bntOpenLocation.TextColor = System.Drawing.Color.White;
             this.bntOpenLocation.UseVisualStyleBackColor = false;
+            this.bntOpenLocation.Click += new System.EventHandler(this.bntOpenLocation_Click);
             // 
             // bntLocation
             // 
@@ -136,6 +137,7 @@
             this.bntLocation.Text = "Search Location";
             this.bntLocation.TextColor = System.Drawing.Color.White;
             this.bntLocation.UseVisualStyleBackColor = false;
+            this.bntLocation.Click += new System.EventHandler(this.bntLocation_Click);
             // 
             // lblBnetLocation
             // 

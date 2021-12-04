@@ -15,6 +15,23 @@ namespace CypherCore_Server_Laucher.Classes
         public string MySqlStatusName = "mysqld";
         public string ApacheStatusName = "httpd";
 
+        internal void KillWorld()
+        {
+            foreach (var process in Process.GetProcessesByName(WorldStatusName))
+            {
+                process.Kill();
+            }
+
+        }
+        internal void KillBnet ()
+        {
+
+            foreach (var process in Process.GetProcessesByName(BnetStatusName))
+            {
+                process.Kill();
+            }
+
+        }
 
         internal bool WorldStatus()
         {
@@ -48,7 +65,6 @@ namespace CypherCore_Server_Laucher.Classes
             else
                 return true;
         }
-
         internal int TotalPCRam()
         {
            
@@ -98,7 +114,6 @@ namespace CypherCore_Server_Laucher.Classes
             }
             
         }
-
         internal int WorldRamUsage()
         {
             try

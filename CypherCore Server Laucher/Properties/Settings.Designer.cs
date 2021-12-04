@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cypher_CoreServer_Laucher.Properties {
+namespace CypherCoreServerLaucher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -73,7 +73,7 @@ namespace Cypher_CoreServer_Laucher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CypherCore")]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
         public string MySQLServerUsername {
             get {
                 return ((string)(this["MySQLServerUsername"]));
@@ -85,7 +85,7 @@ namespace Cypher_CoreServer_Laucher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CypherCore")]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
         public string MySQLServerPassword {
             get {
                 return ((string)(this["MySQLServerPassword"]));
@@ -164,6 +164,18 @@ namespace Cypher_CoreServer_Laucher.Properties {
             }
             set {
                 this["TogleStayInTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CoreLocation {
+            get {
+                return ((string)(this["CoreLocation"]));
+            }
+            set {
+                this["CoreLocation"] = value;
             }
         }
     }

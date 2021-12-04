@@ -1,0 +1,32 @@
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.Forms.FormAlert.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.FormMain.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCoreServerLaucher.Properties.Resources.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.TabsComponents.HomeControl.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.TabsComponents.SettingControl.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.GenerateResource.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.AssemblyInfoInputs.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.AssemblyInfo.cs
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.CoreCompileInputs.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\CypherCore Server Control Panel.exe
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\CypherCore Server Control Panel.deps.json
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\CypherCore Server Control Panel.runtimeconfig.json
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\CypherCore Server Control Panel.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\ref\CypherCore Server Control Panel.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\CypherCore Server Control Panel.pdb
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\BouncyCastle.Crypto.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\Google.Protobuf.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\K4os.Compression.LZ4.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\K4os.Compression.LZ4.Streams.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\K4os.Hash.xxHash.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\MySql.Data.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\Ubiety.Dns.Core.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\ZstdNet.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\System.Management.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Debug\net6.0-windows7.0\runtimes\win\lib\net6.0\System.Management.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.CopyComplete
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\ref\CypherCore Server Control Panel.dll
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.pdb
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.genruntimeconfig.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.AssemblyReference.cache

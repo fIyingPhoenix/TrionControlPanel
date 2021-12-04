@@ -61,6 +61,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
+            this.bntStartAll = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.btnStartBent = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.btnStartWorld = new CypherCore_Server_Laucher.UI.CustomButton();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -419,11 +422,77 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             this.BnetResourceTimer.Tick += new System.EventHandler(this.BnetResourceTimer_Tick);
             // 
+            // bntStartAll
+            // 
+            this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStartAll.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.bntStartAll.BorderRadius = 5;
+            this.bntStartAll.BorderSize = 0;
+            this.bntStartAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntStartAll.FlatAppearance.BorderSize = 0;
+            this.bntStartAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntStartAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bntStartAll.ForeColor = System.Drawing.Color.White;
+            this.bntStartAll.Location = new System.Drawing.Point(565, 346);
+            this.bntStartAll.Name = "bntStartAll";
+            this.bntStartAll.Size = new System.Drawing.Size(120, 35);
+            this.bntStartAll.TabIndex = 31;
+            this.bntStartAll.Text = "Start All";
+            this.bntStartAll.TextColor = System.Drawing.Color.White;
+            this.bntStartAll.UseVisualStyleBackColor = false;
+            this.bntStartAll.Click += new System.EventHandler(this.bntStartAll_Click);
+            // 
+            // btnStartBent
+            // 
+            this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartBent.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnStartBent.BorderRadius = 5;
+            this.btnStartBent.BorderSize = 0;
+            this.btnStartBent.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStartBent.FlatAppearance.BorderSize = 0;
+            this.btnStartBent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStartBent.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnStartBent.ForeColor = System.Drawing.Color.White;
+            this.btnStartBent.Location = new System.Drawing.Point(439, 346);
+            this.btnStartBent.Name = "btnStartBent";
+            this.btnStartBent.Size = new System.Drawing.Size(120, 35);
+            this.btnStartBent.TabIndex = 32;
+            this.btnStartBent.Text = "Start Bnet";
+            this.btnStartBent.TextColor = System.Drawing.Color.White;
+            this.btnStartBent.UseVisualStyleBackColor = false;
+            this.btnStartBent.Click += new System.EventHandler(this.btnStartBent_Click);
+            // 
+            // btnStartWorld
+            // 
+            this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartWorld.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnStartWorld.BorderRadius = 5;
+            this.btnStartWorld.BorderSize = 0;
+            this.btnStartWorld.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStartWorld.FlatAppearance.BorderSize = 0;
+            this.btnStartWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStartWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnStartWorld.ForeColor = System.Drawing.Color.White;
+            this.btnStartWorld.Location = new System.Drawing.Point(313, 346);
+            this.btnStartWorld.Name = "btnStartWorld";
+            this.btnStartWorld.Size = new System.Drawing.Size(120, 35);
+            this.btnStartWorld.TabIndex = 33;
+            this.btnStartWorld.Text = "Start World";
+            this.btnStartWorld.TextColor = System.Drawing.Color.White;
+            this.btnStartWorld.UseVisualStyleBackColor = false;
+            this.btnStartWorld.Click += new System.EventHandler(this.btnStartWorld_Click);
+            // 
             // HomeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.btnStartWorld);
+            this.Controls.Add(this.btnStartBent);
+            this.Controls.Add(this.bntStartAll);
             this.Controls.Add(this.roundPanel2);
             this.Controls.Add(this.roundPanel1);
             this.Controls.Add(this.sPanel2);
@@ -476,5 +545,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private Label label2;
         private Label label6;
         private Label label3;
+        private CustomButton bntStartAll;
+        private CustomButton btnStartBent;
+        private CustomButton btnStartWorld;
     }
 }

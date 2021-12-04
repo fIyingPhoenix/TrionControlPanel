@@ -1,4 +1,4 @@
-﻿using Cypher_CoreServer_Laucher.Properties;
+﻿using CypherCoreServerLaucher.Properties;
 using CypherCore_Server_Laucher.Classes;
 using System.Media;
 
@@ -10,7 +10,7 @@ namespace CypherCore_Server_Laucher.Forms
         private NotificationAction notificationAction;
         private int posX, posY;
         SoundPlayer myclicksound = new SoundPlayer(Resources.notySound);
-        public void ShowAlert(string Title,string message, NotificationType eType)
+        public void ShowAlert(string message, NotificationType eType)
         {
             Opacity = 0.0;
             StartPosition = FormStartPosition.Manual;
@@ -37,18 +37,21 @@ namespace CypherCore_Server_Laucher.Forms
             {
                 case NotificationType.Success:
                     picIcon.Image = Resources.ok_100;
+                    lblTitle.Text = "SUCCESS!";
                     break;
                 case NotificationType.Error:
                     picIcon.Image = Resources.fehler_100;
+                    lblTitle.Text = "ERROR!!";
                     break;
                 case NotificationType.Info:
                     picIcon.Image = Resources.info_100;
+                    lblTitle.Text = "INFO!";
                     break;
                 case NotificationType.Warning:
                     picIcon.Image = Resources.achtung_100;
+                    lblTitle.Text = "WARNING!";
                     break;
             }
-            lblTitle.Text = Title;
             lblText.Text = message;
             Show();
             myclicksound.Play();
@@ -100,9 +103,8 @@ namespace CypherCore_Server_Laucher.Forms
 
         public FormAlert()
         {
-          InitializeComponent();
-          lblText.AutoSize = true;
-            
+          InitializeComponent();  
+
         }
     }
 }

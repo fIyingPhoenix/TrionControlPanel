@@ -1,11 +1,84 @@
 ﻿using CypherCore_Server_Laucher.Classes;
+using CypherCore_Server_Laucher.Forms;
+using CypherCoreServerLaucher.Properties;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace CypherCore_Server_Laucher.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
+
         StatusClass _statusClass = new StatusClass();
-      
+
+        public void Alert(string message, NotificationType eType)
+        {
+            //make the laert work.
+            FormAlert frm = new FormAlert(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
+            frm.ShowAlert(message, eType);
+        }
+
+        private void StartWorld()
+        {
+            try
+            {
+                Alert("Starting World Server!",NotificationType.Info);
+
+                using (Process myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = Settings.Default.WorldCoreLocation;
+
+                    if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                    else if (Settings.Default.TogleConsolHide == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                }
+            }
+            catch (Exception ex)    
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+            
+        }
+
+        private void StartBnet()
+        {
+            try
+            {
+                Alert("Starting Bnet Server!", NotificationType.Info);
+
+                using (Process myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = Settings.Default.BnetCoreLocation;
+
+                    if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                    else if (Settings.Default.TogleConsolHide == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+        }
+
         public HomeControl()
         {
             InitializeComponent();
@@ -112,5 +185,23 @@ namespace CypherCore_Server_Laucher.TabsComponents
         {
 
         }
+
+        private void btnStartWorld_Click(object sender, EventArgs e)
+        {
+            StartWorld();
+        }
+
+        private void btnStartBent_Click(object sender, EventArgs e)
+        {
+            StartBnet();
+        }
+
+        private void bntStartAll_Click(object sender, EventArgs e)
+        {
+            StartBnet();
+            StartWorld();
+        }
+
+
     }
 }
