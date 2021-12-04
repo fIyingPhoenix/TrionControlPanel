@@ -1,7 +1,0 @@
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Laucher.pdb
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\D3DCompiler_47_cor3.dll
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\PenImc_cor3.dll
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\PresentationNative_cor3.dll
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\vcruntime140_cor3.dll
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\wpfgfx_cor3.dll
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Laucher.exe
