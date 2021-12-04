@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CypherCore_Server_Laucher.Properties {
+namespace Cypher_CoreServer_Laucher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -56,6 +56,114 @@ namespace CypherCore_Server_Laucher.Properties {
             }
             set {
                 this["CharactersDatabaseName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        public string MySQLServerName {
+            get {
+                return ((string)(this["MySQLServerName"]));
+            }
+            set {
+                this["MySQLServerName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CypherCore")]
+        public string MySQLServerUsername {
+            get {
+                return ((string)(this["MySQLServerUsername"]));
+            }
+            set {
+                this["MySQLServerUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CypherCore")]
+        public string MySQLServerPassword {
+            get {
+                return ((string)(this["MySQLServerPassword"]));
+            }
+            set {
+                this["MySQLServerPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3306")]
+        public string MySQLServerPort {
+            get {
+                return ((string)(this["MySQLServerPort"]));
+            }
+            set {
+                this["MySQLServerPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WorldCoreLocation {
+            get {
+                return ((string)(this["WorldCoreLocation"]));
+            }
+            set {
+                this["WorldCoreLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BnetCoreLocation {
+            get {
+                return ((string)(this["BnetCoreLocation"]));
+            }
+            set {
+                this["BnetCoreLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TogelNotySound {
+            get {
+                return ((bool)(this["TogelNotySound"]));
+            }
+            set {
+                this["TogelNotySound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TogleConsolHide {
+            get {
+                return ((bool)(this["TogleConsolHide"]));
+            }
+            set {
+                this["TogleConsolHide"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TogleStayInTray {
+            get {
+                return ((bool)(this["TogleStayInTray"]));
+            }
+            set {
+                this["TogleStayInTray"] = value;
             }
         }
     }

@@ -4,7 +4,13 @@
     <_LastSelectedProfileId>D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\FormAlert.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="TabsComponents\HomeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="TabsComponents\SettingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UI\CustomButton.cs">
@@ -15,6 +21,9 @@
     </Compile>
     <Compile Update="Forms\FormMain.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UI\CustomToggleButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Update="UI\RoundPanel.cs">
       <SubType>Component</SubType>

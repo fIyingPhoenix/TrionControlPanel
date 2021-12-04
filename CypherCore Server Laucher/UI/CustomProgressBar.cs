@@ -1,23 +1,27 @@
 ﻿using System.ComponentModel;
 
-public class CustomProgressBar : ProgressBar
+
+
+namespace CypherCore_Server_Laucher.UI
 {
-    //Fields
-    private string labelText = "%";
-    private bool maximumValue = false;
-    private int fontSize = 10;
-    private Color textColor = Color.FromArgb(45, 51, 59);
-    private Color barColor = Color.FromArgb(83, 155, 245);
+    public class CustomProgressBar : ProgressBar
+    {
+        //Fields
+        private string labelText = "%";
+        private bool maximumValue = false;
+        private int fontSize = 10;
+        private Color textColor = Color.FromArgb(45, 51, 59);
+        private Color barColor = Color.FromArgb(83, 155, 245);
 
 
-    //Properties
-    [Category("1 CustomButton Advance")]
+        //Properties
+        [Category("1 CustomButton Advance")]
         public string LabelText
         {
             get { return labelText; }
             set
             {
-            labelText = value;
+                labelText = value;
                 this.Invalidate();
             }
         }
@@ -32,29 +36,29 @@ public class CustomProgressBar : ProgressBar
             }
         }
         [Category("1 CustomButton Advance")]
-         public int FontSize
-         {
-             get { return fontSize; }
-                set
-                {
-                     fontSize = value;
-                     this.Invalidate();
-                }
-         }
-         [Category("1 CustomButton Advance")]
-         public Color TextColor
-         {
-               get { return textColor; }
-               set { textColor = value; }
-         }
-         [Category("1 CustomButton Advance")]
-         public Color BarColor
-         {
-                get { return barColor; }
-                 set { barColor = value; }
-          }
+        public int FontSize
+        {
+            get { return fontSize; }
+            set
+            {
+                fontSize = value;
+                this.Invalidate();
+            }
+        }
+        [Category("1 CustomButton Advance")]
+        public Color TextColor
+        {
+            get { return textColor; }
+            set { textColor = value; }
+        }
+        [Category("1 CustomButton Advance")]
+        public Color BarColor
+        {
+            get { return barColor; }
+            set { barColor = value; }
+        }
 
-    public CustomProgressBar()
+        public CustomProgressBar()
         {
             this.SetStyle(ControlStyles.UserPaint, true);
         }
@@ -72,7 +76,7 @@ public class CustomProgressBar : ProgressBar
 
         protected override void OnPaint(PaintEventArgs e)
         {
-        
+
             //progress
 
             Rectangle rec = e.ClipRectangle;
@@ -81,14 +85,14 @@ public class CustomProgressBar : ProgressBar
                 ProgressBarRenderer.DrawHorizontalBar(e.Graphics, e.ClipRectangle);
             rec.Height = rec.Height - 4;
             SolidBrush barcollor = new SolidBrush(TextColor);
-        e.Graphics.FillRectangle(Brushes.RoyalBlue, 2, 2, rec.Width, rec.Height);
+            e.Graphics.FillRectangle(Brushes.RoyalBlue, 2, 2, rec.Width, rec.Height);
             Graphics g = e.Graphics;
 
 
 
             FontFamily font = new FontFamily("Segoe UI Semibold");
 
-             //text
+            //text
             using (Font f = new Font(font, fontSize))
             {
                 string textMinimum = $"{this.Value} {labelText}";
@@ -113,3 +117,4 @@ public class CustomProgressBar : ProgressBar
             }
         }
     }
+}

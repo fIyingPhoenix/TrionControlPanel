@@ -1,4 +1,4 @@
-﻿
+﻿using CypherCore_Server_Laucher.UI;
 namespace CypherCore_Server_Laucher.TabsComponents
 {
     partial class HomeControl
@@ -30,37 +30,37 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.sPanel2 = new RoundPanel();
+            this.sPanel2 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblWorldResource = new System.Windows.Forms.Label();
-            this.worldRamUsageProgressBar = new CustomProgressBar();
-            this.worldCpuUsageProgressBar = new CustomProgressBar();
-            this.sPanel1 = new RoundPanel();
+            this.worldRamUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
+            this.worldCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
+            this.sPanel1 = new CypherCore_Server_Laucher.UI.RoundPanel();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblApache = new System.Windows.Forms.Label();
             this.lblMySql = new System.Windows.Forms.Label();
             this.lblBnet = new System.Windows.Forms.Label();
             this.lblWorld = new System.Windows.Forms.Label();
-            this.apacheServerLight = new RoundPanel();
-            this.mysqlServerLight = new RoundPanel();
-            this.bnetServerLight = new RoundPanel();
-            this.worldServerLight = new RoundPanel();
+            this.apacheServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.mysqlServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.bnetServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.worldServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
             this.ServerStatusTimer = new System.Windows.Forms.Timer(this.components);
-            this.roundPanel1 = new RoundPanel();
-            this.BnetCpuUsageProgressBar = new CustomProgressBar();
+            this.roundPanel1 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.BnetCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
             this.lblBnetResource = new System.Windows.Forms.Label();
-            this.BnetRamUsageProgressBar = new CustomProgressBar();
-            this.roundPanel2 = new RoundPanel();
-            this.totalCpuUsageProgressBar = new CustomProgressBar();
-            this.totalRamUsageProgressBar = new CustomProgressBar();
+            this.BnetRamUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
+            this.roundPanel2 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.totalCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
+            this.totalRamUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -79,17 +79,37 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel2.Controls.Add(this.worldRamUsageProgressBar);
             this.sPanel2.Controls.Add(this.worldCpuUsageProgressBar);
             this.sPanel2.Edge = 10;
-            this.sPanel2.Location = new System.Drawing.Point(15, 183);
+            this.sPanel2.Location = new System.Drawing.Point(15, 180);
             this.sPanel2.Name = "sPanel2";
-            this.sPanel2.Size = new System.Drawing.Size(326, 150);
+            this.sPanel2.Size = new System.Drawing.Size(325, 150);
             this.sPanel2.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label4.Location = new System.Drawing.Point(67, 95);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(164, 15);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Central Processing Unit (CPU)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label1.Location = new System.Drawing.Point(67, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 15);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Random-Access Memory  (RAM)";
             // 
             // lblWorldResource
             // 
             this.lblWorldResource.AutoSize = true;
             this.lblWorldResource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWorldResource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorldResource.Location = new System.Drawing.Point(7, 6);
+            this.lblWorldResource.Location = new System.Drawing.Point(7, 7);
             this.lblWorldResource.Name = "lblWorldResource";
             this.lblWorldResource.Size = new System.Drawing.Size(179, 21);
             this.lblWorldResource.TabIndex = 19;
@@ -137,7 +157,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel1.Controls.Add(this.bnetServerLight);
             this.sPanel1.Controls.Add(this.worldServerLight);
             this.sPanel1.Edge = 20;
-            this.sPanel1.Location = new System.Drawing.Point(15, 16);
+            this.sPanel1.Location = new System.Drawing.Point(15, 15);
             this.sPanel1.Name = "sPanel1";
             this.sPanel1.Size = new System.Drawing.Size(248, 150);
             this.sPanel1.TabIndex = 5;
@@ -147,7 +167,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblServerStatus.AutoSize = true;
             this.lblServerStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblServerStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblServerStatus.Location = new System.Drawing.Point(7, 6);
+            this.lblServerStatus.Location = new System.Drawing.Point(7, 7);
             this.lblServerStatus.Name = "lblServerStatus";
             this.lblServerStatus.Size = new System.Drawing.Size(107, 21);
             this.lblServerStatus.TabIndex = 18;
@@ -240,7 +260,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // ServerStatusTimer
             // 
             this.ServerStatusTimer.Enabled = true;
-            this.ServerStatusTimer.Interval = 500;
+            this.ServerStatusTimer.Interval = 1000;
             this.ServerStatusTimer.Tick += new System.EventHandler(this.ServerStatusTimer_Tick);
             // 
             // roundPanel1
@@ -255,10 +275,30 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel1.Controls.Add(this.lblBnetResource);
             this.roundPanel1.Controls.Add(this.BnetRamUsageProgressBar);
             this.roundPanel1.Edge = 10;
-            this.roundPanel1.Location = new System.Drawing.Point(358, 183);
+            this.roundPanel1.Location = new System.Drawing.Point(357, 180);
             this.roundPanel1.Name = "roundPanel1";
-            this.roundPanel1.Size = new System.Drawing.Size(326, 150);
+            this.roundPanel1.Size = new System.Drawing.Size(325, 150);
             this.roundPanel1.TabIndex = 20;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label5.Location = new System.Drawing.Point(62, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(164, 15);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Central Processing Unit (CPU)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label2.Location = new System.Drawing.Point(62, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(181, 15);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Random-Access Memory  (RAM)";
             // 
             // BnetCpuUsageProgressBar
             // 
@@ -278,7 +318,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblBnetResource.AutoSize = true;
             this.lblBnetResource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblBnetResource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblBnetResource.Location = new System.Drawing.Point(7, 6);
+            this.lblBnetResource.Location = new System.Drawing.Point(7, 7);
             this.lblBnetResource.Name = "lblBnetResource";
             this.lblBnetResource.Size = new System.Drawing.Size(222, 21);
             this.lblBnetResource.TabIndex = 19;
@@ -309,10 +349,30 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel2.Controls.Add(this.totalRamUsageProgressBar);
             this.roundPanel2.Controls.Add(this.lblPCresource);
             this.roundPanel2.Edge = 10;
-            this.roundPanel2.Location = new System.Drawing.Point(279, 16);
+            this.roundPanel2.Location = new System.Drawing.Point(280, 15);
             this.roundPanel2.Name = "roundPanel2";
             this.roundPanel2.Size = new System.Drawing.Size(405, 150);
             this.roundPanel2.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label6.Location = new System.Drawing.Point(108, 94);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(164, 15);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Central Processing Unit (CPU)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label3.Location = new System.Drawing.Point(108, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(181, 15);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Random-Access Memory  (RAM)";
             // 
             // totalCpuUsageProgressBar
             // 
@@ -345,7 +405,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblPCresource.AutoSize = true;
             this.lblPCresource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPCresource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblPCresource.Location = new System.Drawing.Point(7, 6);
+            this.lblPCresource.Location = new System.Drawing.Point(7, 7);
             this.lblPCresource.Name = "lblPCresource";
             this.lblPCresource.Size = new System.Drawing.Size(101, 21);
             this.lblPCresource.TabIndex = 19;
@@ -353,73 +413,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // WorldResourceTimer
             // 
-            this.WorldResourceTimer.Interval = 1000;
             this.WorldResourceTimer.Tick += new System.EventHandler(this.WorldResourceTimer_Tick);
             // 
             // BnetResourceTimer
             // 
-            this.BnetResourceTimer.Interval = 1000;
             this.BnetResourceTimer.Tick += new System.EventHandler(this.BnetResourceTimer_Tick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label1.Location = new System.Drawing.Point(67, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 15);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Random-Access Memory  (RAM)";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label2.Location = new System.Drawing.Point(62, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 15);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "Random-Access Memory  (RAM)";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label3.Location = new System.Drawing.Point(108, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(181, 15);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Random-Access Memory  (RAM)";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label4.Location = new System.Drawing.Point(67, 95);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 15);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "Central Processing Unit (CPU)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label5.Location = new System.Drawing.Point(62, 95);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(164, 15);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "Central Processing Unit (CPU)";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label6.Location = new System.Drawing.Point(108, 94);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(164, 15);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "Central Processing Unit (CPU)";
             // 
             // HomeControl
             // 
@@ -447,8 +445,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         #endregion
 
-        private RoundPanel sPanel2;
-        private RoundPanel sPanel1;
+        private CypherCore_Server_Laucher.UI.RoundPanel sPanel2;
+        private CypherCore_Server_Laucher.UI.RoundPanel sPanel1;
         private Label lblServerStatus;
         private Label lblApache;
         private Label lblMySql;

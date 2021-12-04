@@ -10,7 +10,7 @@ namespace CypherCore_Server_Laucher
 
         ConnectionClass _connectionClass = new ConnectionClass();
         HomeControl homeControl = new HomeControl();
-
+        SettingControl settingControl = new SettingControl();
     
 
         public FormMain()
@@ -41,7 +41,15 @@ namespace CypherCore_Server_Laucher
         private void btnHome_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
+            pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(homeControl);
+           
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            pnlTabs.Controls.Clear();
+            pnlTabs.Controls.Add(settingControl);
         }
     }
 }

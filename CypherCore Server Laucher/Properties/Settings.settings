@@ -11,5 +11,32 @@
     <Setting Name="CharactersDatabaseName" Type="System.String" Scope="User">
       <Value Profile="(Default)">characters</Value>
     </Setting>
+    <Setting Name="MySQLServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="MySQLServerUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CypherCore</Value>
+    </Setting>
+    <Setting Name="MySQLServerPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CypherCore</Value>
+    </Setting>
+    <Setting Name="MySQLServerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
+    <Setting Name="WorldCoreLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BnetCoreLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TogelNotySound" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TogleConsolHide" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TogleStayInTray" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

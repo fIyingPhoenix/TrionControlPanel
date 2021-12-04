@@ -28,3 +28,5 @@ D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\ref\CypherCore Server Control Panel.dll
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Control Panel.pdb
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Control Panel.genruntimeconfig.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore_Server_Laucher.Forms.FormAlert.resources
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore_Server_Laucher.TabsComponents.SettingControl.resources
