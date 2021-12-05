@@ -15,13 +15,13 @@ namespace CypherCore_Server_Laucher.Classes
         public string MySqlStatusName = "mysqld";
         public string ApacheStatusName = "httpd";
 
+
         internal void KillWorld()
         {
             foreach (var process in Process.GetProcessesByName(WorldStatusName))
             {
                 process.Kill();
             }
-
         }
         internal void KillBnet ()
         {
@@ -32,7 +32,6 @@ namespace CypherCore_Server_Laucher.Classes
             }
 
         }
-
         internal bool WorldStatus()
         {
             Process[] pname = Process.GetProcessesByName(WorldStatusName);
@@ -67,9 +66,6 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal int TotalPCRam()
         {
-           
-
-
             ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
             ManagementObjectCollection results = searcher.Get();

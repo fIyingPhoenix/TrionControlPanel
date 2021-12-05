@@ -64,6 +64,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.bntStartAll = new CypherCore_Server_Laucher.UI.CustomButton();
             this.btnStartBent = new CypherCore_Server_Laucher.UI.CustomButton();
             this.btnStartWorld = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.bntStopAll = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.btnStopWorld = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.btnStopBnet = new CypherCore_Server_Laucher.UI.CustomButton();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -416,10 +419,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // WorldResourceTimer
             // 
+            this.WorldResourceTimer.Interval = 1000;
             this.WorldResourceTimer.Tick += new System.EventHandler(this.WorldResourceTimer_Tick);
             // 
             // BnetResourceTimer
             // 
+            this.BnetResourceTimer.Interval = 1000;
             this.BnetResourceTimer.Tick += new System.EventHandler(this.BnetResourceTimer_Tick);
             // 
             // bntStartAll
@@ -434,9 +439,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.bntStartAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStartAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStartAll.ForeColor = System.Drawing.Color.White;
-            this.bntStartAll.Location = new System.Drawing.Point(565, 346);
+            this.bntStartAll.Location = new System.Drawing.Point(597, 346);
             this.bntStartAll.Name = "bntStartAll";
-            this.bntStartAll.Size = new System.Drawing.Size(120, 35);
+            this.bntStartAll.Size = new System.Drawing.Size(88, 35);
             this.bntStartAll.TabIndex = 31;
             this.bntStartAll.Text = "Start All";
             this.bntStartAll.TextColor = System.Drawing.Color.White;
@@ -455,9 +460,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.btnStartBent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartBent.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBent.ForeColor = System.Drawing.Color.White;
-            this.btnStartBent.Location = new System.Drawing.Point(439, 346);
+            this.btnStartBent.Location = new System.Drawing.Point(503, 346);
             this.btnStartBent.Name = "btnStartBent";
-            this.btnStartBent.Size = new System.Drawing.Size(120, 35);
+            this.btnStartBent.Size = new System.Drawing.Size(88, 35);
             this.btnStartBent.TabIndex = 32;
             this.btnStartBent.Text = "Start Bnet";
             this.btnStartBent.TextColor = System.Drawing.Color.White;
@@ -476,20 +481,86 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.btnStartWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStartWorld.Location = new System.Drawing.Point(313, 346);
+            this.btnStartWorld.Location = new System.Drawing.Point(409, 346);
             this.btnStartWorld.Name = "btnStartWorld";
-            this.btnStartWorld.Size = new System.Drawing.Size(120, 35);
+            this.btnStartWorld.Size = new System.Drawing.Size(88, 35);
             this.btnStartWorld.TabIndex = 33;
             this.btnStartWorld.Text = "Start World";
             this.btnStartWorld.TextColor = System.Drawing.Color.White;
             this.btnStartWorld.UseVisualStyleBackColor = false;
             this.btnStartWorld.Click += new System.EventHandler(this.btnStartWorld_Click);
             // 
+            // bntStopAll
+            // 
+            this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStopAll.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.bntStopAll.BorderRadius = 5;
+            this.bntStopAll.BorderSize = 0;
+            this.bntStopAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntStopAll.FlatAppearance.BorderSize = 0;
+            this.bntStopAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntStopAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bntStopAll.ForeColor = System.Drawing.Color.White;
+            this.bntStopAll.Location = new System.Drawing.Point(15, 346);
+            this.bntStopAll.Name = "bntStopAll";
+            this.bntStopAll.Size = new System.Drawing.Size(92, 35);
+            this.bntStopAll.TabIndex = 34;
+            this.bntStopAll.Text = "Stop All";
+            this.bntStopAll.TextColor = System.Drawing.Color.White;
+            this.bntStopAll.UseVisualStyleBackColor = false;
+            this.bntStopAll.Click += new System.EventHandler(this.bntStopAll_Click);
+            // 
+            // btnStopWorld
+            // 
+            this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopWorld.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnStopWorld.BorderRadius = 5;
+            this.btnStopWorld.BorderSize = 0;
+            this.btnStopWorld.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStopWorld.FlatAppearance.BorderSize = 0;
+            this.btnStopWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStopWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnStopWorld.ForeColor = System.Drawing.Color.White;
+            this.btnStopWorld.Location = new System.Drawing.Point(113, 346);
+            this.btnStopWorld.Name = "btnStopWorld";
+            this.btnStopWorld.Size = new System.Drawing.Size(92, 35);
+            this.btnStopWorld.TabIndex = 35;
+            this.btnStopWorld.Text = "Stop World";
+            this.btnStopWorld.TextColor = System.Drawing.Color.White;
+            this.btnStopWorld.UseVisualStyleBackColor = false;
+            this.btnStopWorld.Click += new System.EventHandler(this.btnStopWorld_Click);
+            // 
+            // btnStopBnet
+            // 
+            this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopBnet.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnStopBnet.BorderRadius = 5;
+            this.btnStopBnet.BorderSize = 0;
+            this.btnStopBnet.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStopBnet.FlatAppearance.BorderSize = 0;
+            this.btnStopBnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStopBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnStopBnet.ForeColor = System.Drawing.Color.White;
+            this.btnStopBnet.Location = new System.Drawing.Point(211, 346);
+            this.btnStopBnet.Name = "btnStopBnet";
+            this.btnStopBnet.Size = new System.Drawing.Size(88, 35);
+            this.btnStopBnet.TabIndex = 36;
+            this.btnStopBnet.Text = "Stop Bnet";
+            this.btnStopBnet.TextColor = System.Drawing.Color.White;
+            this.btnStopBnet.UseVisualStyleBackColor = false;
+            this.btnStopBnet.Click += new System.EventHandler(this.btnStopBnet_Click);
+            // 
             // HomeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.btnStopBnet);
+            this.Controls.Add(this.btnStopWorld);
+            this.Controls.Add(this.bntStopAll);
             this.Controls.Add(this.btnStartWorld);
             this.Controls.Add(this.btnStartBent);
             this.Controls.Add(this.bntStartAll);
@@ -548,5 +619,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private CustomButton bntStartAll;
         private CustomButton btnStartBent;
         private CustomButton btnStartWorld;
+        private CustomButton bntStopAll;
+        private CustomButton btnStopWorld;
+        private CustomButton btnStopBnet;
     }
 }

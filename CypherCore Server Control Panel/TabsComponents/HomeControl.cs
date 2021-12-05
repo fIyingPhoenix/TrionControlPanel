@@ -23,19 +23,18 @@ namespace CypherCore_Server_Laucher.TabsComponents
             try
             {
                
-
                 using (Process myProcess = new Process())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
                     myProcess.StartInfo.FileName = Settings.Default.WorldCoreLocation;
 
-                    if (Settings.Default.TogleConsolHide == true)
+                    if (Settings.Default.TogleConsolHide == false)
                     {
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
-                    else if (Settings.Default.TogleConsolHide == false)
+                    else if (Settings.Default.TogleConsolHide == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
@@ -49,7 +48,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             }
             
         }
-
         private void StartBnet()
         {
             try
@@ -61,12 +59,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     // You can start any process, HelloWorld is a do-nothing example.
                     myProcess.StartInfo.FileName = Settings.Default.BnetCoreLocation;
 
-                    if (Settings.Default.TogleConsolHide == true)
+                    if (Settings.Default.TogleConsolHide == false)
                     {
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
-                    else if (Settings.Default.TogleConsolHide == false)
+                    else if (Settings.Default.TogleConsolHide == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
@@ -91,7 +89,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 try
                 {
-                    BnetCpuUsageProgressBar.Value = _statusClass.BnetCpuUsage();
+                    BnetCpuUsageProgressBar.Value = _statusClass.BnetCpuUsage() / 10;
                     BnetRamUsageProgressBar.Value = _statusClass.BnetRamUsage();
                 }
                 catch
@@ -109,7 +107,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 try
                 {
-                    worldCpuUsageProgressBar.Value = _statusClass.WorldCpuUsage();
+                    worldCpuUsageProgressBar.Value = _statusClass.WorldCpuUsage() / 10;
                     worldRamUsageProgressBar.Value = _statusClass.WorldRamUsage();
                 }catch
                 {
@@ -203,6 +201,21 @@ namespace CypherCore_Server_Laucher.TabsComponents
             StartWorld();
         }
 
+        private void bntStopAll_Click(object sender, EventArgs e)
+        {
+            _statusClass.KillWorld();
+            _statusClass.KillBnet();    
+        }
 
+        private void btnStopWorld_Click(object sender, EventArgs e)
+        {
+            _statusClass.KillWorld();
+            
+        }
+
+        private void btnStopBnet_Click(object sender, EventArgs e)
+        {
+            _statusClass.KillBnet();
+        }
     }
 }

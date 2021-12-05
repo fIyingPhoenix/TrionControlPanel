@@ -48,6 +48,7 @@
             this.btnConnect.TabIndex = 0;
             this.btnConnect.Text = "GET Connected";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Visible = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // panelMenu
