@@ -29,56 +29,115 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label lblWorldLocation;
-            this.roundPanel1 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            System.Windows.Forms.Label lblWorldName;
+            System.Windows.Forms.Label lblBnetName;
+            System.Windows.Forms.Label lblApacheName;
+            System.Windows.Forms.Label lblMysqlName;
+            this.roundPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.bntOpenLocation = new CypherCore_Server_Laucher.UI.CustomButton();
             this.bntLocation = new CypherCore_Server_Laucher.UI.CustomButton();
             this.lblBnetLocation = new System.Windows.Forms.Label();
-            this.txtBnetLocation = new System.Windows.Forms.TextBox();
-            this.txtWorldLocation = new System.Windows.Forms.TextBox();
+            this.txtBnetLocation = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtWorldLocation = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblPCresource = new System.Windows.Forms.Label();
-            this.roundPanel2 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.roundPanel2 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.lblPort = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.txtMySqlPort = new System.Windows.Forms.TextBox();
-            this.txtMySqlPassowrd = new System.Windows.Forms.TextBox();
+            this.txtMySqlPort = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtMySqlPassowrd = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblUser = new System.Windows.Forms.Label();
             this.lblServer = new System.Windows.Forms.Label();
-            this.txtMySqlUser = new System.Windows.Forms.TextBox();
-            this.txtMySqlServer = new System.Windows.Forms.TextBox();
+            this.txtMySqlUser = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtMySqlServer = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblMySqlServerSettings = new System.Windows.Forms.Label();
             this.tglStayInTray = new RJCodeAdvance.RJControls.CustomToggleButton();
-            this.roundPanel3 = new CypherCore_Server_Laucher.UI.RoundPanel();
-            this.label16 = new System.Windows.Forms.Label();
+            this.roundPanel3 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.comboBoxCore = new CypherCoreServerLaucher.UI.CustomComboBox();
+            this.lblCores = new System.Windows.Forms.Label();
+            this.lblHideControls = new System.Windows.Forms.Label();
             this.tglHideConsole = new RJCodeAdvance.RJControls.CustomToggleButton();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblNotySound = new System.Windows.Forms.Label();
             this.tglNotySound = new RJCodeAdvance.RJControls.CustomToggleButton();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblStayTray = new System.Windows.Forms.Label();
             this.lblControlPanelSettings = new System.Windows.Forms.Label();
-            this.roundPanel4 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.roundPanel4 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.lblAuth = new System.Windows.Forms.Label();
             this.lblDatabaseSettings = new System.Windows.Forms.Label();
-            this.txtAuthDatabase = new System.Windows.Forms.TextBox();
-            this.txtWorldDatabase = new System.Windows.Forms.TextBox();
+            this.txtAuthDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtWorldDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblCharacters = new System.Windows.Forms.Label();
-            this.txtCharactersDatabase = new System.Windows.Forms.TextBox();
+            this.txtCharactersDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblWorld = new System.Windows.Forms.Label();
             this.btnSave = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.customPanelPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.customToggleButton1 = new RJCodeAdvance.RJControls.CustomToggleButton();
+            this.txtMysqlName = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtApacheNAme = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtBnetName = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtWorldName = new CypherCore_Server_Laucher.UI.CustomTextBox();
             lblWorldLocation = new System.Windows.Forms.Label();
+            lblWorldName = new System.Windows.Forms.Label();
+            lblBnetName = new System.Windows.Forms.Label();
+            lblApacheName = new System.Windows.Forms.Label();
+            lblMysqlName = new System.Windows.Forms.Label();
             this.roundPanel1.SuspendLayout();
             this.roundPanel2.SuspendLayout();
             this.roundPanel3.SuspendLayout();
             this.roundPanel4.SuspendLayout();
+            this.customPanelPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblWorldLocation
             // 
             lblWorldLocation.AutoSize = true;
             lblWorldLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            lblWorldLocation.Location = new System.Drawing.Point(20, 35);
+            lblWorldLocation.Location = new System.Drawing.Point(17, 29);
             lblWorldLocation.Name = "lblWorldLocation";
             lblWorldLocation.Size = new System.Drawing.Size(91, 15);
             lblWorldLocation.TabIndex = 29;
             lblWorldLocation.Text = "World Lcoation:";
+            // 
+            // lblWorldName
+            // 
+            lblWorldName.AutoSize = true;
+            lblWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            lblWorldName.Location = new System.Drawing.Point(19, 35);
+            lblWorldName.Name = "lblWorldName";
+            lblWorldName.Size = new System.Drawing.Size(77, 15);
+            lblWorldName.TabIndex = 31;
+            lblWorldName.Text = "World Name:";
+            // 
+            // lblBnetName
+            // 
+            lblBnetName.AutoSize = true;
+            lblBnetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            lblBnetName.Location = new System.Drawing.Point(176, 35);
+            lblBnetName.Name = "lblBnetName";
+            lblBnetName.Size = new System.Drawing.Size(100, 15);
+            lblBnetName.TabIndex = 33;
+            lblBnetName.Text = "Bnet/Auth Name:";
+            // 
+            // lblApacheName
+            // 
+            lblApacheName.AutoSize = true;
+            lblApacheName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            lblApacheName.Location = new System.Drawing.Point(19, 81);
+            lblApacheName.Name = "lblApacheName";
+            lblApacheName.Size = new System.Drawing.Size(85, 15);
+            lblApacheName.TabIndex = 34;
+            lblApacheName.Text = "Apache Name:";
+            // 
+            // lblMysqlName
+            // 
+            lblMysqlName.AutoSize = true;
+            lblMysqlName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            lblMysqlName.Location = new System.Drawing.Point(176, 81);
+            lblMysqlName.Name = "lblMysqlName";
+            lblMysqlName.Size = new System.Drawing.Size(83, 15);
+            lblMysqlName.TabIndex = 36;
+            lblMysqlName.Text = "MySQL Name:";
             // 
             // roundPanel1
             // 
@@ -91,59 +150,59 @@
             this.roundPanel1.Controls.Add(this.txtBnetLocation);
             this.roundPanel1.Controls.Add(this.txtWorldLocation);
             this.roundPanel1.Controls.Add(this.lblPCresource);
-            this.roundPanel1.Edge = 20;
-            this.roundPanel1.Location = new System.Drawing.Point(14, 12);
+            this.roundPanel1.Edge = 5;
+            this.roundPanel1.Location = new System.Drawing.Point(16, 13);
             this.roundPanel1.Name = "roundPanel1";
-            this.roundPanel1.Size = new System.Drawing.Size(667, 178);
+            this.roundPanel1.Size = new System.Drawing.Size(325, 180);
             this.roundPanel1.TabIndex = 0;
             // 
             // bntOpenLocation
             // 
-            this.bntOpenLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntOpenLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntOpenLocation.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.bntOpenLocation.BorderRadius = 5;
-            this.bntOpenLocation.BorderSize = 0;
+            this.bntOpenLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntOpenLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntOpenLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntOpenLocation.BorderRadius = 3;
+            this.bntOpenLocation.BorderSize = 1;
             this.bntOpenLocation.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntOpenLocation.FlatAppearance.BorderSize = 0;
             this.bntOpenLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOpenLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntOpenLocation.ForeColor = System.Drawing.Color.White;
-            this.bntOpenLocation.Location = new System.Drawing.Point(410, 130);
+            this.bntOpenLocation.Location = new System.Drawing.Point(17, 135);
             this.bntOpenLocation.Name = "bntOpenLocation";
             this.bntOpenLocation.Size = new System.Drawing.Size(120, 35);
             this.bntOpenLocation.TabIndex = 30;
             this.bntOpenLocation.Text = "Open Location";
             this.bntOpenLocation.TextColor = System.Drawing.Color.White;
             this.bntOpenLocation.UseVisualStyleBackColor = false;
-            this.bntOpenLocation.Click += new System.EventHandler(this.bntOpenLocation_Click);
+            this.bntOpenLocation.Click += new System.EventHandler(this.BntOpenLocation_Click);
             // 
             // bntLocation
             // 
-            this.bntLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntLocation.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.bntLocation.BorderRadius = 5;
-            this.bntLocation.BorderSize = 0;
+            this.bntLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntLocation.BorderRadius = 3;
+            this.bntLocation.BorderSize = 1;
             this.bntLocation.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntLocation.FlatAppearance.BorderSize = 0;
             this.bntLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntLocation.ForeColor = System.Drawing.Color.White;
-            this.bntLocation.Location = new System.Drawing.Point(536, 130);
+            this.bntLocation.Location = new System.Drawing.Point(190, 133);
             this.bntLocation.Name = "bntLocation";
             this.bntLocation.Size = new System.Drawing.Size(120, 35);
             this.bntLocation.TabIndex = 1;
             this.bntLocation.Text = "Search Location";
             this.bntLocation.TextColor = System.Drawing.Color.White;
             this.bntLocation.UseVisualStyleBackColor = false;
-            this.bntLocation.Click += new System.EventHandler(this.bntLocation_Click);
+            this.bntLocation.Click += new System.EventHandler(this.BntLocation_Click);
             // 
             // lblBnetLocation
             // 
             this.lblBnetLocation.AutoSize = true;
             this.lblBnetLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblBnetLocation.Location = new System.Drawing.Point(20, 81);
+            this.lblBnetLocation.Location = new System.Drawing.Point(17, 81);
             this.lblBnetLocation.Name = "lblBnetLocation";
             this.lblBnetLocation.Size = new System.Drawing.Size(114, 15);
             this.lblBnetLocation.TabIndex = 29;
@@ -152,30 +211,44 @@
             // txtBnetLocation
             // 
             this.txtBnetLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtBnetLocation.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBnetLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtBnetLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtBnetLocation.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtBnetLocation.BorderSize = 1;
+            this.txtBnetLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtBnetLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtBnetLocation.Location = new System.Drawing.Point(20, 99);
+            this.txtBnetLocation.Location = new System.Drawing.Point(17, 99);
+            this.txtBnetLocation.Margin = new System.Windows.Forms.Padding(0);
             this.txtBnetLocation.Multiline = true;
             this.txtBnetLocation.Name = "txtBnetLocation";
+            this.txtBnetLocation.Padding = new System.Windows.Forms.Padding(1);
+            this.txtBnetLocation.PasswordChar = false;
             this.txtBnetLocation.ReadOnly = true;
-            this.txtBnetLocation.Size = new System.Drawing.Size(636, 23);
+            this.txtBnetLocation.Size = new System.Drawing.Size(293, 23);
             this.txtBnetLocation.TabIndex = 22;
-            this.txtBnetLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBnetLocation.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBnetLocation.Texts = "";
+            this.txtBnetLocation.UnderlinedStyle = false;
             // 
             // txtWorldLocation
             // 
             this.txtWorldLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldLocation.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtWorldLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtWorldLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtWorldLocation.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtWorldLocation.BorderSize = 1;
+            this.txtWorldLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtWorldLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtWorldLocation.Location = new System.Drawing.Point(20, 53);
+            this.txtWorldLocation.Location = new System.Drawing.Point(17, 44);
+            this.txtWorldLocation.Margin = new System.Windows.Forms.Padding(0);
             this.txtWorldLocation.Multiline = true;
             this.txtWorldLocation.Name = "txtWorldLocation";
+            this.txtWorldLocation.Padding = new System.Windows.Forms.Padding(1);
+            this.txtWorldLocation.PasswordChar = false;
             this.txtWorldLocation.ReadOnly = true;
-            this.txtWorldLocation.Size = new System.Drawing.Size(636, 23);
+            this.txtWorldLocation.Size = new System.Drawing.Size(293, 23);
             this.txtWorldLocation.TabIndex = 21;
-            this.txtWorldLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWorldLocation.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWorldLocation.Texts = "";
+            this.txtWorldLocation.UnderlinedStyle = false;
             // 
             // lblPCresource
             // 
@@ -201,8 +274,8 @@
             this.roundPanel2.Controls.Add(this.txtMySqlUser);
             this.roundPanel2.Controls.Add(this.txtMySqlServer);
             this.roundPanel2.Controls.Add(this.lblMySqlServerSettings);
-            this.roundPanel2.Edge = 20;
-            this.roundPanel2.Location = new System.Drawing.Point(14, 208);
+            this.roundPanel2.Edge = 5;
+            this.roundPanel2.Location = new System.Drawing.Point(16, 208);
             this.roundPanel2.Name = "roundPanel2";
             this.roundPanel2.Size = new System.Drawing.Size(202, 287);
             this.roundPanel2.TabIndex = 1;
@@ -230,31 +303,45 @@
             // txtMySqlPort
             // 
             this.txtMySqlPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlPort.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMySqlPort.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlPort.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtMySqlPort.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtMySqlPort.BorderSize = 1;
+            this.txtMySqlPort.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtMySqlPort.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlPort.Location = new System.Drawing.Point(17, 206);
+            this.txtMySqlPort.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlPort.Multiline = true;
             this.txtMySqlPort.Name = "txtMySqlPort";
-            this.txtMySqlPort.PlaceholderText = "3306";
+            this.txtMySqlPort.Padding = new System.Windows.Forms.Padding(1);
+            this.txtMySqlPort.PasswordChar = false;
+            this.txtMySqlPort.ReadOnly = false;
             this.txtMySqlPort.Size = new System.Drawing.Size(167, 23);
             this.txtMySqlPort.TabIndex = 31;
-            this.txtMySqlPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMySqlPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMySqlPort_KeyPress);
+            this.txtMySqlPort.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlPort.Texts = "";
+            this.txtMySqlPort.UnderlinedStyle = false;
+            this.txtMySqlPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMySqlPort_KeyPress);
             // 
             // txtMySqlPassowrd
             // 
             this.txtMySqlPassowrd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlPassowrd.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMySqlPassowrd.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlPassowrd.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtMySqlPassowrd.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtMySqlPassowrd.BorderSize = 1;
+            this.txtMySqlPassowrd.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtMySqlPassowrd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlPassowrd.Location = new System.Drawing.Point(17, 160);
+            this.txtMySqlPassowrd.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlPassowrd.Multiline = true;
             this.txtMySqlPassowrd.Name = "txtMySqlPassowrd";
-            this.txtMySqlPassowrd.PlaceholderText = "CypherCore";
+            this.txtMySqlPassowrd.Padding = new System.Windows.Forms.Padding(1);
+            this.txtMySqlPassowrd.PasswordChar = false;
+            this.txtMySqlPassowrd.ReadOnly = false;
             this.txtMySqlPassowrd.Size = new System.Drawing.Size(167, 23);
             this.txtMySqlPassowrd.TabIndex = 30;
-            this.txtMySqlPassowrd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlPassowrd.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlPassowrd.Texts = "";
+            this.txtMySqlPassowrd.UnderlinedStyle = false;
             // 
             // lblUser
             // 
@@ -279,30 +366,44 @@
             // txtMySqlUser
             // 
             this.txtMySqlUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMySqlUser.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlUser.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtMySqlUser.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtMySqlUser.BorderSize = 1;
+            this.txtMySqlUser.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtMySqlUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlUser.Location = new System.Drawing.Point(17, 116);
+            this.txtMySqlUser.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlUser.Multiline = true;
             this.txtMySqlUser.Name = "txtMySqlUser";
-            this.txtMySqlUser.PlaceholderText = "CypherCore";
+            this.txtMySqlUser.Padding = new System.Windows.Forms.Padding(1);
+            this.txtMySqlUser.PasswordChar = false;
+            this.txtMySqlUser.ReadOnly = false;
             this.txtMySqlUser.Size = new System.Drawing.Size(167, 23);
             this.txtMySqlUser.TabIndex = 22;
-            this.txtMySqlUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlUser.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlUser.Texts = "";
+            this.txtMySqlUser.UnderlinedStyle = false;
             // 
             // txtMySqlServer
             // 
             this.txtMySqlServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlServer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMySqlServer.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlServer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtMySqlServer.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtMySqlServer.BorderSize = 1;
+            this.txtMySqlServer.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtMySqlServer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlServer.Location = new System.Drawing.Point(17, 70);
+            this.txtMySqlServer.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlServer.Multiline = true;
             this.txtMySqlServer.Name = "txtMySqlServer";
-            this.txtMySqlServer.PlaceholderText = "localhost";
+            this.txtMySqlServer.Padding = new System.Windows.Forms.Padding(1);
+            this.txtMySqlServer.PasswordChar = false;
+            this.txtMySqlServer.ReadOnly = false;
             this.txtMySqlServer.Size = new System.Drawing.Size(167, 23);
             this.txtMySqlServer.TabIndex = 21;
-            this.txtMySqlServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlServer.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMySqlServer.Texts = "";
+            this.txtMySqlServer.UnderlinedStyle = false;
             // 
             // lblMySqlServerSettings
             // 
@@ -311,9 +412,9 @@
             this.lblMySqlServerSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.lblMySqlServerSettings.Location = new System.Drawing.Point(14, 7);
             this.lblMySqlServerSettings.Name = "lblMySqlServerSettings";
-            this.lblMySqlServerSettings.Size = new System.Drawing.Size(172, 21);
+            this.lblMySqlServerSettings.Size = new System.Drawing.Size(178, 21);
             this.lblMySqlServerSettings.TabIndex = 20;
-            this.lblMySqlServerSettings.Text = "MySql Server Settings";
+            this.lblMySqlServerSettings.Text = "MySQL Server Settings";
             // 
             // tglStayInTray
             // 
@@ -323,40 +424,81 @@
             this.tglStayInTray.Location = new System.Drawing.Point(17, 71);
             this.tglStayInTray.MinimumSize = new System.Drawing.Size(45, 22);
             this.tglStayInTray.Name = "tglStayInTray";
-            this.tglStayInTray.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglStayInTray.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.tglStayInTray.OffToggleColor = System.Drawing.Color.Gainsboro;
             this.tglStayInTray.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.tglStayInTray.OnToggleColor = System.Drawing.Color.WhiteSmoke;
             this.tglStayInTray.Size = new System.Drawing.Size(45, 22);
+            this.tglStayInTray.SolidStyle = false;
             this.tglStayInTray.TabIndex = 2;
             this.tglStayInTray.UseVisualStyleBackColor = false;
+            this.tglStayInTray.CheckedChanged += new System.EventHandler(this.tglStayInTray_CheckedChanged);
             // 
             // roundPanel3
             // 
             this.roundPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.roundPanel3.BorderColor = System.Drawing.Color.White;
-            this.roundPanel3.Controls.Add(this.label16);
+            this.roundPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.roundPanel3.Controls.Add(this.comboBoxCore);
+            this.roundPanel3.Controls.Add(this.lblCores);
+            this.roundPanel3.Controls.Add(this.lblHideControls);
             this.roundPanel3.Controls.Add(this.tglHideConsole);
-            this.roundPanel3.Controls.Add(this.label11);
+            this.roundPanel3.Controls.Add(this.lblNotySound);
             this.roundPanel3.Controls.Add(this.tglNotySound);
-            this.roundPanel3.Controls.Add(this.label10);
+            this.roundPanel3.Controls.Add(this.lblStayTray);
             this.roundPanel3.Controls.Add(this.lblControlPanelSettings);
             this.roundPanel3.Controls.Add(this.tglStayInTray);
-            this.roundPanel3.Edge = 20;
-            this.roundPanel3.Location = new System.Drawing.Point(452, 208);
+            this.roundPanel3.Edge = 5;
+            this.roundPanel3.Location = new System.Drawing.Point(454, 208);
             this.roundPanel3.Name = "roundPanel3";
             this.roundPanel3.Size = new System.Drawing.Size(229, 287);
             this.roundPanel3.TabIndex = 3;
             // 
-            // label16
+            // comboBoxCore
             // 
-            this.label16.AutoSize = true;
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label16.Location = new System.Drawing.Point(68, 131);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(79, 15);
-            this.label16.TabIndex = 41;
-            this.label16.Text = "Hide console.";
+            this.comboBoxCore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.comboBoxCore.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.comboBoxCore.BorderSize = 1;
+            this.comboBoxCore.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.comboBoxCore.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.comboBoxCore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.comboBoxCore.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.comboBoxCore.Items.AddRange(new object[] {
+            "AscEmu ",
+            "AzerothCore ",
+            "Continued MaNGOS ",
+            "CypherCore",
+            "TrinityCore ",
+            "TrinityCore 4.3.4 (TCPP)",
+            "Vanilla MaNGOS "});
+            this.comboBoxCore.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.comboBoxCore.ListTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.comboBoxCore.Location = new System.Drawing.Point(14, 193);
+            this.comboBoxCore.MinimumSize = new System.Drawing.Size(200, 30);
+            this.comboBoxCore.Name = "comboBoxCore";
+            this.comboBoxCore.Padding = new System.Windows.Forms.Padding(1);
+            this.comboBoxCore.Size = new System.Drawing.Size(200, 30);
+            this.comboBoxCore.TabIndex = 43;
+            this.comboBoxCore.Texts = "";
+            // 
+            // lblCores
+            // 
+            this.lblCores.AutoSize = true;
+            this.lblCores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblCores.Location = new System.Drawing.Point(14, 175);
+            this.lblCores.Name = "lblCores";
+            this.lblCores.Size = new System.Drawing.Size(40, 15);
+            this.lblCores.TabIndex = 42;
+            this.lblCores.Text = "Cores:";
+            // 
+            // lblHideControls
+            // 
+            this.lblHideControls.AutoSize = true;
+            this.lblHideControls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblHideControls.Location = new System.Drawing.Point(68, 131);
+            this.lblHideControls.Name = "lblHideControls";
+            this.lblHideControls.Size = new System.Drawing.Size(79, 15);
+            this.lblHideControls.TabIndex = 41;
+            this.lblHideControls.Text = "Hide console.";
             // 
             // tglHideConsole
             // 
@@ -366,23 +508,24 @@
             this.tglHideConsole.Location = new System.Drawing.Point(17, 127);
             this.tglHideConsole.MinimumSize = new System.Drawing.Size(45, 22);
             this.tglHideConsole.Name = "tglHideConsole";
-            this.tglHideConsole.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglHideConsole.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.tglHideConsole.OffToggleColor = System.Drawing.Color.Gainsboro;
             this.tglHideConsole.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.tglHideConsole.OnToggleColor = System.Drawing.Color.WhiteSmoke;
             this.tglHideConsole.Size = new System.Drawing.Size(45, 22);
+            this.tglHideConsole.SolidStyle = false;
             this.tglHideConsole.TabIndex = 40;
             this.tglHideConsole.UseVisualStyleBackColor = false;
             // 
-            // label11
+            // lblNotySound
             // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label11.Location = new System.Drawing.Point(68, 103);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(109, 15);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "Notification sound.";
+            this.lblNotySound.AutoSize = true;
+            this.lblNotySound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblNotySound.Location = new System.Drawing.Point(68, 103);
+            this.lblNotySound.Name = "lblNotySound";
+            this.lblNotySound.Size = new System.Drawing.Size(109, 15);
+            this.lblNotySound.TabIndex = 39;
+            this.lblNotySound.Text = "Notification sound.";
             // 
             // tglNotySound
             // 
@@ -392,23 +535,25 @@
             this.tglNotySound.Location = new System.Drawing.Point(17, 99);
             this.tglNotySound.MinimumSize = new System.Drawing.Size(45, 22);
             this.tglNotySound.Name = "tglNotySound";
-            this.tglNotySound.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglNotySound.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.tglNotySound.OffToggleColor = System.Drawing.Color.Gainsboro;
             this.tglNotySound.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.tglNotySound.OnToggleColor = System.Drawing.Color.WhiteSmoke;
             this.tglNotySound.Size = new System.Drawing.Size(45, 22);
+            this.tglNotySound.SolidStyle = false;
             this.tglNotySound.TabIndex = 38;
             this.tglNotySound.UseVisualStyleBackColor = false;
+            this.tglNotySound.CheckedChanged += new System.EventHandler(this.tglNotySound_CheckedChanged);
             // 
-            // label10
+            // lblStayTray
             // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label10.Location = new System.Drawing.Point(68, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(68, 15);
-            this.label10.TabIndex = 36;
-            this.label10.Text = "Stay in tray.";
+            this.lblStayTray.AutoSize = true;
+            this.lblStayTray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblStayTray.Location = new System.Drawing.Point(68, 74);
+            this.lblStayTray.Name = "lblStayTray";
+            this.lblStayTray.Size = new System.Drawing.Size(68, 15);
+            this.lblStayTray.TabIndex = 36;
+            this.lblStayTray.Text = "Stay in tray.";
             // 
             // lblControlPanelSettings
             // 
@@ -432,8 +577,8 @@
             this.roundPanel4.Controls.Add(this.lblCharacters);
             this.roundPanel4.Controls.Add(this.txtCharactersDatabase);
             this.roundPanel4.Controls.Add(this.lblWorld);
-            this.roundPanel4.Edge = 20;
-            this.roundPanel4.Location = new System.Drawing.Point(234, 208);
+            this.roundPanel4.Edge = 5;
+            this.roundPanel4.Location = new System.Drawing.Point(236, 208);
             this.roundPanel4.Name = "roundPanel4";
             this.roundPanel4.Size = new System.Drawing.Size(202, 287);
             this.roundPanel4.TabIndex = 4;
@@ -463,30 +608,44 @@
             // txtAuthDatabase
             // 
             this.txtAuthDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtAuthDatabase.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtAuthDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtAuthDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtAuthDatabase.BorderSize = 1;
+            this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtAuthDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtAuthDatabase.Location = new System.Drawing.Point(17, 160);
+            this.txtAuthDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtAuthDatabase.Multiline = true;
             this.txtAuthDatabase.Name = "txtAuthDatabase";
-            this.txtAuthDatabase.PlaceholderText = "Auth";
+            this.txtAuthDatabase.Padding = new System.Windows.Forms.Padding(1);
+            this.txtAuthDatabase.PasswordChar = false;
+            this.txtAuthDatabase.ReadOnly = false;
             this.txtAuthDatabase.Size = new System.Drawing.Size(167, 23);
             this.txtAuthDatabase.TabIndex = 40;
-            this.txtAuthDatabase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAuthDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAuthDatabase.Texts = "";
+            this.txtAuthDatabase.UnderlinedStyle = false;
             // 
             // txtWorldDatabase
             // 
             this.txtWorldDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldDatabase.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtWorldDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtWorldDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtWorldDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtWorldDatabase.BorderSize = 1;
+            this.txtWorldDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtWorldDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtWorldDatabase.Location = new System.Drawing.Point(17, 70);
+            this.txtWorldDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtWorldDatabase.Multiline = true;
             this.txtWorldDatabase.Name = "txtWorldDatabase";
-            this.txtWorldDatabase.PlaceholderText = "World";
+            this.txtWorldDatabase.Padding = new System.Windows.Forms.Padding(1);
+            this.txtWorldDatabase.PasswordChar = false;
+            this.txtWorldDatabase.ReadOnly = false;
             this.txtWorldDatabase.Size = new System.Drawing.Size(167, 23);
             this.txtWorldDatabase.TabIndex = 36;
-            this.txtWorldDatabase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWorldDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWorldDatabase.Texts = "";
+            this.txtWorldDatabase.UnderlinedStyle = false;
             // 
             // lblCharacters
             // 
@@ -501,16 +660,23 @@
             // txtCharactersDatabase
             // 
             this.txtCharactersDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtCharactersDatabase.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCharactersDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtCharactersDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtCharactersDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtCharactersDatabase.BorderSize = 1;
+            this.txtCharactersDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtCharactersDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtCharactersDatabase.Location = new System.Drawing.Point(17, 116);
+            this.txtCharactersDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtCharactersDatabase.Multiline = true;
             this.txtCharactersDatabase.Name = "txtCharactersDatabase";
-            this.txtCharactersDatabase.PlaceholderText = "Characters";
+            this.txtCharactersDatabase.Padding = new System.Windows.Forms.Padding(1);
+            this.txtCharactersDatabase.PasswordChar = false;
+            this.txtCharactersDatabase.ReadOnly = false;
             this.txtCharactersDatabase.Size = new System.Drawing.Size(167, 23);
             this.txtCharactersDatabase.TabIndex = 37;
-            this.txtCharactersDatabase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCharactersDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCharactersDatabase.Texts = "";
+            this.txtCharactersDatabase.UnderlinedStyle = false;
             // 
             // lblWorld
             // 
@@ -524,11 +690,11 @@
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnSave.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSave.BorderRadius = 5;
-            this.btnSave.BorderSize = 0;
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnSave.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnSave.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnSave.BorderRadius = 3;
+            this.btnSave.BorderSize = 1;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -541,11 +707,156 @@
             this.btnSave.Text = "Save";
             this.btnSave.TextColor = System.Drawing.Color.White;
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // customPanelPanel1
+            // 
+            this.customPanelPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.customPanelPanel1.BorderColor = System.Drawing.Color.White;
+            this.customPanelPanel1.Controls.Add(this.label1);
+            this.customPanelPanel1.Controls.Add(this.customToggleButton1);
+            this.customPanelPanel1.Controls.Add(lblMysqlName);
+            this.customPanelPanel1.Controls.Add(this.txtMysqlName);
+            this.customPanelPanel1.Controls.Add(lblApacheName);
+            this.customPanelPanel1.Controls.Add(this.txtApacheNAme);
+            this.customPanelPanel1.Controls.Add(lblBnetName);
+            this.customPanelPanel1.Controls.Add(lblWorldName);
+            this.customPanelPanel1.Controls.Add(this.txtBnetName);
+            this.customPanelPanel1.Controls.Add(this.label3);
+            this.customPanelPanel1.Controls.Add(this.txtWorldName);
+            this.customPanelPanel1.Edge = 5;
+            this.customPanelPanel1.Location = new System.Drawing.Point(358, 13);
+            this.customPanelPanel1.Name = "customPanelPanel1";
+            this.customPanelPanel1.Size = new System.Drawing.Size(325, 180);
+            this.customPanelPanel1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label1.Location = new System.Drawing.Point(70, 141);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 15);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "Custom Names.";
+            // 
+            // customToggleButton1
+            // 
+            this.customToggleButton1.AutoSize = true;
+            this.customToggleButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customToggleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customToggleButton1.Location = new System.Drawing.Point(19, 138);
+            this.customToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
+            this.customToggleButton1.Name = "customToggleButton1";
+            this.customToggleButton1.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customToggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.customToggleButton1.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customToggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.customToggleButton1.Size = new System.Drawing.Size(45, 22);
+            this.customToggleButton1.SolidStyle = false;
+            this.customToggleButton1.TabIndex = 44;
+            this.customToggleButton1.UseVisualStyleBackColor = false;
+            this.customToggleButton1.CheckedChanged += new System.EventHandler(this.customToggleButton1_CheckedChanged);
+            // 
+            // txtMysqlName
+            // 
+            this.txtMysqlName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtMysqlName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtMysqlName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtMysqlName.BorderSize = 1;
+            this.txtMysqlName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMysqlName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtMysqlName.Location = new System.Drawing.Point(176, 99);
+            this.txtMysqlName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtMysqlName.Multiline = true;
+            this.txtMysqlName.Name = "txtMysqlName";
+            this.txtMysqlName.Padding = new System.Windows.Forms.Padding(1);
+            this.txtMysqlName.PasswordChar = false;
+            this.txtMysqlName.ReadOnly = true;
+            this.txtMysqlName.Size = new System.Drawing.Size(135, 23);
+            this.txtMysqlName.TabIndex = 37;
+            this.txtMysqlName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMysqlName.Texts = "";
+            this.txtMysqlName.UnderlinedStyle = false;
+            // 
+            // txtApacheNAme
+            // 
+            this.txtApacheNAme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtApacheNAme.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtApacheNAme.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtApacheNAme.BorderSize = 1;
+            this.txtApacheNAme.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtApacheNAme.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtApacheNAme.Location = new System.Drawing.Point(19, 99);
+            this.txtApacheNAme.Margin = new System.Windows.Forms.Padding(0);
+            this.txtApacheNAme.Multiline = true;
+            this.txtApacheNAme.Name = "txtApacheNAme";
+            this.txtApacheNAme.Padding = new System.Windows.Forms.Padding(1);
+            this.txtApacheNAme.PasswordChar = false;
+            this.txtApacheNAme.ReadOnly = true;
+            this.txtApacheNAme.Size = new System.Drawing.Size(135, 23);
+            this.txtApacheNAme.TabIndex = 35;
+            this.txtApacheNAme.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtApacheNAme.Texts = "";
+            this.txtApacheNAme.UnderlinedStyle = false;
+            // 
+            // txtBnetName
+            // 
+            this.txtBnetName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtBnetName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtBnetName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtBnetName.BorderSize = 1;
+            this.txtBnetName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtBnetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtBnetName.Location = new System.Drawing.Point(176, 53);
+            this.txtBnetName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtBnetName.Multiline = true;
+            this.txtBnetName.Name = "txtBnetName";
+            this.txtBnetName.Padding = new System.Windows.Forms.Padding(1);
+            this.txtBnetName.PasswordChar = false;
+            this.txtBnetName.ReadOnly = true;
+            this.txtBnetName.Size = new System.Drawing.Size(135, 23);
+            this.txtBnetName.TabIndex = 32;
+            this.txtBnetName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBnetName.Texts = "";
+            this.txtBnetName.UnderlinedStyle = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label3.Location = new System.Drawing.Point(7, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 21);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Names";
+            // 
+            // txtWorldName
+            // 
+            this.txtWorldName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtWorldName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtWorldName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtWorldName.BorderSize = 1;
+            this.txtWorldName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtWorldName.Location = new System.Drawing.Point(19, 53);
+            this.txtWorldName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtWorldName.Multiline = true;
+            this.txtWorldName.Name = "txtWorldName";
+            this.txtWorldName.Padding = new System.Windows.Forms.Padding(1);
+            this.txtWorldName.PasswordChar = false;
+            this.txtWorldName.ReadOnly = true;
+            this.txtWorldName.Size = new System.Drawing.Size(135, 23);
+            this.txtWorldName.TabIndex = 31;
+            this.txtWorldName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWorldName.Texts = "";
+            this.txtWorldName.UnderlinedStyle = false;
             // 
             // SettingControl
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.customPanelPanel1);
             this.Controls.Add(this.roundPanel4);
             this.Controls.Add(this.roundPanel3);
             this.Controls.Add(this.roundPanel2);
@@ -562,46 +873,58 @@
             this.roundPanel3.PerformLayout();
             this.roundPanel4.ResumeLayout(false);
             this.roundPanel4.PerformLayout();
+            this.customPanelPanel1.ResumeLayout(false);
+            this.customPanelPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private UI.RoundPanel roundPanel1;
+        private UI.CustomPanelPanel roundPanel1;
         private Label lblPCresource;
-        private TextBox txtBnetLocation;
-        private TextBox txtWorldLocation;
+        private UI.CustomTextBox txtBnetLocation;
+        private UI.CustomTextBox txtWorldLocation;
         private UI.CustomButton bntLocation;
         private Label lblBnetLocation;
         private Label lblWorldLocation;
-        private UI.RoundPanel roundPanel2;
+        private UI.CustomPanelPanel roundPanel2;
         private Label lblPort;
         private Label lblPassword;
-        private TextBox txtMySqlPort;
-        private TextBox txtMySqlPassowrd;
+        private UI.CustomTextBox txtMySqlPort;
+        private UI.CustomTextBox txtMySqlPassowrd;
         private Label lblUser;
         private Label lblServer;
-        private TextBox txtMySqlUser;
-        private TextBox txtMySqlServer;
+        private UI.CustomTextBox txtMySqlUser;
+        private UI.CustomTextBox txtMySqlServer;
         private Label lblMySqlServerSettings;
         private RJCodeAdvance.RJControls.CustomToggleButton tglStayInTray;
-        private UI.RoundPanel roundPanel3;
+        private UI.CustomPanelPanel roundPanel3;
         private Label lblControlPanelSettings;
-        private Label label10;
-        private Label label11;
+        private Label lblStayTray;
+        private Label lblNotySound;
         private RJCodeAdvance.RJControls.CustomToggleButton tglNotySound;
-        private UI.RoundPanel roundPanel4;
+        private UI.CustomPanelPanel roundPanel4;
         private Label lblDatabaseSettings;
         private Label lblAuth;
-        private TextBox txtAuthDatabase;
-        private TextBox txtWorldDatabase;
+        private UI.CustomTextBox txtAuthDatabase;
+        private UI.CustomTextBox txtWorldDatabase;
         private Label lblCharacters;
-        private TextBox txtCharactersDatabase;
+        private UI.CustomTextBox txtCharactersDatabase;
         private Label lblWorld;
         private UI.CustomButton btnSave;
-        private Label label16;
+        private Label lblHideControls;
         private RJCodeAdvance.RJControls.CustomToggleButton tglHideConsole;
         private UI.CustomButton bntOpenLocation;
+        private UI.CustomPanelPanel customPanelPanel1;
+        private Label label3;
+        private UI.CustomTextBox txtMysqlName;
+        private UI.CustomTextBox txtApacheNAme;
+        private UI.CustomTextBox txtBnetName;
+        private UI.CustomTextBox txtWorldName;
+        private Label lblCores;
+        private CypherCoreServerLaucher.UI.CustomComboBox comboBoxCore;
+        private Label label1;
+        private RJCodeAdvance.RJControls.CustomToggleButton customToggleButton1;
     }
 }

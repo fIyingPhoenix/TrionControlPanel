@@ -1,15 +1,35 @@
 ﻿using CypherCoreServerLaucher.Properties;
 using CypherCore_Server_Laucher.Classes;
 using System.Media;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace CypherCore_Server_Laucher.Forms
 {
 
     public partial class FormAlert : Form
     {
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+             int nLeftRect,     // x-coordinate of upper-left corner
+             int nTopRect,      // y-coordinate of upper-left corner
+             int nRightRect,    // x-coordinate of lower-right corner
+             int nBottomRect,   // y-coordinate of lower-right corner
+             int nWidthEllipse, // width of ellipse
+             int nHeightEllipse // height of ellipse
+         );
+
         private NotificationAction notificationAction;
         private int posX, posY;
-        SoundPlayer myclicksound = new SoundPlayer(Resources.notySound);
+        
+        private static void AlertSound()
+        {
+            SoundPlayer myclicksound = new(Resources.notySound);
+            if(Settings.Default.TogelNotySound == true)
+            myclicksound.Play();
+        }
         public void ShowAlert(string message, NotificationType eType)
         {
             Opacity = 0.0;
@@ -54,13 +74,13 @@ namespace CypherCore_Server_Laucher.Forms
             }
             lblText.Text = message;
             Show();
-            myclicksound.Play();
-            notificationAction = NotificationAction.start;
+            AlertSound();
+             notificationAction = NotificationAction.start;
             timerCheck.Interval = 1;
             timerCheck.Start();
         }
 
-        private void timerCheck_Tick(object sender, EventArgs e)
+        private void TimerCheck_Tick(object sender, EventArgs e)
         {
             switch (notificationAction)
             {
@@ -95,15 +115,20 @@ namespace CypherCore_Server_Laucher.Forms
             }
         }
 
-        private void bntClose_Click(object sender, EventArgs e)
+        private void BntClose_Click(object sender, EventArgs e)
         {
             timerCheck.Interval = 1;
             notificationAction = NotificationAction.close;
         }
 
+        private void FormAlert_Load(object sender, EventArgs e)
+        {
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 5, 5));
+        }
+
         public FormAlert()
         {
-          InitializeComponent();  
+            InitializeComponent();  
 
         }
     }

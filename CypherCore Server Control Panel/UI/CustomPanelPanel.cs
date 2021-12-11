@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace CypherCore_Server_Laucher.UI
 {
-    public class RoundPanel : Panel
+    public class CustomPanelPanel : Panel
     {
         //Fields
 
@@ -41,7 +41,7 @@ namespace CypherCore_Server_Laucher.UI
             }
         }
 
-        public RoundPanel()
+        public CustomPanelPanel()
         {
             pen = new Pen(_borderColor, penWidth);
         }

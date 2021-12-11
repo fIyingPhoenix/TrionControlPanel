@@ -72,9 +72,9 @@ namespace CypherCore_Server_Laucher.UI
         }
 
         //Methods
-        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
+        private static GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             float curveSize = radius * 2F;
 
             path.StartFigure();
@@ -98,12 +98,12 @@ namespace CypherCore_Server_Laucher.UI
 
             if (borderRadius > 2) //Rounded button
             {
-                using (GraphicsPath pathSurface = GetFigurePath(rectSurface, borderRadius))
-                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
-                using (Pen penSurface = new Pen(this.Parent.BackColor, smoothSize))
-                using (Pen penBorder = new Pen(borderColor, borderSize))
+                using GraphicsPath pathSurface = GetFigurePath(rectSurface, borderRadius);
+                using GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize);
+                using Pen penSurface = new(this.Parent.BackColor, smoothSize);
+                using Pen penBorder = new(borderColor, borderSize);
                 {
-                    pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    pevent.Graphics.SmoothingMode = SmoothingMode.None;
                     //Button surface
                     this.Region = new Region(pathSurface);
                     //Draw surface border for HD result
@@ -123,7 +123,7 @@ namespace CypherCore_Server_Laucher.UI
                 //Button border
                 if (borderSize >= 1)
                 {
-                    using (Pen penBorder = new Pen(borderColor, borderSize))
+                    using (Pen penBorder = new(borderColor, borderSize))
                     {
                         penBorder.Alignment = PenAlignment.Inset;
                         pevent.Graphics.DrawRectangle(penBorder, 0, 0, this.Width - 1, this.Height - 1);

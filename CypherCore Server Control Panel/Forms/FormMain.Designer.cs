@@ -28,14 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnConnect = new System.Windows.Forms.Button();
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.customButton1 = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.btnTerminal = new CypherCore_Server_Laucher.UI.CustomButton();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnSettings = new CypherCore_Server_Laucher.UI.CustomButton();
             this.btnHome = new CypherCore_Server_Laucher.UI.CustomButton();
             this.pnlTabs = new System.Windows.Forms.Panel();
+            this.mainNotify = new System.Windows.Forms.NotifyIcon(this.components);
+            this.timerCheck = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
@@ -49,12 +52,12 @@
             this.btnConnect.Text = "GET Connected";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Visible = false;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.panelMenu.Controls.Add(this.customButton1);
+            this.panelMenu.Controls.Add(this.btnTerminal);
             this.panelMenu.Controls.Add(this.picLogo);
             this.panelMenu.Controls.Add(this.btnSettings);
             this.panelMenu.Controls.Add(this.btnHome);
@@ -65,24 +68,24 @@
             this.panelMenu.Size = new System.Drawing.Size(80, 561);
             this.panelMenu.TabIndex = 5;
             // 
-            // customButton1
+            // btnTerminal
             // 
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.customButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.customButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton1.BorderRadius = 0;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Image = ((System.Drawing.Image)(resources.GetObject("customButton1.Image")));
-            this.customButton1.Location = new System.Drawing.Point(0, 166);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(80, 60);
-            this.customButton1.TabIndex = 3;
-            this.customButton1.TextColor = System.Drawing.Color.White;
-            this.customButton1.UseVisualStyleBackColor = false;
+            this.btnTerminal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnTerminal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnTerminal.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnTerminal.BorderRadius = 0;
+            this.btnTerminal.BorderSize = 0;
+            this.btnTerminal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTerminal.FlatAppearance.BorderSize = 0;
+            this.btnTerminal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminal.ForeColor = System.Drawing.Color.White;
+            this.btnTerminal.Image = ((System.Drawing.Image)(resources.GetObject("btnTerminal.Image")));
+            this.btnTerminal.Location = new System.Drawing.Point(0, 166);
+            this.btnTerminal.Name = "btnTerminal";
+            this.btnTerminal.Size = new System.Drawing.Size(80, 60);
+            this.btnTerminal.TabIndex = 3;
+            this.btnTerminal.TextColor = System.Drawing.Color.White;
+            this.btnTerminal.UseVisualStyleBackColor = false;
             // 
             // picLogo
             // 
@@ -112,7 +115,7 @@
             this.btnSettings.TabIndex = 1;
             this.btnSettings.TextColor = System.Drawing.Color.White;
             this.btnSettings.UseVisualStyleBackColor = false;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // btnHome
             // 
@@ -132,7 +135,7 @@
             this.btnHome.TabIndex = 0;
             this.btnHome.TextColor = System.Drawing.Color.White;
             this.btnHome.UseVisualStyleBackColor = false;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            this.btnHome.Click += new System.EventHandler(this.BtnHome_Click);
             // 
             // pnlTabs
             // 
@@ -142,6 +145,18 @@
             this.pnlTabs.Name = "pnlTabs";
             this.pnlTabs.Size = new System.Drawing.Size(704, 561);
             this.pnlTabs.TabIndex = 6;
+            // 
+            // mainNotify
+            // 
+            this.mainNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotify.Icon")));
+            this.mainNotify.Text = "CypherCore Server Control Panel";
+            this.mainNotify.Visible = true;
+            // 
+            // timerCheck
+            // 
+            this.timerCheck.Enabled = true;
+            this.timerCheck.Interval = 10;
+            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
             // FormMain
             // 
@@ -158,6 +173,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CypherCore Server Control Panel";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.panelMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
@@ -172,6 +188,8 @@
         private CypherCore_Server_Laucher.UI.CustomButton btnHome;
         private CypherCore_Server_Laucher.UI.CustomButton btnSettings;
         private PictureBox picLogo;
-        private UI.CustomButton customButton1;
+        private UI.CustomButton btnTerminal;
+        private NotifyIcon mainNotify;
+        private System.Windows.Forms.Timer timerCheck;
     }
 }

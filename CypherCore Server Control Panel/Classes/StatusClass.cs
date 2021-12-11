@@ -15,7 +15,7 @@ namespace CypherCore_Server_Laucher.Classes
         public string MySqlStatusName = "mysqld";
         public string ApacheStatusName = "httpd";
 
-
+ 
         internal void KillWorld()
         {
             foreach (var process in Process.GetProcessesByName(WorldStatusName))

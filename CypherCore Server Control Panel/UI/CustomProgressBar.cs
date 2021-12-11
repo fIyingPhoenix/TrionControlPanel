@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
-
-
+using System.Drawing.Drawing2D;
 
 namespace CypherCore_Server_Laucher.UI
 {
@@ -12,9 +11,21 @@ namespace CypherCore_Server_Laucher.UI
         private int fontSize = 10;
         private Color textColor = Color.FromArgb(45, 51, 59);
         private Color barColor = Color.FromArgb(83, 155, 245);
+        private FontFamily textFont = new("Segoe UI Semibold");
 
 
         //Properties
+        [Category("1 CustomButton Advance")]
+    
+        public FontFamily TextFont
+        {
+            get { return textFont; }    
+            set 
+            {
+                textFont = value;
+            }   
+        }
+
         [Category("1 CustomButton Advance")]
         public string LabelText
         {
@@ -60,6 +71,7 @@ namespace CypherCore_Server_Laucher.UI
 
         public CustomProgressBar()
         {
+            
             this.SetStyle(ControlStyles.UserPaint, true);
         }
 
@@ -76,24 +88,17 @@ namespace CypherCore_Server_Laucher.UI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-
-            //progress
-
+           //progress
             Rectangle rec = e.ClipRectangle;
-            rec.Width = (int)(rec.Width * ((double)Value / Maximum)) - 4;
-            if (ProgressBarRenderer.IsSupported)
-                ProgressBarRenderer.DrawHorizontalBar(e.Graphics, e.ClipRectangle);
-            rec.Height = rec.Height - 4;
-            SolidBrush barcollor = new SolidBrush(TextColor);
-            e.Graphics.FillRectangle(Brushes.RoyalBlue, 2, 2, rec.Width, rec.Height);
+            rec.Width = (int)(rec.Width * ((double)Value / Maximum));
+            //if (ProgressBarRenderer.IsSupported)
+            //    ProgressBarRenderer.DrawHorizontalBar(e.Graphics, e.ClipRectangle);
+            rec.Height = rec.Height ;
+            e.Graphics.FillRectangle(Brushes.DodgerBlue, 0,0, rec.Width, rec.Height);
             Graphics g = e.Graphics;
 
-
-
-            FontFamily font = new FontFamily("Segoe UI Semibold");
-
             //text
-            using (Font f = new Font(font, fontSize))
+            using (Font f = new(textFont, fontSize))
             {
                 string textMinimum = $"{this.Value} {labelText}";
                 string textMaximum = $"{this.Value} {labelText} / {this.Maximum} {labelText} ";
@@ -109,8 +114,8 @@ namespace CypherCore_Server_Laucher.UI
                 int textlocationWidth = (int)((this.Width / 2) - (size.Width / 2));
                 int textlocationHeight = (int)((this.Height / 2) - (size.Height / 2));
 
-                Point location = new Point(textlocationWidth, textlocationHeight);
-                SolidBrush textolor = new SolidBrush(TextColor);
+                Point location = new(textlocationWidth, textlocationHeight);
+                SolidBrush textolor = new(TextColor);
                 g.DrawString(text, f, textolor, location);
 
 

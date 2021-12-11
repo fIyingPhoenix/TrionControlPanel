@@ -63,7 +63,7 @@
             // timerCheck
             // 
             this.timerCheck.Interval = 10;
-            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
+            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
             // bntClose
             // 
@@ -84,7 +84,7 @@
             this.bntClose.TabIndex = 1;
             this.bntClose.TextColor = System.Drawing.Color.White;
             this.bntClose.UseVisualStyleBackColor = false;
-            this.bntClose.Click += new System.EventHandler(this.bntClose_Click);
+            this.bntClose.Click += new System.EventHandler(this.BntClose_Click);
             // 
             // lblText
             // 
@@ -112,6 +112,7 @@
             this.Name = "FormAlert";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Text = "FormAlert";
+            this.Load += new System.EventHandler(this.FormAlert_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

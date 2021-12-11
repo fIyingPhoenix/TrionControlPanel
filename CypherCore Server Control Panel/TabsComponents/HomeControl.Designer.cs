@@ -30,30 +30,30 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.sPanel2 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.sPanel2 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblWorldResource = new System.Windows.Forms.Label();
             this.worldRamUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
             this.worldCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
-            this.sPanel1 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.sPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblApache = new System.Windows.Forms.Label();
             this.lblMySql = new System.Windows.Forms.Label();
             this.lblBnet = new System.Windows.Forms.Label();
             this.lblWorld = new System.Windows.Forms.Label();
-            this.apacheServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
-            this.mysqlServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
-            this.bnetServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
-            this.worldServerLight = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.apacheServerLight = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.mysqlServerLight = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.bnetServerLight = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.worldServerLight = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.ServerStatusTimer = new System.Windows.Forms.Timer(this.components);
-            this.roundPanel1 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.roundPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BnetCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
             this.lblBnetResource = new System.Windows.Forms.Label();
             this.BnetRamUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
-            this.roundPanel2 = new CypherCore_Server_Laucher.UI.RoundPanel();
+            this.roundPanel2 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.totalCpuUsageProgressBar = new CypherCore_Server_Laucher.UI.CustomProgressBar();
@@ -67,6 +67,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.bntStopAll = new CypherCore_Server_Laucher.UI.CustomButton();
             this.btnStopWorld = new CypherCore_Server_Laucher.UI.CustomButton();
             this.btnStopBnet = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.customWebBrowser1 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
+            this.customWebBrowser2 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
+            this.customWebBrowser3 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
+            this.customWebBrowser4 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -84,8 +88,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel2.Controls.Add(this.lblWorldResource);
             this.sPanel2.Controls.Add(this.worldRamUsageProgressBar);
             this.sPanel2.Controls.Add(this.worldCpuUsageProgressBar);
-            this.sPanel2.Edge = 10;
-            this.sPanel2.Location = new System.Drawing.Point(15, 180);
+            this.sPanel2.Edge = 5;
+            this.sPanel2.Location = new System.Drawing.Point(15, 241);
             this.sPanel2.Name = "sPanel2";
             this.sPanel2.Size = new System.Drawing.Size(325, 150);
             this.sPanel2.TabIndex = 6;
@@ -123,6 +127,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // worldRamUsageProgressBar
             // 
+            this.worldRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.worldRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldRamUsageProgressBar.FontSize = 10;
             this.worldRamUsageProgressBar.LabelText = "MB";
@@ -132,10 +137,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.worldRamUsageProgressBar.Size = new System.Drawing.Size(275, 17);
             this.worldRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldRamUsageProgressBar.TabIndex = 25;
-            this.worldRamUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.worldRamUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // worldCpuUsageProgressBar
             // 
+            this.worldCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.worldCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldCpuUsageProgressBar.FontSize = 10;
             this.worldCpuUsageProgressBar.LabelText = "%";
@@ -145,7 +151,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(275, 17);
             this.worldCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldCpuUsageProgressBar.TabIndex = 26;
-            this.worldCpuUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.worldCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // sPanel1
             // 
@@ -162,8 +168,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel1.Controls.Add(this.mysqlServerLight);
             this.sPanel1.Controls.Add(this.bnetServerLight);
             this.sPanel1.Controls.Add(this.worldServerLight);
-            this.sPanel1.Edge = 20;
-            this.sPanel1.Location = new System.Drawing.Point(15, 15);
+            this.sPanel1.Edge = 5;
+            this.sPanel1.Location = new System.Drawing.Point(15, 76);
             this.sPanel1.Name = "sPanel1";
             this.sPanel1.Size = new System.Drawing.Size(248, 150);
             this.sPanel1.TabIndex = 5;
@@ -280,8 +286,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel1.Controls.Add(this.BnetCpuUsageProgressBar);
             this.roundPanel1.Controls.Add(this.lblBnetResource);
             this.roundPanel1.Controls.Add(this.BnetRamUsageProgressBar);
-            this.roundPanel1.Edge = 10;
-            this.roundPanel1.Location = new System.Drawing.Point(357, 180);
+            this.roundPanel1.Edge = 5;
+            this.roundPanel1.Location = new System.Drawing.Point(357, 241);
             this.roundPanel1.Name = "roundPanel1";
             this.roundPanel1.Size = new System.Drawing.Size(325, 150);
             this.roundPanel1.TabIndex = 20;
@@ -308,6 +314,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // BnetCpuUsageProgressBar
             // 
+            this.BnetCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.BnetCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetCpuUsageProgressBar.FontSize = 10;
             this.BnetCpuUsageProgressBar.LabelText = "%";
@@ -317,7 +324,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(275, 17);
             this.BnetCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetCpuUsageProgressBar.TabIndex = 28;
-            this.BnetCpuUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.BnetCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // lblBnetResource
             // 
@@ -332,6 +339,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // BnetRamUsageProgressBar
             // 
+            this.BnetRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.BnetRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetRamUsageProgressBar.FontSize = 10;
             this.BnetRamUsageProgressBar.LabelText = "MB";
@@ -341,7 +349,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(275, 17);
             this.BnetRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetRamUsageProgressBar.TabIndex = 27;
-            this.BnetRamUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.BnetRamUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // roundPanel2
             // 
@@ -354,8 +362,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel2.Controls.Add(this.totalCpuUsageProgressBar);
             this.roundPanel2.Controls.Add(this.totalRamUsageProgressBar);
             this.roundPanel2.Controls.Add(this.lblPCresource);
-            this.roundPanel2.Edge = 10;
-            this.roundPanel2.Location = new System.Drawing.Point(280, 15);
+            this.roundPanel2.Edge = 5;
+            this.roundPanel2.Location = new System.Drawing.Point(280, 76);
             this.roundPanel2.Name = "roundPanel2";
             this.roundPanel2.Size = new System.Drawing.Size(405, 150);
             this.roundPanel2.TabIndex = 21;
@@ -382,6 +390,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // totalCpuUsageProgressBar
             // 
+            this.totalCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.totalCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalCpuUsageProgressBar.FontSize = 10;
             this.totalCpuUsageProgressBar.LabelText = "%";
@@ -391,20 +400,24 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.totalCpuUsageProgressBar.Size = new System.Drawing.Size(352, 17);
             this.totalCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.totalCpuUsageProgressBar.TabIndex = 24;
-            this.totalCpuUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.totalCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // totalRamUsageProgressBar
             // 
+            this.totalRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.totalRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.totalRamUsageProgressBar.Cursor = System.Windows.Forms.Cursors.Default;
             this.totalRamUsageProgressBar.FontSize = 10;
+            this.totalRamUsageProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalRamUsageProgressBar.LabelText = "MB";
             this.totalRamUsageProgressBar.Location = new System.Drawing.Point(22, 64);
+            this.totalRamUsageProgressBar.Margin = new System.Windows.Forms.Padding(0);
             this.totalRamUsageProgressBar.MaximumValue = true;
             this.totalRamUsageProgressBar.Name = "totalRamUsageProgressBar";
             this.totalRamUsageProgressBar.Size = new System.Drawing.Size(352, 17);
-            this.totalRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.totalRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.totalRamUsageProgressBar.TabIndex = 23;
-            this.totalRamUsageProgressBar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.totalRamUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // lblPCresource
             // 
@@ -429,135 +442,191 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             // bntStartAll
             // 
-            this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStartAll.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.bntStartAll.BorderRadius = 5;
-            this.bntStartAll.BorderSize = 0;
+            this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.bntStartAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStartAll.BorderRadius = 3;
+            this.bntStartAll.BorderSize = 1;
             this.bntStartAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntStartAll.FlatAppearance.BorderSize = 0;
             this.bntStartAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStartAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStartAll.ForeColor = System.Drawing.Color.White;
-            this.bntStartAll.Location = new System.Drawing.Point(597, 346);
+            this.bntStartAll.Location = new System.Drawing.Point(597, 407);
             this.bntStartAll.Name = "bntStartAll";
             this.bntStartAll.Size = new System.Drawing.Size(88, 35);
             this.bntStartAll.TabIndex = 31;
             this.bntStartAll.Text = "Start All";
             this.bntStartAll.TextColor = System.Drawing.Color.White;
             this.bntStartAll.UseVisualStyleBackColor = false;
-            this.bntStartAll.Click += new System.EventHandler(this.bntStartAll_Click);
+            this.bntStartAll.Click += new System.EventHandler(this.BntStartAll_Click);
             // 
             // btnStartBent
             // 
-            this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartBent.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnStartBent.BorderRadius = 5;
-            this.btnStartBent.BorderSize = 0;
+            this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStartBent.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartBent.BorderRadius = 3;
+            this.btnStartBent.BorderSize = 1;
             this.btnStartBent.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartBent.FlatAppearance.BorderSize = 0;
             this.btnStartBent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartBent.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBent.ForeColor = System.Drawing.Color.White;
-            this.btnStartBent.Location = new System.Drawing.Point(503, 346);
+            this.btnStartBent.Location = new System.Drawing.Point(503, 407);
             this.btnStartBent.Name = "btnStartBent";
             this.btnStartBent.Size = new System.Drawing.Size(88, 35);
             this.btnStartBent.TabIndex = 32;
             this.btnStartBent.Text = "Start Bnet";
             this.btnStartBent.TextColor = System.Drawing.Color.White;
             this.btnStartBent.UseVisualStyleBackColor = false;
-            this.btnStartBent.Click += new System.EventHandler(this.btnStartBent_Click);
+            this.btnStartBent.Click += new System.EventHandler(this.BtnStartBent_Click);
             // 
             // btnStartWorld
             // 
-            this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartWorld.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnStartWorld.BorderRadius = 5;
-            this.btnStartWorld.BorderSize = 0;
+            this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStartWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStartWorld.BorderRadius = 3;
+            this.btnStartWorld.BorderSize = 1;
             this.btnStartWorld.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartWorld.FlatAppearance.BorderSize = 0;
             this.btnStartWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStartWorld.Location = new System.Drawing.Point(409, 346);
+            this.btnStartWorld.Location = new System.Drawing.Point(409, 407);
             this.btnStartWorld.Name = "btnStartWorld";
             this.btnStartWorld.Size = new System.Drawing.Size(88, 35);
             this.btnStartWorld.TabIndex = 33;
             this.btnStartWorld.Text = "Start World";
             this.btnStartWorld.TextColor = System.Drawing.Color.White;
             this.btnStartWorld.UseVisualStyleBackColor = false;
-            this.btnStartWorld.Click += new System.EventHandler(this.btnStartWorld_Click);
+            this.btnStartWorld.Click += new System.EventHandler(this.BtnStartWorld_Click);
             // 
             // bntStopAll
             // 
-            this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStopAll.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.bntStopAll.BorderRadius = 5;
-            this.bntStopAll.BorderSize = 0;
+            this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.bntStopAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntStopAll.BorderRadius = 3;
+            this.bntStopAll.BorderSize = 1;
             this.bntStopAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntStopAll.FlatAppearance.BorderSize = 0;
             this.bntStopAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStopAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStopAll.ForeColor = System.Drawing.Color.White;
-            this.bntStopAll.Location = new System.Drawing.Point(15, 346);
+            this.bntStopAll.Location = new System.Drawing.Point(15, 407);
             this.bntStopAll.Name = "bntStopAll";
             this.bntStopAll.Size = new System.Drawing.Size(92, 35);
             this.bntStopAll.TabIndex = 34;
             this.bntStopAll.Text = "Stop All";
             this.bntStopAll.TextColor = System.Drawing.Color.White;
             this.bntStopAll.UseVisualStyleBackColor = false;
-            this.bntStopAll.Click += new System.EventHandler(this.bntStopAll_Click);
+            this.bntStopAll.Click += new System.EventHandler(this.BntStopAll_Click);
             // 
             // btnStopWorld
             // 
-            this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopWorld.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnStopWorld.BorderRadius = 5;
-            this.btnStopWorld.BorderSize = 0;
+            this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStopWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopWorld.BorderRadius = 3;
+            this.btnStopWorld.BorderSize = 1;
             this.btnStopWorld.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStopWorld.FlatAppearance.BorderSize = 0;
             this.btnStopWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStopWorld.Location = new System.Drawing.Point(113, 346);
+            this.btnStopWorld.Location = new System.Drawing.Point(113, 407);
             this.btnStopWorld.Name = "btnStopWorld";
             this.btnStopWorld.Size = new System.Drawing.Size(92, 35);
             this.btnStopWorld.TabIndex = 35;
             this.btnStopWorld.Text = "Stop World";
             this.btnStopWorld.TextColor = System.Drawing.Color.White;
             this.btnStopWorld.UseVisualStyleBackColor = false;
-            this.btnStopWorld.Click += new System.EventHandler(this.btnStopWorld_Click);
+            this.btnStopWorld.Click += new System.EventHandler(this.BtnStopWorld_Click);
             // 
             // btnStopBnet
             // 
-            this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopBnet.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnStopBnet.BorderRadius = 5;
-            this.btnStopBnet.BorderSize = 0;
+            this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnStopBnet.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnStopBnet.BorderRadius = 3;
+            this.btnStopBnet.BorderSize = 1;
             this.btnStopBnet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStopBnet.FlatAppearance.BorderSize = 0;
             this.btnStopBnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopBnet.ForeColor = System.Drawing.Color.White;
-            this.btnStopBnet.Location = new System.Drawing.Point(211, 346);
+            this.btnStopBnet.Location = new System.Drawing.Point(211, 407);
             this.btnStopBnet.Name = "btnStopBnet";
             this.btnStopBnet.Size = new System.Drawing.Size(88, 35);
             this.btnStopBnet.TabIndex = 36;
             this.btnStopBnet.Text = "Stop Bnet";
             this.btnStopBnet.TextColor = System.Drawing.Color.White;
             this.btnStopBnet.UseVisualStyleBackColor = false;
-            this.btnStopBnet.Click += new System.EventHandler(this.btnStopBnet_Click);
+            this.btnStopBnet.Click += new System.EventHandler(this.BtnStopBnet_Click);
+            // 
+            // customWebBrowser1
+            // 
+            this.customWebBrowser1.AllowNavigation = false;
+            this.customWebBrowser1.Location = new System.Drawing.Point(97, 24);
+            this.customWebBrowser1.Name = "customWebBrowser1";
+            this.customWebBrowser1.ScrollBarsEnabled = false;
+            this.customWebBrowser1.Size = new System.Drawing.Size(142, 28);
+            this.customWebBrowser1.TabIndex = 37;
+            this.customWebBrowser1.Url = new System.Uri("https://img.shields.io/github/issues/fIyingPhoenix/CypherCore-Server-Addons.svg?s" +
+        "tyle=for-the-badge", System.UriKind.Absolute);
+            // 
+            // customWebBrowser2
+            // 
+            this.customWebBrowser2.AllowNavigation = false;
+            this.customWebBrowser2.Location = new System.Drawing.Point(245, 24);
+            this.customWebBrowser2.Name = "customWebBrowser2";
+            this.customWebBrowser2.ScriptErrorsSuppressed = true;
+            this.customWebBrowser2.ScrollBarsEnabled = false;
+            this.customWebBrowser2.Size = new System.Drawing.Size(96, 28);
+            this.customWebBrowser2.TabIndex = 38;
+            this.customWebBrowser2.Url = new System.Uri("https://img.shields.io/github/stars/fIyingPhoenix/CypherCore-Server-Addons.svg?st" +
+        "yle=for-the-badge", System.UriKind.Absolute);
+            // 
+            // customWebBrowser3
+            // 
+            this.customWebBrowser3.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.customWebBrowser3.AllowNavigation = false;
+            this.customWebBrowser3.AllowWebBrowserDrop = false;
+            this.customWebBrowser3.Location = new System.Drawing.Point(347, 24);
+            this.customWebBrowser3.Name = "customWebBrowser3";
+            this.customWebBrowser3.ScrollBarsEnabled = false;
+            this.customWebBrowser3.Size = new System.Drawing.Size(97, 28);
+            this.customWebBrowser3.TabIndex = 39;
+            this.customWebBrowser3.Url = new System.Uri("https://img.shields.io/github/forks/fIyingPhoenix/CypherCore-Server-Addons.svg?st" +
+        "yle=for-the-badge", System.UriKind.Absolute);
+            this.customWebBrowser3.WebBrowserShortcutsEnabled = false;
+            // 
+            // customWebBrowser4
+            // 
+            this.customWebBrowser4.AllowNavigation = false;
+            this.customWebBrowser4.AllowWebBrowserDrop = false;
+            this.customWebBrowser4.IsWebBrowserContextMenuEnabled = false;
+            this.customWebBrowser4.Location = new System.Drawing.Point(450, 24);
+            this.customWebBrowser4.Name = "customWebBrowser4";
+            this.customWebBrowser4.ScriptErrorsSuppressed = true;
+            this.customWebBrowser4.ScrollBarsEnabled = false;
+            this.customWebBrowser4.Size = new System.Drawing.Size(152, 28);
+            this.customWebBrowser4.TabIndex = 40;
+            this.customWebBrowser4.Url = new System.Uri("https://img.shields.io/github/contributors/fIyingPhoenix/CypherCore-Server-Addons" +
+        ".svg?style=for-the-badge", System.UriKind.Absolute);
+            this.customWebBrowser4.WebBrowserShortcutsEnabled = false;
             // 
             // HomeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.customWebBrowser4);
+            this.Controls.Add(this.customWebBrowser3);
+            this.Controls.Add(this.customWebBrowser2);
+            this.Controls.Add(this.customWebBrowser1);
             this.Controls.Add(this.btnStopBnet);
             this.Controls.Add(this.btnStopWorld);
             this.Controls.Add(this.bntStopAll);
@@ -585,26 +654,25 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         #endregion
 
-        private CypherCore_Server_Laucher.UI.RoundPanel sPanel2;
-        private CypherCore_Server_Laucher.UI.RoundPanel sPanel1;
+        private CypherCore_Server_Laucher.UI.CustomPanelPanel sPanel2;
+        private CypherCore_Server_Laucher.UI.CustomPanelPanel sPanel1;
         private Label lblServerStatus;
         private Label lblApache;
         private Label lblMySql;
         private Label lblBnet;
         private Label lblWorld;
-        private RoundPanel apacheServerLight;
-        private RoundPanel mysqlServerLight;
-        private RoundPanel bnetServerLight;
-        private RoundPanel worldServerLight;
+        private CustomPanelPanel apacheServerLight;
+        private CustomPanelPanel mysqlServerLight;
+        private CustomPanelPanel bnetServerLight;
+        private CustomPanelPanel worldServerLight;
         private System.Windows.Forms.Timer ServerStatusTimer;
         private Label lblWorldResource;
-        private RoundPanel roundPanel1;
+        private CustomPanelPanel roundPanel1;
         private Label lblBnetResource;
-        private RoundPanel roundPanel2;
+        private CustomPanelPanel roundPanel2;
         private Label lblPCresource;
         private System.Windows.Forms.Timer WorldResourceTimer;
         private System.Windows.Forms.Timer BnetResourceTimer;
-        private CustomProgressBar totalRamUsageProgressBar;
         private CustomProgressBar totalCpuUsageProgressBar;
         private CustomProgressBar worldRamUsageProgressBar;
         private CustomProgressBar worldCpuUsageProgressBar;
@@ -622,5 +690,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private CustomButton bntStopAll;
         private CustomButton btnStopWorld;
         private CustomButton btnStopBnet;
+        private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser1;
+        private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser2;
+        private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser3;
+        private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser4;
+        internal CustomProgressBar totalRamUsageProgressBar;
     }
 }

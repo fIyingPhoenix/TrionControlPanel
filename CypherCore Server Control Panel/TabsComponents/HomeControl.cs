@@ -9,21 +9,21 @@ namespace CypherCore_Server_Laucher.TabsComponents
     public partial class HomeControl : UserControl
     {
 
-        StatusClass _statusClass = new StatusClass();
-
-        public void Alert(string message, NotificationType eType)
+        readonly StatusClass _statusClass = new();
+        private bool _isRuningBnet = false;  
+        private bool _isRuningWorld = false;
+        public static void Alert(string message, NotificationType eType)
         {
             //make the laert work.
-            FormAlert frm = new FormAlert(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
+            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
             frm.ShowAlert(message, eType);
         }
-
-        private void StartWorld()
+        private static void StartWorld()
         {
             try
             {
                
-                using (Process myProcess = new Process())
+                using (Process myProcess = new())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
@@ -48,12 +48,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
             }
             
         }
-        private void StartBnet()
+        private static void StartBnet()
         {
             try
             {
 
-                using (Process myProcess = new Process())
+                using (Process myProcess = new())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
@@ -85,7 +85,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void BnetResourceTimer_Tick(object sender, EventArgs e)
         {
-            Thread BnetResourcesUsageThread = new Thread(() =>
+            Thread BnetResourcesUsageThread = new (() =>
             {
                 try
                 {
@@ -96,14 +96,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 {
 
                 }
-              
+             
             });
             BnetResourcesUsageThread.Start();
         }
 
         private void WorldResourceTimer_Tick(object sender, EventArgs e)
         {
-            Thread WorldResourcesUsageThread = new Thread(() =>
+            Thread WorldResourcesUsageThread = new(() =>
             {
                 try
                 {
@@ -121,7 +121,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void ServerStatusTimer_Tick(object sender, EventArgs e)
         {
 
-            Thread PCResorceUsageThread = new Thread(() =>
+            Thread PCResorceUsageThread = new(() =>
             {
                 try
                 {
@@ -139,25 +139,39 @@ namespace CypherCore_Server_Laucher.TabsComponents
             });
             PCResorceUsageThread.Start();
 
+         
 
             if (_statusClass.WorldStatus() == true)
             {
                 worldServerLight.BackColor = Color.Green;
                 WorldResourceTimer.Start();
+
             }
             else
             {
                 worldServerLight.BackColor = Color.Red;
                 WorldResourceTimer.Stop();
+                if (_isRuningWorld == true)
+                {
+                    Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    _isRuningBnet = false;
+                }
+                 
             }
             if (_statusClass.BnetStatus() == true)
             {
                 bnetServerLight.BackColor = Color.Green;
                 BnetResourceTimer.Start();
-                
+
+
             }
             else
             {
+                if (_isRuningBnet == true)
+                {
+                    Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    _isRuningBnet = false;
+                }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();
             }
@@ -182,39 +196,47 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void HomeControl_Load(object sender, EventArgs e)
         {
-
+     
         }
 
-        private void btnStartWorld_Click(object sender, EventArgs e)
+        private void BtnStartWorld_Click(object sender, EventArgs e)
         {
+            _isRuningWorld = true;
             StartWorld();
         }
 
-        private void btnStartBent_Click(object sender, EventArgs e)
+        private void BtnStartBent_Click(object sender, EventArgs e)
         {
+            _isRuningBnet = true;
             StartBnet();
         }
 
-        private void bntStartAll_Click(object sender, EventArgs e)
+        private void BntStartAll_Click(object sender, EventArgs e)
         {
+            _isRuningBnet = true;
+            _isRuningWorld = true;
             StartBnet();
             StartWorld();
         }
 
-        private void bntStopAll_Click(object sender, EventArgs e)
+        private void BntStopAll_Click(object sender, EventArgs e)
         {
+            _isRuningBnet = false;
+            _isRuningWorld = false;
             _statusClass.KillWorld();
             _statusClass.KillBnet();    
         }
 
-        private void btnStopWorld_Click(object sender, EventArgs e)
+        private void BtnStopWorld_Click(object sender, EventArgs e)
         {
+            _isRuningWorld=false;
             _statusClass.KillWorld();
             
         }
 
-        private void btnStopBnet_Click(object sender, EventArgs e)
+        private void BtnStopBnet_Click(object sender, EventArgs e)
         {
+            _isRuningBnet = false;
             _statusClass.KillBnet();
         }
     }

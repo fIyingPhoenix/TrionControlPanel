@@ -1,6 +1,7 @@
 ﻿
 using CypherCore_Server_Laucher.Classes;
 using CypherCore_Server_Laucher.TabsComponents;
+using CypherCoreServerLaucher.TabsComponents;
 using System.Reflection;
 
 namespace CypherCore_Server_Laucher
@@ -8,10 +9,10 @@ namespace CypherCore_Server_Laucher
     public partial class FormMain : Form
     {
 
-        ConnectionClass _connectionClass = new ConnectionClass();
-        HomeControl homeControl = new HomeControl();
-        SettingControl settingControl = new SettingControl();
-    
+        readonly ConnectionClass _connectionClass = new();
+        readonly HomeControl homeControl = new();
+        readonly SettingControl settingControl = new();
+        readonly LoadingControl loadingControl = new();
 
         public FormMain()
         {
@@ -22,12 +23,12 @@ namespace CypherCore_Server_Laucher
             InitializeComponent();
             //Load Home Controls
 
-            pnlTabs.Controls.Add(homeControl);
+            pnlTabs.Controls.Add(loadingControl);
         }
 
    
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void BtnConnect_Click(object sender, EventArgs e)
         {
 
             //test mysql connection
@@ -38,7 +39,7 @@ namespace CypherCore_Server_Laucher
             }
         }
 
-        private void btnHome_Click(object sender, EventArgs e)
+        private void BtnHome_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
@@ -46,10 +47,35 @@ namespace CypherCore_Server_Laucher
            
         }
 
-        private void btnSettings_Click(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(settingControl);
+        }
+
+        private void TimerCheck_Tick(object sender, EventArgs e)
+        {
+            if(homeControl.totalRamUsageProgressBar.Value > 0)
+            {
+                timerCheck.Stop();
+                pnlTabs.Controls.Clear();
+                pnlTabs.Controls.Add(homeControl);
+                btnHome.Enabled = true;
+                btnSettings.Enabled = true; 
+                btnTerminal.Enabled = true;
+                //btnConnect.Enabled = true;  
+            }else
+            {
+                btnHome.Enabled = false;
+                btnSettings.Enabled = false;
+                btnTerminal.Enabled = false;
+            }
+ 
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

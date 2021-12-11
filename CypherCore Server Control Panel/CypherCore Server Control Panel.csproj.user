@@ -10,11 +10,17 @@
     <Compile Update="TabsComponents\HomeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="TabsComponents\LoadingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="TabsComponents\SettingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UI\CustomButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\CustomComboBox.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UI\CustomProgressBar.cs">
       <SubType>Component</SubType>
@@ -25,8 +31,14 @@
     <Compile Update="UI\CustomToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\RoundPanel.cs">
+    <Compile Update="UI\CustomPanelPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\CustomWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\CustomTextBox.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>
