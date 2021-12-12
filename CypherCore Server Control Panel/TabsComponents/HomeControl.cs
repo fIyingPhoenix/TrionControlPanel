@@ -127,7 +127,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     totalRamUsageProgressBar.Maximum = _statusClass.TotalPCRam();
                     totalCpuUsageProgressBar.Value = _statusClass.TotalCpuUsage();
                     totalRamUsageProgressBar.Value = _statusClass.TotalPCRam() - _statusClass.CurentPcRamUsage();
-
                 }
                 catch
                 {

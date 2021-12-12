@@ -64,29 +64,34 @@ namespace CypherCore_Server_Laucher.TabsComponents
             frm.ShowAlert(message, eType);
         }
 
-        private void GetCoreLocation(string WorldName, string BnetName)
+        private void GetCoreLocation()
         {
             // getting the core files and location. saves to settings. dose not seed to press save 
             using (var fbd = new FolderBrowserDialog())
             {
-                
+                string worndName = Settings.Default.WorldCoreName + ".exe";
+                string bnetName = Settings.Default.BnetCoreName + ".exe";
+
                 DialogResult result = fbd.ShowDialog();
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    foreach (string f in Directory.GetFiles(fbd.SelectedPath, WorldName, SearchOption.AllDirectories))
+                    foreach (string f in Directory.GetFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
                         Settings.Default.CoreLocation = Path.GetDirectoryName(f);
                         Settings.Default.Save();
+                        LoadSettings();
                     }
 
-                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, WorldName, SearchOption.AllDirectories))
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
-                        txtWorldLocation.Text = f;
+                        txtWorldLocation.Texts = f;
+                        SaveSettings();
                     };
-                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, BnetName, SearchOption.AllDirectories))
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, bnetName, SearchOption.AllDirectories))
                     {
-                        txtBnetLocation.Text = f;
+                        txtBnetLocation.Texts = f;
+                        SaveSettings();
                     };
                 }
             }
@@ -130,9 +135,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void BntLocation_Click(object sender, EventArgs e)
         {
-            string worndName = Settings.Default.WorldCoreName;
-            string bnetName = Settings.Default.BnetCoreName;
-            GetCoreLocation(worndName, bnetName);
+            GetCoreLocation();
         }
 
         private void BntOpenLocation_Click(object sender, EventArgs e)
@@ -180,8 +183,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 // AscEmu
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "logon.exe";
-                Settings.Default.WorldCoreName = "world.exe";
+                Settings.Default.BnetCoreName = "logon";
+                Settings.Default.WorldCoreName = "world";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -189,8 +192,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //AzerothCore
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "authserver.exe";
-                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.BnetCoreName = "authserver";
+                Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -198,8 +201,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //Continued MaNGOS
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "realmd.exe";
-                Settings.Default.WorldCoreName = "mangosd.exe";
+                Settings.Default.BnetCoreName = "realmd";
+                Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -207,8 +210,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //CypherCore
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "BNetServer.exe";
-                Settings.Default.WorldCoreName = "WorldServer.exe";
+                Settings.Default.BnetCoreName = "BNetServer";
+                Settings.Default.WorldCoreName = "WorldServer";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -216,8 +219,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //TrinityCore
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "bnetserver.exe";
-                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.BnetCoreName = "bnetserver";
+                Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -225,8 +228,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //TrinityCore 4.3.4(TCPP)
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "bnetserver.exe";
-                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.BnetCoreName = "bnetserver";
+                Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
                 LoadSettings();
             }
@@ -234,8 +237,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 //Vanilla MaNGOS
                 Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "realmd.exe";
-                Settings.Default.WorldCoreName = "mangosd.exe";
+                Settings.Default.BnetCoreName = "realmd";
+                Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
                 LoadSettings();
             }
