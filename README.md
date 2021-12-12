@@ -69,8 +69,10 @@
 ## About The Project
 
 <div align="center">
-   <img src="https://user-images.githubusercontent.com/81469821/144744585-37132037-24a3-490a-9a15-8e8800cf7732.png"> 
-  <h4 align="center"> A Control Panel for CypherCore. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
+   <img src="https://user-images.githubusercontent.com/81469821/145727908-8e8845b7-38a4-4cd7-b542-a0d4540696e7.png"> 
+   <h4 align="center"> A Control Panel for CypherCore. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
+   <img src="https://user-images.githubusercontent.com/81469821/145727941-cf4451f5-39dc-486f-9d90-4dc7936d0fba.png"> 
+
 </div>
 
 <div id="Roadmap"></div>
@@ -81,7 +83,7 @@
 - [x] Core Console Hide.
 - [ ] Account Create.
 - [ ] Realmlist Name Change.
-- [ ] Support for Other Cores.
+- [X] Support for Other Cores.
 - [X] Notification Alerts.
 - [X] ADD Resource Usage.
     - [x] Core CPU and RAM usage.
