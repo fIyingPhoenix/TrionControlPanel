@@ -14,6 +14,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void LoadSettings()
         {
             //loading data form settings file(xml)
+            comboBoxCore.SelectedIndex = Settings.Default.ConboBoxCore;
             txtWorldLocation.Texts = Settings.Default.WorldCoreLocation;
             txtBnetLocation.Texts = Settings.Default.BnetCoreLocation;
             txtMySqlPassowrd.Texts = Settings.Default.MySQLServerPassword;
@@ -23,6 +24,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
             txtWorldDatabase.Texts = Settings.Default.WorldDatabaseName;
             txtAuthDatabase.Texts = Settings.Default.AuthDatabaseName;
             txtCharactersDatabase.Texts = Settings.Default.CharactersDatabaseName;
+            txtWorldName.Texts = Settings.Default.WorldCoreName;
+            txtApacheName.Texts = Settings.Default.ApacheCoreName;
+            txtBnetName.Texts = Settings.Default.BnetCoreName;
+            txtMysqlName.Texts = Settings.Default.MySQLCoreName;
+            tglCustomNames.Checked = Settings.Default.TogelCustomNames;
             tglHideConsole.Checked = Settings.Default.TogleConsolHide;
             tglNotySound.Checked = Settings.Default.TogelNotySound;
             tglStayInTray.Checked = Settings.Default.TogleStayInTray;
@@ -30,6 +36,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void SaveSettings()
         {
             //loading data form settings file(xml)
+            Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+            Settings.Default.WorldCoreName = txtWorldName.Texts;
+            Settings.Default.ApacheCoreName = txtApacheName.Texts ;
+            Settings.Default.BnetCoreName = txtBnetName.Texts;
+            Settings.Default.MySQLCoreName = txtMysqlName.Texts;
             Settings.Default.WorldCoreLocation = txtWorldLocation.Texts;
             Settings.Default.BnetCoreLocation = txtBnetLocation.Texts;
             Settings.Default.MySQLServerPassword = txtMySqlPassowrd.Texts;
@@ -38,21 +49,22 @@ namespace CypherCore_Server_Laucher.TabsComponents
             Settings.Default.MySQLServerUsername = txtMySqlUser.Texts;
             Settings.Default.WorldDatabaseName = txtWorldDatabase.Texts;
             Settings.Default.AuthDatabaseName = txtAuthDatabase.Texts;
-            Settings.Default.CharactersDatabaseName=txtCharactersDatabase.Texts;
+            Settings.Default.CharactersDatabaseName = txtCharactersDatabase.Texts;
             Settings.Default.TogleConsolHide = tglHideConsole.Checked;
             Settings.Default.TogelNotySound = tglNotySound.Checked;
             Settings.Default.TogleStayInTray=tglStayInTray.Checked;
+            Settings.Default.TogelCustomNames = tglCustomNames.Checked;
             Settings.Default.Save();
 
         }
         public static void Alert(string message, NotificationType eType)
         {
-            //make the laert work.
+            //make the alert work.
             FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
             frm.ShowAlert(message, eType);
         }
 
-        private void GetCoreLocation()
+        private void GetCoreLocation(string WorldName, string BnetName)
         {
             // getting the core files and location. saves to settings. dose not seed to press save 
             using (var fbd = new FolderBrowserDialog())
@@ -62,17 +74,17 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    foreach (string f in Directory.GetFiles(fbd.SelectedPath, "WorldServer.exe", SearchOption.AllDirectories))
+                    foreach (string f in Directory.GetFiles(fbd.SelectedPath, WorldName, SearchOption.AllDirectories))
                     {
                         Settings.Default.CoreLocation = Path.GetDirectoryName(f);
                         Settings.Default.Save();
                     }
 
-                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, "WorldServer.exe", SearchOption.AllDirectories))
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, WorldName, SearchOption.AllDirectories))
                     {
                         txtWorldLocation.Text = f;
                     };
-                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, "BNetServer.exe", SearchOption.AllDirectories))
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, BnetName, SearchOption.AllDirectories))
                     {
                         txtBnetLocation.Text = f;
                     };
@@ -109,9 +121,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 e.Handled = true;
             }
-          
         }
-
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -120,8 +130,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void BntLocation_Click(object sender, EventArgs e)
         {
-            //call GetCoreLocation
-            GetCoreLocation();
+            string worndName = Settings.Default.WorldCoreName;
+            string bnetName = Settings.Default.BnetCoreName;
+            GetCoreLocation(worndName, bnetName);
         }
 
         private void BntOpenLocation_Click(object sender, EventArgs e)
@@ -140,24 +151,94 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 catch
                 {
                     Alert("Server Location Unknow! or invaluable", NotificationType.Error);
-                   
                 }    
             }     
         }
 
-        private void tglStayInTray_CheckedChanged(object sender, EventArgs e)
+        private void timerCheck_Tick(object sender, EventArgs e)
         {
-
+            if(tglCustomNames.Checked == true)
+            {
+                txtWorldName.ReadOnly = false;
+                txtBnetName.ReadOnly = false;
+                txtApacheName.ReadOnly = false; 
+                txtMysqlName.ReadOnly = false;
+            }
+            else
+            {
+                txtWorldName.ReadOnly = true;
+                txtBnetName.ReadOnly = true;
+                txtApacheName.ReadOnly = true;
+                txtMysqlName.ReadOnly = true;
+            }
         }
 
-        private void customToggleButton1_CheckedChanged(object sender, EventArgs e)
+        private void comboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void tglNotySound_CheckedChanged(object sender, EventArgs e)
-        {
-
+            if (comboBoxCore.SelectedIndex == 0)
+            {
+                // AscEmu
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "logon.exe";
+                Settings.Default.WorldCoreName = "world.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if(comboBoxCore.SelectedIndex == 1)
+            {
+                //AzerothCore
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "authserver.exe";
+                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if (comboBoxCore.SelectedIndex == 2)
+            {
+                //Continued MaNGOS
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "realmd.exe";
+                Settings.Default.WorldCoreName = "mangosd.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if (comboBoxCore.SelectedIndex == 3)
+            {
+                //CypherCore
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "BNetServer.exe";
+                Settings.Default.WorldCoreName = "WorldServer.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if (comboBoxCore.SelectedIndex == 4)
+            {
+                //TrinityCore
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "bnetserver.exe";
+                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if (comboBoxCore.SelectedIndex == 5)
+            {
+                //TrinityCore 4.3.4(TCPP)
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "bnetserver.exe";
+                Settings.Default.WorldCoreName = "worldserver.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
+            else if (comboBoxCore.SelectedIndex == 6)
+            {
+                //Vanilla MaNGOS
+                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.BnetCoreName = "realmd.exe";
+                Settings.Default.WorldCoreName = "mangosd.exe";
+                Settings.Default.Save();
+                LoadSettings();
+            }
         }
     }
 }

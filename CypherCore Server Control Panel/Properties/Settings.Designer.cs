@@ -178,5 +178,77 @@ namespace CypherCoreServerLaucher.Properties {
                 this["CoreLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("WorldServer")]
+        public string WorldCoreName {
+            get {
+                return ((string)(this["WorldCoreName"]));
+            }
+            set {
+                this["WorldCoreName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BNetServer")]
+        public string BnetCoreName {
+            get {
+                return ((string)(this["BnetCoreName"]));
+            }
+            set {
+                this["BnetCoreName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("httpd")]
+        public string ApacheCoreName {
+            get {
+                return ((string)(this["ApacheCoreName"]));
+            }
+            set {
+                this["ApacheCoreName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mysqld")]
+        public string MySQLCoreName {
+            get {
+                return ((string)(this["MySQLCoreName"]));
+            }
+            set {
+                this["MySQLCoreName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TogelCustomNames {
+            get {
+                return ((bool)(this["TogelCustomNames"]));
+            }
+            set {
+                this["TogelCustomNames"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ConboBoxCore {
+            get {
+                return ((int)(this["ConboBoxCore"]));
+            }
+            set {
+                this["ConboBoxCore"] = value;
+            }
+        }
     }
 }

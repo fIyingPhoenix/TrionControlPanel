@@ -2,7 +2,6 @@
 using CypherCore_Server_Laucher.Forms;
 using CypherCoreServerLaucher.Properties;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace CypherCore_Server_Laucher.TabsComponents
 {
@@ -10,7 +9,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
     {
 
         readonly StatusClass _statusClass = new();
-        private bool _isRuningBnet = false;  
+        private bool _isRuningBnet = false;
         private bool _isRuningWorld = false;
         public static void Alert(string message, NotificationType eType)
         {
@@ -22,7 +21,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
         {
             try
             {
-               
                 using (Process myProcess = new())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
@@ -42,11 +40,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     Alert("Starting World Server!", NotificationType.Info);
                 }
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 Alert(ex.Message, NotificationType.Error);
             }
-            
+
         }
         private static void StartBnet()
         {
@@ -85,19 +83,18 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void BnetResourceTimer_Tick(object sender, EventArgs e)
         {
-            Thread BnetResourcesUsageThread = new (() =>
-            {
-                try
-                {
-                    BnetCpuUsageProgressBar.Value = _statusClass.BnetCpuUsage() / 10;
-                    BnetRamUsageProgressBar.Value = _statusClass.BnetRamUsage();
-                }
-                catch
-                {
+            Thread BnetResourcesUsageThread = new(() =>
+           {
+               try
+               {
+                   BnetCpuUsageProgressBar.Value = _statusClass.BnetCpuUsage() / 10;
+                   BnetRamUsageProgressBar.Value = _statusClass.BnetRamUsage();
+               }
+               catch
+               {
+               }
 
-                }
-             
-            });
+           });
             BnetResourcesUsageThread.Start();
         }
 
@@ -109,18 +106,18 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 {
                     worldCpuUsageProgressBar.Value = _statusClass.WorldCpuUsage() / 10;
                     worldRamUsageProgressBar.Value = _statusClass.WorldRamUsage();
-                }catch
+                }
+                catch
                 {
 
                 }
-                
+
             });
             WorldResourcesUsageThread.Start();
         }
 
         private void ServerStatusTimer_Tick(object sender, EventArgs e)
         {
-
             Thread PCResorceUsageThread = new(() =>
             {
                 try
@@ -132,14 +129,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     totalRamUsageProgressBar.Value = _statusClass.TotalPCRam() - _statusClass.CurentPcRamUsage();
 
                 }
-                catch     
+                catch
                 {
-                 
+
                 }
             });
             PCResorceUsageThread.Start();
 
-         
+
 
             if (_statusClass.WorldStatus() == true)
             {
@@ -156,7 +153,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
                     _isRuningBnet = false;
                 }
-                 
+
             }
             if (_statusClass.BnetStatus() == true)
             {
@@ -196,7 +193,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void HomeControl_Load(object sender, EventArgs e)
         {
-     
+
         }
 
         private void BtnStartWorld_Click(object sender, EventArgs e)
@@ -224,14 +221,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
             _isRuningBnet = false;
             _isRuningWorld = false;
             _statusClass.KillWorld();
-            _statusClass.KillBnet();    
+            _statusClass.KillBnet();
         }
 
         private void BtnStopWorld_Click(object sender, EventArgs e)
         {
-            _isRuningWorld=false;
+            _isRuningWorld = false;
             _statusClass.KillWorld();
-            
+
         }
 
         private void BtnStopBnet_Click(object sender, EventArgs e)

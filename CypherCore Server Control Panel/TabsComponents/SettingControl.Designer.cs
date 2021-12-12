@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label lblWorldLocation;
             System.Windows.Forms.Label lblWorldName;
             System.Windows.Forms.Label lblBnetName;
@@ -71,12 +72,13 @@
             this.btnSave = new CypherCore_Server_Laucher.UI.CustomButton();
             this.customPanelPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.customToggleButton1 = new RJCodeAdvance.RJControls.CustomToggleButton();
+            this.tglCustomNames = new RJCodeAdvance.RJControls.CustomToggleButton();
             this.txtMysqlName = new CypherCore_Server_Laucher.UI.CustomTextBox();
-            this.txtApacheNAme = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.txtApacheName = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.txtBnetName = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtWorldName = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.timerCheck = new System.Windows.Forms.Timer(this.components);
             lblWorldLocation = new System.Windows.Forms.Label();
             lblWorldName = new System.Windows.Forms.Label();
             lblBnetName = new System.Windows.Forms.Label();
@@ -432,7 +434,6 @@
             this.tglStayInTray.SolidStyle = false;
             this.tglStayInTray.TabIndex = 2;
             this.tglStayInTray.UseVisualStyleBackColor = false;
-            this.tglStayInTray.CheckedChanged += new System.EventHandler(this.tglStayInTray_CheckedChanged);
             // 
             // roundPanel3
             // 
@@ -479,6 +480,7 @@
             this.comboBoxCore.Size = new System.Drawing.Size(200, 30);
             this.comboBoxCore.TabIndex = 43;
             this.comboBoxCore.Texts = "";
+            this.comboBoxCore.OnSelectedIndexChanged += new System.EventHandler(this.comboBoxCore_OnSelectedIndexChanged);
             // 
             // lblCores
             // 
@@ -543,7 +545,6 @@
             this.tglNotySound.SolidStyle = false;
             this.tglNotySound.TabIndex = 38;
             this.tglNotySound.UseVisualStyleBackColor = false;
-            this.tglNotySound.CheckedChanged += new System.EventHandler(this.tglNotySound_CheckedChanged);
             // 
             // lblStayTray
             // 
@@ -714,11 +715,11 @@
             this.customPanelPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.customPanelPanel1.BorderColor = System.Drawing.Color.White;
             this.customPanelPanel1.Controls.Add(this.label1);
-            this.customPanelPanel1.Controls.Add(this.customToggleButton1);
+            this.customPanelPanel1.Controls.Add(this.tglCustomNames);
             this.customPanelPanel1.Controls.Add(lblMysqlName);
             this.customPanelPanel1.Controls.Add(this.txtMysqlName);
             this.customPanelPanel1.Controls.Add(lblApacheName);
-            this.customPanelPanel1.Controls.Add(this.txtApacheNAme);
+            this.customPanelPanel1.Controls.Add(this.txtApacheName);
             this.customPanelPanel1.Controls.Add(lblBnetName);
             this.customPanelPanel1.Controls.Add(lblWorldName);
             this.customPanelPanel1.Controls.Add(this.txtBnetName);
@@ -740,23 +741,22 @@
             this.label1.TabIndex = 45;
             this.label1.Text = "Custom Names.";
             // 
-            // customToggleButton1
+            // tglCustomNames
             // 
-            this.customToggleButton1.AutoSize = true;
-            this.customToggleButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customToggleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customToggleButton1.Location = new System.Drawing.Point(19, 138);
-            this.customToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
-            this.customToggleButton1.Name = "customToggleButton1";
-            this.customToggleButton1.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customToggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.customToggleButton1.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customToggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.customToggleButton1.Size = new System.Drawing.Size(45, 22);
-            this.customToggleButton1.SolidStyle = false;
-            this.customToggleButton1.TabIndex = 44;
-            this.customToggleButton1.UseVisualStyleBackColor = false;
-            this.customToggleButton1.CheckedChanged += new System.EventHandler(this.customToggleButton1_CheckedChanged);
+            this.tglCustomNames.AutoSize = true;
+            this.tglCustomNames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglCustomNames.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tglCustomNames.Location = new System.Drawing.Point(19, 138);
+            this.tglCustomNames.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tglCustomNames.Name = "tglCustomNames";
+            this.tglCustomNames.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.tglCustomNames.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tglCustomNames.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.tglCustomNames.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tglCustomNames.Size = new System.Drawing.Size(45, 22);
+            this.tglCustomNames.SolidStyle = false;
+            this.tglCustomNames.TabIndex = 44;
+            this.tglCustomNames.UseVisualStyleBackColor = false;
             // 
             // txtMysqlName
             // 
@@ -779,26 +779,26 @@
             this.txtMysqlName.Texts = "";
             this.txtMysqlName.UnderlinedStyle = false;
             // 
-            // txtApacheNAme
+            // txtApacheName
             // 
-            this.txtApacheNAme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtApacheNAme.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtApacheNAme.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtApacheNAme.BorderSize = 1;
-            this.txtApacheNAme.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtApacheNAme.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtApacheNAme.Location = new System.Drawing.Point(19, 99);
-            this.txtApacheNAme.Margin = new System.Windows.Forms.Padding(0);
-            this.txtApacheNAme.Multiline = true;
-            this.txtApacheNAme.Name = "txtApacheNAme";
-            this.txtApacheNAme.Padding = new System.Windows.Forms.Padding(1);
-            this.txtApacheNAme.PasswordChar = false;
-            this.txtApacheNAme.ReadOnly = true;
-            this.txtApacheNAme.Size = new System.Drawing.Size(135, 23);
-            this.txtApacheNAme.TabIndex = 35;
-            this.txtApacheNAme.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtApacheNAme.Texts = "";
-            this.txtApacheNAme.UnderlinedStyle = false;
+            this.txtApacheName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtApacheName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtApacheName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtApacheName.BorderSize = 1;
+            this.txtApacheName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtApacheName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtApacheName.Location = new System.Drawing.Point(19, 99);
+            this.txtApacheName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtApacheName.Multiline = true;
+            this.txtApacheName.Name = "txtApacheName";
+            this.txtApacheName.Padding = new System.Windows.Forms.Padding(1);
+            this.txtApacheName.PasswordChar = false;
+            this.txtApacheName.ReadOnly = true;
+            this.txtApacheName.Size = new System.Drawing.Size(135, 23);
+            this.txtApacheName.TabIndex = 35;
+            this.txtApacheName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtApacheName.Texts = "";
+            this.txtApacheName.UnderlinedStyle = false;
             // 
             // txtBnetName
             // 
@@ -852,6 +852,11 @@
             this.txtWorldName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtWorldName.Texts = "";
             this.txtWorldName.UnderlinedStyle = false;
+            // 
+            // timerCheck
+            // 
+            this.timerCheck.Enabled = true;
+            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
             // 
             // SettingControl
             // 
@@ -919,12 +924,13 @@
         private UI.CustomPanelPanel customPanelPanel1;
         private Label label3;
         private UI.CustomTextBox txtMysqlName;
-        private UI.CustomTextBox txtApacheNAme;
+        private UI.CustomTextBox txtApacheName;
         private UI.CustomTextBox txtBnetName;
         private UI.CustomTextBox txtWorldName;
         private Label lblCores;
         private CypherCoreServerLaucher.UI.CustomComboBox comboBoxCore;
         private Label label1;
-        private RJCodeAdvance.RJControls.CustomToggleButton customToggleButton1;
+        private RJCodeAdvance.RJControls.CustomToggleButton tglCustomNames;
+        private System.Windows.Forms.Timer timerCheck;
     }
 }

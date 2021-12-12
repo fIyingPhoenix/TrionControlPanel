@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using CypherCoreServerLaucher.Properties;
+using System.Diagnostics;
 using System.Management;
 
 namespace CypherCore_Server_Laucher.Classes
@@ -10,12 +11,11 @@ namespace CypherCore_Server_Laucher.Classes
         int WorldPID = 0;
         int BnetPID = 0;
 
-        public string WorldStatusName = "WorldServer";
-        public string BnetStatusName = "BNetServer";
-        public string MySqlStatusName = "mysqld";
-        public string ApacheStatusName = "httpd";
+        public string WorldStatusName = Settings.Default.WorldCoreName;
+        public string BnetStatusName = Settings.Default.BnetCoreName;
+        public string MySqlStatusName = Settings.Default.MySQLCoreName;
+        public string ApacheStatusName = Settings.Default.ApacheCoreName;
 
- 
         internal void KillWorld()
         {
             foreach (var process in Process.GetProcessesByName(WorldStatusName))
@@ -66,8 +66,8 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal int TotalPCRam()
         {
-            ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
+            ObjectQuery wql = new("SELECT * FROM Win32_OperatingSystem");
+            ManagementObjectSearcher searcher = new(wql);
             ManagementObjectCollection results = searcher.Get();
 
             double res;
@@ -80,7 +80,7 @@ namespace CypherCore_Server_Laucher.Classes
             }
             return totalRam;
         }
-        internal int TotalCpuUsage()
+        internal  int TotalCpuUsage()
         {
             var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total", Environment.MachineName);
             cpuCounter.NextValue();
@@ -92,7 +92,7 @@ namespace CypherCore_Server_Laucher.Classes
             try 
             {
                 
-                ManagementClass cimobject2 = new ManagementClass("Win32_PerfFormattedData_PerfOS_Memory");
+                ManagementClass cimobject2 = new("Win32_PerfFormattedData_PerfOS_Memory");
                 ManagementObjectCollection results = cimobject2.GetInstances();
                 double res;
 
@@ -122,7 +122,7 @@ namespace CypherCore_Server_Laucher.Classes
                     WorldPID = p.Id;
                 }
                 Process process = Process.GetProcessById(WorldPID);
-                PerformanceCounter ramCounter = new PerformanceCounter("Process", "Working Set", process.ProcessName);
+                PerformanceCounter ramCounter = new("Process", "Working Set", process.ProcessName);
                 while (true)
                 {
                     double ram = ramCounter.NextValue();
@@ -170,7 +170,7 @@ namespace CypherCore_Server_Laucher.Classes
                     BnetPID = p.Id;
                 }
                 Process process = Process.GetProcessById(BnetPID);
-                PerformanceCounter ramCounter = new PerformanceCounter("Process", "Working Set", process.ProcessName);
+                PerformanceCounter ramCounter = new("Process", "Working Set", process.ProcessName);
                 while (true)
                 {
                     double ram = ramCounter.NextValue();

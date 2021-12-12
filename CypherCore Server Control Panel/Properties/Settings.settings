@@ -41,5 +41,23 @@
     <Setting Name="CoreLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="WorldCoreName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">WorldServer</Value>
+    </Setting>
+    <Setting Name="BnetCoreName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BNetServer</Value>
+    </Setting>
+    <Setting Name="ApacheCoreName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">httpd</Value>
+    </Setting>
+    <Setting Name="MySQLCoreName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mysqld</Value>
+    </Setting>
+    <Setting Name="TogelCustomNames" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ConboBoxCore" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
