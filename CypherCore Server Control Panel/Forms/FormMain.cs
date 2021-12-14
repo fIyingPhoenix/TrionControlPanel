@@ -8,7 +8,6 @@ namespace CypherCore_Server_Laucher
 {
     public partial class FormMain : Form
     {
-
         readonly ConnectionClass _connectionClass = new();
         readonly HomeControl homeControl = new();
         readonly SettingControl settingControl = new();
@@ -16,7 +15,6 @@ namespace CypherCore_Server_Laucher
 
         public FormMain()
         {
-
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
 
@@ -25,12 +23,8 @@ namespace CypherCore_Server_Laucher
 
             pnlTabs.Controls.Add(loadingControl);
         }
-
-   
-
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-
             //test mysql connection
             _connectionClass.MySqlConnect();
             if(_connectionClass.MySQLConnected() == true)
@@ -38,21 +32,17 @@ namespace CypherCore_Server_Laucher
                 btnConnect.BackColor = Color.Green;
             }
         }
-
         private void BtnHome_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(homeControl);
-           
         }
-
         private void BtnSettings_Click(object sender, EventArgs e)
         {
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(settingControl);
         }
-
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
             if(homeControl.totalRamUsageProgressBar.Value > 0)
@@ -70,12 +60,9 @@ namespace CypherCore_Server_Laucher
                 btnSettings.Enabled = false;
                 btnTerminal.Enabled = false;
             }
- 
         }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

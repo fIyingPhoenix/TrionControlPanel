@@ -1,50 +1,12 @@
-﻿using System.ComponentModel;
+﻿using CypherCoreServerLaucher.Classes;
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace CypherCoreServerLaucher.UI
 {
-    public class MenuColorTable : ProfessionalColorTable
-    {
-        //Fields
-        private Color backColor;
-        private Color leftColumnColor;
-        private Color borderColor;
-        private Color menuItemBorderColor;
-        private Color menuItemSelectedColor;
-
-        //Constructor
-        public MenuColorTable(bool isMainMenu, Color primaryColor)
-        {
-            if (isMainMenu)
-            {
-                backColor = Color.FromArgb(37, 39, 60);
-                leftColumnColor = Color.FromArgb(32, 33, 51);
-                borderColor = Color.FromArgb(32, 33, 51);
-                menuItemBorderColor = primaryColor;
-                menuItemSelectedColor = primaryColor;
-            }
-            else
-            {
-                backColor = Color.White;
-                leftColumnColor = Color.LightGray;
-                borderColor = Color.LightGray;
-                menuItemBorderColor = primaryColor;
-                menuItemSelectedColor = primaryColor;
-            }
-        }
-
-        //Overrides
-        public override Color ToolStripDropDownBackground { get { return backColor; } }
-        public override Color MenuBorder { get { return borderColor; } }
-        public override Color MenuItemBorder { get { return menuItemBorderColor; } }
-        public override Color MenuItemSelected { get { return menuItemSelectedColor; } }
-        public override Color ImageMarginGradientBegin { get { return leftColumnColor; } }
-        public override Color ImageMarginGradientMiddle { get { return leftColumnColor; } }
-        public override Color ImageMarginGradientEnd { get { return leftColumnColor; } }
-    }
+ 
     internal class MenuRenderer : ToolStripProfessionalRenderer
     {
-
         //Fields
         private Color primaryColor;
         private Color textColor;
@@ -72,14 +34,12 @@ namespace CypherCoreServerLaucher.UI
                     this.textColor = textColor;
             }
         }
-
         //Overrides
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
             base.OnRenderItemText(e);
             e.Item.ForeColor = e.Item.Selected ? Color.White : textColor;
         }
-
         protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         {
             //Fields
@@ -98,16 +58,14 @@ namespace CypherCoreServerLaucher.UI
                 graph.DrawPath(pen, path);
             }
         }
-
     }
-
     internal class CustomDropdownMenu : ContextMenuStrip
     {
         //Fields
         private bool isMainMenu;
         private int menuItemHeight = 25;
-        private Color menuItemTextColor = Color.Empty;//No color, The default color is set in the MenuRenderer class
-        private Color primaryColor = Color.Empty;//No color, The default color is set in the MenuRenderer class
+        private Color menuItemTextColor = Color.Empty; //No color, The default color is set in the MenuRenderer class
+        private Color primaryColor = Color.Empty; //No color, The default color is set in the MenuRenderer class
 
         private Bitmap menuItemHeaderSize;
 
@@ -115,9 +73,7 @@ namespace CypherCoreServerLaucher.UI
         public CustomDropdownMenu(IContainer container)
             : base(container)
         {
-
         }
-
         //Properties
         //Optionally, hide the properties in the toolbox to avoid the problem of displaying and/or 
         //saving control property changes in the designer at design time in Visual Studio.
@@ -130,7 +86,6 @@ namespace CypherCoreServerLaucher.UI
             get { return isMainMenu; }
             set { isMainMenu = value; }
         }
-
         //[Browsable(false)]
         [Category("1 CustomDropdownMenu Advance")]
         public int MenuItemHeight
@@ -138,7 +93,6 @@ namespace CypherCoreServerLaucher.UI
             get { return menuItemHeight; }
             set { menuItemHeight = value; }
         }
-
         //[Browsable(false)]
         [Category("1 CustomDropdownMenu Advance")]
         public Color MenuItemTextColor
@@ -146,7 +100,6 @@ namespace CypherCoreServerLaucher.UI
             get { return menuItemTextColor; }
             set { menuItemTextColor = value; }
         }
-
         //[Browsable(false)]
         [Category("1 CustomDropdownMenu Advance")]
         public Color PrimaryColor

@@ -82,10 +82,8 @@ namespace RJCodeAdvance.RJControls
             {
                 return base.Text;
             }
-
             set
             {
-
             }
         }
         [Category("1 CustomToggleButton Advance")]

@@ -169,7 +169,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
         }
         private void comboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (comboBoxCore.SelectedIndex == 0)
             {
                 // AscEmu

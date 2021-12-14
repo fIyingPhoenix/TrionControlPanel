@@ -6,10 +6,8 @@ using System.Runtime.InteropServices;
 
 namespace CypherCore_Server_Laucher.Forms
 {
-
     public partial class FormAlert : Form
     {
-
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -40,12 +38,12 @@ namespace CypherCore_Server_Laucher.Forms
             {
                 formName = "alert" + i.ToString();
                 FormAlert frm = (FormAlert)Application.OpenForms[formName];
-
+                int _height = Height * i - 0 * i;
                 if (frm == null)
                 {
                     Name = formName;
                     posX = Screen.PrimaryScreen.WorkingArea.Width - Width + 15;
-                    posY = Screen.PrimaryScreen.WorkingArea.Height - Height * i - 5 * i;
+                    posY = Screen.PrimaryScreen.WorkingArea.Height - _height;
                     Location = new Point(posX, posY);
                     break;
                 }
@@ -79,7 +77,6 @@ namespace CypherCore_Server_Laucher.Forms
             timerCheck.Interval = 1;
             timerCheck.Start();
         }
-
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
             switch (notificationAction)
@@ -114,7 +111,6 @@ namespace CypherCore_Server_Laucher.Forms
                     break;
             }
         }
-
         private void BntClose_Click(object sender, EventArgs e)
         {
             timerCheck.Interval = 1;
@@ -129,7 +125,6 @@ namespace CypherCore_Server_Laucher.Forms
         public FormAlert()
         {
             InitializeComponent();  
-
         }
     }
 }

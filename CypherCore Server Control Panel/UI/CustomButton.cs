@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-
 namespace CypherCore_Server_Laucher.UI
 {
     public class CustomButton : Button
     {
         //Fields
-
         private int borderSize = 0;
         private int borderRadius = 0;
         private Color borderColor = Color.PaleVioletRed;

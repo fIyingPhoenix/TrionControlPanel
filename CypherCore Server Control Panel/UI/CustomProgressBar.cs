@@ -13,7 +13,6 @@ namespace CypherCore_Server_Laucher.UI
         private Color barColor = Color.FromArgb(83, 155, 245);
         private FontFamily textFont = new("Segoe UI Semibold");
 
-
         //Properties
         [Category("1 CustomButton Advance")]
     
@@ -69,8 +68,7 @@ namespace CypherCore_Server_Laucher.UI
             set { barColor = value; }
         }
         public CustomProgressBar()
-        {
-            
+        { 
             this.SetStyle(ControlStyles.UserPaint, true);
         }
         //fix flikering
@@ -90,7 +88,7 @@ namespace CypherCore_Server_Laucher.UI
             rec.Width = (int)(rec.Width * ((double)Value / Maximum));
             //if (ProgressBarRenderer.IsSupported)
             //    ProgressBarRenderer.DrawHorizontalBar(e.Graphics, e.ClipRectangle);
-            rec.Height = rec.Height ;
+            rec.Height = rec.Height;
             e.Graphics.FillRectangle(Brushes.DodgerBlue, 0,0, rec.Width, rec.Height);
             Graphics g = e.Graphics;
             //text

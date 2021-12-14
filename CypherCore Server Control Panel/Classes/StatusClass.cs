@@ -151,7 +151,6 @@ namespace CypherCore_Server_Laucher.Classes
                 cpuCounter.NextValue();
                 Thread.Sleep(1000);
                 return (int)cpuCounter.NextValue();
-
             }
             catch
             {

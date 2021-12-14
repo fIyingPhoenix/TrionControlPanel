@@ -7,7 +7,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-
         readonly StatusClass _statusClass = new();
         private bool _isRuningBnet = false;
         private bool _isRuningWorld = false;
@@ -44,13 +43,11 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 Alert(ex.Message, NotificationType.Error);
             }
-
         }
         private static void StartBnet()
         {
             try
             {
-
                 using (Process myProcess = new())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
@@ -75,16 +72,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 Alert(ex.Message, NotificationType.Error);
             }
         }
-
         public HomeControl()
         {
             InitializeComponent();
         }
-
         private void BnetResourceTimer_Tick(object sender, EventArgs e)
         {
             Thread BnetResourcesUsageThread = new(() =>
-           {
+            {
                try
                {
                    BnetCpuUsageProgressBar.Value = _statusClass.BnetCpuUsage() / 10;
@@ -93,7 +88,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
                catch
                {
                }
-
            });
             BnetResourcesUsageThread.Start();
         }
@@ -109,9 +103,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 }
                 catch
                 {
-
                 }
-
             });
             WorldResourcesUsageThread.Start();
         }
@@ -130,21 +122,16 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 }
                 catch
                 {
-
                 }
             });
             PCResorceUsageThread.Start();
-
-
             if (_statusClass.WorldStatus() == true)
             {
                 worldServerLight.BackColor = Color.Green;
                 WorldResourceTimer.Start();
-
             }
             else
             {
-             
                 if (_isRuningWorld == true)
                 {
                     _isRuningWorld = false;
@@ -157,8 +144,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 bnetServerLight.BackColor = Color.Green;
                 BnetResourceTimer.Start();
-
-
             }
             else
             {
@@ -186,26 +171,20 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 apacheServerLight.BackColor = Color.Red;
             }
-
         }
-
         private void HomeControl_Load(object sender, EventArgs e)
-        {
-
+        { 
         }
-
         private void BtnStartWorld_Click(object sender, EventArgs e)
         {
             _isRuningWorld = true;
             StartWorld();
         }
-
         private void BtnStartBent_Click(object sender, EventArgs e)
         {
             _isRuningBnet = true;
             StartBnet();
         }
-
         private void BntStartAll_Click(object sender, EventArgs e)
         {
             _isRuningBnet = true;
@@ -213,7 +192,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             StartBnet();
             StartWorld();
         }
-
         private void BntStopAll_Click(object sender, EventArgs e)
         {
             _isRuningBnet = false;
@@ -221,14 +199,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
             _statusClass.KillWorld();
             _statusClass.KillBnet();
         }
-
         private void BtnStopWorld_Click(object sender, EventArgs e)
         {
             _isRuningWorld = false;
             _statusClass.KillWorld();
 
         }
-
         private void BtnStopBnet_Click(object sender, EventArgs e)
         {
             _isRuningBnet = false;

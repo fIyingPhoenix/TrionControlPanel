@@ -46,7 +46,6 @@ D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Debug\
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Debug\net6.0-windows7.0\ZstdNet.dll
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Debug\net6.0-windows7.0\System.Management.dll
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Debug\net6.0-windows7.0\runtimes\win\lib\net6.0\System.Management.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.AssemblyReference.cache
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.Forms.FormAlert.resources
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore_Server_Laucher.FormMain.resources
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCoreServerLaucher.Properties.Resources.resources

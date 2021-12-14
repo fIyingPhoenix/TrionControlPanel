@@ -23,7 +23,7 @@ namespace CypherCoreServerLaucher.UI
         private Button btnIcon;
 
         //Events
-        public event EventHandler OnSelectedIndexChanged;//Default event
+        public event EventHandler OnSelectedIndexChanged; //Default event
 
         //Constructor
         public CustomComboBox()
@@ -37,7 +37,7 @@ namespace CypherCoreServerLaucher.UI
             cmbList.BackColor = listBackColor;
             cmbList.Font = new Font(this.Font.Name, 10F);
             cmbList.ForeColor = listTextColor;
-            cmbList.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);//Default event
+            cmbList.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged); //Default event
             cmbList.TextChanged +=  new EventHandler(ComboBox_TextChanged);//Refresh text
 
             //Button: Icon
@@ -47,8 +47,8 @@ namespace CypherCoreServerLaucher.UI
             btnIcon.BackColor = backColor;
             btnIcon.Size = new Size(30, 30);
             btnIcon.Cursor = Cursors.Hand;
-            btnIcon.Click += new EventHandler(Icon_Click);//Open dropdown list
-            btnIcon.Paint += new PaintEventHandler(Icon_Paint);//Draw icon
+            btnIcon.Click += new EventHandler(Icon_Click); //Open dropdown list
+            btnIcon.Paint += new PaintEventHandler(Icon_Paint); //Draw icon
 
             //Label: Text
             lblText.Dock = DockStyle.Fill;
@@ -58,18 +58,18 @@ namespace CypherCoreServerLaucher.UI
             lblText.Padding = new Padding(8, 0, 0, 0);
             lblText.Font = new Font(this.Font.Name, 10F);
             //->Attach label events to user control event
-            lblText.Click += new EventHandler(Surface_Click);//Select combo box
+            lblText.Click += new EventHandler(Surface_Click); //Select combo box
             lblText.MouseEnter += new EventHandler(Surface_MouseEnter);
             lblText.MouseLeave += new EventHandler(Surface_MouseLeave);
 
             //User Control
-            this.Controls.Add(lblText);//2
-            this.Controls.Add(btnIcon);//1
-            this.Controls.Add(cmbList);//0
+            this.Controls.Add(lblText); //2
+            this.Controls.Add(btnIcon); //1
+            this.Controls.Add(cmbList); //0
             this.MinimumSize = new Size(200, 30);
             this.Size = new Size(200, 30);
             this.ForeColor = Color.DimGray;
-            this.Padding = new Padding(borderSize);//Border Size
+            this.Padding = new Padding(borderSize); //Border Size
             this.Font = new Font(this.Font.Name, 10F);
             base.BackColor = borderColor; //Border Color
             this.ResumeLayout();
@@ -97,7 +97,7 @@ namespace CypherCoreServerLaucher.UI
             set
             {
                 iconColor = value;
-                btnIcon.Invalidate();//Redraw icon
+                btnIcon.Invalidate(); //Redraw icon
             }
         }
 
@@ -141,7 +141,7 @@ namespace CypherCoreServerLaucher.UI
             set
             {
                 borderSize = value;
-                this.Padding = new Padding(borderSize);//Border Size
+                this.Padding = new Padding(borderSize); //Border Size
                 AdjustComboBoxDimensions();
             }
         }
@@ -165,7 +165,7 @@ namespace CypherCoreServerLaucher.UI
             {
                 base.Font = value;
                 lblText.Font = value;
-                cmbList.Font = value;//Optional
+                cmbList.Font = value; //Optional
             }
         }
 
@@ -329,7 +329,7 @@ namespace CypherCoreServerLaucher.UI
             cmbList.Select();
             if (cmbList.DropDownStyle == ComboBoxStyle.DropDownList)
             {
-                cmbList.DroppedDown = true;//Open dropdown list
+                cmbList.DroppedDown = true; //Open dropdown list
             }
         }
         private void ComboBox_TextChanged(object sender, EventArgs e)
