@@ -18,6 +18,7 @@ namespace CypherCore_Server_Laucher.Classes
 
         internal void KillWorld()
         {
+             WorldStatusName = Settings.Default.WorldCoreName;
             foreach (var process in Process.GetProcessesByName(WorldStatusName))
             {
                 process.Kill();
@@ -25,16 +26,16 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal void KillBnet ()
         {
-
+            BnetStatusName = Settings.Default.BnetCoreName;
             foreach (var process in Process.GetProcessesByName(BnetStatusName))
             {
                 process.Kill();
             }
-
         }
         internal bool WorldStatus()
         {
-            Process[] pname = Process.GetProcessesByName(WorldStatusName);
+           WorldStatusName = Settings.Default.WorldCoreName;
+           Process[] pname = Process.GetProcessesByName(WorldStatusName);
             if (pname.Length == 0)
                 return false;
             else
@@ -42,6 +43,7 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal bool BnetStatus()
         {
+            BnetStatusName = Settings.Default.BnetCoreName;
             Process[] pname = Process.GetProcessesByName(BnetStatusName);
             if (pname.Length == 0)
                 return false;
@@ -50,6 +52,7 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal bool MySQLstatus()
         {
+            string MySqlStatusName = Settings.Default.MySQLCoreName;
             Process[] pname = Process.GetProcessesByName(MySqlStatusName);
             if (pname.Length == 0)
                 return false;
@@ -58,6 +61,7 @@ namespace CypherCore_Server_Laucher.Classes
         }
         internal bool ApacheStatus()
         {
+            ApacheStatusName = Settings.Default.ApacheCoreName;
             Process[] pname = Process.GetProcessesByName(ApacheStatusName);
             if (pname.Length == 0)
                 return false;
@@ -91,7 +95,6 @@ namespace CypherCore_Server_Laucher.Classes
         {
             try 
             {
-                
                 ManagementClass cimobject2 = new("Win32_PerfFormattedData_PerfOS_Memory");
                 ManagementObjectCollection results = cimobject2.GetInstances();
                 double res;
@@ -108,14 +111,12 @@ namespace CypherCore_Server_Laucher.Classes
             {
                 return 0;
             }
-            
         }
         internal int WorldRamUsage()
         {
             try
-            {
-               
-                
+             {
+                WorldStatusName = Settings.Default.WorldCoreName;
                 var processes = Process.GetProcessesByName(WorldStatusName);
                 foreach (var p in processes)
                 {
@@ -139,7 +140,7 @@ namespace CypherCore_Server_Laucher.Classes
         {
             try
             {
-              
+               WorldStatusName = Settings.Default.WorldCoreName;
                 var processes = Process.GetProcessesByName(WorldStatusName);
                 foreach (var p in processes)
                 {
@@ -156,14 +157,12 @@ namespace CypherCore_Server_Laucher.Classes
             {
                 return 0;
             }
-
-
         }
         internal int BnetRamUsage()
         {
             try
             {
-
+                BnetStatusName = Settings.Default.BnetCoreName;
                 var processes = Process.GetProcessesByName(BnetStatusName);
                 foreach (var p in processes)
                 {
@@ -187,6 +186,7 @@ namespace CypherCore_Server_Laucher.Classes
         {
             try
             {
+                BnetStatusName = Settings.Default.BnetCoreName;
                 var processes = Process.GetProcessesByName(BnetStatusName);
                 foreach (var p in processes)
                 {
@@ -203,9 +203,6 @@ namespace CypherCore_Server_Laucher.Classes
             {
                 return 0;
             }
-
-
-
         }
     }
 }

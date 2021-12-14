@@ -276,7 +276,6 @@ namespace CypherCoreServerLaucher.UI
             get { return cmbList.ValueMember; }
             set { cmbList.ValueMember = value; }
         }
-
         //Private methods
         private void AdjustComboBoxDimensions()
         {
@@ -287,9 +286,7 @@ namespace CypherCoreServerLaucher.UI
                 Y = lblText.Bottom - cmbList.Height
             };
         }
-
         //Event methods
-
         //-> Default event
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -298,7 +295,6 @@ namespace CypherCoreServerLaucher.UI
             //Refresh text
             lblText.Text = cmbList.Text;
         }
-
         //-> Draw icon
         private void Icon_Paint(object sender, PaintEventArgs e)
         {
@@ -318,7 +314,6 @@ namespace CypherCoreServerLaucher.UI
                 graph.DrawPath(pen, path);
             }
         }
-
         //-> Items actions
         private void Icon_Click(object sender, EventArgs e)
         {
@@ -333,7 +328,9 @@ namespace CypherCoreServerLaucher.UI
             //Select combo box
             cmbList.Select();
             if (cmbList.DropDownStyle == ComboBoxStyle.DropDownList)
+            {
                 cmbList.DroppedDown = true;//Open dropdown list
+            }
         }
         private void ComboBox_TextChanged(object sender, EventArgs e)
         {
@@ -346,19 +343,16 @@ namespace CypherCoreServerLaucher.UI
         {
             this.OnMouseLeave(e);
         }
-
         private void Surface_MouseEnter(object sender, EventArgs e)
         {
             this.OnMouseEnter(e);
         }
         //::::+
-
         //Overridden methods
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             AdjustComboBoxDimensions();
         }
-
     }
 }

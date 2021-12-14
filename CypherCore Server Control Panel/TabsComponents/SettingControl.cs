@@ -38,7 +38,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             //loading data form settings file(xml)
             Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
             Settings.Default.WorldCoreName = txtWorldName.Texts;
-            Settings.Default.ApacheCoreName = txtApacheName.Texts ;
+            Settings.Default.ApacheCoreName = txtApacheName.Texts;
             Settings.Default.BnetCoreName = txtBnetName.Texts;
             Settings.Default.MySQLCoreName = txtMysqlName.Texts;
             Settings.Default.WorldCoreLocation = txtWorldLocation.Texts;
@@ -55,7 +55,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             Settings.Default.TogleStayInTray=tglStayInTray.Checked;
             Settings.Default.TogelCustomNames = tglCustomNames.Checked;
             Settings.Default.Save();
-
         }
         public static void Alert(string message, NotificationType eType)
         {
@@ -87,12 +86,12 @@ namespace CypherCore_Server_Laucher.TabsComponents
                     {
                         txtWorldLocation.Texts = f;
                         SaveSettings();
-                    };
+                    }
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, bnetName, SearchOption.AllDirectories))
                     {
                         txtBnetLocation.Texts = f;
                         SaveSettings();
-                    };
+                    }
                 }
             }
         }
@@ -100,19 +99,16 @@ namespace CypherCore_Server_Laucher.TabsComponents
         {
             InitializeComponent();
         }
-
         public SettingControl(IContainer container)
         {
             container.Add(this);
             InitializeComponent();
         }
-
         private void SettingControl_Load(object sender, EventArgs e)
         {
             //call the load settings on load
             LoadSettings();
         }
-
         private void TxtMySqlPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             //allow just numbers/ digits
@@ -127,17 +123,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 e.Handled = true;
             }
         }
-
         private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveSettings();
         }
-
         private void BntLocation_Click(object sender, EventArgs e)
         {
             GetCoreLocation();
         }
-
         private void BntOpenLocation_Click(object sender, EventArgs e)
         {
             //just a fail safe. inc ase the CoreLocation is empty.
@@ -157,7 +150,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 }    
             }     
         }
-
         private void timerCheck_Tick(object sender, EventArgs e)
         {
             if(tglCustomNames.Checked == true)
@@ -175,7 +167,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 txtMysqlName.ReadOnly = true;
             }
         }
-
         private void comboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 

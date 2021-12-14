@@ -136,7 +136,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             PCResorceUsageThread.Start();
 
 
-
             if (_statusClass.WorldStatus() == true)
             {
                 worldServerLight.BackColor = Color.Green;
@@ -145,14 +144,14 @@ namespace CypherCore_Server_Laucher.TabsComponents
             }
             else
             {
-                worldServerLight.BackColor = Color.Red;
-                WorldResourceTimer.Stop();
+             
                 if (_isRuningWorld == true)
                 {
+                    _isRuningWorld = false;
                     Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
-                    _isRuningBnet = false;
                 }
-
+                worldServerLight.BackColor = Color.Red;
+                WorldResourceTimer.Stop();
             }
             if (_statusClass.BnetStatus() == true)
             {

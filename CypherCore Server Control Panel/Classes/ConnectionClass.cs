@@ -12,9 +12,7 @@ namespace CypherCore_Server_Laucher.Classes
         private static string username = Settings.Default.MySQLServerUsername;
         private static string password = Settings.Default.MySQLServerPassword;
         private static string database = Settings.Default.AuthDatabaseName;
-
         private static MySqlConnection MySqlCore = new MySqlConnection($"server={host};database={database};port={port};uid={username};pwd={password};");
-
         public void Alert(string message, NotificationType eType)
         {
             //make the laert work.
@@ -56,7 +54,6 @@ namespace CypherCore_Server_Laucher.Classes
             {
                 MessageBox.Show("Error disconnect from the server!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         internal bool MySQLConnected()
         {

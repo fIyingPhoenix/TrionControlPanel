@@ -26,9 +26,7 @@ namespace CypherCore_Server_Laucher.UI
         public CustomTextBox()
         {
             InitializeComponent();
-            
         }
-
         //Events
         public event EventHandler TextChanged;
 
@@ -41,8 +39,6 @@ namespace CypherCore_Server_Laucher.UI
             {
                 horizontalAlignment = value;
                 textBox1.TextAlign = horizontalAlignment;
-
-
             }
         }
 
@@ -150,14 +146,11 @@ namespace CypherCore_Server_Laucher.UI
             get { return borderFocusColor; }
             set { borderFocusColor = value; }
         }
-
         //Overridden methods
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             Graphics graph = e.Graphics;
-
             //Draw border
             using (Pen penBorder = new(borderColor, borderSize))
             {
@@ -170,20 +163,17 @@ namespace CypherCore_Server_Laucher.UI
                     graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
             }
         }
-
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             if (this.DesignMode)
                 UpdateControlHeight();
         }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             UpdateControlHeight();
         }
-
         //Private methods
         private void UpdateControlHeight()
         {
@@ -193,44 +183,36 @@ namespace CypherCore_Server_Laucher.UI
                 textBox1.Multiline = true;
                 textBox1.MinimumSize = new Size(0, txtHeight);
                 textBox1.Multiline = false;
-
                 this.Height = textBox1.Height + this.Padding.Top + this.Padding.Bottom;
             }
         }
-
         //TextBox events
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
             if (TextChanged != null)
                 TextChanged.Invoke(sender, e);
         }
-
         private void TextBox1_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
         }
-
         private void TextBox1_MouseEnter(object sender, EventArgs e)
         {
             this.OnMouseEnter(e);
         }
-
         private void TextBox1_MouseLeave(object sender, EventArgs e)
         {
             this.OnMouseLeave(e);
         }
-
         private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.OnKeyPress(e);
         }
-
         private void TextBox1_Enter(object sender, EventArgs e)
         {
             isFocused = true;
             this.Invalidate();
         }
-
         private void TextBox1_Leave(object sender, EventArgs e)
         {
             isFocused = false;

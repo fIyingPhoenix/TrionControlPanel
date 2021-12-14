@@ -12,7 +12,6 @@ namespace CypherCore_Server_Laucher.Classes
         start,
         close
     }
-
     public enum NotificationType
     {
         Success,
@@ -20,5 +19,4 @@ namespace CypherCore_Server_Laucher.Classes
         Error,
         Info
     }
-
 }

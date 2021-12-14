@@ -17,7 +17,7 @@
   
 </div>
 
-------------------------------------------------------------------------------------------
+----
 
 <div align="center">
   <a href="#About"title="ABOUT THE PROJECT">
@@ -78,6 +78,47 @@
 <div id="Roadmap"></div>
 
 ## Roadmap
+
+<div align="center">
+<table style="width:100%">
+  <tr>
+    <th>Feature</th>
+    <th>Available</th>
+  </tr>
+  <tr>
+    <td>Server Status</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <td>Core Console Hide</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <td>Account Create</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Realmlist Name Change.</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Support for Other Cores</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <td>Notification Alerts</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <td>Core CPU and RAM usage</td>
+    <td>✔️</td>
+  </tr>
+    <tr>
+    <td>PC CPU and RAM usage.</td>
+    <td>✔️</td>
+  </tr>
+</table>
+</div>
 
 - [x] Server Status.
 - [x] Core Console Hide.

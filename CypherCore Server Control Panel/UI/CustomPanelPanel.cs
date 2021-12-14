@@ -6,12 +6,10 @@ namespace CypherCore_Server_Laucher.UI
     public class CustomPanelPanel : Panel
     {
         //Fields
-
         Pen pen;
         float penWidth = 2.0f;
         private int _edge = 20;
         Color _borderColor = Color.White;
-
         //Properties
         [Category("1 CustomButton Advance")]
         public int Edge
@@ -26,7 +24,6 @@ namespace CypherCore_Server_Laucher.UI
                 Invalidate();
             }
         }
-
         public Color BorderColor
         {
             get
@@ -40,18 +37,15 @@ namespace CypherCore_Server_Laucher.UI
                 Invalidate();
             }
         }
-
         public CustomPanelPanel()
         {
             pen = new Pen(_borderColor, penWidth);
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             ExtendedDraw(e);
         }
-
         private void ExtendedDraw(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -71,7 +65,6 @@ namespace CypherCore_Server_Laucher.UI
 
             Region = new Region(path);
         }
-
         Rectangle GetLeftUpper(int e)
         {
             return new Rectangle(0, 0, e, e);
@@ -88,17 +81,14 @@ namespace CypherCore_Server_Laucher.UI
         {
             return new Rectangle(0, Height - e, e, e);
         }
-
         void DrawSingleBorder(Graphics graphics)
         {
             graphics.DrawArc(pen, new Rectangle(0, 0, Edge, Edge), 180, 90);
             graphics.DrawArc(pen, new Rectangle(Width - Edge - 1, -1, Edge, Edge), 270, 90);
             graphics.DrawArc(pen, new Rectangle(Width - Edge - 1, Height - Edge - 1, Edge, Edge), 0, 90);
             graphics.DrawArc(pen, new Rectangle(0, Height - Edge - 1, Edge, Edge), 90, 90);
-
             graphics.DrawRectangle(pen, 0.0F, 0.0F, Width - 1, Height - 1);
         }
-
         void DrawBorder(Graphics graphics)
         {
             DrawSingleBorder(graphics);

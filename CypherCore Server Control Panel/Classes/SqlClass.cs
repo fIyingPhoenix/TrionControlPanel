@@ -11,6 +11,5 @@ namespace CypherCore_Server_Laucher.Classes
     internal class SqlClas
     {
         static readonly ConnectionClass  _connectionClass = new ConnectionClass();
-
     }
 }
