@@ -13,8 +13,10 @@
   </a> 
   <a href="https://github.com/fIyingPhoenix/CypherCore-Server-Addons/issues">
     <img src="https://img.shields.io/github/issues/fIyingPhoenix/CypherCore-Server-Addons.svg?style=for-the-badge" >
-  </a> 
-  
+  </a>
+  <a href="https://www.codefactor.io/repository/github/fiyingphoenix/cyphercore-server-addons/overview/main">
+    <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/CypherCore-Server-Addons?style=for-the-badge" alt="CodeFactor" />
+  </a>
 </div>
 
 ----
@@ -68,10 +70,11 @@
 
 ## About The Project
 
+
 <div align="center">
-   <img src="https://user-images.githubusercontent.com/81469821/145727908-8e8845b7-38a4-4cd7-b542-a0d4540696e7.png"> 
+   <img src="https://user-images.githubusercontent.com/81469821/146081910-2665cbce-2ba3-4665-9efd-43cc195ef689.png"> 
    <h4 align="center"> A Control Panel for CypherCore. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
-   <img src="https://user-images.githubusercontent.com/81469821/145727941-cf4451f5-39dc-486f-9d90-4dc7936d0fba.png"> 
+   <img src="https://user-images.githubusercontent.com/81469821/146081853-d87aaf27-8573-450a-ad45-188c0224e6de.png"> 
 
 </div>
 
@@ -79,8 +82,8 @@
 
 ## Roadmap
 
-<div align="center">
-<table style="width:100%">
+<div align="left">
+<table style="">
   <tr>
     <th>Feature</th>
     <th>Available</th>
@@ -95,11 +98,11 @@
   </tr>
   <tr>
     <td>Account Create</td>
-    <td></td>
+    <td>❌</td>
   </tr>
   <tr>
     <td>Realmlist Name Change.</td>
-    <td></td>
+    <td>❌</td>
   </tr>
   <tr>
     <td>Support for Other Cores</td>
@@ -120,15 +123,6 @@
 </table>
 </div>
 
-- [x] Server Status.
-- [x] Core Console Hide.
-- [ ] Account Create.
-- [ ] Realmlist Name Change.
-- [X] Support for Other Cores.
-- [X] Notification Alerts.
-- [X] ADD Resource Usage.
-    - [x] Core CPU and RAM usage.
-    - [x] PC CPU and RAM usage.
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for wishes  (and known issues).
 
