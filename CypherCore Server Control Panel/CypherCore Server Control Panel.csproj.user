@@ -16,6 +16,9 @@
     <Compile Update="TabsComponents\SettingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="TabsComponents\TerminalControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UI\CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>

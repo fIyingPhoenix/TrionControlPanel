@@ -64,3 +64,5 @@ D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\ref\CypherCore Server Control Panel.dll
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.pdb
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.genruntimeconfig.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCore Server Control Panel.csproj.AssemblyReference.cache
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Control Panel\obj\Debug\net6.0-windows7.0\CypherCoreServerLaucher.TabsComponents.TerminalControl.resources

@@ -86,6 +86,7 @@
             this.btnTerminal.TabIndex = 3;
             this.btnTerminal.TextColor = System.Drawing.Color.White;
             this.btnTerminal.UseVisualStyleBackColor = false;
+            this.btnTerminal.Click += new System.EventHandler(this.btnTerminal_Click);
             // 
             // picLogo
             // 

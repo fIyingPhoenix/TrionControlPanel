@@ -12,7 +12,7 @@ namespace CypherCore_Server_Laucher
         readonly HomeControl homeControl = new();
         readonly SettingControl settingControl = new();
         readonly LoadingControl loadingControl = new();
-
+        readonly TerminalControl terminalControl = new();
         public FormMain()
         {
             //fix the problem with thread calls
@@ -63,6 +63,13 @@ namespace CypherCore_Server_Laucher
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
+        }
+
+        private void btnTerminal_Click(object sender, EventArgs e)
+        {
+            //Load Home Controls by button
+            pnlTabs.Controls.Clear();
+            pnlTabs.Controls.Add(terminalControl);
         }
     }
 }
