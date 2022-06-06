@@ -9,7 +9,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
 {
     public partial class SettingControl : UserControl
     {
-        
+        DatabaseConnection databaseConnection = new();
         //settings data located in appdata/local/CypherCoreServerLaucher
 
         private void LoadSettings()
@@ -237,7 +237,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
 
         private void btnTestMySQL_Click(object sender, EventArgs e)
         {
-            DatabaseConnection.MySqlConnectCheck();
+            databaseConnection.MySqlConnectCheck();
          
         }
     }

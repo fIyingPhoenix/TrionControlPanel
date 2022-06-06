@@ -16,5 +16,19 @@ namespace CypherCoreServerLaucher.TabsComponents
         {
             InitializeComponent();
         }
+
+        private void timerCheck_Tick(object sender, EventArgs e)
+        {
+            if(tglShowPassword.Checked  == false)
+            {
+                txtPassword.PasswordChar = false;
+                txtRePassword.PasswordChar = false;
+            }
+            else if (tglShowPassword.Checked == true)
+            {
+                txtPassword.PasswordChar = true;
+                txtRePassword.PasswordChar = true;
+            }
+        }
     }
 }

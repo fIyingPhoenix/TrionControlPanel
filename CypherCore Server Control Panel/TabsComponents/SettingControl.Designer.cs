@@ -154,9 +154,9 @@
             this.roundPanel1.Controls.Add(this.txtWorldLocation);
             this.roundPanel1.Controls.Add(this.lblPCresource);
             this.roundPanel1.Edge = 5;
-            this.roundPanel1.Location = new System.Drawing.Point(16, 13);
+            this.roundPanel1.Location = new System.Drawing.Point(11, 13);
             this.roundPanel1.Name = "roundPanel1";
-            this.roundPanel1.Size = new System.Drawing.Size(325, 180);
+            this.roundPanel1.Size = new System.Drawing.Size(342, 180);
             this.roundPanel1.TabIndex = 0;
             // 
             // bntOpenLocation
@@ -278,9 +278,9 @@
             this.roundPanel2.Controls.Add(this.txtMySqlServer);
             this.roundPanel2.Controls.Add(this.lblMySqlServerSettings);
             this.roundPanel2.Edge = 5;
-            this.roundPanel2.Location = new System.Drawing.Point(16, 208);
+            this.roundPanel2.Location = new System.Drawing.Point(11, 199);
             this.roundPanel2.Name = "roundPanel2";
-            this.roundPanel2.Size = new System.Drawing.Size(202, 287);
+            this.roundPanel2.Size = new System.Drawing.Size(208, 296);
             this.roundPanel2.TabIndex = 1;
             // 
             // lblPort
@@ -450,9 +450,9 @@
             this.roundPanel3.Controls.Add(this.lblControlPanelSettings);
             this.roundPanel3.Controls.Add(this.tglStayInTray);
             this.roundPanel3.Edge = 5;
-            this.roundPanel3.Location = new System.Drawing.Point(454, 208);
+            this.roundPanel3.Location = new System.Drawing.Point(455, 199);
             this.roundPanel3.Name = "roundPanel3";
-            this.roundPanel3.Size = new System.Drawing.Size(229, 287);
+            this.roundPanel3.Size = new System.Drawing.Size(234, 296);
             this.roundPanel3.TabIndex = 3;
             // 
             // comboBoxCore
@@ -478,7 +478,7 @@
             this.comboBoxCore.MinimumSize = new System.Drawing.Size(200, 30);
             this.comboBoxCore.Name = "comboBoxCore";
             this.comboBoxCore.Padding = new System.Windows.Forms.Padding(1);
-            this.comboBoxCore.Size = new System.Drawing.Size(200, 30);
+            this.comboBoxCore.Size = new System.Drawing.Size(201, 30);
             this.comboBoxCore.TabIndex = 43;
             this.comboBoxCore.Texts = "";
             this.comboBoxCore.OnSelectedIndexChanged += new System.EventHandler(this.comboBoxCore_OnSelectedIndexChanged);
@@ -580,16 +580,16 @@
             this.roundPanel4.Controls.Add(this.txtCharactersDatabase);
             this.roundPanel4.Controls.Add(this.lblWorld);
             this.roundPanel4.Edge = 5;
-            this.roundPanel4.Location = new System.Drawing.Point(236, 208);
+            this.roundPanel4.Location = new System.Drawing.Point(225, 199);
             this.roundPanel4.Name = "roundPanel4";
-            this.roundPanel4.Size = new System.Drawing.Size(202, 287);
+            this.roundPanel4.Size = new System.Drawing.Size(224, 296);
             this.roundPanel4.TabIndex = 4;
             // 
             // lblAuth
             // 
             this.lblAuth.AutoSize = true;
             this.lblAuth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblAuth.Location = new System.Drawing.Point(17, 142);
+            this.lblAuth.Location = new System.Drawing.Point(26, 142);
             this.lblAuth.Name = "lblAuth";
             this.lblAuth.Size = new System.Drawing.Size(36, 15);
             this.lblAuth.TabIndex = 41;
@@ -615,7 +615,7 @@
             this.txtAuthDatabase.BorderSize = 1;
             this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtAuthDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtAuthDatabase.Location = new System.Drawing.Point(17, 160);
+            this.txtAuthDatabase.Location = new System.Drawing.Point(26, 160);
             this.txtAuthDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtAuthDatabase.Multiline = true;
             this.txtAuthDatabase.Name = "txtAuthDatabase";
@@ -636,7 +636,7 @@
             this.txtWorldDatabase.BorderSize = 1;
             this.txtWorldDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtWorldDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtWorldDatabase.Location = new System.Drawing.Point(17, 70);
+            this.txtWorldDatabase.Location = new System.Drawing.Point(26, 70);
             this.txtWorldDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtWorldDatabase.Multiline = true;
             this.txtWorldDatabase.Name = "txtWorldDatabase";
@@ -653,7 +653,7 @@
             // 
             this.lblCharacters.AutoSize = true;
             this.lblCharacters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblCharacters.Location = new System.Drawing.Point(17, 98);
+            this.lblCharacters.Location = new System.Drawing.Point(26, 98);
             this.lblCharacters.Name = "lblCharacters";
             this.lblCharacters.Size = new System.Drawing.Size(63, 15);
             this.lblCharacters.TabIndex = 38;
@@ -667,7 +667,7 @@
             this.txtCharactersDatabase.BorderSize = 1;
             this.txtCharactersDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtCharactersDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtCharactersDatabase.Location = new System.Drawing.Point(17, 116);
+            this.txtCharactersDatabase.Location = new System.Drawing.Point(26, 116);
             this.txtCharactersDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtCharactersDatabase.Multiline = true;
             this.txtCharactersDatabase.Name = "txtCharactersDatabase";
@@ -684,7 +684,7 @@
             // 
             this.lblWorld.AutoSize = true;
             this.lblWorld.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorld.Location = new System.Drawing.Point(17, 52);
+            this.lblWorld.Location = new System.Drawing.Point(26, 52);
             this.lblWorld.Name = "lblWorld";
             this.lblWorld.Size = new System.Drawing.Size(42, 15);
             this.lblWorld.TabIndex = 39;
@@ -727,9 +727,9 @@
             this.customPanelPanel1.Controls.Add(this.label3);
             this.customPanelPanel1.Controls.Add(this.txtWorldName);
             this.customPanelPanel1.Edge = 5;
-            this.customPanelPanel1.Location = new System.Drawing.Point(358, 13);
+            this.customPanelPanel1.Location = new System.Drawing.Point(359, 13);
             this.customPanelPanel1.Name = "customPanelPanel1";
-            this.customPanelPanel1.Size = new System.Drawing.Size(325, 180);
+            this.customPanelPanel1.Size = new System.Drawing.Size(330, 180);
             this.customPanelPanel1.TabIndex = 5;
             // 
             // label1
@@ -871,7 +871,7 @@
             this.btnTestMySQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTestMySQL.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTestMySQL.ForeColor = System.Drawing.Color.White;
-            this.btnTestMySQL.Location = new System.Drawing.Point(468, 508);
+            this.btnTestMySQL.Location = new System.Drawing.Point(469, 508);
             this.btnTestMySQL.Name = "btnTestMySQL";
             this.btnTestMySQL.Size = new System.Drawing.Size(144, 40);
             this.btnTestMySQL.TabIndex = 6;

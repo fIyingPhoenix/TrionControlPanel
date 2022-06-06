@@ -218,5 +218,14 @@ namespace CypherCore_Server_Laucher.UI
             isFocused = false;
             this.Invalidate();
         }
+
+        private void timerCheck_Tick(object sender, EventArgs e)
+        {
+            if (PasswordChar == true)
+            {
+                textBox1.PasswordChar = '*';
+            }
+ 
+        }
     }
 }

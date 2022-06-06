@@ -90,9 +90,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel2.Controls.Add(this.worldRamUsageProgressBar);
             this.sPanel2.Controls.Add(this.worldCpuUsageProgressBar);
             this.sPanel2.Edge = 5;
-            this.sPanel2.Location = new System.Drawing.Point(15, 241);
+            this.sPanel2.Location = new System.Drawing.Point(11, 229);
             this.sPanel2.Name = "sPanel2";
-            this.sPanel2.Size = new System.Drawing.Size(325, 150);
+            this.sPanel2.Size = new System.Drawing.Size(331, 150);
             this.sPanel2.TabIndex = 6;
             // 
             // label4
@@ -132,10 +132,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.worldRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldRamUsageProgressBar.FontSize = 10;
             this.worldRamUsageProgressBar.LabelText = "MB";
-            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(20, 61);
+            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(9, 61);
             this.worldRamUsageProgressBar.MaximumValue = true;
             this.worldRamUsageProgressBar.Name = "worldRamUsageProgressBar";
-            this.worldRamUsageProgressBar.Size = new System.Drawing.Size(275, 17);
+            this.worldRamUsageProgressBar.Size = new System.Drawing.Size(309, 17);
             this.worldRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldRamUsageProgressBar.TabIndex = 25;
             this.worldRamUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -146,10 +146,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.worldCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.worldCpuUsageProgressBar.FontSize = 10;
             this.worldCpuUsageProgressBar.LabelText = "%";
-            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(20, 113);
+            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(9, 113);
             this.worldCpuUsageProgressBar.MaximumValue = false;
             this.worldCpuUsageProgressBar.Name = "worldCpuUsageProgressBar";
-            this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(275, 17);
+            this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(309, 17);
             this.worldCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldCpuUsageProgressBar.TabIndex = 26;
             this.worldCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -170,9 +170,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.sPanel1.Controls.Add(this.bnetServerLight);
             this.sPanel1.Controls.Add(this.worldServerLight);
             this.sPanel1.Edge = 5;
-            this.sPanel1.Location = new System.Drawing.Point(15, 76);
+            this.sPanel1.Location = new System.Drawing.Point(11, 62);
             this.sPanel1.Name = "sPanel1";
-            this.sPanel1.Size = new System.Drawing.Size(248, 150);
+            this.sPanel1.Size = new System.Drawing.Size(259, 159);
             this.sPanel1.TabIndex = 5;
             // 
             // lblServerStatus
@@ -191,7 +191,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblApache.AutoSize = true;
             this.lblApache.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblApache.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblApache.Location = new System.Drawing.Point(53, 110);
+            this.lblApache.Location = new System.Drawing.Point(72, 117);
             this.lblApache.Name = "lblApache";
             this.lblApache.Size = new System.Drawing.Size(99, 19);
             this.lblApache.TabIndex = 17;
@@ -202,7 +202,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblMySql.AutoSize = true;
             this.lblMySql.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblMySql.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblMySql.Location = new System.Drawing.Point(53, 85);
+            this.lblMySql.Location = new System.Drawing.Point(72, 92);
             this.lblMySql.Name = "lblMySql";
             this.lblMySql.Size = new System.Drawing.Size(99, 19);
             this.lblMySql.TabIndex = 16;
@@ -213,7 +213,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblBnet.AutoSize = true;
             this.lblBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblBnet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblBnet.Location = new System.Drawing.Point(53, 60);
+            this.lblBnet.Location = new System.Drawing.Point(72, 67);
             this.lblBnet.Name = "lblBnet";
             this.lblBnet.Size = new System.Drawing.Size(125, 19);
             this.lblBnet.TabIndex = 15;
@@ -224,7 +224,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.lblWorld.AutoSize = true;
             this.lblWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWorld.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorld.Location = new System.Drawing.Point(53, 36);
+            this.lblWorld.Location = new System.Drawing.Point(72, 43);
             this.lblWorld.Name = "lblWorld";
             this.lblWorld.Size = new System.Drawing.Size(92, 19);
             this.lblWorld.TabIndex = 14;
@@ -235,7 +235,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.apacheServerLight.BackColor = System.Drawing.Color.DarkRed;
             this.apacheServerLight.BorderColor = System.Drawing.Color.White;
             this.apacheServerLight.Edge = 20;
-            this.apacheServerLight.Location = new System.Drawing.Point(28, 112);
+            this.apacheServerLight.Location = new System.Drawing.Point(47, 119);
             this.apacheServerLight.Name = "apacheServerLight";
             this.apacheServerLight.Size = new System.Drawing.Size(19, 19);
             this.apacheServerLight.TabIndex = 10;
@@ -245,7 +245,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.mysqlServerLight.BackColor = System.Drawing.Color.DarkRed;
             this.mysqlServerLight.BorderColor = System.Drawing.Color.White;
             this.mysqlServerLight.Edge = 20;
-            this.mysqlServerLight.Location = new System.Drawing.Point(28, 87);
+            this.mysqlServerLight.Location = new System.Drawing.Point(47, 94);
             this.mysqlServerLight.Name = "mysqlServerLight";
             this.mysqlServerLight.Size = new System.Drawing.Size(19, 19);
             this.mysqlServerLight.TabIndex = 12;
@@ -255,7 +255,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.bnetServerLight.BackColor = System.Drawing.Color.DarkRed;
             this.bnetServerLight.BorderColor = System.Drawing.Color.White;
             this.bnetServerLight.Edge = 20;
-            this.bnetServerLight.Location = new System.Drawing.Point(28, 62);
+            this.bnetServerLight.Location = new System.Drawing.Point(47, 69);
             this.bnetServerLight.Name = "bnetServerLight";
             this.bnetServerLight.Size = new System.Drawing.Size(19, 19);
             this.bnetServerLight.TabIndex = 13;
@@ -265,7 +265,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.worldServerLight.BackColor = System.Drawing.Color.DarkRed;
             this.worldServerLight.BorderColor = System.Drawing.Color.White;
             this.worldServerLight.Edge = 20;
-            this.worldServerLight.Location = new System.Drawing.Point(28, 38);
+            this.worldServerLight.Location = new System.Drawing.Point(47, 45);
             this.worldServerLight.Name = "worldServerLight";
             this.worldServerLight.Size = new System.Drawing.Size(19, 19);
             this.worldServerLight.TabIndex = 11;
@@ -288,9 +288,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel1.Controls.Add(this.lblBnetResource);
             this.roundPanel1.Controls.Add(this.BnetRamUsageProgressBar);
             this.roundPanel1.Edge = 5;
-            this.roundPanel1.Location = new System.Drawing.Point(357, 241);
+            this.roundPanel1.Location = new System.Drawing.Point(350, 229);
             this.roundPanel1.Name = "roundPanel1";
-            this.roundPanel1.Size = new System.Drawing.Size(325, 150);
+            this.roundPanel1.Size = new System.Drawing.Size(335, 150);
             this.roundPanel1.TabIndex = 20;
             // 
             // label5
@@ -319,10 +319,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.BnetCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetCpuUsageProgressBar.FontSize = 10;
             this.BnetCpuUsageProgressBar.LabelText = "%";
-            this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(20, 113);
+            this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(13, 113);
             this.BnetCpuUsageProgressBar.MaximumValue = false;
             this.BnetCpuUsageProgressBar.Name = "BnetCpuUsageProgressBar";
-            this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(275, 17);
+            this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(302, 17);
             this.BnetCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetCpuUsageProgressBar.TabIndex = 28;
             this.BnetCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -344,10 +344,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.BnetRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.BnetRamUsageProgressBar.FontSize = 10;
             this.BnetRamUsageProgressBar.LabelText = "MB";
-            this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(20, 64);
+            this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(13, 64);
             this.BnetRamUsageProgressBar.MaximumValue = true;
             this.BnetRamUsageProgressBar.Name = "BnetRamUsageProgressBar";
-            this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(275, 17);
+            this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(302, 17);
             this.BnetRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetRamUsageProgressBar.TabIndex = 27;
             this.BnetRamUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -364,9 +364,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.roundPanel2.Controls.Add(this.totalRamUsageProgressBar);
             this.roundPanel2.Controls.Add(this.lblPCresource);
             this.roundPanel2.Edge = 5;
-            this.roundPanel2.Location = new System.Drawing.Point(280, 76);
+            this.roundPanel2.Location = new System.Drawing.Point(280, 62);
             this.roundPanel2.Name = "roundPanel2";
-            this.roundPanel2.Size = new System.Drawing.Size(405, 150);
+            this.roundPanel2.Size = new System.Drawing.Size(407, 159);
             this.roundPanel2.TabIndex = 21;
             // 
             // label6
@@ -395,10 +395,10 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.totalCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalCpuUsageProgressBar.FontSize = 10;
             this.totalCpuUsageProgressBar.LabelText = "%";
-            this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(22, 112);
+            this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(20, 112);
             this.totalCpuUsageProgressBar.MaximumValue = false;
             this.totalCpuUsageProgressBar.Name = "totalCpuUsageProgressBar";
-            this.totalCpuUsageProgressBar.Size = new System.Drawing.Size(352, 17);
+            this.totalCpuUsageProgressBar.Size = new System.Drawing.Size(367, 17);
             this.totalCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.totalCpuUsageProgressBar.TabIndex = 24;
             this.totalCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -414,7 +414,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.totalRamUsageProgressBar.Margin = new System.Windows.Forms.Padding(0);
             this.totalRamUsageProgressBar.MaximumValue = true;
             this.totalRamUsageProgressBar.Name = "totalRamUsageProgressBar";
-            this.totalRamUsageProgressBar.Size = new System.Drawing.Size(352, 17);
+            this.totalRamUsageProgressBar.Size = new System.Drawing.Size(365, 17);
             this.totalRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.totalRamUsageProgressBar.TabIndex = 23;
             this.totalRamUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -569,7 +569,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // customWebBrowser1
             // 
             this.customWebBrowser1.AllowNavigation = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(18, 22);
+            this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
+            this.customWebBrowser1.Location = new System.Drawing.Point(18, 18);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScrollBarsEnabled = false;
             this.customWebBrowser1.Size = new System.Drawing.Size(142, 28);
@@ -580,7 +581,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // customWebBrowser2
             // 
             this.customWebBrowser2.AllowNavigation = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(166, 22);
+            this.customWebBrowser2.IsWebBrowserContextMenuEnabled = false;
+            this.customWebBrowser2.Location = new System.Drawing.Point(166, 18);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
@@ -594,7 +596,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.customWebBrowser3.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.customWebBrowser3.AllowNavigation = false;
             this.customWebBrowser3.AllowWebBrowserDrop = false;
-            this.customWebBrowser3.Location = new System.Drawing.Point(268, 22);
+            this.customWebBrowser3.IsWebBrowserContextMenuEnabled = false;
+            this.customWebBrowser3.Location = new System.Drawing.Point(268, 18);
             this.customWebBrowser3.Name = "customWebBrowser3";
             this.customWebBrowser3.ScrollBarsEnabled = false;
             this.customWebBrowser3.Size = new System.Drawing.Size(97, 28);
@@ -608,7 +611,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.customWebBrowser4.AllowNavigation = false;
             this.customWebBrowser4.AllowWebBrowserDrop = false;
             this.customWebBrowser4.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser4.Location = new System.Drawing.Point(371, 22);
+            this.customWebBrowser4.Location = new System.Drawing.Point(371, 18);
             this.customWebBrowser4.Name = "customWebBrowser4";
             this.customWebBrowser4.ScriptErrorsSuppressed = true;
             this.customWebBrowser4.ScrollBarsEnabled = false;
@@ -621,7 +624,8 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // customWebBrowser5
             // 
             this.customWebBrowser5.AllowNavigation = false;
-            this.customWebBrowser5.Location = new System.Drawing.Point(529, 22);
+            this.customWebBrowser5.IsWebBrowserContextMenuEnabled = false;
+            this.customWebBrowser5.Location = new System.Drawing.Point(529, 18);
             this.customWebBrowser5.Name = "customWebBrowser5";
             this.customWebBrowser5.ScrollBarsEnabled = false;
             this.customWebBrowser5.Size = new System.Drawing.Size(147, 28);

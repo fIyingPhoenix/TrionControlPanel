@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.timerCheck = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // textBox1
@@ -49,6 +51,11 @@
             this.textBox1.MouseEnter += new System.EventHandler(this.TextBox1_MouseEnter);
             this.textBox1.MouseLeave += new System.EventHandler(this.TextBox1_MouseLeave);
             // 
+            // timerCheck
+            // 
+            this.timerCheck.Enabled = true;
+            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
+            // 
             // CustomTextBox
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -67,5 +74,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Timer timerCheck;
     }
 }

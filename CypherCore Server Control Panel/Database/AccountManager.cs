@@ -4,12 +4,17 @@ using CypherCore_Server_Laucher.Forms;
 using MySql.Data.MySqlClient;
 using System.Data;
 using CypherCore_Server_Laucher.TabsComponents;
-
+using System.Security.Cryptography;
+using System.Text;
+using System.Numerics;
+using System;
 namespace CypherCoreServerLaucher.Database
 {
+
+
     internal class DatabaseConnection
     {
-        private static  MySqlConnection MySqlCore = new MySqlConnection($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
+        private  MySqlConnection MySqlCore = new MySqlConnection($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
 
         internal MySqlConnection GetConnection
         {
@@ -19,7 +24,7 @@ namespace CypherCoreServerLaucher.Database
             }
         }
 
-        internal static void MySqlConnectCheck()
+        internal void MySqlConnectCheck()
         {
             try
             {
@@ -40,7 +45,7 @@ namespace CypherCoreServerLaucher.Database
                 Settings.Default.Save();
             }
         }
-        internal static void MySqlDisconnectCheck()
+        internal void MySqlDisconnectCheck()
         {
             try
             {
@@ -58,7 +63,47 @@ namespace CypherCoreServerLaucher.Database
     }
     internal class AccountManager 
     {
-    
+        DatabaseConnection databaseConnection = new();
+        public bool NewUser(string email, string password, bool withGameAccount = true, string gameAccountName = "")
+        {
+            if (email.Length > 320)
+                HomeControl.Alert("Email is too long!", NotificationType.Info);
+
+            if (password.Length > 16)
+                HomeControl.Alert("Password is too long!", NotificationType.Info);
+
+            if (GetId(email) != 0)
+                HomeControl.Alert("Email exists!", NotificationType.Info);
+
+
+
+
+
+            return false;
+        }
+        public uint GetId(string username)
+        {
+            MySqlCommand command = new MySqlCommand("SELECT id FROM account WHERE username = @username", databaseConnection.GetConnection);
+            command.Parameters.Add("@username", MySqlDbType.Text).Value = username;
+            MySqlDataAdapter _dataAdapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            _dataAdapter.Fill(table);
+            if (table.Rows.Count > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+        //public string CalculateShaPassHash(string name, string password)
+        //{
+        //    SHA256 sha256 = SHA256.Create();
+        //    var i = sha256.ComputeHash(Encoding.UTF8.GetBytes(name));
+        //    return sha256.ComputeHash(Encoding.UTF8.GetBytes(i.ToHexString() + ":" + password)).ToHexString(true);
+        //}
 
     }
 }
