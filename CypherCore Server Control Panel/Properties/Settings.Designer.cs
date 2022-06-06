@@ -12,7 +12,7 @@ namespace CypherCoreServerLaucher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -62,12 +62,12 @@ namespace CypherCoreServerLaucher.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
-        public string MySQLServerName {
+        public string MySQLServerHost {
             get {
-                return ((string)(this["MySQLServerName"]));
+                return ((string)(this["MySQLServerHost"]));
             }
             set {
-                this["MySQLServerName"] = value;
+                this["MySQLServerHost"] = value;
             }
         }
         
@@ -242,12 +242,36 @@ namespace CypherCoreServerLaucher.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ConboBoxCore {
+        public int ComboBoxCore {
             get {
-                return ((int)(this["ConboBoxCore"]));
+                return ((int)(this["ComboBoxCore"]));
             }
             set {
-                this["ConboBoxCore"] = value;
+                this["ComboBoxCore"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MySQLConnect {
+            get {
+                return ((bool)(this["MySQLConnect"]));
+            }
+            set {
+                this["MySQLConnect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MySQLConnectFaild {
+            get {
+                return ((bool)(this["MySQLConnectFaild"]));
+            }
+            set {
+                this["MySQLConnectFaild"] = value;
             }
         }
     }

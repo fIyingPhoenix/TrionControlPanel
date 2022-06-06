@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.btnConnect = new System.Windows.Forms.Button();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btnTerminal = new CypherCore_Server_Laucher.UI.CustomButton();
             this.picLogo = new System.Windows.Forms.PictureBox();
@@ -43,17 +42,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(3, 510);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(71, 47);
-            this.btnConnect.TabIndex = 0;
-            this.btnConnect.Text = "GET Connected";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Visible = false;
-            this.btnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
-            // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
@@ -61,7 +49,6 @@
             this.panelMenu.Controls.Add(this.picLogo);
             this.panelMenu.Controls.Add(this.btnSettings);
             this.panelMenu.Controls.Add(this.btnHome);
-            this.panelMenu.Controls.Add(this.btnConnect);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
@@ -174,6 +161,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CypherCore Server Control Panel";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panelMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
@@ -182,8 +170,6 @@
         }
 
         #endregion
-
-        private Button btnConnect;
         private Panel panelMenu;
         private Panel pnlTabs;
         private CypherCore_Server_Laucher.UI.CustomButton btnHome;

@@ -11,7 +11,7 @@
     <Setting Name="CharactersDatabaseName" Type="System.String" Scope="User">
       <Value Profile="(Default)">characters</Value>
     </Setting>
-    <Setting Name="MySQLServerName" Type="System.String" Scope="User">
+    <Setting Name="MySQLServerHost" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="MySQLServerUsername" Type="System.String" Scope="User">
@@ -56,8 +56,14 @@
     <Setting Name="TogelCustomNames" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ConboBoxCore" Type="System.Int32" Scope="User">
+    <Setting Name="ComboBoxCore" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MySQLConnect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MySQLConnectFaild" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

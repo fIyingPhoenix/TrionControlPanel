@@ -40,6 +40,13 @@
             System.Windows.Forms.Label label9;
             System.Windows.Forms.Label label10;
             System.Windows.Forms.Label label11;
+            System.Windows.Forms.Label label13;
+            System.Windows.Forms.Label label14;
+            System.Windows.Forms.Label label15;
+            System.Windows.Forms.Label lblShowPassword;
+            System.Windows.Forms.Label label16;
+            System.Windows.Forms.Label label20;
+            System.Windows.Forms.Label label21;
             this.customPanelPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.customTextBox9 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.customTextBox10 = new CypherCore_Server_Laucher.UI.CustomTextBox();
@@ -47,7 +54,6 @@
             this.customTextBox6 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.customTextBox7 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.customTextBox8 = new CypherCore_Server_Laucher.UI.CustomTextBox();
-            this.comboBoxCore = new CypherCoreServerLaucher.UI.CustomComboBox();
             this.customTextBox3 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.customTextBox4 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.customTextBox5 = new CypherCore_Server_Laucher.UI.CustomTextBox();
@@ -55,6 +61,19 @@
             this.customTextBox1 = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.txtWorldName = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblServerStatus = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.customPanelPanel2 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.customTextBox15 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.tglShowPassword = new RJCodeAdvance.RJControls.CustomToggleButton();
+            this.customTextBox14 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.customTextBox13 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.customTextBox12 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.bntOpenLocation = new CypherCore_Server_Laucher.UI.CustomButton();
+            this.customPanelPanel3 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.customTextBox18 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.customTextBox19 = new CypherCore_Server_Laucher.UI.CustomTextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.customButton1 = new CypherCore_Server_Laucher.UI.CustomButton();
             lblWorldName = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
@@ -67,7 +86,16 @@
             label9 = new System.Windows.Forms.Label();
             label10 = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
+            label13 = new System.Windows.Forms.Label();
+            label14 = new System.Windows.Forms.Label();
+            label15 = new System.Windows.Forms.Label();
+            lblShowPassword = new System.Windows.Forms.Label();
+            label16 = new System.Windows.Forms.Label();
+            label20 = new System.Windows.Forms.Label();
+            label21 = new System.Windows.Forms.Label();
             this.customPanelPanel1.SuspendLayout();
+            this.customPanelPanel2.SuspendLayout();
+            this.customPanelPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblWorldName
@@ -190,6 +218,56 @@
             label11.TabIndex = 54;
             label11.Text = "Realm Bettelground:";
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label13.Location = new System.Drawing.Point(18, 37);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(68, 15);
+            label13.TabIndex = 46;
+            label13.Text = "User Name:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label14.Location = new System.Drawing.Point(18, 78);
+            label14.Name = "label14";
+            label14.Size = new System.Drawing.Size(60, 15);
+            label14.TabIndex = 48;
+            label14.Text = "Password:";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label15.Location = new System.Drawing.Point(239, 78);
+            label15.Name = "label15";
+            label15.Size = new System.Drawing.Size(79, 15);
+            label15.TabIndex = 50;
+            label15.Text = "Re. Password:";
+            // 
+            // lblShowPassword
+            // 
+            lblShowPassword.AutoSize = true;
+            lblShowPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            lblShowPassword.Location = new System.Drawing.Point(69, 137);
+            lblShowPassword.Name = "lblShowPassword";
+            lblShowPassword.Size = new System.Drawing.Size(92, 15);
+            lblShowPassword.TabIndex = 51;
+            lblShowPassword.Text = "Shwo Password.";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label16.Location = new System.Drawing.Point(239, 37);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(44, 15);
+            label16.TabIndex = 53;
+            label16.Text = "E-Mail:";
+            // 
             // customPanelPanel1
             // 
             this.customPanelPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
@@ -206,7 +284,6 @@
             this.customPanelPanel1.Controls.Add(this.customTextBox6);
             this.customPanelPanel1.Controls.Add(this.customTextBox7);
             this.customPanelPanel1.Controls.Add(this.customTextBox8);
-            this.customPanelPanel1.Controls.Add(this.comboBoxCore);
             this.customPanelPanel1.Controls.Add(label3);
             this.customPanelPanel1.Controls.Add(label4);
             this.customPanelPanel1.Controls.Add(label5);
@@ -352,33 +429,6 @@
             this.customTextBox8.Texts = "";
             this.customTextBox8.UnderlinedStyle = false;
             // 
-            // comboBoxCore
-            // 
-            this.comboBoxCore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.comboBoxCore.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.comboBoxCore.BorderSize = 1;
-            this.comboBoxCore.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.comboBoxCore.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.comboBoxCore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.comboBoxCore.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.comboBoxCore.Items.AddRange(new object[] {
-            "AscEmu ",
-            "AzerothCore ",
-            "Continued MaNGOS ",
-            "CypherCore",
-            "TrinityCore ",
-            "TrinityCore 4.3.4 (TCPP)",
-            "Vanilla MaNGOS "});
-            this.comboBoxCore.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.comboBoxCore.ListTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.comboBoxCore.Location = new System.Drawing.Point(448, 12);
-            this.comboBoxCore.MinimumSize = new System.Drawing.Size(200, 30);
-            this.comboBoxCore.Name = "comboBoxCore";
-            this.comboBoxCore.Padding = new System.Windows.Forms.Padding(1);
-            this.comboBoxCore.Size = new System.Drawing.Size(200, 30);
-            this.comboBoxCore.TabIndex = 44;
-            this.comboBoxCore.Texts = "";
-            // 
             // customTextBox3
             // 
             this.customTextBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
@@ -516,16 +566,285 @@
             this.lblServerStatus.TabIndex = 19;
             this.lblServerStatus.Text = "Change Realm List";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label12.Location = new System.Drawing.Point(7, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(127, 21);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "Create Account.";
+            // 
+            // customPanelPanel2
+            // 
+            this.customPanelPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.customPanelPanel2.BorderColor = System.Drawing.Color.White;
+            this.customPanelPanel2.Controls.Add(this.bntOpenLocation);
+            this.customPanelPanel2.Controls.Add(label16);
+            this.customPanelPanel2.Controls.Add(this.customTextBox15);
+            this.customPanelPanel2.Controls.Add(lblShowPassword);
+            this.customPanelPanel2.Controls.Add(this.tglShowPassword);
+            this.customPanelPanel2.Controls.Add(label15);
+            this.customPanelPanel2.Controls.Add(this.customTextBox14);
+            this.customPanelPanel2.Controls.Add(label14);
+            this.customPanelPanel2.Controls.Add(this.customTextBox13);
+            this.customPanelPanel2.Controls.Add(label13);
+            this.customPanelPanel2.Controls.Add(this.customTextBox12);
+            this.customPanelPanel2.Controls.Add(this.label12);
+            this.customPanelPanel2.Edge = 5;
+            this.customPanelPanel2.Location = new System.Drawing.Point(17, 203);
+            this.customPanelPanel2.Name = "customPanelPanel2";
+            this.customPanelPanel2.Size = new System.Drawing.Size(460, 176);
+            this.customPanelPanel2.TabIndex = 1;
+            // 
+            // customTextBox15
+            // 
+            this.customTextBox15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox15.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox15.BorderSize = 1;
+            this.customTextBox15.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox15.Location = new System.Drawing.Point(239, 52);
+            this.customTextBox15.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox15.Multiline = true;
+            this.customTextBox15.Name = "customTextBox15";
+            this.customTextBox15.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox15.PasswordChar = false;
+            this.customTextBox15.ReadOnly = true;
+            this.customTextBox15.Size = new System.Drawing.Size(215, 23);
+            this.customTextBox15.TabIndex = 52;
+            this.customTextBox15.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox15.Texts = "";
+            this.customTextBox15.UnderlinedStyle = false;
+            // 
+            // tglShowPassword
+            // 
+            this.tglShowPassword.AutoSize = true;
+            this.tglShowPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglShowPassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tglShowPassword.Location = new System.Drawing.Point(18, 134);
+            this.tglShowPassword.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tglShowPassword.Name = "tglShowPassword";
+            this.tglShowPassword.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.tglShowPassword.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tglShowPassword.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.tglShowPassword.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tglShowPassword.Size = new System.Drawing.Size(45, 22);
+            this.tglShowPassword.SolidStyle = false;
+            this.tglShowPassword.TabIndex = 51;
+            this.tglShowPassword.UseVisualStyleBackColor = false;
+            // 
+            // customTextBox14
+            // 
+            this.customTextBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox14.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox14.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox14.BorderSize = 1;
+            this.customTextBox14.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox14.Location = new System.Drawing.Point(239, 93);
+            this.customTextBox14.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox14.Multiline = true;
+            this.customTextBox14.Name = "customTextBox14";
+            this.customTextBox14.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox14.PasswordChar = false;
+            this.customTextBox14.ReadOnly = true;
+            this.customTextBox14.Size = new System.Drawing.Size(215, 23);
+            this.customTextBox14.TabIndex = 49;
+            this.customTextBox14.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox14.Texts = "";
+            this.customTextBox14.UnderlinedStyle = false;
+            // 
+            // customTextBox13
+            // 
+            this.customTextBox13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox13.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox13.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox13.BorderSize = 1;
+            this.customTextBox13.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox13.Location = new System.Drawing.Point(18, 93);
+            this.customTextBox13.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox13.Multiline = true;
+            this.customTextBox13.Name = "customTextBox13";
+            this.customTextBox13.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox13.PasswordChar = false;
+            this.customTextBox13.ReadOnly = true;
+            this.customTextBox13.Size = new System.Drawing.Size(215, 23);
+            this.customTextBox13.TabIndex = 47;
+            this.customTextBox13.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox13.Texts = "";
+            this.customTextBox13.UnderlinedStyle = false;
+            // 
+            // customTextBox12
+            // 
+            this.customTextBox12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox12.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox12.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox12.BorderSize = 1;
+            this.customTextBox12.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox12.Location = new System.Drawing.Point(18, 52);
+            this.customTextBox12.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox12.Multiline = true;
+            this.customTextBox12.Name = "customTextBox12";
+            this.customTextBox12.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox12.PasswordChar = false;
+            this.customTextBox12.ReadOnly = true;
+            this.customTextBox12.Size = new System.Drawing.Size(215, 23);
+            this.customTextBox12.TabIndex = 45;
+            this.customTextBox12.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox12.Texts = "";
+            this.customTextBox12.UnderlinedStyle = false;
+            // 
+            // bntOpenLocation
+            // 
+            this.bntOpenLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntOpenLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.bntOpenLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.bntOpenLocation.BorderRadius = 3;
+            this.bntOpenLocation.BorderSize = 1;
+            this.bntOpenLocation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntOpenLocation.FlatAppearance.BorderSize = 0;
+            this.bntOpenLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntOpenLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bntOpenLocation.ForeColor = System.Drawing.Color.White;
+            this.bntOpenLocation.Location = new System.Drawing.Point(270, 134);
+            this.bntOpenLocation.Name = "bntOpenLocation";
+            this.bntOpenLocation.Size = new System.Drawing.Size(153, 30);
+            this.bntOpenLocation.TabIndex = 54;
+            this.bntOpenLocation.Text = "Create";
+            this.bntOpenLocation.TextColor = System.Drawing.Color.White;
+            this.bntOpenLocation.UseVisualStyleBackColor = false;
+            // 
+            // customPanelPanel3
+            // 
+            this.customPanelPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.customPanelPanel3.BorderColor = System.Drawing.Color.White;
+            this.customPanelPanel3.Controls.Add(this.customButton1);
+            this.customPanelPanel3.Controls.Add(label20);
+            this.customPanelPanel3.Controls.Add(this.customTextBox18);
+            this.customPanelPanel3.Controls.Add(label21);
+            this.customPanelPanel3.Controls.Add(this.customTextBox19);
+            this.customPanelPanel3.Controls.Add(this.label22);
+            this.customPanelPanel3.Edge = 5;
+            this.customPanelPanel3.Location = new System.Drawing.Point(483, 203);
+            this.customPanelPanel3.Name = "customPanelPanel3";
+            this.customPanelPanel3.Size = new System.Drawing.Size(194, 176);
+            this.customPanelPanel3.TabIndex = 2;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label20.Location = new System.Drawing.Point(22, 78);
+            label20.Name = "label20";
+            label20.Size = new System.Drawing.Size(60, 15);
+            label20.TabIndex = 48;
+            label20.Text = "Password:";
+            // 
+            // customTextBox18
+            // 
+            this.customTextBox18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox18.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox18.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox18.BorderSize = 1;
+            this.customTextBox18.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox18.Location = new System.Drawing.Point(22, 93);
+            this.customTextBox18.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox18.Multiline = true;
+            this.customTextBox18.Name = "customTextBox18";
+            this.customTextBox18.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox18.PasswordChar = false;
+            this.customTextBox18.ReadOnly = true;
+            this.customTextBox18.Size = new System.Drawing.Size(153, 23);
+            this.customTextBox18.TabIndex = 47;
+            this.customTextBox18.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox18.Texts = "";
+            this.customTextBox18.UnderlinedStyle = false;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            label21.Location = new System.Drawing.Point(22, 37);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(68, 15);
+            label21.TabIndex = 46;
+            label21.Text = "User Name:";
+            // 
+            // customTextBox19
+            // 
+            this.customTextBox19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customTextBox19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customTextBox19.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.customTextBox19.BorderSize = 1;
+            this.customTextBox19.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.customTextBox19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.customTextBox19.Location = new System.Drawing.Point(22, 52);
+            this.customTextBox19.Margin = new System.Windows.Forms.Padding(0);
+            this.customTextBox19.Multiline = true;
+            this.customTextBox19.Name = "customTextBox19";
+            this.customTextBox19.Padding = new System.Windows.Forms.Padding(1);
+            this.customTextBox19.PasswordChar = false;
+            this.customTextBox19.ReadOnly = true;
+            this.customTextBox19.Size = new System.Drawing.Size(153, 23);
+            this.customTextBox19.TabIndex = 45;
+            this.customTextBox19.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.customTextBox19.Texts = "";
+            this.customTextBox19.UnderlinedStyle = false;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label22.Location = new System.Drawing.Point(11, 7);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(102, 21);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "Set GM level";
+            // 
+            // customButton1
+            // 
+            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.customButton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customButton1.BorderRadius = 3;
+            this.customButton1.BorderSize = 1;
+            this.customButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customButton1.FlatAppearance.BorderSize = 0;
+            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.customButton1.ForeColor = System.Drawing.Color.White;
+            this.customButton1.Location = new System.Drawing.Point(22, 137);
+            this.customButton1.Name = "customButton1";
+            this.customButton1.Size = new System.Drawing.Size(153, 30);
+            this.customButton1.TabIndex = 55;
+            this.customButton1.Text = "Create";
+            this.customButton1.TextColor = System.Drawing.Color.White;
+            this.customButton1.UseVisualStyleBackColor = false;
+            // 
             // TerminalControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.customPanelPanel3);
+            this.Controls.Add(this.customPanelPanel2);
             this.Controls.Add(this.customPanelPanel1);
             this.Name = "TerminalControl";
             this.Size = new System.Drawing.Size(697, 561);
             this.customPanelPanel1.ResumeLayout(false);
             this.customPanelPanel1.PerformLayout();
+            this.customPanelPanel2.ResumeLayout(false);
+            this.customPanelPanel2.PerformLayout();
+            this.customPanelPanel3.ResumeLayout(false);
+            this.customPanelPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -546,6 +865,18 @@
         private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox6;
         private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox7;
         private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox8;
-        private UI.CustomComboBox comboBoxCore;
+        private Label label12;
+        private CypherCore_Server_Laucher.UI.CustomPanelPanel customPanelPanel2;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox14;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox13;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox12;
+        private RJCodeAdvance.RJControls.CustomToggleButton tglShowPassword;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox15;
+        private CypherCore_Server_Laucher.UI.CustomButton bntOpenLocation;
+        private CypherCore_Server_Laucher.UI.CustomPanelPanel customPanelPanel3;
+        private CypherCore_Server_Laucher.UI.CustomButton customButton1;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox18;
+        private CypherCore_Server_Laucher.UI.CustomTextBox customTextBox19;
+        private Label label22;
     }
 }

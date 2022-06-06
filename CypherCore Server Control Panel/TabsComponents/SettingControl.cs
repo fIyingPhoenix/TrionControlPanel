@@ -1,25 +1,26 @@
 ﻿using System.ComponentModel;
+using CypherCoreServerLaucher.Database;
 using CypherCoreServerLaucher.Properties;
 using CypherCore_Server_Laucher.Classes;
 using CypherCore_Server_Laucher.Forms;
 using System.Diagnostics;
-using System.Windows;
 
 namespace CypherCore_Server_Laucher.TabsComponents
 {
     public partial class SettingControl : UserControl
     {
+        
         //settings data located in appdata/local/CypherCoreServerLaucher
 
         private void LoadSettings()
         {
             //loading data form settings file(xml)
-            comboBoxCore.SelectedIndex = Settings.Default.ConboBoxCore;
+            comboBoxCore.SelectedIndex = Settings.Default.ComboBoxCore;
             txtWorldLocation.Texts = Settings.Default.WorldCoreLocation;
             txtBnetLocation.Texts = Settings.Default.BnetCoreLocation;
             txtMySqlPassowrd.Texts = Settings.Default.MySQLServerPassword;
             txtMySqlPort.Texts = Settings.Default.MySQLServerPort;
-            txtMySqlServer.Texts = Settings.Default.MySQLServerName;
+            txtMySqlServer.Texts = Settings.Default.MySQLServerHost;
             txtMySqlUser.Texts = Settings.Default.MySQLServerUsername;
             txtWorldDatabase.Texts = Settings.Default.WorldDatabaseName;
             txtAuthDatabase.Texts = Settings.Default.AuthDatabaseName;
@@ -36,7 +37,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private void SaveSettings()
         {
             //loading data form settings file(xml)
-            Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+            Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
             Settings.Default.WorldCoreName = txtWorldName.Texts;
             Settings.Default.ApacheCoreName = txtApacheName.Texts;
             Settings.Default.BnetCoreName = txtBnetName.Texts;
@@ -45,7 +46,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             Settings.Default.BnetCoreLocation = txtBnetLocation.Texts;
             Settings.Default.MySQLServerPassword = txtMySqlPassowrd.Texts;
             Settings.Default.MySQLServerPort= txtMySqlPort.Texts;
-            Settings.Default.MySQLServerName = txtMySqlServer.Texts;
+            Settings.Default.MySQLServerHost = txtMySqlServer.Texts;
             Settings.Default.MySQLServerUsername = txtMySqlUser.Texts;
             Settings.Default.WorldDatabaseName = txtWorldDatabase.Texts;
             Settings.Default.AuthDatabaseName = txtAuthDatabase.Texts;
@@ -133,7 +134,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
         }
         private void BntOpenLocation_Click(object sender, EventArgs e)
         {
-            //just a fail safe. inc ase the CoreLocation is empty.
+            //just a fail safe. incase the CoreLocation is empty.
             if (Settings.Default.CoreLocation == string.Empty)
             {
                 Alert("Server Location Unknow!", NotificationType.Error);
@@ -172,7 +173,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             if (comboBoxCore.SelectedIndex == 0)
             {
                 // AscEmu
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "logon";
                 Settings.Default.WorldCoreName = "world";
                 Settings.Default.Save();
@@ -181,7 +182,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if(comboBoxCore.SelectedIndex == 1)
             {
                 //AzerothCore
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "authserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -190,7 +191,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if (comboBoxCore.SelectedIndex == 2)
             {
                 //Continued MaNGOS
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "realmd";
                 Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
@@ -199,7 +200,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if (comboBoxCore.SelectedIndex == 3)
             {
                 //CypherCore
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "BNetServer";
                 Settings.Default.WorldCoreName = "WorldServer";
                 Settings.Default.Save();
@@ -208,7 +209,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if (comboBoxCore.SelectedIndex == 4)
             {
                 //TrinityCore
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "bnetserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -217,7 +218,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if (comboBoxCore.SelectedIndex == 5)
             {
                 //TrinityCore 4.3.4(TCPP)
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "bnetserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -226,12 +227,18 @@ namespace CypherCore_Server_Laucher.TabsComponents
             else if (comboBoxCore.SelectedIndex == 6)
             {
                 //Vanilla MaNGOS
-                Settings.Default.ConboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "realmd";
                 Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
                 LoadSettings();
             }
+        }
+
+        private void btnTestMySQL_Click(object sender, EventArgs e)
+        {
+            DatabaseConnection.MySqlConnectCheck();
+         
         }
     }
 }

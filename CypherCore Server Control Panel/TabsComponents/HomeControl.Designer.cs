@@ -71,6 +71,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.customWebBrowser2 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
             this.customWebBrowser3 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
             this.customWebBrowser4 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
+            this.customWebBrowser5 = new CypherCoreServerLaucher.UI.CustomWebBrowser();
             this.sPanel2.SuspendLayout();
             this.sPanel1.SuspendLayout();
             this.roundPanel1.SuspendLayout();
@@ -406,7 +407,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // 
             this.totalRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.totalRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.totalRamUsageProgressBar.Cursor = System.Windows.Forms.Cursors.Default;
             this.totalRamUsageProgressBar.FontSize = 10;
             this.totalRamUsageProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalRamUsageProgressBar.LabelText = "MB";
@@ -569,7 +569,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // customWebBrowser1
             // 
             this.customWebBrowser1.AllowNavigation = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(97, 24);
+            this.customWebBrowser1.Location = new System.Drawing.Point(18, 22);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScrollBarsEnabled = false;
             this.customWebBrowser1.Size = new System.Drawing.Size(142, 28);
@@ -580,7 +580,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             // customWebBrowser2
             // 
             this.customWebBrowser2.AllowNavigation = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(245, 24);
+            this.customWebBrowser2.Location = new System.Drawing.Point(166, 22);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
@@ -594,7 +594,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.customWebBrowser3.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.customWebBrowser3.AllowNavigation = false;
             this.customWebBrowser3.AllowWebBrowserDrop = false;
-            this.customWebBrowser3.Location = new System.Drawing.Point(347, 24);
+            this.customWebBrowser3.Location = new System.Drawing.Point(268, 22);
             this.customWebBrowser3.Name = "customWebBrowser3";
             this.customWebBrowser3.ScrollBarsEnabled = false;
             this.customWebBrowser3.Size = new System.Drawing.Size(97, 28);
@@ -608,7 +608,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             this.customWebBrowser4.AllowNavigation = false;
             this.customWebBrowser4.AllowWebBrowserDrop = false;
             this.customWebBrowser4.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser4.Location = new System.Drawing.Point(450, 24);
+            this.customWebBrowser4.Location = new System.Drawing.Point(371, 22);
             this.customWebBrowser4.Name = "customWebBrowser4";
             this.customWebBrowser4.ScriptErrorsSuppressed = true;
             this.customWebBrowser4.ScrollBarsEnabled = false;
@@ -618,11 +618,23 @@ namespace CypherCore_Server_Laucher.TabsComponents
         ".svg?style=for-the-badge", System.UriKind.Absolute);
             this.customWebBrowser4.WebBrowserShortcutsEnabled = false;
             // 
+            // customWebBrowser5
+            // 
+            this.customWebBrowser5.AllowNavigation = false;
+            this.customWebBrowser5.Location = new System.Drawing.Point(529, 22);
+            this.customWebBrowser5.Name = "customWebBrowser5";
+            this.customWebBrowser5.ScrollBarsEnabled = false;
+            this.customWebBrowser5.Size = new System.Drawing.Size(147, 28);
+            this.customWebBrowser5.TabIndex = 41;
+            this.customWebBrowser5.Url = new System.Uri("https://img.shields.io/codefactor/grade/github/fIyingPhoenix/CypherCore-Server-Ad" +
+        "dons?style=for-the-badge", System.UriKind.Absolute);
+            // 
             // HomeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.customWebBrowser5);
             this.Controls.Add(this.customWebBrowser4);
             this.Controls.Add(this.customWebBrowser3);
             this.Controls.Add(this.customWebBrowser2);
@@ -695,5 +707,6 @@ namespace CypherCore_Server_Laucher.TabsComponents
         private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser3;
         private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser4;
         internal CustomProgressBar totalRamUsageProgressBar;
+        private CypherCoreServerLaucher.UI.CustomWebBrowser customWebBrowser5;
     }
 }

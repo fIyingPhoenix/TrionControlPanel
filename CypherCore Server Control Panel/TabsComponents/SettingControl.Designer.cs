@@ -79,6 +79,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtWorldName = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
+            this.btnTestMySQL = new CypherCore_Server_Laucher.UI.CustomButton();
             lblWorldLocation = new System.Windows.Forms.Label();
             lblWorldName = new System.Windows.Forms.Label();
             lblBnetName = new System.Windows.Forms.Label();
@@ -701,9 +702,9 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(561, 508);
+            this.btnSave.Location = new System.Drawing.Point(618, 508);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(120, 40);
+            this.btnSave.Size = new System.Drawing.Size(63, 40);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.TextColor = System.Drawing.Color.White;
@@ -858,9 +859,31 @@
             this.timerCheck.Enabled = true;
             this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
             // 
+            // btnTestMySQL
+            // 
+            this.btnTestMySQL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnTestMySQL.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.btnTestMySQL.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnTestMySQL.BorderRadius = 3;
+            this.btnTestMySQL.BorderSize = 1;
+            this.btnTestMySQL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTestMySQL.FlatAppearance.BorderSize = 0;
+            this.btnTestMySQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTestMySQL.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTestMySQL.ForeColor = System.Drawing.Color.White;
+            this.btnTestMySQL.Location = new System.Drawing.Point(468, 508);
+            this.btnTestMySQL.Name = "btnTestMySQL";
+            this.btnTestMySQL.Size = new System.Drawing.Size(144, 40);
+            this.btnTestMySQL.TabIndex = 6;
+            this.btnTestMySQL.Text = "Test Connection";
+            this.btnTestMySQL.TextColor = System.Drawing.Color.White;
+            this.btnTestMySQL.UseVisualStyleBackColor = false;
+            this.btnTestMySQL.Click += new System.EventHandler(this.btnTestMySQL_Click);
+            // 
             // SettingControl
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.Controls.Add(this.btnTestMySQL);
             this.Controls.Add(this.customPanelPanel1);
             this.Controls.Add(this.roundPanel4);
             this.Controls.Add(this.roundPanel3);
@@ -932,5 +955,6 @@
         private Label label1;
         private RJCodeAdvance.RJControls.CustomToggleButton tglCustomNames;
         private System.Windows.Forms.Timer timerCheck;
+        private UI.CustomButton btnTestMySQL;
     }
 }

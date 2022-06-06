@@ -42,9 +42,9 @@
             // 
             this.picIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picIcon.Image = global::CypherCoreServerLaucher.Properties.Resources.ok_100;
-            this.picIcon.Location = new System.Drawing.Point(8, 9);
+            this.picIcon.Location = new System.Drawing.Point(19, 20);
             this.picIcon.Name = "picIcon";
-            this.picIcon.Size = new System.Drawing.Size(80, 80);
+            this.picIcon.Size = new System.Drawing.Size(74, 72);
             this.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picIcon.TabIndex = 0;
             this.picIcon.TabStop = false;
@@ -54,7 +54,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblTitle.Location = new System.Drawing.Point(94, 15);
+            this.lblTitle.Location = new System.Drawing.Point(107, 17);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(60, 21);
             this.lblTitle.TabIndex = 1;
@@ -78,7 +78,7 @@
             this.bntClose.FlatAppearance.BorderSize = 0;
             this.bntClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntClose.ForeColor = System.Drawing.Color.White;
-            this.bntClose.Location = new System.Drawing.Point(302, 8);
+            this.bntClose.Location = new System.Drawing.Point(452, 11);
             this.bntClose.Name = "bntClose";
             this.bntClose.Size = new System.Drawing.Size(20, 20);
             this.bntClose.TabIndex = 1;
@@ -91,11 +91,11 @@
             this.lblText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.lblText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lblText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblText.Location = new System.Drawing.Point(94, 41);
+            this.lblText.Location = new System.Drawing.Point(107, 41);
             this.lblText.Multiline = true;
             this.lblText.Name = "lblText";
             this.lblText.ReadOnly = true;
-            this.lblText.Size = new System.Drawing.Size(228, 51);
+            this.lblText.Size = new System.Drawing.Size(367, 61);
             this.lblText.TabIndex = 2;
             // 
             // FormAlert
@@ -103,7 +103,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.ClientSize = new System.Drawing.Size(330, 100);
+            this.ClientSize = new System.Drawing.Size(482, 110);
             this.Controls.Add(this.lblText);
             this.Controls.Add(this.bntClose);
             this.Controls.Add(this.lblTitle);

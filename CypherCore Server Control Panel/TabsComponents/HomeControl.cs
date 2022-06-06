@@ -149,8 +149,9 @@ namespace CypherCore_Server_Laucher.TabsComponents
             {
                 if (_isRuningBnet == true)
                 {
-                    Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);
                     _isRuningBnet = false;
+                    Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    
                 }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();

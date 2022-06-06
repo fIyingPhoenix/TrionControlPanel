@@ -1,0 +1,2 @@
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Publish\CypherCore Server Control Panel.pdb
+D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\CypherCore Server Control Panel\bin\Publish\CypherCore Server Control Panel.exe

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5PP2XlwW7MliU7oGIotpB5KbcUMg2WvugRgE79nP4OrmkHKqSz8N6gqH39QgxwWioQWOVW8wIVyW9EhZc9cmWw==",
+  "dgSpecHash": "oDO27mSDkJ1nhpdfM+Yvgpavvg/zhXuUHlCmLfOdjBuyhjoNeTHJ9VVdNbAfrAjEsoB81+LXnW5HUYjBgeIkIQ==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore Server Control Panel\\CypherCore Server Control Panel.csproj",
+  "projectFilePath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore-Server-Addons\\CypherCore Server Control Panel\\CypherCore Server Control Panel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

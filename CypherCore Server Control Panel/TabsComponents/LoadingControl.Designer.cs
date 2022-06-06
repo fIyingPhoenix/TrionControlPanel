@@ -38,10 +38,10 @@
             // 
             this.picLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picLoading.Image = ((System.Drawing.Image)(resources.GetObject("picLoading.Image")));
-            this.picLoading.Location = new System.Drawing.Point(178, 109);
+            this.picLoading.Location = new System.Drawing.Point(229, 144);
             this.picLoading.Name = "picLoading";
-            this.picLoading.Size = new System.Drawing.Size(318, 299);
-            this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLoading.Size = new System.Drawing.Size(200, 200);
+            this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picLoading.TabIndex = 0;
             this.picLoading.TabStop = false;
             this.picLoading.WaitOnLoad = true;
@@ -51,7 +51,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label1.Location = new System.Drawing.Point(283, 411);
+            this.label1.Location = new System.Drawing.Point(268, 356);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 32);
             this.label1.TabIndex = 1;
