@@ -225,7 +225,6 @@ namespace CypherCore_Server_Laucher.UI
             {
                 textBox1.PasswordChar = '*';
             }
- 
         }
     }
 }

@@ -1,21 +1,15 @@
 ﻿using CypherCoreServerLaucher.Properties;
 using CypherCore_Server_Laucher.Classes;
-using CypherCore_Server_Laucher.Forms;
 using MySql.Data.MySqlClient;
 using System.Data;
 using CypherCore_Server_Laucher.TabsComponents;
-using System.Security.Cryptography;
-using System.Text;
-using System.Numerics;
-using System;
 namespace CypherCoreServerLaucher.Database
 {
-
-
     internal class DatabaseConnection
     {
-        private  MySqlConnection MySqlCore = new MySqlConnection($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
 
+
+        private  MySqlConnection MySqlCore = new MySqlConnection($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
         internal MySqlConnection GetConnection
         {
             get
@@ -23,7 +17,6 @@ namespace CypherCoreServerLaucher.Database
                 return MySqlCore;
             }
         }
-
         internal void MySqlConnectCheck()
         {
             try
@@ -74,11 +67,6 @@ namespace CypherCoreServerLaucher.Database
 
             if (GetId(email) != 0)
                 HomeControl.Alert("Email exists!", NotificationType.Info);
-
-
-
-
-
             return false;
         }
         public uint GetId(string username)
@@ -96,7 +84,6 @@ namespace CypherCoreServerLaucher.Database
             {
                 return 0;
             }
-
         }
         //public string CalculateShaPassHash(string name, string password)
         //{
@@ -104,6 +91,5 @@ namespace CypherCoreServerLaucher.Database
         //    var i = sha256.ComputeHash(Encoding.UTF8.GetBytes(name));
         //    return sha256.ComputeHash(Encoding.UTF8.GetBytes(i.ToHexString() + ":" + password)).ToHexString(true);
         //}
-
     }
 }

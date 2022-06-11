@@ -139,6 +139,7 @@
             this.mainNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotify.Icon")));
             this.mainNotify.Text = "CypherCore Server Control Panel";
             this.mainNotify.Visible = true;
+            this.mainNotify.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainNotify_MouseDoubleClick);
             // 
             // timerCheck
             // 

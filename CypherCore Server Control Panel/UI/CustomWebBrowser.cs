@@ -10,7 +10,6 @@ namespace CypherCoreServerLaucher.UI
     {
         public CustomWebBrowser()
         {
-            
             this.DoubleBuffered = true;
             this.ScrollBarsEnabled = false;
             this.AllowNavigation = false;

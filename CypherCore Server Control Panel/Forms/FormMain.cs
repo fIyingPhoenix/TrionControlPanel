@@ -1,4 +1,5 @@
 ﻿using CypherCore_Server_Laucher.TabsComponents;
+using CypherCoreServerLaucher.Properties;
 using CypherCoreServerLaucher.TabsComponents;
 
 namespace CypherCore_Server_Laucher
@@ -13,10 +14,8 @@ namespace CypherCore_Server_Laucher
         {
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
-
             InitializeComponent();
             //Load Home Controls
-
             pnlTabs.Controls.Add(loadingControl);
         }
         private void BtnHome_Click(object sender, EventArgs e)
@@ -51,17 +50,27 @@ namespace CypherCore_Server_Laucher
         private void FormMain_Load(object sender, EventArgs e)
         {
         }
-
         private void btnTerminal_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(terminalControl);
         }
-
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(0);
+            if (Settings.Default.TogleStayInTray == true)
+            {
+                this.Hide();
+                e.Cancel = true;
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
+        }
+        private void mainNotify_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
         }
     }
 }

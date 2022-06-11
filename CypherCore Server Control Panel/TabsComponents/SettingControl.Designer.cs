@@ -42,7 +42,10 @@
             this.txtWorldLocation = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblPCresource = new System.Windows.Forms.Label();
             this.roundPanel2 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
+            this.picSettingsInfos = new System.Windows.Forms.PictureBox();
+            this.lblAuth = new System.Windows.Forms.Label();
             this.lblPort = new System.Windows.Forms.Label();
+            this.txtAuthDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtMySqlPort = new CypherCore_Server_Laucher.UI.CustomTextBox();
             this.txtMySqlPassowrd = new CypherCore_Server_Laucher.UI.CustomTextBox();
@@ -61,14 +64,6 @@
             this.tglNotySound = new RJCodeAdvance.RJControls.CustomToggleButton();
             this.lblStayTray = new System.Windows.Forms.Label();
             this.lblControlPanelSettings = new System.Windows.Forms.Label();
-            this.roundPanel4 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
-            this.lblAuth = new System.Windows.Forms.Label();
-            this.lblDatabaseSettings = new System.Windows.Forms.Label();
-            this.txtAuthDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
-            this.txtWorldDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
-            this.lblCharacters = new System.Windows.Forms.Label();
-            this.txtCharactersDatabase = new CypherCore_Server_Laucher.UI.CustomTextBox();
-            this.lblWorld = new System.Windows.Forms.Label();
             this.btnSave = new CypherCore_Server_Laucher.UI.CustomButton();
             this.customPanelPanel1 = new CypherCore_Server_Laucher.UI.CustomPanelPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -87,8 +82,8 @@
             lblMysqlName = new System.Windows.Forms.Label();
             this.roundPanel1.SuspendLayout();
             this.roundPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSettingsInfos)).BeginInit();
             this.roundPanel3.SuspendLayout();
-            this.roundPanel4.SuspendLayout();
             this.customPanelPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -268,7 +263,10 @@
             // 
             this.roundPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel2.BorderColor = System.Drawing.Color.White;
+            this.roundPanel2.Controls.Add(this.picSettingsInfos);
+            this.roundPanel2.Controls.Add(this.lblAuth);
             this.roundPanel2.Controls.Add(this.lblPort);
+            this.roundPanel2.Controls.Add(this.txtAuthDatabase);
             this.roundPanel2.Controls.Add(this.lblPassword);
             this.roundPanel2.Controls.Add(this.txtMySqlPort);
             this.roundPanel2.Controls.Add(this.txtMySqlPassowrd);
@@ -278,10 +276,32 @@
             this.roundPanel2.Controls.Add(this.txtMySqlServer);
             this.roundPanel2.Controls.Add(this.lblMySqlServerSettings);
             this.roundPanel2.Edge = 5;
-            this.roundPanel2.Location = new System.Drawing.Point(11, 199);
+            this.roundPanel2.Location = new System.Drawing.Point(214, 199);
             this.roundPanel2.Name = "roundPanel2";
-            this.roundPanel2.Size = new System.Drawing.Size(208, 296);
+            this.roundPanel2.Size = new System.Drawing.Size(235, 296);
             this.roundPanel2.TabIndex = 1;
+            // 
+            // picSettingsInfos
+            // 
+            this.picSettingsInfos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picSettingsInfos.Image = global::CypherCoreServerLaucher.Properties.Resources.info_24px;
+            this.picSettingsInfos.Location = new System.Drawing.Point(200, 10);
+            this.picSettingsInfos.Name = "picSettingsInfos";
+            this.picSettingsInfos.Size = new System.Drawing.Size(25, 24);
+            this.picSettingsInfos.TabIndex = 42;
+            this.picSettingsInfos.TabStop = false;
+            this.picSettingsInfos.Click += new System.EventHandler(this.picSettingsInfos_Click);
+            // 
+            // lblAuth
+            // 
+            this.lblAuth.AutoSize = true;
+            this.lblAuth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblAuth.Location = new System.Drawing.Point(17, 239);
+            this.lblAuth.Name = "lblAuth";
+            this.lblAuth.Size = new System.Drawing.Size(36, 15);
+            this.lblAuth.TabIndex = 41;
+            this.lblAuth.Text = "Auth:";
+            this.lblAuth.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lblPort
             // 
@@ -292,6 +312,27 @@
             this.lblPort.Size = new System.Drawing.Size(32, 15);
             this.lblPort.TabIndex = 32;
             this.lblPort.Text = "Port:";
+            // 
+            // txtAuthDatabase
+            // 
+            this.txtAuthDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtAuthDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtAuthDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtAuthDatabase.BorderSize = 1;
+            this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtAuthDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtAuthDatabase.Location = new System.Drawing.Point(17, 257);
+            this.txtAuthDatabase.Margin = new System.Windows.Forms.Padding(0);
+            this.txtAuthDatabase.Multiline = true;
+            this.txtAuthDatabase.Name = "txtAuthDatabase";
+            this.txtAuthDatabase.Padding = new System.Windows.Forms.Padding(1);
+            this.txtAuthDatabase.PasswordChar = false;
+            this.txtAuthDatabase.ReadOnly = false;
+            this.txtAuthDatabase.Size = new System.Drawing.Size(206, 23);
+            this.txtAuthDatabase.TabIndex = 40;
+            this.txtAuthDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAuthDatabase.Texts = "";
+            this.txtAuthDatabase.UnderlinedStyle = false;
             // 
             // lblPassword
             // 
@@ -318,7 +359,7 @@
             this.txtMySqlPort.Padding = new System.Windows.Forms.Padding(1);
             this.txtMySqlPort.PasswordChar = false;
             this.txtMySqlPort.ReadOnly = false;
-            this.txtMySqlPort.Size = new System.Drawing.Size(167, 23);
+            this.txtMySqlPort.Size = new System.Drawing.Size(206, 23);
             this.txtMySqlPort.TabIndex = 31;
             this.txtMySqlPort.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMySqlPort.Texts = "";
@@ -340,7 +381,7 @@
             this.txtMySqlPassowrd.Padding = new System.Windows.Forms.Padding(1);
             this.txtMySqlPassowrd.PasswordChar = false;
             this.txtMySqlPassowrd.ReadOnly = false;
-            this.txtMySqlPassowrd.Size = new System.Drawing.Size(167, 23);
+            this.txtMySqlPassowrd.Size = new System.Drawing.Size(206, 23);
             this.txtMySqlPassowrd.TabIndex = 30;
             this.txtMySqlPassowrd.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMySqlPassowrd.Texts = "";
@@ -381,7 +422,7 @@
             this.txtMySqlUser.Padding = new System.Windows.Forms.Padding(1);
             this.txtMySqlUser.PasswordChar = false;
             this.txtMySqlUser.ReadOnly = false;
-            this.txtMySqlUser.Size = new System.Drawing.Size(167, 23);
+            this.txtMySqlUser.Size = new System.Drawing.Size(206, 23);
             this.txtMySqlUser.TabIndex = 22;
             this.txtMySqlUser.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMySqlUser.Texts = "";
@@ -402,7 +443,7 @@
             this.txtMySqlServer.Padding = new System.Windows.Forms.Padding(1);
             this.txtMySqlServer.PasswordChar = false;
             this.txtMySqlServer.ReadOnly = false;
-            this.txtMySqlServer.Size = new System.Drawing.Size(167, 23);
+            this.txtMySqlServer.Size = new System.Drawing.Size(206, 23);
             this.txtMySqlServer.TabIndex = 21;
             this.txtMySqlServer.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMySqlServer.Texts = "";
@@ -413,7 +454,7 @@
             this.lblMySqlServerSettings.AutoSize = true;
             this.lblMySqlServerSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblMySqlServerSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblMySqlServerSettings.Location = new System.Drawing.Point(14, 7);
+            this.lblMySqlServerSettings.Location = new System.Drawing.Point(14, 9);
             this.lblMySqlServerSettings.Name = "lblMySqlServerSettings";
             this.lblMySqlServerSettings.Size = new System.Drawing.Size(178, 21);
             this.lblMySqlServerSettings.TabIndex = 20;
@@ -435,6 +476,7 @@
             this.tglStayInTray.SolidStyle = false;
             this.tglStayInTray.TabIndex = 2;
             this.tglStayInTray.UseVisualStyleBackColor = false;
+            this.tglStayInTray.CheckedChanged += new System.EventHandler(this.tglStayInTray_CheckedChanged);
             // 
             // roundPanel3
             // 
@@ -568,128 +610,6 @@
             this.lblControlPanelSettings.TabIndex = 21;
             this.lblControlPanelSettings.Text = "Control Panel Settings";
             // 
-            // roundPanel4
-            // 
-            this.roundPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.roundPanel4.BorderColor = System.Drawing.Color.White;
-            this.roundPanel4.Controls.Add(this.lblAuth);
-            this.roundPanel4.Controls.Add(this.lblDatabaseSettings);
-            this.roundPanel4.Controls.Add(this.txtAuthDatabase);
-            this.roundPanel4.Controls.Add(this.txtWorldDatabase);
-            this.roundPanel4.Controls.Add(this.lblCharacters);
-            this.roundPanel4.Controls.Add(this.txtCharactersDatabase);
-            this.roundPanel4.Controls.Add(this.lblWorld);
-            this.roundPanel4.Edge = 5;
-            this.roundPanel4.Location = new System.Drawing.Point(225, 199);
-            this.roundPanel4.Name = "roundPanel4";
-            this.roundPanel4.Size = new System.Drawing.Size(224, 296);
-            this.roundPanel4.TabIndex = 4;
-            // 
-            // lblAuth
-            // 
-            this.lblAuth.AutoSize = true;
-            this.lblAuth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblAuth.Location = new System.Drawing.Point(26, 142);
-            this.lblAuth.Name = "lblAuth";
-            this.lblAuth.Size = new System.Drawing.Size(36, 15);
-            this.lblAuth.TabIndex = 41;
-            this.lblAuth.Text = "Auth:";
-            this.lblAuth.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblDatabaseSettings
-            // 
-            this.lblDatabaseSettings.AutoSize = true;
-            this.lblDatabaseSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDatabaseSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblDatabaseSettings.Location = new System.Drawing.Point(7, 7);
-            this.lblDatabaseSettings.Name = "lblDatabaseSettings";
-            this.lblDatabaseSettings.Size = new System.Drawing.Size(141, 21);
-            this.lblDatabaseSettings.TabIndex = 21;
-            this.lblDatabaseSettings.Text = "Database Settings";
-            // 
-            // txtAuthDatabase
-            // 
-            this.txtAuthDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtAuthDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtAuthDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtAuthDatabase.BorderSize = 1;
-            this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtAuthDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtAuthDatabase.Location = new System.Drawing.Point(26, 160);
-            this.txtAuthDatabase.Margin = new System.Windows.Forms.Padding(0);
-            this.txtAuthDatabase.Multiline = true;
-            this.txtAuthDatabase.Name = "txtAuthDatabase";
-            this.txtAuthDatabase.Padding = new System.Windows.Forms.Padding(1);
-            this.txtAuthDatabase.PasswordChar = false;
-            this.txtAuthDatabase.ReadOnly = false;
-            this.txtAuthDatabase.Size = new System.Drawing.Size(167, 23);
-            this.txtAuthDatabase.TabIndex = 40;
-            this.txtAuthDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtAuthDatabase.Texts = "";
-            this.txtAuthDatabase.UnderlinedStyle = false;
-            // 
-            // txtWorldDatabase
-            // 
-            this.txtWorldDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtWorldDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtWorldDatabase.BorderSize = 1;
-            this.txtWorldDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtWorldDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtWorldDatabase.Location = new System.Drawing.Point(26, 70);
-            this.txtWorldDatabase.Margin = new System.Windows.Forms.Padding(0);
-            this.txtWorldDatabase.Multiline = true;
-            this.txtWorldDatabase.Name = "txtWorldDatabase";
-            this.txtWorldDatabase.Padding = new System.Windows.Forms.Padding(1);
-            this.txtWorldDatabase.PasswordChar = false;
-            this.txtWorldDatabase.ReadOnly = false;
-            this.txtWorldDatabase.Size = new System.Drawing.Size(167, 23);
-            this.txtWorldDatabase.TabIndex = 36;
-            this.txtWorldDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWorldDatabase.Texts = "";
-            this.txtWorldDatabase.UnderlinedStyle = false;
-            // 
-            // lblCharacters
-            // 
-            this.lblCharacters.AutoSize = true;
-            this.lblCharacters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblCharacters.Location = new System.Drawing.Point(26, 98);
-            this.lblCharacters.Name = "lblCharacters";
-            this.lblCharacters.Size = new System.Drawing.Size(63, 15);
-            this.lblCharacters.TabIndex = 38;
-            this.lblCharacters.Text = "Characters";
-            // 
-            // txtCharactersDatabase
-            // 
-            this.txtCharactersDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtCharactersDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtCharactersDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtCharactersDatabase.BorderSize = 1;
-            this.txtCharactersDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtCharactersDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtCharactersDatabase.Location = new System.Drawing.Point(26, 116);
-            this.txtCharactersDatabase.Margin = new System.Windows.Forms.Padding(0);
-            this.txtCharactersDatabase.Multiline = true;
-            this.txtCharactersDatabase.Name = "txtCharactersDatabase";
-            this.txtCharactersDatabase.Padding = new System.Windows.Forms.Padding(1);
-            this.txtCharactersDatabase.PasswordChar = false;
-            this.txtCharactersDatabase.ReadOnly = false;
-            this.txtCharactersDatabase.Size = new System.Drawing.Size(167, 23);
-            this.txtCharactersDatabase.TabIndex = 37;
-            this.txtCharactersDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCharactersDatabase.Texts = "";
-            this.txtCharactersDatabase.UnderlinedStyle = false;
-            // 
-            // lblWorld
-            // 
-            this.lblWorld.AutoSize = true;
-            this.lblWorld.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorld.Location = new System.Drawing.Point(26, 52);
-            this.lblWorld.Name = "lblWorld";
-            this.lblWorld.Size = new System.Drawing.Size(42, 15);
-            this.lblWorld.TabIndex = 39;
-            this.lblWorld.Text = "World:";
-            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
@@ -702,7 +622,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(618, 508);
+            this.btnSave.Location = new System.Drawing.Point(623, 509);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(63, 40);
             this.btnSave.TabIndex = 1;
@@ -871,7 +791,7 @@
             this.btnTestMySQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTestMySQL.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTestMySQL.ForeColor = System.Drawing.Color.White;
-            this.btnTestMySQL.Location = new System.Drawing.Point(469, 508);
+            this.btnTestMySQL.Location = new System.Drawing.Point(474, 509);
             this.btnTestMySQL.Name = "btnTestMySQL";
             this.btnTestMySQL.Size = new System.Drawing.Size(144, 40);
             this.btnTestMySQL.TabIndex = 6;
@@ -885,7 +805,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.Controls.Add(this.btnTestMySQL);
             this.Controls.Add(this.customPanelPanel1);
-            this.Controls.Add(this.roundPanel4);
             this.Controls.Add(this.roundPanel3);
             this.Controls.Add(this.roundPanel2);
             this.Controls.Add(this.roundPanel1);
@@ -897,10 +816,9 @@
             this.roundPanel1.PerformLayout();
             this.roundPanel2.ResumeLayout(false);
             this.roundPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSettingsInfos)).EndInit();
             this.roundPanel3.ResumeLayout(false);
             this.roundPanel3.PerformLayout();
-            this.roundPanel4.ResumeLayout(false);
-            this.roundPanel4.PerformLayout();
             this.customPanelPanel1.ResumeLayout(false);
             this.customPanelPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -919,12 +837,8 @@
         private UI.CustomPanelPanel roundPanel2;
         private Label lblPort;
         private Label lblPassword;
-        private UI.CustomTextBox txtMySqlPort;
-        private UI.CustomTextBox txtMySqlPassowrd;
         private Label lblUser;
         private Label lblServer;
-        private UI.CustomTextBox txtMySqlUser;
-        private UI.CustomTextBox txtMySqlServer;
         private Label lblMySqlServerSettings;
         private RJCodeAdvance.RJControls.CustomToggleButton tglStayInTray;
         private UI.CustomPanelPanel roundPanel3;
@@ -932,14 +846,8 @@
         private Label lblStayTray;
         private Label lblNotySound;
         private RJCodeAdvance.RJControls.CustomToggleButton tglNotySound;
-        private UI.CustomPanelPanel roundPanel4;
-        private Label lblDatabaseSettings;
         private Label lblAuth;
         private UI.CustomTextBox txtAuthDatabase;
-        private UI.CustomTextBox txtWorldDatabase;
-        private Label lblCharacters;
-        private UI.CustomTextBox txtCharactersDatabase;
-        private Label lblWorld;
         private UI.CustomButton btnSave;
         private Label lblHideControls;
         private RJCodeAdvance.RJControls.CustomToggleButton tglHideConsole;
@@ -956,5 +864,10 @@
         private RJCodeAdvance.RJControls.CustomToggleButton tglCustomNames;
         private System.Windows.Forms.Timer timerCheck;
         private UI.CustomButton btnTestMySQL;
+        internal UI.CustomTextBox txtMySqlPort;
+        internal UI.CustomTextBox txtMySqlPassowrd;
+        internal UI.CustomTextBox txtMySqlUser;
+        internal UI.CustomTextBox txtMySqlServer;
+        private PictureBox picSettingsInfos;
     }
 }

@@ -22,9 +22,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             txtMySqlPort.Texts = Settings.Default.MySQLServerPort;
             txtMySqlServer.Texts = Settings.Default.MySQLServerHost;
             txtMySqlUser.Texts = Settings.Default.MySQLServerUsername;
-            txtWorldDatabase.Texts = Settings.Default.WorldDatabaseName;
             txtAuthDatabase.Texts = Settings.Default.AuthDatabaseName;
-            txtCharactersDatabase.Texts = Settings.Default.CharactersDatabaseName;
             txtWorldName.Texts = Settings.Default.WorldCoreName;
             txtApacheName.Texts = Settings.Default.ApacheCoreName;
             txtBnetName.Texts = Settings.Default.BnetCoreName;
@@ -48,9 +46,7 @@ namespace CypherCore_Server_Laucher.TabsComponents
             Settings.Default.MySQLServerPort= txtMySqlPort.Texts;
             Settings.Default.MySQLServerHost = txtMySqlServer.Texts;
             Settings.Default.MySQLServerUsername = txtMySqlUser.Texts;
-            Settings.Default.WorldDatabaseName = txtWorldDatabase.Texts;
             Settings.Default.AuthDatabaseName = txtAuthDatabase.Texts;
-            Settings.Default.CharactersDatabaseName = txtCharactersDatabase.Texts;
             Settings.Default.TogleConsolHide = tglHideConsole.Checked;
             Settings.Default.TogelNotySound = tglNotySound.Checked;
             Settings.Default.TogleStayInTray=tglStayInTray.Checked;
@@ -234,11 +230,24 @@ namespace CypherCore_Server_Laucher.TabsComponents
                 LoadSettings();
             }
         }
-
         private void btnTestMySQL_Click(object sender, EventArgs e)
         {
             databaseConnection.MySqlConnectCheck();
-         
+        }
+        private void picSettingsInfos_Click(object sender, EventArgs e)
+        {
+            HomeControl.Alert("You need to restart the application to make the change work!", NotificationType.Info);
+        }
+
+        private void tglStayInTray_CheckedChanged(object sender, EventArgs e)
+        {
+            if(tglStayInTray.Checked== true)
+            {
+                Settings.Default.TogleStayInTray = true;
+            }else if(Settings.Default.TogleStayInTray == false)
+            {
+                Settings.Default.TogleStayInTray = false;
+            }
         }
     }
 }
