@@ -34,3 +34,39 @@ D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pan
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.pdb
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.genruntimeconfig.cache
 D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\obj\Release\net6.0-windows7.0\ref\Trion Control Panel.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Trion Control Panel.exe
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Trion Control Panel.deps.json
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Trion Control Panel.runtimeconfig.json
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Trion Control Panel.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Trion Control Panel.pdb
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\BouncyCastle.Crypto.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Google.Protobuf.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\K4os.Compression.LZ4.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\K4os.Compression.LZ4.Streams.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\K4os.Hash.xxHash.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\MySql.Data.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\Ubiety.Dns.Core.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\ZstdNet.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\System.Management.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\bin\Release\net6.0-windows7.0\runtimes\win\lib\net6.0\System.Management.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.csproj.AssemblyReference.cache
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.Forms.FormAlert.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.FormMain.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.Properties.Resources.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.TabsComponents.HomeControl.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.TabsComponents.LoadingControl.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.TabsComponents.SettingControl.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.TabsComponents.TerminalControl.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.UI.CustomComboBox.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\TrionControlPanel.UI.CustomTextBox.resources
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.csproj.GenerateResource.cache
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.AssemblyInfoInputs.cache
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.AssemblyInfo.cs
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.csproj.CopyComplete
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\refint\Trion Control Panel.dll
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.pdb
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\Trion Control Panel.genruntimeconfig.cache
+D:\Repos\Git\Trion Control Pane\Trion Control Pane\obj\Release\net6.0-windows7.0\ref\Trion Control Panel.dll

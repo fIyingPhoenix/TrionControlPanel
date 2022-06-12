@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Am5eaiRka8j99KMv7y39mWrzMHLJKV9ROo+40o8s3NHqvbKFPHNxzYL99srlH0KRSuYyDCpOsDv1KuGousd5Bw==",
+  "dgSpecHash": "90A+nIEksI6eUFGoZ7wLUecJNXVXd3gdqNhWv6rXnkvjQ3+ZjZV+zIcYXfvP+uKQ6h7jDTvkDWduNTyQ5QS4kg==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\Git\\CypherCore-Server-Addons\\CypherCore-Server-Addons\\Trion Control Pane\\Trion Control Panel.csproj",
+  "projectFilePath": "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Pane\\Trion Control Panel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",

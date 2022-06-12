@@ -2,20 +2,20 @@
 
 <div align="center">
   
-  <a href="https://github.com/fIyingPhoenix/TrionControlPane/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPane.svg?style=for-the-badge" >
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
   </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPane/graphs/forks">
-    <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPane.svg?style=for-the-badge" >
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/forks">
+    <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
   </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPane/graphs/members">
-    <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPane.svg?style=for-the-badge" >
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/members">
+    <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
   </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPane/issues">
-    <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPane.svg?style=for-the-badge" >
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">
+    <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
   </a>
-  <a href="https://www.codefactor.io/repository/github/fiyingphoenix/TrionControlPane/overview/main">
-    <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPane?style=for-the-badge" alt="CodeFactor" />
+  <a href="https://www.codefactor.io/repository/github/fiyingphoenix/TrionControlPanel/overview/main">
+    <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPanel?style=for-the-badge" alt="CodeFactor" />
   </a>
 </div>
 
@@ -34,7 +34,7 @@
     <a href="https://github.com/CypherCore/CypherCore"title="CYPHER CORE SERVER REPO">
     <img src="https://user-images.githubusercontent.com/81469821/144743719-4622c32d-b6c2-45ee-b5d3-91636bc27f25.png" >
   </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPane/raw/main/CypherCore%20Server%20Control%20Panel/bin/Publish/CypherCore%20Server%20Control%20Panel.exe"title="DOWNLOAD">
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/raw/main/CypherCore%20Server%20Control%20Panel/bin/Publish/CypherCore%20Server%20Control%20Panel.exe"title="DOWNLOAD">
     <img src="https://user-images.githubusercontent.com/81469821/144743720-7b72dbd2-3807-45ed-b6e2-a58c6159318a.png" >
   </a> 
   <br />
@@ -54,14 +54,14 @@
   <p align="center">
     An awesome Contro Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu...
     <br />
-    <a href="https://github.com/fIyingPhoenix/TrionControlPane/"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/fIyingPhoenix/TrionControlPanel/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/fIyingPhoenix/TrionControlPane">View Demo</a>
+    <a href="https://github.com/fIyingPhoenix/TrionControlPanel">View Demo</a>
     ·
-    <a href="https://github.com/fIyingPhoenix/TrionControlPane/issues">Report Bug</a>
+    <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">Report Bug</a>
     ·
-    <a href="https://github.com/fIyingPhoenix/TrionControlPane/issues">Request Feature</a>
+    <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">Request Feature</a>
   </p>
 </div>
 
