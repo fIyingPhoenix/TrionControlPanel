@@ -1,2 +1,0 @@
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Control Panel.pdb
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Control Panel.exe

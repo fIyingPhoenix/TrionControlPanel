@@ -1,2 +1,0 @@
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Laucher.pdb
-C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Publish\CypherCore Server Laucher.exe
