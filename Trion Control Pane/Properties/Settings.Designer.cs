@@ -274,5 +274,17 @@ namespace TrionControlPanel.Properties {
                 this["MySQLConnectFaild"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MySQLocation {
+            get {
+                return ((string)(this["MySQLocation"]));
+            }
+            set {
+                this["MySQLocation"] = value;
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace TrionControlPanel.TabsComponents
             InitializeComponent();
         }
 
-        private void timerCheck_Tick(object sender, EventArgs e)
+        private void TimerCheck_Tick(object sender, EventArgs e)
         {
             if(tglShowPassword.Checked  == false)
             {

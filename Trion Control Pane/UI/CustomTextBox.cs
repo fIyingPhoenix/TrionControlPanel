@@ -15,7 +15,7 @@ namespace TrionControlPanel.UI
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left;
         //private 
         //Constructor
-        public CustomTextBox()
+        public CustomTextBox() 
         {
             InitializeComponent();
         }
@@ -211,7 +211,7 @@ namespace TrionControlPanel.UI
             this.Invalidate();
         }
 
-        private void timerCheck_Tick(object sender, EventArgs e)
+        private void TimerCheck_Tick(object sender, EventArgs e)
         {
             if (PasswordChar == true)
             {

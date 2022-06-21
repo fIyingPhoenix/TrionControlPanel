@@ -10,7 +10,7 @@ namespace TrionControlPanel.UI
         //Fields
         private Color primaryColor;
         private Color textColor;
-        private int arrowThickness;
+        private readonly int arrowThickness;
 
         //Constructor
         public MenuRenderer(bool isMainMenu, Color primaryColor, Color textColor)

@@ -27,6 +27,7 @@ namespace TrionControlPanel.TabsComponents
             txtApacheName.Texts = Settings.Default.ApacheCoreName;
             txtBnetName.Texts = Settings.Default.BnetCoreName;
             txtMysqlName.Texts = Settings.Default.MySQLCoreName;
+            txtMysqlLocation.Texts = Settings.Default.MySQLocation;
             tglCustomNames.Checked = Settings.Default.TogelCustomNames;
             tglHideConsole.Checked = Settings.Default.TogleConsolHide;
             tglNotySound.Checked = Settings.Default.TogelNotySound;
@@ -42,6 +43,7 @@ namespace TrionControlPanel.TabsComponents
             Settings.Default.MySQLCoreName = txtMysqlName.Texts;
             Settings.Default.WorldCoreLocation = txtWorldLocation.Texts;
             Settings.Default.BnetCoreLocation = txtBnetLocation.Texts;
+            Settings.Default.MySQLocation = txtMysqlLocation.Texts;
             Settings.Default.MySQLServerPassword = txtMySqlPassowrd.Texts;
             Settings.Default.MySQLServerPort= txtMySqlPort.Texts;
             Settings.Default.MySQLServerHost = txtMySqlServer.Texts;
@@ -147,8 +149,9 @@ namespace TrionControlPanel.TabsComponents
                 }    
             }     
         }
-        private void timerCheck_Tick(object sender, EventArgs e)
+        private void TimerCheck_Tick(object sender, EventArgs e)
         {
+            
             if(tglCustomNames.Checked == true)
             {
                 txtWorldName.ReadOnly = false;
@@ -164,7 +167,7 @@ namespace TrionControlPanel.TabsComponents
                 txtMysqlName.ReadOnly = true;
             }
         }
-        private void comboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxCore.SelectedIndex == 0)
             {
@@ -230,16 +233,16 @@ namespace TrionControlPanel.TabsComponents
                 LoadSettings();
             }
         }
-        private void btnTestMySQL_Click(object sender, EventArgs e)
+        private void BtnTestMySQL_Click(object sender, EventArgs e)
         {
             databaseConnection.MySqlConnectCheck();
         }
-        private void picSettingsInfos_Click(object sender, EventArgs e)
+        private void PicSettingsInfos_Click(object sender, EventArgs e)
         {
             HomeControl.Alert("You need to restart the application to make the change work!", NotificationType.Info);
         }
 
-        private void tglStayInTray_CheckedChanged(object sender, EventArgs e)
+        private void TglStayInTray_CheckedChanged(object sender, EventArgs e)
         {
             if(tglStayInTray.Checked== true)
             {

@@ -19,7 +19,7 @@ namespace TrionControlPanel.UI
 
         //Items
         private ComboBox cmbList;
-         private Label lblText;
+        private Label lblText;
         private Button btnIcon;
 
         //Events

@@ -50,7 +50,7 @@
             System.Windows.Forms.Label label8;
             System.Windows.Forms.Label label13;
             System.Windows.Forms.Label label14;
-            this.customPanelPanel1 = new TrionControlPanel.UI.CustomPanelPanel();
+            this.customPanelPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.btnLoadRealm = new TrionControlPanel.UI.CustomButton();
             this.btnSetRealm = new TrionControlPanel.UI.CustomButton();
             this.customTextBox9 = new TrionControlPanel.UI.CustomTextBox();
@@ -64,20 +64,20 @@
             this.txtWorldName = new TrionControlPanel.UI.CustomTextBox();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.customPanelPanel2 = new TrionControlPanel.UI.CustomPanelPanel();
+            this.customPanelPanel2 = new TrionControlPanel.UI.CustomPanel();
             this.bntOpenLocation = new TrionControlPanel.UI.CustomButton();
             this.txtEmail = new TrionControlPanel.UI.CustomTextBox();
             this.tglShowPassword = new TrionControlPanel.UI.CustomToggleButton();
             this.txtRePassword = new TrionControlPanel.UI.CustomTextBox();
             this.txtPassword = new TrionControlPanel.UI.CustomTextBox();
             this.txtUsername = new TrionControlPanel.UI.CustomTextBox();
-            this.customPanelPanel3 = new TrionControlPanel.UI.CustomPanelPanel();
+            this.customPanelPanel3 = new TrionControlPanel.UI.CustomPanel();
             this.btnSetGMLvl = new TrionControlPanel.UI.CustomButton();
             this.customTextBox18 = new TrionControlPanel.UI.CustomTextBox();
             this.txtUserGM = new TrionControlPanel.UI.CustomTextBox();
             this.lblSetGMLevel = new System.Windows.Forms.Label();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
-            this.customPanelPanel4 = new TrionControlPanel.UI.CustomPanelPanel();
+            this.customPanelPanel4 = new TrionControlPanel.UI.CustomPanel();
             this.customTextBox12 = new TrionControlPanel.UI.CustomTextBox();
             this.customButton1 = new TrionControlPanel.UI.CustomButton();
             this.customTextBox3 = new TrionControlPanel.UI.CustomTextBox();
@@ -85,6 +85,10 @@
             this.customTextBox6 = new TrionControlPanel.UI.CustomTextBox();
             this.customTextBox8 = new TrionControlPanel.UI.CustomTextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.customPanel1 = new TrionControlPanel.UI.CustomPanel();
+            this.customPanel3 = new TrionControlPanel.UI.CustomPanel();
+            this.customPanel2 = new TrionControlPanel.UI.CustomPanel();
+            this.customPanel4 = new TrionControlPanel.UI.CustomPanel();
             lblWorldName = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
@@ -110,6 +114,10 @@
             this.customPanelPanel2.SuspendLayout();
             this.customPanelPanel3.SuspendLayout();
             this.customPanelPanel4.SuspendLayout();
+            this.customPanel1.SuspendLayout();
+            this.customPanel3.SuspendLayout();
+            this.customPanel2.SuspendLayout();
+            this.customPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblWorldName
@@ -348,7 +356,7 @@
             this.customPanelPanel1.Controls.Add(this.txtWorldName);
             this.customPanelPanel1.Controls.Add(this.lblServerStatus);
             this.customPanelPanel1.Edge = 5;
-            this.customPanelPanel1.Location = new System.Drawing.Point(12, 14);
+            this.customPanelPanel1.Location = new System.Drawing.Point(1, 1);
             this.customPanelPanel1.Name = "customPanelPanel1";
             this.customPanelPanel1.Size = new System.Drawing.Size(677, 193);
             this.customPanelPanel1.TabIndex = 0;
@@ -621,7 +629,7 @@
             this.customPanelPanel2.Controls.Add(this.txtUsername);
             this.customPanelPanel2.Controls.Add(this.label12);
             this.customPanelPanel2.Edge = 5;
-            this.customPanelPanel2.Location = new System.Drawing.Point(12, 214);
+            this.customPanelPanel2.Location = new System.Drawing.Point(1, 1);
             this.customPanelPanel2.Name = "customPanelPanel2";
             this.customPanelPanel2.Size = new System.Drawing.Size(465, 187);
             this.customPanelPanel2.TabIndex = 1;
@@ -758,7 +766,7 @@
             this.customPanelPanel3.Controls.Add(this.txtUserGM);
             this.customPanelPanel3.Controls.Add(this.lblSetGMLevel);
             this.customPanelPanel3.Edge = 5;
-            this.customPanelPanel3.Location = new System.Drawing.Point(483, 214);
+            this.customPanelPanel3.Location = new System.Drawing.Point(1, 1);
             this.customPanelPanel3.Name = "customPanelPanel3";
             this.customPanelPanel3.Size = new System.Drawing.Size(206, 187);
             this.customPanelPanel3.TabIndex = 2;
@@ -839,7 +847,7 @@
             // timerCheck
             // 
             this.timerCheck.Enabled = true;
-            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
+            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
             // customPanelPanel4
             // 
@@ -858,7 +866,7 @@
             this.customPanelPanel4.Controls.Add(this.customTextBox8);
             this.customPanelPanel4.Controls.Add(this.label15);
             this.customPanelPanel4.Edge = 5;
-            this.customPanelPanel4.Location = new System.Drawing.Point(12, 409);
+            this.customPanelPanel4.Location = new System.Drawing.Point(1, 1);
             this.customPanelPanel4.Name = "customPanelPanel4";
             this.customPanelPanel4.Size = new System.Drawing.Size(677, 137);
             this.customPanelPanel4.TabIndex = 3;
@@ -995,15 +1003,59 @@
             this.label15.TabIndex = 19;
             this.label15.Text = "Chenge Password";
             // 
+            // customPanel1
+            // 
+            this.customPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customPanel1.BorderColor = System.Drawing.Color.Blue;
+            this.customPanel1.Controls.Add(this.customPanelPanel1);
+            this.customPanel1.Edge = 5;
+            this.customPanel1.Location = new System.Drawing.Point(12, 13);
+            this.customPanel1.Name = "customPanel1";
+            this.customPanel1.Size = new System.Drawing.Size(679, 195);
+            this.customPanel1.TabIndex = 52;
+            // 
+            // customPanel3
+            // 
+            this.customPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customPanel3.BorderColor = System.Drawing.Color.Blue;
+            this.customPanel3.Controls.Add(this.customPanelPanel3);
+            this.customPanel3.Edge = 5;
+            this.customPanel3.Location = new System.Drawing.Point(483, 211);
+            this.customPanel3.Name = "customPanel3";
+            this.customPanel3.Size = new System.Drawing.Size(208, 189);
+            this.customPanel3.TabIndex = 53;
+            // 
+            // customPanel2
+            // 
+            this.customPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customPanel2.BorderColor = System.Drawing.Color.Blue;
+            this.customPanel2.Controls.Add(this.customPanelPanel4);
+            this.customPanel2.Edge = 5;
+            this.customPanel2.Location = new System.Drawing.Point(12, 403);
+            this.customPanel2.Name = "customPanel2";
+            this.customPanel2.Size = new System.Drawing.Size(679, 139);
+            this.customPanel2.TabIndex = 54;
+            // 
+            // customPanel4
+            // 
+            this.customPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.customPanel4.BorderColor = System.Drawing.Color.Blue;
+            this.customPanel4.Controls.Add(this.customPanelPanel2);
+            this.customPanel4.Edge = 5;
+            this.customPanel4.Location = new System.Drawing.Point(12, 211);
+            this.customPanel4.Name = "customPanel4";
+            this.customPanel4.Size = new System.Drawing.Size(467, 189);
+            this.customPanel4.TabIndex = 55;
+            // 
             // TerminalControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.Controls.Add(this.customPanelPanel4);
-            this.Controls.Add(this.customPanelPanel3);
-            this.Controls.Add(this.customPanelPanel2);
-            this.Controls.Add(this.customPanelPanel1);
+            this.Controls.Add(this.customPanel4);
+            this.Controls.Add(this.customPanel2);
+            this.Controls.Add(this.customPanel3);
+            this.Controls.Add(this.customPanel1);
             this.Name = "TerminalControl";
             this.Size = new System.Drawing.Size(697, 561);
             this.customPanelPanel1.ResumeLayout(false);
@@ -1014,13 +1066,17 @@
             this.customPanelPanel3.PerformLayout();
             this.customPanelPanel4.ResumeLayout(false);
             this.customPanelPanel4.PerformLayout();
+            this.customPanel1.ResumeLayout(false);
+            this.customPanel3.ResumeLayout(false);
+            this.customPanel2.ResumeLayout(false);
+            this.customPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private TrionControlPanel.UI.CustomPanelPanel customPanelPanel1;
+        private TrionControlPanel.UI.CustomPanel customPanelPanel1;
         private Label lblServerStatus;
         private TrionControlPanel.UI.CustomTextBox customTextBox2;
         private TrionControlPanel.UI.CustomTextBox customTextBox1;
@@ -1032,14 +1088,14 @@
         private TrionControlPanel.UI.CustomTextBox customTextBox11;
         private TrionControlPanel.UI.CustomTextBox customTextBox7;
         private Label label12;
-        private TrionControlPanel.UI.CustomPanelPanel customPanelPanel2;
+        private TrionControlPanel.UI.CustomPanel customPanelPanel2;
         private TrionControlPanel.UI.CustomTextBox txtRePassword;
         private TrionControlPanel.UI.CustomTextBox txtPassword;
         private TrionControlPanel.UI.CustomTextBox txtUsername;
         private TrionControlPanel.UI.CustomToggleButton tglShowPassword;
         private TrionControlPanel.UI.CustomTextBox txtEmail;
         private TrionControlPanel.UI.CustomButton bntOpenLocation;
-        private TrionControlPanel.UI.CustomPanelPanel customPanelPanel3;
+        private TrionControlPanel.UI.CustomPanel customPanelPanel3;
         private TrionControlPanel.UI.CustomButton btnSetGMLvl;
         private TrionControlPanel.UI.CustomTextBox customTextBox18;
         private TrionControlPanel.UI.CustomTextBox txtUserGM;
@@ -1047,7 +1103,7 @@
         private System.Windows.Forms.Timer timerCheck;
         private TrionControlPanel.UI.CustomButton btnLoadRealm;
         private TrionControlPanel.UI.CustomButton btnSetRealm;
-        private TrionControlPanel.UI.CustomPanelPanel customPanelPanel4;
+        private TrionControlPanel.UI.CustomPanel customPanelPanel4;
         private TrionControlPanel.UI.CustomTextBox customTextBox12;
         private TrionControlPanel.UI.CustomButton customButton1;
         private TrionControlPanel.UI.CustomTextBox customTextBox3;
@@ -1055,5 +1111,9 @@
         private TrionControlPanel.UI.CustomTextBox customTextBox6;
         private TrionControlPanel.UI.CustomTextBox customTextBox8;
         private Label label15;
+        private UI.CustomPanel customPanel1;
+        private UI.CustomPanel customPanel3;
+        private UI.CustomPanel customPanel2;
+        private UI.CustomPanel customPanel4;
     }
 }

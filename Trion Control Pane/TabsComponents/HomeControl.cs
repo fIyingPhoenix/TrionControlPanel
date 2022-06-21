@@ -2,14 +2,20 @@
 using TrionControlPanel.Forms;
 using TrionControlPanel.Properties;
 using System.Diagnostics;
+using System.Net;
+using System.IO;
+using System.IO.Compression;
+using System.ComponentModel;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
+
         readonly StatusClass _statusClass = new();
         private bool _isRuningBnet = false;
         private bool _isRuningWorld = false;
+
         public static void Alert(string message, NotificationType eType)
         {
             //make the laert work.
@@ -163,14 +169,6 @@ namespace TrionControlPanel.TabsComponents
             {
                 mysqlServerLight.BackColor = Color.Red;
             }
-            if (_statusClass.ApacheStatus() == true)
-            {
-                apacheServerLight.BackColor = Color.Green;
-            }
-            else
-            {
-                apacheServerLight.BackColor = Color.Red;
-            }
         }
         private void HomeControl_Load(object sender, EventArgs e)
         { 
@@ -192,6 +190,14 @@ namespace TrionControlPanel.TabsComponents
             StartBnet();
             StartWorld();
         }
+        private void btnStartMysql_Click(object sender, EventArgs e)
+        {
+            Process.Start($@"{Settings.Default.MySQLocation}\mysql\bin\mysqld.exe");
+        }
+        private void bntStopMysql_Click(object sender, EventArgs e)
+        {
+
+        }
         private void BntStopAll_Click(object sender, EventArgs e)
         {
             _isRuningBnet = false;
@@ -210,6 +216,55 @@ namespace TrionControlPanel.TabsComponents
             _isRuningBnet = false;
             _statusClass.KillBnet();
         }
+        private void bntDownloadMysql_Click(object sender, EventArgs e)
+        {
+
+            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\MySQL";
+            Settings.Default.Save();
+
+            pBarDownloadMysql.Visible = true;
+
+            if (!Directory.Exists($"{Settings.Default.MySQLocation}"))
+            {
+                Directory.CreateDirectory($"{Settings.Default.MySQLocation}");
+            }
+            //
+            string url = "https://media.githubusercontent.com/media/fIyingPhoenix/TrionControlPanel/main/MySQL%20Server/mysql.zip";
+            string location = $@"{Settings.Default.MySQLocation}\mysql.zip";
+            //
+            WebClient webClient = new();
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+            Thread DownloadThread = new(() =>
+            {
+                webClient.DownloadFileAsync(new Uri(url), location);
+            });
+            DownloadThread.Start ();
+        }
+        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            pBarDownloadMysql.Value = e.ProgressPercentage;
+        }
+        private void Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            bWorkerDownloadComplate.RunWorkerAsync();
+            pBarDownloadMysql.Visible = false;
+            pBarDownloadMysql.Value = 0;
+        }
+        private void bWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string file = $@"{Settings.Default.MySQLocation}\mysql.zip";
+            string location = $@"{Settings.Default.MySQLocation}\";
+            pBarDownloadMysql.Value = 0;
+            ZipFile.ExtractToDirectory(file, location, overwriteFiles: true);
+        }
+        private void bWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Alert("Download MySQL Server Complate!", NotificationType.Info);
+            pBarDownloadMysql.Value = 0;
+            pBarDownloadMysql.Visible = false;
+        }
+
 
     }
 }

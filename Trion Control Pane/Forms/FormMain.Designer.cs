@@ -68,13 +68,13 @@
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
             this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Location = new System.Drawing.Point(4, 206);
+            this.btnSettings.Location = new System.Drawing.Point(4, 205);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(71, 60);
             this.btnSettings.TabIndex = 38;
             this.btnSettings.TextColor = System.Drawing.Color.White;
             this.btnSettings.UseVisualStyleBackColor = false;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // btnTerminal
             // 
@@ -89,13 +89,13 @@
             this.btnTerminal.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTerminal.ForeColor = System.Drawing.Color.White;
             this.btnTerminal.Image = ((System.Drawing.Image)(resources.GetObject("btnTerminal.Image")));
-            this.btnTerminal.Location = new System.Drawing.Point(4, 140);
+            this.btnTerminal.Location = new System.Drawing.Point(4, 139);
             this.btnTerminal.Name = "btnTerminal";
             this.btnTerminal.Size = new System.Drawing.Size(71, 60);
             this.btnTerminal.TabIndex = 38;
             this.btnTerminal.TextColor = System.Drawing.Color.White;
             this.btnTerminal.UseVisualStyleBackColor = false;
-            this.btnTerminal.Click += new System.EventHandler(this.btnTerminal_Click);
+            this.btnTerminal.Click += new System.EventHandler(this.BtnTerminal_Click);
             // 
             // btnHome
             // 
@@ -110,18 +110,18 @@
             this.btnHome.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnHome.ForeColor = System.Drawing.Color.White;
             this.btnHome.Image = ((System.Drawing.Image)(resources.GetObject("btnHome.Image")));
-            this.btnHome.Location = new System.Drawing.Point(4, 74);
+            this.btnHome.Location = new System.Drawing.Point(4, 73);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(71, 60);
             this.btnHome.TabIndex = 37;
             this.btnHome.TextColor = System.Drawing.Color.White;
             this.btnHome.UseVisualStyleBackColor = false;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            this.btnHome.Click += new System.EventHandler(this.BtnHome_Click);
             // 
             // picLogo
             // 
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(14, 16);
+            this.picLogo.Location = new System.Drawing.Point(15, 15);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(51, 43);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -142,7 +142,7 @@
             this.mainNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotify.Icon")));
             this.mainNotify.Text = "CypherCore Server Control Panel";
             this.mainNotify.Visible = true;
-            this.mainNotify.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainNotify_MouseDoubleClick);
+            this.mainNotify.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainNotify_MouseDoubleClick);
             // 
             // timerCheck
             // 

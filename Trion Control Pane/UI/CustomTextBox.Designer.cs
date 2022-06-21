@@ -54,7 +54,7 @@
             // timerCheck
             // 
             this.timerCheck.Enabled = true;
-            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
+            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
             // CustomTextBox
             // 

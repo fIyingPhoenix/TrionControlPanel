@@ -18,13 +18,13 @@ namespace TrionControlPanel
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
         }
-        private void btnHome_Click(object sender, EventArgs e)
+        private void BtnHome_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(homeControl);
         }
-        private void btnSettings_Click(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(settingControl);
@@ -49,8 +49,12 @@ namespace TrionControlPanel
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\MySQL"))
+            {
+                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\MySQL");
+            }   
         }
-        private void btnTerminal_Click(object sender, EventArgs e)
+        private void BtnTerminal_Click(object sender, EventArgs e)
         {
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
@@ -68,10 +72,10 @@ namespace TrionControlPanel
                 Environment.Exit(0);
             }
         }
-        private void mainNotify_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void MainNotify_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
         }
-
+       
     }
 }

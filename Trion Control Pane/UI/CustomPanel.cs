@@ -3,13 +3,13 @@ using System.Drawing.Drawing2D;
 
 namespace TrionControlPanel.UI
 {
-    public class CustomPanelPanel : Panel
+    public class CustomPanel : Panel
     {
         //Fields
         Pen pen;
         float penWidth = 2.0f;
         private int _edge = 20;
-        Color _borderColor = Color.White;
+        Color _borderColor = Color.Blue;
         //Properties
         [Category("1 CustomButton Advance")]
         public int Edge
@@ -37,7 +37,7 @@ namespace TrionControlPanel.UI
                 Invalidate();
             }
         }
-        public CustomPanelPanel()
+        public CustomPanel()
         {
             pen = new Pen(_borderColor, penWidth);
         }
@@ -62,7 +62,6 @@ namespace TrionControlPanel.UI
             path.AddArc(GetLeftLower(Edge), 90, 90);
             path.AddLine(0, Height - Edge, 0, Edge);
             path.CloseFigure();
-
             Region = new Region(path);
         }
         Rectangle GetLeftUpper(int e)
@@ -89,9 +88,6 @@ namespace TrionControlPanel.UI
             graphics.DrawArc(pen, new Rectangle(0, Height - Edge - 1, Edge, Edge), 90, 90);
             graphics.DrawRectangle(pen, 0.0F, 0.0F, Width - 1, Height - 1);
         }
-        void DrawBorder(Graphics graphics)
-        {
-            DrawSingleBorder(graphics);
-        }
+
     }
 }

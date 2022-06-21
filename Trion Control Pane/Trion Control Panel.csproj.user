@@ -34,7 +34,7 @@
     <Compile Update="UI\CustomToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\CustomPanelPanel.cs">
+    <Compile Update="UI\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UI\CustomWebBrowser.cs">
