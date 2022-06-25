@@ -6,10 +6,12 @@ namespace TrionControlPanel
 {
     public partial class FormMain : Form
     {
+
         readonly HomeControl homeControl = new();
         readonly SettingControl settingControl = new();
         readonly LoadingControl loadingControl = new();
         readonly TerminalControl terminalControl = new();
+
         public FormMain()
         {
             //fix the problem with thread calls
@@ -17,6 +19,12 @@ namespace TrionControlPanel
             InitializeComponent();
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
+            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
+            {
+                Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\mysql";
+                Settings.Default.Save();
+            }
+                
         }
         private void BtnHome_Click(object sender, EventArgs e)
         {
@@ -49,9 +57,9 @@ namespace TrionControlPanel
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\MySQL"))
+            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
             {
-                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\MySQL");
+                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
             }   
         }
         private void BtnTerminal_Click(object sender, EventArgs e)

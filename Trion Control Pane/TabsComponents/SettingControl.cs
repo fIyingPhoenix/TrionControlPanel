@@ -247,7 +247,8 @@ namespace TrionControlPanel.TabsComponents
             if(tglStayInTray.Checked== true)
             {
                 Settings.Default.TogleStayInTray = true;
-            }else if(Settings.Default.TogleStayInTray == false)
+            }
+            else if(Settings.Default.TogleStayInTray == false)
             {
                 Settings.Default.TogleStayInTray = false;
             }

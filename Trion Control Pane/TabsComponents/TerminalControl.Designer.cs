@@ -1009,7 +1009,7 @@
             this.customPanel1.BorderColor = System.Drawing.Color.Blue;
             this.customPanel1.Controls.Add(this.customPanelPanel1);
             this.customPanel1.Edge = 5;
-            this.customPanel1.Location = new System.Drawing.Point(12, 13);
+            this.customPanel1.Location = new System.Drawing.Point(8, 16);
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(679, 195);
             this.customPanel1.TabIndex = 52;
@@ -1020,7 +1020,7 @@
             this.customPanel3.BorderColor = System.Drawing.Color.Blue;
             this.customPanel3.Controls.Add(this.customPanelPanel3);
             this.customPanel3.Edge = 5;
-            this.customPanel3.Location = new System.Drawing.Point(483, 211);
+            this.customPanel3.Location = new System.Drawing.Point(479, 214);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(208, 189);
             this.customPanel3.TabIndex = 53;
@@ -1031,7 +1031,7 @@
             this.customPanel2.BorderColor = System.Drawing.Color.Blue;
             this.customPanel2.Controls.Add(this.customPanelPanel4);
             this.customPanel2.Edge = 5;
-            this.customPanel2.Location = new System.Drawing.Point(12, 403);
+            this.customPanel2.Location = new System.Drawing.Point(8, 406);
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(679, 139);
             this.customPanel2.TabIndex = 54;
@@ -1042,7 +1042,7 @@
             this.customPanel4.BorderColor = System.Drawing.Color.Blue;
             this.customPanel4.Controls.Add(this.customPanelPanel2);
             this.customPanel4.Edge = 5;
-            this.customPanel4.Location = new System.Drawing.Point(12, 211);
+            this.customPanel4.Location = new System.Drawing.Point(8, 214);
             this.customPanel4.Name = "customPanel4";
             this.customPanel4.Size = new System.Drawing.Size(467, 189);
             this.customPanel4.TabIndex = 55;

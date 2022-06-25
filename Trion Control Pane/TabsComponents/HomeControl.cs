@@ -218,8 +218,7 @@ namespace TrionControlPanel.TabsComponents
         }
         private void bntDownloadMysql_Click(object sender, EventArgs e)
         {
-
-            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\MySQL";
+            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\";
             Settings.Default.Save();
 
             pBarDownloadMysql.Visible = true;
@@ -240,6 +239,7 @@ namespace TrionControlPanel.TabsComponents
                 webClient.DownloadFileAsync(new Uri(url), location);
             });
             DownloadThread.Start ();
+            bntDownloadMysql.Enabled = false;
         }
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -248,21 +248,23 @@ namespace TrionControlPanel.TabsComponents
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
             bWorkerDownloadComplate.RunWorkerAsync();
-            pBarDownloadMysql.Visible = false;
-            pBarDownloadMysql.Value = 0;
         }
         private void bWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
         {
             string file = $@"{Settings.Default.MySQLocation}\mysql.zip";
             string location = $@"{Settings.Default.MySQLocation}\";
-            pBarDownloadMysql.Value = 0;
             ZipFile.ExtractToDirectory(file, location, overwriteFiles: true);
+            bntDownloadMysql.Text = "Extractiong MySQL...";
         }
         private void bWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Alert("Download MySQL Server Complate!", NotificationType.Info);
-            pBarDownloadMysql.Value = 0;
+            bntDownloadMysql.Text = "Extract Complate MySQL...";
+            Thread.Sleep(500);
+            File.Delete($@"{Settings.Default.MySQLocation}\mysql.zip");
+            bntDownloadMysql.Text = "Download MySQL Server";
+            bntDownloadMysql.Enabled = true;
             pBarDownloadMysql.Visible = false;
+            pBarDownloadMysql.Value = 0;
         }
 
 
