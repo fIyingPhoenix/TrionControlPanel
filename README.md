@@ -70,12 +70,19 @@
 
 ## About The Project
 
-
 <div align="center">
-   <img src="https://user-images.githubusercontent.com/81469821/146081910-2665cbce-2ba3-4665-9efd-43cc195ef689.png"> 
-   <h4 align="center"> A Control Panel for WoW Emulator projects. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
-   <img src="https://user-images.githubusercontent.com/81469821/146081853-d87aaf27-8573-450a-ad45-188c0224e6de.png"> 
+     <h4 align="center"> A Control Panel for WoW Emulator projects. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
 
+   <p>
+  </p>
+   <img src="https://user-images.githubusercontent.com/81469821/175856004-ccd5e4e3-196d-4098-ac79-6dfa138d7937.jpg"> 
+
+   <p>
+  </p>
+   <img src="https://user-images.githubusercontent.com/81469821/175856003-f24e775e-0d0d-4212-924f-2a96e4d5aaf5.jpg"> 
+   <p>
+  </p>
+   <img src="https://user-images.githubusercontent.com/81469821/175856005-b3275017-17b2-4c0c-ae16-d1b8acc64fd8.jpg"> 
 </div>
 
 <div id="Roadmap"></div>
