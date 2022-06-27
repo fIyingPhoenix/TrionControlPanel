@@ -31,9 +31,6 @@
   <a href="#Setup"title="SETUP">
     <img src="https://user-images.githubusercontent.com/81469821/144743717-8ba5a67e-6a2e-4710-978f-395ae817afe3.png" >
   </a> 
-    <a href="https://github.com/CypherCore/CypherCore"title="CYPHER CORE SERVER REPO">
-    <img src="https://user-images.githubusercontent.com/81469821/144743719-4622c32d-b6c2-45ee-b5d3-91636bc27f25.png" >
-  </a> 
   <a href="https://raw.githubusercontent.com/fIyingPhoenix/TrionControlPanel/main/Trion%20Control%20Pane/bin/Publish/Trion%20Control%20Panel.exe"title="DOWNLOAD">
     <img src="https://user-images.githubusercontent.com/81469821/144743720-7b72dbd2-3807-45ed-b6e2-a58c6159318a.png" >
   </a> 
