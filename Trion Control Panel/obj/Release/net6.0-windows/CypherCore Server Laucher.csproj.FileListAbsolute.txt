@@ -1,0 +1,26 @@
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\CypherCore Server Laucher.exe
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\CypherCore Server Laucher.deps.json
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\CypherCore Server Laucher.runtimeconfig.json
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\CypherCore Server Laucher.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\ref\CypherCore Server Laucher.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\CypherCore Server Laucher.pdb
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.csproj.AssemblyReference.cache
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore_Server_Laucher.formMain.resources
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.csproj.GenerateResource.cache
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.AssemblyInfoInputs.cache
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.AssemblyInfo.cs
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.csproj.CoreCompileInputs.cache
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\ref\CypherCore Server Laucher.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.pdb
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.genruntimeconfig.cache
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\MySql.Data.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\obj\Release\net6.0-windows\CypherCore Server Laucher.csproj.CopyComplete
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\BouncyCastle.Crypto.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\Google.Protobuf.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\K4os.Compression.LZ4.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\K4os.Hash.xxHash.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\Ubiety.Dns.Core.dll
+C:\Users\Andrei Caran\source\repos\CypherCore Server Addons\CypherCore Server Laucher\bin\Release\net6.0-windows\ZstdNet.dll
