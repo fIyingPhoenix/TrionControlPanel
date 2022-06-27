@@ -18,7 +18,7 @@
       <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="MySQLServerPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">root</Value>
+      <Value Profile="(Default)">fIyingPhoenix</Value>
     </Setting>
     <Setting Name="MySQLServerPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>

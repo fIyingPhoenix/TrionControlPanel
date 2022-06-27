@@ -24,7 +24,6 @@ namespace TrionControlPanel.TabsComponents
             txtMySqlUser.Texts = Settings.Default.MySQLServerUsername;
             txtAuthDatabase.Texts = Settings.Default.AuthDatabaseName;
             txtWorldName.Texts = Settings.Default.WorldCoreName;
-            txtApacheName.Texts = Settings.Default.ApacheCoreName;
             txtBnetName.Texts = Settings.Default.BnetCoreName;
             txtMysqlName.Texts = Settings.Default.MySQLCoreName;
             txtMysqlLocation.Texts = Settings.Default.MySQLocation;
@@ -38,7 +37,6 @@ namespace TrionControlPanel.TabsComponents
             //loading data form settings file(xml)
             Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
             Settings.Default.WorldCoreName = txtWorldName.Texts;
-            Settings.Default.ApacheCoreName = txtApacheName.Texts;
             Settings.Default.BnetCoreName = txtBnetName.Texts;
             Settings.Default.MySQLCoreName = txtMysqlName.Texts;
             Settings.Default.WorldCoreLocation = txtWorldLocation.Texts;
@@ -69,6 +67,7 @@ namespace TrionControlPanel.TabsComponents
             {
                 string worndName = Settings.Default.WorldCoreName + ".exe";
                 string bnetName = Settings.Default.BnetCoreName + ".exe";
+                string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
 
                 DialogResult result = fbd.ShowDialog();
 
@@ -89,6 +88,12 @@ namespace TrionControlPanel.TabsComponents
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, bnetName, SearchOption.AllDirectories))
                     {
                         txtBnetLocation.Texts = f;
+                        SaveSettings();
+                    }
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, mysqlName, SearchOption.AllDirectories))
+                    {
+
+                        txtMysqlLocation.Texts = f;
                         SaveSettings();
                     }
                 }
@@ -156,14 +161,12 @@ namespace TrionControlPanel.TabsComponents
             {
                 txtWorldName.ReadOnly = false;
                 txtBnetName.ReadOnly = false;
-                txtApacheName.ReadOnly = false; 
                 txtMysqlName.ReadOnly = false;
             }
             else
             {
                 txtWorldName.ReadOnly = true;
                 txtBnetName.ReadOnly = true;
-                txtApacheName.ReadOnly = true;
                 txtMysqlName.ReadOnly = true;
             }
         }
@@ -257,6 +260,29 @@ namespace TrionControlPanel.TabsComponents
         private void btnFixMysql_Click(object sender, EventArgs e)
         {
             Process.Start($@"{Settings.Default.MySQLocation}mysql\bin\mysqld.exe", "--initialize --console");
+        }
+
+        private void bntMySqlLocation_Click(object sender, EventArgs e)
+        {
+            string file = Settings.Default.MySQLocation;
+            string locatio = Path.GetDirectoryName(file);
+            //just a fail safe. incase the CoreLocation is empty.
+            if (Settings.Default.MySQLocation == string.Empty)
+            {
+                Alert("Server Location Unknow!", NotificationType.Error);
+            }
+            else
+            {
+                try
+                {
+                    Process.Start("explorer.exe", locatio);
+                }
+                catch
+                {
+                    Alert("Server Location Unknow! or invaluable", NotificationType.Error);
+                }
+            }
+            
         }
     }
 }

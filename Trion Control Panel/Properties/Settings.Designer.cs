@@ -85,7 +85,7 @@ namespace TrionControlPanel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        [global::System.Configuration.DefaultSettingValueAttribute("fIyingPhoenix")]
         public string MySQLServerPassword {
             get {
                 return ((string)(this["MySQLServerPassword"]));

@@ -78,6 +78,34 @@ namespace TrionControlPanel.TabsComponents
                 Alert(ex.Message, NotificationType.Error);
             }
         }
+
+        private static void StartMysql()
+        {
+            try
+            {
+                using (Process myProcess = new())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = $@"{Settings.Default.MySQLocation}";
+
+                    if (Settings.Default.TogleConsolHide == false)
+                    {
+                        Process.Start($@"{Settings.Default.MySQLocation}","--console");  
+                    }
+                    else if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                    Alert("Starting Bnet Server!", NotificationType.Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+        }
         public HomeControl()
         {
             InitializeComponent();
@@ -189,14 +217,15 @@ namespace TrionControlPanel.TabsComponents
             _isRuningWorld = true;
             StartBnet();
             StartWorld();
+            StartMysql();
         }
         private void btnStartMysql_Click(object sender, EventArgs e)
         {
-            Process.Start($@"{Settings.Default.MySQLocation}mysql\bin\mysqld.exe","--console");
+            StartMysql();
         }
         private void bntStopMysql_Click(object sender, EventArgs e)
         {
-
+            _statusClass.KillMysql();
         }
         private void BntStopAll_Click(object sender, EventArgs e)
         {
@@ -204,6 +233,7 @@ namespace TrionControlPanel.TabsComponents
             _isRuningWorld = false;
             _statusClass.KillWorld();
             _statusClass.KillBnet();
+            _statusClass.KillMysql();
         }
         private void BtnStopWorld_Click(object sender, EventArgs e)
         {

@@ -16,9 +16,17 @@ namespace TrionControlPanel.Classes
         public string MySqlStatusName = Settings.Default.MySQLCoreName;
         public string ApacheStatusName = Settings.Default.ApacheCoreName;
 
+        internal void KillMysql()
+        {
+            MySqlStatusName = Settings.Default.MySQLCoreName;
+            foreach (var process in Process.GetProcessesByName(MySqlStatusName))
+            {
+                process.Kill();
+            }
+        }
         internal void KillWorld()
         {
-             WorldStatusName = Settings.Default.WorldCoreName;
+            WorldStatusName = Settings.Default.WorldCoreName;
             foreach (var process in Process.GetProcessesByName(WorldStatusName))
             {
                 process.Kill();

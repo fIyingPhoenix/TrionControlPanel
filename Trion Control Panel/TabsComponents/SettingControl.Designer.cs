@@ -32,7 +32,6 @@
             System.Windows.Forms.Label lblWorldLocation;
             System.Windows.Forms.Label lblWorldName;
             System.Windows.Forms.Label lblBnetName;
-            System.Windows.Forms.Label lblApacheName;
             System.Windows.Forms.Label lblMysqlName;
             this.roundPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.bntMySqlLocation = new TrionControlPanel.UI.CustomButton();
@@ -71,7 +70,6 @@
             this.customPanelPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tglCustomNames = new TrionControlPanel.UI.CustomToggleButton();
-            this.txtApacheName = new TrionControlPanel.UI.CustomTextBox();
             this.txtMysqlName = new TrionControlPanel.UI.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtWorldName = new TrionControlPanel.UI.CustomTextBox();
@@ -86,7 +84,6 @@
             lblWorldLocation = new System.Windows.Forms.Label();
             lblWorldName = new System.Windows.Forms.Label();
             lblBnetName = new System.Windows.Forms.Label();
-            lblApacheName = new System.Windows.Forms.Label();
             lblMysqlName = new System.Windows.Forms.Label();
             this.roundPanel1.SuspendLayout();
             this.roundPanel2.SuspendLayout();
@@ -123,27 +120,17 @@
             // 
             lblBnetName.AutoSize = true;
             lblBnetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            lblBnetName.Location = new System.Drawing.Point(17, 144);
+            lblBnetName.Location = new System.Drawing.Point(17, 99);
             lblBnetName.Name = "lblBnetName";
             lblBnetName.Size = new System.Drawing.Size(100, 15);
             lblBnetName.TabIndex = 33;
             lblBnetName.Text = "Bnet/Auth Name:";
             // 
-            // lblApacheName
-            // 
-            lblApacheName.AutoSize = true;
-            lblApacheName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            lblApacheName.Location = new System.Drawing.Point(17, 98);
-            lblApacheName.Name = "lblApacheName";
-            lblApacheName.Size = new System.Drawing.Size(85, 15);
-            lblApacheName.TabIndex = 34;
-            lblApacheName.Text = "Apache Name:";
-            // 
             // lblMysqlName
             // 
             lblMysqlName.AutoSize = true;
             lblMysqlName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            lblMysqlName.Location = new System.Drawing.Point(17, 190);
+            lblMysqlName.Location = new System.Drawing.Point(17, 145);
             lblMysqlName.Name = "lblMysqlName";
             lblMysqlName.Size = new System.Drawing.Size(83, 15);
             lblMysqlName.TabIndex = 36;
@@ -188,6 +175,7 @@
             this.bntMySqlLocation.Text = "MySQL Location";
             this.bntMySqlLocation.TextColor = System.Drawing.Color.White;
             this.bntMySqlLocation.UseVisualStyleBackColor = false;
+            this.bntMySqlLocation.Click += new System.EventHandler(this.bntMySqlLocation_Click);
             // 
             // label2
             // 
@@ -704,8 +692,6 @@
             this.customPanelPanel1.Controls.Add(this.label1);
             this.customPanelPanel1.Controls.Add(this.tglCustomNames);
             this.customPanelPanel1.Controls.Add(lblMysqlName);
-            this.customPanelPanel1.Controls.Add(lblApacheName);
-            this.customPanelPanel1.Controls.Add(this.txtApacheName);
             this.customPanelPanel1.Controls.Add(this.txtMysqlName);
             this.customPanelPanel1.Controls.Add(lblWorldName);
             this.customPanelPanel1.Controls.Add(this.label3);
@@ -722,7 +708,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label1.Location = new System.Drawing.Point(68, 250);
+            this.label1.Location = new System.Drawing.Point(69, 210);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 15);
             this.label1.TabIndex = 45;
@@ -733,7 +719,7 @@
             this.tglCustomNames.AutoSize = true;
             this.tglCustomNames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.tglCustomNames.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tglCustomNames.Location = new System.Drawing.Point(17, 247);
+            this.tglCustomNames.Location = new System.Drawing.Point(18, 207);
             this.tglCustomNames.MinimumSize = new System.Drawing.Size(45, 22);
             this.tglCustomNames.Name = "tglCustomNames";
             this.tglCustomNames.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
@@ -745,27 +731,6 @@
             this.tglCustomNames.TabIndex = 44;
             this.tglCustomNames.UseVisualStyleBackColor = false;
             // 
-            // txtApacheName
-            // 
-            this.txtApacheName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtApacheName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtApacheName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtApacheName.BorderSize = 1;
-            this.txtApacheName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtApacheName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtApacheName.Location = new System.Drawing.Point(17, 116);
-            this.txtApacheName.Margin = new System.Windows.Forms.Padding(0);
-            this.txtApacheName.Multiline = true;
-            this.txtApacheName.Name = "txtApacheName";
-            this.txtApacheName.Padding = new System.Windows.Forms.Padding(1);
-            this.txtApacheName.PasswordChar = false;
-            this.txtApacheName.ReadOnly = true;
-            this.txtApacheName.Size = new System.Drawing.Size(165, 23);
-            this.txtApacheName.TabIndex = 35;
-            this.txtApacheName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtApacheName.Texts = "";
-            this.txtApacheName.UnderlinedStyle = false;
-            // 
             // txtMysqlName
             // 
             this.txtMysqlName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
@@ -774,7 +739,7 @@
             this.txtMysqlName.BorderSize = 1;
             this.txtMysqlName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtMysqlName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtMysqlName.Location = new System.Drawing.Point(17, 208);
+            this.txtMysqlName.Location = new System.Drawing.Point(17, 163);
             this.txtMysqlName.Margin = new System.Windows.Forms.Padding(0);
             this.txtMysqlName.Multiline = true;
             this.txtMysqlName.Name = "txtMysqlName";
@@ -827,7 +792,7 @@
             this.txtBnetName.BorderSize = 1;
             this.txtBnetName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.txtBnetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtBnetName.Location = new System.Drawing.Point(17, 162);
+            this.txtBnetName.Location = new System.Drawing.Point(17, 117);
             this.txtBnetName.Margin = new System.Windows.Forms.Padding(0);
             this.txtBnetName.Multiline = true;
             this.txtBnetName.Name = "txtBnetName";
@@ -991,7 +956,6 @@
         private UI.CustomPanel customPanelPanel1;
         private Label label3;
         private UI.CustomTextBox txtMysqlName;
-        private UI.CustomTextBox txtApacheName;
         private UI.CustomTextBox txtBnetName;
         private UI.CustomTextBox txtWorldName;
         private Label lblCores;
