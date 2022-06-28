@@ -1,6 +1,7 @@
 ﻿using TrionControlPanel.Properties;
 using System.Diagnostics;
 using System.Management;
+using TrionControlPanel.Forms;
 
 namespace TrionControlPanel.Classes
 {
@@ -14,8 +15,12 @@ namespace TrionControlPanel.Classes
         public string WorldStatusName = Settings.Default.WorldCoreName;
         public string BnetStatusName = Settings.Default.BnetCoreName;
         public string MySqlStatusName = Settings.Default.MySQLCoreName;
-        public string ApacheStatusName = Settings.Default.ApacheCoreName;
-
+        public static void Alert(string message, NotificationType eType)
+        {
+            //make the laert work.
+            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
+            frm.ShowAlert(message, eType);
+        }
         internal void KillMysql()
         {
             MySqlStatusName = Settings.Default.MySQLCoreName;
@@ -62,15 +67,6 @@ namespace TrionControlPanel.Classes
         {
             string MySqlStatusName = Settings.Default.MySQLCoreName;
             Process[] pname = Process.GetProcessesByName(MySqlStatusName);
-            if (pname.Length == 0)
-                return false;
-            else
-                return true;
-        }
-        internal bool ApacheStatus()
-        {
-            ApacheStatusName = Settings.Default.ApacheCoreName;
-            Process[] pname = Process.GetProcessesByName(ApacheStatusName);
             if (pname.Length == 0)
                 return false;
             else
@@ -211,5 +207,89 @@ namespace TrionControlPanel.Classes
                 return 0;
             }
         }
+        internal void StartWorld()
+        {
+            try
+            {
+                using (Process myProcess = new())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = Settings.Default.WorldCoreLocation;
+
+                    if (Settings.Default.TogleConsolHide == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                    else if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                    Alert("Starting World Server!", NotificationType.Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+        }
+        internal void StartBnet()
+        {
+            try
+            {
+                using (Process myProcess = new())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = Settings.Default.BnetCoreLocation;
+
+                    if (Settings.Default.TogleConsolHide == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                    else if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                    Alert("Starting Bnet Server!", NotificationType.Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+        }
+        internal void StartMysql()
+        {
+            try
+            {
+                using (Process myProcess = new())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = $@"{Settings.Default.MySQLocation}";
+
+                    if (Settings.Default.TogleConsolHide == false)
+                    {
+                        Process.Start($@"{Settings.Default.MySQLocation}", "--console");
+                    }
+                    else if (Settings.Default.TogleConsolHide == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                    Alert("Starting MySQL Server!", NotificationType.Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert(ex.Message, NotificationType.Error);
+            }
+        }
+
     }
 }

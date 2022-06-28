@@ -1,17 +1,16 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using Microsoft.Win32;
 using TrionControlPanel.Database;
 using TrionControlPanel.Properties;
 using TrionControlPanel.Classes;
 using TrionControlPanel.Forms;
-using System.Diagnostics;
-
 namespace TrionControlPanel.TabsComponents
 {
     public partial class SettingControl : UserControl
     {
         DatabaseConnection databaseConnection = new();
-        //settings data located in appdata/local/CypherCoreServerLaucher
-
+        //settings data located in appdata/local/TrionControlPanel
         private void LoadSettings()
         {
             //loading data form settings file(xml)
@@ -31,6 +30,7 @@ namespace TrionControlPanel.TabsComponents
             tglHideConsole.Checked = Settings.Default.TogleConsolHide;
             tglNotySound.Checked = Settings.Default.TogelNotySound;
             tglStayInTray.Checked = Settings.Default.TogleStayInTray;
+            tglStartOnStartup.Checked = Settings.Default.RunWithWindows;     
         }
         private void SaveSettings()
         {
@@ -51,6 +51,7 @@ namespace TrionControlPanel.TabsComponents
             Settings.Default.TogelNotySound = tglNotySound.Checked;
             Settings.Default.TogleStayInTray=tglStayInTray.Checked;
             Settings.Default.TogelCustomNames = tglCustomNames.Checked;
+            Settings.Default.RunWithWindows = tglStartOnStartup.Checked;
             Settings.Default.Save();
         }
         public static void Alert(string message, NotificationType eType)
@@ -59,7 +60,6 @@ namespace TrionControlPanel.TabsComponents
             FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
             frm.ShowAlert(message, eType);
         }
-
         private void GetCoreLocation()
         {
             // getting the core files and location. saves to settings. dose not seed to press save 
@@ -79,7 +79,6 @@ namespace TrionControlPanel.TabsComponents
                         Settings.Default.Save();
                         LoadSettings();
                     }
-
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
                         txtWorldLocation.Texts = f;
@@ -244,10 +243,9 @@ namespace TrionControlPanel.TabsComponents
         {
             HomeControl.Alert("You need to restart the application to make the change work!", NotificationType.Info);
         }
-
         private void TglStayInTray_CheckedChanged(object sender, EventArgs e)
         {
-            if(tglStayInTray.Checked== true)
+            if(tglStayInTray.Checked == true)
             {
                 Settings.Default.TogleStayInTray = true;
             }
@@ -256,16 +254,14 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.TogleStayInTray = false;
             }
         }
-
         private void btnFixMysql_Click(object sender, EventArgs e)
         {
             Process.Start($@"{Settings.Default.MySQLocation}mysql\bin\mysqld.exe", "--initialize --console");
         }
-
         private void bntMySqlLocation_Click(object sender, EventArgs e)
-        {
+        { 
             string file = Settings.Default.MySQLocation;
-            string locatio = Path.GetDirectoryName(file);
+            string location = Path.GetDirectoryName(file);
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings.Default.MySQLocation == string.Empty)
             {
@@ -275,14 +271,41 @@ namespace TrionControlPanel.TabsComponents
             {
                 try
                 {
-                    Process.Start("explorer.exe", locatio);
+                    Process.Start("explorer.exe", location);
                 }
                 catch
                 {
                     Alert("Server Location Unknow! or invaluable", NotificationType.Error);
                 }
+            }     
+        }
+        private void tglStartOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            RegistryKey reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run",true);
+            if (tglStartOnStartup.Checked == true)
+            {
+                reg.SetValue("Trion Control Panel", Application.ExecutablePath.ToString());
             }
-            
+            else if (tglStartOnStartup.Checked == false)
+            {
+                reg.DeleteValue("Trion Control Panel");
+            }
+        }
+        private void tglStartServer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tglStartServer.Checked == true)
+                Settings.Default.StartCoreWithWindows = true;
+            else if (tglStartServer.Checked == false)
+                Settings.Default.StartCoreWithWindows = false;
+            Settings.Default.Save();      
+        }
+        private void tglRestartOnCrash_CheckedChanged(object sender, EventArgs e)
+        {
+           if(tglRestartOnCrash.Checked == true)
+                Settings.Default.ServerCrashCheck = true;
+           else if (tglRestartOnCrash.Checked == false)
+                Settings.Default.ServerCrashCheck= false;
+            Settings.Default.Save(); 
         }
     }
 }

@@ -1,17 +1,20 @@
 ﻿using TrionControlPanel.TabsComponents;
 using TrionControlPanel.Properties;
-
+using TrionControlPanel.Classes;
+using TrionControlPanel.Forms;
 
 namespace TrionControlPanel
 {
     public partial class FormMain : Form
     {
-
-        readonly HomeControl homeControl = new();
-        readonly SettingControl settingControl = new();
-        readonly LoadingControl loadingControl = new();
-        readonly TerminalControl terminalControl = new();
-
+        HomeControl homeControl = new();
+        SettingControl settingControl = new();
+        LoadingControl loadingControl = new();
+        TerminalControl terminalControl = new();
+        StatusClass _statusClass = new();
+        int CrashCountWorld = 0;
+        int CrashCountBnet = 0;
+        int CrashCountMysql = 0;
         public FormMain()
         {
             //fix the problem with thread calls
@@ -23,8 +26,13 @@ namespace TrionControlPanel
             {
                 Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\mysql";
                 Settings.Default.Save();
-            }
-                
+            }        
+        }
+        public static void Alert(string message, NotificationType eType)
+        {
+            //make the laert work.
+            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
+            frm.ShowAlert(message, eType);
         }
         private void BtnHome_Click(object sender, EventArgs e)
         {
@@ -54,9 +62,63 @@ namespace TrionControlPanel
                 btnTerminal.Enabled = false;
                 btnSettings.Enabled = false;
             }
+
+            if (Settings.Default.ServerCrashCheck == true & homeControl._isRuningBnet == true & homeControl._isRuningWorld == true)
+            {
+                timerCrashCheck.Start();
+            }
+            else if (Settings.Default.ServerCrashCheck == false)
+            {
+                timerCrashCheck.Stop();
+            }
+        }
+        public static void DelayAction(int millisecond, Action action)
+        {
+            var timer = new System.Windows.Forms.Timer();
+            timer.Tick += delegate
+
+            {
+                action.Invoke();
+                timer.Stop();
+            };
+
+            timer.Interval = millisecond;
+            timer.Start();
+        }
+        private void StartCoreWithWindows()
+        {
+            if (Settings.Default.StartCoreWithWindows == true)
+            {
+                if (_statusClass.MySQLstatus() == true)
+                {
+                    homeControl._isRuningMysql = true;
+                }else
+                {
+                    _statusClass.StartMysql();
+                    homeControl._isRuningMysql = true;
+                }
+                //
+                int milliseconds = 10000;
+                var timer1 = new System.Windows.Forms.Timer();
+                //
+                timer1.Interval = milliseconds;
+                timer1.Enabled = true;
+                timer1.Start();
+
+                timer1.Tick += (s, e) =>
+                {
+                    timer1.Enabled = false;
+                    timer1.Stop();
+                    homeControl._isRuningBnet = true;
+                    homeControl._isRuningWorld = true;
+                    _statusClass.StartBnet();
+                    _statusClass.StartWorld();
+                };
+            }
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
+            StartCoreWithWindows();
             if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
             {
                 Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
@@ -84,6 +146,42 @@ namespace TrionControlPanel
         {
             this.Show();
         }
-       
+        private void timerCrashCheck_Tick(object sender, EventArgs e)
+        {
+            //crash save approval trying!
+            if (_statusClass.WorldStatus()== false & homeControl._isRuningWorld == true & CrashCountWorld < 5)
+            {
+                CrashCountWorld = +1;
+                _statusClass.StartWorld();
+            }
+            else if (_statusClass.WorldStatus() == false & homeControl._isRuningWorld == true & CrashCountWorld > 5 )
+            {
+                homeControl._isRuningWorld = false;
+                CrashCountWorld = 0;
+                Alert("World server could not be started again! Fatal Error!", NotificationType.Info);
+            }
+            if (_statusClass.BnetStatus() == false & homeControl._isRuningBnet == true & CrashCountBnet < 5)
+            {
+                CrashCountBnet = +1;
+                _statusClass.StartBnet();
+            }
+            else if (_statusClass.BnetStatus() == false & homeControl._isRuningBnet == true & CrashCountBnet > 5)
+            {
+                homeControl._isRuningBnet = false;
+                CrashCountBnet = 0;
+                Alert("Bnet/Auth server could not be started again! Fatal Error!", NotificationType.Info);
+            }
+            if (_statusClass.MySQLstatus() ==false & homeControl._isRuningMysql == true & CrashCountMysql < 5)
+            {
+                CrashCountMysql = +1;
+                _statusClass.StartBnet();
+            }
+            else if (_statusClass.MySQLstatus() == false & homeControl._isRuningMysql == true & CrashCountMysql > 5)
+            {
+                homeControl._isRuningMysql = false;
+                CrashCountMysql= 0;
+                Alert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
+            }
+        }
     }
 }

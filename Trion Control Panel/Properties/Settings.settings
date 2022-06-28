@@ -47,8 +47,8 @@
     <Setting Name="BnetCoreName" Type="System.String" Scope="User">
       <Value Profile="(Default)">BNetServer</Value>
     </Setting>
-    <Setting Name="ApacheCoreName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">httpd</Value>
+    <Setting Name="RunWithWindows" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MySQLCoreName" Type="System.String" Scope="User">
       <Value Profile="(Default)">mysqld</Value>
@@ -67,6 +67,12 @@
     </Setting>
     <Setting Name="MySQLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartCoreWithWindows" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ServerCrashCheck" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

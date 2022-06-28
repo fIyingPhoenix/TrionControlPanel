@@ -58,6 +58,12 @@
             this.lblMySqlServerSettings = new System.Windows.Forms.Label();
             this.tglStayInTray = new TrionControlPanel.UI.CustomToggleButton();
             this.roundPanel3 = new TrionControlPanel.UI.CustomPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tglRestartOnCrash = new TrionControlPanel.UI.CustomToggleButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tglStartServer = new TrionControlPanel.UI.CustomToggleButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tglStartOnStartup = new TrionControlPanel.UI.CustomToggleButton();
             this.comboBoxCore = new TrionControlPanel.UI.CustomComboBox();
             this.lblCores = new System.Windows.Forms.Label();
             this.lblHideControls = new System.Windows.Forms.Label();
@@ -536,6 +542,12 @@
             // 
             this.roundPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.roundPanel3.Controls.Add(this.label6);
+            this.roundPanel3.Controls.Add(this.tglRestartOnCrash);
+            this.roundPanel3.Controls.Add(this.label5);
+            this.roundPanel3.Controls.Add(this.tglStartServer);
+            this.roundPanel3.Controls.Add(this.label4);
+            this.roundPanel3.Controls.Add(this.tglStartOnStartup);
             this.roundPanel3.Controls.Add(this.comboBoxCore);
             this.roundPanel3.Controls.Add(this.lblCores);
             this.roundPanel3.Controls.Add(this.lblHideControls);
@@ -550,6 +562,90 @@
             this.roundPanel3.Name = "roundPanel3";
             this.roundPanel3.Size = new System.Drawing.Size(234, 309);
             this.roundPanel3.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label6.Location = new System.Drawing.Point(69, 260);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(128, 15);
+            this.label6.TabIndex = 49;
+            this.label6.Text = "Restart server on crash.";
+            // 
+            // tglRestartOnCrash
+            // 
+            this.tglRestartOnCrash.AutoSize = true;
+            this.tglRestartOnCrash.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglRestartOnCrash.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tglRestartOnCrash.Location = new System.Drawing.Point(18, 257);
+            this.tglRestartOnCrash.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tglRestartOnCrash.Name = "tglRestartOnCrash";
+            this.tglRestartOnCrash.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.tglRestartOnCrash.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tglRestartOnCrash.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.tglRestartOnCrash.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tglRestartOnCrash.Size = new System.Drawing.Size(45, 22);
+            this.tglRestartOnCrash.SolidStyle = false;
+            this.tglRestartOnCrash.TabIndex = 48;
+            this.tglRestartOnCrash.UseVisualStyleBackColor = false;
+            this.tglRestartOnCrash.CheckedChanged += new System.EventHandler(this.tglRestartOnCrash_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label5.Location = new System.Drawing.Point(69, 233);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(124, 15);
+            this.label5.TabIndex = 47;
+            this.label5.Text = "Start server on launch.";
+            // 
+            // tglStartServer
+            // 
+            this.tglStartServer.AutoSize = true;
+            this.tglStartServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglStartServer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tglStartServer.Location = new System.Drawing.Point(18, 230);
+            this.tglStartServer.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tglStartServer.Name = "tglStartServer";
+            this.tglStartServer.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.tglStartServer.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tglStartServer.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.tglStartServer.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tglStartServer.Size = new System.Drawing.Size(45, 22);
+            this.tglStartServer.SolidStyle = false;
+            this.tglStartServer.TabIndex = 46;
+            this.tglStartServer.UseVisualStyleBackColor = false;
+            this.tglStartServer.CheckedChanged += new System.EventHandler(this.tglStartServer_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label4.Location = new System.Drawing.Point(69, 205);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(112, 15);
+            this.label4.TabIndex = 45;
+            this.label4.Text = "Start with Windows.";
+            // 
+            // tglStartOnStartup
+            // 
+            this.tglStartOnStartup.AutoSize = true;
+            this.tglStartOnStartup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.tglStartOnStartup.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tglStartOnStartup.Location = new System.Drawing.Point(18, 202);
+            this.tglStartOnStartup.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tglStartOnStartup.Name = "tglStartOnStartup";
+            this.tglStartOnStartup.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.tglStartOnStartup.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tglStartOnStartup.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.tglStartOnStartup.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tglStartOnStartup.Size = new System.Drawing.Size(45, 22);
+            this.tglStartOnStartup.SolidStyle = false;
+            this.tglStartOnStartup.TabIndex = 44;
+            this.tglStartOnStartup.UseVisualStyleBackColor = false;
+            this.tglStartOnStartup.CheckedChanged += new System.EventHandler(this.tglStartOnStartup_CheckedChanged);
             // 
             // comboBoxCore
             // 
@@ -593,7 +689,7 @@
             // 
             this.lblHideControls.AutoSize = true;
             this.lblHideControls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblHideControls.Location = new System.Drawing.Point(69, 178);
+            this.lblHideControls.Location = new System.Drawing.Point(69, 177);
             this.lblHideControls.Name = "lblHideControls";
             this.lblHideControls.Size = new System.Drawing.Size(79, 15);
             this.lblHideControls.TabIndex = 41;
@@ -620,7 +716,7 @@
             // 
             this.lblNotySound.AutoSize = true;
             this.lblNotySound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblNotySound.Location = new System.Drawing.Point(69, 150);
+            this.lblNotySound.Location = new System.Drawing.Point(69, 149);
             this.lblNotySound.Name = "lblNotySound";
             this.lblNotySound.Size = new System.Drawing.Size(109, 15);
             this.lblNotySound.TabIndex = 39;
@@ -977,5 +1073,11 @@
         private UI.CustomPanel customPanel2;
         private UI.CustomPanel customPanel4;
         private UI.CustomButton btnFixMysql;
+        private Label label6;
+        private UI.CustomToggleButton tglRestartOnCrash;
+        private Label label5;
+        private UI.CustomToggleButton tglStartServer;
+        private Label label4;
+        private UI.CustomToggleButton tglStartOnStartup;
     }
 }

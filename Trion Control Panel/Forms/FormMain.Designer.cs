@@ -38,6 +38,7 @@
             this.pnlTabs = new System.Windows.Forms.Panel();
             this.mainNotify = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
+            this.timerCrashCheck = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
@@ -150,6 +151,11 @@
             this.timerCheck.Interval = 10;
             this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
+            // timerCrashCheck
+            // 
+            this.timerCrashCheck.Interval = 3000;
+            this.timerCrashCheck.Tick += new System.EventHandler(this.timerCrashCheck_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -182,5 +188,6 @@
         private UI.CustomButton btnHome;
         private UI.CustomButton btnSettings;
         private UI.CustomButton btnTerminal;
+        internal System.Windows.Forms.Timer timerCrashCheck;
     }
 }

@@ -3,7 +3,6 @@ using TrionControlPanel.Classes;
 using System.Media;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
-
 namespace TrionControlPanel.Forms
 {
     public partial class FormAlert : Form

@@ -1,9 +1,7 @@
 ﻿using TrionControlPanel.Classes;
 using TrionControlPanel.Forms;
 using TrionControlPanel.Properties;
-using System.Diagnostics;
 using System.Net;
-using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
 
@@ -11,100 +9,15 @@ namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-
         readonly StatusClass _statusClass = new();
-        private bool _isRuningBnet = false;
-        private bool _isRuningWorld = false;
-
+        internal bool _isRuningBnet = false;
+        internal bool _isRuningWorld = false;
+        internal bool _isRuningMysql = false;
         public static void Alert(string message, NotificationType eType)
         {
             //make the laert work.
             FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
             frm.ShowAlert(message, eType);
-        }
-        private static void StartWorld()
-        {
-            try
-            {
-                using (Process myProcess = new())
-                {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Settings.Default.WorldCoreLocation;
-
-                    if (Settings.Default.TogleConsolHide == false)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = false;
-                        myProcess.Start();
-                    }
-                    else if (Settings.Default.TogleConsolHide == true)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();
-                    }
-                    Alert("Starting World Server!", NotificationType.Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Alert(ex.Message, NotificationType.Error);
-            }
-        }
-        private static void StartBnet()
-        {
-            try
-            {
-                using (Process myProcess = new())
-                {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Settings.Default.BnetCoreLocation;
-
-                    if (Settings.Default.TogleConsolHide == false)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = false;
-                        myProcess.Start();
-                    }
-                    else if (Settings.Default.TogleConsolHide == true)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();
-                    }
-                    Alert("Starting Bnet Server!", NotificationType.Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Alert(ex.Message, NotificationType.Error);
-            }
-        }
-
-        private static void StartMysql()
-        {
-            try
-            {
-                using (Process myProcess = new())
-                {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = $@"{Settings.Default.MySQLocation}";
-
-                    if (Settings.Default.TogleConsolHide == false)
-                    {
-                        Process.Start($@"{Settings.Default.MySQLocation}","--console");  
-                    }
-                    else if (Settings.Default.TogleConsolHide == true)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();
-                    }
-                    Alert("Starting Bnet Server!", NotificationType.Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Alert(ex.Message, NotificationType.Error);
-            }
         }
         public HomeControl()
         {
@@ -125,7 +38,6 @@ namespace TrionControlPanel.TabsComponents
            });
             BnetResourcesUsageThread.Start();
         }
-
         private void WorldResourceTimer_Tick(object sender, EventArgs e)
         {
             Thread WorldResourcesUsageThread = new(() =>
@@ -141,7 +53,6 @@ namespace TrionControlPanel.TabsComponents
             });
             WorldResourcesUsageThread.Start();
         }
-
         private void ServerStatusTimer_Tick(object sender, EventArgs e)
         {
             Thread PCResorceUsageThread = new(() =>
@@ -204,33 +115,38 @@ namespace TrionControlPanel.TabsComponents
         private void BtnStartWorld_Click(object sender, EventArgs e)
         {
             _isRuningWorld = true;
-            StartWorld();
+            _statusClass.StartWorld();
         }
         private void BtnStartBent_Click(object sender, EventArgs e)
         {
             _isRuningBnet = true;
-            StartBnet();
+            _statusClass.StartBnet();
         }
         private void BntStartAll_Click(object sender, EventArgs e)
         {
+            _statusClass.StartMysql();
+            Thread.Sleep(2000);
             _isRuningBnet = true;
             _isRuningWorld = true;
-            StartBnet();
-            StartWorld();
-            StartMysql();
+            _isRuningMysql = true;
+            _statusClass.StartBnet();
+            _statusClass.StartWorld();
         }
         private void btnStartMysql_Click(object sender, EventArgs e)
         {
-            StartMysql();
+            _statusClass.StartMysql();
+            _isRuningMysql = true;
         }
         private void bntStopMysql_Click(object sender, EventArgs e)
         {
             _statusClass.KillMysql();
+            _isRuningMysql = false;
         }
         private void BntStopAll_Click(object sender, EventArgs e)
         {
             _isRuningBnet = false;
             _isRuningWorld = false;
+            _isRuningMysql = false;
             _statusClass.KillWorld();
             _statusClass.KillBnet();
             _statusClass.KillMysql();
@@ -239,7 +155,6 @@ namespace TrionControlPanel.TabsComponents
         {
             _isRuningWorld = false;
             _statusClass.KillWorld();
-
         }
         private void BtnStopBnet_Click(object sender, EventArgs e)
         {
@@ -250,9 +165,9 @@ namespace TrionControlPanel.TabsComponents
         {
             Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\";
             Settings.Default.Save();
-
+            //
             pBarDownloadMysql.Visible = true;
-
+            //
             if (!Directory.Exists($"{Settings.Default.MySQLocation}"))
             {
                 Directory.CreateDirectory($"{Settings.Default.MySQLocation}");
@@ -296,7 +211,5 @@ namespace TrionControlPanel.TabsComponents
             pBarDownloadMysql.Visible = false;
             pBarDownloadMysql.Value = 0;
         }
-
-
     }
 }

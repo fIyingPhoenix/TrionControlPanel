@@ -205,13 +205,13 @@ namespace TrionControlPanel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("httpd")]
-        public string ApacheCoreName {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RunWithWindows {
             get {
-                return ((string)(this["ApacheCoreName"]));
+                return ((bool)(this["RunWithWindows"]));
             }
             set {
-                this["ApacheCoreName"] = value;
+                this["RunWithWindows"] = value;
             }
         }
         
@@ -284,6 +284,30 @@ namespace TrionControlPanel.Properties {
             }
             set {
                 this["MySQLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartCoreWithWindows {
+            get {
+                return ((bool)(this["StartCoreWithWindows"]));
+            }
+            set {
+                this["StartCoreWithWindows"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ServerCrashCheck {
+            get {
+                return ((bool)(this["ServerCrashCheck"]));
+            }
+            set {
+                this["ServerCrashCheck"] = value;
             }
         }
     }
