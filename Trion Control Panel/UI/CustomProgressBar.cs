@@ -6,6 +6,7 @@ namespace TrionControlPanel.UI
     public class CustomProgressBar : ProgressBar
     {
         //Fields
+        private bool seeLabel = true;  
         private string labelText = "%";
         private bool maximumValue = false;
         private int fontSize = 10;
@@ -42,6 +43,16 @@ namespace TrionControlPanel.UI
             set
             {
                 maximumValue = value;
+                this.Invalidate();
+            }
+        }
+        [Category("1 CustomButton Advance")]
+        public bool ShowStatus
+        {
+            get { return seeLabel; }
+            set
+            {
+                seeLabel = value;
                 this.Invalidate();
             }
         }
@@ -97,14 +108,18 @@ namespace TrionControlPanel.UI
                 string textMinimum = $"{this.Value} {labelText}";
                 string textMaximum = $"{this.Value} {labelText} / {this.Maximum} {labelText} ";
                 string text = "";
-                if (maximumValue == false)
+                if(seeLabel == true)
                 {
-                    text = textMinimum;
+                    if (maximumValue == false)
+                    {
+                        text = textMinimum;
+                    }
+                    else
+                    {
+                        text = textMaximum;
+                    }
                 }
-                else
-                {
-                    text = textMaximum;
-                }
+      
                 SizeF size = g.MeasureString(text, f);
                 int textlocationWidth = (int)((this.Width / 2) - (size.Width / 2));
                 int textlocationHeight = (int)((this.Height / 2) - (size.Height / 2));

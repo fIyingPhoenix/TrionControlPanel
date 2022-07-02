@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WMtdEv6yqm0Ydey4niVcT3jJgF9LNfGkHQO1naMLFYIXu3HV7Q9zOILzlKRUEsAKnywk3slM63rI1+8JyMv4Mg==",
+  "dgSpecHash": "zxznaYVhaSd85W9CuhwXX4fnE7YOqcomuKSdU9QB51YikOCa0cPlBGXbCPI+DTOOcg616fkhWKOMuFyEvRV9qg==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\Trion Control Panel.csproj",
+  "projectFilePath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\Trion Control Panel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Andrei Caran\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",

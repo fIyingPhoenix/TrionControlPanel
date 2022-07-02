@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\Trion Control Panel.csproj": {}
+    "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\Trion Control Panel.csproj": {}
   },
   "projects": {
-    "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\Trion Control Panel.csproj": {
+    "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\Trion Control Panel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\Trion Control Panel.csproj",
+        "projectUniqueName": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\Trion Control Panel.csproj",
         "projectName": "Trion Control Panel",
-        "projectPath": "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\Trion Control Panel.csproj",
+        "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\Trion Control Panel.csproj",
         "packagesPath": "C:\\Users\\Andrei Caran\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\Git\\Trion Control Pane\\Trion Control Panel\\obj\\",
+        "outputPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -71,7 +71,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

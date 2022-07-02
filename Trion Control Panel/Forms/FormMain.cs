@@ -85,35 +85,41 @@ namespace TrionControlPanel
             timer.Interval = millisecond;
             timer.Start();
         }
+        private void StartCoreScript(int milliseconds)
+        {
+            if (_statusClass.MySQLstatus() == true)
+            {
+                homeControl._isRuningMysql = true;
+            }
+            else
+            {
+                _statusClass.StartMysql();
+                homeControl._isRuningMysql = true;
+            }
+            //
+            
+            var timer1 = new System.Windows.Forms.Timer();
+            //
+            timer1.Interval = milliseconds;
+            timer1.Enabled = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+                homeControl._isRuningBnet = true;
+                homeControl._isRuningWorld = true;
+                _statusClass.StartBnet();
+                _statusClass.StartWorld();
+            };
+        }
+        
         private void StartCoreWithWindows()
         {
             if (Settings.Default.StartCoreWithWindows == true)
             {
-                if (_statusClass.MySQLstatus() == true)
-                {
-                    homeControl._isRuningMysql = true;
-                }else
-                {
-                    _statusClass.StartMysql();
-                    homeControl._isRuningMysql = true;
-                }
-                //
-                int milliseconds = 10000;
-                var timer1 = new System.Windows.Forms.Timer();
-                //
-                timer1.Interval = milliseconds;
-                timer1.Enabled = true;
-                timer1.Start();
-
-                timer1.Tick += (s, e) =>
-                {
-                    timer1.Enabled = false;
-                    timer1.Stop();
-                    homeControl._isRuningBnet = true;
-                    homeControl._isRuningWorld = true;
-                    _statusClass.StartBnet();
-                    _statusClass.StartWorld();
-                };
+                StartCoreScript(7000);
             }
         }
         private void FormMain_Load(object sender, EventArgs e)
@@ -137,8 +143,9 @@ namespace TrionControlPanel
                 this.Hide();
                 e.Cancel = true;
             }
-            else
+            else if (Settings.Default.TogleStayInTray == false)
             {
+                mainNotify.Dispose();
                 Environment.Exit(0);
             }
         }
@@ -182,6 +189,30 @@ namespace TrionControlPanel
                 CrashCountMysql= 0;
                 Alert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
             }
+        }
+        private void showTrionItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void startTrionItem_Click(object sender, EventArgs e)
+        {
+            StartCoreScript(5000);
+        }
+
+        private void stopTrionItem_Click(object sender, EventArgs e)
+        {
+            homeControl._isRuningBnet = false;
+            homeControl._isRuningWorld = false;
+            homeControl._isRuningMysql = false;
+            _statusClass.KillWorld();
+            _statusClass.KillBnet();
+            _statusClass.KillMysql();
+        }
+
+        private void exitTrionItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

@@ -124,13 +124,32 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BntStartAll_Click(object sender, EventArgs e)
         {
-            _statusClass.StartMysql();
-            Thread.Sleep(2000);
-            _isRuningBnet = true;
-            _isRuningWorld = true;
-            _isRuningMysql = true;
-            _statusClass.StartBnet();
-            _statusClass.StartWorld();
+            if (_statusClass.MySQLstatus() == true)
+            {
+                _isRuningMysql = true;
+            }
+            else
+            {
+                _statusClass.StartMysql();
+                _isRuningMysql = true;
+            }
+
+            int milliseconds = 5000;
+            var timerStart = new System.Windows.Forms.Timer();
+
+            timerStart.Interval = milliseconds;
+            timerStart.Enabled = true;
+            timerStart.Start();
+
+            timerStart.Tick += (s, e) =>
+            {
+                timerStart.Enabled = false;
+                timerStart.Stop();
+                _isRuningBnet = true;
+                _isRuningWorld = true;
+                _statusClass.StartBnet();
+                _statusClass.StartWorld();
+            };
         }
         private void btnStartMysql_Click(object sender, EventArgs e)
         {
@@ -163,17 +182,22 @@ namespace TrionControlPanel.TabsComponents
         }
         private void bntDownloadMysql_Click(object sender, EventArgs e)
         {
-            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\";
+            string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
+            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\{mysqlName}";
             Settings.Default.Save();
             //
             pBarDownloadMysql.Visible = true;
             //
-            if (!Directory.Exists($"{Settings.Default.MySQLocation}"))
+            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
             {
-                Directory.CreateDirectory($"{Settings.Default.MySQLocation}");
+                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
             }
             //
-            string url = "https://media.githubusercontent.com/media/fIyingPhoenix/TrionControlPanel/main/MySQL%20Server/mysql.zip";
+            string sharingUrl = "https://1drv.ms/u/s!ApVjHQD9ApL5mjxAJFwwfyeXzYtO?e=kTxLE1";
+            string base64Value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(sharingUrl));
+            string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
+            string resultUrl = string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
+            //
             string location = $@"{Settings.Default.MySQLocation}\mysql.zip";
             //
             WebClient webClient = new();
@@ -181,7 +205,7 @@ namespace TrionControlPanel.TabsComponents
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
             Thread DownloadThread = new(() =>
             {
-                webClient.DownloadFileAsync(new Uri(url), location);
+                webClient.DownloadFileAsync(new Uri(resultUrl), location);
             });
             DownloadThread.Start ();
             bntDownloadMysql.Enabled = false;

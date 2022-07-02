@@ -1,0 +1,2 @@
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Publish\Trion Control Panel.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Publish\Trion Control Panel.exe

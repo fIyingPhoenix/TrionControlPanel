@@ -37,10 +37,16 @@
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlTabs = new System.Windows.Forms.Panel();
             this.mainNotify = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trionNotificationMenu = new TrionControlPanel.UI.CustomDropdownMenu(this.components);
+            this.showTrionItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startTrionItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopTrionItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
             this.timerCrashCheck = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            this.trionNotificationMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -140,10 +146,58 @@
             // 
             // mainNotify
             // 
+            this.mainNotify.ContextMenuStrip = this.trionNotificationMenu;
             this.mainNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotify.Icon")));
-            this.mainNotify.Text = "CypherCore Server Control Panel";
+            this.mainNotify.Text = "Trion Control Panel";
             this.mainNotify.Visible = true;
             this.mainNotify.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainNotify_MouseDoubleClick);
+            // 
+            // trionNotificationMenu
+            // 
+            this.trionNotificationMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.trionNotificationMenu.IsMainMenu = true;
+            this.trionNotificationMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTrionItem,
+            this.startTrionItem,
+            this.stopTrionItem,
+            this.exitTrionItem});
+            this.trionNotificationMenu.MenuItemHeight = 15;
+            this.trionNotificationMenu.MenuItemTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.trionNotificationMenu.Name = "customDropdownMenu1";
+            this.trionNotificationMenu.PrimaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.trionNotificationMenu.Size = new System.Drawing.Size(134, 92);
+            // 
+            // showTrionItem
+            // 
+            this.showTrionItem.Image = global::TrionControlPanel.Properties.Resources.Logo_weiss_klein1;
+            this.showTrionItem.Name = "showTrionItem";
+            this.showTrionItem.Size = new System.Drawing.Size(133, 22);
+            this.showTrionItem.Text = "Show Trion";
+            this.showTrionItem.Click += new System.EventHandler(this.showTrionItem_Click);
+            // 
+            // startTrionItem
+            // 
+            this.startTrionItem.Image = global::TrionControlPanel.Properties.Resources.anfang_20;
+            this.startTrionItem.Name = "startTrionItem";
+            this.startTrionItem.Size = new System.Drawing.Size(133, 22);
+            this.startTrionItem.Text = "Start Server";
+            this.startTrionItem.Click += new System.EventHandler(this.startTrionItem_Click);
+            // 
+            // stopTrionItem
+            // 
+            this.stopTrionItem.Image = global::TrionControlPanel.Properties.Resources.stopp_20;
+            this.stopTrionItem.Name = "stopTrionItem";
+            this.stopTrionItem.Size = new System.Drawing.Size(133, 22);
+            this.stopTrionItem.Text = "Stop Server";
+            this.stopTrionItem.Click += new System.EventHandler(this.stopTrionItem_Click);
+            // 
+            // exitTrionItem
+            // 
+            this.exitTrionItem.Image = global::TrionControlPanel.Properties.Resources.schließen_20;
+            this.exitTrionItem.Name = "exitTrionItem";
+            this.exitTrionItem.Size = new System.Drawing.Size(133, 22);
+            this.exitTrionItem.Text = "Exit Trion";
+            this.exitTrionItem.Click += new System.EventHandler(this.exitTrionItem_Click);
             // 
             // timerCheck
             // 
@@ -175,6 +229,7 @@
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panelMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            this.trionNotificationMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,5 +244,10 @@
         private UI.CustomButton btnSettings;
         private UI.CustomButton btnTerminal;
         internal System.Windows.Forms.Timer timerCrashCheck;
+        private UI.CustomDropdownMenu trionNotificationMenu;
+        private ToolStripMenuItem showTrionItem;
+        private ToolStripMenuItem startTrionItem;
+        private ToolStripMenuItem stopTrionItem;
+        private ToolStripMenuItem exitTrionItem;
     }
 }

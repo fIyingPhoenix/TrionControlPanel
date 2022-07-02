@@ -256,7 +256,7 @@ namespace TrionControlPanel.TabsComponents
         }
         private void btnFixMysql_Click(object sender, EventArgs e)
         {
-            Process.Start($@"{Settings.Default.MySQLocation}mysql\bin\mysqld.exe", "--initialize --console");
+            Process.Start($@"{Settings.Default.MySQLocation}", "--initialize --console");
         }
         private void bntMySqlLocation_Click(object sender, EventArgs e)
         { 

@@ -147,6 +147,7 @@ namespace TrionControlPanel.TabsComponents
             this.worldRamUsageProgressBar.Location = new System.Drawing.Point(9, 61);
             this.worldRamUsageProgressBar.MaximumValue = true;
             this.worldRamUsageProgressBar.Name = "worldRamUsageProgressBar";
+            this.worldRamUsageProgressBar.ShowStatus = true;
             this.worldRamUsageProgressBar.Size = new System.Drawing.Size(309, 17);
             this.worldRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldRamUsageProgressBar.TabIndex = 25;
@@ -161,6 +162,7 @@ namespace TrionControlPanel.TabsComponents
             this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(9, 113);
             this.worldCpuUsageProgressBar.MaximumValue = false;
             this.worldCpuUsageProgressBar.Name = "worldCpuUsageProgressBar";
+            this.worldCpuUsageProgressBar.ShowStatus = true;
             this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(309, 17);
             this.worldCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldCpuUsageProgressBar.TabIndex = 26;
@@ -314,6 +316,7 @@ namespace TrionControlPanel.TabsComponents
             this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(13, 113);
             this.BnetCpuUsageProgressBar.MaximumValue = false;
             this.BnetCpuUsageProgressBar.Name = "BnetCpuUsageProgressBar";
+            this.BnetCpuUsageProgressBar.ShowStatus = true;
             this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(310, 17);
             this.BnetCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetCpuUsageProgressBar.TabIndex = 28;
@@ -339,6 +342,7 @@ namespace TrionControlPanel.TabsComponents
             this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(13, 64);
             this.BnetRamUsageProgressBar.MaximumValue = true;
             this.BnetRamUsageProgressBar.Name = "BnetRamUsageProgressBar";
+            this.BnetRamUsageProgressBar.ShowStatus = true;
             this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(310, 17);
             this.BnetRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetRamUsageProgressBar.TabIndex = 27;
@@ -392,6 +396,7 @@ namespace TrionControlPanel.TabsComponents
             this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(13, 112);
             this.totalCpuUsageProgressBar.MaximumValue = false;
             this.totalCpuUsageProgressBar.Name = "totalCpuUsageProgressBar";
+            this.totalCpuUsageProgressBar.ShowStatus = true;
             this.totalCpuUsageProgressBar.Size = new System.Drawing.Size(380, 17);
             this.totalCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.totalCpuUsageProgressBar.TabIndex = 24;
@@ -408,6 +413,7 @@ namespace TrionControlPanel.TabsComponents
             this.totalRamUsageProgressBar.Margin = new System.Windows.Forms.Padding(0);
             this.totalRamUsageProgressBar.MaximumValue = true;
             this.totalRamUsageProgressBar.Name = "totalRamUsageProgressBar";
+            this.totalRamUsageProgressBar.ShowStatus = true;
             this.totalRamUsageProgressBar.Size = new System.Drawing.Size(380, 17);
             this.totalRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.totalRamUsageProgressBar.TabIndex = 23;
@@ -566,6 +572,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
             this.customWebBrowser1.Location = new System.Drawing.Point(20, 18);
             this.customWebBrowser1.Name = "customWebBrowser1";
+            this.customWebBrowser1.ScriptErrorsSuppressed = true;
             this.customWebBrowser1.ScrollBarsEnabled = false;
             this.customWebBrowser1.Size = new System.Drawing.Size(142, 28);
             this.customWebBrowser1.TabIndex = 37;
@@ -593,6 +600,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser3.IsWebBrowserContextMenuEnabled = false;
             this.customWebBrowser3.Location = new System.Drawing.Point(270, 18);
             this.customWebBrowser3.Name = "customWebBrowser3";
+            this.customWebBrowser3.ScriptErrorsSuppressed = true;
             this.customWebBrowser3.ScrollBarsEnabled = false;
             this.customWebBrowser3.Size = new System.Drawing.Size(97, 28);
             this.customWebBrowser3.TabIndex = 39;
@@ -620,6 +628,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser6.AllowNavigation = false;
             this.customWebBrowser6.Location = new System.Drawing.Point(531, 18);
             this.customWebBrowser6.Name = "customWebBrowser6";
+            this.customWebBrowser6.ScriptErrorsSuppressed = true;
             this.customWebBrowser6.ScrollBarsEnabled = false;
             this.customWebBrowser6.Size = new System.Drawing.Size(147, 28);
             this.customWebBrowser6.TabIndex = 42;
@@ -634,6 +643,7 @@ namespace TrionControlPanel.TabsComponents
             this.pBarDownloadMysql.Location = new System.Drawing.Point(210, 498);
             this.pBarDownloadMysql.MaximumValue = false;
             this.pBarDownloadMysql.Name = "pBarDownloadMysql";
+            this.pBarDownloadMysql.ShowStatus = false;
             this.pBarDownloadMysql.Size = new System.Drawing.Size(277, 5);
             this.pBarDownloadMysql.Step = 0;
             this.pBarDownloadMysql.TabIndex = 44;
