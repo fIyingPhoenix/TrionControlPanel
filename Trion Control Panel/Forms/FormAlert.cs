@@ -35,7 +35,7 @@ namespace TrionControlPanel.Forms
             {
                 formName = "alert" + i.ToString();
                 FormAlert frm = (FormAlert)Application.OpenForms[formName];
-                int _height = Height * i - 0 * i;
+                int _height = (Height * i) - (0 * i);
                 if (frm == null)
                 {
                     Name = formName;

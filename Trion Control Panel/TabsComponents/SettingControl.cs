@@ -91,7 +91,6 @@ namespace TrionControlPanel.TabsComponents
                     }
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, mysqlName, SearchOption.AllDirectories))
                     {
-
                         txtMysqlLocation.Texts = f;
                         SaveSettings();
                     }
@@ -154,8 +153,7 @@ namespace TrionControlPanel.TabsComponents
             }     
         }
         private void TimerCheck_Tick(object sender, EventArgs e)
-        {
-            
+        {   
             if(tglCustomNames.Checked == true)
             {
                 txtWorldName.ReadOnly = false;

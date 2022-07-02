@@ -8,8 +8,6 @@ namespace TrionControlPanel.Database
 {
     internal class DatabaseConnection
     {
-
-
         private  MySqlConnection MySqlCore = new ($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
         internal MySqlConnection GetConnection
         {
@@ -46,7 +44,6 @@ namespace TrionControlPanel.Database
                 if (MySqlCore.State == ConnectionState.Open)
                 {
                     MySqlCore.Close();
-
                 }
             }
             catch (Exception ex)
@@ -55,7 +52,7 @@ namespace TrionControlPanel.Database
             }
         }
     }
-    internal class AccountManager 
+    public class AccountManager 
     {
         DatabaseConnection databaseConnection = new();
         public bool NewUser(string email, string password, bool withGameAccount = true, string gameAccountName = "")
@@ -93,4 +90,5 @@ namespace TrionControlPanel.Database
         //    return sha256.ComputeHash(Encoding.UTF8.GetBytes(i.ToHexString() + ":" + password)).ToHexString(true);
         //}
     }
+
 }

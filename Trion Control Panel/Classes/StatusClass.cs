@@ -290,6 +290,5 @@ namespace TrionControlPanel.Classes
                 Alert(ex.Message, NotificationType.Error);
             }
         }
-
     }
 }

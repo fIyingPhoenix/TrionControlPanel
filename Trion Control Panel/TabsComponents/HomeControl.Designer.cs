@@ -570,7 +570,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser1.AllowNavigation = false;
             this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(20, 18);
+            this.customWebBrowser1.Location = new System.Drawing.Point(16, 18);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScriptErrorsSuppressed = true;
             this.customWebBrowser1.ScrollBarsEnabled = false;
@@ -583,11 +583,11 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser2.AllowNavigation = false;
             this.customWebBrowser2.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(168, 18);
+            this.customWebBrowser2.Location = new System.Drawing.Point(164, 18);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
-            this.customWebBrowser2.Size = new System.Drawing.Size(96, 28);
+            this.customWebBrowser2.Size = new System.Drawing.Size(100, 28);
             this.customWebBrowser2.TabIndex = 38;
             this.customWebBrowser2.Url = new System.Uri("https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for" +
         "-the-badge", System.UriKind.Absolute);

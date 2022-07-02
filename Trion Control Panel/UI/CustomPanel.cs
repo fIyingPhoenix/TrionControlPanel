@@ -88,6 +88,5 @@ namespace TrionControlPanel.UI
             graphics.DrawArc(pen, new Rectangle(0, Height - Edge - 1, Edge, Edge), 90, 90);
             graphics.DrawRectangle(pen, 0.0F, 0.0F, Width - 1, Height - 1);
         }
-
     }
 }

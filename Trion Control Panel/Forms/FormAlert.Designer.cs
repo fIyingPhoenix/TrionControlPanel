@@ -110,8 +110,13 @@
             this.Controls.Add(this.picIcon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MdiChildrenMinimizedAnchorBottom = false;
+            this.MinimizeBox = false;
             this.Name = "FormAlert";
             this.Padding = new System.Windows.Forms.Padding(5);
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "FormAlert";
             this.Load += new System.EventHandler(this.FormAlert_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();

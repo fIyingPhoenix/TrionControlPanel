@@ -1,5 +1,4 @@
-﻿using TrionControlPanel.Classes;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace TrionControlPanel.UI
@@ -12,7 +11,6 @@ namespace TrionControlPanel.UI
         private Color borderColor;
         private Color menuItemBorderColor;
         private Color menuItemSelectedColor;
-
         //Constructor
         public MenuColorTable(bool isMainMenu, Color primaryColor)
         {
@@ -33,7 +31,6 @@ namespace TrionControlPanel.UI
                 menuItemSelectedColor = primaryColor;
             }
         }
-
         //Overrides
         public override Color ToolStripDropDownBackground { get { return backColor; } }
         public override Color MenuBorder { get { return borderColor; } }
@@ -43,13 +40,12 @@ namespace TrionControlPanel.UI
         public override Color ImageMarginGradientMiddle { get { return leftColumnColor; } }
         public override Color ImageMarginGradientEnd { get { return leftColumnColor; } }
     }
-    internal class MenuRenderer : ToolStripProfessionalRenderer
+    public class MenuRenderer : ToolStripProfessionalRenderer
     {
         //Fields
         private Color primaryColor;
         private Color textColor;
         private readonly int arrowThickness;
-
         //Constructor
         public MenuRenderer(bool isMainMenu, Color primaryColor, Color textColor)
             : base(new MenuColorTable(isMainMenu, primaryColor))
@@ -91,8 +87,8 @@ namespace TrionControlPanel.UI
             {
                 //Drawing
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                path.AddLine(rect.Left, rect.Top, rect.Right, rect.Top + rect.Height / 2);
-                path.AddLine(rect.Right, rect.Top + rect.Height / 2, rect.Left, rect.Top + rect.Height);
+                path.AddLine(rect.Left, rect.Top, rect.Right, rect.Top + (rect.Height / 2));
+                path.AddLine(rect.Right, rect.Top + (rect.Height / 2), rect.Left, rect.Top + rect.Height);
                 graph.DrawPath(pen, path);
             }
         }
@@ -104,12 +100,9 @@ namespace TrionControlPanel.UI
         private int menuItemHeight = 15;
         private Color menuItemTextColor = Color.Empty; //No color, The default color is set in the MenuRenderer class
         private Color primaryColor = Color.Empty; //No color, The default color is set in the MenuRenderer class
-
         private Bitmap menuItemHeaderSize;
-
         //Constructor
-        public CustomDropdownMenu(IContainer container)
-            : base(container)
+        public CustomDropdownMenu(IContainer container) : base(container)
         {
         }
         //Properties
@@ -117,7 +110,6 @@ namespace TrionControlPanel.UI
         //saving control property changes in the designer at design time in Visual Studio.
         //If the problem I mention does not occur you can expose the properties and manipulate them from the toolbox.
         //[Browsable(false)]
-
         [Category("1 CustomDropdownMenu Advance")]
         public bool IsMainMenu
         {
@@ -145,7 +137,6 @@ namespace TrionControlPanel.UI
             get { return primaryColor; }
             set { primaryColor = value; }
         }
-
         //Private methods
         private void LoadMenuItemHeight()
         {
@@ -178,7 +169,6 @@ namespace TrionControlPanel.UI
                 }
             }
         }
-
         //Overrides
         protected override void OnHandleCreated(EventArgs e)
         {
@@ -190,5 +180,4 @@ namespace TrionControlPanel.UI
             }
         }
     }
-
 }

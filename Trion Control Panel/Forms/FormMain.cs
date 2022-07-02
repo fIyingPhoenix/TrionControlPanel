@@ -54,9 +54,9 @@ namespace TrionControlPanel
                 pnlTabs.Controls.Add(homeControl);
                 btnHome.Enabled = true;
                 btnTerminal.Enabled = true; 
-                btnSettings.Enabled = true;
-                
-            }else
+                btnSettings.Enabled = true;  
+            }
+            else
             {
                 btnHome.Enabled = false;
                 btnTerminal.Enabled = false;
@@ -76,12 +76,10 @@ namespace TrionControlPanel
         {
             var timer = new System.Windows.Forms.Timer();
             timer.Tick += delegate
-
             {
                 action.Invoke();
                 timer.Stop();
             };
-
             timer.Interval = millisecond;
             timer.Start();
         }
@@ -97,13 +95,11 @@ namespace TrionControlPanel
                 homeControl._isRuningMysql = true;
             }
             //
-            
             var timer1 = new System.Windows.Forms.Timer();
             //
             timer1.Interval = milliseconds;
             timer1.Enabled = true;
             timer1.Start();
-
             timer1.Tick += (s, e) =>
             {
                 timer1.Enabled = false;
@@ -114,7 +110,6 @@ namespace TrionControlPanel
                 _statusClass.StartWorld();
             };
         }
-        
         private void StartCoreWithWindows()
         {
             if (Settings.Default.StartCoreWithWindows == true)
