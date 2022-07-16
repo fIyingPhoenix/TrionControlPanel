@@ -29,15 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label lblWorldName;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label4;
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label7;
-            System.Windows.Forms.Label label9;
-            System.Windows.Forms.Label label10;
-            System.Windows.Forms.Label label11;
             System.Windows.Forms.Label lblUsername;
             System.Windows.Forms.Label lblPassword;
             System.Windows.Forms.Label lblRePassword;
@@ -50,22 +46,24 @@
             System.Windows.Forms.Label label8;
             System.Windows.Forms.Label label13;
             System.Windows.Forms.Label label14;
+            this.lblWorldName = new System.Windows.Forms.Label();
+            this.lblRealmBuild = new System.Windows.Forms.Label();
+            this.lblRealmRegion = new System.Windows.Forms.Label();
             this.customPanelPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.btnLoadRealm = new TrionControlPanel.UI.CustomButton();
             this.btnSetRealm = new TrionControlPanel.UI.CustomButton();
-            this.customTextBox9 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox10 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox11 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox7 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox4 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox5 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox2 = new TrionControlPanel.UI.CustomTextBox();
-            this.customTextBox1 = new TrionControlPanel.UI.CustomTextBox();
-            this.txtWorldName = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmRegion = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmGameBuild = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmTimeZone = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmPort = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmSubMask = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmLocalAddress = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmAddress = new TrionControlPanel.UI.CustomTextBox();
+            this.txtRealmName = new TrionControlPanel.UI.CustomTextBox();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.customPanelPanel2 = new TrionControlPanel.UI.CustomPanel();
-            this.bntOpenLocation = new TrionControlPanel.UI.CustomButton();
+            this.btnCreateAccount = new TrionControlPanel.UI.CustomButton();
             this.txtEmail = new TrionControlPanel.UI.CustomTextBox();
             this.tglShowPassword = new TrionControlPanel.UI.CustomToggleButton();
             this.txtRePassword = new TrionControlPanel.UI.CustomTextBox();
@@ -89,15 +87,12 @@
             this.customPanel3 = new TrionControlPanel.UI.CustomPanel();
             this.customPanel2 = new TrionControlPanel.UI.CustomPanel();
             this.customPanel4 = new TrionControlPanel.UI.CustomPanel();
-            lblWorldName = new System.Windows.Forms.Label();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
             lblUsername = new System.Windows.Forms.Label();
             lblPassword = new System.Windows.Forms.Label();
             lblRePassword = new System.Windows.Forms.Label();
@@ -120,21 +115,11 @@
             this.customPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblWorldName
-            // 
-            lblWorldName.AutoSize = true;
-            lblWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            lblWorldName.Location = new System.Drawing.Point(18, 42);
-            lblWorldName.Name = "lblWorldName";
-            lblWorldName.Size = new System.Drawing.Size(78, 15);
-            lblWorldName.TabIndex = 35;
-            lblWorldName.Text = "Realm Name:";
-            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label1.Location = new System.Drawing.Point(18, 83);
+            label1.Location = new System.Drawing.Point(29, 86);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(88, 15);
             label1.TabIndex = 36;
@@ -144,7 +129,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label2.Location = new System.Drawing.Point(18, 125);
+            label2.Location = new System.Drawing.Point(29, 128);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(119, 15);
             label2.TabIndex = 37;
@@ -154,7 +139,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label4.Location = new System.Drawing.Point(186, 83);
+            label4.Location = new System.Drawing.Point(233, 86);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(68, 15);
             label4.TabIndex = 42;
@@ -164,7 +149,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label5.Location = new System.Drawing.Point(186, 42);
+            label5.Location = new System.Drawing.Point(233, 45);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(94, 15);
             label5.TabIndex = 41;
@@ -174,41 +159,11 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label7.Location = new System.Drawing.Point(186, 125);
+            label7.Location = new System.Drawing.Point(233, 128);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(99, 15);
             label7.TabIndex = 49;
             label7.Text = "Realm TimeZone:";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label9.Location = new System.Drawing.Point(353, 83);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(86, 15);
-            label9.TabIndex = 56;
-            label9.Text = "Realm  Region:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label10.Location = new System.Drawing.Point(353, 42);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(104, 15);
-            label10.TabIndex = 55;
-            label10.Text = "Realm GameBuild:";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label11.Location = new System.Drawing.Point(353, 125);
-            label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(115, 15);
-            label11.TabIndex = 54;
-            label11.Text = "Realm Bettelground:";
             // 
             // lblUsername
             // 
@@ -294,7 +249,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label6.Location = new System.Drawing.Point(539, 97);
+            label6.Location = new System.Drawing.Point(550, 97);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(92, 15);
             label6.TabIndex = 51;
@@ -304,7 +259,7 @@
             // 
             label8.AutoSize = true;
             label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label8.Location = new System.Drawing.Point(239, 78);
+            label8.Location = new System.Drawing.Point(251, 78);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(109, 15);
             label8.TabIndex = 50;
@@ -324,36 +279,64 @@
             // 
             label14.AutoSize = true;
             label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            label14.Location = new System.Drawing.Point(239, 38);
+            label14.Location = new System.Drawing.Point(251, 38);
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(60, 15);
             label14.TabIndex = 56;
             label14.Text = "Password:";
             // 
+            // lblWorldName
+            // 
+            this.lblWorldName.AutoSize = true;
+            this.lblWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblWorldName.Location = new System.Drawing.Point(29, 45);
+            this.lblWorldName.Name = "lblWorldName";
+            this.lblWorldName.Size = new System.Drawing.Size(78, 15);
+            this.lblWorldName.TabIndex = 35;
+            this.lblWorldName.Text = "Realm Name:";
+            // 
+            // lblRealmBuild
+            // 
+            this.lblRealmBuild.AutoSize = true;
+            this.lblRealmBuild.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblRealmBuild.Location = new System.Drawing.Point(439, 45);
+            this.lblRealmBuild.Name = "lblRealmBuild";
+            this.lblRealmBuild.Size = new System.Drawing.Size(73, 15);
+            this.lblRealmBuild.TabIndex = 59;
+            this.lblRealmBuild.Text = "Realm Build:";
+            // 
+            // lblRealmRegion
+            // 
+            this.lblRealmRegion.AutoSize = true;
+            this.lblRealmRegion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.lblRealmRegion.Location = new System.Drawing.Point(439, 86);
+            this.lblRealmRegion.Name = "lblRealmRegion";
+            this.lblRealmRegion.Size = new System.Drawing.Size(83, 15);
+            this.lblRealmRegion.TabIndex = 60;
+            this.lblRealmRegion.Text = "Realm Region:";
+            // 
             // customPanelPanel1
             // 
             this.customPanelPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.customPanelPanel1.BorderColor = System.Drawing.Color.White;
+            this.customPanelPanel1.Controls.Add(this.lblRealmRegion);
+            this.customPanelPanel1.Controls.Add(this.lblRealmBuild);
             this.customPanelPanel1.Controls.Add(this.btnLoadRealm);
             this.customPanelPanel1.Controls.Add(this.btnSetRealm);
-            this.customPanelPanel1.Controls.Add(label9);
-            this.customPanelPanel1.Controls.Add(label11);
-            this.customPanelPanel1.Controls.Add(label10);
-            this.customPanelPanel1.Controls.Add(this.customTextBox9);
-            this.customPanelPanel1.Controls.Add(this.customTextBox10);
-            this.customPanelPanel1.Controls.Add(this.customTextBox11);
+            this.customPanelPanel1.Controls.Add(this.txtRealmRegion);
+            this.customPanelPanel1.Controls.Add(this.txtRealmGameBuild);
             this.customPanelPanel1.Controls.Add(label7);
-            this.customPanelPanel1.Controls.Add(this.customTextBox7);
+            this.customPanelPanel1.Controls.Add(this.txtRealmTimeZone);
             this.customPanelPanel1.Controls.Add(label4);
             this.customPanelPanel1.Controls.Add(label5);
-            this.customPanelPanel1.Controls.Add(this.customTextBox4);
-            this.customPanelPanel1.Controls.Add(this.customTextBox5);
+            this.customPanelPanel1.Controls.Add(this.txtRealmPort);
+            this.customPanelPanel1.Controls.Add(this.txtRealmSubMask);
             this.customPanelPanel1.Controls.Add(label2);
             this.customPanelPanel1.Controls.Add(label1);
-            this.customPanelPanel1.Controls.Add(lblWorldName);
-            this.customPanelPanel1.Controls.Add(this.customTextBox2);
-            this.customPanelPanel1.Controls.Add(this.customTextBox1);
-            this.customPanelPanel1.Controls.Add(this.txtWorldName);
+            this.customPanelPanel1.Controls.Add(this.lblWorldName);
+            this.customPanelPanel1.Controls.Add(this.txtRealmLocalAddress);
+            this.customPanelPanel1.Controls.Add(this.txtRealmAddress);
+            this.customPanelPanel1.Controls.Add(this.txtRealmName);
             this.customPanelPanel1.Controls.Add(this.lblServerStatus);
             this.customPanelPanel1.Edge = 5;
             this.customPanelPanel1.Location = new System.Drawing.Point(1, 1);
@@ -373,13 +356,14 @@
             this.btnLoadRealm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadRealm.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLoadRealm.ForeColor = System.Drawing.Color.White;
-            this.btnLoadRealm.Location = new System.Drawing.Point(488, 98);
+            this.btnLoadRealm.Location = new System.Drawing.Point(540, 143);
             this.btnLoadRealm.Name = "btnLoadRealm";
-            this.btnLoadRealm.Size = new System.Drawing.Size(153, 30);
+            this.btnLoadRealm.Size = new System.Drawing.Size(97, 25);
             this.btnLoadRealm.TabIndex = 58;
             this.btnLoadRealm.Text = "Load";
             this.btnLoadRealm.TextColor = System.Drawing.Color.White;
             this.btnLoadRealm.UseVisualStyleBackColor = false;
+            this.btnLoadRealm.Click += new System.EventHandler(this.BtnLoadRealm_Click);
             // 
             // btnSetRealm
             // 
@@ -393,202 +377,187 @@
             this.btnSetRealm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetRealm.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSetRealm.ForeColor = System.Drawing.Color.White;
-            this.btnSetRealm.Location = new System.Drawing.Point(488, 57);
+            this.btnSetRealm.Location = new System.Drawing.Point(439, 143);
             this.btnSetRealm.Name = "btnSetRealm";
-            this.btnSetRealm.Size = new System.Drawing.Size(153, 30);
+            this.btnSetRealm.Size = new System.Drawing.Size(97, 25);
             this.btnSetRealm.TabIndex = 57;
             this.btnSetRealm.Text = "Set";
             this.btnSetRealm.TextColor = System.Drawing.Color.White;
             this.btnSetRealm.UseVisualStyleBackColor = false;
+            this.btnSetRealm.Click += new System.EventHandler(this.BtnSetRealm_Click);
             // 
-            // customTextBox9
+            // txtRealmRegion
             // 
-            this.customTextBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox9.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox9.BorderSize = 1;
-            this.customTextBox9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox9.Location = new System.Drawing.Point(353, 140);
-            this.customTextBox9.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox9.Multiline = true;
-            this.customTextBox9.Name = "customTextBox9";
-            this.customTextBox9.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox9.PasswordChar = false;
-            this.customTextBox9.ReadOnly = false;
-            this.customTextBox9.Size = new System.Drawing.Size(122, 23);
-            this.customTextBox9.TabIndex = 53;
-            this.customTextBox9.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox9.Texts = "";
-            this.customTextBox9.UnderlinedStyle = false;
+            this.txtRealmRegion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmRegion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmRegion.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmRegion.BorderSize = 1;
+            this.txtRealmRegion.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmRegion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmRegion.Location = new System.Drawing.Point(437, 101);
+            this.txtRealmRegion.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmRegion.Multiline = true;
+            this.txtRealmRegion.Name = "txtRealmRegion";
+            this.txtRealmRegion.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmRegion.PasswordChar = false;
+            this.txtRealmRegion.ReadOnly = false;
+            this.txtRealmRegion.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmRegion.TabIndex = 52;
+            this.txtRealmRegion.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmRegion.Texts = "";
+            this.txtRealmRegion.UnderlinedStyle = false;
+            this.txtRealmRegion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
-            // customTextBox10
+            // txtRealmGameBuild
             // 
-            this.customTextBox10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox10.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox10.BorderSize = 1;
-            this.customTextBox10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox10.Location = new System.Drawing.Point(353, 98);
-            this.customTextBox10.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox10.Multiline = true;
-            this.customTextBox10.Name = "customTextBox10";
-            this.customTextBox10.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox10.PasswordChar = false;
-            this.customTextBox10.ReadOnly = false;
-            this.customTextBox10.Size = new System.Drawing.Size(122, 23);
-            this.customTextBox10.TabIndex = 52;
-            this.customTextBox10.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox10.Texts = "";
-            this.customTextBox10.UnderlinedStyle = false;
+            this.txtRealmGameBuild.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmGameBuild.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmGameBuild.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmGameBuild.BorderSize = 1;
+            this.txtRealmGameBuild.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmGameBuild.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmGameBuild.Location = new System.Drawing.Point(437, 60);
+            this.txtRealmGameBuild.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmGameBuild.Multiline = true;
+            this.txtRealmGameBuild.Name = "txtRealmGameBuild";
+            this.txtRealmGameBuild.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmGameBuild.PasswordChar = false;
+            this.txtRealmGameBuild.ReadOnly = false;
+            this.txtRealmGameBuild.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmGameBuild.TabIndex = 51;
+            this.txtRealmGameBuild.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmGameBuild.Texts = "";
+            this.txtRealmGameBuild.UnderlinedStyle = false;
+            this.txtRealmGameBuild.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
-            // customTextBox11
+            // txtRealmTimeZone
             // 
-            this.customTextBox11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox11.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox11.BorderSize = 1;
-            this.customTextBox11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox11.Location = new System.Drawing.Point(353, 57);
-            this.customTextBox11.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox11.Multiline = true;
-            this.customTextBox11.Name = "customTextBox11";
-            this.customTextBox11.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox11.PasswordChar = false;
-            this.customTextBox11.ReadOnly = false;
-            this.customTextBox11.Size = new System.Drawing.Size(122, 23);
-            this.customTextBox11.TabIndex = 51;
-            this.customTextBox11.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox11.Texts = "";
-            this.customTextBox11.UnderlinedStyle = false;
+            this.txtRealmTimeZone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmTimeZone.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmTimeZone.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmTimeZone.BorderSize = 1;
+            this.txtRealmTimeZone.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmTimeZone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmTimeZone.Location = new System.Drawing.Point(233, 143);
+            this.txtRealmTimeZone.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmTimeZone.Multiline = true;
+            this.txtRealmTimeZone.Name = "txtRealmTimeZone";
+            this.txtRealmTimeZone.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmTimeZone.PasswordChar = false;
+            this.txtRealmTimeZone.ReadOnly = false;
+            this.txtRealmTimeZone.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmTimeZone.TabIndex = 46;
+            this.txtRealmTimeZone.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmTimeZone.Texts = "";
+            this.txtRealmTimeZone.UnderlinedStyle = false;
+            this.txtRealmTimeZone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
-            // customTextBox7
+            // txtRealmPort
             // 
-            this.customTextBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox7.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox7.BorderSize = 1;
-            this.customTextBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox7.Location = new System.Drawing.Point(187, 140);
-            this.customTextBox7.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox7.Multiline = true;
-            this.customTextBox7.Name = "customTextBox7";
-            this.customTextBox7.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox7.PasswordChar = false;
-            this.customTextBox7.ReadOnly = false;
-            this.customTextBox7.Size = new System.Drawing.Size(153, 23);
-            this.customTextBox7.TabIndex = 46;
-            this.customTextBox7.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox7.Texts = "";
-            this.customTextBox7.UnderlinedStyle = false;
+            this.txtRealmPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmPort.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmPort.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmPort.BorderSize = 1;
+            this.txtRealmPort.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmPort.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmPort.Location = new System.Drawing.Point(233, 101);
+            this.txtRealmPort.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmPort.Multiline = true;
+            this.txtRealmPort.Name = "txtRealmPort";
+            this.txtRealmPort.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmPort.PasswordChar = false;
+            this.txtRealmPort.ReadOnly = false;
+            this.txtRealmPort.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmPort.TabIndex = 39;
+            this.txtRealmPort.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmPort.Texts = "";
+            this.txtRealmPort.UnderlinedStyle = false;
+            this.txtRealmPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
-            // customTextBox4
+            // txtRealmSubMask
             // 
-            this.customTextBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox4.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox4.BorderSize = 1;
-            this.customTextBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox4.Location = new System.Drawing.Point(186, 98);
-            this.customTextBox4.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox4.Multiline = true;
-            this.customTextBox4.Name = "customTextBox4";
-            this.customTextBox4.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox4.PasswordChar = false;
-            this.customTextBox4.ReadOnly = false;
-            this.customTextBox4.Size = new System.Drawing.Size(153, 23);
-            this.customTextBox4.TabIndex = 39;
-            this.customTextBox4.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox4.Texts = "";
-            this.customTextBox4.UnderlinedStyle = false;
+            this.txtRealmSubMask.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmSubMask.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmSubMask.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmSubMask.BorderSize = 1;
+            this.txtRealmSubMask.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmSubMask.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmSubMask.Location = new System.Drawing.Point(233, 60);
+            this.txtRealmSubMask.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmSubMask.Multiline = true;
+            this.txtRealmSubMask.Name = "txtRealmSubMask";
+            this.txtRealmSubMask.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmSubMask.PasswordChar = false;
+            this.txtRealmSubMask.ReadOnly = false;
+            this.txtRealmSubMask.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmSubMask.TabIndex = 38;
+            this.txtRealmSubMask.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmSubMask.Texts = "";
+            this.txtRealmSubMask.UnderlinedStyle = false;
+            this.txtRealmSubMask.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
-            // customTextBox5
+            // txtRealmLocalAddress
             // 
-            this.customTextBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox5.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox5.BorderSize = 1;
-            this.customTextBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox5.Location = new System.Drawing.Point(186, 57);
-            this.customTextBox5.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox5.Multiline = true;
-            this.customTextBox5.Name = "customTextBox5";
-            this.customTextBox5.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox5.PasswordChar = false;
-            this.customTextBox5.ReadOnly = false;
-            this.customTextBox5.Size = new System.Drawing.Size(153, 23);
-            this.customTextBox5.TabIndex = 38;
-            this.customTextBox5.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox5.Texts = "";
-            this.customTextBox5.UnderlinedStyle = false;
+            this.txtRealmLocalAddress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmLocalAddress.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmLocalAddress.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmLocalAddress.BorderSize = 1;
+            this.txtRealmLocalAddress.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmLocalAddress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmLocalAddress.Location = new System.Drawing.Point(29, 143);
+            this.txtRealmLocalAddress.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmLocalAddress.Multiline = true;
+            this.txtRealmLocalAddress.Name = "txtRealmLocalAddress";
+            this.txtRealmLocalAddress.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmLocalAddress.PasswordChar = false;
+            this.txtRealmLocalAddress.ReadOnly = false;
+            this.txtRealmLocalAddress.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmLocalAddress.TabIndex = 34;
+            this.txtRealmLocalAddress.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmLocalAddress.Texts = "";
+            this.txtRealmLocalAddress.UnderlinedStyle = false;
             // 
-            // customTextBox2
+            // txtRealmAddress
             // 
-            this.customTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox2.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox2.BorderSize = 1;
-            this.customTextBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox2.Location = new System.Drawing.Point(18, 140);
-            this.customTextBox2.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox2.Multiline = true;
-            this.customTextBox2.Name = "customTextBox2";
-            this.customTextBox2.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox2.PasswordChar = false;
-            this.customTextBox2.ReadOnly = false;
-            this.customTextBox2.Size = new System.Drawing.Size(153, 23);
-            this.customTextBox2.TabIndex = 34;
-            this.customTextBox2.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox2.Texts = "";
-            this.customTextBox2.UnderlinedStyle = false;
+            this.txtRealmAddress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmAddress.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmAddress.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmAddress.BorderSize = 1;
+            this.txtRealmAddress.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmAddress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmAddress.Location = new System.Drawing.Point(29, 101);
+            this.txtRealmAddress.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmAddress.Multiline = true;
+            this.txtRealmAddress.Name = "txtRealmAddress";
+            this.txtRealmAddress.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmAddress.PasswordChar = false;
+            this.txtRealmAddress.ReadOnly = false;
+            this.txtRealmAddress.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmAddress.TabIndex = 33;
+            this.txtRealmAddress.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmAddress.Texts = "";
+            this.txtRealmAddress.UnderlinedStyle = false;
             // 
-            // customTextBox1
+            // txtRealmName
             // 
-            this.customTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.customTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customTextBox1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.customTextBox1.BorderSize = 1;
-            this.customTextBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.customTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox1.Location = new System.Drawing.Point(18, 98);
-            this.customTextBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.customTextBox1.Multiline = true;
-            this.customTextBox1.Name = "customTextBox1";
-            this.customTextBox1.Padding = new System.Windows.Forms.Padding(1);
-            this.customTextBox1.PasswordChar = false;
-            this.customTextBox1.ReadOnly = false;
-            this.customTextBox1.Size = new System.Drawing.Size(153, 23);
-            this.customTextBox1.TabIndex = 33;
-            this.customTextBox1.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.customTextBox1.Texts = "";
-            this.customTextBox1.UnderlinedStyle = false;
-            // 
-            // txtWorldName
-            // 
-            this.txtWorldName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtWorldName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtWorldName.BorderSize = 1;
-            this.txtWorldName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.txtWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.txtWorldName.Location = new System.Drawing.Point(18, 57);
-            this.txtWorldName.Margin = new System.Windows.Forms.Padding(0);
-            this.txtWorldName.Multiline = true;
-            this.txtWorldName.Name = "txtWorldName";
-            this.txtWorldName.Padding = new System.Windows.Forms.Padding(1);
-            this.txtWorldName.PasswordChar = false;
-            this.txtWorldName.ReadOnly = false;
-            this.txtWorldName.Size = new System.Drawing.Size(153, 23);
-            this.txtWorldName.TabIndex = 32;
-            this.txtWorldName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWorldName.Texts = "";
-            this.txtWorldName.UnderlinedStyle = false;
+            this.txtRealmName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txtRealmName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.txtRealmName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
+            this.txtRealmName.BorderSize = 1;
+            this.txtRealmName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtRealmName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.txtRealmName.Location = new System.Drawing.Point(29, 60);
+            this.txtRealmName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtRealmName.Multiline = true;
+            this.txtRealmName.Name = "txtRealmName";
+            this.txtRealmName.Padding = new System.Windows.Forms.Padding(1);
+            this.txtRealmName.PasswordChar = false;
+            this.txtRealmName.ReadOnly = false;
+            this.txtRealmName.Size = new System.Drawing.Size(200, 25);
+            this.txtRealmName.TabIndex = 32;
+            this.txtRealmName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealmName.Texts = "";
+            this.txtRealmName.UnderlinedStyle = false;
             // 
             // lblServerStatus
             // 
@@ -616,7 +585,7 @@
             // 
             this.customPanelPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.customPanelPanel2.BorderColor = System.Drawing.Color.White;
-            this.customPanelPanel2.Controls.Add(this.bntOpenLocation);
+            this.customPanelPanel2.Controls.Add(this.btnCreateAccount);
             this.customPanelPanel2.Controls.Add(lblEmail);
             this.customPanelPanel2.Controls.Add(this.txtEmail);
             this.customPanelPanel2.Controls.Add(lblShowPassword);
@@ -634,25 +603,25 @@
             this.customPanelPanel2.Size = new System.Drawing.Size(465, 187);
             this.customPanelPanel2.TabIndex = 1;
             // 
-            // bntOpenLocation
+            // btnCreateAccount
             // 
-            this.bntOpenLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.bntOpenLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.bntOpenLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntOpenLocation.BorderRadius = 3;
-            this.bntOpenLocation.BorderSize = 1;
-            this.bntOpenLocation.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bntOpenLocation.FlatAppearance.BorderSize = 0;
-            this.bntOpenLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bntOpenLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bntOpenLocation.ForeColor = System.Drawing.Color.White;
-            this.bntOpenLocation.Location = new System.Drawing.Point(290, 134);
-            this.bntOpenLocation.Name = "bntOpenLocation";
-            this.bntOpenLocation.Size = new System.Drawing.Size(153, 30);
-            this.bntOpenLocation.TabIndex = 54;
-            this.bntOpenLocation.Text = "Create";
-            this.bntOpenLocation.TextColor = System.Drawing.Color.White;
-            this.bntOpenLocation.UseVisualStyleBackColor = false;
+            this.btnCreateAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.btnCreateAccount.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.btnCreateAccount.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.btnCreateAccount.BorderRadius = 3;
+            this.btnCreateAccount.BorderSize = 1;
+            this.btnCreateAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCreateAccount.FlatAppearance.BorderSize = 0;
+            this.btnCreateAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateAccount.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCreateAccount.ForeColor = System.Drawing.Color.White;
+            this.btnCreateAccount.Location = new System.Drawing.Point(290, 134);
+            this.btnCreateAccount.Name = "btnCreateAccount";
+            this.btnCreateAccount.Size = new System.Drawing.Size(153, 30);
+            this.btnCreateAccount.TabIndex = 54;
+            this.btnCreateAccount.Text = "Create";
+            this.btnCreateAccount.TextColor = System.Drawing.Color.White;
+            this.btnCreateAccount.UseVisualStyleBackColor = false;
             // 
             // txtEmail
             // 
@@ -785,7 +754,7 @@
             this.btnSetGMLvl.ForeColor = System.Drawing.Color.White;
             this.btnSetGMLvl.Location = new System.Drawing.Point(22, 137);
             this.btnSetGMLvl.Name = "btnSetGMLvl";
-            this.btnSetGMLvl.Size = new System.Drawing.Size(153, 30);
+            this.btnSetGMLvl.Size = new System.Drawing.Size(166, 30);
             this.btnSetGMLvl.TabIndex = 55;
             this.btnSetGMLvl.Text = "Set";
             this.btnSetGMLvl.TextColor = System.Drawing.Color.White;
@@ -806,7 +775,7 @@
             this.customTextBox18.Padding = new System.Windows.Forms.Padding(1);
             this.customTextBox18.PasswordChar = false;
             this.customTextBox18.ReadOnly = false;
-            this.customTextBox18.Size = new System.Drawing.Size(153, 23);
+            this.customTextBox18.Size = new System.Drawing.Size(166, 23);
             this.customTextBox18.TabIndex = 47;
             this.customTextBox18.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.customTextBox18.Texts = "";
@@ -827,7 +796,7 @@
             this.txtUserGM.Padding = new System.Windows.Forms.Padding(1);
             this.txtUserGM.PasswordChar = false;
             this.txtUserGM.ReadOnly = false;
-            this.txtUserGM.Size = new System.Drawing.Size(153, 23);
+            this.txtUserGM.Size = new System.Drawing.Size(166, 23);
             this.txtUserGM.TabIndex = 45;
             this.txtUserGM.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtUserGM.Texts = "";
@@ -879,7 +848,7 @@
             this.customTextBox12.BorderSize = 1;
             this.customTextBox12.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.customTextBox12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox12.Location = new System.Drawing.Point(239, 53);
+            this.customTextBox12.Location = new System.Drawing.Point(251, 53);
             this.customTextBox12.Margin = new System.Windows.Forms.Padding(0);
             this.customTextBox12.Multiline = true;
             this.customTextBox12.Name = "customTextBox12";
@@ -904,9 +873,9 @@
             this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.customButton1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(488, 45);
+            this.customButton1.Location = new System.Drawing.Point(493, 46);
             this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(153, 30);
+            this.customButton1.Size = new System.Drawing.Size(166, 30);
             this.customButton1.TabIndex = 54;
             this.customButton1.Text = "Create";
             this.customButton1.TextColor = System.Drawing.Color.White;
@@ -938,7 +907,7 @@
             this.customToggleButton1.AutoSize = true;
             this.customToggleButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.customToggleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customToggleButton1.Location = new System.Drawing.Point(488, 94);
+            this.customToggleButton1.Location = new System.Drawing.Point(499, 94);
             this.customToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
             this.customToggleButton1.Name = "customToggleButton1";
             this.customToggleButton1.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
@@ -958,7 +927,7 @@
             this.customTextBox6.BorderSize = 1;
             this.customTextBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.customTextBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.customTextBox6.Location = new System.Drawing.Point(239, 93);
+            this.customTextBox6.Location = new System.Drawing.Point(251, 93);
             this.customTextBox6.Margin = new System.Windows.Forms.Padding(0);
             this.customTextBox6.Multiline = true;
             this.customTextBox6.Name = "customTextBox6";
@@ -1047,6 +1016,11 @@
             this.customPanel4.Size = new System.Drawing.Size(467, 189);
             this.customPanel4.TabIndex = 55;
             // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Enabled = true;
+            this.timerRefresh.Interval = 1000;
+            // 
             // TerminalControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1078,15 +1052,6 @@
 
         private TrionControlPanel.UI.CustomPanel customPanelPanel1;
         private Label lblServerStatus;
-        private TrionControlPanel.UI.CustomTextBox customTextBox2;
-        private TrionControlPanel.UI.CustomTextBox customTextBox1;
-        private TrionControlPanel.UI.CustomTextBox txtWorldName;
-        private TrionControlPanel.UI.CustomTextBox customTextBox4;
-        private TrionControlPanel.UI.CustomTextBox customTextBox5;
-        private TrionControlPanel.UI.CustomTextBox customTextBox9;
-        private TrionControlPanel.UI.CustomTextBox customTextBox10;
-        private TrionControlPanel.UI.CustomTextBox customTextBox11;
-        private TrionControlPanel.UI.CustomTextBox customTextBox7;
         private Label label12;
         private TrionControlPanel.UI.CustomPanel customPanelPanel2;
         private TrionControlPanel.UI.CustomTextBox txtRePassword;
@@ -1094,14 +1059,13 @@
         private TrionControlPanel.UI.CustomTextBox txtUsername;
         private TrionControlPanel.UI.CustomToggleButton tglShowPassword;
         private TrionControlPanel.UI.CustomTextBox txtEmail;
-        private TrionControlPanel.UI.CustomButton bntOpenLocation;
+        private TrionControlPanel.UI.CustomButton btnCreateAccount;
         private TrionControlPanel.UI.CustomPanel customPanelPanel3;
         private TrionControlPanel.UI.CustomButton btnSetGMLvl;
         private TrionControlPanel.UI.CustomTextBox customTextBox18;
         private TrionControlPanel.UI.CustomTextBox txtUserGM;
         private Label lblSetGMLevel;
         private System.Windows.Forms.Timer timerCheck;
-        private TrionControlPanel.UI.CustomButton btnLoadRealm;
         private TrionControlPanel.UI.CustomButton btnSetRealm;
         private TrionControlPanel.UI.CustomPanel customPanelPanel4;
         private TrionControlPanel.UI.CustomTextBox customTextBox12;
@@ -1115,5 +1079,18 @@
         private UI.CustomPanel customPanel3;
         private UI.CustomPanel customPanel2;
         private UI.CustomPanel customPanel4;
+        internal UI.CustomTextBox txtRealmLocalAddress;
+        internal UI.CustomTextBox txtRealmAddress;
+        internal UI.CustomTextBox txtRealmName;
+        internal UI.CustomTextBox txtRealmPort;
+        internal UI.CustomTextBox txtRealmSubMask;
+        internal UI.CustomTextBox txtRealmRegion;
+        internal UI.CustomTextBox txtRealmGameBuild;
+        internal UI.CustomTextBox txtRealmTimeZone;
+        private System.Windows.Forms.Timer timerRefresh;
+        private UI.CustomButton btnLoadRealm;
+        private Label lblRealmBuild;
+        private Label lblRealmRegion;
+        private Label lblWorldName;
     }
 }

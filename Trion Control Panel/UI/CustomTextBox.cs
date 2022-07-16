@@ -20,7 +20,7 @@ namespace TrionControlPanel.UI
             InitializeComponent();
         }
         //Events
-        public event EventHandler TextChanged;
+        public event EventHandler? TextChange;
 
         //Properties
         [Category("1 CustomTextBox Advance")]
@@ -181,8 +181,8 @@ namespace TrionControlPanel.UI
         //TextBox events
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (TextChanged != null)
-                TextChanged.Invoke(sender, e);
+            if (TextChange != null)
+                TextChange.Invoke(sender, e);
         }
         private void TextBox1_Click(object sender, EventArgs e)
         {

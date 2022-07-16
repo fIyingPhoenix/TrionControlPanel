@@ -115,7 +115,7 @@ https://user-images.githubusercontent.com/81469821/175861632-4c8eefe7-a165-4ca5-
   </tr>
   <tr>
     <td>Realmlist Name Change.</td>
-    <td>❌</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>Support for Other Cores</td>

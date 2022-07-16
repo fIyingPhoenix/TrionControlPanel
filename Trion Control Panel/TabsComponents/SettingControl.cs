@@ -9,12 +9,12 @@ namespace TrionControlPanel.TabsComponents
 {
     public partial class SettingControl : UserControl
     {
-        DatabaseConnection databaseConnection = new();
+        readonly DatabaseConnection databaseConnection = new();
         //settings data located in appdata/local/TrionControlPanel
         private void LoadSettings()
         {
             //loading data form settings file(xml)
-            comboBoxCore.SelectedIndex = Settings.Default.ComboBoxCore;
+            comboBoxCore.SelectedIndex = Settings.Default.SelectedCore;
             txtWorldLocation.Texts = Settings.Default.WorldCoreLocation;
             txtBnetLocation.Texts = Settings.Default.BnetCoreLocation;
             txtMySqlPassowrd.Texts = Settings.Default.MySQLServerPassword;
@@ -35,7 +35,7 @@ namespace TrionControlPanel.TabsComponents
         private void SaveSettings()
         {
             //loading data form settings file(xml)
-            Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+            Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
             Settings.Default.WorldCoreName = txtWorldName.Texts;
             Settings.Default.BnetCoreName = txtBnetName.Texts;
             Settings.Default.MySQLCoreName = txtMysqlName.Texts;
@@ -111,7 +111,7 @@ namespace TrionControlPanel.TabsComponents
             //call the load settings on load
             LoadSettings();
         }
-        private void TxtMySqlPort_KeyPress(object sender, KeyPressEventArgs e)
+        private void AllowJustNumbers(object sender, KeyPressEventArgs e)
         {
             //allow just numbers/ digits
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -120,7 +120,7 @@ namespace TrionControlPanel.TabsComponents
                 e.Handled = true;
             }
             // only allow one decimal point. i dont thik is needed but its nice to have
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == '.') && (((TextBox)sender).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
@@ -169,10 +169,11 @@ namespace TrionControlPanel.TabsComponents
         }
         private void ComboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (comboBoxCore.SelectedIndex == 0)
             {
                 // AscEmu
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "logon";
                 Settings.Default.WorldCoreName = "world";
                 Settings.Default.Save();
@@ -181,7 +182,7 @@ namespace TrionControlPanel.TabsComponents
             else if(comboBoxCore.SelectedIndex == 1)
             {
                 //AzerothCore
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "authserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -190,7 +191,7 @@ namespace TrionControlPanel.TabsComponents
             else if (comboBoxCore.SelectedIndex == 2)
             {
                 //Continued MaNGOS
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "realmd";
                 Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
@@ -199,7 +200,7 @@ namespace TrionControlPanel.TabsComponents
             else if (comboBoxCore.SelectedIndex == 3)
             {
                 //CypherCore
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "BNetServer";
                 Settings.Default.WorldCoreName = "WorldServer";
                 Settings.Default.Save();
@@ -208,7 +209,7 @@ namespace TrionControlPanel.TabsComponents
             else if (comboBoxCore.SelectedIndex == 4)
             {
                 //TrinityCore
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "bnetserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -217,7 +218,7 @@ namespace TrionControlPanel.TabsComponents
             else if (comboBoxCore.SelectedIndex == 5)
             {
                 //TrinityCore 4.3.4(TCPP)
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "bnetserver";
                 Settings.Default.WorldCoreName = "worldserver";
                 Settings.Default.Save();
@@ -226,20 +227,21 @@ namespace TrionControlPanel.TabsComponents
             else if (comboBoxCore.SelectedIndex == 6)
             {
                 //Vanilla MaNGOS
-                Settings.Default.ComboBoxCore = comboBoxCore.SelectedIndex;
+                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
                 Settings.Default.BnetCoreName = "realmd";
                 Settings.Default.WorldCoreName = "mangosd";
                 Settings.Default.Save();
                 LoadSettings();
             }
+
         }
         private void BtnTestMySQL_Click(object sender, EventArgs e)
         {
-            databaseConnection.MySqlConnectCheck();
+            DatabaseConnection.MySqlConnectCheck();
         }
         private void PicSettingsInfos_Click(object sender, EventArgs e)
         {
-            HomeControl.Alert("You need to restart the application to make the change work!", NotificationType.Info);
+            FormMain.Alert("You need to restart the application to make the change work!", NotificationType.Info);
         }
         private void TglStayInTray_CheckedChanged(object sender, EventArgs e)
         {
@@ -252,14 +254,14 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.TogleStayInTray = false;
             }
         }
-        private void btnFixMysql_Click(object sender, EventArgs e)
+        private void BtnFixMysql_Click(object sender, EventArgs e)
         {
             Process.Start($@"{Settings.Default.MySQLocation}", "--initialize --console");
         }
-        private void bntMySqlLocation_Click(object sender, EventArgs e)
+        private void BntMySqlLocation_Click(object sender, EventArgs e)
         { 
             string file = Settings.Default.MySQLocation;
-            string location = Path.GetDirectoryName(file);
+            string location = Path.GetDirectoryName(file)!;
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings.Default.MySQLocation == string.Empty)
             {
@@ -277,9 +279,9 @@ namespace TrionControlPanel.TabsComponents
                 }
             }     
         }
-        private void tglStartOnStartup_CheckedChanged(object sender, EventArgs e)
+        private void TglStartOnStartup_CheckedChanged(object sender, EventArgs e)
         {
-            RegistryKey reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run",true);
+            RegistryKey reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)!;
             if (tglStartOnStartup.Checked == true)
             {
                 reg.SetValue("Trion Control Panel", Application.ExecutablePath.ToString());
@@ -289,7 +291,7 @@ namespace TrionControlPanel.TabsComponents
                 reg.DeleteValue("Trion Control Panel");
             }
         }
-        private void tglStartServer_CheckedChanged(object sender, EventArgs e)
+        private void TglStartServer_CheckedChanged(object sender, EventArgs e)
         {
             if (tglStartServer.Checked == true)
                 Settings.Default.StartCoreWithWindows = true;
@@ -297,7 +299,7 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.StartCoreWithWindows = false;
             Settings.Default.Save();      
         }
-        private void tglRestartOnCrash_CheckedChanged(object sender, EventArgs e)
+        private void TglRestartOnCrash_CheckedChanged(object sender, EventArgs e)
         {
            if(tglRestartOnCrash.Checked == true)
                 Settings.Default.ServerCrashCheck = true;

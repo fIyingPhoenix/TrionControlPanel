@@ -570,7 +570,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser1.AllowNavigation = false;
             this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(16, 18);
+            this.customWebBrowser1.Location = new System.Drawing.Point(14, 18);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScriptErrorsSuppressed = true;
             this.customWebBrowser1.ScrollBarsEnabled = false;
@@ -583,7 +583,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser2.AllowNavigation = false;
             this.customWebBrowser2.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(164, 18);
+            this.customWebBrowser2.Location = new System.Drawing.Point(162, 18);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
@@ -669,12 +669,12 @@ namespace TrionControlPanel.TabsComponents
             this.bntDownloadMysql.Text = "Download MySQL Server";
             this.bntDownloadMysql.TextColor = System.Drawing.Color.White;
             this.bntDownloadMysql.UseVisualStyleBackColor = false;
-            this.bntDownloadMysql.Click += new System.EventHandler(this.bntDownloadMysql_Click);
+            this.bntDownloadMysql.Click += new System.EventHandler(this.BntDownloadMysql_Click);
             // 
             // bWorkerDownloadComplate
             // 
-            this.bWorkerDownloadComplate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bWorkerDownloadComplate_DoWork);
-            this.bWorkerDownloadComplate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bWorkerDownloadComplate_RunWorkerCompleted);
+            this.bWorkerDownloadComplate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWorkerDownloadComplate_DoWork);
+            this.bWorkerDownloadComplate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWorkerDownloadComplate_RunWorkerCompleted);
             // 
             // bntStopMysql
             // 
@@ -695,7 +695,7 @@ namespace TrionControlPanel.TabsComponents
             this.bntStopMysql.Text = "Stop MySQL";
             this.bntStopMysql.TextColor = System.Drawing.Color.White;
             this.bntStopMysql.UseVisualStyleBackColor = false;
-            this.bntStopMysql.Click += new System.EventHandler(this.bntStopMysql_Click);
+            this.bntStopMysql.Click += new System.EventHandler(this.BntStopMysql_Click);
             // 
             // btnStartMysql
             // 
@@ -716,7 +716,7 @@ namespace TrionControlPanel.TabsComponents
             this.btnStartMysql.Text = "Start MySQL";
             this.btnStartMysql.TextColor = System.Drawing.Color.White;
             this.btnStartMysql.UseVisualStyleBackColor = false;
-            this.btnStartMysql.Click += new System.EventHandler(this.btnStartMysql_Click);
+            this.btnStartMysql.Click += new System.EventHandler(this.BtnStartMysql_Click);
             // 
             // customPanel1
             // 

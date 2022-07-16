@@ -13,12 +13,7 @@ namespace TrionControlPanel.TabsComponents
         internal bool _isRuningBnet = false;
         internal bool _isRuningWorld = false;
         internal bool _isRuningMysql = false;
-        public static void Alert(string message, NotificationType eType)
-        {
-            //make the laert work.
-            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
-            frm.ShowAlert(message, eType);
-        }
+
         public HomeControl()
         {
             InitializeComponent();
@@ -80,7 +75,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningWorld == true)
                 {
                     _isRuningWorld = false;
-                    Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    FormMain.Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
                 }
                 worldServerLight.BackColor = Color.Red;
                 WorldResourceTimer.Stop();
@@ -95,7 +90,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningBnet == true)
                 {
                     _isRuningBnet = false;
-                    Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);    
+                    FormMain.Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);    
                 }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();
@@ -133,14 +128,13 @@ namespace TrionControlPanel.TabsComponents
                 _statusClass.StartMysql();
                 _isRuningMysql = true;
             }
-
             int milliseconds = 5000;
             var timerStart = new System.Windows.Forms.Timer();
-
+            //
             timerStart.Interval = milliseconds;
             timerStart.Enabled = true;
             timerStart.Start();
-
+            //
             timerStart.Tick += (s, e) =>
             {
                 timerStart.Enabled = false;
@@ -151,12 +145,12 @@ namespace TrionControlPanel.TabsComponents
                 _statusClass.StartWorld();
             };
         }
-        private void btnStartMysql_Click(object sender, EventArgs e)
+        private void BtnStartMysql_Click(object sender, EventArgs e)
         {
             _statusClass.StartMysql();
             _isRuningMysql = true;
         }
-        private void bntStopMysql_Click(object sender, EventArgs e)
+        private void BntStopMysql_Click(object sender, EventArgs e)
         {
             _statusClass.KillMysql();
             _isRuningMysql = false;
@@ -170,6 +164,7 @@ namespace TrionControlPanel.TabsComponents
             _statusClass.KillBnet();
             _statusClass.KillMysql();
         }
+    
         private void BtnStopWorld_Click(object sender, EventArgs e)
         {
             _isRuningWorld = false;
@@ -180,7 +175,7 @@ namespace TrionControlPanel.TabsComponents
             _isRuningBnet = false;
             _statusClass.KillBnet();
         }
-        private void bntDownloadMysql_Click(object sender, EventArgs e)
+        private void BntDownloadMysql_Click(object sender, EventArgs e)
         {
             string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
             Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\{mysqlName}";
@@ -193,15 +188,16 @@ namespace TrionControlPanel.TabsComponents
                 Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
             }
             //
+            //
             string sharingUrl = "https://1drv.ms/u/s!ApVjHQD9ApL5mjxAJFwwfyeXzYtO?e=kTxLE1";
             string base64Value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(sharingUrl));
             string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
             string resultUrl = string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
             //
-            string location = $@"{Settings.Default.MySQLocation}\mysql.zip";
+            string location = $@"{Directory.GetCurrentDirectory()}\mysql.zip";
             //
             WebClient webClient = new();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(AsyncCompleted);
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
             Thread DownloadThread = new(() =>
             {
@@ -214,22 +210,22 @@ namespace TrionControlPanel.TabsComponents
         {
             pBarDownloadMysql.Value = e.ProgressPercentage;
         }
-        private void Completed(object sender, AsyncCompletedEventArgs e)
+        private void AsyncCompleted(object? sender, AsyncCompletedEventArgs e)
         {
             bWorkerDownloadComplate.RunWorkerAsync();
         }
-        private void bWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
+        private void BWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
         {
-            string file = $@"{Settings.Default.MySQLocation}\mysql.zip";
-            string location = $@"{Settings.Default.MySQLocation}\";
+            string file = $@"{Directory.GetCurrentDirectory()}\mysql.zip";
+            string location = $@"{Directory.GetCurrentDirectory()}\";
             ZipFile.ExtractToDirectory(file, location, overwriteFiles: true);
             bntDownloadMysql.Text = "Extractiong MySQL...";
         }
-        private void bWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             bntDownloadMysql.Text = "Extract Complate MySQL...";
             Thread.Sleep(500);
-            File.Delete($@"{Settings.Default.MySQLocation}\mysql.zip");
+            File.Delete($@"{Directory.GetCurrentDirectory()}\mysql.zip");
             bntDownloadMysql.Text = "Download MySQL Server";
             bntDownloadMysql.Enabled = true;
             pBarDownloadMysql.Visible = false;

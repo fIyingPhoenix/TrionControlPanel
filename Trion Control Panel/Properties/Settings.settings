@@ -56,7 +56,7 @@
     <Setting Name="TogelCustomNames" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ComboBoxCore" Type="System.Int32" Scope="User">
+    <Setting Name="SelectedCore" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="MySQLConnect" Type="System.Boolean" Scope="User">

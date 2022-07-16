@@ -134,11 +134,11 @@ namespace TrionControlPanel.UI
             base.OnHandleCreated(e);
             this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
-        private void Container_BackColorChanged(object sender, EventArgs e)
+        private void Container_BackColorChanged(object ?sender, EventArgs e)
         {
             this.Invalidate();
         }
-        private void Button_Resize(object sender, EventArgs e)
+        private void Button_Resize(object ?sender, EventArgs e)
         {
             if (borderRadius > this.Height)
                 borderRadius = this.Height;

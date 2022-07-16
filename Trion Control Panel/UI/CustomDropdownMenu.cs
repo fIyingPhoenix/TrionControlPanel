@@ -102,7 +102,7 @@ namespace TrionControlPanel.UI
         private Color primaryColor = Color.Empty; //No color, The default color is set in the MenuRenderer class
         private Bitmap menuItemHeaderSize;
         //Constructor
-        public CustomDropdownMenu(IContainer container) : base(container)
+        public CustomDropdownMenu(IContainer container) : base(container!)
         {
         }
         //Properties

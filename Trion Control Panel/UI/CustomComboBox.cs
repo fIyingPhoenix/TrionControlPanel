@@ -18,9 +18,9 @@ namespace TrionControlPanel.UI
         private int borderSize = 1;
 
         //Items
-        private ComboBox cmbList;
-        private Label lblText;
-        private Button btnIcon;
+        private readonly ComboBox cmbList;
+        private readonly Label lblText;
+        private readonly Button btnIcon;
 
         //Events
         public event EventHandler OnSelectedIndexChanged; //Default event
@@ -288,7 +288,7 @@ namespace TrionControlPanel.UI
         }
         //Event methods
         //-> Default event
-        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_SelectedIndexChanged(object ?sender, EventArgs e)
         {
             if (OnSelectedIndexChanged != null)
                 OnSelectedIndexChanged.Invoke(sender, e);
@@ -296,7 +296,7 @@ namespace TrionControlPanel.UI
             lblText.Text = cmbList.Text;
         }
         //-> Draw icon
-        private void Icon_Paint(object sender, PaintEventArgs e)
+        private void Icon_Paint(object ?sender, PaintEventArgs e)
         {
             //Fields
             int iconWidht = 14;
@@ -315,13 +315,13 @@ namespace TrionControlPanel.UI
             }
         }
         //-> Items actions
-        private void Icon_Click(object sender, EventArgs e)
+        private void Icon_Click(object ?sender, EventArgs e)
         {
             //Open dropdown list
             cmbList.Select();
             cmbList.DroppedDown = true;
         }
-        private void Surface_Click(object sender, EventArgs e)
+        private void Surface_Click(object ?sender, EventArgs e)
         {
             //Attach label click to user control click
             this.OnClick(e);
@@ -332,18 +332,18 @@ namespace TrionControlPanel.UI
                 cmbList.DroppedDown = true; //Open dropdown list
             }
         }
-        private void ComboBox_TextChanged(object sender, EventArgs e)
+        private void ComboBox_TextChanged(object ?sender, EventArgs e)
         {
             //Refresh text
             lblText.Text = cmbList.Text;
         }
 
         //->Attach label events to user control event
-        private void Surface_MouseLeave(object sender, EventArgs e)
+        private void Surface_MouseLeave(object ?sender, EventArgs e)
         {
             this.OnMouseLeave(e);
         }
-        private void Surface_MouseEnter(object sender, EventArgs e)
+        private void Surface_MouseEnter(object ?sender, EventArgs e)
         {
             this.OnMouseEnter(e);
         }

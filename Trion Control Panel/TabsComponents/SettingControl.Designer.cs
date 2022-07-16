@@ -181,7 +181,7 @@
             this.bntMySqlLocation.Text = "MySQL Location";
             this.bntMySqlLocation.TextColor = System.Drawing.Color.White;
             this.bntMySqlLocation.UseVisualStyleBackColor = false;
-            this.bntMySqlLocation.Click += new System.EventHandler(this.bntMySqlLocation_Click);
+            this.bntMySqlLocation.Click += new System.EventHandler(this.BntMySqlLocation_Click);
             // 
             // label2
             // 
@@ -424,7 +424,7 @@
             this.txtMySqlPort.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMySqlPort.Texts = "";
             this.txtMySqlPort.UnderlinedStyle = false;
-            this.txtMySqlPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMySqlPort_KeyPress);
+            this.txtMySqlPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
             // txtMySqlPassowrd
             // 
@@ -589,7 +589,7 @@
             this.tglRestartOnCrash.SolidStyle = false;
             this.tglRestartOnCrash.TabIndex = 48;
             this.tglRestartOnCrash.UseVisualStyleBackColor = false;
-            this.tglRestartOnCrash.CheckedChanged += new System.EventHandler(this.tglRestartOnCrash_CheckedChanged);
+            this.tglRestartOnCrash.CheckedChanged += new System.EventHandler(this.TglRestartOnCrash_CheckedChanged);
             // 
             // label5
             // 
@@ -617,7 +617,7 @@
             this.tglStartServer.SolidStyle = false;
             this.tglStartServer.TabIndex = 46;
             this.tglStartServer.UseVisualStyleBackColor = false;
-            this.tglStartServer.CheckedChanged += new System.EventHandler(this.tglStartServer_CheckedChanged);
+            this.tglStartServer.CheckedChanged += new System.EventHandler(this.TglStartServer_CheckedChanged);
             // 
             // label4
             // 
@@ -645,7 +645,7 @@
             this.tglStartOnStartup.SolidStyle = false;
             this.tglStartOnStartup.TabIndex = 44;
             this.tglStartOnStartup.UseVisualStyleBackColor = false;
-            this.tglStartOnStartup.CheckedChanged += new System.EventHandler(this.tglStartOnStartup_CheckedChanged);
+            this.tglStartOnStartup.CheckedChanged += new System.EventHandler(this.TglStartOnStartup_CheckedChanged);
             // 
             // comboBoxCore
             // 
@@ -990,7 +990,7 @@
             this.btnFixMysql.Text = "Fix MySQL";
             this.btnFixMysql.TextColor = System.Drawing.Color.White;
             this.btnFixMysql.UseVisualStyleBackColor = false;
-            this.btnFixMysql.Click += new System.EventHandler(this.btnFixMysql_Click);
+            this.btnFixMysql.Click += new System.EventHandler(this.BtnFixMysql_Click);
             // 
             // SettingControl
             // 
@@ -1030,7 +1030,6 @@
         private UI.CustomTextBox txtWorldLocation;
         private UI.CustomButton bntLocation;
         private Label lblBnetLocation;
-        private Label lblWorldLocation;
         private UI.CustomPanel roundPanel2;
         private Label lblPort;
         private Label lblPassword;
