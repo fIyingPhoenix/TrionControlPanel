@@ -2,3 +2,9 @@
 
 # IDE0063: Use simple 'using' statement
 dotnet_diagnostic.IDE0063.severity = silent
+
+# SYSLIB0021: Type or member is obsolete
+dotnet_diagnostic.SYSLIB0021.severity = none
+
+# SYSLIB0014: Type or member is obsolete
+dotnet_diagnostic.SYSLIB0014.severity = none

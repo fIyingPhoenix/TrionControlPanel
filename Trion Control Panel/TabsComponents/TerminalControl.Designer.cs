@@ -1032,6 +1032,7 @@
             this.Controls.Add(this.customPanel1);
             this.Name = "TerminalControl";
             this.Size = new System.Drawing.Size(697, 561);
+            this.Load += new System.EventHandler(this.TerminalControl_Load);
             this.customPanelPanel1.ResumeLayout(false);
             this.customPanelPanel1.PerformLayout();
             this.customPanelPanel2.ResumeLayout(false);

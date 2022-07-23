@@ -91,9 +91,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // sPanel2
             // 
-            this.sPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.sPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.sPanel2.BorderColor = System.Drawing.Color.White;
             this.sPanel2.Controls.Add(this.label4);
@@ -170,9 +168,6 @@ namespace TrionControlPanel.TabsComponents
             // 
             // sPanel1
             // 
-            this.sPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.sPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.sPanel1.BorderColor = System.Drawing.Color.Transparent;
             this.sPanel1.Controls.Add(this.lblServerStatus);
@@ -271,9 +266,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // roundPanel1
             // 
-            this.roundPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.roundPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roundPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel1.BorderColor = System.Drawing.Color.White;
             this.roundPanel1.Controls.Add(this.label5);
@@ -350,9 +343,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // roundPanel2
             // 
-            this.roundPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.roundPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roundPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.roundPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.roundPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -442,6 +433,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // bntStartAll
             // 
+            this.bntStartAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStartAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -452,7 +444,7 @@ namespace TrionControlPanel.TabsComponents
             this.bntStartAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStartAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStartAll.ForeColor = System.Drawing.Color.White;
-            this.bntStartAll.Location = new System.Drawing.Point(493, 465);
+            this.bntStartAll.Location = new System.Drawing.Point(489, 373);
             this.bntStartAll.Name = "bntStartAll";
             this.bntStartAll.Size = new System.Drawing.Size(192, 40);
             this.bntStartAll.TabIndex = 31;
@@ -463,6 +455,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // btnStartBent
             // 
+            this.btnStartBent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartBent.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -473,9 +466,9 @@ namespace TrionControlPanel.TabsComponents
             this.btnStartBent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartBent.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBent.ForeColor = System.Drawing.Color.White;
-            this.btnStartBent.Location = new System.Drawing.Point(493, 511);
+            this.btnStartBent.Location = new System.Drawing.Point(460, 419);
             this.btnStartBent.Name = "btnStartBent";
-            this.btnStartBent.Size = new System.Drawing.Size(93, 35);
+            this.btnStartBent.Size = new System.Drawing.Size(108, 35);
             this.btnStartBent.TabIndex = 32;
             this.btnStartBent.Text = "Start Bnet";
             this.btnStartBent.TextColor = System.Drawing.Color.White;
@@ -484,6 +477,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // btnStartWorld
             // 
+            this.btnStartWorld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -494,9 +488,9 @@ namespace TrionControlPanel.TabsComponents
             this.btnStartWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStartWorld.Location = new System.Drawing.Point(592, 511);
+            this.btnStartWorld.Location = new System.Drawing.Point(574, 419);
             this.btnStartWorld.Name = "btnStartWorld";
-            this.btnStartWorld.Size = new System.Drawing.Size(93, 35);
+            this.btnStartWorld.Size = new System.Drawing.Size(108, 35);
             this.btnStartWorld.TabIndex = 33;
             this.btnStartWorld.Text = "Start World";
             this.btnStartWorld.TextColor = System.Drawing.Color.White;
@@ -505,6 +499,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // bntStopAll
             // 
+            this.bntStopAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStopAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -515,7 +510,7 @@ namespace TrionControlPanel.TabsComponents
             this.bntStopAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStopAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStopAll.ForeColor = System.Drawing.Color.White;
-            this.bntStopAll.Location = new System.Drawing.Point(11, 465);
+            this.bntStopAll.Location = new System.Drawing.Point(7, 373);
             this.bntStopAll.Name = "bntStopAll";
             this.bntStopAll.Size = new System.Drawing.Size(192, 40);
             this.bntStopAll.TabIndex = 34;
@@ -526,6 +521,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // btnStopWorld
             // 
+            this.btnStopWorld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStopWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -536,9 +532,9 @@ namespace TrionControlPanel.TabsComponents
             this.btnStopWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStopWorld.Location = new System.Drawing.Point(110, 511);
+            this.btnStopWorld.Location = new System.Drawing.Point(119, 419);
             this.btnStopWorld.Name = "btnStopWorld";
-            this.btnStopWorld.Size = new System.Drawing.Size(92, 35);
+            this.btnStopWorld.Size = new System.Drawing.Size(108, 35);
             this.btnStopWorld.TabIndex = 35;
             this.btnStopWorld.Text = "Stop World";
             this.btnStopWorld.TextColor = System.Drawing.Color.White;
@@ -547,6 +543,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // btnStopBnet
             // 
+            this.btnStopBnet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStopBnet.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -557,9 +554,9 @@ namespace TrionControlPanel.TabsComponents
             this.btnStopBnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopBnet.ForeColor = System.Drawing.Color.White;
-            this.btnStopBnet.Location = new System.Drawing.Point(208, 511);
+            this.btnStopBnet.Location = new System.Drawing.Point(233, 419);
             this.btnStopBnet.Name = "btnStopBnet";
-            this.btnStopBnet.Size = new System.Drawing.Size(92, 35);
+            this.btnStopBnet.Size = new System.Drawing.Size(108, 35);
             this.btnStopBnet.TabIndex = 36;
             this.btnStopBnet.Text = "Stop Bnet";
             this.btnStopBnet.TextColor = System.Drawing.Color.White;
@@ -570,7 +567,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser1.AllowNavigation = false;
             this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(14, 18);
+            this.customWebBrowser1.Location = new System.Drawing.Point(14, 12);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScriptErrorsSuppressed = true;
             this.customWebBrowser1.ScrollBarsEnabled = false;
@@ -583,7 +580,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser2.AllowNavigation = false;
             this.customWebBrowser2.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(162, 18);
+            this.customWebBrowser2.Location = new System.Drawing.Point(162, 12);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
@@ -598,7 +595,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser3.AllowNavigation = false;
             this.customWebBrowser3.AllowWebBrowserDrop = false;
             this.customWebBrowser3.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser3.Location = new System.Drawing.Point(270, 18);
+            this.customWebBrowser3.Location = new System.Drawing.Point(270, 12);
             this.customWebBrowser3.Name = "customWebBrowser3";
             this.customWebBrowser3.ScriptErrorsSuppressed = true;
             this.customWebBrowser3.ScrollBarsEnabled = false;
@@ -613,7 +610,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser4.AllowNavigation = false;
             this.customWebBrowser4.AllowWebBrowserDrop = false;
             this.customWebBrowser4.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser4.Location = new System.Drawing.Point(373, 18);
+            this.customWebBrowser4.Location = new System.Drawing.Point(373, 12);
             this.customWebBrowser4.Name = "customWebBrowser4";
             this.customWebBrowser4.ScriptErrorsSuppressed = true;
             this.customWebBrowser4.ScrollBarsEnabled = false;
@@ -626,7 +623,7 @@ namespace TrionControlPanel.TabsComponents
             // customWebBrowser6
             // 
             this.customWebBrowser6.AllowNavigation = false;
-            this.customWebBrowser6.Location = new System.Drawing.Point(531, 18);
+            this.customWebBrowser6.Location = new System.Drawing.Point(531, 12);
             this.customWebBrowser6.Name = "customWebBrowser6";
             this.customWebBrowser6.ScriptErrorsSuppressed = true;
             this.customWebBrowser6.ScrollBarsEnabled = false;
@@ -637,10 +634,11 @@ namespace TrionControlPanel.TabsComponents
             // 
             // pBarDownloadMysql
             // 
+            this.pBarDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pBarDownloadMysql.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.pBarDownloadMysql.FontSize = 1;
             this.pBarDownloadMysql.LabelText = "";
-            this.pBarDownloadMysql.Location = new System.Drawing.Point(210, 498);
+            this.pBarDownloadMysql.Location = new System.Drawing.Point(206, 406);
             this.pBarDownloadMysql.MaximumValue = false;
             this.pBarDownloadMysql.Name = "pBarDownloadMysql";
             this.pBarDownloadMysql.ShowStatus = false;
@@ -652,6 +650,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // bntDownloadMysql
             // 
+            this.bntDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bntDownloadMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntDownloadMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntDownloadMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -662,7 +661,7 @@ namespace TrionControlPanel.TabsComponents
             this.bntDownloadMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntDownloadMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntDownloadMysql.ForeColor = System.Drawing.Color.White;
-            this.bntDownloadMysql.Location = new System.Drawing.Point(208, 465);
+            this.bntDownloadMysql.Location = new System.Drawing.Point(204, 373);
             this.bntDownloadMysql.Name = "bntDownloadMysql";
             this.bntDownloadMysql.Size = new System.Drawing.Size(280, 40);
             this.bntDownloadMysql.TabIndex = 43;
@@ -678,6 +677,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // bntStopMysql
             // 
+            this.bntStopMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bntStopMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStopMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.bntStopMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -688,9 +688,9 @@ namespace TrionControlPanel.TabsComponents
             this.bntStopMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStopMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStopMysql.ForeColor = System.Drawing.Color.White;
-            this.bntStopMysql.Location = new System.Drawing.Point(11, 511);
+            this.bntStopMysql.Location = new System.Drawing.Point(7, 419);
             this.bntStopMysql.Name = "bntStopMysql";
-            this.bntStopMysql.Size = new System.Drawing.Size(93, 35);
+            this.bntStopMysql.Size = new System.Drawing.Size(108, 35);
             this.bntStopMysql.TabIndex = 45;
             this.bntStopMysql.Text = "Stop MySQL";
             this.bntStopMysql.TextColor = System.Drawing.Color.White;
@@ -699,6 +699,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             // btnStartMysql
             // 
+            this.btnStartMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStartMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.btnStartMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
@@ -709,9 +710,9 @@ namespace TrionControlPanel.TabsComponents
             this.btnStartMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartMysql.ForeColor = System.Drawing.Color.White;
-            this.btnStartMysql.Location = new System.Drawing.Point(394, 511);
+            this.btnStartMysql.Location = new System.Drawing.Point(347, 419);
             this.btnStartMysql.Name = "btnStartMysql";
-            this.btnStartMysql.Size = new System.Drawing.Size(93, 35);
+            this.btnStartMysql.Size = new System.Drawing.Size(108, 35);
             this.btnStartMysql.TabIndex = 46;
             this.btnStartMysql.Text = "Start MySQL";
             this.btnStartMysql.TextColor = System.Drawing.Color.White;
@@ -724,7 +725,7 @@ namespace TrionControlPanel.TabsComponents
             this.customPanel1.BorderColor = System.Drawing.Color.Blue;
             this.customPanel1.Controls.Add(this.sPanel2);
             this.customPanel1.Edge = 5;
-            this.customPanel1.Location = new System.Drawing.Point(11, 227);
+            this.customPanel1.Location = new System.Drawing.Point(7, 214);
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(332, 154);
             this.customPanel1.TabIndex = 47;
@@ -735,7 +736,7 @@ namespace TrionControlPanel.TabsComponents
             this.customPanel2.BorderColor = System.Drawing.Color.Blue;
             this.customPanel2.Controls.Add(this.roundPanel1);
             this.customPanel2.Edge = 5;
-            this.customPanel2.Location = new System.Drawing.Point(346, 227);
+            this.customPanel2.Location = new System.Drawing.Point(342, 214);
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(341, 154);
             this.customPanel2.TabIndex = 48;
@@ -746,7 +747,7 @@ namespace TrionControlPanel.TabsComponents
             this.customPanel3.BorderColor = System.Drawing.Color.Blue;
             this.customPanel3.Controls.Add(this.sPanel1);
             this.customPanel3.Edge = 5;
-            this.customPanel3.Location = new System.Drawing.Point(11, 62);
+            this.customPanel3.Location = new System.Drawing.Point(7, 50);
             this.customPanel3.Name = "customPanel3";
             this.customPanel3.Size = new System.Drawing.Size(261, 161);
             this.customPanel3.TabIndex = 49;
@@ -757,15 +758,14 @@ namespace TrionControlPanel.TabsComponents
             this.customPanel4.BorderColor = System.Drawing.Color.Blue;
             this.customPanel4.Controls.Add(this.roundPanel2);
             this.customPanel4.Edge = 5;
-            this.customPanel4.Location = new System.Drawing.Point(276, 61);
+            this.customPanel4.Location = new System.Drawing.Point(272, 49);
             this.customPanel4.Name = "customPanel4";
             this.customPanel4.Size = new System.Drawing.Size(411, 161);
             this.customPanel4.TabIndex = 50;
             // 
             // HomeControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.Controls.Add(this.customPanel4);
             this.Controls.Add(this.customPanel3);
@@ -787,7 +787,7 @@ namespace TrionControlPanel.TabsComponents
             this.Controls.Add(this.btnStartBent);
             this.Controls.Add(this.bntStartAll);
             this.Name = "HomeControl";
-            this.Size = new System.Drawing.Size(697, 561);
+            this.Size = new System.Drawing.Size(690, 549);
             this.Load += new System.EventHandler(this.HomeControl_Load);
             this.sPanel2.ResumeLayout(false);
             this.sPanel2.PerformLayout();

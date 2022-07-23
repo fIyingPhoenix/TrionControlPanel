@@ -12,6 +12,7 @@ namespace TrionControlPanel
         LoadingControl loadingControl = new();
         TerminalControl terminalControl = new();
         StatusClass _statusClass = new();
+        //
         int CrashCountWorld = 0;
         int CrashCountBnet = 0;
         int CrashCountMysql = 0;
@@ -22,6 +23,7 @@ namespace TrionControlPanel
             InitializeComponent();
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
+            loadingControl.Dock = DockStyle.Fill;
             if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
             {
                 Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\mysql";
@@ -39,9 +41,17 @@ namespace TrionControlPanel
             //Load Home Controls by button
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(homeControl);
+            homeControl.Dock = DockStyle.Fill;
+        }
+        private void BtnTerminal_Click(object sender, EventArgs e)
+        {
+            //Load Terminal Controls by button
+            pnlTabs.Controls.Clear();
+            pnlTabs.Controls.Add(terminalControl);
         }
         private void BtnSettings_Click(object sender, EventArgs e)
         {
+            //Load Settings Controls by button
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(settingControl);
         }
@@ -125,12 +135,7 @@ namespace TrionControlPanel
                 Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
             }   
         }
-        private void BtnTerminal_Click(object sender, EventArgs e)
-        {
-            //Load Home Controls by button
-            pnlTabs.Controls.Clear();
-            pnlTabs.Controls.Add(terminalControl);
-        }
+
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Settings.Default.TogleStayInTray == true)
@@ -189,12 +194,10 @@ namespace TrionControlPanel
         {
             this.Show();
         }
-
         private void startTrionItem_Click(object sender, EventArgs e)
         {
             StartCoreScript(5000);
         }
-
         private void stopTrionItem_Click(object sender, EventArgs e)
         {
             homeControl._isRuningBnet = false;
@@ -204,7 +207,6 @@ namespace TrionControlPanel
             _statusClass.KillBnet();
             _statusClass.KillMysql();
         }
-
         private void exitTrionItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);

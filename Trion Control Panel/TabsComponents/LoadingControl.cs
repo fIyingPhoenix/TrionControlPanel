@@ -4,6 +4,7 @@
     {
         public LoadingControl()
         {
+            this.Dock = DockStyle.Fill;
             InitializeComponent();
         }
     }

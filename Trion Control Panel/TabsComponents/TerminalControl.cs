@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using TrionControlPanel.Database;
+﻿using TrionControlPanel.Classes;
 using TrionControlPanel.Properties;
 
 namespace TrionControlPanel.TabsComponents
@@ -21,14 +12,14 @@ namespace TrionControlPanel.TabsComponents
         private void LoadServerInfos()
         {
             RealmSettings();
-            txtRealmName.Texts = DatabaseSources.RealmName!;  
-            txtRealmAddress.Texts = DatabaseSources.RealmAddress!; 
-            txtRealmLocalAddress.Texts = DatabaseSources.RealmLocalAddress!; 
-            txtRealmSubMask.Texts = DatabaseSources.RealmSubMask!; 
-            txtRealmPort.Texts = DatabaseSources.RealmPort!;
-            txtRealmTimeZone.Texts = DatabaseSources.RealmTimeZone!; 
-            txtRealmGameBuild.Texts = DatabaseSources.GameBuild!; 
-            txtRealmRegion.Texts = DatabaseSources.GameRegion!; 
+            txtRealmName.Texts = RealmListBuild.RealmName!;  
+            txtRealmAddress.Texts = RealmListBuild.RealmAddress!; 
+            txtRealmLocalAddress.Texts = RealmListBuild.RealmLocalAddress!; 
+            txtRealmSubMask.Texts = RealmListBuild.RealmSubMask!; 
+            txtRealmPort.Texts = RealmListBuild.RealmPort!;
+            txtRealmTimeZone.Texts = RealmListBuild.RealmTimeZone!; 
+            txtRealmGameBuild.Texts = RealmListBuild.GameBuild!; 
+            txtRealmRegion.Texts = RealmListBuild.GameRegion!; 
         }
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
@@ -46,7 +37,7 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BtnLoadRealm_Click(object sender, EventArgs e)
         {
-            AccountManager.GetRealmList();
+            RealmListMenager.GetRealmList();
             LoadServerInfos();
         }
 
@@ -94,13 +85,13 @@ namespace TrionControlPanel.TabsComponents
                 txtRealmLocalAddress.Enabled = false;
                 txtRealmRegion.Enabled = false;
                 txtRealmAddress.Enabled = false;
-                DatabaseSources.RealmSubMask = "N/A";
-                DatabaseSources.RealmAddress = "N/A";
-                DatabaseSources.RealmPort = "N/A";
-                DatabaseSources.RealmLocalAddress = "N/A";
-                DatabaseSources.GameRegion = "N/A";
-                DatabaseSources.RealmTimeZone = "N/A";
-                DatabaseSources.GameBuild = "N/A";
+                RealmListBuild.RealmSubMask = "N/A";
+                RealmListBuild.RealmAddress = "N/A";
+                RealmListBuild.RealmPort = "N/A";
+                RealmListBuild.RealmLocalAddress = "N/A";
+                RealmListBuild.GameRegion = "N/A";
+                RealmListBuild.RealmTimeZone = "N/A";
+                RealmListBuild.GameBuild = "N/A";
             }
             //AzerothCore
             if (Settings.Default.SelectedCore == 1)
@@ -114,7 +105,7 @@ namespace TrionControlPanel.TabsComponents
                 lblWorldName.Text = "Realm Name:";
                 lblRealmBuild.Text = "Realm Build:";
                 lblRealmRegion.Text = "Realm Region:";
-                DatabaseSources.GameRegion = "N/A";
+                RealmListBuild.GameRegion = "N/A";
                 txtRealmRegion.Enabled = false;
             }
             //cMaNGOS
@@ -131,9 +122,9 @@ namespace TrionControlPanel.TabsComponents
                 txtRealmLocalAddress.Enabled = false;
                 txtRealmSubMask.Enabled = false;
                 txtRealmRegion.Enabled = false;
-                DatabaseSources.RealmSubMask = "N/A";
-                DatabaseSources.GameRegion = "N/A";
-                DatabaseSources.RealmLocalAddress = "N/A";
+                RealmListBuild.RealmSubMask = "N/A";
+                RealmListBuild.GameRegion = "N/A";
+                RealmListBuild.RealmLocalAddress = "N/A";
             }
             //vMaNGOS
             if (Settings.Default.SelectedCore == 6)
@@ -154,16 +145,21 @@ namespace TrionControlPanel.TabsComponents
 
         private void BtnSetRealm_Click(object sender, EventArgs e)
         {
-            DatabaseSources.RealmName = txtRealmName.Texts;
-            DatabaseSources.RealmAddress = txtRealmAddress.Texts;
-            DatabaseSources.RealmLocalAddress = txtRealmLocalAddress.Texts;
-            DatabaseSources.RealmSubMask =txtRealmSubMask.Texts;
-            DatabaseSources.RealmPort = txtRealmPort.Texts;
-            DatabaseSources.RealmTimeZone = txtRealmTimeZone.Texts;
-            DatabaseSources.GameBuild = txtRealmGameBuild.Texts;
-            DatabaseSources.GameRegion = txtRealmRegion.Texts;
-            AccountManager.SaveRealmList();
+            RealmListBuild.RealmName = txtRealmName.Texts;
+            RealmListBuild.RealmAddress = txtRealmAddress.Texts;
+            RealmListBuild.RealmLocalAddress = txtRealmLocalAddress.Texts;
+            RealmListBuild.RealmSubMask =txtRealmSubMask.Texts;
+            RealmListBuild.RealmPort = txtRealmPort.Texts;
+            RealmListBuild.RealmTimeZone = txtRealmTimeZone.Texts;
+            RealmListBuild.GameBuild = txtRealmGameBuild.Texts;
+            RealmListBuild.GameRegion = txtRealmRegion.Texts;
+            RealmListMenager.SaveRealmList();
         }
 
+        private void TerminalControl_Load(object sender, EventArgs e)
+        {
+            RealmListMenager.GetRealmList();
+            LoadServerInfos();
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.exitTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
             this.timerCrashCheck = new System.Windows.Forms.Timer(this.components);
+            this.timerResize = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.trionNotificationMenu.SuspendLayout();
@@ -220,7 +221,6 @@
             this.Controls.Add(this.panelMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(800, 600);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -236,7 +236,6 @@
 
         #endregion
         private Panel panelMenu;
-        private Panel pnlTabs;
         private PictureBox picLogo;
         private NotifyIcon mainNotify;
         private System.Windows.Forms.Timer timerCheck;
@@ -249,5 +248,7 @@
         private ToolStripMenuItem startTrionItem;
         private ToolStripMenuItem stopTrionItem;
         private ToolStripMenuItem exitTrionItem;
+        private System.Windows.Forms.Timer timerResize;
+        private Panel pnlTabs;
     }
 }

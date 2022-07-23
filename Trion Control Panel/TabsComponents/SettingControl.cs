@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.Win32;
-using TrionControlPanel.Database;
 using TrionControlPanel.Properties;
 using TrionControlPanel.Classes;
 using TrionControlPanel.Forms;
@@ -9,7 +8,6 @@ namespace TrionControlPanel.TabsComponents
 {
     public partial class SettingControl : UserControl
     {
-        readonly DatabaseConnection databaseConnection = new();
         //settings data located in appdata/local/TrionControlPanel
         private void LoadSettings()
         {

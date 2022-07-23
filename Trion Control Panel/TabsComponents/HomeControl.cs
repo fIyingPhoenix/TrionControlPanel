@@ -1,5 +1,4 @@
 ﻿using TrionControlPanel.Classes;
-using TrionControlPanel.Forms;
 using TrionControlPanel.Properties;
 using System.Net;
 using System.IO.Compression;
@@ -13,9 +12,9 @@ namespace TrionControlPanel.TabsComponents
         internal bool _isRuningBnet = false;
         internal bool _isRuningWorld = false;
         internal bool _isRuningMysql = false;
-
         public HomeControl()
         {
+            this.Dock = DockStyle.Fill;
             InitializeComponent();
         }
         private void BnetResourceTimer_Tick(object sender, EventArgs e)
@@ -164,7 +163,6 @@ namespace TrionControlPanel.TabsComponents
             _statusClass.KillBnet();
             _statusClass.KillMysql();
         }
-    
         private void BtnStopWorld_Click(object sender, EventArgs e)
         {
             _isRuningWorld = false;
@@ -231,5 +229,6 @@ namespace TrionControlPanel.TabsComponents
             pBarDownloadMysql.Visible = false;
             pBarDownloadMysql.Value = 0;
         }
+
     }
 }
