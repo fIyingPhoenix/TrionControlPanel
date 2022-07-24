@@ -1,4 +1,4 @@
-﻿namespace TrionControlPanel.Forms
+﻿namespace TrionControlPanel.Alerts
 {
     partial class FormAlert
     {

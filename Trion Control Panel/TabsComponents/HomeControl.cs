@@ -1,4 +1,5 @@
 ﻿using TrionControlPanel.Classes;
+using TrionControlPanel.Alerts;
 using TrionControlPanel.Properties;
 using System.Net;
 using System.IO.Compression;
@@ -8,7 +9,7 @@ namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-        readonly StatusClass _statusClass = new();
+        readonly SystemStatus _statusClass = new();
         internal bool _isRuningBnet = false;
         internal bool _isRuningWorld = false;
         internal bool _isRuningMysql = false;

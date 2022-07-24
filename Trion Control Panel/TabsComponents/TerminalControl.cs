@@ -1,5 +1,5 @@
-﻿using TrionControlPanel.Classes;
-using TrionControlPanel.Properties;
+﻿using TrionControlPanel.Properties;
+using TrionControlPanel.Database;
 
 namespace TrionControlPanel.TabsComponents
 {

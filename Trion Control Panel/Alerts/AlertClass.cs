@@ -1,4 +1,4 @@
-﻿namespace TrionControlPanel.Classes
+﻿namespace TrionControlPanel.Alerts
 {
     public enum NotificationAction
     {

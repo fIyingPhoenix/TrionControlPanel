@@ -6,11 +6,11 @@ namespace TrionControlPanel.UI
     public class MenuColorTable : ProfessionalColorTable
     {
         //Fields
-        private Color backColor;
-        private Color leftColumnColor;
-        private Color borderColor;
-        private Color menuItemBorderColor;
-        private Color menuItemSelectedColor;
+        private readonly Color backColor;
+        private readonly Color leftColumnColor;
+        private readonly Color borderColor;
+        private readonly Color menuItemBorderColor;
+        private readonly Color menuItemSelectedColor;
         //Constructor
         public MenuColorTable(bool isMainMenu, Color primaryColor)
         {
@@ -43,8 +43,8 @@ namespace TrionControlPanel.UI
     public class MenuRenderer : ToolStripProfessionalRenderer
     {
         //Fields
-        private Color primaryColor;
-        private Color textColor;
+        private readonly Color primaryColor;
+        private readonly Color textColor;
         private readonly int arrowThickness;
         //Constructor
         public MenuRenderer(bool isMainMenu, Color primaryColor, Color textColor)

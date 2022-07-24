@@ -4,7 +4,7 @@
     <_LastSelectedProfileId>D:\Repos\Git\TrionControlPanel\Trion Control Panel\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Forms\FormAlert.cs">
+    <Compile Update="Alerts\FormAlert.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TabsComponents\HomeControl.cs">

@@ -1,7 +1,7 @@
 ﻿using TrionControlPanel.TabsComponents;
 using TrionControlPanel.Properties;
 using TrionControlPanel.Classes;
-using TrionControlPanel.Forms;
+using TrionControlPanel.Alerts;
 
 namespace TrionControlPanel
 {
@@ -11,7 +11,7 @@ namespace TrionControlPanel
         SettingControl settingControl = new();
         LoadingControl loadingControl = new();
         TerminalControl terminalControl = new();
-        StatusClass _statusClass = new();
+        SystemStatus _statusClass = new();
         //
         int CrashCountWorld = 0;
         int CrashCountBnet = 0;

@@ -1,11 +1,11 @@
 ﻿using TrionControlPanel.Properties;
 using System.Diagnostics;
 using System.Management;
-using TrionControlPanel.Forms;
+using TrionControlPanel.Alerts;
 
 namespace TrionControlPanel.Classes
 {
-    internal class StatusClass
+    internal class SystemStatus
     {
         int worldRamUsage;
         int totalRam = 0;

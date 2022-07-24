@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using Microsoft.Win32;
 using TrionControlPanel.Properties;
-using TrionControlPanel.Classes;
-using TrionControlPanel.Forms;
+using TrionControlPanel.Alerts;
+using TrionControlPanel.Database;
+
 namespace TrionControlPanel.TabsComponents
 {
     public partial class SettingControl : UserControl
@@ -231,11 +232,10 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.Save();
                 LoadSettings();
             }
-
         }
         private void BtnTestMySQL_Click(object sender, EventArgs e)
         {
-            DatabaseConnection.MySqlConnectCheck();
+            MySQLConnect.MySqlConnectCheck();
         }
         private void PicSettingsInfos_Click(object sender, EventArgs e)
         {

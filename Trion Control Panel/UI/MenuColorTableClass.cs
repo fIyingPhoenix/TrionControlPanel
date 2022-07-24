@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrionControlPanel.Classes
+namespace TrionControlPanel.UI
 {
     internal class MenuColorTableClass : ProfessionalColorTable
     {
