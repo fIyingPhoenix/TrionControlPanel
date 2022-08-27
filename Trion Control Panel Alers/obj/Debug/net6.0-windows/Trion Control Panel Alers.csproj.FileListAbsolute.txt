@@ -1,0 +1,23 @@
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panel Alers.exe
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panel Alers.deps.json
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panel Alers.runtimeconfig.json
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panel Alers.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panel Alers.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\MetroFramework.Design.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\MetroFramework.Fonts.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\MetroFramework.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.csproj.AssemblyReference.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.csproj.GenerateResource.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.AssemblyInfoInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.AssemblyInfo.cs
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.csproj.CopyComplete
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\refint\Trion Control Panel Alers.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\Trion Control Panel Alers.genruntimeconfig.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\ref\Trion Control Panel Alers.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panle UI.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\bin\Debug\net6.0-windows\Trion Control Panle UI.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Alers\obj\Debug\net6.0-windows\TrionControlPanel.Alers.FormAlert.resources

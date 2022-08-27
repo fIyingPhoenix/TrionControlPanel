@@ -12,6 +12,7 @@ namespace TrionControlPanel.TabsComponents
         //settings data located in appdata/local/TrionControlPanel
         private void LoadSettings()
         {
+
             //loading data form settings file(xml)
             comboBoxCore.SelectedIndex = Settings.Default.SelectedCore;
             txtWorldLocation.Texts = Settings.Default.WorldCoreLocation;
@@ -29,7 +30,7 @@ namespace TrionControlPanel.TabsComponents
             tglHideConsole.Checked = Settings.Default.TogleConsolHide;
             tglNotySound.Checked = Settings.Default.TogelNotySound;
             tglStayInTray.Checked = Settings.Default.TogleStayInTray;
-            tglStartOnStartup.Checked = Settings.Default.RunWithWindows;     
+            tglStartOnStartup.Checked = Settings.Default.RunWithWindows;
         }
         private void SaveSettings()
         {
@@ -42,22 +43,16 @@ namespace TrionControlPanel.TabsComponents
             Settings.Default.BnetCoreLocation = txtBnetLocation.Texts;
             Settings.Default.MySQLocation = txtMysqlLocation.Texts;
             Settings.Default.MySQLServerPassword = txtMySqlPassowrd.Texts;
-            Settings.Default.MySQLServerPort= txtMySqlPort.Texts;
+            Settings.Default.MySQLServerPort = txtMySqlPort.Texts;
             Settings.Default.MySQLServerHost = txtMySqlServer.Texts;
             Settings.Default.MySQLServerUsername = txtMySqlUser.Texts;
             Settings.Default.AuthDatabaseName = txtAuthDatabase.Texts;
             Settings.Default.TogleConsolHide = tglHideConsole.Checked;
             Settings.Default.TogelNotySound = tglNotySound.Checked;
-            Settings.Default.TogleStayInTray=tglStayInTray.Checked;
+            Settings.Default.TogleStayInTray = tglStayInTray.Checked;
             Settings.Default.TogelCustomNames = tglCustomNames.Checked;
             Settings.Default.RunWithWindows = tglStartOnStartup.Checked;
             Settings.Default.Save();
-        }
-        public static void Alert(string message, NotificationType eType)
-        {
-            //make the alert work.
-            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
-            frm.ShowAlert(message, eType);
         }
         private void GetCoreLocation()
         {
@@ -137,7 +132,7 @@ namespace TrionControlPanel.TabsComponents
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings.Default.CoreLocation == string.Empty)
             {
-                Alert("Server Location Unknow!", NotificationType.Error);
+                FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
             else
             {
@@ -147,13 +142,13 @@ namespace TrionControlPanel.TabsComponents
                 }
                 catch
                 {
-                    Alert("Server Location Unknow! or invaluable", NotificationType.Error);
-                }    
-            }     
+                    FormAlert.ShowAlert("Server Location Unknow! or invaluable", NotificationType.Error);
+                }
+            }
         }
         private void TimerCheck_Tick(object sender, EventArgs e)
-        {   
-            if(tglCustomNames.Checked == true)
+        {
+            if (tglCustomNames.Checked == true)
             {
                 txtWorldName.ReadOnly = false;
                 txtBnetName.ReadOnly = false;
@@ -178,7 +173,7 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.Save();
                 LoadSettings();
             }
-            else if(comboBoxCore.SelectedIndex == 1)
+            else if (comboBoxCore.SelectedIndex == 1)
             {
                 //AzerothCore
                 Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
@@ -239,15 +234,15 @@ namespace TrionControlPanel.TabsComponents
         }
         private void PicSettingsInfos_Click(object sender, EventArgs e)
         {
-            FormMain.Alert("You need to restart the application to make the change work!", NotificationType.Info);
+            FormAlert.ShowAlert("You need to restart the application to make the change work!", NotificationType.Info);
         }
         private void TglStayInTray_CheckedChanged(object sender, EventArgs e)
         {
-            if(tglStayInTray.Checked == true)
+            if (tglStayInTray.Checked == true)
             {
                 Settings.Default.TogleStayInTray = true;
             }
-            else if(Settings.Default.TogleStayInTray == false)
+            else if (Settings.Default.TogleStayInTray == false)
             {
                 Settings.Default.TogleStayInTray = false;
             }
@@ -257,13 +252,13 @@ namespace TrionControlPanel.TabsComponents
             Process.Start($@"{Settings.Default.MySQLocation}", "--initialize --console");
         }
         private void BntMySqlLocation_Click(object sender, EventArgs e)
-        { 
+        {
             string file = Settings.Default.MySQLocation;
             string location = Path.GetDirectoryName(file)!;
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings.Default.MySQLocation == string.Empty)
             {
-                Alert("Server Location Unknow!", NotificationType.Error);
+                FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
             else
             {
@@ -273,9 +268,9 @@ namespace TrionControlPanel.TabsComponents
                 }
                 catch
                 {
-                    Alert("Server Location Unknow! or invaluable", NotificationType.Error);
+                    FormAlert.ShowAlert("Server Location Unknow! or invaluable", NotificationType.Error);
                 }
-            }     
+            }
         }
         private void TglStartOnStartup_CheckedChanged(object sender, EventArgs e)
         {
@@ -295,15 +290,28 @@ namespace TrionControlPanel.TabsComponents
                 Settings.Default.StartCoreWithWindows = true;
             else if (tglStartServer.Checked == false)
                 Settings.Default.StartCoreWithWindows = false;
-            Settings.Default.Save();      
+            Settings.Default.Save();
         }
         private void TglRestartOnCrash_CheckedChanged(object sender, EventArgs e)
         {
-           if(tglRestartOnCrash.Checked == true)
+            if (tglRestartOnCrash.Checked == true)
                 Settings.Default.ServerCrashCheck = true;
-           else if (tglRestartOnCrash.Checked == false)
-                Settings.Default.ServerCrashCheck= false;
-            Settings.Default.Save(); 
+            else if (tglRestartOnCrash.Checked == false)
+                Settings.Default.ServerCrashCheck = false;
+            Settings.Default.Save();
+        }
+
+        private void btnMySQLLocationSearch_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                if(fbd.ShowDialog() == DialogResult.OK)
+                {
+                    txtMysqlLocation.Texts = fbd.SelectedPath;
+                    Settings.Default.MySQLocation = fbd.SelectedPath;
+                    Settings.Default.Save();
+                }
+            }
         }
     }
 }

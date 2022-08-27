@@ -57,6 +57,47 @@
           "lib/netstandard2.0/K4os.Hash.xxHash.dll": {}
         }
       },
+      "MetroFramework/1.2.0.3": {
+        "type": "package",
+        "dependencies": {
+          "MetroFramework.Design": "1.2.0.3",
+          "MetroFramework.Fonts": "1.2.0.3",
+          "MetroFramework.RunTime": "1.2.0.3"
+        }
+      },
+      "MetroFramework.Design/1.2.0.3": {
+        "type": "package",
+        "dependencies": {
+          "MetroFramework.RunTime": "1.2.0.3"
+        },
+        "compile": {
+          "lib/net40/MetroFramework.Design.dll": {}
+        },
+        "runtime": {
+          "lib/net40/MetroFramework.Design.dll": {}
+        }
+      },
+      "MetroFramework.Fonts/1.2.0.3": {
+        "type": "package",
+        "dependencies": {
+          "MetroFramework.RunTime": "1.2.0.3"
+        },
+        "compile": {
+          "lib/net40/MetroFramework.Fonts.dll": {}
+        },
+        "runtime": {
+          "lib/net40/MetroFramework.Fonts.dll": {}
+        }
+      },
+      "MetroFramework.RunTime/1.2.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net40-Client/MetroFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net40-Client/MetroFramework.dll": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/3.1.0": {
         "type": "package",
         "compile": {
@@ -303,6 +344,36 @@
             "rid": "win"
           }
         }
+      },
+      "Trion Control Panel Alerts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "MetroFramework": "1.2.0.3",
+          "Trion Control Panel UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Trion Control Panel Alerts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Trion Control Panel Alerts.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "Trion Control Panel UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Trion Control Panel UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Trion Control Panel UI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
       }
     }
   },
@@ -412,6 +483,60 @@
         "lib/netstandard1.6/K4os.Hash.xxHash.xml",
         "lib/netstandard2.0/K4os.Hash.xxHash.dll",
         "lib/netstandard2.0/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "MetroFramework/1.2.0.3": {
+      "sha512": "PldREwx2yJ9GFXoR4IsXgsrTuOOEL1c5qZYeIfv9SVCSd7cJobmNRDHo+2v78E6U1lIWHM+ZIceZEETdOj0+oA==",
+      "type": "package",
+      "path": "metroframework/1.2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/MetroFramework.txt",
+        "README.TXT",
+        "metroframework.1.2.0.3.nupkg.sha512",
+        "metroframework.nuspec"
+      ]
+    },
+    "MetroFramework.Design/1.2.0.3": {
+      "sha512": "JhXzz2m1ofJu+vcqxib1s9nmI1akoDHTRweNISsVcvk38bVabqHpwrTpwvz3z4lcwqIe19/B6M4Rrk5uXdNmhA==",
+      "type": "package",
+      "path": "metroframework.design/1.2.0.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.TXT",
+        "Tools/install.ps1",
+        "lib/net40/MetroFramework.Design.dll",
+        "metroframework.design.1.2.0.3.nupkg.sha512",
+        "metroframework.design.nuspec"
+      ]
+    },
+    "MetroFramework.Fonts/1.2.0.3": {
+      "sha512": "5PAtJsIKfg4bzXPH3MeS4UFDxc4bgCe9yEEg+HS9+lOuwdChpMtawFw0XK4/u7OZxnCfkcHbnjTpu4IUpBBsfA==",
+      "type": "package",
+      "path": "metroframework.fonts/1.2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.TXT",
+        "lib/net40/MetroFramework.Fonts.dll",
+        "metroframework.fonts.1.2.0.3.nupkg.sha512",
+        "metroframework.fonts.nuspec"
+      ]
+    },
+    "MetroFramework.RunTime/1.2.0.3": {
+      "sha512": "7AFviJ+uFd/jApvUzOU8mMzl3NCj/sjIKQgCeJqqEEc78R6LoOTH+qGFZBRIEV+6nqgt9h2Y/ei6xVkTNZ3sJA==",
+      "type": "package",
+      "path": "metroframework.runtime/1.2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.TXT",
+        "lib/net40-Client/MetroFramework.dll",
+        "metroframework.runtime.1.2.0.3.nupkg.sha512",
+        "metroframework.runtime.nuspec"
       ]
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
@@ -928,12 +1053,24 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Trion Control Panel Alerts/1.0.0": {
+      "type": "project",
+      "path": "../Trion Control Panel Alers/Trion Control Panel Alerts.csproj",
+      "msbuildProject": "../Trion Control Panel Alers/Trion Control Panel Alerts.csproj"
+    },
+    "Trion Control Panel UI/1.0.0": {
+      "type": "project",
+      "path": "../Trion Control Panel UI/Trion Control Panel UI.csproj",
+      "msbuildProject": "../Trion Control Panel UI/Trion Control Panel UI.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "MySql.Data >= 8.0.29",
-      "System.Management >= 6.0.0"
+      "System.Management >= 6.0.0",
+      "Trion Control Panel Alerts >= 1.0.0",
+      "Trion Control Panel UI >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -967,7 +1104,14 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Alers\\Trion Control Panel Alerts.csproj": {
+              "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Alers\\Trion Control Panel Alerts.csproj"
+            },
+            "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel UI\\Trion Control Panel UI.csproj": {
+              "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel UI\\Trion Control Panel UI.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1010,5 +1154,37 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MetroFramework.Design 1.2.0.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "MetroFramework.Design",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MetroFramework.Fonts 1.2.0.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "MetroFramework.Fonts",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MetroFramework.RunTime 1.2.0.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "MetroFramework.RunTime",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

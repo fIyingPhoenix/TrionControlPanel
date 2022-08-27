@@ -7,6 +7,8 @@ namespace TrionControlPanel.Database
 {
     internal static class RealmListMenager
     {
+        public static bool GetRealmListSucces { get; set; }
+        
         public static void GetRealmList()
         {
             try
@@ -52,7 +54,7 @@ namespace TrionControlPanel.Database
                     }
                     else
                     {
-                        FormMain.Alert("Realm List could not be found!", NotificationType.Error);
+                        GetRealmListSucces = false;
                     }
                 }
                 //AzerothCore
@@ -72,7 +74,7 @@ namespace TrionControlPanel.Database
                     }
                     else
                     {
-                        FormMain.Alert("Realm List could not be found!", NotificationType.Error);
+                        GetRealmListSucces = false;
                     }
                 }
                 //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
@@ -92,7 +94,7 @@ namespace TrionControlPanel.Database
                     }
                     else
                     {
-                        FormMain.Alert("Realm List could not be found!", NotificationType.Error);
+                        GetRealmListSucces = false;
                     }
                 }
                 //cMaNGOS
@@ -112,7 +114,7 @@ namespace TrionControlPanel.Database
                     }
                     else
                     {
-                        FormMain.Alert("Realm List could not be found!", NotificationType.Error);
+                        GetRealmListSucces = false;
                     }
                 }
                 //Vanilla MaNGOS
@@ -132,14 +134,18 @@ namespace TrionControlPanel.Database
                     }
                     else
                     {
-                        FormMain.Alert("Realm List could not be found!", NotificationType.Error);
+                        GetRealmListSucces = false;
                     }
                 }
+            
             }
             catch
             {
-                FormMain.Alert("Connecting to server failed!", NotificationType.Error);
+                GetRealmListSucces = false;
+               
             }
+
+            
         }
         public static void SaveRealmList()
         {
@@ -152,11 +158,11 @@ namespace TrionControlPanel.Database
                 MySQLConnect.MySqlConnect();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormMain.Alert("Query Execute Successfuly!", NotificationType.Success);
+                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormMain.Alert("Error Execute Query!", NotificationType.Error);
+                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
                 MySQLConnect.MySqlDisconnectCheck();
             }
@@ -168,11 +174,11 @@ namespace TrionControlPanel.Database
                 MySQLConnect.MySqlConnect();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormMain.Alert("Query Execute Successfuly!", NotificationType.Success);
+                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormMain.Alert("Error Execute Query!", NotificationType.Error);
+                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
                 MySQLConnect.MySqlDisconnectCheck();
             }
@@ -184,11 +190,11 @@ namespace TrionControlPanel.Database
                 MySQLConnect.MySqlConnect();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormMain.Alert("Query Execute Successfuly!", NotificationType.Success);
+                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormMain.Alert("Error Execute Query!", NotificationType.Error);
+                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
                 MySQLConnect.MySqlDisconnectCheck();
             }
@@ -200,11 +206,11 @@ namespace TrionControlPanel.Database
                 MySQLConnect.MySqlConnect();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormMain.Alert("Query Execute Successfuly!", NotificationType.Success);
+                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormMain.Alert("Error Execute Query!", NotificationType.Error);
+                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
                 MySQLConnect.MySqlDisconnectCheck();
             }
@@ -216,11 +222,11 @@ namespace TrionControlPanel.Database
                 MySQLConnect.MySqlConnect();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormMain.Alert("Query Execute Successfuly!", NotificationType.Success);
+                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormMain.Alert("Error Execute Query!", NotificationType.Error);
+                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
                 MySQLConnect.MySqlDisconnectCheck();
             }

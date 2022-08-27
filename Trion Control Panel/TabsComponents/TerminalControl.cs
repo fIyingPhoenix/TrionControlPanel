@@ -1,5 +1,6 @@
 ﻿using TrionControlPanel.Properties;
 using TrionControlPanel.Database;
+using TrionControlPanel.Alerts;
 
 namespace TrionControlPanel.TabsComponents
 {
@@ -8,23 +9,24 @@ namespace TrionControlPanel.TabsComponents
         public TerminalControl()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.DoubleBuffer, true);
         }
         private void LoadServerInfos()
         {
             RealmSettings();
-            txtRealmName.Texts = RealmListBuild.RealmName!;  
-            txtRealmAddress.Texts = RealmListBuild.RealmAddress!; 
-            txtRealmLocalAddress.Texts = RealmListBuild.RealmLocalAddress!; 
-            txtRealmSubMask.Texts = RealmListBuild.RealmSubMask!; 
+            txtRealmName.Texts = RealmListBuild.RealmName!;
+            txtRealmAddress.Texts = RealmListBuild.RealmAddress!;
+            txtRealmLocalAddress.Texts = RealmListBuild.RealmLocalAddress!;
+            txtRealmSubMask.Texts = RealmListBuild.RealmSubMask!;
             txtRealmPort.Texts = RealmListBuild.RealmPort!;
-            txtRealmTimeZone.Texts = RealmListBuild.RealmTimeZone!; 
-            txtRealmGameBuild.Texts = RealmListBuild.GameBuild!; 
-            txtRealmRegion.Texts = RealmListBuild.GameRegion!; 
+            txtRealmTimeZone.Texts = RealmListBuild.RealmTimeZone!;
+            txtRealmGameBuild.Texts = RealmListBuild.GameBuild!;
+            txtRealmRegion.Texts = RealmListBuild.GameRegion!;
         }
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
-            
-            if (tglShowPassword.Checked  == false)
+
+            if (tglShowPassword.Checked == false)
             {
                 txtPassword.PasswordChar = false;
                 txtRePassword.PasswordChar = false;
@@ -35,9 +37,17 @@ namespace TrionControlPanel.TabsComponents
                 txtRePassword.PasswordChar = true;
             }
         }
+        private void GetRealmList()
+        { 
+            RealmListMenager.GetRealmList();
+            if (RealmListMenager.GetRealmListSucces == false )
+            {
+                FormAlert.ShowAlert("Connecting to server failed!", NotificationType.Error);
+            }
+        }
         private void BtnLoadRealm_Click(object sender, EventArgs e)
         {
-            RealmListMenager.GetRealmList();
+            GetRealmList();
             LoadServerInfos();
         }
 
@@ -158,8 +168,14 @@ namespace TrionControlPanel.TabsComponents
 
         private void TerminalControl_Load(object sender, EventArgs e)
         {
-            RealmListMenager.GetRealmList();
             LoadServerInfos();
+            timerRefresh.Start();
+        }
+
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+            GetRealmList();
+            timerRefresh.Stop();
         }
     }
 }

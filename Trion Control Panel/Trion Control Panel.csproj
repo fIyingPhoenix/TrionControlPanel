@@ -36,6 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Trion Control Panel Alers\Trion Control Panel Alerts.csproj" />
+    <ProjectReference Include="..\Trion Control Panel UI\Trion Control Panel UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

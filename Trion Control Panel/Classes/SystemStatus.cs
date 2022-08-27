@@ -15,12 +15,7 @@ namespace TrionControlPanel.Classes
         public string WorldStatusName = Settings.Default.WorldCoreName;
         public string BnetStatusName = Settings.Default.BnetCoreName;
         public string MySqlStatusName = Settings.Default.MySQLCoreName;
-        public static void Alert(string message, NotificationType eType)
-        {
-            //make the laert work.
-            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
-            frm.ShowAlert(message, eType);
-        }
+
         internal void KillMysql()
         {
             MySqlStatusName = Settings.Default.MySQLCoreName;
@@ -227,12 +222,12 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    Alert("Starting World Server!", NotificationType.Info);
+                    FormAlert.ShowAlert("Starting World Server!", NotificationType.Info);
                 }
             }
             catch (Exception ex)
             {
-                Alert(ex.Message, NotificationType.Error);
+                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
             }
         }
         internal void StartBnet()
@@ -255,12 +250,12 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    Alert("Starting Bnet Server!", NotificationType.Info);
+                    FormAlert.ShowAlert("Starting Bnet Server!", NotificationType.Info);
                 }
             }
             catch (Exception ex)
             {
-                Alert(ex.Message, NotificationType.Error);
+                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
             }
         }
         internal void StartMysql()
@@ -282,12 +277,12 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    Alert("Starting MySQL Server!", NotificationType.Info);
+                    FormAlert.ShowAlert("Starting MySQL Server!", NotificationType.Info);
                 }
             }
             catch (Exception ex)
             {
-                Alert(ex.Message, NotificationType.Error);
+                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
             }
         }
     }

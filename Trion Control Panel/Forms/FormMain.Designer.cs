@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnSettings = new TrionControlPanel.UI.CustomButton();
-            this.btnTerminal = new TrionControlPanel.UI.CustomButton();
-            this.btnHome = new TrionControlPanel.UI.CustomButton();
             this.picLogo = new System.Windows.Forms.PictureBox();
+            this.btnSettings = new TrionControlPanelUI.CustomButton();
+            this.btnTerminal = new TrionControlPanelUI.CustomButton();
+            this.btnHome = new TrionControlPanelUI.CustomButton();
             this.pnlTabs = new System.Windows.Forms.Panel();
             this.mainNotify = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trionNotificationMenu = new TrionControlPanel.UI.CustomDropdownMenu(this.components);
+            this.trionNotificationMenu = new TrionControlPanelUI.CustomDropdownMenu(this.components);
             this.showTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopTrionItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,33 +52,43 @@
             // 
             // panelMenu
             // 
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.panelMenu.Controls.Add(this.picLogo);
             this.panelMenu.Controls.Add(this.btnSettings);
             this.panelMenu.Controls.Add(this.btnTerminal);
             this.panelMenu.Controls.Add(this.btnHome);
-            this.panelMenu.Controls.Add(this.picLogo);
-            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Location = new System.Drawing.Point(0, 5);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(80, 561);
+            this.panelMenu.Size = new System.Drawing.Size(50, 610);
             this.panelMenu.TabIndex = 5;
+            // 
+            // picLogo
+            // 
+            this.picLogo.BackColor = System.Drawing.Color.Transparent;
+            this.picLogo.Image = global::TrionControlPanel.Properties.Resources.Logo_weiss;
+            this.picLogo.Location = new System.Drawing.Point(5, 9);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(40, 40);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 2;
+            this.picLogo.TabStop = false;
             // 
             // btnSettings
             // 
             this.btnSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.btnSettings.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.btnSettings.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnSettings.BorderRadius = 3;
+            this.btnSettings.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnSettings.BorderRadius = 0;
             this.btnSettings.BorderSize = 1;
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Location = new System.Drawing.Point(4, 205);
+            this.btnSettings.Image = global::TrionControlPanel.Properties.Resources.settings_x40;
+            this.btnSettings.Location = new System.Drawing.Point(3, 166);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(71, 60);
+            this.btnSettings.Size = new System.Drawing.Size(45, 45);
             this.btnSettings.TabIndex = 38;
             this.btnSettings.TextColor = System.Drawing.Color.White;
             this.btnSettings.UseVisualStyleBackColor = false;
@@ -88,18 +98,18 @@
             // 
             this.btnTerminal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.btnTerminal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.btnTerminal.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnTerminal.BorderRadius = 3;
+            this.btnTerminal.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnTerminal.BorderRadius = 0;
             this.btnTerminal.BorderSize = 1;
             this.btnTerminal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminal.FlatAppearance.BorderSize = 0;
             this.btnTerminal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTerminal.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTerminal.ForeColor = System.Drawing.Color.White;
-            this.btnTerminal.Image = ((System.Drawing.Image)(resources.GetObject("btnTerminal.Image")));
-            this.btnTerminal.Location = new System.Drawing.Point(4, 139);
+            this.btnTerminal.Image = global::TrionControlPanel.Properties.Resources.terminal_x40;
+            this.btnTerminal.Location = new System.Drawing.Point(3, 115);
             this.btnTerminal.Name = "btnTerminal";
-            this.btnTerminal.Size = new System.Drawing.Size(71, 60);
+            this.btnTerminal.Size = new System.Drawing.Size(45, 45);
             this.btnTerminal.TabIndex = 38;
             this.btnTerminal.TextColor = System.Drawing.Color.White;
             this.btnTerminal.UseVisualStyleBackColor = false;
@@ -109,40 +119,29 @@
             // 
             this.btnHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.btnHome.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.btnHome.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnHome.BorderRadius = 3;
+            this.btnHome.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnHome.BorderRadius = 0;
             this.btnHome.BorderSize = 1;
             this.btnHome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnHome.FlatAppearance.BorderSize = 0;
             this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHome.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnHome.ForeColor = System.Drawing.Color.White;
-            this.btnHome.Image = ((System.Drawing.Image)(resources.GetObject("btnHome.Image")));
-            this.btnHome.Location = new System.Drawing.Point(4, 73);
+            this.btnHome.Image = global::TrionControlPanel.Properties.Resources.home_x40;
+            this.btnHome.Location = new System.Drawing.Point(3, 64);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(71, 60);
+            this.btnHome.Size = new System.Drawing.Size(45, 45);
             this.btnHome.TabIndex = 37;
             this.btnHome.TextColor = System.Drawing.Color.White;
             this.btnHome.UseVisualStyleBackColor = false;
             this.btnHome.Click += new System.EventHandler(this.BtnHome_Click);
             // 
-            // picLogo
-            // 
-            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(15, 15);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(51, 43);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLogo.TabIndex = 2;
-            this.picLogo.TabStop = false;
-            // 
             // pnlTabs
             // 
-            this.pnlTabs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.pnlTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTabs.Location = new System.Drawing.Point(80, 0);
+            this.pnlTabs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.pnlTabs.Location = new System.Drawing.Point(51, 54);
             this.pnlTabs.Name = "pnlTabs";
-            this.pnlTabs.Size = new System.Drawing.Size(704, 561);
+            this.pnlTabs.Size = new System.Drawing.Size(700, 560);
             this.pnlTabs.TabIndex = 6;
             // 
             // mainNotify
@@ -215,16 +214,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.ClientSize = new System.Drawing.Size(752, 617);
             this.Controls.Add(this.pnlTabs);
             this.Controls.Add(this.panelMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "FormMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Resizable = false;
+            this.ShadowType = MetroFramework.Forms.MetroForm.MetroFormShadowType.DropShadow;
+            this.Style = MetroFramework.MetroColorStyle.Blue;
             this.Text = "Trion Control Panel";
+            this.TextAlign = System.Windows.Forms.VisualStyles.HorizontalAlign.Center;
+            this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panelMenu.ResumeLayout(false);
@@ -239,11 +241,11 @@
         private PictureBox picLogo;
         private NotifyIcon mainNotify;
         private System.Windows.Forms.Timer timerCheck;
-        private UI.CustomButton btnHome;
-        private UI.CustomButton btnSettings;
-        private UI.CustomButton btnTerminal;
+        private TrionControlPanelUI.CustomButton btnHome;
+        private TrionControlPanelUI.CustomButton btnSettings;
+        private TrionControlPanelUI.CustomButton btnTerminal;
         internal System.Windows.Forms.Timer timerCrashCheck;
-        private UI.CustomDropdownMenu trionNotificationMenu;
+        private TrionControlPanelUI.CustomDropdownMenu trionNotificationMenu;
         private ToolStripMenuItem showTrionItem;
         private ToolStripMenuItem startTrionItem;
         private ToolStripMenuItem stopTrionItem;

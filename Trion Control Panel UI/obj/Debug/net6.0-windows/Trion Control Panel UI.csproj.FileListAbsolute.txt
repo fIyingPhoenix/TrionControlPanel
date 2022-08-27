@@ -1,0 +1,16 @@
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\bin\Debug\net6.0-windows\Trion Control Panel UI.deps.json
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\bin\Debug\net6.0-windows\Trion Control Panel UI.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\bin\Debug\net6.0-windows\Trion Control Panel UI.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.csproj.AssemblyReference.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\TrionControlPanelUI.CustomComboBox.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\TrionControlPanelUI.CustomTextBox.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.csproj.GenerateResource.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.AssemblyInfoInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.AssemblyInfo.cs
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\refint\Trion Control Panel UI.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\Trion Control Panel UI.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\ref\Trion Control Panel UI.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panle UI\obj\Debug\net6.0-windows\TrionControlPanelUI.CustomPanel.resources

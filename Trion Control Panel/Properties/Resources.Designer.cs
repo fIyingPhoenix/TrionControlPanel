@@ -63,16 +63,6 @@ namespace TrionControlPanel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap achtung_100 {
-            get {
-                object obj = ResourceManager.GetObject("achtung-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap anfang_20 {
             get {
                 object obj = ResourceManager.GetObject("anfang-20", resourceCulture);
@@ -83,30 +73,20 @@ namespace TrionControlPanel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fehler_100 {
+        internal static System.Drawing.Bitmap home_x40 {
             get {
-                object obj = ResourceManager.GetObject("fehler-100", resourceCulture);
+                object obj = ResourceManager.GetObject("home x40", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap info_100 {
-            get {
-                object obj = ResourceManager.GetObject("info-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap info_24px {
+        internal static byte[] info_24px {
             get {
                 object obj = ResourceManager.GetObject("info_24px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         
@@ -161,25 +141,6 @@ namespace TrionControlPanel.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream notySound {
-            get {
-                return ResourceManager.GetStream("notySound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ok_100 {
-            get {
-                object obj = ResourceManager.GetObject("ok-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap schließen_20 {
@@ -192,9 +153,29 @@ namespace TrionControlPanel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap settings_x40 {
+            get {
+                object obj = ResourceManager.GetObject("settings x40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap stopp_20 {
             get {
                 object obj = ResourceManager.GetObject("stopp-20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap terminal_x40 {
+            get {
+                object obj = ResourceManager.GetObject("terminal x40", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

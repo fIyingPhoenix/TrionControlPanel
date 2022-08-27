@@ -1,4 +1,4 @@
-﻿using TrionControlPanel.UI;
+﻿using TrionControlPanelUI;
 namespace TrionControlPanel.TabsComponents
 {
     partial class HomeControl
@@ -30,166 +30,152 @@ namespace TrionControlPanel.TabsComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.sPanel2 = new TrionControlPanel.UI.CustomPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.sPanel2 = new TrionControlPanelUI.CustomPanel();
             this.lblWorldResource = new System.Windows.Forms.Label();
-            this.worldRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
-            this.worldCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
-            this.sPanel1 = new TrionControlPanel.UI.CustomPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.worldCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.worldRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.sPanel1 = new TrionControlPanelUI.CustomPanel();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblMySql = new System.Windows.Forms.Label();
             this.lblBnet = new System.Windows.Forms.Label();
             this.lblWorld = new System.Windows.Forms.Label();
-            this.mysqlServerLight = new TrionControlPanel.UI.CustomPanel();
-            this.bnetServerLight = new TrionControlPanel.UI.CustomPanel();
-            this.worldServerLight = new TrionControlPanel.UI.CustomPanel();
+            this.mysqlServerLight = new TrionControlPanelUI.CustomPanel();
+            this.worldServerLight = new TrionControlPanelUI.CustomPanel();
+            this.bnetServerLight = new TrionControlPanelUI.CustomPanel();
             this.ServerStatusTimer = new System.Windows.Forms.Timer(this.components);
-            this.roundPanel1 = new TrionControlPanel.UI.CustomPanel();
+            this.roundPanel1 = new TrionControlPanelUI.CustomPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.BnetCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
+            this.BnetCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
             this.lblBnetResource = new System.Windows.Forms.Label();
-            this.BnetRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
-            this.roundPanel2 = new TrionControlPanel.UI.CustomPanel();
+            this.BnetRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.roundPanel2 = new TrionControlPanelUI.CustomPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.totalCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
-            this.totalRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
+            this.totalCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.totalRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
-            this.bntStartAll = new TrionControlPanel.UI.CustomButton();
-            this.btnStartBent = new TrionControlPanel.UI.CustomButton();
-            this.btnStartWorld = new TrionControlPanel.UI.CustomButton();
-            this.bntStopAll = new TrionControlPanel.UI.CustomButton();
-            this.btnStopWorld = new TrionControlPanel.UI.CustomButton();
-            this.btnStopBnet = new TrionControlPanel.UI.CustomButton();
-            this.customWebBrowser1 = new TrionControlPanel.UI.CustomWebBrowser();
-            this.customWebBrowser2 = new TrionControlPanel.UI.CustomWebBrowser();
-            this.customWebBrowser3 = new TrionControlPanel.UI.CustomWebBrowser();
-            this.customWebBrowser4 = new TrionControlPanel.UI.CustomWebBrowser();
-            this.customWebBrowser6 = new TrionControlPanel.UI.CustomWebBrowser();
-            this.pBarDownloadMysql = new TrionControlPanel.UI.CustomProgressBar();
-            this.bntDownloadMysql = new TrionControlPanel.UI.CustomButton();
+            this.bntStartAll = new TrionControlPanelUI.CustomButton();
+            this.btnStartBent = new TrionControlPanelUI.CustomButton();
+            this.btnStartWorld = new TrionControlPanelUI.CustomButton();
+            this.bntStopAll = new TrionControlPanelUI.CustomButton();
+            this.btnStopWorld = new TrionControlPanelUI.CustomButton();
+            this.btnStopBnet = new TrionControlPanelUI.CustomButton();
+            this.customWebBrowser1 = new TrionControlPanelUI.CustomWebBrowser();
+            this.customWebBrowser2 = new TrionControlPanelUI.CustomWebBrowser();
+            this.customWebBrowser3 = new TrionControlPanelUI.CustomWebBrowser();
+            this.customWebBrowser4 = new TrionControlPanelUI.CustomWebBrowser();
+            this.customWebBrowser6 = new TrionControlPanelUI.CustomWebBrowser();
+            this.pBarDownloadMysql = new TrionControlPanelUI.CustomProgressBar();
+            this.bntDownloadMysql = new TrionControlPanelUI.CustomButton();
             this.bWorkerDownloadComplate = new System.ComponentModel.BackgroundWorker();
-            this.bntStopMysql = new TrionControlPanel.UI.CustomButton();
-            this.btnStartMysql = new TrionControlPanel.UI.CustomButton();
-            this.customPanel1 = new TrionControlPanel.UI.CustomPanel();
-            this.customPanel2 = new TrionControlPanel.UI.CustomPanel();
-            this.customPanel3 = new TrionControlPanel.UI.CustomPanel();
-            this.customPanel4 = new TrionControlPanel.UI.CustomPanel();
-            this.sPanel2.SuspendLayout();
-            this.sPanel1.SuspendLayout();
-            this.roundPanel1.SuspendLayout();
-            this.roundPanel2.SuspendLayout();
-            this.customPanel1.SuspendLayout();
-            this.customPanel2.SuspendLayout();
-            this.customPanel3.SuspendLayout();
-            this.customPanel4.SuspendLayout();
+            this.bntStopMysql = new TrionControlPanelUI.CustomButton();
+            this.btnStartMysql = new TrionControlPanelUI.CustomButton();
+            this.customPanel1 = new TrionControlPanelUI.CustomPanel();
             this.SuspendLayout();
             // 
             // sPanel2
             // 
-            this.sPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.sPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.sPanel2.BorderColor = System.Drawing.Color.White;
-            this.sPanel2.Controls.Add(this.label4);
-            this.sPanel2.Controls.Add(this.label1);
-            this.sPanel2.Controls.Add(this.lblWorldResource);
-            this.sPanel2.Controls.Add(this.worldRamUsageProgressBar);
-            this.sPanel2.Controls.Add(this.worldCpuUsageProgressBar);
-            this.sPanel2.Edge = 5;
-            this.sPanel2.Location = new System.Drawing.Point(1, 1);
+            this.sPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.sPanel2.BodyColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.sPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.sPanel2.BorderSize = 1;
+            this.sPanel2.Edge = 0;
+            this.sPanel2.Location = new System.Drawing.Point(10, 224);
             this.sPanel2.Name = "sPanel2";
-            this.sPanel2.Size = new System.Drawing.Size(330, 152);
+            this.sPanel2.Padding = new System.Windows.Forms.Padding(1);
+            this.sPanel2.Size = new System.Drawing.Size(325, 152);
             this.sPanel2.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label4.Location = new System.Drawing.Point(67, 95);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 15);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "Central Processing Unit (CPU)";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label1.Location = new System.Drawing.Point(67, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 15);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Random-Access Memory  (RAM)";
             // 
             // lblWorldResource
             // 
             this.lblWorldResource.AutoSize = true;
+            this.lblWorldResource.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblWorldResource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWorldResource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorldResource.Location = new System.Drawing.Point(7, 7);
+            this.lblWorldResource.Location = new System.Drawing.Point(20, 225);
             this.lblWorldResource.Name = "lblWorldResource";
             this.lblWorldResource.Size = new System.Drawing.Size(179, 21);
             this.lblWorldResource.TabIndex = 19;
             this.lblWorldResource.Text = "World Server Resource";
             // 
-            // worldRamUsageProgressBar
+            // label4
             // 
-            this.worldRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.worldRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.worldRamUsageProgressBar.FontSize = 10;
-            this.worldRamUsageProgressBar.LabelText = "MB";
-            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(9, 61);
-            this.worldRamUsageProgressBar.MaximumValue = true;
-            this.worldRamUsageProgressBar.Name = "worldRamUsageProgressBar";
-            this.worldRamUsageProgressBar.ShowStatus = true;
-            this.worldRamUsageProgressBar.Size = new System.Drawing.Size(309, 17);
-            this.worldRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.worldRamUsageProgressBar.TabIndex = 25;
-            this.worldRamUsageProgressBar.TextColor = System.Drawing.Color.White;
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label4.Location = new System.Drawing.Point(91, 313);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(164, 15);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Central Processing Unit (CPU)";
             // 
             // worldCpuUsageProgressBar
             // 
             this.worldCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.worldCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.worldCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.worldCpuUsageProgressBar.FontSize = 10;
             this.worldCpuUsageProgressBar.LabelText = "%";
-            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(9, 113);
+            this.worldCpuUsageProgressBar.Location = new System.Drawing.Point(21, 332);
             this.worldCpuUsageProgressBar.MaximumValue = false;
             this.worldCpuUsageProgressBar.Name = "worldCpuUsageProgressBar";
             this.worldCpuUsageProgressBar.ShowStatus = true;
-            this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(309, 17);
+            this.worldCpuUsageProgressBar.Size = new System.Drawing.Size(305, 20);
             this.worldCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.worldCpuUsageProgressBar.TabIndex = 26;
             this.worldCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
+            // worldRamUsageProgressBar
+            // 
+            this.worldRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.worldRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.worldRamUsageProgressBar.FontSize = 10;
+            this.worldRamUsageProgressBar.LabelText = "MB";
+            this.worldRamUsageProgressBar.Location = new System.Drawing.Point(21, 283);
+            this.worldRamUsageProgressBar.MaximumValue = true;
+            this.worldRamUsageProgressBar.Name = "worldRamUsageProgressBar";
+            this.worldRamUsageProgressBar.ShowStatus = true;
+            this.worldRamUsageProgressBar.Size = new System.Drawing.Size(305, 20);
+            this.worldRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.worldRamUsageProgressBar.TabIndex = 25;
+            this.worldRamUsageProgressBar.TextColor = System.Drawing.Color.White;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.label1.Location = new System.Drawing.Point(83, 261);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 15);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Random-Access Memory  (RAM)";
+            // 
             // sPanel1
             // 
-            this.sPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.sPanel1.BorderColor = System.Drawing.Color.Transparent;
-            this.sPanel1.Controls.Add(this.lblServerStatus);
-            this.sPanel1.Controls.Add(this.lblMySql);
-            this.sPanel1.Controls.Add(this.lblBnet);
-            this.sPanel1.Controls.Add(this.lblWorld);
-            this.sPanel1.Controls.Add(this.mysqlServerLight);
-            this.sPanel1.Controls.Add(this.bnetServerLight);
-            this.sPanel1.Controls.Add(this.worldServerLight);
-            this.sPanel1.Edge = 5;
-            this.sPanel1.Location = new System.Drawing.Point(1, 1);
+            this.sPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.sPanel1.BodyColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.sPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.sPanel1.BorderSize = 1;
+            this.sPanel1.Edge = 0;
+            this.sPanel1.Location = new System.Drawing.Point(10, 64);
             this.sPanel1.Name = "sPanel1";
-            this.sPanel1.Size = new System.Drawing.Size(259, 159);
+            this.sPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.sPanel1.Size = new System.Drawing.Size(254, 151);
             this.sPanel1.TabIndex = 5;
             // 
             // lblServerStatus
             // 
             this.lblServerStatus.AutoSize = true;
+            this.lblServerStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblServerStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblServerStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblServerStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblServerStatus.Location = new System.Drawing.Point(7, 7);
+            this.lblServerStatus.Location = new System.Drawing.Point(20, 73);
             this.lblServerStatus.Name = "lblServerStatus";
             this.lblServerStatus.Size = new System.Drawing.Size(107, 21);
             this.lblServerStatus.TabIndex = 18;
@@ -198,9 +184,10 @@ namespace TrionControlPanel.TabsComponents
             // lblMySql
             // 
             this.lblMySql.AutoSize = true;
+            this.lblMySql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblMySql.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblMySql.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblMySql.Location = new System.Drawing.Point(50, 105);
+            this.lblMySql.Location = new System.Drawing.Point(58, 171);
             this.lblMySql.Name = "lblMySql";
             this.lblMySql.Size = new System.Drawing.Size(99, 19);
             this.lblMySql.TabIndex = 16;
@@ -209,9 +196,10 @@ namespace TrionControlPanel.TabsComponents
             // lblBnet
             // 
             this.lblBnet.AutoSize = true;
+            this.lblBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblBnet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblBnet.Location = new System.Drawing.Point(50, 80);
+            this.lblBnet.Location = new System.Drawing.Point(57, 140);
             this.lblBnet.Name = "lblBnet";
             this.lblBnet.Size = new System.Drawing.Size(125, 19);
             this.lblBnet.TabIndex = 15;
@@ -220,9 +208,10 @@ namespace TrionControlPanel.TabsComponents
             // lblWorld
             // 
             this.lblWorld.AutoSize = true;
+            this.lblWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWorld.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblWorld.Location = new System.Drawing.Point(50, 56);
+            this.lblWorld.Location = new System.Drawing.Point(58, 109);
             this.lblWorld.Name = "lblWorld";
             this.lblWorld.Size = new System.Drawing.Size(92, 19);
             this.lblWorld.TabIndex = 14;
@@ -230,33 +219,39 @@ namespace TrionControlPanel.TabsComponents
             // 
             // mysqlServerLight
             // 
-            this.mysqlServerLight.BackColor = System.Drawing.Color.DarkRed;
+            this.mysqlServerLight.BackColor = System.Drawing.Color.White;
+            this.mysqlServerLight.BodyColor = System.Drawing.Color.Red;
             this.mysqlServerLight.BorderColor = System.Drawing.Color.White;
+            this.mysqlServerLight.BorderSize = 0;
             this.mysqlServerLight.Edge = 20;
-            this.mysqlServerLight.Location = new System.Drawing.Point(25, 105);
+            this.mysqlServerLight.Location = new System.Drawing.Point(32, 171);
             this.mysqlServerLight.Name = "mysqlServerLight";
             this.mysqlServerLight.Size = new System.Drawing.Size(19, 19);
             this.mysqlServerLight.TabIndex = 12;
             // 
-            // bnetServerLight
-            // 
-            this.bnetServerLight.BackColor = System.Drawing.Color.DarkRed;
-            this.bnetServerLight.BorderColor = System.Drawing.Color.White;
-            this.bnetServerLight.Edge = 20;
-            this.bnetServerLight.Location = new System.Drawing.Point(25, 80);
-            this.bnetServerLight.Name = "bnetServerLight";
-            this.bnetServerLight.Size = new System.Drawing.Size(19, 19);
-            this.bnetServerLight.TabIndex = 13;
-            // 
             // worldServerLight
             // 
-            this.worldServerLight.BackColor = System.Drawing.Color.DarkRed;
+            this.worldServerLight.BackColor = System.Drawing.Color.White;
+            this.worldServerLight.BodyColor = System.Drawing.Color.Red;
             this.worldServerLight.BorderColor = System.Drawing.Color.White;
+            this.worldServerLight.BorderSize = 0;
             this.worldServerLight.Edge = 20;
-            this.worldServerLight.Location = new System.Drawing.Point(25, 56);
+            this.worldServerLight.Location = new System.Drawing.Point(32, 109);
             this.worldServerLight.Name = "worldServerLight";
             this.worldServerLight.Size = new System.Drawing.Size(19, 19);
             this.worldServerLight.TabIndex = 11;
+            // 
+            // bnetServerLight
+            // 
+            this.bnetServerLight.BackColor = System.Drawing.Color.White;
+            this.bnetServerLight.BodyColor = System.Drawing.Color.Red;
+            this.bnetServerLight.BorderColor = System.Drawing.Color.White;
+            this.bnetServerLight.BorderSize = 0;
+            this.bnetServerLight.Edge = 20;
+            this.bnetServerLight.Location = new System.Drawing.Point(32, 140);
+            this.bnetServerLight.Name = "bnetServerLight";
+            this.bnetServerLight.Size = new System.Drawing.Size(19, 19);
+            this.bnetServerLight.TabIndex = 13;
             // 
             // ServerStatusTimer
             // 
@@ -266,25 +261,23 @@ namespace TrionControlPanel.TabsComponents
             // 
             // roundPanel1
             // 
-            this.roundPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.roundPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.roundPanel1.BorderColor = System.Drawing.Color.White;
-            this.roundPanel1.Controls.Add(this.label5);
-            this.roundPanel1.Controls.Add(this.label2);
-            this.roundPanel1.Controls.Add(this.BnetCpuUsageProgressBar);
-            this.roundPanel1.Controls.Add(this.lblBnetResource);
-            this.roundPanel1.Controls.Add(this.BnetRamUsageProgressBar);
-            this.roundPanel1.Edge = 5;
-            this.roundPanel1.Location = new System.Drawing.Point(1, 1);
+            this.roundPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.roundPanel1.BodyColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.roundPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.roundPanel1.BorderSize = 1;
+            this.roundPanel1.Edge = 0;
+            this.roundPanel1.Location = new System.Drawing.Point(346, 224);
             this.roundPanel1.Name = "roundPanel1";
-            this.roundPanel1.Size = new System.Drawing.Size(339, 152);
+            this.roundPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.roundPanel1.Size = new System.Drawing.Size(338, 152);
             this.roundPanel1.TabIndex = 20;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label5.Location = new System.Drawing.Point(62, 95);
+            this.label5.Location = new System.Drawing.Point(432, 313);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(164, 15);
             this.label5.TabIndex = 29;
@@ -293,8 +286,9 @@ namespace TrionControlPanel.TabsComponents
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label2.Location = new System.Drawing.Point(62, 46);
+            this.label2.Location = new System.Drawing.Point(424, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(181, 15);
             this.label2.TabIndex = 27;
@@ -303,14 +297,14 @@ namespace TrionControlPanel.TabsComponents
             // BnetCpuUsageProgressBar
             // 
             this.BnetCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.BnetCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.BnetCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.BnetCpuUsageProgressBar.FontSize = 10;
             this.BnetCpuUsageProgressBar.LabelText = "%";
-            this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(13, 113);
+            this.BnetCpuUsageProgressBar.Location = new System.Drawing.Point(359, 331);
             this.BnetCpuUsageProgressBar.MaximumValue = false;
             this.BnetCpuUsageProgressBar.Name = "BnetCpuUsageProgressBar";
             this.BnetCpuUsageProgressBar.ShowStatus = true;
-            this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(310, 17);
+            this.BnetCpuUsageProgressBar.Size = new System.Drawing.Size(310, 20);
             this.BnetCpuUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetCpuUsageProgressBar.TabIndex = 28;
             this.BnetCpuUsageProgressBar.TextColor = System.Drawing.Color.White;
@@ -318,9 +312,10 @@ namespace TrionControlPanel.TabsComponents
             // lblBnetResource
             // 
             this.lblBnetResource.AutoSize = true;
+            this.lblBnetResource.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblBnetResource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblBnetResource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblBnetResource.Location = new System.Drawing.Point(7, 7);
+            this.lblBnetResource.Location = new System.Drawing.Point(356, 225);
             this.lblBnetResource.Name = "lblBnetResource";
             this.lblBnetResource.Size = new System.Drawing.Size(222, 21);
             this.lblBnetResource.TabIndex = 19;
@@ -329,40 +324,38 @@ namespace TrionControlPanel.TabsComponents
             // BnetRamUsageProgressBar
             // 
             this.BnetRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.BnetRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.BnetRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.BnetRamUsageProgressBar.FontSize = 10;
             this.BnetRamUsageProgressBar.LabelText = "MB";
-            this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(13, 64);
+            this.BnetRamUsageProgressBar.Location = new System.Drawing.Point(359, 282);
             this.BnetRamUsageProgressBar.MaximumValue = true;
             this.BnetRamUsageProgressBar.Name = "BnetRamUsageProgressBar";
             this.BnetRamUsageProgressBar.ShowStatus = true;
-            this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(310, 17);
+            this.BnetRamUsageProgressBar.Size = new System.Drawing.Size(310, 20);
             this.BnetRamUsageProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BnetRamUsageProgressBar.TabIndex = 27;
             this.BnetRamUsageProgressBar.TextColor = System.Drawing.Color.White;
             // 
             // roundPanel2
             // 
-            this.roundPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.roundPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.roundPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.roundPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.roundPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.roundPanel2.Controls.Add(this.label6);
-            this.roundPanel2.Controls.Add(this.label3);
-            this.roundPanel2.Controls.Add(this.totalCpuUsageProgressBar);
-            this.roundPanel2.Controls.Add(this.totalRamUsageProgressBar);
-            this.roundPanel2.Controls.Add(this.lblPCresource);
-            this.roundPanel2.Edge = 5;
-            this.roundPanel2.Location = new System.Drawing.Point(1, 1);
+            this.roundPanel2.BodyColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.roundPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.roundPanel2.BorderSize = 1;
+            this.roundPanel2.Edge = 0;
+            this.roundPanel2.Location = new System.Drawing.Point(275, 64);
             this.roundPanel2.Name = "roundPanel2";
-            this.roundPanel2.Size = new System.Drawing.Size(409, 159);
+            this.roundPanel2.Padding = new System.Windows.Forms.Padding(1);
+            this.roundPanel2.Size = new System.Drawing.Size(409, 151);
             this.roundPanel2.TabIndex = 21;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label6.Location = new System.Drawing.Point(108, 94);
+            this.label6.Location = new System.Drawing.Point(395, 160);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(164, 15);
             this.label6.TabIndex = 29;
@@ -371,8 +364,9 @@ namespace TrionControlPanel.TabsComponents
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.label3.Location = new System.Drawing.Point(108, 46);
+            this.label3.Location = new System.Drawing.Point(387, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(181, 15);
             this.label3.TabIndex = 28;
@@ -381,10 +375,10 @@ namespace TrionControlPanel.TabsComponents
             // totalCpuUsageProgressBar
             // 
             this.totalCpuUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.totalCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.totalCpuUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.totalCpuUsageProgressBar.FontSize = 10;
             this.totalCpuUsageProgressBar.LabelText = "%";
-            this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(13, 112);
+            this.totalCpuUsageProgressBar.Location = new System.Drawing.Point(287, 177);
             this.totalCpuUsageProgressBar.MaximumValue = false;
             this.totalCpuUsageProgressBar.Name = "totalCpuUsageProgressBar";
             this.totalCpuUsageProgressBar.ShowStatus = true;
@@ -396,11 +390,11 @@ namespace TrionControlPanel.TabsComponents
             // totalRamUsageProgressBar
             // 
             this.totalRamUsageProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.totalRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
+            this.totalRamUsageProgressBar.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.totalRamUsageProgressBar.FontSize = 10;
             this.totalRamUsageProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.totalRamUsageProgressBar.LabelText = "MB";
-            this.totalRamUsageProgressBar.Location = new System.Drawing.Point(13, 64);
+            this.totalRamUsageProgressBar.Location = new System.Drawing.Point(287, 129);
             this.totalRamUsageProgressBar.Margin = new System.Windows.Forms.Padding(0);
             this.totalRamUsageProgressBar.MaximumValue = true;
             this.totalRamUsageProgressBar.Name = "totalRamUsageProgressBar";
@@ -413,9 +407,10 @@ namespace TrionControlPanel.TabsComponents
             // lblPCresource
             // 
             this.lblPCresource.AutoSize = true;
+            this.lblPCresource.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
             this.lblPCresource.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPCresource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.lblPCresource.Location = new System.Drawing.Point(7, 7);
+            this.lblPCresource.Location = new System.Drawing.Point(286, 73);
             this.lblPCresource.Name = "lblPCresource";
             this.lblPCresource.Size = new System.Drawing.Size(101, 21);
             this.lblPCresource.TabIndex = 19;
@@ -434,17 +429,17 @@ namespace TrionControlPanel.TabsComponents
             // bntStartAll
             // 
             this.bntStartAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStartAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStartAll.BorderRadius = 3;
+            this.bntStartAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStartAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStartAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.bntStartAll.BorderRadius = 0;
             this.bntStartAll.BorderSize = 1;
             this.bntStartAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntStartAll.FlatAppearance.BorderSize = 0;
             this.bntStartAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStartAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStartAll.ForeColor = System.Drawing.Color.White;
-            this.bntStartAll.Location = new System.Drawing.Point(489, 373);
+            this.bntStartAll.Location = new System.Drawing.Point(494, 388);
             this.bntStartAll.Name = "bntStartAll";
             this.bntStartAll.Size = new System.Drawing.Size(192, 40);
             this.bntStartAll.TabIndex = 31;
@@ -456,17 +451,17 @@ namespace TrionControlPanel.TabsComponents
             // btnStartBent
             // 
             this.btnStartBent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartBent.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartBent.BorderRadius = 3;
+            this.btnStartBent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartBent.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartBent.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnStartBent.BorderRadius = 0;
             this.btnStartBent.BorderSize = 1;
             this.btnStartBent.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartBent.FlatAppearance.BorderSize = 0;
             this.btnStartBent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartBent.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBent.ForeColor = System.Drawing.Color.White;
-            this.btnStartBent.Location = new System.Drawing.Point(460, 419);
+            this.btnStartBent.Location = new System.Drawing.Point(463, 436);
             this.btnStartBent.Name = "btnStartBent";
             this.btnStartBent.Size = new System.Drawing.Size(108, 35);
             this.btnStartBent.TabIndex = 32;
@@ -478,17 +473,17 @@ namespace TrionControlPanel.TabsComponents
             // btnStartWorld
             // 
             this.btnStartWorld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartWorld.BorderRadius = 3;
+            this.btnStartWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnStartWorld.BorderRadius = 0;
             this.btnStartWorld.BorderSize = 1;
             this.btnStartWorld.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartWorld.FlatAppearance.BorderSize = 0;
             this.btnStartWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStartWorld.Location = new System.Drawing.Point(574, 419);
+            this.btnStartWorld.Location = new System.Drawing.Point(578, 436);
             this.btnStartWorld.Name = "btnStartWorld";
             this.btnStartWorld.Size = new System.Drawing.Size(108, 35);
             this.btnStartWorld.TabIndex = 33;
@@ -500,17 +495,17 @@ namespace TrionControlPanel.TabsComponents
             // bntStopAll
             // 
             this.bntStopAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStopAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStopAll.BorderRadius = 3;
+            this.bntStopAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStopAll.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStopAll.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.bntStopAll.BorderRadius = 0;
             this.bntStopAll.BorderSize = 1;
             this.bntStopAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntStopAll.FlatAppearance.BorderSize = 0;
             this.bntStopAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStopAll.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStopAll.ForeColor = System.Drawing.Color.White;
-            this.bntStopAll.Location = new System.Drawing.Point(7, 373);
+            this.bntStopAll.Location = new System.Drawing.Point(10, 388);
             this.bntStopAll.Name = "bntStopAll";
             this.bntStopAll.Size = new System.Drawing.Size(192, 40);
             this.bntStopAll.TabIndex = 34;
@@ -522,17 +517,17 @@ namespace TrionControlPanel.TabsComponents
             // btnStopWorld
             // 
             this.btnStopWorld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStopWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopWorld.BorderRadius = 3;
+            this.btnStopWorld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStopWorld.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStopWorld.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnStopWorld.BorderRadius = 0;
             this.btnStopWorld.BorderSize = 1;
             this.btnStopWorld.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStopWorld.FlatAppearance.BorderSize = 0;
             this.btnStopWorld.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopWorld.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopWorld.ForeColor = System.Drawing.Color.White;
-            this.btnStopWorld.Location = new System.Drawing.Point(119, 419);
+            this.btnStopWorld.Location = new System.Drawing.Point(122, 436);
             this.btnStopWorld.Name = "btnStopWorld";
             this.btnStopWorld.Size = new System.Drawing.Size(108, 35);
             this.btnStopWorld.TabIndex = 35;
@@ -544,17 +539,17 @@ namespace TrionControlPanel.TabsComponents
             // btnStopBnet
             // 
             this.btnStopBnet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStopBnet.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStopBnet.BorderRadius = 3;
+            this.btnStopBnet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStopBnet.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStopBnet.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnStopBnet.BorderRadius = 0;
             this.btnStopBnet.BorderSize = 1;
             this.btnStopBnet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStopBnet.FlatAppearance.BorderSize = 0;
             this.btnStopBnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopBnet.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStopBnet.ForeColor = System.Drawing.Color.White;
-            this.btnStopBnet.Location = new System.Drawing.Point(233, 419);
+            this.btnStopBnet.Location = new System.Drawing.Point(236, 436);
             this.btnStopBnet.Name = "btnStopBnet";
             this.btnStopBnet.Size = new System.Drawing.Size(108, 35);
             this.btnStopBnet.TabIndex = 36;
@@ -567,7 +562,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser1.AllowNavigation = false;
             this.customWebBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser1.Location = new System.Drawing.Point(14, 12);
+            this.customWebBrowser1.Location = new System.Drawing.Point(16, 20);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.ScriptErrorsSuppressed = true;
             this.customWebBrowser1.ScrollBarsEnabled = false;
@@ -580,7 +575,7 @@ namespace TrionControlPanel.TabsComponents
             // 
             this.customWebBrowser2.AllowNavigation = false;
             this.customWebBrowser2.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser2.Location = new System.Drawing.Point(162, 12);
+            this.customWebBrowser2.Location = new System.Drawing.Point(164, 20);
             this.customWebBrowser2.Name = "customWebBrowser2";
             this.customWebBrowser2.ScriptErrorsSuppressed = true;
             this.customWebBrowser2.ScrollBarsEnabled = false;
@@ -595,7 +590,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser3.AllowNavigation = false;
             this.customWebBrowser3.AllowWebBrowserDrop = false;
             this.customWebBrowser3.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser3.Location = new System.Drawing.Point(270, 12);
+            this.customWebBrowser3.Location = new System.Drawing.Point(269, 20);
             this.customWebBrowser3.Name = "customWebBrowser3";
             this.customWebBrowser3.ScriptErrorsSuppressed = true;
             this.customWebBrowser3.ScrollBarsEnabled = false;
@@ -610,7 +605,7 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser4.AllowNavigation = false;
             this.customWebBrowser4.AllowWebBrowserDrop = false;
             this.customWebBrowser4.IsWebBrowserContextMenuEnabled = false;
-            this.customWebBrowser4.Location = new System.Drawing.Point(373, 12);
+            this.customWebBrowser4.Location = new System.Drawing.Point(372, 20);
             this.customWebBrowser4.Name = "customWebBrowser4";
             this.customWebBrowser4.ScriptErrorsSuppressed = true;
             this.customWebBrowser4.ScrollBarsEnabled = false;
@@ -623,7 +618,7 @@ namespace TrionControlPanel.TabsComponents
             // customWebBrowser6
             // 
             this.customWebBrowser6.AllowNavigation = false;
-            this.customWebBrowser6.Location = new System.Drawing.Point(531, 12);
+            this.customWebBrowser6.Location = new System.Drawing.Point(530, 20);
             this.customWebBrowser6.Name = "customWebBrowser6";
             this.customWebBrowser6.ScriptErrorsSuppressed = true;
             this.customWebBrowser6.ScrollBarsEnabled = false;
@@ -637,8 +632,9 @@ namespace TrionControlPanel.TabsComponents
             this.pBarDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pBarDownloadMysql.BarColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.pBarDownloadMysql.FontSize = 1;
+            this.pBarDownloadMysql.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.pBarDownloadMysql.LabelText = "";
-            this.pBarDownloadMysql.Location = new System.Drawing.Point(206, 406);
+            this.pBarDownloadMysql.Location = new System.Drawing.Point(211, 422);
             this.pBarDownloadMysql.MaximumValue = false;
             this.pBarDownloadMysql.Name = "pBarDownloadMysql";
             this.pBarDownloadMysql.ShowStatus = false;
@@ -651,17 +647,17 @@ namespace TrionControlPanel.TabsComponents
             // bntDownloadMysql
             // 
             this.bntDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntDownloadMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntDownloadMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntDownloadMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntDownloadMysql.BorderRadius = 3;
+            this.bntDownloadMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntDownloadMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntDownloadMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.bntDownloadMysql.BorderRadius = 0;
             this.bntDownloadMysql.BorderSize = 1;
             this.bntDownloadMysql.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntDownloadMysql.FlatAppearance.BorderSize = 0;
             this.bntDownloadMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntDownloadMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntDownloadMysql.ForeColor = System.Drawing.Color.White;
-            this.bntDownloadMysql.Location = new System.Drawing.Point(204, 373);
+            this.bntDownloadMysql.Location = new System.Drawing.Point(209, 388);
             this.bntDownloadMysql.Name = "bntDownloadMysql";
             this.bntDownloadMysql.Size = new System.Drawing.Size(280, 40);
             this.bntDownloadMysql.TabIndex = 43;
@@ -678,17 +674,17 @@ namespace TrionControlPanel.TabsComponents
             // bntStopMysql
             // 
             this.bntStopMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntStopMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStopMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.bntStopMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.bntStopMysql.BorderRadius = 3;
+            this.bntStopMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStopMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.bntStopMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.bntStopMysql.BorderRadius = 0;
             this.bntStopMysql.BorderSize = 1;
             this.bntStopMysql.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bntStopMysql.FlatAppearance.BorderSize = 0;
             this.bntStopMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntStopMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bntStopMysql.ForeColor = System.Drawing.Color.White;
-            this.bntStopMysql.Location = new System.Drawing.Point(7, 419);
+            this.bntStopMysql.Location = new System.Drawing.Point(10, 436);
             this.bntStopMysql.Name = "bntStopMysql";
             this.bntStopMysql.Size = new System.Drawing.Size(108, 35);
             this.bntStopMysql.TabIndex = 45;
@@ -700,17 +696,17 @@ namespace TrionControlPanel.TabsComponents
             // btnStartMysql
             // 
             this.btnStartMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStartMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.btnStartMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.btnStartMysql.BorderRadius = 3;
+            this.btnStartMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnStartMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnStartMysql.BorderRadius = 0;
             this.btnStartMysql.BorderSize = 1;
             this.btnStartMysql.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartMysql.FlatAppearance.BorderSize = 0;
             this.btnStartMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartMysql.ForeColor = System.Drawing.Color.White;
-            this.btnStartMysql.Location = new System.Drawing.Point(347, 419);
+            this.btnStartMysql.Location = new System.Drawing.Point(350, 436);
             this.btnStartMysql.Name = "btnStartMysql";
             this.btnStartMysql.Size = new System.Drawing.Size(108, 35);
             this.btnStartMysql.TabIndex = 46;
@@ -721,56 +717,44 @@ namespace TrionControlPanel.TabsComponents
             // 
             // customPanel1
             // 
-            this.customPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customPanel1.BorderColor = System.Drawing.Color.Blue;
-            this.customPanel1.Controls.Add(this.sPanel2);
-            this.customPanel1.Edge = 5;
-            this.customPanel1.Location = new System.Drawing.Point(7, 214);
+            this.customPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.customPanel1.BodyColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.customPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.customPanel1.BorderSize = 1;
+            this.customPanel1.Edge = 0;
+            this.customPanel1.Location = new System.Drawing.Point(10, 15);
             this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(332, 154);
+            this.customPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.customPanel1.Size = new System.Drawing.Size(674, 38);
             this.customPanel1.TabIndex = 47;
-            // 
-            // customPanel2
-            // 
-            this.customPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customPanel2.BorderColor = System.Drawing.Color.Blue;
-            this.customPanel2.Controls.Add(this.roundPanel1);
-            this.customPanel2.Edge = 5;
-            this.customPanel2.Location = new System.Drawing.Point(342, 214);
-            this.customPanel2.Name = "customPanel2";
-            this.customPanel2.Size = new System.Drawing.Size(341, 154);
-            this.customPanel2.TabIndex = 48;
-            // 
-            // customPanel3
-            // 
-            this.customPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customPanel3.BorderColor = System.Drawing.Color.Blue;
-            this.customPanel3.Controls.Add(this.sPanel1);
-            this.customPanel3.Edge = 5;
-            this.customPanel3.Location = new System.Drawing.Point(7, 50);
-            this.customPanel3.Name = "customPanel3";
-            this.customPanel3.Size = new System.Drawing.Size(261, 161);
-            this.customPanel3.TabIndex = 49;
-            // 
-            // customPanel4
-            // 
-            this.customPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.customPanel4.BorderColor = System.Drawing.Color.Blue;
-            this.customPanel4.Controls.Add(this.roundPanel2);
-            this.customPanel4.Edge = 5;
-            this.customPanel4.Location = new System.Drawing.Point(272, 49);
-            this.customPanel4.Name = "customPanel4";
-            this.customPanel4.Size = new System.Drawing.Size(411, 161);
-            this.customPanel4.TabIndex = 50;
             // 
             // HomeControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.Controls.Add(this.customPanel4);
-            this.Controls.Add(this.customPanel3);
-            this.Controls.Add(this.customPanel2);
-            this.Controls.Add(this.customPanel1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.Controls.Add(this.lblServerStatus);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblMySql);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblBnet);
+            this.Controls.Add(this.lblWorld);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.mysqlServerLight);
+            this.Controls.Add(this.totalCpuUsageProgressBar);
+            this.Controls.Add(this.worldServerLight);
+            this.Controls.Add(this.worldCpuUsageProgressBar);
+            this.Controls.Add(this.totalRamUsageProgressBar);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblPCresource);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.BnetCpuUsageProgressBar);
+            this.Controls.Add(this.lblWorldResource);
+            this.Controls.Add(this.lblBnetResource);
+            this.Controls.Add(this.BnetRamUsageProgressBar);
+            this.Controls.Add(this.worldRamUsageProgressBar);
+            this.Controls.Add(this.roundPanel2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.bnetServerLight);
             this.Controls.Add(this.btnStartMysql);
             this.Controls.Add(this.bntStopMysql);
             this.Controls.Add(this.pBarDownloadMysql);
@@ -786,29 +770,23 @@ namespace TrionControlPanel.TabsComponents
             this.Controls.Add(this.btnStartWorld);
             this.Controls.Add(this.btnStartBent);
             this.Controls.Add(this.bntStartAll);
+            this.Controls.Add(this.sPanel2);
+            this.Controls.Add(this.sPanel1);
+            this.Controls.Add(this.roundPanel1);
+            this.Controls.Add(this.customPanel1);
+            this.MaximumSize = new System.Drawing.Size(700, 560);
             this.Name = "HomeControl";
-            this.Size = new System.Drawing.Size(690, 549);
+            this.Size = new System.Drawing.Size(700, 560);
             this.Load += new System.EventHandler(this.HomeControl_Load);
-            this.sPanel2.ResumeLayout(false);
-            this.sPanel2.PerformLayout();
-            this.sPanel1.ResumeLayout(false);
-            this.sPanel1.PerformLayout();
-            this.roundPanel1.ResumeLayout(false);
-            this.roundPanel1.PerformLayout();
-            this.roundPanel2.ResumeLayout(false);
-            this.roundPanel2.PerformLayout();
-            this.customPanel1.ResumeLayout(false);
-            this.customPanel2.ResumeLayout(false);
-            this.customPanel3.ResumeLayout(false);
-            this.customPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private TrionControlPanel.UI.CustomPanel sPanel2;
-        private TrionControlPanel.UI.CustomPanel sPanel1;
+        private TrionControlPanelUI.CustomPanel sPanel2;
+        private TrionControlPanelUI.CustomPanel sPanel1;
         private Label lblServerStatus;
         private Label lblMySql;
         private Label lblBnet;
@@ -841,20 +819,17 @@ namespace TrionControlPanel.TabsComponents
         private CustomButton bntStopAll;
         private CustomButton btnStopWorld;
         private CustomButton btnStopBnet;
-        private TrionControlPanel.UI.CustomWebBrowser customWebBrowser1;
-        private TrionControlPanel.UI.CustomWebBrowser customWebBrowser2;
-        private TrionControlPanel.UI.CustomWebBrowser customWebBrowser3;
-        private TrionControlPanel.UI.CustomWebBrowser customWebBrowser4;
+        private TrionControlPanelUI.CustomWebBrowser customWebBrowser1;
+        private TrionControlPanelUI.CustomWebBrowser customWebBrowser2;
+        private TrionControlPanelUI.CustomWebBrowser customWebBrowser3;
+        private TrionControlPanelUI.CustomWebBrowser customWebBrowser4;
         internal CustomProgressBar totalRamUsageProgressBar;
-        private CustomWebBrowser customWebBrowser6;
+        private TrionControlPanelUI.CustomWebBrowser customWebBrowser6;
         private CustomProgressBar pBarDownloadMysql;
         private CustomButton bntDownloadMysql;
         private System.ComponentModel.BackgroundWorker bWorkerDownloadComplate;
         private CustomButton bntStopMysql;
         private CustomButton btnStartMysql;
         private CustomPanel customPanel1;
-        private CustomPanel customPanel2;
-        private CustomPanel customPanel3;
-        private CustomPanel customPanel4;
     }
 }

@@ -1,10 +1,10 @@
 ﻿using TrionControlPanel.Classes;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Properties;
+using TrionControlPanelUI;
 using System.Net;
 using System.IO.Compression;
 using System.ComponentModel;
-
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
@@ -75,7 +75,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningWorld == true)
                 {
                     _isRuningWorld = false;
-                    FormMain.Alert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    FormAlert.ShowAlert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
                 }
                 worldServerLight.BackColor = Color.Red;
                 WorldResourceTimer.Stop();
@@ -90,7 +90,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningBnet == true)
                 {
                     _isRuningBnet = false;
-                    FormMain.Alert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);    
+                    FormAlert.ShowAlert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);    
                 }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();
@@ -176,8 +176,9 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BntDownloadMysql_Click(object sender, EventArgs e)
         {
+            
             string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
-            Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\{mysqlName}";
+            Settings.Default.MySQLocation = $@"{Settings.Default.MySQLocation}\{mysqlName}";
             Settings.Default.Save();
             //
             pBarDownloadMysql.Visible = true;
@@ -203,6 +204,7 @@ namespace TrionControlPanel.TabsComponents
                 webClient.DownloadFileAsync(new Uri(resultUrl), location);
             });
             DownloadThread.Start ();
+            
             bntDownloadMysql.Enabled = false;
         }
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)

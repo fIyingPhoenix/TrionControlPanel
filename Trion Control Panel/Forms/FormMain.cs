@@ -2,10 +2,11 @@
 using TrionControlPanel.Properties;
 using TrionControlPanel.Classes;
 using TrionControlPanel.Alerts;
+using MetroFramework.Forms;
 
 namespace TrionControlPanel
 {
-    public partial class FormMain : Form
+    public partial class FormMain : MetroForm
     {
         HomeControl homeControl = new();
         SettingControl settingControl = new();
@@ -24,17 +25,10 @@ namespace TrionControlPanel
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
             loadingControl.Dock = DockStyle.Fill;
-            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
+            if(Settings.Default.MySQLocation == null)
             {
-                Settings.Default.MySQLocation = $@"{Directory.GetCurrentDirectory()}\mysql";
-                Settings.Default.Save();
-            }        
-        }
-        public static void Alert(string message, NotificationType eType)
-        {
-            //make the laert work.
-            FormAlert frm = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
-            frm.ShowAlert(message, eType);
+                FormAlert.ShowAlert("Select first the MySQL Location",NotificationType.Info);
+            }   
         }
         private void BtnHome_Click(object sender, EventArgs e)
         {
@@ -165,7 +159,8 @@ namespace TrionControlPanel
             {
                 homeControl._isRuningWorld = false;
                 CrashCountWorld = 0;
-                Alert("World server could not be started again! Fatal Error!", NotificationType.Info);
+
+                FormAlert.ShowAlert("World server could not be started again! Fatal Error!", NotificationType.Info);
             }
             if (_statusClass.BnetStatus() == false & homeControl._isRuningBnet == true & CrashCountBnet < 5)
             {
@@ -176,7 +171,8 @@ namespace TrionControlPanel
             {
                 homeControl._isRuningBnet = false;
                 CrashCountBnet = 0;
-                Alert("Bnet/Auth server could not be started again! Fatal Error!", NotificationType.Info);
+
+                FormAlert.ShowAlert("Bnet/Auth server could not be started again! Fatal Error!", NotificationType.Info);
             }
             if (_statusClass.MySQLstatus() ==false & homeControl._isRuningMysql == true & CrashCountMysql < 5)
             {
@@ -187,7 +183,8 @@ namespace TrionControlPanel
             {
                 homeControl._isRuningMysql = false;
                 CrashCountMysql= 0;
-                Alert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
+
+                FormAlert.ShowAlert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
             }
         }
         private void showTrionItem_Click(object sender, EventArgs e)
