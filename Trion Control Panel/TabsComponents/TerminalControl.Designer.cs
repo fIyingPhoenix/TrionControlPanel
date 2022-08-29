@@ -938,7 +938,7 @@ namespace TrionControlPanel.TabsComponents
             // timerRefresh
             // 
             this.timerRefresh.Interval = 2000;
-            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
+            this.timerRefresh.Tick += new System.EventHandler(this.TimerRefresh_Tick);
             // 
             // customPanel1
             // 

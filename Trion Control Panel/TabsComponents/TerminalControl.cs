@@ -1,11 +1,13 @@
-﻿using TrionControlPanel.Properties;
-using TrionControlPanel.Database;
+﻿using TrionControlPanel.Database;
 using TrionControlPanel.Alerts;
+using TrionControlPanelSettings;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class TerminalControl : UserControl
     {
+        Settings Settings = new();
+        RealmListMenager RealmListMenager = new();
         public TerminalControl()
         {
             InitializeComponent();
@@ -68,7 +70,7 @@ namespace TrionControlPanel.TabsComponents
         internal void RealmSettings()
         {
             //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
-            if (Settings.Default.SelectedCore == 3 | Settings.Default.SelectedCore == 4 | Settings.Default.SelectedCore == 5)
+            if (Settings._Data.SelectedCore == 3 | Settings._Data.SelectedCore == 4 | Settings._Data.SelectedCore == 5)
             {
                 lblWorldName.Text = "Realm Name:";
                 lblRealmBuild.Text = "Realm Build:";
@@ -83,7 +85,7 @@ namespace TrionControlPanel.TabsComponents
                 txtRealmRegion.Enabled = true;
             }
             //AscEmu
-            if (Settings.Default.SelectedCore == 0)
+            if (Settings._Data.SelectedCore == 0)
             {
                 lblWorldName.Text = "Realm Password:";
                 lblRealmBuild.Text = "Realm Build:";
@@ -104,7 +106,7 @@ namespace TrionControlPanel.TabsComponents
                 RealmListBuild.GameBuild = "N/A";
             }
             //AzerothCore
-            if (Settings.Default.SelectedCore == 1)
+            if (Settings._Data.SelectedCore == 1)
             {
                 txtRealmPort.Enabled = true;
                 txtRealmTimeZone.Enabled = true;
@@ -119,7 +121,7 @@ namespace TrionControlPanel.TabsComponents
                 txtRealmRegion.Enabled = false;
             }
             //cMaNGOS
-            if (Settings.Default.SelectedCore == 2)
+            if (Settings._Data.SelectedCore == 2)
             {
                 lblWorldName.Text = "Realm Name:";
                 lblRealmBuild.Text = "Realm Build:";
@@ -137,7 +139,7 @@ namespace TrionControlPanel.TabsComponents
                 RealmListBuild.RealmLocalAddress = "N/A";
             }
             //vMaNGOS
-            if (Settings.Default.SelectedCore == 6)
+            if (Settings._Data.SelectedCore == 6)
             {
                 lblWorldName.Text = "Realm Name:";
                 txtRealmPort.Enabled = true;
@@ -172,7 +174,7 @@ namespace TrionControlPanel.TabsComponents
             timerRefresh.Start();
         }
 
-        private void timerRefresh_Tick(object sender, EventArgs e)
+        private void TimerRefresh_Tick(object sender, EventArgs e)
         {
             GetRealmList();
             timerRefresh.Stop();

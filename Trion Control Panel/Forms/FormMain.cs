@@ -1,13 +1,14 @@
 ﻿using TrionControlPanel.TabsComponents;
-using TrionControlPanel.Properties;
 using TrionControlPanel.Classes;
 using TrionControlPanel.Alerts;
 using MetroFramework.Forms;
+using TrionControlPanelSettings;
 
 namespace TrionControlPanel
 {
     public partial class FormMain : MetroForm
     {
+        Settings Settings = new();
         HomeControl homeControl = new();
         SettingControl settingControl = new();
         LoadingControl loadingControl = new();
@@ -25,7 +26,8 @@ namespace TrionControlPanel
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
             loadingControl.Dock = DockStyle.Fill;
-            if(Settings.Default.MySQLocation == null)
+
+            if (Settings._Data.StartCoreOnRun == true && Settings._Data.MySQLExecutablePath == null)
             {
                 FormAlert.ShowAlert("Select first the MySQL Location",NotificationType.Info);
             }   
@@ -67,11 +69,11 @@ namespace TrionControlPanel
                 btnSettings.Enabled = false;
             }
 
-            if (Settings.Default.ServerCrashCheck == true & homeControl._isRuningBnet == true & homeControl._isRuningWorld == true)
+            if (Settings._Data.ServerCrashCheck == true & homeControl._isRuningBnet == true & homeControl._isRuningWorld == true)
             {
                 timerCrashCheck.Start();
             }
-            else if (Settings.Default.ServerCrashCheck == false)
+            else if (Settings._Data.ServerCrashCheck == false)
             {
                 timerCrashCheck.Stop();
             }
@@ -116,7 +118,7 @@ namespace TrionControlPanel
         }
         private void StartCoreWithWindows()
         {
-            if (Settings.Default.StartCoreWithWindows == true)
+            if (Settings._Data.RunWithWindows == true)
             {
                 StartCoreScript(7000);
             }
@@ -132,12 +134,12 @@ namespace TrionControlPanel
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Settings.Default.TogleStayInTray == true)
+            if (Settings._Data.StayInTray == true)
             {
                 this.Hide();
                 e.Cancel = true;
             }
-            else if (Settings.Default.TogleStayInTray == false)
+            else if (Settings._Data.StayInTray == false)
             {
                 mainNotify.Dispose();
                 Environment.Exit(0);

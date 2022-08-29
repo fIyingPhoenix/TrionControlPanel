@@ -28,6 +28,7 @@ dotnet_diagnostic.CS8618.severity = none
 
 # CS8622: Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 dotnet_diagnostic.CS8622.severity = none
+csharp_space_around_binary_operators = before_and_after
 
 [*.{cs,vb}]
 #### Naming styles ####

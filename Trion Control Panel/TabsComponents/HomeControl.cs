@@ -5,10 +5,13 @@ using TrionControlPanelUI;
 using System.Net;
 using System.IO.Compression;
 using System.ComponentModel;
+using TrionControlPanelSettings;
+
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
+        Settings Settings = new();
         readonly SystemStatus _statusClass = new();
         internal bool _isRuningBnet = false;
         internal bool _isRuningWorld = false;
@@ -177,9 +180,7 @@ namespace TrionControlPanel.TabsComponents
         private void BntDownloadMysql_Click(object sender, EventArgs e)
         {
             
-            string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
-            Settings.Default.MySQLocation = $@"{Settings.Default.MySQLocation}\{mysqlName}";
-            Settings.Default.Save();
+            string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
             //
             pBarDownloadMysql.Visible = true;
             //
@@ -224,6 +225,7 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
             bntDownloadMysql.Text = "Extract Complate MySQL...";
             Thread.Sleep(500);
             File.Delete($@"{Directory.GetCurrentDirectory()}\mysql.zip");
@@ -231,6 +233,10 @@ namespace TrionControlPanel.TabsComponents
             bntDownloadMysql.Enabled = true;
             pBarDownloadMysql.Visible = false;
             pBarDownloadMysql.Value = 0;
+            foreach (string f in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), mysqlName, SearchOption.AllDirectories))
+            {
+                Settings._Data.MySQLExecutablePath = f;
+            }
         }
 
     }

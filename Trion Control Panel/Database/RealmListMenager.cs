@@ -1,32 +1,33 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 using TrionControlPanel.Alerts;
-using TrionControlPanel.Properties;
+using TrionControlPanelSettings;
 
 namespace TrionControlPanel.Database
 {
-    internal static class RealmListMenager
+    internal class RealmListMenager
     {
         public static bool GetRealmListSucces { get; set; }
-        
-        public static void GetRealmList()
+
+        Settings Settings = new();
+        public void GetRealmList()
         {
             try
             {
                 string reamlist = "";
                 //AscEmu
-                if (Settings.Default.SelectedCore == 0)
+                if (Settings._Data.SelectedCore == 0)
                 {
                     reamlist = "realms";
                 }
                 //AzerothCore, CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP), cMaNGOS, Vanilla MaNGOS
                 else if (
-                    Settings.Default.SelectedCore == 1 |
-                    Settings.Default.SelectedCore == 2 |
-                    Settings.Default.SelectedCore == 3 |
-                    Settings.Default.SelectedCore == 4 |
-                    Settings.Default.SelectedCore == 5 |
-                    Settings.Default.SelectedCore == 6)
+                    Settings._Data.SelectedCore == 1 |
+                    Settings._Data.SelectedCore == 2 |
+                    Settings._Data.SelectedCore == 3 |
+                    Settings._Data.SelectedCore == 4 |
+                    Settings._Data.SelectedCore == 5 |
+                    Settings._Data.SelectedCore == 6)
                 {
                     reamlist = "realmlist";
                 }
@@ -38,7 +39,7 @@ namespace TrionControlPanel.Database
                 DataTable table = new();
                 _dataAdapter.Fill(table);
                 //AscEmu
-                if (Settings.Default.SelectedCore == 0)
+                if (Settings._Data.SelectedCore == 0)
                 {
                     if (table.Rows.Count > 0)
                     {
@@ -58,7 +59,7 @@ namespace TrionControlPanel.Database
                     }
                 }
                 //AzerothCore
-                if (Settings.Default.SelectedCore == 1)
+                if (Settings._Data.SelectedCore == 1)
                 {
                     if (table.Rows.Count > 0)
                     {
@@ -78,7 +79,7 @@ namespace TrionControlPanel.Database
                     }
                 }
                 //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
-                else if (Settings.Default.SelectedCore == 3 | Settings.Default.SelectedCore == 4 | Settings.Default.SelectedCore == 5)
+                else if (Settings._Data.SelectedCore == 3 | Settings._Data.SelectedCore == 4 | Settings._Data.SelectedCore == 5)
                 {
                     if (table.Rows.Count > 0)
                     {
@@ -98,7 +99,7 @@ namespace TrionControlPanel.Database
                     }
                 }
                 //cMaNGOS
-                else if (Settings.Default.SelectedCore == 2)
+                else if (Settings._Data.SelectedCore == 2)
                 {
                     if (table.Rows.Count > 0)
                     {
@@ -118,7 +119,7 @@ namespace TrionControlPanel.Database
                     }
                 }
                 //Vanilla MaNGOS
-                else if (Settings.Default.SelectedCore == 6)
+                else if (Settings._Data.SelectedCore == 6)
                 {
                     if (table.Rows.Count > 0)
                     {
@@ -147,15 +148,16 @@ namespace TrionControlPanel.Database
 
             
         }
-        public static void SaveRealmList()
+        public void SaveRealmList()
         {
+            //memo on me: chek after if i need to close the connection ;
             MySQLConnect databaseConnection = new();
             //AscEmu
-            if (Settings.Default.SelectedCore == 0)
+            if (Settings._Data.SelectedCore == 0)
             {
 
                 MySqlCommand command = new($@"UPDATE `realms` SET `password` = '{RealmListBuild.RealmName}' WHERE `id` = `{RealmListBuild.RealmID}`;", databaseConnection.GetConnection);
-                MySQLConnect.MySqlConnect();
+                databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
@@ -164,14 +166,13 @@ namespace TrionControlPanel.Database
                 {
                     FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
-                MySQLConnect.MySqlDisconnectCheck();
             }
             //AzerothCore
-            if (Settings.Default.SelectedCore == 1)
+            if (Settings._Data.SelectedCore == 1)
             {
                 string sqlCommand = $@"UPDATE `realmlist` SET `name` = '{RealmListBuild.RealmName}', `address` = '{RealmListBuild.RealmAddress}', `localAddress` = '{RealmListBuild.RealmLocalAddress}', `localSubnetMask` = '{RealmListBuild.RealmSubMask}', `port` = {RealmListBuild.RealmPort}, `icon` = 0, `flag` = 2, `timezone` = {RealmListBuild.RealmTimeZone}, `gamebuild` = {RealmListBuild.GameBuild} WHERE `id` = {RealmListBuild.RealmID};";
                 MySqlCommand command = new(sqlCommand, databaseConnection.GetConnection);
-                MySQLConnect.MySqlConnect();
+                databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
@@ -180,14 +181,13 @@ namespace TrionControlPanel.Database
                 {
                     FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
-                MySQLConnect.MySqlDisconnectCheck();
             }
             //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
-            else if (Settings.Default.SelectedCore == 3 | Settings.Default.SelectedCore == 4 | Settings.Default.SelectedCore == 5)
+            else if (Settings._Data.SelectedCore == 3 | Settings._Data.SelectedCore == 4 | Settings._Data.SelectedCore == 5)
             {
                 string sqlCommand = $@"UPDATE `realmlist` SET `name` = '{RealmListBuild.RealmName}', `address` = '{RealmListBuild.RealmAddress}', `localAddress` = '{RealmListBuild.RealmLocalAddress}', `localSubnetMask` = '{RealmListBuild.RealmSubMask}', `port` = {RealmListBuild.RealmPort}, `timezone` = {RealmListBuild.RealmTimeZone}, `gamebuild` = {RealmListBuild.GameBuild}, `Region` = {RealmListBuild.GameRegion} WHERE `id` = {RealmListBuild.RealmID};";
                 MySqlCommand command = new(sqlCommand, databaseConnection.GetConnection);
-                MySQLConnect.MySqlConnect();
+                databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
@@ -196,14 +196,13 @@ namespace TrionControlPanel.Database
                 {
                     FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
-                MySQLConnect.MySqlDisconnectCheck();
             }
             //cMaNGOS
-            if (Settings.Default.SelectedCore == 2)
+            if (Settings._Data.SelectedCore == 2)
             {
                 string sqlCommand = $@"UPDATE `realmlist` SET `name` = '{RealmListBuild.RealmName}', `address` = '{RealmListBuild.RealmAddress}', `port` = {RealmListBuild.RealmPort}, `timezone` = {RealmListBuild.RealmTimeZone}, `realmbuilds` = '{RealmListBuild.GameBuild}' WHERE `id` = {RealmListBuild.RealmID};";
                 MySqlCommand command = new(sqlCommand, databaseConnection.GetConnection);
-                MySQLConnect.MySqlConnect();
+                databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
@@ -212,14 +211,14 @@ namespace TrionControlPanel.Database
                 {
                     FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
-                MySQLConnect.MySqlDisconnectCheck();
+
             }
             //vMaNGOS
-            if (Settings.Default.SelectedCore == 6)
+            if (Settings._Data.SelectedCore == 6)
             {
                 string sqlCommand = $@"UPDATE `realmlist` SET `name` = '{RealmListBuild.RealmName}', `address` = '{RealmListBuild.RealmAddress}', `localAddress` = '{RealmListBuild.RealmLocalAddress}', `localSubnetMask` = '{RealmListBuild.RealmSubMask}', `port` = {RealmListBuild.RealmPort},`timezone` = {RealmListBuild.RealmTimeZone}, `gamebuild_min` = {RealmListBuild.GameBuild}, `gamebuild_max` = {RealmListBuild.GameRegion} WHERE `id` = {RealmListBuild.RealmID};";
                 MySqlCommand command = new(sqlCommand, databaseConnection.GetConnection);
-                MySQLConnect.MySqlConnect();
+                databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
@@ -228,7 +227,6 @@ namespace TrionControlPanel.Database
                 {
                     FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
-                MySQLConnect.MySqlDisconnectCheck();
             }
         }
     }

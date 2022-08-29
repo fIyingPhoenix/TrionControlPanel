@@ -6,7 +6,6 @@ namespace TrionControlPanelUI
     public class CustomPanel : UserControl
     {
         //Fields
-        Pen pen;
         float penWidth = 2.0f;
         int _edge = 20;
         Panel pnlBody;
@@ -67,7 +66,7 @@ namespace TrionControlPanelUI
             set
             {
                 _bodyColor = value;
-                pnlBody.BackColor = _bodyColor;
+                pnlBody.BackColor = _bodyColor!;
                 Invalidate();
             }
         }
@@ -120,14 +119,6 @@ namespace TrionControlPanelUI
         Rectangle GetLeftLower(int e)
         {
             return new Rectangle(0, Height - e, e, e);
-        }
-        void DrawSingleBorder(Graphics graphics)
-        {
-            graphics.DrawArc(pen, new Rectangle(0, 0, Edge, Edge), 180, 90);
-            graphics.DrawArc(pen, new Rectangle(Width - Edge - 1, -1, Edge, Edge), 270, 90);
-            graphics.DrawArc(pen, new Rectangle(Width - Edge - 1, Height - Edge - 1, Edge, Edge), 0, 90);
-            graphics.DrawArc(pen, new Rectangle(0, Height - Edge - 1, Edge, Edge), 90, 90);
-            graphics.DrawRectangle(pen, 0.0F, 0.0F, Width - 1, Height - 1);
         }
 
         private void InitializeComponent()

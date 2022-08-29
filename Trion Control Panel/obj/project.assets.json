@@ -362,6 +362,16 @@
           "Microsoft.WindowsDesktop.App.WindowsForms"
         ]
       },
+      "Trion Control Panel Settings/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Trion Control Panel Settings.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Trion Control Panel Settings.dll": {}
+        }
+      },
       "Trion Control Panel UI/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1059,6 +1069,11 @@
       "path": "../Trion Control Panel Alers/Trion Control Panel Alerts.csproj",
       "msbuildProject": "../Trion Control Panel Alers/Trion Control Panel Alerts.csproj"
     },
+    "Trion Control Panel Settings/1.0.0": {
+      "type": "project",
+      "path": "../Trion Control Panel Settings/Trion Control Panel Settings.csproj",
+      "msbuildProject": "../Trion Control Panel Settings/Trion Control Panel Settings.csproj"
+    },
     "Trion Control Panel UI/1.0.0": {
       "type": "project",
       "path": "../Trion Control Panel UI/Trion Control Panel UI.csproj",
@@ -1070,6 +1085,7 @@
       "MySql.Data >= 8.0.29",
       "System.Management >= 6.0.0",
       "Trion Control Panel Alerts >= 1.0.0",
+      "Trion Control Panel Settings >= 1.0.0",
       "Trion Control Panel UI >= 1.0.0"
     ]
   },
@@ -1107,6 +1123,9 @@
           "projectReferences": {
             "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Alers\\Trion Control Panel Alerts.csproj": {
               "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Alers\\Trion Control Panel Alerts.csproj"
+            },
+            "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Settings\\Trion Control Panel Settings.csproj": {
+              "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel Settings\\Trion Control Panel Settings.csproj"
             },
             "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel UI\\Trion Control Panel UI.csproj": {
               "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\Trion Control Panel UI\\Trion Control Panel UI.csproj"

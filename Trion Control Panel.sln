@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trion Control Panel Alerts"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trion Control Panel UI", "Trion Control Panel UI\Trion Control Panel UI.csproj", "{6D5F1567-0856-48C9-98FC-9F6A99D5E2DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trion Control Panel Settings", "Trion Control Panel Settings\Trion Control Panel Settings.csproj", "{D26BC2E6-3564-4C1C-A4B2-FAB7240F326D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{6D5F1567-0856-48C9-98FC-9F6A99D5E2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5F1567-0856-48C9-98FC-9F6A99D5E2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5F1567-0856-48C9-98FC-9F6A99D5E2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26BC2E6-3564-4C1C-A4B2-FAB7240F326D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26BC2E6-3564-4C1C-A4B2-FAB7240F326D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26BC2E6-3564-4C1C-A4B2-FAB7240F326D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26BC2E6-3564-4C1C-A4B2-FAB7240F326D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,67 +1,80 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.Win32;
-using TrionControlPanel.Properties;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Database;
+using TrionControlPanelSettings;
 
 namespace TrionControlPanel.TabsComponents
 {
+
     public partial class SettingControl : UserControl
     {
-        //settings data located in appdata/local/TrionControlPanel
+        Settings Settings = new();
         private void LoadSettings()
         {
-
-            //loading data form settings file(xml)
-            comboBoxCore.SelectedIndex = Settings.Default.SelectedCore;
-            txtWorldLocation.Texts = Settings.Default.WorldCoreLocation;
-            txtBnetLocation.Texts = Settings.Default.BnetCoreLocation;
-            txtMySqlPassowrd.Texts = Settings.Default.MySQLServerPassword;
-            txtMySqlPort.Texts = Settings.Default.MySQLServerPort;
-            txtMySqlServer.Texts = Settings.Default.MySQLServerHost;
-            txtMySqlUser.Texts = Settings.Default.MySQLServerUsername;
-            txtAuthDatabase.Texts = Settings.Default.AuthDatabaseName;
-            txtWorldName.Texts = Settings.Default.WorldCoreName;
-            txtBnetName.Texts = Settings.Default.BnetCoreName;
-            txtMysqlName.Texts = Settings.Default.MySQLCoreName;
-            txtMysqlLocation.Texts = Settings.Default.MySQLocation;
-            tglCustomNames.Checked = Settings.Default.TogelCustomNames;
-            tglHideConsole.Checked = Settings.Default.TogleConsolHide;
-            tglNotySound.Checked = Settings.Default.TogelNotySound;
-            tglStayInTray.Checked = Settings.Default.TogleStayInTray;
-            tglStartOnStartup.Checked = Settings.Default.RunWithWindows;
+            txtAuthDatabase.Texts = Settings._Data.AuthDatabase;
+            txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
+            txtMySqlServer.Texts = Settings._Data.MySQLServerHost;
+            txtMySqlUser.Texts = Settings._Data.MySQLServerUser;
+            txtMySqlPassowrd.Texts = Settings._Data.MySQLServerPassword;
+            txtMySqlPort.Texts = Settings._Data.MySQLServerPort;
+            txtMysqlName.Texts = Settings._Data.MySQLExecutableName;
+            txtCoreLocation.Texts = Settings._Data.CoreLocation;
+            txtWorldName.Texts = Settings._Data.WorldExecutableName;
+            txtBnetName.Texts = Settings._Data.BnetExecutableName;
+            tglNotySound.Checked = Settings._Data.NotificationSound;
+            tglHideConsole.Checked = Settings._Data.ConsolHide;
+            tglStayInTray.Checked = Settings._Data.StayInTray;
+            tglStartOnStartup.Checked = Settings._Data.RunWithWindows;
+            tglCustomNames.Checked = Settings._Data.CustomNames;
+            tglStartServer.Checked = Settings._Data.StartCoreOnRun;
+            comboBoxCore.SelectedIndex = Settings._Data.SelectedCore;
         }
         private void SaveSettings()
         {
-            //loading data form settings file(xml)
-            Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-            Settings.Default.WorldCoreName = txtWorldName.Texts;
-            Settings.Default.BnetCoreName = txtBnetName.Texts;
-            Settings.Default.MySQLCoreName = txtMysqlName.Texts;
-            Settings.Default.WorldCoreLocation = txtWorldLocation.Texts;
-            Settings.Default.BnetCoreLocation = txtBnetLocation.Texts;
-            Settings.Default.MySQLocation = txtMysqlLocation.Texts;
-            Settings.Default.MySQLServerPassword = txtMySqlPassowrd.Texts;
-            Settings.Default.MySQLServerPort = txtMySqlPort.Texts;
-            Settings.Default.MySQLServerHost = txtMySqlServer.Texts;
-            Settings.Default.MySQLServerUsername = txtMySqlUser.Texts;
-            Settings.Default.AuthDatabaseName = txtAuthDatabase.Texts;
-            Settings.Default.TogleConsolHide = tglHideConsole.Checked;
-            Settings.Default.TogelNotySound = tglNotySound.Checked;
-            Settings.Default.TogleStayInTray = tglStayInTray.Checked;
-            Settings.Default.TogelCustomNames = tglCustomNames.Checked;
-            Settings.Default.RunWithWindows = tglStartOnStartup.Checked;
-            Settings.Default.Save();
+            Settings._Data.AuthDatabase = txtAuthDatabase.Texts;
+            Settings._Data.MySQLLocation = txtMysqlLocation.Texts;
+            Settings._Data.MySQLServerHost = txtMySqlServer.Texts;
+            Settings._Data.MySQLServerUser = txtMySqlUser.Texts;
+            Settings._Data.MySQLServerPassword = txtMySqlPassowrd.Texts;
+            Settings._Data.MySQLServerPort = txtMySqlPort.Texts;
+            Settings._Data.MySQLExecutableName = txtMysqlName.Texts;
+            Settings._Data.CoreLocation = txtCoreLocation.Texts;
+            Settings._Data.WorldExecutableName = txtWorldName.Texts;
+            Settings._Data.BnetExecutableName = txtBnetName.Texts;
+            Settings._Data.NotificationSound = tglNotySound.Checked;
+            Settings._Data.ConsolHide = tglHideConsole.Checked;
+            Settings._Data.StayInTray = tglStayInTray.Checked;
+            Settings._Data.RunWithWindows = tglStartOnStartup.Checked;
+            Settings._Data.CustomNames = tglCustomNames.Checked;
+            Settings._Data.StartCoreOnRun = tglStartServer.Checked;
+            // Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+        }
+        private void GetMySQLLocation()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, mysqlName, SearchOption.AllDirectories))
+                    {
+                        Settings._Data.MySQLLocation = Path.GetDirectoryName(f)!;
+                        Settings._Data.MySQLExecutablePath = f;
+                        txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
+                    }
+                }
+            }
         }
         private void GetCoreLocation()
         {
             // getting the core files and location. saves to settings. dose not seed to press save 
             using (var fbd = new FolderBrowserDialog())
             {
-                string worndName = Settings.Default.WorldCoreName + ".exe";
-                string bnetName = Settings.Default.BnetCoreName + ".exe";
-                string mysqlName = $@"mysql\bin\{Settings.Default.MySQLCoreName}.exe";
+                string worndName = $@"{Settings._Data.WorldExecutableName}.exe";
+                string bnetName = $@"{Settings._Data.BnetExecutableName}.exe";
 
                 DialogResult result = fbd.ShowDialog();
 
@@ -69,24 +82,16 @@ namespace TrionControlPanel.TabsComponents
                 {
                     foreach (string f in Directory.GetFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
-                        Settings.Default.CoreLocation = Path.GetDirectoryName(f);
-                        Settings.Default.Save();
-                        LoadSettings();
+                        Settings._Data.CoreLocation = Path.GetDirectoryName(f)!;
+                        txtCoreLocation.Texts = Settings._Data.CoreLocation;
                     }
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
-                        txtWorldLocation.Texts = f;
-                        SaveSettings();
+                        Settings._Data.WorldExecutableLocation = f;
                     }
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, bnetName, SearchOption.AllDirectories))
                     {
-                        txtBnetLocation.Texts = f;
-                        SaveSettings();
-                    }
-                    foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, mysqlName, SearchOption.AllDirectories))
-                    {
-                        txtMysqlLocation.Texts = f;
-                        SaveSettings();
+                        Settings._Data.BnetExecutableLocation = f;
                     }
                 }
             }
@@ -94,6 +99,7 @@ namespace TrionControlPanel.TabsComponents
         public SettingControl()
         {
             InitializeComponent();
+
         }
         public SettingControl(IContainer container)
         {
@@ -102,8 +108,14 @@ namespace TrionControlPanel.TabsComponents
         }
         private void SettingControl_Load(object sender, EventArgs e)
         {
-            //call the load settings on load
-            LoadSettings();
+            if (Settings.LoadSettings() == false)
+            {
+                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
+            }
+            else if (Settings.LoadSettings() == true)
+            {
+                LoadSettings();
+            }
         }
         private void AllowJustNumbers(object sender, KeyPressEventArgs e)
         {
@@ -130,7 +142,7 @@ namespace TrionControlPanel.TabsComponents
         private void BntOpenLocation_Click(object sender, EventArgs e)
         {
             //just a fail safe. incase the CoreLocation is empty.
-            if (Settings.Default.CoreLocation == string.Empty)
+            if (Settings._Data.CoreLocation == string.Empty)
             {
                 FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
@@ -138,7 +150,7 @@ namespace TrionControlPanel.TabsComponents
             {
                 try
                 {
-                    Process.Start("explorer.exe", Settings.Default.CoreLocation);
+                    Process.Start("explorer.exe", Settings._Data.CoreLocation);
                 }
                 catch
                 {
@@ -167,70 +179,59 @@ namespace TrionControlPanel.TabsComponents
             if (comboBoxCore.SelectedIndex == 0)
             {
                 // AscEmu
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "logon";
-                Settings.Default.WorldCoreName = "world";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "logon";
+                Settings._Data.WorldExecutableName = "world";
             }
             else if (comboBoxCore.SelectedIndex == 1)
             {
                 //AzerothCore
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "authserver";
-                Settings.Default.WorldCoreName = "worldserver";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "authserver";
+                Settings._Data.WorldExecutableName = "worldserver";
             }
             else if (comboBoxCore.SelectedIndex == 2)
             {
                 //Continued MaNGOS
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "realmd";
-                Settings.Default.WorldCoreName = "mangosd";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "realmd";
+                Settings._Data.WorldExecutableName = "mangosd";
+
             }
             else if (comboBoxCore.SelectedIndex == 3)
             {
                 //CypherCore
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "BNetServer";
-                Settings.Default.WorldCoreName = "WorldServer";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "BNetServer";
+                Settings._Data.WorldExecutableName = "WorldServer";;
+
             }
             else if (comboBoxCore.SelectedIndex == 4)
             {
                 //TrinityCore
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "bnetserver";
-                Settings.Default.WorldCoreName = "worldserver";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "bnetserver";
+                Settings._Data.WorldExecutableName = "worldserver";
             }
             else if (comboBoxCore.SelectedIndex == 5)
             {
                 //TrinityCore 4.3.4(TCPP)
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "bnetserver";
-                Settings.Default.WorldCoreName = "worldserver";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "bnetserver";
+                Settings._Data.WorldExecutableName = "worldserver";
             }
             else if (comboBoxCore.SelectedIndex == 6)
             {
                 //Vanilla MaNGOS
-                Settings.Default.SelectedCore = comboBoxCore.SelectedIndex;
-                Settings.Default.BnetCoreName = "realmd";
-                Settings.Default.WorldCoreName = "mangosd";
-                Settings.Default.Save();
-                LoadSettings();
+                Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+                Settings._Data.BnetExecutableName = "realmd";
+                Settings._Data.WorldExecutableName = "mangosd";
             }
         }
         private void BtnTestMySQL_Click(object sender, EventArgs e)
         {
-            MySQLConnect.MySqlConnectCheck();
+            MySQLConnect databaseConnection = new();
+            databaseConnection.MySqlConnectCheck();
         }
         private void PicSettingsInfos_Click(object sender, EventArgs e)
         {
@@ -240,23 +241,23 @@ namespace TrionControlPanel.TabsComponents
         {
             if (tglStayInTray.Checked == true)
             {
-                Settings.Default.TogleStayInTray = true;
+                Settings._Data.StayInTray = true;
             }
-            else if (Settings.Default.TogleStayInTray == false)
+            else if (tglStayInTray.Checked == false)
             {
-                Settings.Default.TogleStayInTray = false;
+                Settings._Data.StayInTray = false;
             }
         }
         private void BtnFixMysql_Click(object sender, EventArgs e)
         {
-            Process.Start($@"{Settings.Default.MySQLocation}", "--initialize --console");
+            Process.Start($@"{Settings._Data.MySQLLocation}", "--initialize --console");
         }
         private void BntMySqlLocation_Click(object sender, EventArgs e)
         {
-            string file = Settings.Default.MySQLocation;
+            string file = Settings._Data.MySQLLocation;
             string location = Path.GetDirectoryName(file)!;
             //just a fail safe. incase the CoreLocation is empty.
-            if (Settings.Default.MySQLocation == string.Empty)
+            if (Settings._Data.MySQLLocation == string.Empty)
             {
                 FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
@@ -287,31 +288,34 @@ namespace TrionControlPanel.TabsComponents
         private void TglStartServer_CheckedChanged(object sender, EventArgs e)
         {
             if (tglStartServer.Checked == true)
-                Settings.Default.StartCoreWithWindows = true;
+                Settings._Data.StartCoreOnRun = true;
             else if (tglStartServer.Checked == false)
-                Settings.Default.StartCoreWithWindows = false;
-            Settings.Default.Save();
+                Settings._Data.StartCoreOnRun = false;
         }
         private void TglRestartOnCrash_CheckedChanged(object sender, EventArgs e)
         {
             if (tglRestartOnCrash.Checked == true)
-                Settings.Default.ServerCrashCheck = true;
+                Settings._Data.ServerCrashCheck = true;
             else if (tglRestartOnCrash.Checked == false)
-                Settings.Default.ServerCrashCheck = false;
-            Settings.Default.Save();
+                Settings._Data.ServerCrashCheck = false;
+
         }
 
-        private void btnMySQLLocationSearch_Click(object sender, EventArgs e)
+        private void BtnMySQLLocationSearch_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
             {
                 if(fbd.ShowDialog() == DialogResult.OK)
                 {
                     txtMysqlLocation.Texts = fbd.SelectedPath;
-                    Settings.Default.MySQLocation = fbd.SelectedPath;
-                    Settings.Default.Save();
+                    Settings._Data.MySQLLocation = fbd.SelectedPath;
                 }
             }
+        }
+
+        private void BtnMysqlLocation_Click(object sender, EventArgs e)
+        {
+            GetMySQLLocation();
         }
     }
 }

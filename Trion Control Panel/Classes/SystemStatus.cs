@@ -1,24 +1,25 @@
-﻿using TrionControlPanel.Properties;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Management;
 using TrionControlPanel.Alerts;
+using TrionControlPanelSettings;
 
 namespace TrionControlPanel.Classes
 {
     internal class SystemStatus
     {
+        Settings Settings = new();
         int worldRamUsage;
         int totalRam = 0;
         int WorldPID = 0;
         int BnetPID = 0;
 
-        public string WorldStatusName = Settings.Default.WorldCoreName;
-        public string BnetStatusName = Settings.Default.BnetCoreName;
-        public string MySqlStatusName = Settings.Default.MySQLCoreName;
+        public string WorldStatusName; 
+        public string BnetStatusName; 
+        public string MySqlStatusName; 
 
         internal void KillMysql()
         {
-            MySqlStatusName = Settings.Default.MySQLCoreName;
+            MySqlStatusName = Settings._Data.MySQLExecutableName;
             foreach (var process in Process.GetProcessesByName(MySqlStatusName))
             {
                 process.Kill();
@@ -26,7 +27,7 @@ namespace TrionControlPanel.Classes
         }
         internal void KillWorld()
         {
-            WorldStatusName = Settings.Default.WorldCoreName;
+            WorldStatusName = Settings._Data.WorldExecutableName;
             foreach (var process in Process.GetProcessesByName(WorldStatusName))
             {
                 process.Kill();
@@ -34,7 +35,7 @@ namespace TrionControlPanel.Classes
         }
         internal void KillBnet ()
         {
-            BnetStatusName = Settings.Default.BnetCoreName;
+            BnetStatusName = Settings._Data.BnetExecutableLocation;
             foreach (var process in Process.GetProcessesByName(BnetStatusName))
             {
                 process.Kill();
@@ -42,7 +43,7 @@ namespace TrionControlPanel.Classes
         }
         internal bool WorldStatus()
         {
-           WorldStatusName = Settings.Default.WorldCoreName;
+           WorldStatusName = Settings._Data.WorldExecutableName;
            Process[] pname = Process.GetProcessesByName(WorldStatusName);
             if (pname.Length == 0)
                 return false;
@@ -51,7 +52,7 @@ namespace TrionControlPanel.Classes
         }
         internal bool BnetStatus()
         {
-            BnetStatusName = Settings.Default.BnetCoreName;
+            BnetStatusName = Settings._Data.BnetExecutableLocation;
             Process[] pname = Process.GetProcessesByName(BnetStatusName);
             if (pname.Length == 0)
                 return false;
@@ -60,7 +61,7 @@ namespace TrionControlPanel.Classes
         }
         internal bool MySQLstatus()
         {
-            string MySqlStatusName = Settings.Default.MySQLCoreName;
+            string MySqlStatusName = Settings._Data.MySQLExecutableName;
             Process[] pname = Process.GetProcessesByName(MySqlStatusName);
             if (pname.Length == 0)
                 return false;
@@ -115,7 +116,7 @@ namespace TrionControlPanel.Classes
         {
             try
              {
-                WorldStatusName = Settings.Default.WorldCoreName;
+                WorldStatusName = Settings._Data.WorldExecutableName;
                 var processes = Process.GetProcessesByName(WorldStatusName);
                 foreach (var p in processes)
                 {
@@ -139,7 +140,7 @@ namespace TrionControlPanel.Classes
         {
             try
             {
-               WorldStatusName = Settings.Default.WorldCoreName;
+               WorldStatusName = Settings._Data.WorldExecutableName;
                 var processes = Process.GetProcessesByName(WorldStatusName);
                 foreach (var p in processes)
                 {
@@ -160,7 +161,7 @@ namespace TrionControlPanel.Classes
         {
             try
             {
-                BnetStatusName = Settings.Default.BnetCoreName;
+                BnetStatusName = Settings._Data.BnetExecutableLocation; ;
                 var processes = Process.GetProcessesByName(BnetStatusName);
                 foreach (var p in processes)
                 {
@@ -184,7 +185,7 @@ namespace TrionControlPanel.Classes
         {
             try
             {
-                BnetStatusName = Settings.Default.BnetCoreName;
+                BnetStatusName = Settings._Data.BnetExecutableLocation; 
                 var processes = Process.GetProcessesByName(BnetStatusName);
                 foreach (var p in processes)
                 {
@@ -210,14 +211,14 @@ namespace TrionControlPanel.Classes
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Settings.Default.WorldCoreLocation;
+                    myProcess.StartInfo.FileName = Settings._Data.WorldExecutableName;
 
-                    if (Settings.Default.TogleConsolHide == false)
+                    if (Settings._Data.ConsolHide == false)
                     {
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
-                    else if (Settings.Default.TogleConsolHide == true)
+                    else if (Settings._Data.ConsolHide == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
@@ -238,14 +239,14 @@ namespace TrionControlPanel.Classes
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Settings.Default.BnetCoreLocation;
+                    myProcess.StartInfo.FileName = Settings._Data.BnetExecutableName;
 
-                    if (Settings.Default.TogleConsolHide == false)
+                    if (Settings._Data.ConsolHide == false)
                     {
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
                     }
-                    else if (Settings.Default.TogleConsolHide == true)
+                    else if (Settings._Data.ConsolHide == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
@@ -260,19 +261,20 @@ namespace TrionControlPanel.Classes
         }
         internal void StartMysql()
         {
+            
             try
             {
                 using (Process myProcess = new())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = $@"{Settings.Default.MySQLocation}";
+                    myProcess.StartInfo.FileName = $@"{Settings._Data.MySQLExecutablePath}";
 
-                    if (Settings.Default.TogleConsolHide == false)
+                    if (Settings._Data.ConsolHide == false)
                     {
-                        Process.Start($@"{Settings.Default.MySQLocation}", "--console");
+                        Process.Start($@"{Settings._Data.MySQLExecutablePath}", "--console");
                     }
-                    else if (Settings.Default.TogleConsolHide == true)
+                    else if (Settings._Data.ConsolHide == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();

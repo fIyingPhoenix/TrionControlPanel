@@ -1,0 +1,12 @@
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\bin\Debug\net6.0\Trion Control Panel Settings.deps.json
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\bin\Debug\net6.0\Trion Control Panel Settings.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\bin\Debug\net6.0\Trion Control Panel Settings.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.csproj.AssemblyReference.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.AssemblyInfoInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.AssemblyInfo.cs
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\refint\Trion Control Panel Settings.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\Trion Control Panel Settings.pdb
+D:\Repos\Git\Trion Control Panel\Trion Control Panel Settings\obj\Debug\net6.0\ref\Trion Control Panel Settings.dll

@@ -1,61 +1,64 @@
 ﻿using System.Data;
 using MySql.Data.MySqlClient;
+using TrionControlPanelSettings;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Properties;
+using TrionControlPanel.TabsComponents;
 
 namespace TrionControlPanel.Database
 {
     internal class MySQLConnect
     {
-        private readonly static MySqlConnection MySqlCore = new($"Server={Settings.Default.MySQLServerHost};Port={Settings.Default.MySQLServerPort};User Id={Settings.Default.MySQLServerUsername};Password={Settings.Default.MySQLServerPassword};Database={Settings.Default.AuthDatabaseName}");
+        string host;
+
+        Settings Settings = new();
+        SettingControl settingControl = new();
+        public static string ConnectionString(string host, string port, string user, string password, string database)
+        {
+           return new($"Server={host};Port={port};User Id={user};Password={password};Database={database}");
+        }
+        private readonly MySqlConnection Connection = new(ConnectionString(new(Data._MySQLServerHost), new(Data._MySQLServerPort), new(Data._MySQLServerUser), new(Data._MySQLServerPassword), new(Data._AuthDatabase)));
         internal MySqlConnection GetConnection
         {
             get
             {
-                return MySqlCore;
+                return Connection;
             }
         }
-        internal static void MySqlConnect()
+        internal void Open()
         {
-            if (MySqlCore.State == ConnectionState.Closed)
+            if (Connection.State == ConnectionState.Closed)
             {
-                MySqlCore.Open();
+                Connection.Open();
             }
         }
-        internal static void MySqlConnectCheck()
+        public void Close()
         {
-            try
+            if (Connection.State == ConnectionState.Open)
             {
-                if (MySqlCore.State == ConnectionState.Closed)
-                {
-                    MySqlCore.Open();
-                    Settings.Default.MySQLConnect = true;
-                    Settings.Default.MySQLConnectFaild = false;
-                    Settings.Default.Save();
-                    FormAlert.ShowAlert($"The SQL Connection is {MySqlCore.State}", NotificationType.Success);
-                    MySqlCore.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
-                Settings.Default.MySQLConnectFaild = true;
-                Settings.Default.Save();
+                Connection.Close();
             }
         }
-        internal static void MySqlDisconnectCheck()
+        internal bool MySqlConnectCheck()
         {
             try
             {
-                if (MySqlCore.State == ConnectionState.Open)
+                if (Connection.State == ConnectionState.Closed)
                 {
-                    MySqlCore.Close();
+                    Connection.Open();
+                    FormAlert.ShowAlert($"The SQL Connection is {Connection.State}", NotificationType.Info);
+                    Connection.Close();
+                    return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception MySqlConnect)
             {
-                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
+                FormAlert.ShowAlert(MySqlConnect.Message, NotificationType.Error);
+                return false;
+                
             }
+            return true;
         }
+  
     }
 }
