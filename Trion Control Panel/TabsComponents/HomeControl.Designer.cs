@@ -1,4 +1,4 @@
-﻿using TrionControlPanelUI;
+﻿using TrionControlPanel.UI;
 namespace TrionControlPanel.TabsComponents
 {
     partial class HomeControl
@@ -30,52 +30,52 @@ namespace TrionControlPanel.TabsComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.sPanel2 = new TrionControlPanelUI.CustomPanel();
+            this.sPanel2 = new CustomPanel();
             this.lblWorldResource = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.worldCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
-            this.worldRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.worldCpuUsageProgressBar = new CustomProgressBar();
+            this.worldRamUsageProgressBar = new CustomProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.sPanel1 = new TrionControlPanelUI.CustomPanel();
+            this.sPanel1 = new CustomPanel();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblMySql = new System.Windows.Forms.Label();
             this.lblBnet = new System.Windows.Forms.Label();
             this.lblWorld = new System.Windows.Forms.Label();
-            this.mysqlServerLight = new TrionControlPanelUI.CustomPanel();
-            this.worldServerLight = new TrionControlPanelUI.CustomPanel();
-            this.bnetServerLight = new TrionControlPanelUI.CustomPanel();
+            this.mysqlServerLight = new CustomPanel();
+            this.worldServerLight = new CustomPanel();
+            this.bnetServerLight = new CustomPanel();
             this.ServerStatusTimer = new System.Windows.Forms.Timer(this.components);
-            this.roundPanel1 = new TrionControlPanelUI.CustomPanel();
+            this.roundPanel1 = new CustomPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.BnetCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.BnetCpuUsageProgressBar = new CustomProgressBar();
             this.lblBnetResource = new System.Windows.Forms.Label();
-            this.BnetRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
-            this.roundPanel2 = new TrionControlPanelUI.CustomPanel();
+            this.BnetRamUsageProgressBar = new CustomProgressBar();
+            this.roundPanel2 = new CustomPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.totalCpuUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
-            this.totalRamUsageProgressBar = new TrionControlPanelUI.CustomProgressBar();
+            this.totalCpuUsageProgressBar = new CustomProgressBar();
+            this.totalRamUsageProgressBar = new CustomProgressBar();
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
-            this.bntStartAll = new TrionControlPanelUI.CustomButton();
-            this.btnStartBent = new TrionControlPanelUI.CustomButton();
-            this.btnStartWorld = new TrionControlPanelUI.CustomButton();
-            this.bntStopAll = new TrionControlPanelUI.CustomButton();
-            this.btnStopWorld = new TrionControlPanelUI.CustomButton();
-            this.btnStopBnet = new TrionControlPanelUI.CustomButton();
-            this.customWebBrowser1 = new TrionControlPanelUI.CustomWebBrowser();
-            this.customWebBrowser2 = new TrionControlPanelUI.CustomWebBrowser();
-            this.customWebBrowser3 = new TrionControlPanelUI.CustomWebBrowser();
-            this.customWebBrowser4 = new TrionControlPanelUI.CustomWebBrowser();
-            this.customWebBrowser6 = new TrionControlPanelUI.CustomWebBrowser();
-            this.pBarDownloadMysql = new TrionControlPanelUI.CustomProgressBar();
-            this.bntDownloadMysql = new TrionControlPanelUI.CustomButton();
+            this.bntStartAll = new CustomButton();
+            this.btnStartBent = new CustomButton();
+            this.btnStartWorld = new CustomButton();
+            this.bntStopAll = new CustomButton();
+            this.btnStopWorld = new CustomButton();
+            this.btnStopBnet = new CustomButton();
+            this.customWebBrowser1 = new CustomWebBrowser();
+            this.customWebBrowser2 = new CustomWebBrowser();
+            this.customWebBrowser3 = new CustomWebBrowser();
+            this.customWebBrowser4 = new CustomWebBrowser();
+            this.customWebBrowser6 = new CustomWebBrowser();
+            this.pBarDownloadMysql = new CustomProgressBar();
+            this.bntDownloadMysql = new CustomButton();
             this.bWorkerDownloadComplate = new System.ComponentModel.BackgroundWorker();
-            this.bntStopMysql = new TrionControlPanelUI.CustomButton();
-            this.btnStartMysql = new TrionControlPanelUI.CustomButton();
-            this.customPanel1 = new TrionControlPanelUI.CustomPanel();
+            this.bntStopMysql = new CustomButton();
+            this.btnStartMysql = new CustomButton();
+            this.customPanel1 = new CustomPanel();
             this.SuspendLayout();
             // 
             // sPanel2
@@ -785,8 +785,8 @@ namespace TrionControlPanel.TabsComponents
 
         #endregion
 
-        private TrionControlPanelUI.CustomPanel sPanel2;
-        private TrionControlPanelUI.CustomPanel sPanel1;
+        private CustomPanel sPanel2;
+        private CustomPanel sPanel1;
         private Label lblServerStatus;
         private Label lblMySql;
         private Label lblBnet;
@@ -819,12 +819,12 @@ namespace TrionControlPanel.TabsComponents
         private CustomButton bntStopAll;
         private CustomButton btnStopWorld;
         private CustomButton btnStopBnet;
-        private TrionControlPanelUI.CustomWebBrowser customWebBrowser1;
-        private TrionControlPanelUI.CustomWebBrowser customWebBrowser2;
-        private TrionControlPanelUI.CustomWebBrowser customWebBrowser3;
-        private TrionControlPanelUI.CustomWebBrowser customWebBrowser4;
+        private CustomWebBrowser customWebBrowser1;
+        private CustomWebBrowser customWebBrowser2;
+        private CustomWebBrowser customWebBrowser3;
+        private CustomWebBrowser customWebBrowser4;
         internal CustomProgressBar totalRamUsageProgressBar;
-        private TrionControlPanelUI.CustomWebBrowser customWebBrowser6;
+        private CustomWebBrowser customWebBrowser6;
         private CustomProgressBar pBarDownloadMysql;
         private CustomButton bntDownloadMysql;
         private System.ComponentModel.BackgroundWorker bWorkerDownloadComplate;

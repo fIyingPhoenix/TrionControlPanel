@@ -1,18 +1,13 @@
 ﻿using System.Data;
 using MySql.Data.MySqlClient;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
 using TrionControlPanel.Alerts;
-using TrionControlPanel.Properties;
-using TrionControlPanel.TabsComponents;
 
 namespace TrionControlPanel.Database
 {
     internal class MySQLConnect
     {
-        string host;
 
-        Settings Settings = new();
-        SettingControl settingControl = new();
         public static string ConnectionString(string host, string port, string user, string password, string database)
         {
            return new($"Server={host};Port={port};User Id={user};Password={password};Database={database}");

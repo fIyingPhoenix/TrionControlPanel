@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Management;
 using TrionControlPanel.Alerts;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.Classes
 {
     internal class SystemStatus
     {
-        Settings Settings = new();
+        Settings.Settings Settings = new();
         int worldRamUsage;
         int totalRam = 0;
         int WorldPID = 0;

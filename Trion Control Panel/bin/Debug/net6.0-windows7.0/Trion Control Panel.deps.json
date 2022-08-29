@@ -8,19 +8,12 @@
     ".NETCoreApp,Version=v6.0": {
       "Trion Control Panel/1.0.0": {
         "dependencies": {
-          "MySql.Data": "8.0.29",
+          "ModernUI": "2.0.0",
+          "MySql.Data": "8.0.30",
           "System.Management": "6.0.0"
         },
         "runtime": {
           "Trion Control Panel.dll": {}
-        }
-      },
-      "BouncyCastle.NetCore/1.8.5": {
-        "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
-            "assemblyVersion": "1.8.5.0",
-            "fileVersion": "1.8.19031.1"
-          }
         }
       },
       "Google.Protobuf/3.19.4": {
@@ -65,54 +58,28 @@
           }
         }
       },
-      "MetroFramework/1.2.0.3": {
-        "dependencies": {
-          "MetroFramework.Design": "1.2.0.3",
-          "MetroFramework.Fonts": "1.2.0.3",
-          "MetroFramework.RunTime": "1.2.0.3"
-        }
-      },
-      "MetroFramework.Design/1.2.0.3": {
-        "dependencies": {
-          "MetroFramework.RunTime": "1.2.0.3"
-        },
-        "runtime": {
-          "lib/net40/MetroFramework.Design.dll": {
-            "assemblyVersion": "1.2.0.3",
-            "fileVersion": "1.2.0.3"
-          }
-        }
-      },
-      "MetroFramework.Fonts/1.2.0.3": {
-        "dependencies": {
-          "MetroFramework.RunTime": "1.2.0.3"
-        },
-        "runtime": {
-          "lib/net40/MetroFramework.Fonts.dll": {
-            "assemblyVersion": "1.2.0.3",
-            "fileVersion": "1.2.0.3"
-          }
-        }
-      },
-      "MetroFramework.RunTime/1.2.0.3": {
-        "runtime": {
-          "lib/net40-Client/MetroFramework.dll": {
-            "assemblyVersion": "1.2.0.3",
-            "fileVersion": "1.2.0.3"
-          }
-        }
-      },
       "Microsoft.NETCore.Platforms/3.1.0": {},
       "Microsoft.Win32.SystemEvents/4.7.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0"
         }
       },
-      "MySql.Data/8.0.29": {
+      "ModernUI/2.0.0": {
         "dependencies": {
-          "BouncyCastle.NetCore": "1.8.5",
+          "System.Drawing.Common": "4.7.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MetroFramework.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "MySql.Data/8.0.30": {
+        "dependencies": {
           "Google.Protobuf": "3.19.4",
           "K4os.Compression.LZ4.Streams": "1.2.6",
+          "Portable.BouncyCastle": "1.9.0",
           "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0",
@@ -121,8 +88,8 @@
         },
         "runtime": {
           "lib/net6.0/MySql.Data.dll": {
-            "assemblyVersion": "8.0.29.0",
-            "fileVersion": "8.0.29.0"
+            "assemblyVersion": "8.0.30.0",
+            "fileVersion": "8.0.30.0"
           },
           "lib/net6.0/Ubiety.Dns.Core.dll": {
             "assemblyVersion": "2.2.1.0",
@@ -131,6 +98,14 @@
           "lib/net6.0/ZstdNet.dll": {
             "assemblyVersion": "1.4.5.0",
             "fileVersion": "1.4.5.0"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.9.0": {
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.9.0.0",
+            "fileVersion": "1.9.0.1"
           }
         }
       },
@@ -191,25 +166,6 @@
         "dependencies": {
           "System.Drawing.Common": "4.7.0"
         }
-      },
-      "Trion Control Panel Alerts/1.0.0": {
-        "dependencies": {
-          "MetroFramework": "1.2.0.3",
-          "Trion Control Panel UI": "1.0.0"
-        },
-        "runtime": {
-          "Trion Control Panel Alerts.dll": {}
-        }
-      },
-      "Trion Control Panel Settings/1.0.0": {
-        "runtime": {
-          "Trion Control Panel Settings.dll": {}
-        }
-      },
-      "Trion Control Panel UI/1.0.0": {
-        "runtime": {
-          "Trion Control Panel UI.dll": {}
-        }
       }
     }
   },
@@ -218,13 +174,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "BouncyCastle.NetCore/1.8.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
-      "path": "bouncycastle.netcore/1.8.5",
-      "hashPath": "bouncycastle.netcore.1.8.5.nupkg.sha512"
     },
     "Google.Protobuf/3.19.4": {
       "type": "package",
@@ -254,34 +203,6 @@
       "path": "k4os.hash.xxhash/1.0.6",
       "hashPath": "k4os.hash.xxhash.1.0.6.nupkg.sha512"
     },
-    "MetroFramework/1.2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-PldREwx2yJ9GFXoR4IsXgsrTuOOEL1c5qZYeIfv9SVCSd7cJobmNRDHo+2v78E6U1lIWHM+ZIceZEETdOj0+oA==",
-      "path": "metroframework/1.2.0.3",
-      "hashPath": "metroframework.1.2.0.3.nupkg.sha512"
-    },
-    "MetroFramework.Design/1.2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JhXzz2m1ofJu+vcqxib1s9nmI1akoDHTRweNISsVcvk38bVabqHpwrTpwvz3z4lcwqIe19/B6M4Rrk5uXdNmhA==",
-      "path": "metroframework.design/1.2.0.3",
-      "hashPath": "metroframework.design.1.2.0.3.nupkg.sha512"
-    },
-    "MetroFramework.Fonts/1.2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5PAtJsIKfg4bzXPH3MeS4UFDxc4bgCe9yEEg+HS9+lOuwdChpMtawFw0XK4/u7OZxnCfkcHbnjTpu4IUpBBsfA==",
-      "path": "metroframework.fonts/1.2.0.3",
-      "hashPath": "metroframework.fonts.1.2.0.3.nupkg.sha512"
-    },
-    "MetroFramework.RunTime/1.2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7AFviJ+uFd/jApvUzOU8mMzl3NCj/sjIKQgCeJqqEEc78R6LoOTH+qGFZBRIEV+6nqgt9h2Y/ei6xVkTNZ3sJA==",
-      "path": "metroframework.runtime/1.2.0.3",
-      "hashPath": "metroframework.runtime.1.2.0.3.nupkg.sha512"
-    },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",
       "serviceable": true,
@@ -296,12 +217,26 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
-    "MySql.Data/8.0.29": {
+    "ModernUI/2.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3I+QUbSDTknNVAWUEr8JEtXU5sk83kofwy79TROew9YMhVQAq39jZwpHQfFNG757JZFGWJ5oa5VA3tZBxJa1jw==",
-      "path": "mysql.data/8.0.29",
-      "hashPath": "mysql.data.8.0.29.nupkg.sha512"
+      "sha512": "sha512-uFs5caxyT0YXJ08jXI80LlP7TE7LpMUXB2duD1TU697zUl+QCJAFCiu+b9wmzwUFkjsNvmed7okNK94yKv6pVA==",
+      "path": "modernui/2.0.0",
+      "hashPath": "modernui.2.0.0.nupkg.sha512"
+    },
+    "MySql.Data/8.0.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SRoxG9ASRQrqL/JKU9KxaWfkmWtBuw5rA7d9G34Z1w4Aq5YwvxIjuGDOkUSk/H6VOmlZ/wywgBSX9S6btbUAYg==",
+      "path": "mysql.data/8.0.30",
+      "hashPath": "mysql.data.8.0.30.nupkg.sha512"
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "path": "portable.bouncycastle/1.9.0",
+      "hashPath": "portable.bouncycastle.1.9.0.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
@@ -393,21 +328,6 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
-    },
-    "Trion Control Panel Alerts/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Trion Control Panel Settings/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Trion Control Panel UI/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

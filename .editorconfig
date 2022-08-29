@@ -30,6 +30,9 @@ dotnet_diagnostic.CS8618.severity = none
 dotnet_diagnostic.CS8622.severity = none
 csharp_space_around_binary_operators = before_and_after
 
+# SYSLIB0003: Type or member is obsolete
+dotnet_diagnostic.SYSLIB0003.severity = none
+
 [*.{cs,vb}]
 #### Naming styles ####
 

@@ -1,12 +1,13 @@
 ﻿using TrionControlPanel.Database;
 using TrionControlPanel.Alerts;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
+using TrionControlPanel.UI;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class TerminalControl : UserControl
     {
-        Settings Settings = new();
+        Settings.Settings Settings = new();
         RealmListMenager RealmListMenager = new();
         public TerminalControl()
         {

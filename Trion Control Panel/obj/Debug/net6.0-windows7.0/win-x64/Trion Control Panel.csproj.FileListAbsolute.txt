@@ -1,0 +1,12 @@
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.csproj.AssemblyReference.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.FormMain.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.Properties.Resources.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.TabsComponents.HomeControl.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.TabsComponents.LoadingControl.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.TabsComponents.SettingControl.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\TrionControlPanel.TabsComponents.TerminalControl.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.csproj.GenerateResource.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.AssemblyInfoInputs.cache
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.AssemblyInfo.cs
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\win-x64\Trion Control Panel.csproj.CoreCompileInputs.cache

@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 using TrionControlPanel.Alerts;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.Database
 {
@@ -9,7 +9,7 @@ namespace TrionControlPanel.Database
     {
         public static bool GetRealmListSucces { get; set; }
 
-        Settings Settings = new();
+        Settings.Settings Settings = new();
         public void GetRealmList()
         {
             try
@@ -143,7 +143,6 @@ namespace TrionControlPanel.Database
             catch
             {
                 GetRealmListSucces = false;
-               
             }
 
             

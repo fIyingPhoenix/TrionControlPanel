@@ -3,14 +3,14 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Database;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.TabsComponents
 {
 
     public partial class SettingControl : UserControl
     {
-        Settings Settings = new();
+        readonly Settings.Settings Settings = new();
         private void LoadSettings()
         {
             txtAuthDatabase.Texts = Settings._Data.AuthDatabase;

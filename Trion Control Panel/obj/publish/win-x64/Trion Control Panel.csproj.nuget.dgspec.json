@@ -44,9 +44,13 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows7.0",
           "dependencies": {
+            "ModernUI": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.29, )"
+              "version": "[8.0.30, )"
             },
             "System.Management": {
               "target": "Package",

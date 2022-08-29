@@ -172,5 +172,6 @@ D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7.0\win-x64\Trion Control Panel.pdb
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7.0\win-x64\Trion Control Panel.genruntimeconfig.cache
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7.0\win-x64\ref\Trion Control Panel.dll
-D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Release\net6.0-windows7.0\win-x64\Properties\Settings.settings
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7.0\win-x64\TrionControlPanel.Alerts.FormAlert.resources
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Release\net6.0-windows7.0\win-x64\MetroFramework.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Release\net6.0-windows7.0\win-x64\TrionControlPanel.UI.CustomPanel.resources

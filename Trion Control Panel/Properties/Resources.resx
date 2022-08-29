@@ -154,4 +154,22 @@
   <data name="terminal x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\terminal x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="emojiError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\emojiError.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EmojiInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EmojiInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="emojiSucces" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\emojiSucces.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="notySound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\notySound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rightArrowBluex50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rightArrowBluex50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rightArrowWhitex50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rightArrowWhitex50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

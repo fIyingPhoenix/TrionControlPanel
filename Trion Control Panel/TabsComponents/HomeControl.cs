@@ -1,17 +1,15 @@
 ﻿using TrionControlPanel.Classes;
 using TrionControlPanel.Alerts;
-using TrionControlPanel.Properties;
-using TrionControlPanelUI;
 using System.Net;
 using System.IO.Compression;
 using System.ComponentModel;
-using TrionControlPanelSettings;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-        Settings Settings = new();
+        Settings.Settings Settings = new();
         readonly SystemStatus _statusClass = new();
         internal bool _isRuningBnet = false;
         internal bool _isRuningWorld = false;

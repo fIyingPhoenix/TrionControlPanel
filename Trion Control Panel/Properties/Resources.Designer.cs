@@ -73,6 +73,36 @@ namespace TrionControlPanel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap emojiError {
+            get {
+                object obj = ResourceManager.GetObject("emojiError", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EmojiInfo {
+            get {
+                object obj = ResourceManager.GetObject("EmojiInfo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap emojiSucces {
+            get {
+                object obj = ResourceManager.GetObject("emojiSucces", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap home_x40 {
             get {
                 object obj = ResourceManager.GetObject("home x40", resourceCulture);
@@ -136,6 +166,35 @@ namespace TrionControlPanel.Properties {
         internal static System.Drawing.Bitmap Logo_weiss_klein1 {
             get {
                 object obj = ResourceManager.GetObject("Logo weiss klein1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream notySound {
+            get {
+                return ResourceManager.GetStream("notySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rightArrowBluex50 {
+            get {
+                object obj = ResourceManager.GetObject("rightArrowBluex50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rightArrowWhitex50 {
+            get {
+                object obj = ResourceManager.GetObject("rightArrowWhitex50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
