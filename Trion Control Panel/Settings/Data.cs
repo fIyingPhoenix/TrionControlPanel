@@ -6,31 +6,30 @@ namespace TrionControlPanel.Settings
     public class Data
     {
         public string DataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml";
-
-        private string _ErrorMessage;
-        private string _WorldDatabase;
-        public static  string _AuthDatabase;
-        private string _CharactersDatabase;
-        private string _MySQLLocation;
+        private static string _ErrorMessage;
+        private static string _WorldDatabase;
+        public static string _AuthDatabase;
+        private static string _CharactersDatabase;
+        private static string _MySQLLocation;
         public static string _MySQLServerHost;
         public static string _MySQLServerUser;
         public static string _MySQLServerPassword;
         public static string _MySQLServerPort;
-        private string _MySQLExecutableName;
-        private string _MySQLExecutablePath;
-        private string _CoreLocation;
-        private string _WorldExecutableLocation;
-        private string _BnetExecutableLocation;
-        private string _WorldExecutableName;
-        private string _BnetExecutableName;
-        private bool _ServerCrashCheck;
-        private bool _NotificationSound;
-        private bool _ConsolHide;
-        private bool _StayInTray;
-        private bool _RunWithWindows;
-        private bool _CustomNames;
-        private bool _StartCoreOnRun;
-        private int _SelectedCore;
+        private static string _MySQLExecutableName;
+        private static string _MySQLExecutablePath;
+        private static string _CoreLocation;
+        private static string _WorldExecutableLocation;
+        private static string _BnetExecutableLocation;
+        private static string _WorldExecutableName;
+        private static string _BnetExecutableName;
+        private static bool _ServerCrashCheck;
+        private static bool _NotificationSound;
+        private static bool _ConsolHide;
+        private static bool _StayInTray;
+        private static bool _RunWithWindows;
+        private static bool _CustomNames;
+        private static bool _StartCoreOnRun;
+        private static int _SelectedCore;
  
         public string ErrorMessage
         {
@@ -157,6 +156,19 @@ namespace TrionControlPanel.Settings
     {
         public Data _Data = new();
 
+        public bool SaveSettings()
+        {
+            try
+            {
+                WriteData(_Data, _Data.DataFile);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Data.ErrorMessage = ex.Message;
+                return false;
+            }
+        }
         public bool LoadSettings()
         {
             

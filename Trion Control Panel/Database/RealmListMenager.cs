@@ -7,10 +7,10 @@ namespace TrionControlPanel.Database
 {
     internal class RealmListMenager
     {
-        public static bool GetRealmListSucces { get; set; }
+        public static string RealmListMenagerMessage { get; set; }
 
         Settings.Settings Settings = new();
-        public void GetRealmList()
+        public bool GetRealmList()
         {
             try
             {
@@ -52,10 +52,11 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = null;
                         RealmListBuild.GameBuild = null;
                         RealmListBuild.GameRegion = null;
+                        return true;
                     }
                     else
                     {
-                        GetRealmListSucces = false;
+                        return false;
                     }
                 }
                 //AzerothCore
@@ -72,10 +73,11 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = null;
+                        return true;
                     }
                     else
                     {
-                        GetRealmListSucces = false;
+                        return false;
                     }
                 }
                 //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
@@ -92,10 +94,11 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = table.Rows[0][12].ToString();
+                        return true;
                     }
                     else
                     {
-                        GetRealmListSucces = false;
+                        return false;
                     }
                 }
                 //cMaNGOS
@@ -112,10 +115,11 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][6].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][9].ToString();
                         RealmListBuild.GameRegion = null;
+                        return true;
                     }
                     else
                     {
-                        GetRealmListSucces = false;
+                        return false;
                     }
                 }
                 //Vanilla MaNGOS
@@ -132,20 +136,22 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = table.Rows[0][12].ToString();
+                        return true;
                     }
-                    else
+                    else 
                     {
-                        GetRealmListSucces = false;
+                        return false;
                     }
                 }
             
             }
-            catch
+            catch (Exception ex)
             {
-                GetRealmListSucces = false;
+                RealmListMenagerMessage = ex.Message;
+                return false;
             }
 
-            
+            return false;
         }
         public void SaveRealmList()
         {

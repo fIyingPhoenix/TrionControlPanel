@@ -190,7 +190,7 @@ namespace TrionControlPanel
             this.stopTrionItem.Name = "stopTrionItem";
             this.stopTrionItem.Size = new System.Drawing.Size(133, 22);
             this.stopTrionItem.Text = "Stop Server";
-            this.stopTrionItem.Click += new System.EventHandler(this.stopTrionItem_Click);
+            this.stopTrionItem.Click += new System.EventHandler(this.StopTrionItem_Click);
             // 
             // exitTrionItem
             // 
@@ -209,7 +209,7 @@ namespace TrionControlPanel
             // timerCrashCheck
             // 
             this.timerCrashCheck.Interval = 3000;
-            this.timerCrashCheck.Tick += new System.EventHandler(this.timerCrashCheck_Tick);
+            this.timerCrashCheck.Tick += new System.EventHandler(this.TimerCrashCheck_Tick);
             // 
             // FormMain
             // 

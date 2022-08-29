@@ -11,7 +11,7 @@ namespace TrionControlPanel.TabsComponents
     public partial class SettingControl : UserControl
     {
         readonly Settings.Settings Settings = new();
-        private void LoadSettings()
+        public void LoadSettings()
         {
             txtAuthDatabase.Texts = Settings._Data.AuthDatabase;
             txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
@@ -49,7 +49,7 @@ namespace TrionControlPanel.TabsComponents
             Settings._Data.RunWithWindows = tglStartOnStartup.Checked;
             Settings._Data.CustomNames = tglCustomNames.Checked;
             Settings._Data.StartCoreOnRun = tglStartServer.Checked;
-            // Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
+            Settings._Data.SelectedCore = comboBoxCore.SelectedIndex;
         }
         private void GetMySQLLocation()
         {
@@ -250,7 +250,7 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BtnFixMysql_Click(object sender, EventArgs e)
         {
-            Process.Start($@"{Settings._Data.MySQLLocation}", "--initialize --console");
+            Process.Start($@"{Settings._Data.MySQLExecutablePath}", "--initialize --console");
         }
         private void BntMySqlLocation_Click(object sender, EventArgs e)
         {

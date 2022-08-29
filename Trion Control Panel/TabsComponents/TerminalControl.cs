@@ -43,9 +43,9 @@ namespace TrionControlPanel.TabsComponents
         private void GetRealmList()
         { 
             RealmListMenager.GetRealmList();
-            if (RealmListMenager.GetRealmListSucces == false )
+            if (RealmListMenager.GetRealmList() == false )
             {
-                FormAlert.ShowAlert("Connecting to server failed!", NotificationType.Error);
+                FormAlert.ShowAlert(RealmListMenager.RealmListMenagerMessage, NotificationType.Error);
             }
         }
         private void BtnLoadRealm_Click(object sender, EventArgs e)

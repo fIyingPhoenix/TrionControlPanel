@@ -30,52 +30,52 @@ namespace TrionControlPanel.TabsComponents
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.sPanel2 = new CustomPanel();
+            this.sPanel2 = new TrionControlPanel.UI.CustomPanel();
             this.lblWorldResource = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.worldCpuUsageProgressBar = new CustomProgressBar();
-            this.worldRamUsageProgressBar = new CustomProgressBar();
+            this.worldCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
+            this.worldRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.sPanel1 = new CustomPanel();
+            this.sPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblMySql = new System.Windows.Forms.Label();
             this.lblBnet = new System.Windows.Forms.Label();
             this.lblWorld = new System.Windows.Forms.Label();
-            this.mysqlServerLight = new CustomPanel();
-            this.worldServerLight = new CustomPanel();
-            this.bnetServerLight = new CustomPanel();
+            this.mysqlServerLight = new TrionControlPanel.UI.CustomPanel();
+            this.worldServerLight = new TrionControlPanel.UI.CustomPanel();
+            this.bnetServerLight = new TrionControlPanel.UI.CustomPanel();
             this.ServerStatusTimer = new System.Windows.Forms.Timer(this.components);
-            this.roundPanel1 = new CustomPanel();
+            this.roundPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.BnetCpuUsageProgressBar = new CustomProgressBar();
+            this.BnetCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
             this.lblBnetResource = new System.Windows.Forms.Label();
-            this.BnetRamUsageProgressBar = new CustomProgressBar();
-            this.roundPanel2 = new CustomPanel();
+            this.BnetRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
+            this.roundPanel2 = new TrionControlPanel.UI.CustomPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.totalCpuUsageProgressBar = new CustomProgressBar();
-            this.totalRamUsageProgressBar = new CustomProgressBar();
+            this.totalCpuUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
+            this.totalRamUsageProgressBar = new TrionControlPanel.UI.CustomProgressBar();
             this.lblPCresource = new System.Windows.Forms.Label();
             this.WorldResourceTimer = new System.Windows.Forms.Timer(this.components);
             this.BnetResourceTimer = new System.Windows.Forms.Timer(this.components);
-            this.bntStartAll = new CustomButton();
-            this.btnStartBent = new CustomButton();
-            this.btnStartWorld = new CustomButton();
-            this.bntStopAll = new CustomButton();
-            this.btnStopWorld = new CustomButton();
-            this.btnStopBnet = new CustomButton();
-            this.customWebBrowser1 = new CustomWebBrowser();
-            this.customWebBrowser2 = new CustomWebBrowser();
-            this.customWebBrowser3 = new CustomWebBrowser();
-            this.customWebBrowser4 = new CustomWebBrowser();
-            this.customWebBrowser6 = new CustomWebBrowser();
-            this.pBarDownloadMysql = new CustomProgressBar();
-            this.bntDownloadMysql = new CustomButton();
+            this.bntStartAll = new TrionControlPanel.UI.CustomButton();
+            this.btnStartBent = new TrionControlPanel.UI.CustomButton();
+            this.btnStartWorld = new TrionControlPanel.UI.CustomButton();
+            this.bntStopAll = new TrionControlPanel.UI.CustomButton();
+            this.btnStopWorld = new TrionControlPanel.UI.CustomButton();
+            this.btnStopBnet = new TrionControlPanel.UI.CustomButton();
+            this.customWebBrowser1 = new TrionControlPanel.UI.CustomWebBrowser();
+            this.customWebBrowser2 = new TrionControlPanel.UI.CustomWebBrowser();
+            this.customWebBrowser3 = new TrionControlPanel.UI.CustomWebBrowser();
+            this.customWebBrowser4 = new TrionControlPanel.UI.CustomWebBrowser();
+            this.customWebBrowser6 = new TrionControlPanel.UI.CustomWebBrowser();
+            this.pBarDownloadMysql = new TrionControlPanel.UI.CustomProgressBar();
+            this.bntDownloadMysql = new TrionControlPanel.UI.CustomButton();
             this.bWorkerDownloadComplate = new System.ComponentModel.BackgroundWorker();
-            this.bntStopMysql = new CustomButton();
-            this.btnStartMysql = new CustomButton();
-            this.customPanel1 = new CustomPanel();
+            this.bntStopMysql = new TrionControlPanel.UI.CustomButton();
+            this.btnStartMysql = new TrionControlPanel.UI.CustomButton();
+            this.customPanel1 = new TrionControlPanel.UI.CustomPanel();
             this.SuspendLayout();
             // 
             // sPanel2
@@ -668,7 +668,10 @@ namespace TrionControlPanel.TabsComponents
             // 
             // bWorkerDownloadComplate
             // 
+            this.bWorkerDownloadComplate.WorkerReportsProgress = true;
+            this.bWorkerDownloadComplate.WorkerSupportsCancellation = true;
             this.bWorkerDownloadComplate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWorkerDownloadComplate_DoWork);
+            this.bWorkerDownloadComplate.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bWorkerDownloadComplate_ProgressChanged);
             this.bWorkerDownloadComplate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWorkerDownloadComplate_RunWorkerCompleted);
             // 
             // bntStopMysql

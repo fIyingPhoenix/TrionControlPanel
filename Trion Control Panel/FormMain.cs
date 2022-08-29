@@ -134,6 +134,10 @@ namespace TrionControlPanel
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if(Settings.SaveSettings() == false)
+            {
+                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
+            }
             if (Settings._Data.StayInTray == true)
             {
                 this.Hide();
@@ -149,7 +153,7 @@ namespace TrionControlPanel
         {
             this.Show();
         }
-        private void timerCrashCheck_Tick(object sender, EventArgs e)
+        private void TimerCrashCheck_Tick(object sender, EventArgs e)
         {
             //crash save approval trying!
             if (_statusClass.WorldStatus()== false & homeControl._isRuningWorld == true & CrashCountWorld < 5)
@@ -197,7 +201,7 @@ namespace TrionControlPanel
         {
             StartCoreScript(5000);
         }
-        private void stopTrionItem_Click(object sender, EventArgs e)
+        private void StopTrionItem_Click(object sender, EventArgs e)
         {
             homeControl._isRuningBnet = false;
             homeControl._isRuningWorld = false;

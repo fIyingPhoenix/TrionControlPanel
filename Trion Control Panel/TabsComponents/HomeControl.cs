@@ -11,9 +11,13 @@ namespace TrionControlPanel.TabsComponents
     {
         Settings.Settings Settings = new();
         readonly SystemStatus _statusClass = new();
-        internal bool _isRuningBnet = false;
-        internal bool _isRuningWorld = false;
-        internal bool _isRuningMysql = false;
+        readonly SettingControl _settingControl = new();
+
+        private string _compressedFileName = "MySQL.zip";    //the name of the file being extracted
+        string DownloadLocation = "";
+        internal bool _isRuningBnet = false; //bnet Runngin
+        internal bool _isRuningWorld = false;//world Runngin
+        internal bool _isRuningMysql = false;//mysql  Runngin
         public HomeControl()
         {
             this.Dock = DockStyle.Fill;
@@ -177,34 +181,35 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BntDownloadMysql_Click(object sender, EventArgs e)
         {
-            
+            // Get Download Url
+            string sharingUrl = "https://1drv.ms/u/s!ApVjHQD9ApL5mj3vX9aJ-NBrBrDB?e=YNPW03";
+            string base64Value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(sharingUrl));
+            string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
+            string resultUrl = string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
+            //Extra strings
+
             string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
             //
             pBarDownloadMysql.Visible = true;
             //
-            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
+            //get The custom download Location
+            using (var fbd = new FolderBrowserDialog())
             {
-                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    DownloadLocation = fbd.SelectedPath;
+                    WebClient webClient = new();
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(AsyncCompleted);
+                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                    Thread DownloadThread = new(() =>
+                    {
+                        webClient.DownloadFileAsync(new Uri(resultUrl), DownloadLocation + _compressedFileName);
+                    });
+                    DownloadThread.Start();
+                    bntDownloadMysql.Enabled = false;
+                }   
             }
-            //
-            //
-            string sharingUrl = "https://1drv.ms/u/s!ApVjHQD9ApL5mjxAJFwwfyeXzYtO?e=kTxLE1";
-            string base64Value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(sharingUrl));
-            string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
-            string resultUrl = string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
-            //
-            string location = $@"{Directory.GetCurrentDirectory()}\mysql.zip";
-            //
-            WebClient webClient = new();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(AsyncCompleted);
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-            Thread DownloadThread = new(() =>
-            {
-                webClient.DownloadFileAsync(new Uri(resultUrl), location);
-            });
-            DownloadThread.Start ();
-            
-            bntDownloadMysql.Enabled = false;
         }
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -212,30 +217,38 @@ namespace TrionControlPanel.TabsComponents
         }
         private void AsyncCompleted(object? sender, AsyncCompletedEventArgs e)
         {
+            pBarDownloadMysql.Value = 0;
             bWorkerDownloadComplate.RunWorkerAsync();
         }
         private void BWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
         {
-            string file = $@"{Directory.GetCurrentDirectory()}\mysql.zip";
-            string location = $@"{Directory.GetCurrentDirectory()}\";
+            string file = $@"{DownloadLocation}{_compressedFileName}";
+            string location = $@"{DownloadLocation}";
             ZipFile.ExtractToDirectory(file, location, overwriteFiles: true);
             bntDownloadMysql.Text = "Extractiong MySQL...";
         }
         private void BWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            string file = $@"{DownloadLocation}{_compressedFileName}";
             string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
             bntDownloadMysql.Text = "Extract Complate MySQL...";
             Thread.Sleep(500);
-            File.Delete($@"{Directory.GetCurrentDirectory()}\mysql.zip");
+            File.Delete(file);
             bntDownloadMysql.Text = "Download MySQL Server";
             bntDownloadMysql.Enabled = true;
             pBarDownloadMysql.Visible = false;
             pBarDownloadMysql.Value = 0;
             foreach (string f in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), mysqlName, SearchOption.AllDirectories))
             {
+                Settings._Data.MySQLLocation = Path.GetDirectoryName(f)!;
                 Settings._Data.MySQLExecutablePath = f;
-            }
+                _settingControl.LoadSettings();
+             }
         }
 
+        private void bWorkerDownloadComplate_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            pBarDownloadMysql.Value = e.ProgressPercentage;
+        }
     }
 }
