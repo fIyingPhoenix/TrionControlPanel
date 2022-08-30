@@ -72,7 +72,7 @@ namespace TrionControlPanel.UI
         public CustomPanel()
         {
             InitializeComponent();
-            pnlBody.BackColor = _bodyColor;
+            pnlBody!.BackColor = _bodyColor;
             BackColor = _borderColor;
         }
         protected override void OnPaint(PaintEventArgs e)
@@ -87,7 +87,7 @@ namespace TrionControlPanel.UI
         private void ExtendedDraw(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
 
             path.StartFigure();
             path.StartFigure();
@@ -121,17 +121,18 @@ namespace TrionControlPanel.UI
 
         private void InitializeComponent()
         {
-            this.pnlBody = new Panel();
-            // 
-            // pnlBody
-            // 
-            this.pnlBody.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBody.Location = new System.Drawing.Point(0, 0);
-            this.pnlBody.Name = "pnlBody";
-            this.pnlBody.Size = new System.Drawing.Size(489, 162);
-            this.pnlBody.TabIndex = 0;
-            this.pnlBody.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.pnlBody = new()
+            {
+                // 
+                // pnlBody
+                // 
+                BackColor = System.Drawing.SystemColors.ActiveBorder,
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Location = new System.Drawing.Point(0, 0),
+                Name = "pnlBody",
+                Size = new System.Drawing.Size(489, 162),
+                TabIndex = 0
+            };
             // 
             // CustomPanel
             // 
@@ -140,11 +141,6 @@ namespace TrionControlPanel.UI
             this.Name = "CustomPanel";
             this.Size = new System.Drawing.Size(489, 162);
             this.ResumeLayout(false);
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
         }
     }

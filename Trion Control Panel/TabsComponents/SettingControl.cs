@@ -3,14 +3,16 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Database;
-using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.TabsComponents
 {
 
     public partial class SettingControl : UserControl
     {
-        readonly Settings.Settings Settings = new();
+        Settings.Settings Settings = new();
+        string ErrorMessage;
+        NotifyIcon NotifyIcon;
+
         public void LoadSettings()
         {
             txtAuthDatabase.Texts = Settings._Data.AuthDatabase;
@@ -61,13 +63,15 @@ namespace TrionControlPanel.TabsComponents
                 {
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, mysqlName, SearchOption.AllDirectories))
                     {
-                        Settings._Data.MySQLLocation = Path.GetDirectoryName(f)!;
+                        string exeFolderPath = Path.GetDirectoryName(f)!;
+                        Settings._Data.MySQLLocation = Path.GetFullPath(Path.Combine(exeFolderPath, @"..\"));
                         Settings._Data.MySQLExecutablePath = f;
                         txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
                     }
                 }
             }
         }
+
         private void GetCoreLocation()
         {
             // getting the core files and location. saves to settings. dose not seed to press save 
@@ -158,8 +162,13 @@ namespace TrionControlPanel.TabsComponents
                 }
             }
         }
-        private void TimerCheck_Tick(object sender, EventArgs e)
+        private void TimerUpdate_Tick(object sender, EventArgs e)
         {
+            if(Settings._Data.SettingsUpdate == true)
+            {
+                LoadSettings();
+                Settings._Data.SettingsUpdate = false;
+            }
             if (tglCustomNames.Checked == true)
             {
                 txtWorldName.ReadOnly = false;
@@ -316,6 +325,18 @@ namespace TrionControlPanel.TabsComponents
         private void BtnMysqlLocation_Click(object sender, EventArgs e)
         {
             GetMySQLLocation();
+        }
+
+        private void BtnMysqlOpenLocation_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(Settings._Data.MySQLLocation))
+            {
+                Process.Start(Settings._Data.MySQLLocation, "explorer.exe");
+            }   
+            else
+            {
+                GetMySQLLocation();
+            }
         }
     }
 }

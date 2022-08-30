@@ -12,6 +12,7 @@ namespace TrionControlPanel.Database
         Settings.Settings Settings = new();
         public bool GetRealmList()
         {
+
             try
             {
                 string reamlist = "";
@@ -153,6 +154,7 @@ namespace TrionControlPanel.Database
 
             return false;
         }
+
         public void SaveRealmList()
         {
             //memo on me: chek after if i need to close the connection ;

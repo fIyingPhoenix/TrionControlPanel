@@ -22,6 +22,7 @@ namespace TrionControlPanel.Database
         }
         internal void Open()
         {
+            
             if (Connection.State == ConnectionState.Closed)
             {
                 Connection.Open();

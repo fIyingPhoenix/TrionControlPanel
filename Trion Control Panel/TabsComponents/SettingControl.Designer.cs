@@ -67,7 +67,7 @@ namespace TrionControlPanel.TabsComponents
             this.lblNames = new System.Windows.Forms.Label();
             this.txtWorldName = new TrionControlPanel.UI.CustomTextBox();
             this.txtBnetName = new TrionControlPanel.UI.CustomTextBox();
-            this.timerCheck = new System.Windows.Forms.Timer(this.components);
+            this.TimerUpdate = new System.Windows.Forms.Timer(this.components);
             this.btnTestMySQL = new TrionControlPanel.UI.CustomButton();
             this.panelNames = new TrionControlPanel.UI.CustomPanel();
             this.panelControSettins = new TrionControlPanel.UI.CustomPanel();
@@ -85,7 +85,7 @@ namespace TrionControlPanel.TabsComponents
             this.btnMySQLLocationSearch = new TrionControlPanel.UI.CustomButton();
             this.lblServerLocation = new System.Windows.Forms.Label();
             this.btnCoreLocation = new TrionControlPanel.UI.CustomButton();
-            this.btnMysqlLocation = new TrionControlPanel.UI.CustomButton();
+            this.btnMysqlOpenLocation = new TrionControlPanel.UI.CustomButton();
             lblWorldName = new System.Windows.Forms.Label();
             lblBnetName = new System.Windows.Forms.Label();
             lblMysqlName = new System.Windows.Forms.Label();
@@ -645,10 +645,11 @@ namespace TrionControlPanel.TabsComponents
             this.txtBnetName.Texts = "";
             this.txtBnetName.UnderlinedStyle = false;
             // 
-            // timerCheck
+            // TimerUpdate
             // 
-            this.timerCheck.Enabled = true;
-            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
+            this.TimerUpdate.Enabled = true;
+            this.TimerUpdate.Interval = 1000;
+            this.TimerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // btnTestMySQL
             // 
@@ -958,30 +959,31 @@ namespace TrionControlPanel.TabsComponents
             this.btnCoreLocation.TextColor = System.Drawing.Color.White;
             this.btnCoreLocation.UseVisualStyleBackColor = false;
             // 
-            // btnMysqlLocation
+            // btnMysqlOpenLocation
             // 
-            this.btnMysqlLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.btnMysqlLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.btnMysqlLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.btnMysqlLocation.BorderRadius = 0;
-            this.btnMysqlLocation.BorderSize = 1;
-            this.btnMysqlLocation.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMysqlLocation.FlatAppearance.BorderSize = 0;
-            this.btnMysqlLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMysqlLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnMysqlLocation.ForeColor = System.Drawing.Color.White;
-            this.btnMysqlLocation.Location = new System.Drawing.Point(166, 162);
-            this.btnMysqlLocation.Name = "btnMysqlLocation";
-            this.btnMysqlLocation.Size = new System.Drawing.Size(128, 29);
-            this.btnMysqlLocation.TabIndex = 69;
-            this.btnMysqlLocation.Text = "MySQL Location";
-            this.btnMysqlLocation.TextColor = System.Drawing.Color.White;
-            this.btnMysqlLocation.UseVisualStyleBackColor = false;
+            this.btnMysqlOpenLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.btnMysqlOpenLocation.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.btnMysqlOpenLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnMysqlOpenLocation.BorderRadius = 0;
+            this.btnMysqlOpenLocation.BorderSize = 1;
+            this.btnMysqlOpenLocation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMysqlOpenLocation.FlatAppearance.BorderSize = 0;
+            this.btnMysqlOpenLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMysqlOpenLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnMysqlOpenLocation.ForeColor = System.Drawing.Color.White;
+            this.btnMysqlOpenLocation.Location = new System.Drawing.Point(166, 162);
+            this.btnMysqlOpenLocation.Name = "btnMysqlOpenLocation";
+            this.btnMysqlOpenLocation.Size = new System.Drawing.Size(128, 29);
+            this.btnMysqlOpenLocation.TabIndex = 69;
+            this.btnMysqlOpenLocation.Text = "MySQL Location";
+            this.btnMysqlOpenLocation.TextColor = System.Drawing.Color.White;
+            this.btnMysqlOpenLocation.UseVisualStyleBackColor = false;
+            this.btnMysqlOpenLocation.Click += new System.EventHandler(this.BtnMysqlOpenLocation_Click);
             // 
             // SettingControl
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.Controls.Add(this.btnMysqlLocation);
+            this.Controls.Add(this.btnMysqlOpenLocation);
             this.Controls.Add(this.btnCoreLocation);
             this.Controls.Add(lblCoreLocation);
             this.Controls.Add(lblMysqlLocation);
@@ -1057,7 +1059,7 @@ namespace TrionControlPanel.TabsComponents
         private Label lblCores;
         private Label lblCustomNames;
         private CustomToggleButton tglCustomNames;
-        private System.Windows.Forms.Timer timerCheck;
+        private System.Windows.Forms.Timer TimerUpdate;
         private CustomButton btnTestMySQL;
         private CustomPanel panelNames;
         private CustomPanel panelControSettins;
@@ -1081,11 +1083,12 @@ namespace TrionControlPanel.TabsComponents
         private CustomButton btnMySQLLocationSearch;
         private Label lblServerLocation;
         private CustomButton btnCoreLocation;
-        private CustomButton btnMysqlLocation;
+        private CustomButton btnMysqlOpenLocation;
         public CustomTextBox txtAuthDatabase;
         public CustomTextBox txtMySqlPort;
         public CustomTextBox txtMySqlPassowrd;
         public CustomTextBox txtMySqlUser;
         public CustomTextBox txtMySqlServer;
+
     }
 }

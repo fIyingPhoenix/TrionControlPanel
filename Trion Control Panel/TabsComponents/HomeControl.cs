@@ -1,19 +1,20 @@
 ﻿using TrionControlPanel.Classes;
 using TrionControlPanel.Alerts;
 using System.Net;
-using System.IO.Compression;
 using System.ComponentModel;
-using TrionControlPanel.Settings;
+using System.Text;
+using Ionic.Zip;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-        Settings.Settings Settings = new();
+        readonly Settings.Settings  Settings = new();
         readonly SystemStatus _statusClass = new();
         readonly SettingControl _settingControl = new();
+        readonly WebClient webClient = new();
 
-        private string _compressedFileName = "MySQL.zip";    //the name of the file being extracted
+        readonly string _compressedFileName = "MySQL.zip";    //the name of the file being extracted
         string DownloadLocation = "";
         internal bool _isRuningBnet = false; //bnet Runngin
         internal bool _isRuningWorld = false;//world Runngin
@@ -181,9 +182,10 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BntDownloadMysql_Click(object sender, EventArgs e)
         {
+            btnDownloadMysql.Click -= BntDownloadMysql_Click;
             // Get Download Url
             string sharingUrl = "https://1drv.ms/u/s!ApVjHQD9ApL5mj3vX9aJ-NBrBrDB?e=YNPW03";
-            string base64Value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(sharingUrl));
+            string base64Value = Convert.ToBase64String(Encoding.UTF8.GetBytes(sharingUrl));
             string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
             string resultUrl = string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
             //Extra strings
@@ -195,20 +197,45 @@ namespace TrionControlPanel.TabsComponents
             //get The custom download Location
             using (var fbd = new FolderBrowserDialog())
             {
-                DialogResult result = fbd.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(AsyncCompleted);
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                if(string.IsNullOrWhiteSpace(Settings._Data.MySQLLocation))
                 {
-                    DownloadLocation = fbd.SelectedPath;
-                    WebClient webClient = new();
-                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(AsyncCompleted);
-                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                    Thread DownloadThread = new(() =>
+                    DialogResult result = fbd.ShowDialog();
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        webClient.DownloadFileAsync(new Uri(resultUrl), DownloadLocation + _compressedFileName);
-                    });
-                    DownloadThread.Start();
-                    bntDownloadMysql.Enabled = false;
-                }   
+                        DownloadLocation = fbd.SelectedPath;
+                        Thread DownloadThread = new(() =>
+                        {
+                            webClient.DownloadFileAsync(new Uri(resultUrl), DownloadLocation + _compressedFileName);
+                        });
+                        DownloadThread.Start();
+                    }
+                    else
+                    {
+                        
+                        bWorkerDownloadComplate.CancelAsync();
+                        btnDownloadMysql.Click += BntDownloadMysql_Click;
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        DownloadLocation = fbd.SelectedPath;
+                        Thread DownloadThread = new(() =>
+                        {
+                            webClient.DownloadFileAsync(new Uri(Settings._Data.MySQLLocation), DownloadLocation + _compressedFileName);
+                        });
+                        DownloadThread.Start();
+                    }
+                    else
+                    {
+                        FormAlert.ShowAlert("Invalid Path!", NotificationType.Error);
+                        bWorkerDownloadComplate.CancelAsync();
+                        btnDownloadMysql.Click += BntDownloadMysql_Click;
+                    }
+                } 
             }
         }
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -223,32 +250,32 @@ namespace TrionControlPanel.TabsComponents
         private void BWorkerDownloadComplate_DoWork(object sender, DoWorkEventArgs e)
         {
             string file = $@"{DownloadLocation}{_compressedFileName}";
-            string location = $@"{DownloadLocation}";
-            ZipFile.ExtractToDirectory(file, location, overwriteFiles: true);
-            bntDownloadMysql.Text = "Extractiong MySQL...";
+            btnDownloadMysql.Text = "Extracting MySQL...";
+            using (ZipFile zip = ZipFile.Read(file))
+            {
+                pBarDownloadMysql.Maximum = zip.Count;
+                foreach (ZipEntry entry in zip.Entries)
+                {
+                    pBarDownloadMysql.Value++;
+                    entry.Extract(DownloadLocation, ExtractExistingFileAction.OverwriteSilently);
+                }
+            }
         }
         private void BWorkerDownloadComplate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string file = $@"{DownloadLocation}{_compressedFileName}";
             string mysqlName = $@"{Settings._Data.MySQLExecutableName}.exe";
-            bntDownloadMysql.Text = "Extract Complate MySQL...";
-            Thread.Sleep(500);
             File.Delete(file);
-            bntDownloadMysql.Text = "Download MySQL Server";
-            bntDownloadMysql.Enabled = true;
+            btnDownloadMysql.Text = "Download MySQL Server";
+            btnDownloadMysql.Click += BntDownloadMysql_Click;
             pBarDownloadMysql.Visible = false;
             pBarDownloadMysql.Value = 0;
-            foreach (string f in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), mysqlName, SearchOption.AllDirectories))
+            Settings._Data.MySQLLocation = DownloadLocation;
+            foreach (string f in Directory.EnumerateFiles(DownloadLocation, mysqlName, SearchOption.AllDirectories))
             {
-                Settings._Data.MySQLLocation = Path.GetDirectoryName(f)!;
                 Settings._Data.MySQLExecutablePath = f;
-                _settingControl.LoadSettings();
-             }
-        }
-
-        private void bWorkerDownloadComplate_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            pBarDownloadMysql.Value = e.ProgressPercentage;
+                Settings._Data.SettingsUpdate = true;
+            }
         }
     }
 }

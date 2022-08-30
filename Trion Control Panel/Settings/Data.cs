@@ -1,11 +1,11 @@
-﻿using System.IO;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace TrionControlPanel.Settings
 {
     public class Data
     {
         public string DataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml";
+        
         private static string _ErrorMessage;
         private static string _WorldDatabase;
         public static string _AuthDatabase;
@@ -22,6 +22,7 @@ namespace TrionControlPanel.Settings
         private static string _BnetExecutableLocation;
         private static string _WorldExecutableName;
         private static string _BnetExecutableName;
+        private static bool _SettingsUpdate;
         private static bool _ServerCrashCheck;
         private static bool _NotificationSound;
         private static bool _ConsolHide;
@@ -36,6 +37,7 @@ namespace TrionControlPanel.Settings
             get { return _ErrorMessage; }
             set { _ErrorMessage = value; }
         }
+
         public string WorldDatabase
         {
             get { return _WorldDatabase; }
@@ -111,6 +113,11 @@ namespace TrionControlPanel.Settings
             get { return _BnetExecutableName; }
             set { _BnetExecutableName = value; }
         }
+        public bool SettingsUpdate
+        {
+            get { return _SettingsUpdate; }
+            set { _SettingsUpdate = value; }
+        }
         public bool ServerCrashCheck
         {
             get { return _ServerCrashCheck; }
@@ -171,8 +178,7 @@ namespace TrionControlPanel.Settings
         }
         public bool LoadSettings()
         {
-            
-            if (Exist(_Data.DataFile) == true)
+            if (Exist(_Data.DataFile) == true )
             {
                 try
                 {
@@ -194,7 +200,6 @@ namespace TrionControlPanel.Settings
         {
             try
             {
-                
                 var createFile = File.Create(_Data.DataFile);
                 createFile.Close();
                 _Data.WorldDatabase = "world";
@@ -218,7 +223,9 @@ namespace TrionControlPanel.Settings
                 _Data.RunWithWindows = false;
                 _Data.CustomNames = false;
                 _Data.StartCoreOnRun = false;
+                _Data.SettingsUpdate = false;
                 _Data.SelectedCore = 4;
+                _Data.ErrorMessage = "";
                 WriteData(_Data, _Data.DataFile);
                 return true;
             }
@@ -229,8 +236,7 @@ namespace TrionControlPanel.Settings
             }
 
         }
-
-        private static bool Exist(string fileName)
+        private bool Exist(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -248,7 +254,7 @@ namespace TrionControlPanel.Settings
             serializer.Serialize(writer, o);
             writer.Close();
         }
-        private  Data ReaderData(string fileName)
+        private Data ReaderData(string fileName)
         {
             XmlSerializer serializer = new(typeof(Data));
             FileStream reader = new(fileName, FileMode.Open, FileAccess.Read,FileShare.Read);

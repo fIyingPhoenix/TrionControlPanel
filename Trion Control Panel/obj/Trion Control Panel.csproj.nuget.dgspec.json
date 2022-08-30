@@ -44,6 +44,10 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows7.0",
           "dependencies": {
+            "DotNetZip": {
+              "target": "Package",
+              "version": "[1.16.0, )"
+            },
             "ModernUI": {
               "target": "Package",
               "version": "[2.0.0, )"

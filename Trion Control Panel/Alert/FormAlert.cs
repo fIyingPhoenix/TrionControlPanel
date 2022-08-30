@@ -2,15 +2,16 @@ using System.ComponentModel;
 using System.Media;
 using MetroFramework.Forms;
 using TrionControlPanel.Properties;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.Alerts
 {
     public partial class FormAlert : MetroForm
     {
-    
-         string alertMessage;
+        Settings.Settings Settings = new();
+        string alertMessage;
          NotificationType alertType = NotificationType.empty;
-
+         
         [Category("Trion Properties")]
         public string AlerMessage
         {
@@ -33,10 +34,13 @@ namespace TrionControlPanel.Alerts
         private NotificationAction notificationAction;
         private int posX, posY;
         
-        private static void AlertSound()
+        private void AlertSound()
         {
-            SoundPlayer myclicksound = new(Resources.notySound);
-            myclicksound.Play();
+            if (Settings._Data.NotificationSound == true)
+            {
+                SoundPlayer myclicksound = new(Resources.notySound);
+                myclicksound.Play();
+            }
         }
 
         public void Alert(string message, NotificationType eType)
@@ -72,20 +76,19 @@ namespace TrionControlPanel.Alerts
                     break;
                 case NotificationType.Info:
                     pboxIcon.Image = Resources.EmojiInfo;
-                    ;
                     lblTitle.Text = "INFO!";
                     break;
                 case NotificationType.Warning:
                     pboxIcon.Image = Resources.EmojiInfo;
-                    lblTitle.Text = "WARNING!";
+                    this.Text = "WARNING!";
                     break;
             }
             lblMesage.Text = message;
-            Show();
             AlertSound();
             notificationAction = NotificationAction.start;
             timerCheck.Interval = 1;
             timerCheck.Start();
+            Show();
         }
         private void timerCheck_Tick(object sender, EventArgs e)
         {

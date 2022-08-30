@@ -61,6 +61,7 @@ namespace TrionControlPanel.UI
         //Constructor
         public CustomButton()
         {
+           
             this.FlatStyle = FlatStyle.Flat;
             this.FlatAppearance.BorderSize = 0;
             this.Size = new Size(150, 40);
@@ -111,6 +112,7 @@ namespace TrionControlPanel.UI
                     if (borderSize >= 1)
                         //Draw control border
                         pevent.Graphics.DrawPath(penBorder, pathBorder);
+          
                 }
             }
             else //Normal button
@@ -121,6 +123,7 @@ namespace TrionControlPanel.UI
                 //Button border
                 if (borderSize >= 1)
                 {
+                 
                     using (Pen penBorder = new(borderColor, borderSize))
                     {
                         penBorder.Alignment = PenAlignment.Inset;

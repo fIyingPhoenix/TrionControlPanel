@@ -71,11 +71,12 @@ namespace TrionControlPanel.TabsComponents
             this.customWebBrowser4 = new TrionControlPanel.UI.CustomWebBrowser();
             this.customWebBrowser6 = new TrionControlPanel.UI.CustomWebBrowser();
             this.pBarDownloadMysql = new TrionControlPanel.UI.CustomProgressBar();
-            this.bntDownloadMysql = new TrionControlPanel.UI.CustomButton();
+            this.btnDownloadMysql = new TrionControlPanel.UI.CustomButton();
             this.bWorkerDownloadComplate = new System.ComponentModel.BackgroundWorker();
             this.bntStopMysql = new TrionControlPanel.UI.CustomButton();
             this.btnStartMysql = new TrionControlPanel.UI.CustomButton();
             this.customPanel1 = new TrionControlPanel.UI.CustomPanel();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // sPanel2
@@ -644,34 +645,33 @@ namespace TrionControlPanel.TabsComponents
             this.pBarDownloadMysql.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
             this.pBarDownloadMysql.Visible = false;
             // 
-            // bntDownloadMysql
+            // btnDownloadMysql
             // 
-            this.bntDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntDownloadMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
-            this.bntDownloadMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
-            this.bntDownloadMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.bntDownloadMysql.BorderRadius = 0;
-            this.bntDownloadMysql.BorderSize = 1;
-            this.bntDownloadMysql.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bntDownloadMysql.FlatAppearance.BorderSize = 0;
-            this.bntDownloadMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bntDownloadMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bntDownloadMysql.ForeColor = System.Drawing.Color.White;
-            this.bntDownloadMysql.Location = new System.Drawing.Point(209, 388);
-            this.bntDownloadMysql.Name = "bntDownloadMysql";
-            this.bntDownloadMysql.Size = new System.Drawing.Size(280, 40);
-            this.bntDownloadMysql.TabIndex = 43;
-            this.bntDownloadMysql.Text = "Download MySQL Server";
-            this.bntDownloadMysql.TextColor = System.Drawing.Color.White;
-            this.bntDownloadMysql.UseVisualStyleBackColor = false;
-            this.bntDownloadMysql.Click += new System.EventHandler(this.BntDownloadMysql_Click);
+            this.btnDownloadMysql.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDownloadMysql.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnDownloadMysql.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnDownloadMysql.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnDownloadMysql.BorderRadius = 0;
+            this.btnDownloadMysql.BorderSize = 1;
+            this.btnDownloadMysql.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDownloadMysql.FlatAppearance.BorderSize = 0;
+            this.btnDownloadMysql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDownloadMysql.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDownloadMysql.ForeColor = System.Drawing.Color.White;
+            this.btnDownloadMysql.Location = new System.Drawing.Point(209, 388);
+            this.btnDownloadMysql.Name = "btnDownloadMysql";
+            this.btnDownloadMysql.Size = new System.Drawing.Size(280, 40);
+            this.btnDownloadMysql.TabIndex = 43;
+            this.btnDownloadMysql.Text = "Download MySQL Server";
+            this.btnDownloadMysql.TextColor = System.Drawing.Color.White;
+            this.btnDownloadMysql.UseVisualStyleBackColor = false;
+            this.btnDownloadMysql.Click += new System.EventHandler(this.BntDownloadMysql_Click);
             // 
             // bWorkerDownloadComplate
             // 
             this.bWorkerDownloadComplate.WorkerReportsProgress = true;
             this.bWorkerDownloadComplate.WorkerSupportsCancellation = true;
             this.bWorkerDownloadComplate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWorkerDownloadComplate_DoWork);
-            this.bWorkerDownloadComplate.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bWorkerDownloadComplate_ProgressChanged);
             this.bWorkerDownloadComplate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWorkerDownloadComplate_RunWorkerCompleted);
             // 
             // bntStopMysql
@@ -731,6 +731,11 @@ namespace TrionControlPanel.TabsComponents
             this.customPanel1.Size = new System.Drawing.Size(674, 38);
             this.customPanel1.TabIndex = 47;
             // 
+            // timerUpdate
+            // 
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 1;
+            // 
             // HomeControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -761,7 +766,7 @@ namespace TrionControlPanel.TabsComponents
             this.Controls.Add(this.btnStartMysql);
             this.Controls.Add(this.bntStopMysql);
             this.Controls.Add(this.pBarDownloadMysql);
-            this.Controls.Add(this.bntDownloadMysql);
+            this.Controls.Add(this.btnDownloadMysql);
             this.Controls.Add(this.customWebBrowser6);
             this.Controls.Add(this.customWebBrowser4);
             this.Controls.Add(this.customWebBrowser3);
@@ -829,10 +834,11 @@ namespace TrionControlPanel.TabsComponents
         internal CustomProgressBar totalRamUsageProgressBar;
         private CustomWebBrowser customWebBrowser6;
         private CustomProgressBar pBarDownloadMysql;
-        private CustomButton bntDownloadMysql;
+        private CustomButton btnDownloadMysql;
         private System.ComponentModel.BackgroundWorker bWorkerDownloadComplate;
         private CustomButton bntStopMysql;
         private CustomButton btnStartMysql;
         private CustomPanel customPanel1;
+        private System.Windows.Forms.Timer timerUpdate;
     }
 }

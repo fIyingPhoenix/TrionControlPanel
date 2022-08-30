@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pboxIcon = new System.Windows.Forms.PictureBox();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.lblMesage = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
+            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pboxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
@@ -48,23 +48,12 @@
             this.pboxIcon.TabIndex = 0;
             this.pboxIcon.TabStop = false;
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTitle.Location = new System.Drawing.Point(108, 8);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(68, 37);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Title";
-            // 
             // lblMesage
             // 
             this.lblMesage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMesage.Location = new System.Drawing.Point(116, 48);
+            this.lblMesage.Location = new System.Drawing.Point(115, 51);
             this.lblMesage.Name = "lblMesage";
-            this.lblMesage.Size = new System.Drawing.Size(400, 53);
+            this.lblMesage.Size = new System.Drawing.Size(400, 50);
             this.lblMesage.TabIndex = 2;
             this.lblMesage.Text = "Message";
             // 
@@ -87,24 +76,39 @@
             this.timerCheck.Interval = 10;
             this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTitle.Location = new System.Drawing.Point(115, 16);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(58, 25);
+            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Text = "INFO!";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormAlert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 110);
             this.ControlBox = false;
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblMesage);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pboxIcon);
+            this.Location = new System.Drawing.Point(0, 0);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Movable = false;
             this.Name = "FormAlert";
             this.Resizable = false;
+            this.Shadow = false;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Style = MetroFramework.MetroColorStyle.Blue;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TextAlign = MetroFramework.Forms.TextAlign.Center;
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             ((System.ComponentModel.ISupportInitialize)(this.pboxIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
@@ -116,9 +120,9 @@
         #endregion
 
         private PictureBox pboxIcon;
-        private Label lblTitle;
         private Label lblMesage;
         private PictureBox btnClose;
         private System.Windows.Forms.Timer timerCheck;
+        private Label lblTitle;
     }
 }

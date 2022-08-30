@@ -33,17 +33,17 @@ namespace TrionControlPanel
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelMenu = new System.Windows.Forms.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
-            this.btnSettings = new CustomButton();
-            this.btnTerminal = new CustomButton();
-            this.btnHome = new CustomButton();
+            this.btnSettings = new TrionControlPanel.UI.CustomButton();
+            this.btnTerminal = new TrionControlPanel.UI.CustomButton();
+            this.btnHome = new TrionControlPanel.UI.CustomButton();
             this.pnlTabs = new System.Windows.Forms.Panel();
             this.mainNotify = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trionNotificationMenu = new CustomDropdownMenu(this.components);
+            this.trionNotificationMenu = new TrionControlPanel.UI.CustomDropdownMenu(this.components);
             this.showTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopTrionItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitTrionItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timerCheck = new System.Windows.Forms.Timer(this.components);
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.timerCrashCheck = new System.Windows.Forms.Timer(this.components);
             this.timerResize = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
@@ -200,11 +200,11 @@ namespace TrionControlPanel
             this.exitTrionItem.Text = "Exit Trion";
             this.exitTrionItem.Click += new System.EventHandler(this.ExitTrionItem_Click);
             // 
-            // timerCheck
+            // timerUpdate
             // 
-            this.timerCheck.Enabled = true;
-            this.timerCheck.Interval = 10;
-            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 1;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // timerCrashCheck
             // 
@@ -240,7 +240,7 @@ namespace TrionControlPanel
         private Panel panelMenu;
         private PictureBox picLogo;
         private NotifyIcon mainNotify;
-        private System.Windows.Forms.Timer timerCheck;
+        private System.Windows.Forms.Timer timerUpdate;
         private CustomButton btnHome;
         private CustomButton btnSettings;
         private CustomButton btnTerminal;

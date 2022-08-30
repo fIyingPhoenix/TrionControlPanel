@@ -23,6 +23,7 @@ namespace TrionControlPanel
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            Settings.LoadSettings();
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
             loadingControl.Dock = DockStyle.Fill;
@@ -51,11 +52,16 @@ namespace TrionControlPanel
             pnlTabs.Controls.Clear();
             pnlTabs.Controls.Add(settingControl);
         }
-        private void TimerCheck_Tick(object sender, EventArgs e)
+        private void TimerUpdate_Tick(object sender, EventArgs e)
         {
+            if(Settings._Data.ErrorMessage != "")
+            {
+                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
+                Settings._Data.ErrorMessage = "";
+            }
             if(homeControl.totalRamUsageProgressBar.Value > 0)
             {
-                timerCheck.Stop();
+                timerUpdate.Stop();
                 pnlTabs.Controls.Clear();
                 pnlTabs.Controls.Add(homeControl);
                 btnHome.Enabled = true;
@@ -125,19 +131,12 @@ namespace TrionControlPanel
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            StartCoreWithWindows();
-            if (!Directory.Exists($@"{Directory.GetCurrentDirectory()}\mysql"))
-            {
-                Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\mysql");
-            }   
+            
+            StartCoreWithWindows(); 
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(Settings.SaveSettings() == false)
-            {
-                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
-            }
             if (Settings._Data.StayInTray == true)
             {
                 this.Hide();
@@ -145,6 +144,10 @@ namespace TrionControlPanel
             }
             else if (Settings._Data.StayInTray == false)
             {
+                if (Settings.SaveSettings() == false)
+                {
+                    FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
+                }
                 mainNotify.Dispose();
                 Environment.Exit(0);
             }
@@ -212,7 +215,16 @@ namespace TrionControlPanel
         }
         private void ExitTrionItem_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            if (Settings.SaveSettings() == false)
+            {
+                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
+                Environment.Exit(0);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
+           
         }
     }
 }

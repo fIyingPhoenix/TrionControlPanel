@@ -6,6 +6,18 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
+      "DotNetZip/1.16.0": {
+        "dependencies": {
+          "System.Security.Permissions": "4.7.0",
+          "System.Text.Encoding.CodePages": "4.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotNetZip.dll": {
+            "assemblyVersion": "1.16.0.0",
+            "fileVersion": "1.16.0.0"
+          }
+        }
+      },
       "Google.Protobuf/3.19.4": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -48,10 +60,10 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/3.1.0": {},
+      "Microsoft.NETCore.Platforms/3.1.1": {},
       "Microsoft.Win32.SystemEvents/4.7.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0"
+          "Microsoft.NETCore.Platforms": "3.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
@@ -88,7 +100,7 @@
           "System.Configuration.ConfigurationManager": "4.4.1",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0",
           "System.Security.Permissions": "4.7.0",
-          "System.Text.Encoding.CodePages": "4.4.0"
+          "System.Text.Encoding.CodePages": "4.7.1"
         },
         "runtime": {
           "lib/net6.0/MySql.Data.dll": {
@@ -135,7 +147,7 @@
       },
       "System.Drawing.Common/4.7.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.NETCore.Platforms": "3.1.1",
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "runtime": {
@@ -189,7 +201,7 @@
       },
       "System.Security.AccessControl/4.7.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.NETCore.Platforms": "3.1.1",
           "System.Security.Principal.Windows": "4.7.0"
         },
         "runtime": {
@@ -257,22 +269,22 @@
           }
         }
       },
-      "System.Text.Encoding.CodePages/4.4.0": {
+      "System.Text.Encoding.CodePages/4.7.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0"
+          "Microsoft.NETCore.Platforms": "3.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
-            "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.6.25519.3"
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.20.21406"
           }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.6.25519.3"
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.20.21406"
           }
         }
       },
@@ -298,6 +310,13 @@
     }
   },
   "libraries": {
+    "DotNetZip/1.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CS9sjjXF23FLIbwlLT5k/jXBYxVnLMn01lyAvN/hxFM+UDvSicjTPB9ZMA+Wp/QlvBPbD2pzkAXUp1O50gP/Lw==",
+      "path": "dotnetzip/1.16.0",
+      "hashPath": "dotnetzip.1.16.0.nupkg.sha512"
+    },
     "Google.Protobuf/3.19.4": {
       "type": "package",
       "serviceable": true,
@@ -326,12 +345,12 @@
       "path": "k4os.hash.xxhash/1.0.6",
       "hashPath": "k4os.hash.xxhash.1.0.6.nupkg.sha512"
     },
-    "Microsoft.NETCore.Platforms/3.1.0": {
+    "Microsoft.NETCore.Platforms/3.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w==",
-      "path": "microsoft.netcore.platforms/3.1.0",
-      "hashPath": "microsoft.netcore.platforms.3.1.0.nupkg.sha512"
+      "sha512": "sha512-RmINcaqiEkawM9C8oxFMN/CZmn1fGKWVsosbSY/8ARUNdHqV47hqhPVbrG3qUqLaRQI5w4HuqFOqrbhoSWcH6w==",
+      "path": "microsoft.netcore.platforms/3.1.1",
+      "hashPath": "microsoft.netcore.platforms.3.1.1.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/4.7.0": {
       "type": "package",
@@ -438,12 +457,12 @@
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
     },
-    "System.Text.Encoding.CodePages/4.4.0": {
+    "System.Text.Encoding.CodePages/4.7.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6JX7ZdaceBiLKLkYt8zJcp4xTJd1uYyXXEkPw6mnlUIjh1gZPIVKPtRXPmY5kLf6DwZmf5YLwR3QUrRonl7l0A==",
-      "path": "system.text.encoding.codepages/4.4.0",
-      "hashPath": "system.text.encoding.codepages.4.4.0.nupkg.sha512"
+      "sha512": "sha512-i2fOvznVVgOOTLUz8FgSap/MsR98I4Iaoz99VXcOW/e7Y2OdY42zhYpBYpZyivk5alYY/UsOWAVswhtjxceodA==",
+      "path": "system.text.encoding.codepages/4.7.1",
+      "hashPath": "system.text.encoding.codepages.4.7.1.nupkg.sha512"
     },
     "System.Windows.Extensions/4.7.0": {
       "type": "package",
