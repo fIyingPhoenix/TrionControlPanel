@@ -40,11 +40,11 @@ namespace TrionControlPanel.TabsComponents
             System.Windows.Forms.Label lblServer;
             System.Windows.Forms.Label lblMysqlLocation;
             System.Windows.Forms.Label lblCoreLocation;
-            this.txtAuthDatabase = new TrionControlPanel.UI.CustomTextBox();
-            this.txtMySqlPort = new TrionControlPanel.UI.CustomTextBox();
-            this.txtMySqlPassowrd = new TrionControlPanel.UI.CustomTextBox();
-            this.txtMySqlUser = new TrionControlPanel.UI.CustomTextBox();
-            this.txtMySqlServer = new TrionControlPanel.UI.CustomTextBox();
+            this.txtAuthDatabase = new MetroFramework.Controls.MetroTextBox();
+            this.txtMySqlPort = new MetroFramework.Controls.MetroTextBox();
+            this.txtMySqlPassowrd = new MetroFramework.Controls.MetroTextBox();
+            this.txtMySqlUser = new MetroFramework.Controls.MetroTextBox();
+            this.txtMySqlServer = new MetroFramework.Controls.MetroTextBox();
             this.lblMySqlServerSettings = new System.Windows.Forms.Label();
             this.tglStayInTray = new TrionControlPanel.UI.CustomToggleButton();
             this.lblRestartServerOnCrash = new System.Windows.Forms.Label();
@@ -63,10 +63,10 @@ namespace TrionControlPanel.TabsComponents
             this.btnSave = new TrionControlPanel.UI.CustomButton();
             this.lblCustomNames = new System.Windows.Forms.Label();
             this.tglCustomNames = new TrionControlPanel.UI.CustomToggleButton();
-            this.txtMysqlName = new TrionControlPanel.UI.CustomTextBox();
+            this.txtMysqlName = new MetroFramework.Controls.MetroTextBox();
             this.lblNames = new System.Windows.Forms.Label();
-            this.txtWorldName = new TrionControlPanel.UI.CustomTextBox();
-            this.txtBnetName = new TrionControlPanel.UI.CustomTextBox();
+            this.txtWorldName = new MetroFramework.Controls.MetroTextBox();
+            this.txtBnetName = new MetroFramework.Controls.MetroTextBox();
             this.TimerUpdate = new System.Windows.Forms.Timer(this.components);
             this.btnTestMySQL = new TrionControlPanel.UI.CustomButton();
             this.panelNames = new TrionControlPanel.UI.CustomPanel();
@@ -75,13 +75,13 @@ namespace TrionControlPanel.TabsComponents
             this.PanelMySelSettings = new TrionControlPanel.UI.CustomPanel();
             this.btCoreLocationSearch = new TrionControlPanel.UI.CustomButton();
             this.lblPCresource = new System.Windows.Forms.Label();
-            this.txtWorldLocation = new TrionControlPanel.UI.CustomTextBox();
+            this.txtWorldLocation = new MetroFramework.Controls.MetroTextBox();
             this.bntOpenLocation = new TrionControlPanel.UI.CustomButton();
             this.bntOpenMySqlLocation = new TrionControlPanel.UI.CustomButton();
             this.comboBoxCore = new MetroFramework.Controls.MetroComboBox();
             this.PanelServerLocation = new TrionControlPanel.UI.CustomPanel();
-            this.txtCoreLocation = new TrionControlPanel.UI.CustomTextBox();
-            this.txtMysqlLocation = new TrionControlPanel.UI.CustomTextBox();
+            this.txtCoreLocation = new MetroFramework.Controls.MetroTextBox();
+            this.txtMysqlLocation = new MetroFramework.Controls.MetroTextBox();
             this.btnMySQLLocationSearch = new TrionControlPanel.UI.CustomButton();
             this.lblServerLocation = new System.Windows.Forms.Label();
             this.btnCoreLocation = new TrionControlPanel.UI.CustomButton();
@@ -211,108 +211,103 @@ namespace TrionControlPanel.TabsComponents
             // txtAuthDatabase
             // 
             this.txtAuthDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtAuthDatabase.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtAuthDatabase.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtAuthDatabase.BorderSize = 1;
             this.txtAuthDatabase.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtAuthDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtAuthDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtAuthDatabase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtAuthDatabase.Location = new System.Drawing.Point(237, 441);
             this.txtAuthDatabase.Margin = new System.Windows.Forms.Padding(0);
             this.txtAuthDatabase.Multiline = true;
             this.txtAuthDatabase.Name = "txtAuthDatabase";
             this.txtAuthDatabase.Padding = new System.Windows.Forms.Padding(1);
-            this.txtAuthDatabase.PasswordChar = false;
-            this.txtAuthDatabase.ReadOnly = false;
+            this.txtAuthDatabase.SelectedText = "";
             this.txtAuthDatabase.Size = new System.Drawing.Size(206, 23);
+            this.txtAuthDatabase.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAuthDatabase.StyleManager = null;
             this.txtAuthDatabase.TabIndex = 40;
-            this.txtAuthDatabase.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtAuthDatabase.Texts = "";
-            this.txtAuthDatabase.UnderlinedStyle = false;
+            this.txtAuthDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtAuthDatabase.UseStyleColors = true;
             // 
             // txtMySqlPort
             // 
             this.txtMySqlPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlPort.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMySqlPort.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMySqlPort.BorderSize = 1;
             this.txtMySqlPort.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMySqlPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMySqlPort.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlPort.Location = new System.Drawing.Point(237, 402);
             this.txtMySqlPort.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlPort.Multiline = true;
             this.txtMySqlPort.Name = "txtMySqlPort";
             this.txtMySqlPort.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMySqlPort.PasswordChar = false;
-            this.txtMySqlPort.ReadOnly = false;
+            this.txtMySqlPort.SelectedText = "";
             this.txtMySqlPort.Size = new System.Drawing.Size(206, 23);
+            this.txtMySqlPort.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMySqlPort.StyleManager = null;
             this.txtMySqlPort.TabIndex = 31;
-            this.txtMySqlPort.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMySqlPort.Texts = "";
-            this.txtMySqlPort.UnderlinedStyle = false;
+            this.txtMySqlPort.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMySqlPort.UseStyleColors = true;
             this.txtMySqlPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowJustNumbers);
             // 
             // txtMySqlPassowrd
             // 
             this.txtMySqlPassowrd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlPassowrd.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMySqlPassowrd.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMySqlPassowrd.BorderSize = 1;
             this.txtMySqlPassowrd.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlPassowrd.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMySqlPassowrd.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMySqlPassowrd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlPassowrd.Location = new System.Drawing.Point(237, 364);
             this.txtMySqlPassowrd.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlPassowrd.Multiline = true;
             this.txtMySqlPassowrd.Name = "txtMySqlPassowrd";
             this.txtMySqlPassowrd.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMySqlPassowrd.PasswordChar = false;
-            this.txtMySqlPassowrd.ReadOnly = false;
+            this.txtMySqlPassowrd.SelectedText = "";
             this.txtMySqlPassowrd.Size = new System.Drawing.Size(206, 23);
+            this.txtMySqlPassowrd.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMySqlPassowrd.StyleManager = null;
             this.txtMySqlPassowrd.TabIndex = 30;
-            this.txtMySqlPassowrd.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMySqlPassowrd.Texts = "";
-            this.txtMySqlPassowrd.UnderlinedStyle = false;
+            this.txtMySqlPassowrd.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMySqlPassowrd.UseStyleColors = true;
             // 
             // txtMySqlUser
             // 
             this.txtMySqlUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlUser.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMySqlUser.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMySqlUser.BorderSize = 1;
             this.txtMySqlUser.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMySqlUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMySqlUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlUser.Location = new System.Drawing.Point(237, 326);
             this.txtMySqlUser.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlUser.Multiline = true;
             this.txtMySqlUser.Name = "txtMySqlUser";
             this.txtMySqlUser.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMySqlUser.PasswordChar = false;
-            this.txtMySqlUser.ReadOnly = false;
+            this.txtMySqlUser.SelectedText = "";
             this.txtMySqlUser.Size = new System.Drawing.Size(206, 23);
+            this.txtMySqlUser.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMySqlUser.StyleManager = null;
             this.txtMySqlUser.TabIndex = 22;
-            this.txtMySqlUser.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMySqlUser.Texts = "";
-            this.txtMySqlUser.UnderlinedStyle = false;
+            this.txtMySqlUser.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMySqlUser.UseStyleColors = true;
             // 
             // txtMySqlServer
             // 
             this.txtMySqlServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMySqlServer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMySqlServer.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMySqlServer.BorderSize = 1;
             this.txtMySqlServer.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMySqlServer.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMySqlServer.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMySqlServer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMySqlServer.Location = new System.Drawing.Point(237, 284);
             this.txtMySqlServer.Margin = new System.Windows.Forms.Padding(0);
             this.txtMySqlServer.Multiline = true;
             this.txtMySqlServer.Name = "txtMySqlServer";
             this.txtMySqlServer.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMySqlServer.PasswordChar = false;
-            this.txtMySqlServer.ReadOnly = false;
+            this.txtMySqlServer.SelectedText = "";
             this.txtMySqlServer.Size = new System.Drawing.Size(206, 23);
+            this.txtMySqlServer.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMySqlServer.StyleManager = null;
             this.txtMySqlServer.TabIndex = 21;
-            this.txtMySqlServer.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMySqlServer.Texts = "";
-            this.txtMySqlServer.UnderlinedStyle = false;
+            this.txtMySqlServer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMySqlServer.UseStyleColors = true;
             // 
             // lblMySqlServerSettings
             // 
@@ -573,23 +568,22 @@ namespace TrionControlPanel.TabsComponents
             // txtMysqlName
             // 
             this.txtMysqlName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMysqlName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMysqlName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMysqlName.BorderSize = 1;
             this.txtMysqlName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMysqlName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMysqlName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMysqlName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMysqlName.Location = new System.Drawing.Point(29, 363);
             this.txtMysqlName.Margin = new System.Windows.Forms.Padding(0);
             this.txtMysqlName.Multiline = true;
             this.txtMysqlName.Name = "txtMysqlName";
             this.txtMysqlName.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMysqlName.PasswordChar = false;
-            this.txtMysqlName.ReadOnly = true;
+            this.txtMysqlName.SelectedText = "";
             this.txtMysqlName.Size = new System.Drawing.Size(165, 23);
+            this.txtMysqlName.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMysqlName.StyleManager = null;
             this.txtMysqlName.TabIndex = 37;
-            this.txtMysqlName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMysqlName.Texts = "";
-            this.txtMysqlName.UnderlinedStyle = false;
+            this.txtMysqlName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMysqlName.UseStyleColors = true;
             // 
             // lblNames
             // 
@@ -606,44 +600,42 @@ namespace TrionControlPanel.TabsComponents
             // txtWorldName
             // 
             this.txtWorldName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtWorldName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtWorldName.BorderSize = 1;
             this.txtWorldName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtWorldName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtWorldName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtWorldName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtWorldName.Location = new System.Drawing.Point(29, 283);
             this.txtWorldName.Margin = new System.Windows.Forms.Padding(0);
             this.txtWorldName.Multiline = true;
             this.txtWorldName.Name = "txtWorldName";
             this.txtWorldName.Padding = new System.Windows.Forms.Padding(1);
-            this.txtWorldName.PasswordChar = false;
-            this.txtWorldName.ReadOnly = true;
+            this.txtWorldName.SelectedText = "";
             this.txtWorldName.Size = new System.Drawing.Size(165, 23);
+            this.txtWorldName.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtWorldName.StyleManager = null;
             this.txtWorldName.TabIndex = 31;
-            this.txtWorldName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWorldName.Texts = "";
-            this.txtWorldName.UnderlinedStyle = false;
+            this.txtWorldName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtWorldName.UseStyleColors = true;
             // 
             // txtBnetName
             // 
             this.txtBnetName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtBnetName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtBnetName.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtBnetName.BorderSize = 1;
             this.txtBnetName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtBnetName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtBnetName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtBnetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtBnetName.Location = new System.Drawing.Point(29, 325);
             this.txtBnetName.Margin = new System.Windows.Forms.Padding(0);
             this.txtBnetName.Multiline = true;
             this.txtBnetName.Name = "txtBnetName";
             this.txtBnetName.Padding = new System.Windows.Forms.Padding(1);
-            this.txtBnetName.PasswordChar = false;
-            this.txtBnetName.ReadOnly = true;
+            this.txtBnetName.SelectedText = "";
             this.txtBnetName.Size = new System.Drawing.Size(165, 23);
+            this.txtBnetName.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtBnetName.StyleManager = null;
             this.txtBnetName.TabIndex = 32;
-            this.txtBnetName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtBnetName.Texts = "";
-            this.txtBnetName.UnderlinedStyle = false;
+            this.txtBnetName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtBnetName.UseStyleColors = true;
             // 
             // TimerUpdate
             // 
@@ -767,23 +759,22 @@ namespace TrionControlPanel.TabsComponents
             // txtWorldLocation
             // 
             this.txtWorldLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtWorldLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(155)))), ((int)(((byte)(245)))));
-            this.txtWorldLocation.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtWorldLocation.BorderSize = 1;
             this.txtWorldLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtWorldLocation.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtWorldLocation.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtWorldLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtWorldLocation.Location = new System.Drawing.Point(17, 39);
             this.txtWorldLocation.Margin = new System.Windows.Forms.Padding(0);
             this.txtWorldLocation.Multiline = true;
             this.txtWorldLocation.Name = "txtWorldLocation";
             this.txtWorldLocation.Padding = new System.Windows.Forms.Padding(1);
-            this.txtWorldLocation.PasswordChar = false;
-            this.txtWorldLocation.ReadOnly = true;
+            this.txtWorldLocation.SelectedText = "";
             this.txtWorldLocation.Size = new System.Drawing.Size(545, 23);
+            this.txtWorldLocation.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtWorldLocation.StyleManager = null;
             this.txtWorldLocation.TabIndex = 21;
-            this.txtWorldLocation.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWorldLocation.Texts = "";
-            this.txtWorldLocation.UnderlinedStyle = false;
+            this.txtWorldLocation.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtWorldLocation.UseStyleColors = false;
             // 
             // bntOpenLocation
             // 
@@ -867,44 +858,42 @@ namespace TrionControlPanel.TabsComponents
             // txtCoreLocation
             // 
             this.txtCoreLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtCoreLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtCoreLocation.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtCoreLocation.BorderSize = 1;
             this.txtCoreLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtCoreLocation.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtCoreLocation.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtCoreLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtCoreLocation.Location = new System.Drawing.Point(29, 71);
             this.txtCoreLocation.Margin = new System.Windows.Forms.Padding(0);
             this.txtCoreLocation.Multiline = true;
             this.txtCoreLocation.Name = "txtCoreLocation";
             this.txtCoreLocation.Padding = new System.Windows.Forms.Padding(1);
-            this.txtCoreLocation.PasswordChar = false;
-            this.txtCoreLocation.ReadOnly = false;
+            this.txtCoreLocation.SelectedText = "";
             this.txtCoreLocation.Size = new System.Drawing.Size(532, 23);
+            this.txtCoreLocation.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtCoreLocation.StyleManager = null;
             this.txtCoreLocation.TabIndex = 62;
-            this.txtCoreLocation.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCoreLocation.Texts = "";
-            this.txtCoreLocation.UnderlinedStyle = false;
+            this.txtCoreLocation.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtCoreLocation.UseStyleColors = true;
             // 
             // txtMysqlLocation
             // 
             this.txtMysqlLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txtMysqlLocation.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.txtMysqlLocation.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(99)))), ((int)(((byte)(173)))));
-            this.txtMysqlLocation.BorderSize = 1;
             this.txtMysqlLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.txtMysqlLocation.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            this.txtMysqlLocation.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             this.txtMysqlLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.txtMysqlLocation.Location = new System.Drawing.Point(29, 123);
             this.txtMysqlLocation.Margin = new System.Windows.Forms.Padding(0);
             this.txtMysqlLocation.Multiline = true;
             this.txtMysqlLocation.Name = "txtMysqlLocation";
             this.txtMysqlLocation.Padding = new System.Windows.Forms.Padding(1);
-            this.txtMysqlLocation.PasswordChar = false;
-            this.txtMysqlLocation.ReadOnly = false;
+            this.txtMysqlLocation.SelectedText = "";
             this.txtMysqlLocation.Size = new System.Drawing.Size(533, 23);
+            this.txtMysqlLocation.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtMysqlLocation.StyleManager = null;
             this.txtMysqlLocation.TabIndex = 63;
-            this.txtMysqlLocation.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMysqlLocation.Texts = "";
-            this.txtMysqlLocation.UnderlinedStyle = false;
+            this.txtMysqlLocation.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtMysqlLocation.UseStyleColors = true;
             // 
             // btnMySQLLocationSearch
             // 
@@ -1053,9 +1042,9 @@ namespace TrionControlPanel.TabsComponents
         private Label lblHideControls;
         private CustomToggleButton tglHideConsole;
         private Label lblNames;
-        private CustomTextBox txtMysqlName;
-        private CustomTextBox txtBnetName;
-        private CustomTextBox txtWorldName;
+        private MetroFramework.Controls.MetroTextBox txtMysqlName;
+        private MetroFramework.Controls.MetroTextBox txtBnetName;
+        private MetroFramework.Controls.MetroTextBox txtWorldName;
         private Label lblCores;
         private Label lblCustomNames;
         private CustomToggleButton tglCustomNames;
@@ -1073,22 +1062,22 @@ namespace TrionControlPanel.TabsComponents
         private CustomPanel PanelMySelSettings;
         private CustomButton btCoreLocationSearch;
         private Label lblPCresource;
-        private CustomTextBox txtWorldLocation;
+        private MetroFramework.Controls.MetroTextBox txtWorldLocation;
         private CustomButton bntOpenLocation;
         private CustomButton bntOpenMySqlLocation;
         private MetroFramework.Controls.MetroComboBox comboBoxCore;
         private CustomPanel PanelServerLocation;
-        internal CustomTextBox txtCoreLocation;
-        internal CustomTextBox txtMysqlLocation;
+        internal MetroFramework.Controls.MetroTextBox txtCoreLocation;
+        internal MetroFramework.Controls.MetroTextBox txtMysqlLocation;
         private CustomButton btnMySQLLocationSearch;
         private Label lblServerLocation;
         private CustomButton btnCoreLocation;
         private CustomButton btnMysqlOpenLocation;
-        public CustomTextBox txtAuthDatabase;
-        public CustomTextBox txtMySqlPort;
-        public CustomTextBox txtMySqlPassowrd;
-        public CustomTextBox txtMySqlUser;
-        public CustomTextBox txtMySqlServer;
+        public MetroFramework.Controls.MetroTextBox txtAuthDatabase;
+        public MetroFramework.Controls.MetroTextBox txtMySqlPort;
+        public MetroFramework.Controls.MetroTextBox txtMySqlPassowrd;
+        public MetroFramework.Controls.MetroTextBox txtMySqlUser;
+        public MetroFramework.Controls.MetroTextBox txtMySqlServer;
 
     }
 }

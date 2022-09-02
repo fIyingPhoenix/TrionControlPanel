@@ -19,6 +19,9 @@
     <Compile Update="TabsComponents\TerminalControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="UI\CustomPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

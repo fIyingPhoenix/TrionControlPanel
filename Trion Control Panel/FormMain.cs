@@ -13,7 +13,7 @@ namespace TrionControlPanel
         readonly SettingControl settingControl = new();
         readonly LoadingControl loadingControl = new();
         readonly TerminalControl terminalControl = new();
-        readonly SystemStatus _statusClass = new();
+        readonly Status _statusClass = new();
         //
         int CrashCountWorld = 0;
         int CrashCountBnet = 0;

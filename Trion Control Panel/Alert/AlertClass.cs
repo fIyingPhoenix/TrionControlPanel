@@ -8,7 +8,7 @@
     }
     public enum NotificationType
     {
-        empty,
+        Empty,
         Success,
         Warning,
         Error,

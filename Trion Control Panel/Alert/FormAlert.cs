@@ -10,7 +10,7 @@ namespace TrionControlPanel.Alerts
     {
         Settings.Settings Settings = new();
         string alertMessage;
-         NotificationType alertType = NotificationType.empty;
+         NotificationType alertType = NotificationType.Empty;
          
         [Category("Trion Properties")]
         public string AlerMessage
@@ -90,7 +90,7 @@ namespace TrionControlPanel.Alerts
             timerCheck.Start();
             Show();
         }
-        private void timerCheck_Tick(object sender, EventArgs e)
+        private void TimerCheck_Tick(object sender, EventArgs e)
         {
             switch (notificationAction)
             {
@@ -130,17 +130,17 @@ namespace TrionControlPanel.Alerts
             TrionAlert.Alert(message, eType);
         }
 
-        private void btnClose_MouseEnter(object sender, EventArgs e)
+        private void BtnClose_MouseEnter(object sender, EventArgs e)
         {
             btnClose.Image = Resources.rightArrowBluex50;
         }
 
-        private void btnClose_MouseLeave(object sender, EventArgs e)
+        private void BtnClose_MouseLeave(object sender, EventArgs e)
         {
             btnClose.Image = Resources.rightArrowWhitex50;
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             timerCheck.Stop();
             notificationAction = NotificationAction.close;

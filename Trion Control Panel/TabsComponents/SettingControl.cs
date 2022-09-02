@@ -10,21 +10,18 @@ namespace TrionControlPanel.TabsComponents
     public partial class SettingControl : UserControl
     {
         Settings.Settings Settings = new();
-        string ErrorMessage;
-        NotifyIcon NotifyIcon;
-
         public void LoadSettings()
         {
-            txtAuthDatabase.Texts = Settings._Data.AuthDatabase;
-            txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
-            txtMySqlServer.Texts = Settings._Data.MySQLServerHost;
-            txtMySqlUser.Texts = Settings._Data.MySQLServerUser;
-            txtMySqlPassowrd.Texts = Settings._Data.MySQLServerPassword;
-            txtMySqlPort.Texts = Settings._Data.MySQLServerPort;
-            txtMysqlName.Texts = Settings._Data.MySQLExecutableName;
-            txtCoreLocation.Texts = Settings._Data.CoreLocation;
-            txtWorldName.Texts = Settings._Data.WorldExecutableName;
-            txtBnetName.Texts = Settings._Data.BnetExecutableName;
+            txtAuthDatabase.Text = Settings._Data.AuthDatabase;
+            txtMysqlLocation.Text = Settings._Data.MySQLLocation;
+            txtMySqlServer.Text = Settings._Data.MySQLServerHost;
+            txtMySqlUser.Text = Settings._Data.MySQLServerUser;
+            txtMySqlPassowrd.Text = Settings._Data.MySQLServerPassword;
+            txtMySqlPort.Text = Settings._Data.MySQLServerPort;
+            txtMysqlName.Text = Settings._Data.MySQLExecutableName;
+            txtCoreLocation.Text = Settings._Data.CoreLocation;
+            txtWorldName.Text = Settings._Data.WorldExecutableName;
+            txtBnetName.Text = Settings._Data.BnetExecutableName;
             tglNotySound.Checked = Settings._Data.NotificationSound;
             tglHideConsole.Checked = Settings._Data.ConsolHide;
             tglStayInTray.Checked = Settings._Data.StayInTray;
@@ -35,16 +32,16 @@ namespace TrionControlPanel.TabsComponents
         }
         private void SaveSettings()
         {
-            Settings._Data.AuthDatabase = txtAuthDatabase.Texts;
-            Settings._Data.MySQLLocation = txtMysqlLocation.Texts;
-            Settings._Data.MySQLServerHost = txtMySqlServer.Texts;
-            Settings._Data.MySQLServerUser = txtMySqlUser.Texts;
-            Settings._Data.MySQLServerPassword = txtMySqlPassowrd.Texts;
-            Settings._Data.MySQLServerPort = txtMySqlPort.Texts;
-            Settings._Data.MySQLExecutableName = txtMysqlName.Texts;
-            Settings._Data.CoreLocation = txtCoreLocation.Texts;
-            Settings._Data.WorldExecutableName = txtWorldName.Texts;
-            Settings._Data.BnetExecutableName = txtBnetName.Texts;
+            Settings._Data.AuthDatabase = txtAuthDatabase.Text;
+            Settings._Data.MySQLLocation = txtMysqlLocation.Text;
+            Settings._Data.MySQLServerHost = txtMySqlServer.Text;
+            Settings._Data.MySQLServerUser = txtMySqlUser.Text;
+            Settings._Data.MySQLServerPassword = txtMySqlPassowrd.Text;
+            Settings._Data.MySQLServerPort = txtMySqlPort.Text;
+            Settings._Data.MySQLExecutableName = txtMysqlName.Text;
+            Settings._Data.CoreLocation = txtCoreLocation.Text;
+            Settings._Data.WorldExecutableName = txtWorldName.Text;
+            Settings._Data.BnetExecutableName = txtBnetName.Text;
             Settings._Data.NotificationSound = tglNotySound.Checked;
             Settings._Data.ConsolHide = tglHideConsole.Checked;
             Settings._Data.StayInTray = tglStayInTray.Checked;
@@ -66,7 +63,7 @@ namespace TrionControlPanel.TabsComponents
                         string exeFolderPath = Path.GetDirectoryName(f)!;
                         Settings._Data.MySQLLocation = Path.GetFullPath(Path.Combine(exeFolderPath, @"..\"));
                         Settings._Data.MySQLExecutablePath = f;
-                        txtMysqlLocation.Texts = Settings._Data.MySQLLocation;
+                        txtMysqlLocation.Text = Settings._Data.MySQLLocation;
                     }
                 }
             }
@@ -87,7 +84,7 @@ namespace TrionControlPanel.TabsComponents
                     foreach (string f in Directory.GetFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
                         Settings._Data.CoreLocation = Path.GetDirectoryName(f)!;
-                        txtCoreLocation.Texts = Settings._Data.CoreLocation;
+                        txtCoreLocation.Text = Settings._Data.CoreLocation;
                     }
                     foreach (string f in Directory.EnumerateFiles(fbd.SelectedPath, worndName, SearchOption.AllDirectories))
                     {
@@ -164,22 +161,17 @@ namespace TrionControlPanel.TabsComponents
         }
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            if(Settings._Data.SettingsUpdate == true)
-            {
-                LoadSettings();
-                Settings._Data.SettingsUpdate = false;
-            }
             if (tglCustomNames.Checked == true)
             {
-                txtWorldName.ReadOnly = false;
-                txtBnetName.ReadOnly = false;
-                txtMysqlName.ReadOnly = false;
+                txtWorldName.Enabled = true;
+                txtBnetName.Enabled = true;
+                txtMysqlName.Enabled = true;
             }
             else
             {
-                txtWorldName.ReadOnly = true;
-                txtBnetName.ReadOnly = true;
-                txtMysqlName.ReadOnly = true;
+                txtWorldName.Enabled = false;
+                txtBnetName.Enabled = false;
+                txtMysqlName.Enabled = false;
             }
         }
         private void ComboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -316,7 +308,7 @@ namespace TrionControlPanel.TabsComponents
             {
                 if(fbd.ShowDialog() == DialogResult.OK)
                 {
-                    txtMysqlLocation.Texts = fbd.SelectedPath;
+                    txtMysqlLocation.Text = fbd.SelectedPath;
                     Settings._Data.MySQLLocation = fbd.SelectedPath;
                 }
             }

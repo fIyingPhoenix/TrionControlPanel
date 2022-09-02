@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace TrionControlPanel.UI
 {
-    public class CustomPanel : UserControl
+    public class CustomPanel : Panel
     {
         //Fields
         int _edge = 20;

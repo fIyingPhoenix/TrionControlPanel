@@ -67,14 +67,14 @@
             this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnClose.TabIndex = 3;
             this.btnClose.TabStop = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            this.btnClose.MouseEnter += new System.EventHandler(this.btnClose_MouseEnter);
-            this.btnClose.MouseLeave += new System.EventHandler(this.btnClose_MouseLeave);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            this.btnClose.MouseEnter += new System.EventHandler(this.BtnClose_MouseEnter);
+            this.btnClose.MouseLeave += new System.EventHandler(this.BtnClose_MouseLeave);
             // 
             // timerCheck
             // 
             this.timerCheck.Interval = 10;
-            this.timerCheck.Tick += new System.EventHandler(this.timerCheck_Tick);
+            this.timerCheck.Tick += new System.EventHandler(this.TimerCheck_Tick);
             // 
             // lblTitle
             // 

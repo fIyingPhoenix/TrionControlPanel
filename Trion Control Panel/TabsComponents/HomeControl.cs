@@ -9,10 +9,13 @@ namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
+
         readonly Settings.Settings  Settings = new();
-        readonly SystemStatus _statusClass = new();
-        readonly SettingControl _settingControl = new();
+        readonly Status _statusClass = new();
         readonly WebClient webClient = new();
+
+        string ErrorMessage = string.Empty;
+        NotificationType NotiType = NotificationType.Empty;
 
         readonly string _compressedFileName = "MySQL.zip";    //the name of the file being extracted
         string DownloadLocation = "";
@@ -48,8 +51,10 @@ namespace TrionControlPanel.TabsComponents
                     worldCpuUsageProgressBar.Value = _statusClass.WorldCpuUsage() / 10;
                     worldRamUsageProgressBar.Value = _statusClass.WorldRamUsage();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    ErrorMessage = ex.Message;
+                    NotiType = NotificationType.Error;
                 }
             });
             WorldResourcesUsageThread.Start();
@@ -66,11 +71,14 @@ namespace TrionControlPanel.TabsComponents
                     totalCpuUsageProgressBar.Value = _statusClass.TotalCpuUsage();
                     totalRamUsageProgressBar.Value = _statusClass.TotalPCRam() - _statusClass.CurentPcRamUsage();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    ErrorMessage = ex.Message;
+                    NotiType = NotificationType.Error;
                 }
             });
             PCResorceUsageThread.Start();
+
             if (_statusClass.WorldStatus() == true)
             {
                 worldServerLight.BackColor = Color.Green;
@@ -81,7 +89,8 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningWorld == true)
                 {
                     _isRuningWorld = false;
-                    FormAlert.ShowAlert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
+                    ErrorMessage = "World server crashed or shutdown unexpectedly.";
+                    NotiType = NotificationType.Error;
                 }
                 worldServerLight.BackColor = Color.Red;
                 WorldResourceTimer.Stop();
@@ -96,7 +105,8 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningBnet == true)
                 {
                     _isRuningBnet = false;
-                    FormAlert.ShowAlert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);    
+                    ErrorMessage = "Bnet server crashed or shutdown unexpectedly.";
+                    NotiType = NotificationType.Error;   
                 }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();
@@ -153,7 +163,8 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BtnStartMysql_Click(object sender, EventArgs e)
         {
-            _statusClass.StartMysql();
+            ErrorMessage = _statusClass.StartMysql();
+            NotiType = NotificationType.Info;
             _isRuningMysql = true;
         }
         private void BntStopMysql_Click(object sender, EventArgs e)
@@ -212,8 +223,7 @@ namespace TrionControlPanel.TabsComponents
                         DownloadThread.Start();
                     }
                     else
-                    {
-                        
+                    { 
                         bWorkerDownloadComplate.CancelAsync();
                         btnDownloadMysql.Click += BntDownloadMysql_Click;
                     }
@@ -231,7 +241,8 @@ namespace TrionControlPanel.TabsComponents
                     }
                     else
                     {
-                        FormAlert.ShowAlert("Invalid Path!", NotificationType.Error);
+                        ErrorMessage = "Invalid Path!";
+                        NotiType = NotificationType.Error;
                         bWorkerDownloadComplate.CancelAsync();
                         btnDownloadMysql.Click += BntDownloadMysql_Click;
                     }
@@ -275,6 +286,16 @@ namespace TrionControlPanel.TabsComponents
             {
                 Settings._Data.MySQLExecutablePath = f;
                 Settings._Data.SettingsUpdate = true;
+            }
+        }
+
+        private void TimerUpdate_Tick(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(ErrorMessage) && NotiType != NotificationType.Empty)
+            {
+                FormAlert.ShowAlert(ErrorMessage, NotiType);
+                ErrorMessage = string.Empty;
+                NotiType = NotificationType.Empty;
             }
         }
     }

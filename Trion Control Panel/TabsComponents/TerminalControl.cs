@@ -17,28 +17,14 @@ namespace TrionControlPanel.TabsComponents
         private void LoadServerInfos()
         {
             RealmSettings();
-            txtRealmName.Texts = RealmListBuild.RealmName!;
-            txtRealmAddress.Texts = RealmListBuild.RealmAddress!;
-            txtRealmLocalAddress.Texts = RealmListBuild.RealmLocalAddress!;
-            txtRealmSubMask.Texts = RealmListBuild.RealmSubMask!;
-            txtRealmPort.Texts = RealmListBuild.RealmPort!;
-            txtRealmTimeZone.Texts = RealmListBuild.RealmTimeZone!;
-            txtRealmGameBuild.Texts = RealmListBuild.GameBuild!;
-            txtRealmRegion.Texts = RealmListBuild.GameRegion!;
-        }
-        private void TimerCheck_Tick(object sender, EventArgs e)
-        {
-
-            if (tglShowPassword.Checked == false)
-            {
-                txtPassword.PasswordChar = false;
-                txtRePassword.PasswordChar = false;
-            }
-            else if (tglShowPassword.Checked == true)
-            {
-                txtPassword.PasswordChar = true;
-                txtRePassword.PasswordChar = true;
-            }
+            txtRealmName.Text = RealmListBuild.RealmName!;
+            txtRealmAddress.Text = RealmListBuild.RealmAddress!;
+            txtRealmLocalAddress.Text = RealmListBuild.RealmLocalAddress!;
+            txtRealmSubMask.Text = RealmListBuild.RealmSubMask!;
+            txtRealmPort.Text = RealmListBuild.RealmPort!;
+            txtRealmTimeZone.Text = RealmListBuild.RealmTimeZone!;
+            txtRealmGameBuild.Text = RealmListBuild.GameBuild!;
+            txtRealmRegion.Text = RealmListBuild.GameRegion!;
         }
         private void GetRealmList()
         { 
@@ -158,27 +144,20 @@ namespace TrionControlPanel.TabsComponents
 
         private void BtnSetRealm_Click(object sender, EventArgs e)
         {
-            RealmListBuild.RealmName = txtRealmName.Texts;
-            RealmListBuild.RealmAddress = txtRealmAddress.Texts;
-            RealmListBuild.RealmLocalAddress = txtRealmLocalAddress.Texts;
-            RealmListBuild.RealmSubMask =txtRealmSubMask.Texts;
-            RealmListBuild.RealmPort = txtRealmPort.Texts;
-            RealmListBuild.RealmTimeZone = txtRealmTimeZone.Texts;
-            RealmListBuild.GameBuild = txtRealmGameBuild.Texts;
-            RealmListBuild.GameRegion = txtRealmRegion.Texts;
+            RealmListBuild.RealmName = txtRealmName.Text;
+            RealmListBuild.RealmAddress = txtRealmAddress.Text;
+            RealmListBuild.RealmLocalAddress = txtRealmLocalAddress.Text;
+            RealmListBuild.RealmSubMask =txtRealmSubMask.Text;
+            RealmListBuild.RealmPort = txtRealmPort.Text;
+            RealmListBuild.RealmTimeZone = txtRealmTimeZone.Text;
+            RealmListBuild.GameBuild = txtRealmGameBuild.Text;
+            RealmListBuild.GameRegion = txtRealmRegion.Text;
             RealmListMenager.SaveRealmList();
         }
 
         private void TerminalControl_Load(object sender, EventArgs e)
         {
             LoadServerInfos();
-            timerRefresh.Start();
-        }
-
-        private void TimerRefresh_Tick(object sender, EventArgs e)
-        {
-            GetRealmList();
-            timerRefresh.Stop();
         }
     }
 }

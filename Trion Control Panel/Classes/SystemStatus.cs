@@ -5,7 +5,7 @@ using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.Classes
 {
-    internal class SystemStatus
+    internal class Status
     {
         Settings.Settings Settings = new();
         int worldRamUsage;
@@ -76,7 +76,7 @@ namespace TrionControlPanel.Classes
 
             double res;
 
-            foreach (ManagementObject result in results)
+            foreach (ManagementObject result in results.Cast<ManagementObject>())
             {
                 res = Convert.ToDouble(result["TotalVisibleMemorySize"]);
                 double fres = Math.Round((res / 1024d));
@@ -84,7 +84,7 @@ namespace TrionControlPanel.Classes
             }
             return totalRam;
         }
-        internal  int TotalCpuUsage()
+        internal int TotalCpuUsage()
         {
             var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total", Environment.MachineName);
             cpuCounter.NextValue();
@@ -99,7 +99,7 @@ namespace TrionControlPanel.Classes
                 ManagementObjectCollection results = cimobject2.GetInstances();
                 double res;
 
-                foreach (ManagementObject result in results)
+                foreach (ManagementObject result in results.Cast<ManagementObject>())
                 {
                     res = Convert.ToDouble(result["AvailableMBytes"]);
                     double fres = Math.Round(res);
@@ -203,7 +203,7 @@ namespace TrionControlPanel.Classes
                 return 0;
             }
         }
-        internal void StartWorld()
+        internal string StartWorld()
         {
             try
             {
@@ -223,15 +223,15 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    FormAlert.ShowAlert("Starting World Server!", NotificationType.Info);
+                   return "Starting World Server!";
                 }
             }
             catch (Exception ex)
             {
-                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
+                return ex.Message;
             }
         }
-        internal void StartBnet()
+        internal string StartBnet()
         {
             try
             {
@@ -251,17 +251,16 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    FormAlert.ShowAlert("Starting Bnet Server!", NotificationType.Info);
+                    return "Starting Bnet Server!";
                 }
             }
             catch (Exception ex)
             {
-                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
+                return ex.Message;
             }
         }
-        internal void StartMysql()
+        internal string StartMysql()
         {
-            
             try
             {
                 using (Process myProcess = new())
@@ -279,12 +278,12 @@ namespace TrionControlPanel.Classes
                         myProcess.StartInfo.CreateNoWindow = true;
                         myProcess.Start();
                     }
-                    FormAlert.ShowAlert("Starting MySQL Server!", NotificationType.Info);
+                    return "Starting MySQL Server!";
                 }
             }
             catch (Exception ex)
             {
-                FormAlert.ShowAlert(ex.Message, NotificationType.Error);
+                return ex.Message;
             }
         }
     }
