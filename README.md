@@ -49,7 +49,7 @@
   <h3 align="center">Trion Control Pane</h3>
 
   <p align="center">
-    An awesome Contro Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu...
+    An awesome Control Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu...
     <br />
     <a href="https://github.com/fIyingPhoenix/TrionControlPanel/"><strong>Explore the docs »</strong></a>
     <br />
