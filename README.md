@@ -137,7 +137,7 @@ https://user-images.githubusercontent.com/81469821/175861632-4c8eefe7-a165-4ca5-
 </div>
 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for wishes  (and known issues).
+See the [open issues](https://github.com/fIyingPhoenix/TrionControlPanel/issues) for wishes  (and known issues).
 
 <div id="Setup"></div>
 
