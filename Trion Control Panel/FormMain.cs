@@ -9,11 +9,12 @@ namespace TrionControlPanel
     public partial class FormMain : MetroForm
     {
         readonly Settings.Settings Settings = new();
-        readonly HomeControl  homeControl = new();
+        readonly HomeControl homeControl = new();
         readonly SettingControl settingControl = new();
         readonly LoadingControl loadingControl = new();
         readonly TerminalControl terminalControl = new();
         readonly Status _statusClass = new();
+        AlertBox alertBox = new();
         //
         int CrashCountWorld = 0;
         int CrashCountBnet = 0;
@@ -23,15 +24,15 @@ namespace TrionControlPanel
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+
             Settings.LoadSettings();
             //Load Home Controls
             pnlTabs.Controls.Add(loadingControl);
             loadingControl.Dock = DockStyle.Fill;
-
             if (Settings._Data.StartCoreOnRun == true && Settings._Data.MySQLExecutablePath == null)
             {
-                FormAlert.ShowAlert("Select first the MySQL Location",NotificationType.Info);
-            }   
+                alertBox.ShowAlert("Select first the MySQL Location", NotificationType.Info);
+            }
         }
         private void BtnHome_Click(object sender, EventArgs e)
         {
@@ -54,11 +55,6 @@ namespace TrionControlPanel
         }
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            if(Settings._Data.ErrorMessage != "")
-            {
-                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
-                Settings._Data.ErrorMessage = "";
-            }
             if(homeControl.totalRamUsageProgressBar.Value > 0)
             {
                 timerUpdate.Stop();
@@ -131,7 +127,6 @@ namespace TrionControlPanel
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            
             StartCoreWithWindows(); 
         }
 
@@ -139,66 +134,60 @@ namespace TrionControlPanel
         {
             if (Settings._Data.StayInTray == true)
             {
-                this.Hide();
+                Hide();
                 e.Cancel = true;
             }
             else if (Settings._Data.StayInTray == false)
             {
-                if (Settings.SaveSettings() == false)
-                {
-                    FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
-                }
+                Settings.SaveSettings();
                 mainNotify.Dispose();
                 Environment.Exit(0);
             }
         }
         private void MainNotify_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.Show();
+            Show();
         }
         private void TimerCrashCheck_Tick(object sender, EventArgs e)
         {
             //crash save approval trying!
-            if (_statusClass.WorldStatus()== false & homeControl._isRuningWorld == true & CrashCountWorld < 5)
+            if (_statusClass.WorldStatus()== false && homeControl._isRuningWorld == true && CrashCountWorld < 5)
             {
                 CrashCountWorld = +1;
                 _statusClass.StartWorld();
             }
-            else if (_statusClass.WorldStatus() == false & homeControl._isRuningWorld == true & CrashCountWorld > 5 )
+            else if (_statusClass.WorldStatus() == false && homeControl._isRuningWorld == true && CrashCountWorld > 5 )
             {
                 homeControl._isRuningWorld = false;
                 CrashCountWorld = 0;
-
-                FormAlert.ShowAlert("World server could not be started again! Fatal Error!", NotificationType.Info);
+                alertBox.ShowAlert("World server could not be started again! Fatal Error!", NotificationType.Info);
             }
-            if (_statusClass.BnetStatus() == false & homeControl._isRuningBnet == true & CrashCountBnet < 5)
+            if (_statusClass.BnetStatus() == false && homeControl._isRuningBnet == true && CrashCountBnet < 5)
             {
                 CrashCountBnet = +1;
                 _statusClass.StartBnet();
             }
-            else if (_statusClass.BnetStatus() == false & homeControl._isRuningBnet == true & CrashCountBnet > 5)
+            else if (_statusClass.BnetStatus() == false && homeControl._isRuningBnet == true && CrashCountBnet > 5)
             {
                 homeControl._isRuningBnet = false;
                 CrashCountBnet = 0;
-
-                FormAlert.ShowAlert("Bnet/Auth server could not be started again! Fatal Error!", NotificationType.Info);
+                alertBox.ShowAlert("Bnet/Auth server could not be started again! Fatal Error!", NotificationType.Info);     
             }
-            if (_statusClass.MySQLstatus() ==false & homeControl._isRuningMysql == true & CrashCountMysql < 5)
+            if (_statusClass.MySQLstatus() ==false && homeControl._isRuningMysql == true && CrashCountMysql < 5)
             {
                 CrashCountMysql = +1;
                 _statusClass.StartBnet();
             }
-            else if (_statusClass.MySQLstatus() == false & homeControl._isRuningMysql == true & CrashCountMysql > 5)
+            else if (_statusClass.MySQLstatus() == false && homeControl._isRuningMysql == true && CrashCountMysql > 5)
             {
                 homeControl._isRuningMysql = false;
                 CrashCountMysql= 0;
-
-                FormAlert.ShowAlert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
+                alertBox.ShowAlert("MySQL server could not be started again! Fatal Error!", NotificationType.Info);
             }
         }
         private void ShowTrionItem_Click(object sender, EventArgs e)
         {
-            this.Show();
+            Show();
         }
         private void StartTrionItem_Click(object sender, EventArgs e)
         {
@@ -215,16 +204,8 @@ namespace TrionControlPanel
         }
         private void ExitTrionItem_Click(object sender, EventArgs e)
         {
-            if (Settings.SaveSettings() == false)
-            {
-                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
-                Environment.Exit(0);
-            }
-            else
-            {
-                Environment.Exit(0);
-            }
-           
+            Settings.SaveSettings();
+            Environment.Exit(0);
         }
     }
 }

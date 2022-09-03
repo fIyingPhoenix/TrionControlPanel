@@ -35,6 +35,7 @@ namespace TrionControlPanel.Database
             var nameHash = sha256.ComputeHash(Encoding.UTF8.GetBytes(name));
             return sha256.ComputeHash(Encoding.UTF8.GetBytes(nameHash.ToHexString() + ":" + password)).ToHexString(true);
         }
+
         public string CalculatePasswordHashAscEmu(string name, string password)
         {
             using (SHA1Managed sha1 = new())

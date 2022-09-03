@@ -9,6 +9,7 @@ namespace TrionControlPanel.TabsComponents
     {
         Settings.Settings Settings = new();
         RealmListMenager RealmListMenager = new();
+
         public TerminalControl()
         {
             InitializeComponent();
@@ -29,10 +30,6 @@ namespace TrionControlPanel.TabsComponents
         private void GetRealmList()
         { 
             RealmListMenager.GetRealmList();
-            if (RealmListMenager.GetRealmList() == false )
-            {
-                FormAlert.ShowAlert(RealmListMenager.RealmListMenagerMessage, NotificationType.Error);
-            }
         }
         private void BtnLoadRealm_Click(object sender, EventArgs e)
         {

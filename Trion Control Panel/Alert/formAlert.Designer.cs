@@ -1,6 +1,6 @@
 ﻿namespace TrionControlPanel.Alerts
 {
-    partial class FormAlert
+    partial class AlertBox
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,6 +34,7 @@
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.timerCheck = new System.Windows.Forms.Timer(this.components);
             this.lblTitle = new System.Windows.Forms.Label();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pboxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,13 @@
             this.lblTitle.Text = "INFO!";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FormAlert
+            // timerUpdate
+            // 
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 1000;
+            this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+            // 
+            // AlertBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,7 +109,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Movable = false;
-            this.Name = "FormAlert";
+            this.Name = "AlertBox";
             this.Resizable = false;
             this.Shadow = false;
             this.ShowIcon = false;
@@ -124,5 +131,6 @@
         private PictureBox btnClose;
         private System.Windows.Forms.Timer timerCheck;
         private Label lblTitle;
+        private System.Windows.Forms.Timer timerUpdate;
     }
 }

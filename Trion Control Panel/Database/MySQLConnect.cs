@@ -7,7 +7,7 @@ namespace TrionControlPanel.Database
 {
     internal class MySQLConnect
     {
-
+        AlertBox alertBox = new();
         public static string ConnectionString(string host, string port, string user, string password, string database)
         {
            return new($"Server={host};Port={port};User Id={user};Password={password};Database={database}");
@@ -22,38 +22,51 @@ namespace TrionControlPanel.Database
         }
         internal void Open()
         {
-            
-            if (Connection.State == ConnectionState.Closed)
-            {
-                Connection.Open();
-            }
-        }
-        public void Close()
-        {
-            if (Connection.State == ConnectionState.Open)
-            {
-                Connection.Close();
-            }
-        }
-        internal bool MySqlConnectCheck()
-        {
             try
             {
                 if (Connection.State == ConnectionState.Closed)
                 {
                     Connection.Open();
-                    FormAlert.ShowAlert($"The SQL Connection is {Connection.State}", NotificationType.Info);
-                    Connection.Close();
-                    return true;
                 }
             }
-            catch (Exception MySqlConnect)
+            catch (Exception ex)
             {
-                FormAlert.ShowAlert(MySqlConnect.Message, NotificationType.Error);
-                return false;
-                
+                alertBox.ShowAlert(ex.Message, NotificationType.Error);
             }
-            return true;
+        }
+        public void Close()
+        {
+            try
+            {
+                if (Connection.State == ConnectionState.Open)
+                {
+                    Connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                alertBox.ShowAlert(ex.Message, NotificationType.Error);
+            }
+        }
+        internal void MySqlConnectCheck()
+        {
+            Thread MySQLExecute = new(() =>
+            {
+                try
+                {
+                    if (Connection.State == ConnectionState.Closed)
+                    {
+                        Connection.Open();
+                        alertBox.ShowAlert($"The SQL Connection is {Connection.State}", NotificationType.Success);
+                        Connection.Close();
+                    }
+                }
+                catch (Exception MySqlConnect)
+                {
+                    alertBox.ShowAlert(MySqlConnect.Message, NotificationType.Error);
+                }
+            });
+            MySQLExecute.Start();
         }
   
     }

@@ -3,12 +3,14 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using TrionControlPanel.Alerts;
 using TrionControlPanel.Database;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.TabsComponents
 {
 
     public partial class SettingControl : UserControl
     {
+        AlertBox alertBox = new();
         Settings.Settings Settings = new();
         public void LoadSettings()
         {
@@ -97,6 +99,22 @@ namespace TrionControlPanel.TabsComponents
                 }
             }
         }
+
+        private void CustomNames()
+        {
+            if (tglCustomNames.Checked == true)
+            {
+                txtWorldName.Enabled = true;
+                txtBnetName.Enabled = true;
+                txtMysqlName.Enabled = true;
+            }
+            else
+            {
+                txtWorldName.Enabled = false;
+                txtBnetName.Enabled = false;
+                txtMysqlName.Enabled = false;
+            }
+        }
         public SettingControl()
         {
             InitializeComponent();
@@ -109,14 +127,10 @@ namespace TrionControlPanel.TabsComponents
         }
         private void SettingControl_Load(object sender, EventArgs e)
         {
-            if (Settings.LoadSettings() == false)
-            {
-                FormAlert.ShowAlert(Settings._Data.ErrorMessage, NotificationType.Error);
-            }
-            else if (Settings.LoadSettings() == true)
-            {
-                LoadSettings();
-            }
+            CustomNames();
+            LoadSettings();
+            LoadSettings();
+            
         }
         private void AllowJustNumbers(object sender, KeyPressEventArgs e)
         {
@@ -145,34 +159,24 @@ namespace TrionControlPanel.TabsComponents
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings._Data.CoreLocation == string.Empty)
             {
-                FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
+                alertBox.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
             else
             {
                 try
                 {
+
                     Process.Start("explorer.exe", Settings._Data.CoreLocation);
                 }
                 catch
                 {
-                    FormAlert.ShowAlert("Server Location Unknow! or invaluable", NotificationType.Error);
+                    alertBox.ShowAlert("Server Location Unknow or invaluable!", NotificationType.Error);
                 }
             }
         }
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            if (tglCustomNames.Checked == true)
-            {
-                txtWorldName.Enabled = true;
-                txtBnetName.Enabled = true;
-                txtMysqlName.Enabled = true;
-            }
-            else
-            {
-                txtWorldName.Enabled = false;
-                txtBnetName.Enabled = false;
-                txtMysqlName.Enabled = false;
-            }
+
         }
         private void ComboBoxCore_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -234,10 +238,6 @@ namespace TrionControlPanel.TabsComponents
             MySQLConnect databaseConnection = new();
             databaseConnection.MySqlConnectCheck();
         }
-        private void PicSettingsInfos_Click(object sender, EventArgs e)
-        {
-            FormAlert.ShowAlert("You need to restart the application to make the change work!", NotificationType.Info);
-        }
         private void TglStayInTray_CheckedChanged(object sender, EventArgs e)
         {
             if (tglStayInTray.Checked == true)
@@ -251,7 +251,15 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BtnFixMysql_Click(object sender, EventArgs e)
         {
-            Process.Start($@"{Settings._Data.MySQLExecutablePath}", "--initialize --console");
+            try
+            {
+                Process.Start($@"{Settings._Data.MySQLExecutablePath}", "--initialize --console");
+            }
+            catch (Exception ex)
+            {
+                alertBox.ShowAlert(ex.Message, NotificationType.Error);
+            }
+           
         }
         private void BntMySqlLocation_Click(object sender, EventArgs e)
         {
@@ -260,7 +268,7 @@ namespace TrionControlPanel.TabsComponents
             //just a fail safe. incase the CoreLocation is empty.
             if (Settings._Data.MySQLLocation == string.Empty)
             {
-                FormAlert.ShowAlert("Server Location Unknow!", NotificationType.Error);
+                alertBox.ShowAlert("Server Location Unknow!", NotificationType.Error);
             }
             else
             {
@@ -268,9 +276,10 @@ namespace TrionControlPanel.TabsComponents
                 {
                     Process.Start("explorer.exe", location);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    FormAlert.ShowAlert("Server Location Unknow! or invaluable", NotificationType.Error);
+          
+                    alertBox.ShowAlert(ex.Message, NotificationType.Error);
                 }
             }
         }
@@ -329,6 +338,11 @@ namespace TrionControlPanel.TabsComponents
             {
                 GetMySQLLocation();
             }
+        }
+
+        private void TglCustomNames_CheckedChanged(object sender, EventArgs e)
+        {
+            CustomNames();
         }
     }
 }

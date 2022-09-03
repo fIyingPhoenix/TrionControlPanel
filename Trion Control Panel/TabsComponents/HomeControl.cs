@@ -4,18 +4,16 @@ using System.Net;
 using System.ComponentModel;
 using System.Text;
 using Ionic.Zip;
+using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.TabsComponents
 {
     public partial class HomeControl : UserControl
     {
-
-        readonly Settings.Settings  Settings = new();
+        AlertBox alertBox = new();
+        readonly Settings.Settings Settings = new();
         readonly Status _statusClass = new();
         readonly WebClient webClient = new();
-
-        string ErrorMessage = string.Empty;
-        NotificationType NotiType = NotificationType.Empty;
 
         readonly string _compressedFileName = "MySQL.zip";    //the name of the file being extracted
         string DownloadLocation = "";
@@ -53,8 +51,7 @@ namespace TrionControlPanel.TabsComponents
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = ex.Message;
-                    NotiType = NotificationType.Error;
+                    alertBox.ShowAlert(ex.Message, NotificationType.Error);
                 }
             });
             WorldResourcesUsageThread.Start();
@@ -73,8 +70,7 @@ namespace TrionControlPanel.TabsComponents
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = ex.Message;
-                    NotiType = NotificationType.Error;
+                    alertBox.ShowAlert(ex.Message, NotificationType.Error);
                 }
             });
             PCResorceUsageThread.Start();
@@ -89,8 +85,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningWorld == true)
                 {
                     _isRuningWorld = false;
-                    ErrorMessage = "World server crashed or shutdown unexpectedly.";
-                    NotiType = NotificationType.Error;
+                    alertBox.ShowAlert("World server crashed or shutdown unexpectedly.", NotificationType.Error);
                 }
                 worldServerLight.BackColor = Color.Red;
                 WorldResourceTimer.Stop();
@@ -105,8 +100,7 @@ namespace TrionControlPanel.TabsComponents
                 if (_isRuningBnet == true)
                 {
                     _isRuningBnet = false;
-                    ErrorMessage = "Bnet server crashed or shutdown unexpectedly.";
-                    NotiType = NotificationType.Error;   
+                    alertBox.ShowAlert("Bnet server crashed or shutdown unexpectedly.", NotificationType.Error);  
                 }
                 bnetServerLight.BackColor = Color.Red;
                 BnetResourceTimer.Stop();
@@ -163,8 +157,8 @@ namespace TrionControlPanel.TabsComponents
         }
         private void BtnStartMysql_Click(object sender, EventArgs e)
         {
-            ErrorMessage = _statusClass.StartMysql();
-            NotiType = NotificationType.Info;
+            
+            alertBox.ShowAlert(_statusClass.StartMysql(), NotificationType.Info);
             _isRuningMysql = true;
         }
         private void BntStopMysql_Click(object sender, EventArgs e)
@@ -241,8 +235,7 @@ namespace TrionControlPanel.TabsComponents
                     }
                     else
                     {
-                        ErrorMessage = "Invalid Path!";
-                        NotiType = NotificationType.Error;
+                        alertBox.ShowAlert("Invalid Path!", NotificationType.Error);
                         bWorkerDownloadComplate.CancelAsync();
                         btnDownloadMysql.Click += BntDownloadMysql_Click;
                     }
@@ -291,12 +284,6 @@ namespace TrionControlPanel.TabsComponents
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(ErrorMessage) && NotiType != NotificationType.Empty)
-            {
-                FormAlert.ShowAlert(ErrorMessage, NotiType);
-                ErrorMessage = string.Empty;
-                NotiType = NotificationType.Empty;
-            }
         }
     }
 }

@@ -196,7 +196,6 @@ D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Debug\net6.0-windows7.0
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Debug\net6.0-windows7.0\System.Management.dll
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\bin\Debug\net6.0-windows7.0\runtimes\win\lib\net6.0\System.Management.dll
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\Trion Control Panel.csproj.AssemblyReference.cache
-D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\TrionControlPanel.Alerts.FormAlert.resources
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\TrionControlPanel.FormMain.resources
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\TrionControlPanel.Properties.Resources.resources
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\TrionControlPanel.TabsComponents.HomeControl.resources
@@ -217,3 +216,4 @@ D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\Trion Control Panel.pdb
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\Trion Control Panel.genruntimeconfig.cache
 D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\ref\Trion Control Panel.dll
+D:\Repos\Git\Trion Control Panel\Trion Control Panel\obj\Debug\net6.0-windows7.0\TrionControlPanel.Alerts.AlertBox.resources

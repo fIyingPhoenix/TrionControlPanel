@@ -1,12 +1,14 @@
 ﻿using System.Xml.Serialization;
+using TrionControlPanel.Alerts;
 
 namespace TrionControlPanel.Settings
 {
     public class Data
     {
+        
+
         public string DataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml";
         
-        private static string _ErrorMessage;
         private static string _WorldDatabase;
         public static string _AuthDatabase;
         private static string _CharactersDatabase;
@@ -31,12 +33,6 @@ namespace TrionControlPanel.Settings
         private static bool _CustomNames;
         private static bool _StartCoreOnRun;
         private static int _SelectedCore;
- 
-        public string ErrorMessage
-        {
-            get { return _ErrorMessage; }
-            set { _ErrorMessage = value; }
-        }
 
         public string WorldDatabase
         {
@@ -161,42 +157,39 @@ namespace TrionControlPanel.Settings
     }
     public class Settings
     {
+       
         public Data _Data = new();
-
-        public bool SaveSettings()
+        public void SaveSettings()
         {
             try
             {
                 WriteData(_Data, _Data.DataFile);
-                return true;
             }
             catch (Exception ex)
             {
-                _Data.ErrorMessage = ex.Message;
-                return false;
+                //alertBox.ShowAlert(ex.Message, NotificationType.Error);
             }
         }
-        public bool LoadSettings()
+        public void LoadSettings()
         {
             if (Exist(_Data.DataFile) == true )
             {
                 try
                 {
                     _Data = ReaderData(_Data.DataFile);
-                    return true;
+                    
                 }
                 catch (Exception ex)
                 {
-                    _Data.ErrorMessage = ex.Message;
-                    return false;
+                    //alertBox.ShowAlert(ex.Message, NotificationType.Error);
                 }
             }
             else
             {
-                return FirstLoad();
+               FirstLoad();
             }
         }
-        private bool FirstLoad()
+        private void FirstLoad()
         {
             try
             {
@@ -225,14 +218,12 @@ namespace TrionControlPanel.Settings
                 _Data.StartCoreOnRun = false;
                 _Data.SettingsUpdate = false;
                 _Data.SelectedCore = 4;
-                _Data.ErrorMessage = "";
                 WriteData(_Data, _Data.DataFile);
-                return true;
+               
             }
             catch (Exception ex)
             {
-                _Data.ErrorMessage = ex.Message;
-                return false;
+               // alertBox.ShowAlert(ex.Message, NotificationType.Error);
             }
 
         }

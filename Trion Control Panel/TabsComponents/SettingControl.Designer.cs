@@ -68,7 +68,6 @@ namespace TrionControlPanel.TabsComponents
             this.txtWorldName = new MetroFramework.Controls.MetroTextBox();
             this.txtBnetName = new MetroFramework.Controls.MetroTextBox();
             this.TimerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.btnTestMySQL = new TrionControlPanel.UI.CustomButton();
             this.panelNames = new TrionControlPanel.UI.CustomPanel();
             this.panelControSettins = new TrionControlPanel.UI.CustomPanel();
             this.btnFixMysql = new TrionControlPanel.UI.CustomButton();
@@ -86,6 +85,7 @@ namespace TrionControlPanel.TabsComponents
             this.lblServerLocation = new System.Windows.Forms.Label();
             this.btnCoreLocation = new TrionControlPanel.UI.CustomButton();
             this.btnMysqlOpenLocation = new TrionControlPanel.UI.CustomButton();
+            this.btnTestMySQL = new TrionControlPanel.UI.CustomButton();
             lblWorldName = new System.Windows.Forms.Label();
             lblBnetName = new System.Windows.Forms.Label();
             lblMysqlName = new System.Windows.Forms.Label();
@@ -564,6 +564,7 @@ namespace TrionControlPanel.TabsComponents
             this.tglCustomNames.SolidStyle = false;
             this.tglCustomNames.TabIndex = 44;
             this.tglCustomNames.UseVisualStyleBackColor = false;
+            this.tglCustomNames.CheckedChanged += new System.EventHandler(this.TglCustomNames_CheckedChanged);
             // 
             // txtMysqlName
             // 
@@ -642,27 +643,6 @@ namespace TrionControlPanel.TabsComponents
             this.TimerUpdate.Enabled = true;
             this.TimerUpdate.Interval = 1000;
             this.TimerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
-            // 
-            // btnTestMySQL
-            // 
-            this.btnTestMySQL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
-            this.btnTestMySQL.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
-            this.btnTestMySQL.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.btnTestMySQL.BorderRadius = 0;
-            this.btnTestMySQL.BorderSize = 1;
-            this.btnTestMySQL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTestMySQL.FlatAppearance.BorderSize = 0;
-            this.btnTestMySQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTestMySQL.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTestMySQL.ForeColor = System.Drawing.Color.White;
-            this.btnTestMySQL.Location = new System.Drawing.Point(456, 506);
-            this.btnTestMySQL.Name = "btnTestMySQL";
-            this.btnTestMySQL.Size = new System.Drawing.Size(144, 40);
-            this.btnTestMySQL.TabIndex = 6;
-            this.btnTestMySQL.Text = "Test Connection";
-            this.btnTestMySQL.TextColor = System.Drawing.Color.White;
-            this.btnTestMySQL.UseVisualStyleBackColor = false;
-            this.btnTestMySQL.Click += new System.EventHandler(this.BtnTestMySQL_Click);
             // 
             // panelNames
             // 
@@ -969,6 +949,27 @@ namespace TrionControlPanel.TabsComponents
             this.btnMysqlOpenLocation.UseVisualStyleBackColor = false;
             this.btnMysqlOpenLocation.Click += new System.EventHandler(this.BtnMysqlOpenLocation_Click);
             // 
+            // btnTestMySQL
+            // 
+            this.btnTestMySQL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnTestMySQL.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(26)))), ((int)(((byte)(30)))));
+            this.btnTestMySQL.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.btnTestMySQL.BorderRadius = 0;
+            this.btnTestMySQL.BorderSize = 1;
+            this.btnTestMySQL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTestMySQL.FlatAppearance.BorderSize = 0;
+            this.btnTestMySQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTestMySQL.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTestMySQL.ForeColor = System.Drawing.Color.White;
+            this.btnTestMySQL.Location = new System.Drawing.Point(456, 506);
+            this.btnTestMySQL.Name = "btnTestMySQL";
+            this.btnTestMySQL.Size = new System.Drawing.Size(144, 40);
+            this.btnTestMySQL.TabIndex = 6;
+            this.btnTestMySQL.Text = "Test Connection";
+            this.btnTestMySQL.TextColor = System.Drawing.Color.White;
+            this.btnTestMySQL.UseVisualStyleBackColor = false;
+            this.btnTestMySQL.Click += new System.EventHandler(this.BtnTestMySQL_Click);
+            // 
             // SettingControl
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
@@ -1049,7 +1050,6 @@ namespace TrionControlPanel.TabsComponents
         private Label lblCustomNames;
         private CustomToggleButton tglCustomNames;
         private System.Windows.Forms.Timer TimerUpdate;
-        private CustomButton btnTestMySQL;
         private CustomPanel panelNames;
         private CustomPanel panelControSettins;
         private CustomButton btnFixMysql;
@@ -1078,6 +1078,6 @@ namespace TrionControlPanel.TabsComponents
         public MetroFramework.Controls.MetroTextBox txtMySqlPassowrd;
         public MetroFramework.Controls.MetroTextBox txtMySqlUser;
         public MetroFramework.Controls.MetroTextBox txtMySqlServer;
-
+        private CustomButton btnTestMySQL;
     }
 }

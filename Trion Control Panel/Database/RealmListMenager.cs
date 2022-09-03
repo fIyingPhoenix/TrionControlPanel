@@ -7,12 +7,10 @@ namespace TrionControlPanel.Database
 {
     internal class RealmListMenager
     {
-        public static string RealmListMenagerMessage { get; set; }
-
+        AlertBox alertBox = new();
         Settings.Settings Settings = new();
-        public bool GetRealmList()
+        public void GetRealmList()
         {
-
             try
             {
                 string reamlist = "";
@@ -42,8 +40,6 @@ namespace TrionControlPanel.Database
                 //AscEmu
                 if (Settings._Data.SelectedCore == 0)
                 {
-                    if (table.Rows.Count > 0)
-                    {
                         RealmListBuild.RealmID = table.Rows[0][0].ToString();
                         RealmListBuild.RealmName = table.Rows[0][1].ToString();
                         RealmListBuild.RealmAddress = null;
@@ -52,19 +48,11 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmPort = null;
                         RealmListBuild.RealmTimeZone = null;
                         RealmListBuild.GameBuild = null;
-                        RealmListBuild.GameRegion = null;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                        RealmListBuild.GameRegion = null;  
                 }
                 //AzerothCore
                 if (Settings._Data.SelectedCore == 1)
                 {
-                    if (table.Rows.Count > 0)
-                    {
                         RealmListBuild.RealmID = table.Rows[0][0].ToString();
                         RealmListBuild.RealmName = table.Rows[0][1].ToString();
                         RealmListBuild.RealmAddress = table.Rows[0][2].ToString();
@@ -74,18 +62,10 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = null;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 }
                 //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
                 else if (Settings._Data.SelectedCore == 3 | Settings._Data.SelectedCore == 4 | Settings._Data.SelectedCore == 5)
                 {
-                    if (table.Rows.Count > 0)
-                    {
                         RealmListBuild.RealmID = table.Rows[0][0].ToString();
                         RealmListBuild.RealmName = table.Rows[0][1].ToString();
                         RealmListBuild.RealmAddress = table.Rows[0][2].ToString();
@@ -95,18 +75,10 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = table.Rows[0][12].ToString();
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 }
                 //cMaNGOS
                 else if (Settings._Data.SelectedCore == 2)
                 {
-                    if (table.Rows.Count > 0)
-                    {
                         RealmListBuild.RealmID = table.Rows[0][0].ToString();
                         RealmListBuild.RealmName = table.Rows[0][1].ToString();
                         RealmListBuild.RealmAddress = table.Rows[0][2].ToString();
@@ -116,18 +88,10 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][6].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][9].ToString();
                         RealmListBuild.GameRegion = null;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 }
                 //Vanilla MaNGOS
                 else if (Settings._Data.SelectedCore == 6)
                 {
-                    if (table.Rows.Count > 0)
-                    {
                         RealmListBuild.RealmID = table.Rows[0][0].ToString();
                         RealmListBuild.RealmName = table.Rows[0][1].ToString();
                         RealmListBuild.RealmAddress = table.Rows[0][2].ToString();
@@ -137,22 +101,13 @@ namespace TrionControlPanel.Database
                         RealmListBuild.RealmTimeZone = table.Rows[0][8].ToString();
                         RealmListBuild.GameBuild = table.Rows[0][11].ToString();
                         RealmListBuild.GameRegion = table.Rows[0][12].ToString();
-                        return true;
-                    }
-                    else 
-                    {
-                        return false;
-                    }
                 }
             
             }
             catch (Exception ex)
             {
-                RealmListMenagerMessage = ex.Message;
-                return false;
+                alertBox.ShowAlert(ex.Message, NotificationType.Error);
             }
-
-            return false;
         }
 
         public void SaveRealmList()
@@ -162,16 +117,15 @@ namespace TrionControlPanel.Database
             //AscEmu
             if (Settings._Data.SelectedCore == 0)
             {
-
                 MySqlCommand command = new($@"UPDATE `realms` SET `password` = '{RealmListBuild.RealmName}' WHERE `id` = `{RealmListBuild.RealmID}`;", databaseConnection.GetConnection);
                 databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
+                    alertBox.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
+                    alertBox.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
             }
             //AzerothCore
@@ -182,11 +136,11 @@ namespace TrionControlPanel.Database
                 databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
+                    alertBox.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
+                    alertBox.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
             }
             //CypherCore, TrinityCore, TrinityCore 4.3.4(TCPP)
@@ -197,11 +151,11 @@ namespace TrionControlPanel.Database
                 databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
+                    alertBox.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
+                    alertBox.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
             }
             //cMaNGOS
@@ -212,11 +166,11 @@ namespace TrionControlPanel.Database
                 databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
+                    alertBox.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
+                    alertBox.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
 
             }
@@ -228,11 +182,11 @@ namespace TrionControlPanel.Database
                 databaseConnection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    FormAlert.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
+                    alertBox.ShowAlert("Query Execute Successfuly!", NotificationType.Success);
                 }
                 else
                 {
-                    FormAlert.ShowAlert("Error Execute Query!", NotificationType.Error);
+                    alertBox.ShowAlert("Error Execute Query!", NotificationType.Error);
                 }
             }
         }

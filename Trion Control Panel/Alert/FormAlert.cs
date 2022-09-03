@@ -1,16 +1,17 @@
 using System.ComponentModel;
 using System.Media;
+using System.Windows.Forms;
 using MetroFramework.Forms;
 using TrionControlPanel.Properties;
 using TrionControlPanel.Settings;
 
 namespace TrionControlPanel.Alerts
 {
-    public partial class FormAlert : MetroForm
+    public partial class AlertBox : MetroForm
     {
         Settings.Settings Settings = new();
-        string alertMessage;
-         NotificationType alertType = NotificationType.Empty;
+        string alertMessage = string.Empty;
+        NotificationType alertType = NotificationType.Empty;
          
         [Category("Trion Properties")]
         public string AlerMessage
@@ -52,7 +53,7 @@ namespace TrionControlPanel.Alerts
             for (int i = 1; i < MaxAlertOnScreen; i++)
             {
                 formName = "Trion Alert" + i.ToString();
-                FormAlert formAlert = (FormAlert)Application.OpenForms[formName]; ;
+                AlertBox formAlert = (AlertBox)Application.OpenForms[formName]; ;
                 int _height = (Height * i) + (2 * i);
                 if (formAlert == null)
                 {
@@ -124,12 +125,20 @@ namespace TrionControlPanel.Alerts
                     break;
             }
         }
-        public static void ShowAlert(string message, NotificationType eType)
+        public void ShowAlert(string message, NotificationType eType)
         {
-            FormAlert TrionAlert = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
-            TrionAlert.Alert(message, eType);
+            AlerMessage = message;
+            alertType = eType;
         }
 
+        private void Run() 
+        {
+            AlertBox TrionAlert = new(); //dont change this. its fix the Cannot access a disposed object and scall the notification up.
+            TrionAlert.Alert(alertMessage, alertType);
+            alertMessage = string.Empty;
+            alertType = NotificationType.Empty;
+
+        }
         private void BtnClose_MouseEnter(object sender, EventArgs e)
         {
             btnClose.Image = Resources.rightArrowBluex50;
@@ -148,7 +157,16 @@ namespace TrionControlPanel.Alerts
             timerCheck.Start();
         }
 
-        public FormAlert()
+        private void timerUpdate_Tick(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(alertMessage) && alertType != NotificationType.Empty)
+            {
+                Run();
+
+            }
+        }
+
+        public AlertBox()
         {
             InitializeComponent();
             if (alertMessage != null)

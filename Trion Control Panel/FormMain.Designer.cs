@@ -203,7 +203,7 @@ namespace TrionControlPanel
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 1;
+            this.timerUpdate.Interval = 1000;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // timerCrashCheck
