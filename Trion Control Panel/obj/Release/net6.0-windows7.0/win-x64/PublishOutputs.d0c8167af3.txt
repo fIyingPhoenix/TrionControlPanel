@@ -1,7 +1,0 @@
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\Trion Control Panel.pdb
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\D3DCompiler_47_cor3.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\PenImc_cor3.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\PresentationNative_cor3.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\vcruntime140_cor3.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\wpfgfx_cor3.dll
-D:\Repos\Git\CypherCore-Server-Addons\CypherCore-Server-Addons\Trion Control Pane\bin\Release\Trion Control Panel.exe
