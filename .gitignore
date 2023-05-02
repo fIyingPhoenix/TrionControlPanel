@@ -1,3 +1,9 @@
 Trion Control Panel/bin/*
+Trion Control Panel/obj/*
+TrionLibrary/bin/*
+TrionLibrary/obj/*
+TrionWorker/bin/*
+TrionWorker/obj/*
 .vs/*
 *.v2
+
