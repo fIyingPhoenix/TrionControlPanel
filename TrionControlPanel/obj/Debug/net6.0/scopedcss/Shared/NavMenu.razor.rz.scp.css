@@ -1,10 +1,10 @@
 .navbar-toggler[b-zze7oc2rlg] {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(52, 108, 176, 0.1);
 }
 
 .top-row[b-zze7oc2rlg] {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(48,97,158,0.4);
 }
 
 .navbar-brand[b-zze7oc2rlg] {
@@ -34,7 +34,6 @@
     .nav-item[b-zze7oc2rlg]  a {
         color: #d7d7d7;
         border-radius: 4px;
-        height: 3rem;
         display: flex;
         align-items: center;
         line-height: 3rem;

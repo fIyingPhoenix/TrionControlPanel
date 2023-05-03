@@ -1,0 +1,91 @@
+﻿@page "/admin/"
+<div class="card mb-4">
+    <div class="card-body text-center">
+        <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPanel?style=for-the-badge" />
+    </div>
+</div>
+@*
+This is the first row. For Server resorce and status
+*@
+<div class="row mb-4">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <text style="font-weight: bold;color:#346CB0;">Server Status</text>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <svg width="20" height="20">
+                        <circle cx="10" cy="10" r="8" fill="Red" />
+                    </svg>
+                    <text>World Server</text>
+                </div>
+                <div class="">
+                    <svg width="20" height="20">
+                        <circle cx="10" cy="10" r="8" fill="Red" />
+                    </svg>
+                    <text>Bnet Server</text>
+                </div>
+                <div class="">
+                    <svg width="20" height="20">
+                        <circle cx="10" cy="10" r="8" fill="Red" />
+                    </svg>
+                    <text>MySQL Server</text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-center">
+            <div class="card-header">
+                <text style="font-weight: bold;color:#346CB0;">Server Resource</text>
+            </div>
+            <div class="card-body mb-2 text-center">
+                <text>MySQL Server</text>
+                <p></p>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p></p>
+                <text>MySQL Server</text>
+                <p></p>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*
+ This is the second row. For World and logon/auth/bnet status. 
+*@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card text-center">
+            <div class="card-header">
+                <text style="font-weight: bold;color:#346CB0;">World Resource</text>
+            </div>
+            <div class="card-body">
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-center">
+            <div class="card-header">
+                <text style="font-weight: bold;color:#346CB0;">Bnet / Auth Resource</text>
+            </div>
+            <div class="card-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+@code {
+
+
+}

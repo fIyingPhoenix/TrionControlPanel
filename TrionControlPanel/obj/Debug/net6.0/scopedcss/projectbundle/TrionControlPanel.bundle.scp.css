@@ -10,12 +10,12 @@ main[b-ncdmzrfiap] {
 }
 
 .sidebar[b-ncdmzrfiap] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #346CB0 70%);
 }
 
 .top-row[b-ncdmzrfiap] {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: #346CB0;
+    border-bottom: 1px solid #00c3ff;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
@@ -71,12 +71,12 @@ main[b-ncdmzrfiap] {
 }
 /* _content/TrionControlPanel/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-zze7oc2rlg] {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(52, 108, 176, 0.1);
 }
 
 .top-row[b-zze7oc2rlg] {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(48,97,158,0.4);
 }
 
 .navbar-brand[b-zze7oc2rlg] {
@@ -106,7 +106,6 @@ main[b-ncdmzrfiap] {
     .nav-item[b-zze7oc2rlg]  a {
         color: #d7d7d7;
         border-radius: 4px;
-        height: 3rem;
         display: flex;
         align-items: center;
         line-height: 3rem;

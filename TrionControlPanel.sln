@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanel", "TrionC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionLibrary", "TrionLibrary\TrionLibrary.csproj", "{4DCEB99D-006C-4343-B708-D3C72B7D11BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrionWorker", "TrionWorker\TrionWorker.csproj", "{57BB7B07-6EDD-41DD-9FE9-4C3D4E404041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionWorker", "TrionWorker\TrionWorker.csproj", "{57BB7B07-6EDD-41DD-9FE9-4C3D4E404041}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
