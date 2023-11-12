@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="Dapper" Version="2.1.21" />
+    <PackageReference Include="MySql.Data" Version="8.2.0" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,20 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "Dapper/2.0.123": {
+      "BouncyCastle.Cryptography/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Dapper/2.1.21": {
         "type": "package",
         "compile": {
           "lib/net5.0/Dapper.dll": {
@@ -28,51 +41,46 @@
           }
         }
       },
-      "K4os.Compression.LZ4/1.2.6": {
+      "K4os.Compression.LZ4/1.3.5": {
         "type": "package",
-        "dependencies": {
-          "System.Memory": "4.5.4"
-        },
         "compile": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {
+          "lib/net6.0/K4os.Compression.LZ4.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {
+          "lib/net6.0/K4os.Compression.LZ4.dll": {
             "related": ".xml"
           }
         }
       },
-      "K4os.Compression.LZ4.Streams/1.2.6": {
+      "K4os.Compression.LZ4.Streams/1.3.5": {
         "type": "package",
         "dependencies": {
-          "K4os.Compression.LZ4": "1.2.6",
-          "K4os.Hash.xxHash": "1.0.6"
+          "K4os.Compression.LZ4": "1.3.5",
+          "K4os.Hash.xxHash": "1.0.8",
+          "System.IO.Pipelines": "6.0.3"
         },
         "compile": {
-          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {
+          "lib/net6.0/K4os.Compression.LZ4.Streams.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {
+          "lib/net6.0/K4os.Compression.LZ4.Streams.dll": {
             "related": ".xml"
           }
         }
       },
-      "K4os.Hash.xxHash/1.0.6": {
+      "K4os.Hash.xxHash/1.0.8": {
         "type": "package",
-        "dependencies": {
-          "System.Memory": "4.5.3"
-        },
         "compile": {
-          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {
+          "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {
+          "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
         }
@@ -117,18 +125,22 @@
           }
         }
       },
-      "MySql.Data/8.0.32.1": {
+      "MySql.Data/8.2.0": {
         "type": "package",
         "dependencies": {
+          "BouncyCastle.Cryptography": "2.2.1",
           "Google.Protobuf": "3.21.9",
-          "K4os.Compression.LZ4.Streams": "1.2.6",
-          "Portable.BouncyCastle": "1.9.0",
+          "K4os.Compression.LZ4.Streams": "1.3.5",
           "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
-          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
+          "System.Diagnostics.DiagnosticSource": "7.0.2",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Runtime.Loader": "4.3.0",
           "System.Security.Permissions": "4.7.0",
-          "System.Text.Encoding.CodePages": "4.4.0"
+          "System.Text.Encoding.CodePages": "4.4.0",
+          "System.Text.Json": "7.0.1",
+          "System.Threading.Tasks.Extensions": "4.5.4",
+          "ZstdSharp.Port": "0.7.1"
         },
         "compile": {
           "lib/net6.0/MySql.Data.dll": {
@@ -163,19 +175,6 @@
           }
         }
       },
-      "Portable.BouncyCastle/1.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -197,6 +196,25 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+        }
+      },
+      "System.Diagnostics.DiagnosticSource/7.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Drawing.Common/4.7.0": {
@@ -239,13 +257,20 @@
           }
         }
       },
-      "System.Memory/4.5.4": {
+      "System.IO.Pipelines/6.0.3": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp2.1/_._": {}
+          "lib/net6.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp2.1/_._": {}
+          "lib/net6.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
       "System.Reflection/4.3.0": {
@@ -288,17 +313,20 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
       "System.Runtime.Loader/4.3.0": {
@@ -430,6 +458,51 @@
           }
         }
       },
+      "System.Text.Encodings.Web/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll": {
+            "assetType": "runtime",
+            "rid": "browser"
+          }
+        }
+      },
+      "System.Text.Json/7.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Text.Encodings.Web": "7.0.0"
+        },
+        "compile": {
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/System.Text.Json.targets": {}
+        }
+      },
       "System.Threading.Tasks/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -441,6 +514,15 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "System.Threading.Tasks.Extensions/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Windows.Extensions/4.7.0": {
@@ -465,12 +547,21 @@
           }
         }
       },
+      "ZstdSharp.Port/0.7.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/ZstdSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/ZstdSharp.dll": {}
+        }
+      },
       "TrionLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Dapper": "2.0.123",
-          "MySql.Data": "8.0.32.1"
+          "Dapper": "2.1.21",
+          "MySql.Data": "8.2.0"
         },
         "compile": {
           "bin/placeholder/TrionLibrary.dll": {}
@@ -482,22 +573,45 @@
     }
   },
   "libraries": {
-    "Dapper/2.0.123": {
-      "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
+    "BouncyCastle.Cryptography/2.2.1": {
+      "sha512": "A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ==",
       "type": "package",
-      "path": "dapper/2.0.123",
+      "path": "bouncycastle.cryptography/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "bouncycastle.cryptography.2.2.1.nupkg.sha512",
+        "bouncycastle.cryptography.nuspec",
+        "lib/net461/BouncyCastle.Cryptography.dll",
+        "lib/net461/BouncyCastle.Cryptography.xml",
+        "lib/net6.0/BouncyCastle.Cryptography.dll",
+        "lib/net6.0/BouncyCastle.Cryptography.xml",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
+        "packageIcon.png"
+      ]
+    },
+    "Dapper/2.1.21": {
+      "sha512": "EaTXNZX60/k9snRsLxFhD2XmoSKubc+VOeL3hBM6/R8j2MT8/81xOc2V8EEhwr8Mu3Sf951PJPxjlXN4FznH0w==",
+      "type": "package",
+      "path": "dapper/2.1.21",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Dapper.png",
-        "dapper.2.0.123.nupkg.sha512",
+        "dapper.2.1.21.nupkg.sha512",
         "dapper.nuspec",
         "lib/net461/Dapper.dll",
         "lib/net461/Dapper.xml",
         "lib/net5.0/Dapper.dll",
         "lib/net5.0/Dapper.xml",
+        "lib/net7.0/Dapper.dll",
+        "lib/net7.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
-        "lib/netstandard2.0/Dapper.xml"
+        "lib/netstandard2.0/Dapper.xml",
+        "readme.md"
       ]
     },
     "Google.Protobuf/3.21.9": {
@@ -523,63 +637,67 @@
         "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
-    "K4os.Compression.LZ4/1.2.6": {
-      "sha512": "4EN8EE6bZG2U8dFfeqn+Om3UNajK3cPYHvyQROCFm4jNFVLuRB7Nl5bDkjBSAjfctS6konm+ay3u5RafBzltDA==",
+    "K4os.Compression.LZ4/1.3.5": {
+      "sha512": "TS4mqlT0X1OlnvOGNfl02QdVUhuqgWuCnn7UxupIa7C9Pb6qlQ5yZA2sPhRh0OSmVULaQU64KV4wJuu//UyVQQ==",
       "type": "package",
-      "path": "k4os.compression.lz4/1.2.6",
+      "path": "k4os.compression.lz4/1.3.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "k4os.compression.lz4.1.2.6.nupkg.sha512",
+        "k4os.compression.lz4.1.3.5.nupkg.sha512",
         "k4os.compression.lz4.nuspec",
-        "lib/net45/K4os.Compression.LZ4.dll",
-        "lib/net45/K4os.Compression.LZ4.xml",
-        "lib/net46/K4os.Compression.LZ4.dll",
-        "lib/net46/K4os.Compression.LZ4.xml",
-        "lib/netstandard1.6/K4os.Compression.LZ4.dll",
-        "lib/netstandard1.6/K4os.Compression.LZ4.xml",
+        "lib/net462/K4os.Compression.LZ4.dll",
+        "lib/net462/K4os.Compression.LZ4.xml",
+        "lib/net5.0/K4os.Compression.LZ4.dll",
+        "lib/net5.0/K4os.Compression.LZ4.xml",
+        "lib/net6.0/K4os.Compression.LZ4.dll",
+        "lib/net6.0/K4os.Compression.LZ4.xml",
         "lib/netstandard2.0/K4os.Compression.LZ4.dll",
-        "lib/netstandard2.0/K4os.Compression.LZ4.xml"
+        "lib/netstandard2.0/K4os.Compression.LZ4.xml",
+        "lib/netstandard2.1/K4os.Compression.LZ4.dll",
+        "lib/netstandard2.1/K4os.Compression.LZ4.xml"
       ]
     },
-    "K4os.Compression.LZ4.Streams/1.2.6": {
-      "sha512": "5KMcNFRHeRrnJ9c8k5fZcfAJJEY0FndMiDiHIYa35Mx5KCMkeSNo/PEXu7YmtCoVczJagx+Vt7J/F+//S1PcJQ==",
+    "K4os.Compression.LZ4.Streams/1.3.5": {
+      "sha512": "M0NufZI8ym3mm6F6HMSPz1jw7TJGdY74fjAtbIXATmnAva/8xLz50eQZJI9tf9mMeHUaFDg76N1BmEh8GR5zeA==",
       "type": "package",
-      "path": "k4os.compression.lz4.streams/1.2.6",
+      "path": "k4os.compression.lz4.streams/1.3.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
+        "k4os.compression.lz4.streams.1.3.5.nupkg.sha512",
         "k4os.compression.lz4.streams.nuspec",
-        "lib/net45/K4os.Compression.LZ4.Streams.dll",
-        "lib/net45/K4os.Compression.LZ4.Streams.xml",
-        "lib/net46/K4os.Compression.LZ4.Streams.dll",
-        "lib/net46/K4os.Compression.LZ4.Streams.xml",
-        "lib/netstandard1.6/K4os.Compression.LZ4.Streams.dll",
-        "lib/netstandard1.6/K4os.Compression.LZ4.Streams.xml",
+        "lib/net462/K4os.Compression.LZ4.Streams.dll",
+        "lib/net462/K4os.Compression.LZ4.Streams.xml",
+        "lib/net5.0/K4os.Compression.LZ4.Streams.dll",
+        "lib/net5.0/K4os.Compression.LZ4.Streams.xml",
+        "lib/net6.0/K4os.Compression.LZ4.Streams.dll",
+        "lib/net6.0/K4os.Compression.LZ4.Streams.xml",
         "lib/netstandard2.0/K4os.Compression.LZ4.Streams.dll",
         "lib/netstandard2.0/K4os.Compression.LZ4.Streams.xml",
         "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll",
         "lib/netstandard2.1/K4os.Compression.LZ4.Streams.xml"
       ]
     },
-    "K4os.Hash.xxHash/1.0.6": {
-      "sha512": "jCfNP0inx1sGcP3KSbpiDEH3km2e1sVBjMfKo+V92jr1dL4ZYgA1uhRMl1wAtdGZcbObXIikKqtVlgx3j/CW6g==",
+    "K4os.Hash.xxHash/1.0.8": {
+      "sha512": "Wp2F7BamQ2Q/7Hk834nV9vRQapgcr8kgv9Jvfm8J3D0IhDqZMMl+a2yxUq5ltJitvXvQfB8W6K4F4fCbw/P6YQ==",
       "type": "package",
-      "path": "k4os.hash.xxhash/1.0.6",
+      "path": "k4os.hash.xxhash/1.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "k4os.hash.xxhash.1.0.6.nupkg.sha512",
+        "k4os.hash.xxhash.1.0.8.nupkg.sha512",
         "k4os.hash.xxhash.nuspec",
-        "lib/net45/K4os.Hash.xxHash.dll",
-        "lib/net45/K4os.Hash.xxHash.xml",
-        "lib/net46/K4os.Hash.xxHash.dll",
-        "lib/net46/K4os.Hash.xxHash.xml",
-        "lib/netstandard1.6/K4os.Hash.xxHash.dll",
-        "lib/netstandard1.6/K4os.Hash.xxHash.xml",
+        "lib/net462/K4os.Hash.xxHash.dll",
+        "lib/net462/K4os.Hash.xxHash.xml",
+        "lib/net5.0/K4os.Hash.xxHash.dll",
+        "lib/net5.0/K4os.Hash.xxHash.xml",
+        "lib/net6.0/K4os.Hash.xxHash.dll",
+        "lib/net6.0/K4os.Hash.xxHash.xml",
         "lib/netstandard2.0/K4os.Hash.xxHash.dll",
-        "lib/netstandard2.0/K4os.Hash.xxHash.xml"
+        "lib/netstandard2.0/K4os.Hash.xxHash.xml",
+        "lib/netstandard2.1/K4os.Hash.xxHash.dll",
+        "lib/netstandard2.1/K4os.Hash.xxHash.xml"
       ]
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
@@ -643,47 +761,35 @@
         "version.txt"
       ]
     },
-    "MySql.Data/8.0.32.1": {
-      "sha512": "K5WkZz8hkiHyKSnEON5AER+oMxmwhRrSAy6/a7XnfWpytn8EyYLCFWe0lDNZqZJ/w79P1Qtw0TZvf3kP0a1fbg==",
+    "MySql.Data/8.2.0": {
+      "sha512": "p62lWlKvJJ5UnBNvtal3JM9SOyQaaIA4C6E5LO2TOlO8CF5BDX0I8HsihbzP8wOELZhD4I3vpferDRv7uBNkOg==",
       "type": "package",
-      "path": "mysql.data/8.0.32.1",
+      "path": "mysql.data/8.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net452/MySql.Data.dll",
-        "lib/net452/MySql.Data.xml",
+        "lib/net462/MySql.Data.dll",
+        "lib/net462/MySql.Data.xml",
         "lib/net48/MySql.Data.dll",
         "lib/net48/MySql.Data.xml",
         "lib/net6.0/MySql.Data.dll",
         "lib/net6.0/MySql.Data.xml",
         "lib/net7.0/MySql.Data.dll",
         "lib/net7.0/MySql.Data.xml",
+        "lib/net8.0/MySql.Data.dll",
+        "lib/net8.0/MySql.Data.xml",
         "lib/netstandard2.0/MySql.Data.dll",
         "lib/netstandard2.0/MySql.Data.xml",
         "lib/netstandard2.1/MySql.Data.dll",
         "lib/netstandard2.1/MySql.Data.xml",
-        "mysql.data.8.0.32.1.nupkg.sha512",
+        "logo-mysql-170x115.png",
+        "mysql.data.8.2.0.nupkg.sha512",
         "mysql.data.nuspec",
         "runtimes/win-x64/native/comerr64.dll",
         "runtimes/win-x64/native/gssapi64.dll",
         "runtimes/win-x64/native/k5sprt64.dll",
         "runtimes/win-x64/native/krb5_64.dll",
         "runtimes/win-x64/native/krbcc64.dll"
-      ]
-    },
-    "Portable.BouncyCastle/1.9.0": {
-      "sha512": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
-      "type": "package",
-      "path": "portable.bouncycastle/1.9.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/BouncyCastle.Crypto.dll",
-        "lib/net40/BouncyCastle.Crypto.xml",
-        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
-        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
-        "portable.bouncycastle.1.9.0.nupkg.sha512",
-        "portable.bouncycastle.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -736,6 +842,33 @@
         "system.configuration.configurationmanager.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "System.Diagnostics.DiagnosticSource/7.0.2": {
+      "sha512": "hYr3I9N9811e0Bjf2WNwAGGyTuAFbbTgX1RPLt/3Wbm68x3IGcX5Cl75CMmgT6WlNwLQ2tCCWfqYPpypjaf2xA==",
+      "type": "package",
+      "path": "system.diagnostics.diagnosticsource/7.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.DiagnosticSource.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.DiagnosticSource.targets",
+        "lib/net462/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net462/System.Diagnostics.DiagnosticSource.xml",
+        "lib/net6.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net6.0/System.Diagnostics.DiagnosticSource.xml",
+        "lib/net7.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net7.0/System.Diagnostics.DiagnosticSource.xml",
+        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.xml",
+        "system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Drawing.Common/4.7.0": {
@@ -858,27 +991,29 @@
         "system.io.nuspec"
       ]
     },
-    "System.Memory/4.5.4": {
-      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+    "System.IO.Pipelines/6.0.3": {
+      "sha512": "ryTgF+iFkpGZY1vRQhfCzX0xTdlV3pyaTTqRu2ETbEv+HlV7O6y7hyQURnghNIXvctl5DuZ//Dpks6HdL/Txgw==",
       "type": "package",
-      "path": "system.memory/4.5.4",
+      "path": "system.io.pipelines/6.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Memory.dll",
-        "lib/net461/System.Memory.xml",
-        "lib/netcoreapp2.1/_._",
-        "lib/netstandard1.1/System.Memory.dll",
-        "lib/netstandard1.1/System.Memory.xml",
-        "lib/netstandard2.0/System.Memory.dll",
-        "lib/netstandard2.0/System.Memory.xml",
-        "ref/netcoreapp2.1/_._",
-        "system.memory.4.5.4.nupkg.sha512",
-        "system.memory.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "buildTransitive/netcoreapp2.0/System.IO.Pipelines.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.IO.Pipelines.dll",
+        "lib/net461/System.IO.Pipelines.xml",
+        "lib/net6.0/System.IO.Pipelines.dll",
+        "lib/net6.0/System.IO.Pipelines.xml",
+        "lib/netcoreapp3.1/System.IO.Pipelines.dll",
+        "lib/netcoreapp3.1/System.IO.Pipelines.xml",
+        "lib/netstandard2.0/System.IO.Pipelines.dll",
+        "lib/netstandard2.0/System.IO.Pipelines.xml",
+        "system.io.pipelines.6.0.3.nupkg.sha512",
+        "system.io.pipelines.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Reflection/4.3.0": {
@@ -1111,36 +1246,29 @@
         "system.runtime.nuspec"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
-      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/5.0.0",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Runtime.Loader/4.3.0": {
@@ -1459,6 +1587,108 @@
         "version.txt"
       ]
     },
+    "System.Text.Encodings.Web/7.0.0": {
+      "sha512": "OP6umVGxc0Z0MvZQBVigj4/U31Pw72ITihDWP9WiWDm+q5aoe0GaJivsfYGq53o6dxH7DcXWiCTl7+0o2CGdmg==",
+      "type": "package",
+      "path": "system.text.encodings.web/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Text.Encodings.Web.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Text.Encodings.Web.targets",
+        "lib/net462/System.Text.Encodings.Web.dll",
+        "lib/net462/System.Text.Encodings.Web.xml",
+        "lib/net6.0/System.Text.Encodings.Web.dll",
+        "lib/net6.0/System.Text.Encodings.Web.xml",
+        "lib/net7.0/System.Text.Encodings.Web.dll",
+        "lib/net7.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.7.0.0.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Text.Json/7.0.1": {
+      "sha512": "OtDEmCCiNl8JAduFKZ/r0Sw6XZNHwIicUYy/mXgMDGeOsZLshH37qi3oPRzFYiryVktiMoQLByMGPtRCEMYbeQ==",
+      "type": "package",
+      "path": "system.text.json/7.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn3.11/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn3.11/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.0/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.4/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "buildTransitive/net461/System.Text.Json.targets",
+        "buildTransitive/net462/System.Text.Json.targets",
+        "buildTransitive/net6.0/System.Text.Json.targets",
+        "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
+        "buildTransitive/netstandard2.0/System.Text.Json.targets",
+        "lib/net462/System.Text.Json.dll",
+        "lib/net462/System.Text.Json.xml",
+        "lib/net6.0/System.Text.Json.dll",
+        "lib/net6.0/System.Text.Json.xml",
+        "lib/net7.0/System.Text.Json.dll",
+        "lib/net7.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.7.0.1.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Threading.Tasks/4.3.0": {
       "sha512": "LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
       "type": "package",
@@ -1527,6 +1757,43 @@
         "system.threading.tasks.nuspec"
       ]
     },
+    "System.Threading.Tasks.Extensions/4.5.4": {
+      "sha512": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+      "type": "package",
+      "path": "system.threading.tasks.extensions/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Threading.Tasks.Extensions.dll",
+        "lib/net461/System.Threading.Tasks.Extensions.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.1/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+        "system.threading.tasks.extensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Windows.Extensions/4.7.0": {
       "sha512": "CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "type": "package",
@@ -1548,6 +1815,24 @@
         "version.txt"
       ]
     },
+    "ZstdSharp.Port/0.7.1": {
+      "sha512": "Idgg+mJEyAujqDPzA3APy9dNoyw0YQcNA65GgYjktDRtJ+nvx/hv+J+m6Eax3JJMGEYGy04oc5YNP6ZvQ3Y1vQ==",
+      "type": "package",
+      "path": "zstdsharp.port/0.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/ZstdSharp.dll",
+        "lib/net5.0/ZstdSharp.dll",
+        "lib/net6.0/ZstdSharp.dll",
+        "lib/net7.0/ZstdSharp.dll",
+        "lib/netcoreapp3.1/ZstdSharp.dll",
+        "lib/netstandard2.0/ZstdSharp.dll",
+        "lib/netstandard2.1/ZstdSharp.dll",
+        "zstdsharp.port.0.7.1.nupkg.sha512",
+        "zstdsharp.port.nuspec"
+      ]
+    },
     "TrionLibrary/1.0.0": {
       "type": "project",
       "path": "../TrionLibrary/TrionLibrary.csproj",
@@ -1566,11 +1851,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\Git\\Trion Control Panel\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
+      "projectUniqueName": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
       "projectName": "TrionControlPanel",
-      "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
+      "projectPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
       "packagesPath": "C:\\Users\\Andrei Caran\\.nuget\\packages\\",
-      "outputPath": "D:\\Repos\\Git\\Trion Control Panel\\TrionControlPanel\\TrionControlPanel\\obj\\",
+      "outputPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1592,8 +1877,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Repos\\Git\\Trion Control Panel\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj": {
-              "projectPath": "D:\\Repos\\Git\\Trion Control Panel\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj"
+            "D:\\Repos\\Git\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj": {
+              "projectPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj"
             }
           }
         }
@@ -1626,7 +1911,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
