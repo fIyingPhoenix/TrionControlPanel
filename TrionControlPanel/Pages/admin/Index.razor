@@ -20,19 +20,19 @@ This is the first row. For Server resorce and status
             <div class="card-body">
                 <div class="">
                     <svg width="20" height="20">
-                        <circle cx="10" cy="10" r="8" fill="Red" />
+                        <circle cx="10" cy="10" r="8" fill=@WorldColor />
                     </svg>
                     <text>World Server</text>
                 </div>
                 <div class="">
                     <svg width="20" height="20">
-                        <circle cx="10" cy="10" r="8" fill="Red" />
+                        <circle cx="10" cy="10" r="8" fill=@LoginColor />
                     </svg>
                     <text>Bnet Server</text>
                 </div>
                 <div class="">
                     <svg width="20" height="20">
-                        <circle cx="10" cy="10" r="8" fill="Red" />
+                        <circle cx="10" cy="10" r="8" fill=@MySQLColor />
                     </svg>
                     <text>MySQL Server</text>
                 </div>
@@ -45,16 +45,16 @@ This is the first row. For Server resorce and status
                 <text style="font-weight: bold;color:#346CB0;">Server Resource</text>
             </div>
             <div class="card-body mb-2 text-center">
-                <text>MySQL Server</text>
+                <text>MySQL Server </text>
                 <p></p>
                 <div class="progress" style="height: 20px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: @MachineRamProcent" aria-valuenow=@MachineRamProcent aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p></p>
                 <text>MySQL Server</text>
                 <p></p>
                 <div class="progress" style="height: 20px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: @MachineCpuUsage" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
 
@@ -85,7 +85,4 @@ This is the first row. For Server resorce and status
         </div>
     </div>
 </div>
-@code {
 
-
-}

@@ -4,10 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrionControlPanelDesktop.Models
+namespace TrionLibrary
 {
     public class EnumModels
     {
+        public enum ServerStatus
+        {
+            Running,
+            NotRunning
+        }
+        public enum CurrentControl
+        {
+            Home,
+            Control,
+            Settings
+        }
        public enum LoadWebsite
         {
             True,

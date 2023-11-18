@@ -21,8 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MetroFramework.Native
@@ -82,24 +80,26 @@ namespace MetroFramework.Native
 
         public Taskbar()
         {
-            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null);
+            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null!);
 
-            WinApi.APPBARDATA data = new WinApi.APPBARDATA();
-            data.cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA));
-            data.hWnd = taskbarHandle;
+            WinApi.APPBARDATA data = new() 
+            {
+                 cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA)),
+                 hWnd = taskbarHandle
+            };
+
             IntPtr result = WinApi.SHAppBarMessage(WinApi.ABM.GetTaskbarPos, ref data);
             if (result == IntPtr.Zero)
                 throw new InvalidOperationException();
 
-            this.Position = (TaskbarPosition)data.uEdge;
-            this.Bounds = Rectangle.FromLTRB(data.rc.Left, data.rc.Top, data.rc.Right, data.rc.Bottom);
+            Position = (TaskbarPosition)data.uEdge;
+            Bounds = Rectangle.FromLTRB(data.rc.Left, data.rc.Top, data.rc.Right, data.rc.Bottom);
 
             data.cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA));
             result = WinApi.SHAppBarMessage(WinApi.ABM.GetState, ref data);
             int state = result.ToInt32();
-            this.AlwaysOnTop = (state & WinApi.AlwaysOnTop) == WinApi.AlwaysOnTop;
-            this.AutoHide = (state & WinApi.Autohide) == WinApi.Autohide;
+            AlwaysOnTop = (state & WinApi.AlwaysOnTop) == WinApi.AlwaysOnTop;
+            AutoHide = (state & WinApi.Autohide) == WinApi.Autohide;
         }
-
     }
 }

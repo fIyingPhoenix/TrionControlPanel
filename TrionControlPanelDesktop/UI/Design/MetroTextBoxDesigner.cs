@@ -35,11 +35,11 @@ namespace MetroFramework.Design
         {
             get
             {
-                PropertyDescriptor propDescriptor = TypeDescriptor.GetProperties(Component)["Multiline"];
+                PropertyDescriptor propDescriptor = TypeDescriptor.GetProperties(Component)["Multiline"]!;
 
                 if (propDescriptor != null)
                 {
-                    bool isMultiline = (bool)propDescriptor.GetValue(Component);
+                    bool isMultiline = (bool)propDescriptor.GetValue(Component)!;
 
                     if (isMultiline)
                     {

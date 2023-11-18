@@ -94,7 +94,7 @@ namespace TrionControlPanelDesktop.UI.Controls
         {
             base.OnPaint(pevent);
 
-            Rectangle rectSurface = this.ClientRectangle;
+            Rectangle rectSurface = ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
             int smoothSize = 2;
             if (borderSize > 0)
@@ -104,12 +104,12 @@ namespace TrionControlPanelDesktop.UI.Controls
             {
                 using GraphicsPath pathSurface = GetFigurePath(rectSurface, borderRadius);
                 using GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize);
-                using Pen penSurface = new(this.Parent.BackColor, smoothSize);
+                using Pen penSurface = new(Parent.BackColor, smoothSize);
                 using Pen penBorder = new(borderColor, borderSize);
                 {
                     pevent.Graphics.SmoothingMode = SmoothingMode.None;
                     //Button surface
-                    this.Region = new Region(pathSurface);
+                    Region = new Region(pathSurface);
                     //Draw surface border for HD result
                     pevent.Graphics.DrawPath(penSurface, pathSurface);
 

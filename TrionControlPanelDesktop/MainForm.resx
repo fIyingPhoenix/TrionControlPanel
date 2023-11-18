@@ -164,4 +164,55 @@
         RU5ErkJggg==
 </value>
   </data>
+  <data name="BTNStartMySQL.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAWNJREFUWEftmMFOwkAQhtfEmxITn0TiFR/BV/AVfA2vHrkAXku25eqJG2cTSQxb
+        uOjRmxdiotb5Szch7Ygu3YE18CdfSNmdnT/Tdtup2stJ0fhY9U1TJdNz72BdrP+rBk8NFZs74lPFaSYH
+        ra9NL8/3o3IjXLAQOu0WmUtC6cQrUobysdXBuWQDhEkmZ4WDJeHi4iZLg7wV/U8zZs7/vya1zGjTVom5
+        pN9ndtyV2mag+4cjOr6hSn1U5rjgxYwV7gZtRuzcv+DVDJRlB7SBXRGvbMwqvJuxisanNOfWafMUM2OV
+        TC7I0CMbX0bcDDQcHpKhazp1b+w6lo2YsYpnLYp7r6xj2a3KBHHN4G7CuDZfbCyHdzPB7DNB7MDR7ISO
+        scFt+dmEp3acvlTG1qGWmaDeZ3wTvpmguoNF31TvznCG8uGNkRVaTjZIjE6RmRG6u9yQdIVofbS2K3tt
+        qyC+QuxlpdQ3hdUmCvQgwd8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNStartAll.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAWNJREFUWEftmMFOwkAQhtfEmxITn0TiFR/BV/AVfA2vHrkAXku25eqJG2cTSQxb
+        uOjRmxdiotb5Szch7Ygu3YE18CdfSNmdnT/Tdtup2stJ0fhY9U1TJdNz72BdrP+rBk8NFZs74lPFaSYH
+        ra9NL8/3o3IjXLAQOu0WmUtC6cQrUobysdXBuWQDhEkmZ4WDJeHi4iZLg7wV/U8zZs7/vya1zGjTVom5
+        pN9ndtyV2mag+4cjOr6hSn1U5rjgxYwV7gZtRuzcv+DVDJRlB7SBXRGvbMwqvJuxisanNOfWafMUM2OV
+        TC7I0CMbX0bcDDQcHpKhazp1b+w6lo2YsYpnLYp7r6xj2a3KBHHN4G7CuDZfbCyHdzPB7DNB7MDR7ISO
+        scFt+dmEp3acvlTG1qGWmaDeZ3wTvpmguoNF31TvznCG8uGNkRVaTjZIjE6RmRG6u9yQdIVofbS2K3tt
+        qyC+QuxlpdQ3hdUmCvQgwd8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNStartLOgin.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAWNJREFUWEftmMFOwkAQhtfEmxITn0TiFR/BV/AVfA2vHrkAXku25eqJG2cTSQxb
+        uOjRmxdiotb5Szch7Ygu3YE18CdfSNmdnT/Tdtup2stJ0fhY9U1TJdNz72BdrP+rBk8NFZs74lPFaSYH
+        ra9NL8/3o3IjXLAQOu0WmUtC6cQrUobysdXBuWQDhEkmZ4WDJeHi4iZLg7wV/U8zZs7/vya1zGjTVom5
+        pN9ndtyV2mag+4cjOr6hSn1U5rjgxYwV7gZtRuzcv+DVDJRlB7SBXRGvbMwqvJuxisanNOfWafMUM2OV
+        TC7I0CMbX0bcDDQcHpKhazp1b+w6lo2YsYpnLYp7r6xj2a3KBHHN4G7CuDZfbCyHdzPB7DNB7MDR7ISO
+        scFt+dmEp3acvlTG1qGWmaDeZ3wTvpmguoNF31TvznCG8uGNkRVaTjZIjE6RmRG6u9yQdIVofbS2K3tt
+        qyC+QuxlpdQ3hdUmCvQgwd8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNStartWorld.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAWNJREFUWEftmMFOwkAQhtfEmxITn0TiFR/BV/AVfA2vHrkAXku25eqJG2cTSQxb
+        uOjRmxdiotb5Szch7Ygu3YE18CdfSNmdnT/Tdtup2stJ0fhY9U1TJdNz72BdrP+rBk8NFZs74lPFaSYH
+        ra9NL8/3o3IjXLAQOu0WmUtC6cQrUobysdXBuWQDhEkmZ4WDJeHi4iZLg7wV/U8zZs7/vya1zGjTVom5
+        pN9ndtyV2mag+4cjOr6hSn1U5rjgxYwV7gZtRuzcv+DVDJRlB7SBXRGvbMwqvJuxisanNOfWafMUM2OV
+        TC7I0CMbX0bcDDQcHpKhazp1b+w6lo2YsYpnLYp7r6xj2a3KBHHN4G7CuDZfbCyHdzPB7DNB7MDR7ISO
+        scFt+dmEp3acvlTG1qGWmaDeZ3wTvpmguoNF31TvznCG8uGNkRVaTjZIjE6RmRG6u9yQdIVofbS2K3tt
+        qyC+QuxlpdQ3hdUmCvQgwd8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="TimerWacher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

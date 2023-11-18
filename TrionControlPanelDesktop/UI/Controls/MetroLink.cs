@@ -68,11 +68,11 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager? metroStyleManager = null;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
-            get { return metroStyleManager; }
+            get { return metroStyleManager!; }
             set { metroStyleManager = value; }
         }
 

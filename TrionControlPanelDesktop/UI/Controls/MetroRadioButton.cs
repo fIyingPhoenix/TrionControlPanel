@@ -66,11 +66,11 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager? metroStyleManager = null;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
-            get { return metroStyleManager; }
+            get { return metroStyleManager!; }
             set { metroStyleManager = value; }
         }
 
@@ -190,9 +190,9 @@ namespace MetroFramework.Controls
 
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            using (Pen p = new Pen(borderColor))
+            using (Pen? p = new(borderColor))
             {
-                Rectangle boxRect = new Rectangle(0, Height / 2 - 6, 12, 12);
+                Rectangle boxRect = new(0, Height / 2 - 6, 12, 12);
                 e.Graphics.DrawEllipse(p, boxRect);
             }
 
@@ -200,16 +200,16 @@ namespace MetroFramework.Controls
             {
                 Color fillColor = MetroPaint.GetStyleColor(Style);
 
-                using (SolidBrush b = new SolidBrush(fillColor))
+                using (SolidBrush? b = new(fillColor))
                 {
-                    Rectangle boxRect = new Rectangle(3, Height / 2 - 3, 6, 6);
+                    Rectangle boxRect = new(3, Height / 2 - 3, 6, 6);
                     e.Graphics.FillEllipse(b, boxRect);
                 }
             }
 
             e.Graphics.SmoothingMode = SmoothingMode.Default;
 
-            Rectangle textRect = new Rectangle(16, 0, Width - 16, Height);
+            Rectangle textRect = new(16, 0, Width - 16, Height);
             TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Link(metroLinkSize, metroLinkWeight), textRect, foreColor, backColor, MetroPaint.GetTextFormatFlags(TextAlign));
 
             if (false && isFocused)

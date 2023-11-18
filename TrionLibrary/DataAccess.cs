@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace TrionLibrary
 {
-    public class MySQLDataAccess
+    public  class MySQLDataAccess
     {
-        public async Task<List<T>> LodaData<T,U> (string sql ,U parameters, string connectionString)
+        public static async Task<List<T>> LodaData<T,U> (string sql ,U parameters, string connectionString)
         {
             using (IDbConnection con = new MySqlConnection (connectionString))
             {
@@ -17,7 +17,7 @@ namespace TrionLibrary
                 return rows.ToList();
             }
         }
-        public Task SaveData<T> (string sql,T parameters,string connectionString)
+        public static Task SaveData<T> (string sql,T parameters,string connectionString)
         {
             using (IDbConnection con = new MySqlConnection(connectionString))
             {

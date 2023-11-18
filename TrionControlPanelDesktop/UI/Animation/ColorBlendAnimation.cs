@@ -43,8 +43,8 @@ namespace MetroFramework.Animation
                     Color controlColor = GetPropertyValue(property, control);
                     Color newColor = DoColorBlend(controlColor, targetColor, 0.1 * (percent / 2));
 
-                    PropertyInfo prop = (control.GetType()).GetProperty(property);
-                    MethodInfo method = prop.GetSetMethod(true);
+                    PropertyInfo prop = (control.GetType()).GetProperty(property)!;
+                    MethodInfo method = prop.GetSetMethod(true)!;
                     method.Invoke(control, new object[] { newColor });
                 },
                 delegate
@@ -72,17 +72,17 @@ namespace MetroFramework.Animation
             return Color.FromArgb(a, r, g, b);
         }
 
-        private Color GetPropertyValue(string pName, Control control)
+        private static Color GetPropertyValue(string pName, Control control)
         {
             Type type = control.GetType();
             string propertyName = pName;
 
             BindingFlags flags = BindingFlags.GetProperty;
-            Binder binder = null;
-            object[] args = null;
-            object value = type.InvokeMember(propertyName, flags, binder, control, args);
+            Binder binder = null!;
+            object[] args = null!;
+            object value = type.InvokeMember(propertyName, flags, binder, control, args)!;
 
-            return (Color)value;
+            return (Color)value!;
         }
     }
 }

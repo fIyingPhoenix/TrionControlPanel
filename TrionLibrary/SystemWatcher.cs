@@ -1,65 +1,92 @@
-﻿using Org.BouncyCastle.Bcpg;
-using System;
+﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Management;
+using System.Threading;
 
 namespace TrionLibrary
 {
-    public static class SystemWatcher
+    public  class SystemWatcher
     {
-        //World Variables 
-        public static string WorldName { get;set; }
-        public static int WorldRam { get; set; }
-        public static int WorldPID { get; set; }
-        //Auth Variables 
-        public static string AuthName{ get;set; }
-        public static int AuthRam { get; set; }
-        public static int AuthPID { get; set; }
-        //Trion Control Panel Variables
-        public static string DatabaseName { get; set; }
-        public static string TCPName { get; set; }
-        public static int totalRam {get; set; }
-        //
-        public static bool WorldRuning()
+        public static string Message = string.Empty;
+        public static int TotalRam()
         {
-            WorldName = "";
-            Process[] pname = Process.GetProcessesByName(WorldName);
-            if (pname.Length <= 0)
-                return false;
-            else
-                return true;
-        }
-        public static bool WorldKilled()
-        {
-            bool succes = false;
-            WorldName = "";
-            foreach (var process in Process.GetProcessesByName(WorldName))
+            int totalRam = 0;
+            ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
+            ManagementObjectCollection results = searcher.Get();
+            double res;
+            foreach (ManagementObject result in results.Cast<ManagementObject>())
             {
-                try { process.Kill(); succes = true; }
-                catch (Exception ex){ succes = false;}
+                res = Convert.ToDouble(result["TotalVisibleMemorySize"]);
+                double fres = Math.Round((res / 1024d));
+                totalRam = Convert.ToInt32(fres);
             }
-            return succes;
+            return totalRam;
         }
-        public static bool AuthRuning()
+        public static int MachineCpuUtilization()
         {
-            WorldName = "";
-            Process[] pname = Process.GetProcessesByName(AuthName);
+            var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total", Environment.MachineName);
+            cpuCounter.NextValue();
+            Thread.Sleep(1000);
+            return (int)cpuCounter.NextValue();
+        }
+        public static int CurentPcRamUsage()
+        {
+            int curentram = 0;
+            ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
+            ManagementObjectCollection results = searcher.Get();
+            double res;
+            foreach (ManagementObject result in results.Cast<ManagementObject>())
+            {
+                    res = Convert.ToDouble(result["FreePhysicalMemory"]);
+                    double fres = Math.Round(res / 1024d);
+                    curentram =  Convert.ToInt32(fres);
+            }
+                return curentram; 
+        }
+        public static EnumModels.ServerStatus ApplicationRuning(string ApplicationName)
+        {
+            Process[] pname = Process.GetProcessesByName(ApplicationName);
             if (pname.Length <= 0)
-                return false;
+                return EnumModels.ServerStatus.NotRunning;
             else
-                return true;
+                return EnumModels.ServerStatus.Running;
         }
-        public static bool DatabaseRuning()
+        public static EnumModels.ServerStatus ApplicationKill(string ApplicationName)
         {
-            return false;
+            
+            foreach (var process in Process.GetProcessesByName(ApplicationName))
+            {
+                try { process.Kill(); return EnumModels.ServerStatus.NotRunning; }
+                catch (Exception) { return EnumModels.ServerStatus.Running; }
+            }
+            return EnumModels.ServerStatus.Running;
         }
-        public static bool TCPRuning()
+        public static int ApplicationRamUsage(string ApplicationName)
         {
-            TCPName = "TrionControlPanel";
-            Process[] pname = Process.GetProcessesByName(TCPName);
-            if (pname.Length <= 0)
-                return false;
-            else
-                return true;
+            if (ApplicationRuning(ApplicationName) == EnumModels.ServerStatus.Running)
+            {
+                try
+                {
+                    PerformanceCounter PC = new PerformanceCounter
+                    {
+                        CategoryName = "Process",
+                        CounterName = "Working Set - Private",
+                        InstanceName = ApplicationName
+                    };
+                    int memsize = Convert.ToInt32(PC.NextValue()) / (int)(1024 * 1024);
+                    PC.Close();
+                    PC.Dispose();
+                    return memsize;
+                }
+                catch 
+                {
+                    return 0;
+                }
+            }
+            return 0;
         }
     }
 }
