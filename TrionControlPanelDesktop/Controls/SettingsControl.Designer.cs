@@ -37,7 +37,7 @@
             metroTextBox4 = new MetroFramework.Controls.MetroTextBox();
             metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
             metroTextBox2 = new MetroFramework.Controls.MetroTextBox();
-            tabPage3 = new TabPage();
+            TabPageMysql = new TabPage();
             panel3 = new Panel();
             customButton1 = new UI.Controls.CustomButton();
             customButton3 = new UI.Controls.CustomButton();
@@ -45,13 +45,13 @@
             TabPageCore = new TabPage();
             metroTabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            tabPage3.SuspendLayout();
+            TabPageMysql.SuspendLayout();
             SuspendLayout();
             // 
             // metroTabControl1
             // 
             metroTabControl1.Controls.Add(tabPage1);
-            metroTabControl1.Controls.Add(tabPage3);
+            metroTabControl1.Controls.Add(TabPageMysql);
             metroTabControl1.Controls.Add(TabPageCore);
             metroTabControl1.CustomBackground = false;
             metroTabControl1.Dock = DockStyle.Fill;
@@ -163,20 +163,20 @@
             metroTextBox2.Theme = MetroFramework.MetroThemeStyle.Dark;
             metroTextBox2.UseStyleColors = true;
             // 
-            // tabPage3
+            // TabPageMysql
             // 
-            tabPage3.AccessibleDescription = "";
-            tabPage3.AccessibleName = "asdasdas";
-            tabPage3.BackColor = Color.FromArgb(45, 51, 59);
-            tabPage3.Controls.Add(panel3);
-            tabPage3.Controls.Add(customButton1);
-            tabPage3.Controls.Add(customButton3);
-            tabPage3.Controls.Add(metroTextBox1);
-            tabPage3.Location = new Point(4, 35);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(837, 331);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "MySQL";
+            TabPageMysql.AccessibleDescription = "";
+            TabPageMysql.AccessibleName = "";
+            TabPageMysql.BackColor = Color.FromArgb(45, 51, 59);
+            TabPageMysql.Controls.Add(panel3);
+            TabPageMysql.Controls.Add(customButton1);
+            TabPageMysql.Controls.Add(customButton3);
+            TabPageMysql.Controls.Add(metroTextBox1);
+            TabPageMysql.Location = new Point(4, 35);
+            TabPageMysql.Name = "TabPageMysql";
+            TabPageMysql.Size = new Size(837, 331);
+            TabPageMysql.TabIndex = 2;
+            TabPageMysql.Text = "MySQL";
             // 
             // panel3
             // 
@@ -267,7 +267,7 @@
             metroTabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            tabPage3.ResumeLayout(false);
+            TabPageMysql.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -276,7 +276,7 @@
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private TabPage tabPage1;
         private TabPage TabPageCore;
-        private TabPage tabPage3;
+        private TabPage TabPageMysql;
         private MetroFramework.Controls.MetroTextBox metroTextBox1;
         private UI.Controls.CustomButton customButton3;
         private UI.Controls.CustomButton customButton1;

@@ -29,10 +29,9 @@ namespace MetroFramework
     public sealed class MetroPens
     {
         private static Dictionary<string, Pen> metroPens;
-        private static Pen GetSavePen(string key, Color color)
+        private static Pen? GetSavePen(string key, Color color)
         {
-            if (metroPens == null)
-                metroPens = new Dictionary<string, Pen>();
+            metroPens ??= new Dictionary<string, Pen>();
 
             if (!metroPens.ContainsKey(key))
                 metroPens.Add(key, new Pen(color, 1f));
@@ -40,7 +39,7 @@ namespace MetroFramework
             return metroPens[key].Clone() as Pen;
         }
 
-        public static Pen Black
+        public static Pen? Black
         {
             get
             {
@@ -48,7 +47,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen White
+        public static Pen? White
         {
             get
             {
@@ -56,7 +55,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Silver
+        public static Pen? Silver
         {
             get
             {
@@ -64,7 +63,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Blue
+        public static Pen? Blue
         {
             get
             {
@@ -72,7 +71,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Green
+        public static Pen? Green
         {
             get
             {
@@ -80,7 +79,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Lime
+        public static Pen? Lime
         {
             get
             {
@@ -88,7 +87,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Teal
+        public static Pen? Teal
         {
             get
             {
@@ -96,7 +95,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Orange
+        public static Pen? Orange
         {
             get
             {
@@ -104,7 +103,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Brown
+        public static Pen? Brown
         {
             get
             {
@@ -112,7 +111,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Pink
+        public static Pen? Pink
         {
             get
             {
@@ -120,7 +119,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Magenta
+        public static Pen? Magenta
         {
             get
             {
@@ -128,7 +127,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Purple
+        public static Pen? Purple
         {
             get
             {
@@ -136,7 +135,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Red
+        public static Pen? Red
         {
             get
             {
@@ -144,7 +143,7 @@ namespace MetroFramework
             }
         }
 
-        public static Pen Yellow
+        public static Pen? Yellow
         {
             get
             {

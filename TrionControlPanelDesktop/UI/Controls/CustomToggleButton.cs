@@ -76,6 +76,7 @@ namespace TrionControlPanel.UI
             }
             set
             {
+                base.Text = value;
             }
         }
         [Category("1 CustomToggleButton Advance")]

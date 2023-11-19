@@ -128,6 +128,7 @@
             TerminaBTN.TabIndex = 2;
             TerminaBTN.TextColor = Color.White;
             TerminaBTN.UseVisualStyleBackColor = false;
+            TerminaBTN.Click += TerminaBTN_Click;
             // 
             // HomeBTN
             // 
@@ -177,6 +178,7 @@
             // 
             QualityWEB.Anchor = AnchorStyles.Top;
             QualityWEB.BackColor = Color.FromArgb(45, 51, 59);
+            QualityWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
             QualityWEB.Location = new Point(618, 11);
             QualityWEB.Name = "QualityWEB";
             QualityWEB.Size = new Size(147, 28);
@@ -187,6 +189,7 @@
             // 
             IssuesWEB.Anchor = AnchorStyles.Top;
             IssuesWEB.BackColor = Color.FromArgb(45, 51, 59);
+            IssuesWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
             IssuesWEB.Location = new Point(465, 11);
             IssuesWEB.Name = "IssuesWEB";
             IssuesWEB.Size = new Size(142, 28);
@@ -197,6 +200,7 @@
             // 
             StarsWEB.Anchor = AnchorStyles.Top;
             StarsWEB.BackColor = Color.FromArgb(45, 51, 59);
+            StarsWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
             StarsWEB.Location = new Point(350, 11);
             StarsWEB.Name = "StarsWEB";
             StarsWEB.Size = new Size(104, 28);
@@ -206,6 +210,7 @@
             // ForkWEB
             // 
             ForkWEB.Anchor = AnchorStyles.Top;
+            ForkWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
             ForkWEB.Location = new Point(234, 11);
             ForkWEB.Name = "ForkWEB";
             ForkWEB.Size = new Size(105, 28);
@@ -215,6 +220,7 @@
             // ContiWEB
             // 
             ContiWEB.Anchor = AnchorStyles.Top;
+            ContiWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
             ContiWEB.Location = new Point(71, 11);
             ContiWEB.Name = "ContiWEB";
             ContiWEB.Size = new Size(152, 28);
@@ -319,7 +325,8 @@
             BTNStartLOgin.RightToLeft = RightToLeft.No;
             BTNStartLOgin.Size = new Size(119, 40);
             BTNStartLOgin.TabIndex = 7;
-            BTNStartLOgin.Text = "          Start Login";
+            BTNStartLOgin.Text = "Start Login  ";
+            BTNStartLOgin.TextAlign = ContentAlignment.MiddleRight;
             BTNStartLOgin.TextColor = Color.White;
             BTNStartLOgin.UseVisualStyleBackColor = false;
             BTNStartLOgin.Click += BTNStartLOgin_Click;

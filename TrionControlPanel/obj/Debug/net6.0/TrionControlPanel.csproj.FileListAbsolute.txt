@@ -124,3 +124,7 @@ D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\System.Diagnos
 D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\System.Management.dll
 D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
 D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Management.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\Settings.xml
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

@@ -7,6 +7,5 @@
             this.Dock = DockStyle.Fill;
             InitializeComponent();
         }
-
     }
 }

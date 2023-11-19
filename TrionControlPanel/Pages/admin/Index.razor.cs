@@ -33,12 +33,12 @@ namespace TrionControlPanel.Pages.admin
             if (SystemWatcher.ApplicationRuning("fdm") == EnumModels.ServerStatus.Running)
             {
                 WorldColor = "Green";
-                Settings.Server.WorldServerStatus = EnumModels.ServerStatus.Running;
+                Data.Server.WorldServerStatus = EnumModels.ServerStatus.Running;
             }
             else
             {
                 WorldColor = "Red";
-                Settings.Server.WorldServerStatus = EnumModels.ServerStatus.NotRunning;
+                Data.Server.WorldServerStatus = EnumModels.ServerStatus.NotRunning;
             }
             await InvokeAsync(() => StateHasChanged());
         }

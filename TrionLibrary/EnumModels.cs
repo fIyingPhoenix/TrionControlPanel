@@ -19,10 +19,19 @@ namespace TrionLibrary
             Control,
             Settings
         }
-       public enum LoadWebsite
+        public enum LoadWebsite
         {
             True,
             False
+        }
+        public enum Cores
+        {
+            AscEmu,
+            AzerothCore,
+            CMaNGOS,
+            CypherCore,
+            TrinityCore,
+            VMaNGOS
         }
     }
 }

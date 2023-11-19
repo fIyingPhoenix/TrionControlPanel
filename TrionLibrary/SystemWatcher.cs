@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.Reflection;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
@@ -8,7 +9,7 @@ namespace TrionLibrary
 {
     public  class SystemWatcher
     {
-        public static string Message = string.Empty;
+
         public static int TotalRam()
         {
             int totalRam = 0;
@@ -63,6 +64,33 @@ namespace TrionLibrary
                 catch (Exception) { return EnumModels.ServerStatus.Running; }
             }
             return EnumModels.ServerStatus.Running;
+        }
+        public static void ApplicationStart(string ApplicationName, bool HideWindw)
+        {
+            try
+            {
+                using (Process myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = ApplicationName;
+
+                    if (HideWindw == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+                    }
+                    else if (HideWindw == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               Data.Message = ex.Message;
+            }
         }
         public static int ApplicationRamUsage(string ApplicationName)
         {
