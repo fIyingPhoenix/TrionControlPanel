@@ -145,15 +145,11 @@ namespace MetroFramework.Design
         {
             var parentControl = (MetroTabControl) Control;
 
-            switch (parentControl.TabPages.Count)
+            Verbs[1]!.Enabled = parentControl.TabPages.Count switch
             {
-                case 0:
-                    Verbs[1].Enabled = false;
-                    break;
-                default:
-                    Verbs[1].Enabled = true;
-                    break;
-            }
+                0 => false,
+                _ => true,
+            };
         }
         #endregion
 

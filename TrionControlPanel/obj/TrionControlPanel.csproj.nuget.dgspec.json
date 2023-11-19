@@ -116,6 +116,10 @@
               "target": "Package",
               "version": "[2.1.21, )"
             },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.2.0, )"
@@ -125,6 +129,18 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "System.CodeDom": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Diagnostics.PerformanceCounter": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
-using TrionControlPanelDesktop.Models;
-using static TrionControlPanelDesktop.Models.EnumModels;
+using static TrionLibrary.EnumModels;
 
 namespace TrionControlPanelDesktop.UI
 {

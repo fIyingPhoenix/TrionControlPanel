@@ -65,11 +65,11 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager? metroStyleManager = null;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
-            get { return metroStyleManager; }
+            get { return metroStyleManager!; }
             set { metroStyleManager = value; }
         }
 
@@ -199,18 +199,18 @@ namespace MetroFramework.Controls
 
             e.Graphics.Clear(backColor);
 
-            using (Pen p = new Pen(borderColor))
+            using (Pen p = new(borderColor))
             {
-                Rectangle boxRect = new Rectangle(0, 0, Width - 1, Height - 1);
+                Rectangle boxRect = new(0, 0, Width - 1, Height - 1);
                 e.Graphics.DrawRectangle(p, boxRect);
             }
 
-            using (SolidBrush b = new SolidBrush(foreColor))
+            using (SolidBrush b = new(foreColor))
             {
                 e.Graphics.FillPolygon(b, new Point[] { new Point(Width - 20, (Height / 2) - 2), new Point(Width - 9, (Height / 2) - 2), new Point(Width - 15,  (Height / 2) + 4) });
             }
 
-            Rectangle textRect = new Rectangle(2, 2, Width - 20, Height - 4);
+            Rectangle textRect = new(2, 2, Width - 20, Height - 4);
             TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Link(metroLinkSize, metroLinkWeight), textRect, foreColor, backColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
 
             if (false && isFocused)
@@ -234,12 +234,12 @@ namespace MetroFramework.Controls
                     foreColor = MetroPaint.ForeColor.Tile.Normal(Theme);
                 }
 
-                using (SolidBrush b = new SolidBrush(backColor))
+                using (SolidBrush b = new(backColor))
                 {
                     e.Graphics.FillRectangle(b, new Rectangle(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height));
                 }
 
-                Rectangle textRect = new Rectangle(0, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
+                Rectangle textRect = new(0, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
                 TextRenderer.DrawText(e.Graphics, Items[e.Index].ToString(), MetroFonts.Link(metroLinkSize, metroLinkWeight), textRect, foreColor, backColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
             }
             else

@@ -37,11 +37,11 @@ namespace MetroFramework.Design
         {
             get
             {
-                PropertyDescriptor propDescriptor = TypeDescriptor.GetProperties(Component)["Orientation"];
+                PropertyDescriptor propDescriptor = TypeDescriptor.GetProperties(Component)["Orientation"]!;
 
                 if (propDescriptor != null)
                 {
-                    MetroScrollOrientation orientation = (MetroScrollOrientation)propDescriptor.GetValue(Component);
+                    MetroScrollOrientation orientation = (MetroScrollOrientation)propDescriptor.GetValue(Component)!;
 
                     if (orientation == MetroScrollOrientation.Vertical)
                     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrionControlPanelDesktop.Data
+namespace TrionControlPanelDesktop.FormData
 {
-    public class FormData
+    public class UIData
     {
         public static string ContributorsURL()
         {

@@ -67,7 +67,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -79,7 +79,7 @@ namespace MetroFramework.Controls
 
         #region Fields
 
-        private MetroLocalize metroLocalize = null;
+        private MetroLocalize metroLocalize = null!;
 
         private bool useStyleColors = false;
         [Category("Metro Appearance")]
@@ -146,10 +146,10 @@ namespace MetroFramework.Controls
             {
                 if (Checked)
                 {
-                    return metroLocalize.translate("StatusOn");
+                    return metroLocalize.Translate("StatusOn");
                 }
 
-                return metroLocalize.translate("StatusOff");
+                return metroLocalize.Translate("StatusOff");
             }
         }
 

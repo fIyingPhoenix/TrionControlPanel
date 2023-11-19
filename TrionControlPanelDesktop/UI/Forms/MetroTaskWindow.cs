@@ -52,11 +52,11 @@ namespace MetroFramework.Forms
             singletonWindow.Resizable = false;
             singletonWindow.StartPosition = FormStartPosition.Manual;
             
-            if (parent != null && parent is IMetroForm)
+            if (parent != null && parent is IMetroForm form)
             {
-                singletonWindow.Theme = ((IMetroForm)parent).Theme;
-                singletonWindow.Style = ((IMetroForm)parent).Style;
-                singletonWindow.StyleManager = ((IMetroForm)parent).StyleManager.Clone() as MetroStyleManager;
+                singletonWindow.Theme = form.Theme;
+                singletonWindow.Style = form.Style;
+                singletonWindow.StyleManager = (MetroStyleManager)form.StyleManager.Clone();
 
                 if (singletonWindow.StyleManager != null)
                     singletonWindow.StyleManager.OwnerForm = singletonWindow;
@@ -152,28 +152,16 @@ namespace MetroFramework.Forms
 
                 Size = new Size(400, 200);
 
-                Taskbar myTaskbar = new Taskbar();
-                switch (myTaskbar.Position)
+                Taskbar myTaskbar = new();
+                Location = myTaskbar.Position switch
                 {
-                    case TaskbarPosition.Left:
-                        Location = new Point(myTaskbar.Bounds.Width + 5, myTaskbar.Bounds.Height - Height - 5);
-                        break;
-                    case TaskbarPosition.Top:
-                        Location = new Point(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Height + 5);
-                        break;
-                    case TaskbarPosition.Right:
-                        Location = new Point(myTaskbar.Bounds.X - Width - 5, myTaskbar.Bounds.Height - Height - 5);
-                        break;
-                    case TaskbarPosition.Bottom:
-                        Location = new Point(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Y - Height - 5);
-                        break;
-                    case TaskbarPosition.Unknown:
-                    default:
-                        Location = new Point(Screen.PrimaryScreen.Bounds.Width - Width - 5, Screen.PrimaryScreen.Bounds.Height - Height - 5);
-                        break;
-                }
-
-                controlContainer.Location = new Point(0, 60);
+                    TaskbarPosition.Left => new(myTaskbar.Bounds.Width + 5, myTaskbar.Bounds.Height - Height - 5),
+                    TaskbarPosition.Top => new(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Height + 5),
+                    TaskbarPosition.Right => new(myTaskbar.Bounds.X - Width - 5, myTaskbar.Bounds.Height - Height - 5),
+                    TaskbarPosition.Bottom => new(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Y - Height - 5),
+                    _ => new(Screen.PrimaryScreen.Bounds.Width - Width - 5, Screen.PrimaryScreen.Bounds.Height - Height - 5),
+                };
+                controlContainer.Location = new(0, 60);
                 controlContainer.Size = new Size(Width - 40, Height - 80);
                 controlContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left;
 
@@ -181,8 +169,8 @@ namespace MetroFramework.Forms
 
                 isInitialized = true;
 
-                MoveAnimation myMoveAnim = new MoveAnimation();
-                myMoveAnim.Start(controlContainer, new Point(20, 60), TransitionType.EaseInOutCubic, 15);
+                MoveAnimation myMoveAnim = new();
+                myMoveAnim.Start(controlContainer, new(20, 60), TransitionType.EaseInOutCubic, 15);
             }
 
             base.OnActivated(e);
@@ -192,7 +180,7 @@ namespace MetroFramework.Forms
         {
             base.OnPaint(e);
 
-            using (SolidBrush b = new SolidBrush(MetroPaint.BackColor.Form(Theme)))
+            using (SolidBrush b = new(MetroPaint.BackColor.Form(Theme)))
             {
                 e.Graphics.FillRectangle(b, new Rectangle(Width - progressWidth, 0, progressWidth, 5));
             }
@@ -203,7 +191,7 @@ namespace MetroFramework.Forms
             if (elapsedTime == closeTime)
             {
                 timer.Dispose();
-                timer = null;
+                timer = null!;
                 Close();
                 return;
             }

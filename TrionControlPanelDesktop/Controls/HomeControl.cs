@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrionLibrary;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class HomeControl : UserControl
     {
+        private static void FirstLoad()
+        {
+            
+        }
         public HomeControl()
         {
             this.Dock = DockStyle.Fill;
@@ -20,12 +25,30 @@ namespace TrionControlPanelDesktop.Controls
 
         private void HomeControl_Load(object sender, EventArgs e)
         {
-
+            FirstLoad();
         }
 
-        private void HomeControl_Resize(object sender, EventArgs e)
+        private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            panel2.Left = this.Right - 420;
+            try
+            {
+                Thread PCResorceUsageThread = new(() =>
+                {
+                    int CurrentRamUsage = SystemWatcher.TotalRam() - SystemWatcher.CurentPcRamUsage();
+                    PCResorcePbarRAM.Maximum = SystemWatcher.TotalRam();
+                    PCLoginPbarRAM.Maximum = CurrentRamUsage;
+                    PCWorldPbarRAM.Maximum = CurrentRamUsage;
+
+                    PCWorldPbarRAM.Value = SystemWatcher.ApplicationRamUsage("");
+                    PCResorcePbarRAM.Value = CurrentRamUsage;
+                    PCResorcePbarCPU.Value = SystemWatcher.MachineCpuUtilization();
+                });
+
+                PCResorceUsageThread.Start();
+            }
+            catch
+            {
+            }
         }
     }
 }

@@ -51,8 +51,8 @@ namespace MetroFramework.Animation
         }
 
         #region Compatibility code
-        private DelayedCall<object>.Callback oldCallback = null;
-        private object oldData = null;
+        private DelayedCall<object>.Callback oldCallback = null!;
+        private object oldData = null!;
 
         [Obsolete("Use the static method DelayedCall.Create instead.")]
         public DelayedCall(Callback cb)
@@ -115,7 +115,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall Create(Callback cb, int milliseconds)
         {
-            DelayedCall dc = new DelayedCall();
+            DelayedCall dc = new();
             PrepareDCObject(dc, milliseconds, false);
             dc.callback = cb;
             return dc;
@@ -123,7 +123,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall CreateAsync(Callback cb, int milliseconds)
         {
-            DelayedCall dc = new DelayedCall();
+            DelayedCall dc = new ();
             PrepareDCObject(dc, milliseconds, true);
             dc.callback = cb;
             return dc;
@@ -152,10 +152,10 @@ namespace MetroFramework.Animation
                 throw new ArgumentOutOfRangeException("milliseconds", "The new timeout must be 0 or greater.");
             }
 
-            dc.context = null;
+            dc.context = null!;
             if (!async)
             {
-                dc.context = SynchronizationContext.Current;
+                dc.context = SynchronizationContext.Current!;
                 if (dc.context == null)
                     throw new InvalidOperationException("Cannot delay calls synchronously on a non-UI thread. Use the *Async methods instead.");
             }

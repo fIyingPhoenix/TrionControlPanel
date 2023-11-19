@@ -7,7 +7,7 @@
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service. </p>
-<p role="status">World Running: @WorldStatus and name @name</p>
+<p role="status">World Running: @WorldStatus and name </p>
 <button type="button" class="btn btn-secondary" @onclick=chekIfRunning>Test</button>
 <input type="text" class="form-control" id="inputPassword" placeholder="Password">
    <p><em>Loading...</em></p>
@@ -28,15 +28,15 @@
     </table>
 
 @code {
-    string? WorldStatus;
-    string? name;
+    EnumModels.ServerStatus WorldStatus;
+
     private void chekIfRunning()
     {
-        SystemWatcher.WorldKilled();
-        WorldStatus = SystemWatcher.WorldRuning().ToString();
+        SystemWatcher.ApplicationKill("");
+        WorldStatus = SystemWatcher.ApplicationRuning("fdm");
     }
     protected override async Task OnInitializedAsync()
     {
-        WorldStatus = SystemWatcher.WorldRuning().ToString();
+        WorldStatus = SystemWatcher.ApplicationRuning("");
     }
 }

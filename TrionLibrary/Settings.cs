@@ -1,162 +1,129 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Tls;
+using System;
 using System.IO;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace TrionLibrary
 {
     public class Data
     {
-        public static string Message { get; set; }
+        public static string Message = string.Empty;
+        public static string SettingsDataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml"; //HardCoded File Location. Maybe one day a dynamic one
+        public static Settings Settings = new Settings();
 
-        private static string _WorldDatabase;
-        private static string _AuthDatabase;
-        private static string _CharactersDatabase;
-        private static string _MySQLLocation;
-        private static string _MySQLServerHost;
-        private static string _MySQLServerUser;
-        private static string _MySQLServerPassword;
-        private static string _MySQLServerPort;
-        private static string _MySQLExecutableName;
-        private static string _MySQLExecutablePath;
-        private static string _CoreLocation;
-        private static string _WorldExecutableLocation;
-        private static string _BnetExecutableLocation;
-        private static string _WorldExecutableName;
-        private static string _BnetExecutableName;
-        private static bool _SettingsUpdate;
-        private static bool _ServerCrashCheck;
-        private static bool _NotificationSound;
-        private static bool _ConsolHide;
-        private static bool _StayInTray;
-        private static bool _RunWithWindows;
-        private static bool _CustomNames;
-        private static bool _StartCoreOnRun;
-        private static int _SelectedCore;
-
-        public static string WorldDatabase
+        public static void CreateSettingsFile(bool PopulateSettingsData)
         {
-            get { return _WorldDatabase; }
-            set { _WorldDatabase = value; }
+            if (!File.Exists(SettingsDataFile))
+            {
+                var createFile = File.Create(SettingsDataFile); //To fix the "File in use Error!"
+                createFile.Close();
+            }
+            if (PopulateSettingsData == true)
+            {
+                Settings.WorldDatabase = "world";
+                Settings.AuthDatabase = "auth";
+                Settings.CharactersDatabase = "characters";
+                Settings.MySQLLocation = "";
+                Settings.MySQLServerHost = "localhost";
+                Settings.MySQLServerUser = "root";
+                Settings.MySQLServerPassword = "fIyingPhoenix";
+                Settings.MySQLServerPort = "3306";
+                Settings.MySQLExecutableName = "mysqld";
+                Settings.CoreLocation = "";
+                Settings.WorldExecutableLocation = "";
+                Settings.BnetExecutableLocation = "";
+                Settings.WorldExecutableName = "WorldServer";
+                Settings.BnetExecutableName = "BNetServer";
+                Settings.ServerCrash = false;
+                Settings.NotificationSound = true;
+                Settings.ConsolHide = false;
+                Settings.StayInTray = false;
+                Settings.RunWithWindows = false;
+                Settings.CustomNames = false;
+                Settings.RunServerWithWindows = false;
+                Settings.SettingsUpdate = false;
+                Settings.SelectedCore = EnumModels.Cores.TrinityCore;
+                WriteData(Settings, SettingsDataFile);
+            }
         }
-        public static string AuthDatabase
+        public static void SaveSettings()
         {
-            get { return _AuthDatabase; }
-            set { _AuthDatabase = value; }
+            try
+            {
+                if (File.Exists(SettingsDataFile))
+                    WriteData(Settings, SettingsDataFile);
+            }catch (Exception ex)
+            {
+                Message = ex.Message;
+            }    
         }
-        public static string CharactersDatabase
+        public static void LoadSettings() 
         {
-            get { return _CharactersDatabase; }
-            set { _CharactersDatabase = value; }
+            try
+            {
+                if (File.Exists(SettingsDataFile))
+                    Settings = ReaderData(SettingsDataFile);
+                else
+                {
+                    CreateSettingsFile(true);
+                    Settings = ReaderData(SettingsDataFile);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+            }
         }
-        public static string MySQLLocation
+        private static void WriteData(object o, string fileName)
         {
-            get { return _MySQLLocation; }
-            set { _MySQLLocation = value; }
+            XmlSerializer serializer = new XmlSerializer(o.GetType());
+            TextWriter writer = new StreamWriter(fileName);
+            serializer.Serialize(writer, o);
+            writer.Close();
         }
-        public static string MySQLExecutablePath
+        private static Settings ReaderData(string fileName)
         {
-            get { return _MySQLExecutablePath; }
-            set { _MySQLExecutablePath = value; }
+            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+            FileStream reader = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Settings = (Settings)serializer.Deserialize(reader);
+            reader.Close();
+            return Settings;
         }
-        public static string MySQLServerPort
+        public class Server
         {
-            get { return _MySQLServerPort; }
-            set { _MySQLServerPort = value; }
-        }
-        public static string MySQLServerHost
-        {
-            get { return _MySQLServerHost; }
-            set { _MySQLServerHost = value; }
-        }
-        public static string MySQLServerUser
-        {
-            get { return _MySQLServerUser; }
-            set { _MySQLServerUser = value; }
-        }
-        public static string MySQLServerPassword
-        {
-            get { return _MySQLServerPassword; }
-            set { _MySQLServerPassword = value; }
-        }
-        public static string MySQLExecutableName
-        {
-            get { return _MySQLExecutableName; }
-            set { _MySQLExecutableName = value; }
-        }
-        public static string CoreLocation
-        {
-            get { return _CoreLocation; }
-            set { _CoreLocation = value; }
-        }
-        public static string WorldExecutableLocation
-        {
-            get { return _WorldExecutableLocation; }
-            set { _WorldExecutableLocation = value; }
-        }
-        public static string BnetExecutableLocation
-        {
-            get { return _BnetExecutableLocation; }
-            set { _BnetExecutableLocation = value; }
-        }
-        public static string WorldExecutableName
-        {
-            get { return _WorldExecutableName; }
-            set { _WorldExecutableName = value; }
-        }
-        public static string BnetExecutableName
-        {
-            get { return _BnetExecutableName; }
-            set { _BnetExecutableName = value; }
-        }
-        public static bool SettingsUpdate
-        {
-            get { return _SettingsUpdate; }
-            set { _SettingsUpdate = value; }
-        }
-        public static bool ServerCrashCheck
-        {
-            get { return _ServerCrashCheck; }
-            set { _ServerCrashCheck = value; }
-        }
-        public static bool NotificationSound
-        {
-            get { return _NotificationSound; }
-            set { _NotificationSound = value; }
-        }
-        public static bool ConsolHide
-        {
-            get { return _ConsolHide; }
-            set { _ConsolHide = value; }
-        }
-        public static bool StayInTray
-        {
-            get { return _StayInTray; }
-            set { _StayInTray = value; }
-        }
-        public static bool RunWithWindows
-        {
-            get { return _RunWithWindows; }
-            set { _RunWithWindows = value; }
-        }
-        public static bool CustomNames
-        {
-            get { return _CustomNames; }
-            set { _CustomNames = value; }
-        }
-        public static bool StartCoreOnRun
-        {
-            get { return _StartCoreOnRun; }
-            set { _StartCoreOnRun = value; }
-        }
-        public static int SelectedCore
-        {
-            get { return _SelectedCore; }
-            set { _SelectedCore = value; }
+            public static EnumModels.ServerStatus WorldServerStatus;
+            public static EnumModels.ServerStatus LoginServerStatus;
+            public static EnumModels.ServerStatus MysqlServerStatus;
         }
     }
     public class Settings
     {
-
-        
+        public string WorldDatabase;
+        public string AuthDatabase;
+        public string CharactersDatabase;
+        public string MySQLLocation;
+        public string MySQLServerHost;
+        public string MySQLServerUser;
+        public string MySQLServerPassword;
+        public string MySQLServerPort;
+        public string MySQLExecutableName;
+        public string MySQLExecutablePath;
+        public string CoreLocation;
+        public string WorldExecutableLocation;
+        public string BnetExecutableLocation;
+        public string WorldExecutableName;
+        public string BnetExecutableName;
+        public bool SettingsUpdate;
+        public bool ServerCrash;
+        public bool NotificationSound;
+        public bool ConsolHide;
+        public bool StayInTray;
+        public bool RunWithWindows;
+        public bool CustomNames;
+        public bool RunServerWithWindows;
+        public EnumModels.Cores SelectedCore;
     }
 }

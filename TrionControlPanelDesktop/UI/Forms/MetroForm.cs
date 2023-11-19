@@ -76,7 +76,7 @@ namespace MetroFramework.Forms
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -88,7 +88,7 @@ namespace MetroFramework.Forms
 
         #region Fields
 
-        protected MetroDropShadow metroDropShadowForm = null;
+        protected MetroDropShadow metroDropShadowForm = null!;
 
         private bool isInitialized = false;
 
@@ -217,7 +217,7 @@ namespace MetroFramework.Forms
                 {
                     metroDropShadowForm.Owner = null;
                     metroDropShadowForm.Dispose();
-                    metroDropShadowForm = null;
+                    metroDropShadowForm = null!;
                 }
             }
 
@@ -237,7 +237,7 @@ namespace MetroFramework.Forms
 
             using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
             {
-                Rectangle topRect = new Rectangle(0, 0, Width, borderWidth);
+                Rectangle topRect = new(0, 0, Width, borderWidth);
                 e.Graphics.FillRectangle(b, topRect);
             }
 
@@ -262,9 +262,9 @@ namespace MetroFramework.Forms
 
             if (Resizable && (SizeGripStyle == SizeGripStyle.Auto || SizeGripStyle == SizeGripStyle.Show))
             {
-                using (SolidBrush b = new SolidBrush(MetroPaint.ForeColor.Button.Disabled(Theme)))
+                using (SolidBrush b = new(MetroPaint.ForeColor.Button.Disabled(Theme)))
                 {
-                    Size resizeHandleSize = new Size(2, 2);
+                    Size resizeHandleSize = new(2, 2);
                     e.Graphics.FillRectangles(b, new Rectangle[] {
                         new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-6), resizeHandleSize),
                         new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-10), resizeHandleSize),
@@ -283,14 +283,14 @@ namespace MetroFramework.Forms
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (!(this is MetroTaskWindow))
+            if (this is not MetroTaskWindow)
                 MetroTaskWindow.ForceClose();
 
             if (metroDropShadowForm != null)
             {
                 metroDropShadowForm.Visible = false;
                 metroDropShadowForm.Owner = null;
-                metroDropShadowForm = null;
+                metroDropShadowForm = null!;
             }
 
             base.OnClosing(e);
@@ -339,8 +339,8 @@ namespace MetroFramework.Forms
 
                 if (StartPosition == FormStartPosition.CenterScreen)
                 {
-                    Point initialLocation = new Point();
-                    initialLocation.X = (Screen.PrimaryScreen.WorkingArea.Width - (ClientRectangle.Width + 5)) / 2;
+                    Point initialLocation = new();
+                    initialLocation.X = (Screen.PrimaryScreen!.WorkingArea.Width - (ClientRectangle.Width + 5)) / 2;
                     initialLocation.Y = (Screen.PrimaryScreen.WorkingArea.Height - (ClientRectangle.Height + 5)) / 2;
                     Location = initialLocation;
                     base.OnActivated(e);
@@ -386,7 +386,8 @@ namespace MetroFramework.Forms
 
         private IntPtr HitTestNCA(IntPtr hwnd, IntPtr wparam, IntPtr lparam)
         {
-            Point vPoint = PointToClient(new Point((int)lparam & 0xFFFF, (int)lparam >> 16 & 0xFFFF));
+            int lparm1 = (int)lparam;
+            Point vPoint = PointToClient(new Point(lparm1 & 0xFFFF, lparm1 >> 16 & 0xFFFF));
             int vPadding = Math.Max(Padding.Right, Padding.Bottom);
 
             if (Resizable)
@@ -442,13 +443,12 @@ namespace MetroFramework.Forms
 
         private void AddWindowButton(WindowButtons button)
         {
-            if (windowButtonList == null)
-                windowButtonList = new Dictionary<WindowButtons, MetroFormButton>();
+            windowButtonList ??= new Dictionary<WindowButtons, MetroFormButton>();
 
             if (windowButtonList.ContainsKey(button))
                 return;
 
-            MetroFormButton newButton = new MetroFormButton();
+            MetroFormButton newButton = new();
 
             if (button == WindowButtons.Close)
             {
@@ -477,10 +477,9 @@ namespace MetroFramework.Forms
 
         private void WindowButton_Click(object sender, EventArgs e)
         {
-            var btn = sender as MetroFormButton;
-            if (btn != null)
+            if (sender is MetroFormButton btn)
             {
-                var btnFlag = (WindowButtons)btn.Tag;
+                var btnFlag = (WindowButtons)btn.Tag!;
                 if (btnFlag == WindowButtons.Close)
                 {
                     Close();
@@ -509,12 +508,12 @@ namespace MetroFramework.Forms
         {
             if (!ControlBox) return;
 
-            Dictionary<int, WindowButtons> priorityOrder = new Dictionary<int, WindowButtons>(3) { {0, WindowButtons.Close}, {1, WindowButtons.Maximize}, {2, WindowButtons.Minimize} };
+            Dictionary<int, WindowButtons> priorityOrder = new(3){ {0, WindowButtons.Close}, {1, WindowButtons.Maximize}, {2, WindowButtons.Minimize} };
 
             Point firstButtonLocation = new(ClientRectangle.Width - 40, borderWidth);
             int lastDrawedButtonPosition = firstButtonLocation.X - 25;
 
-            MetroFormButton firstButton = null;
+            MetroFormButton firstButton = null!;
 
             if (windowButtonList.Count == 1)
             {
@@ -539,7 +538,7 @@ namespace MetroFramework.Forms
                     if (firstButton == null || !buttonExists) continue;
 
                     windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, borderWidth);
-                    lastDrawedButtonPosition = lastDrawedButtonPosition - 25;
+                    lastDrawedButtonPosition -= 25;
                 }
             }
 
@@ -578,7 +577,7 @@ namespace MetroFramework.Forms
                 set { metroTheme = value; }
             }
 
-            private MetroStyleManager metroStyleManager = null;
+            private MetroStyleManager metroStyleManager = null!;
             [Browsable(false)]
             public MetroStyleManager StyleManager
             {
@@ -719,7 +718,7 @@ namespace MetroFramework.Forms
                 shadowTargetForm.Activated += new EventHandler(shadowTargetForm_Activated);
                 shadowTargetForm.ResizeBegin += new EventHandler(shadowTargetForm_ResizeBegin);
                 shadowTargetForm.ResizeEnd += new EventHandler(shadowTargetForm_ResizeEnd);
-                shadowTargetForm.VisibleChanged += new EventHandler(shadowTargetForm_VisibleChanged);
+                shadowTargetForm.VisibleChanged += new EventHandler(ShadowTargetForm_VisibleChanged);
 
                 Opacity = 0.2;
                 ShowInTaskbar = false;
@@ -733,7 +732,7 @@ namespace MetroFramework.Forms
                 shadowTargetForm.Owner = this;
             }
 
-            private void shadowTargetForm_VisibleChanged(object sender, EventArgs e)
+            private void ShadowTargetForm_VisibleChanged(object sender, EventArgs e)
             {
                 Visible = shadowTargetForm.Visible;
             }
@@ -801,7 +800,7 @@ namespace MetroFramework.Forms
             WinApi.DrawMenuBar(Handle);
         }
 
-        private Rectangle MeasureText(Graphics g, Rectangle clientRectangle, Font font, string text, TextFormatFlags flags)
+        private static Rectangle MeasureText(Graphics g, Rectangle clientRectangle, Font font, string text, TextFormatFlags flags)
         {
             var proposedSize = new Size(int.MaxValue, int.MinValue);
             var actualSize = TextRenderer.MeasureText(g, text, font, proposedSize, flags);
