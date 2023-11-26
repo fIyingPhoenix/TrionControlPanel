@@ -8,6 +8,7 @@ namespace TrionControlPanelDesktop.FormData
 {
     public class UIData
     {
+        public static int StartUpLoading { get; set; }
         public static string ContributorsURL()
         {
             return "https://camo.githubusercontent.com/a95087807c72a5c7a697006485e3ce5135441239763a61b61bf9bde5d95291af/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f636f6e7472696275746f72732f664979696e6750686f656e69782f5472696f6e436f6e74726f6c50616e656c2e7376673f7374796c653d666f722d7468652d6261646765";

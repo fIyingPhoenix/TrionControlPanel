@@ -21,10 +21,7 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 using MetroFramework.Components;
 using MetroFramework.Interfaces;
@@ -66,7 +63,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -78,8 +75,8 @@ namespace MetroFramework.Controls
 
         #region Fields
 
-        private MetroScrollBar verticalScrollbar = new MetroScrollBar(MetroScrollOrientation.Vertical);
-        private MetroScrollBar horizontalScrollbar = new MetroScrollBar(MetroScrollOrientation.Horizontal);
+        private MetroScrollBar verticalScrollbar = new(MetroScrollOrientation.Vertical);
+        private MetroScrollBar horizontalScrollbar = new(MetroScrollOrientation.Horizontal);
 
         [Category("Metro Appearance")]
         private bool showHorizontalScrollbar = false;
@@ -88,7 +85,27 @@ namespace MetroFramework.Controls
             get { return showHorizontalScrollbar; }
             set { showHorizontalScrollbar = value; }
         }
-
+        [Category("Metro Appearance")]
+        private bool border = false;
+        public bool Border
+        {
+            get { return border; }
+            set { border = value; }
+        }
+        [Category("Metro Appearance")]
+        private Color borderColor = Color.Black;
+        public Color BorderColor
+        {
+            get { return borderColor; }
+            set { borderColor = value; }
+        }
+        [Category("Metro Appearance")]
+        private int borderSize = 0;
+        public int BorderSize
+        {
+            get { return borderSize; }
+            set { borderSize = value; }
+        }
         [Category("Metro Appearance")]
         public int HorizontalScrollbarSize
         {
@@ -172,6 +189,7 @@ namespace MetroFramework.Controls
 
         public MetroPanel()
         {
+
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
@@ -217,7 +235,6 @@ namespace MetroFramework.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
             Color backColor = MetroPaint.BackColor.Form(Theme);
 
             if (useCustomBackground)
@@ -256,6 +273,16 @@ namespace MetroFramework.Controls
                 verticalScrollbar.Maximum = VerticalScroll.Maximum;
                 verticalScrollbar.SmallChange = VerticalScroll.SmallChange;
                 verticalScrollbar.LargeChange = VerticalScroll.LargeChange;
+            }
+            if (Border && BorderSize > 0)
+            {
+                Pen borderPen = new(BorderColor);
+                using (SolidBrush brush = new(BackColor))
+                {
+                    e.Graphics.FillRectangle(brush, ClientRectangle);
+                }
+
+                e.Graphics.DrawRectangle(borderPen, 0, 0, ClientSize.Width - BorderSize, ClientSize.Height - BorderSize);
             }
         }
 

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrionControlPanelDesktop.UI.Controls
 {
@@ -104,7 +99,7 @@ namespace TrionControlPanelDesktop.UI.Controls
             {
                 using GraphicsPath pathSurface = GetFigurePath(rectSurface, borderRadius);
                 using GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize);
-                using Pen penSurface = new(Parent.BackColor, smoothSize);
+                using Pen penSurface = new(Parent!.BackColor, smoothSize);
                 using Pen penBorder = new(borderColor, borderSize);
                 {
                     pevent.Graphics.SmoothingMode = SmoothingMode.None;
@@ -140,16 +135,16 @@ namespace TrionControlPanelDesktop.UI.Controls
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
-            this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+            Parent!.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
         private void Container_BackColorChanged(object? sender, EventArgs e)
         {
-            this.Invalidate();
+            Invalidate();
         }
         private void Button_Resize(object? sender, EventArgs e)
         {
-            if (borderRadius > this.Height)
-                borderRadius = this.Height;
+            if (borderRadius > Height)
+                borderRadius = Height;
         }
     }
 }

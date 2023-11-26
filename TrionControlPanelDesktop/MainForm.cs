@@ -10,13 +10,14 @@ namespace TrionControlPanelDesktop
     public partial class MainForm : MetroForm
     {
         readonly HomeControl homeControl = new();
+        readonly LoadingControlcs loadingControl = new();
         readonly SettingsControl settingsControl = new();
         CurrentControl CurrentControl { get; set; }
         void LoadData()
         {
-            CurrentControl = CurrentControl.Home;
+            CurrentControl = CurrentControl.Load;
             PNLControl.Controls.Clear();
-            PNLControl.Controls.Add(homeControl);
+            PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
             ContiWEB.Url = UIData.ContributorsURL();
             ContiWEB.LoadWebsite = LoadWebsite.True;
@@ -78,7 +79,8 @@ namespace TrionControlPanelDesktop
                 BTNStartLOgin.Text = "Start Login  ";
                 BTNStartLOgin.Image = Properties.Resources.play_35;
 
-            }else if (Data.Server.LoginServerStatus == ServerStatus.Running)
+            }
+            else if (Data.Server.LoginServerStatus == ServerStatus.Running)
             {
                 BTNStartLOgin.Text = "Stop Login  ";
                 BTNStartLOgin.Image = Properties.Resources.stopp_35;
@@ -98,6 +100,23 @@ namespace TrionControlPanelDesktop
 
 
         private void TerminaBTN_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void BTNStartMySQL_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNStartLOgin_Click_1(object sender, EventArgs e)
+        {
+        }
+
+        private void BTNStartWorld_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void PNLControl_Paint(object sender, PaintEventArgs e)
         {
         }
     }

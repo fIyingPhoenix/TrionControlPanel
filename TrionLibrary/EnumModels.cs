@@ -17,7 +17,8 @@ namespace TrionLibrary
         {
             Home,
             Control,
-            Settings
+            Settings,
+            Load
         }
         public enum LoadWebsite
         {

@@ -15,7 +15,7 @@ namespace TrionControlPanelDesktop.Controls
     {
         private static void FirstLoad()
         {
-            
+
         }
         public HomeControl()
         {
