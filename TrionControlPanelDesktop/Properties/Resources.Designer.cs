@@ -79,5 +79,25 @@ namespace TrionControlPanelDesktop.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap verbindungsstatus__an_35 {
+            get {
+                object obj = ResourceManager.GetObject("verbindungsstatus_-an-35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap verbindungsstatus_35 {
+            get {
+                object obj = ResourceManager.GetObject("verbindungsstatus-35", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

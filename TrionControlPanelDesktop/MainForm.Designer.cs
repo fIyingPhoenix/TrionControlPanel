@@ -98,6 +98,7 @@ namespace TrionControlPanelDesktop
             SettingsBTN.BorderColor = Color.FromArgb(0, 174, 219);
             SettingsBTN.BorderRadius = 0;
             SettingsBTN.BorderSize = 1;
+            SettingsBTN.Enabled = false;
             SettingsBTN.FlatAppearance.BorderSize = 0;
             SettingsBTN.FlatStyle = FlatStyle.Flat;
             SettingsBTN.ForeColor = Color.White;
@@ -117,6 +118,7 @@ namespace TrionControlPanelDesktop
             TerminaBTN.BorderColor = Color.FromArgb(0, 174, 219);
             TerminaBTN.BorderRadius = 0;
             TerminaBTN.BorderSize = 1;
+            TerminaBTN.Enabled = false;
             TerminaBTN.FlatAppearance.BorderSize = 0;
             TerminaBTN.FlatStyle = FlatStyle.Flat;
             TerminaBTN.ForeColor = Color.White;
@@ -136,6 +138,7 @@ namespace TrionControlPanelDesktop
             HomeBTN.BorderColor = Color.FromArgb(0, 174, 219);
             HomeBTN.BorderRadius = 0;
             HomeBTN.BorderSize = 1;
+            HomeBTN.Enabled = false;
             HomeBTN.FlatAppearance.BorderSize = 0;
             HomeBTN.FlatStyle = FlatStyle.Flat;
             HomeBTN.ForeColor = Color.White;

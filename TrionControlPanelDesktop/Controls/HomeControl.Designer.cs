@@ -372,6 +372,7 @@ namespace TrionControlPanelDesktop.Controls
             PICMySqlServerStatus.Location = new Point(32, 26);
             PICMySqlServerStatus.Name = "PICMySqlServerStatus";
             PICMySqlServerStatus.Size = new Size(35, 35);
+            PICMySqlServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
             PICMySqlServerStatus.TabIndex = 30;
             PICMySqlServerStatus.TabStop = false;
             // 
@@ -381,6 +382,7 @@ namespace TrionControlPanelDesktop.Controls
             PicWorldServerStatus.Location = new Point(32, 108);
             PicWorldServerStatus.Name = "PicWorldServerStatus";
             PicWorldServerStatus.Size = new Size(35, 35);
+            PicWorldServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
             PicWorldServerStatus.TabIndex = 29;
             PicWorldServerStatus.TabStop = false;
             // 
@@ -390,6 +392,7 @@ namespace TrionControlPanelDesktop.Controls
             PICLoginServerStatus.Location = new Point(32, 67);
             PICLoginServerStatus.Name = "PICLoginServerStatus";
             PICLoginServerStatus.Size = new Size(35, 35);
+            PICLoginServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
             PICLoginServerStatus.TabIndex = 28;
             PICLoginServerStatus.TabStop = false;
             // 

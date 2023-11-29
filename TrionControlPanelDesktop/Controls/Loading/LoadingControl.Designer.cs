@@ -1,6 +1,6 @@
 ﻿namespace TrionControlPanelDesktop.Controls
 {
-    partial class LoadingControlcs
+    partial class LoadingControl
     {
         /// <summary> 
         /// Required designer variable.

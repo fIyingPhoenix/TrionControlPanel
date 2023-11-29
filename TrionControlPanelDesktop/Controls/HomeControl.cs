@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using TrionControlPanelDesktop.FormData;
 using TrionLibrary;
 
 namespace TrionControlPanelDesktop.Controls
@@ -30,6 +22,7 @@ namespace TrionControlPanelDesktop.Controls
 
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+            if (PCResorcePbarRAM.Value > 0) { UIData.StartUpLoading++; }
             try
             {
                 Thread PCResorceUsageThread = new(() =>

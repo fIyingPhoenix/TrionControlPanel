@@ -2,6 +2,7 @@
 using Org.BouncyCastle.Tls;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -13,6 +14,17 @@ namespace TrionLibrary
         public static string SettingsDataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml"; //HardCoded File Location. Maybe one day a dynamic one
         public static Settings Settings = new Settings();
 
+        public static string GetExecutableLocation(string Name)
+        {
+            if(Name != null)
+            {
+                foreach (string f in Directory.EnumerateFiles(Settings.WorkingDirectory, $"{Name}.exe", SearchOption.AllDirectories))
+                {
+                    return f;
+                }
+            }
+            return "";
+        }
         public static void CreateSettingsFile(bool PopulateSettingsData)
         {
             if (!File.Exists(SettingsDataFile))
@@ -22,6 +34,7 @@ namespace TrionLibrary
             }
             if (PopulateSettingsData == true)
             {
+                Settings.WorkingDirectory = Directory.GetCurrentDirectory();
                 Settings.WorldDatabase = "world";
                 Settings.AuthDatabase = "auth";
                 Settings.CharactersDatabase = "characters";
@@ -59,12 +72,14 @@ namespace TrionLibrary
                 Message = ex.Message;
             }    
         }
-        public static void LoadSettings() 
+        public static async Task LoadSettings() 
         {
-            try
+           try
             {
                 if (File.Exists(SettingsDataFile))
+                {
                     Settings = ReaderData(SettingsDataFile);
+                }
                 else
                 {
                     CreateSettingsFile(true);
@@ -76,6 +91,7 @@ namespace TrionLibrary
             {
                 Message = ex.Message;
             }
+            await Task.CompletedTask;
         }
         private static void WriteData(object o, string fileName)
         {
@@ -101,6 +117,7 @@ namespace TrionLibrary
     }
     public class Settings
     {
+        public string WorkingDirectory;
         public string WorldDatabase;
         public string AuthDatabase;
         public string CharactersDatabase;

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TrionControlPanelDesktop.Controls
 {
-    public partial class LoadingControlcs : UserControl
+    public partial class LoadingControl : UserControl
     {
-        public LoadingControlcs()
+        public LoadingControl()
         {
             this.Dock = DockStyle.Fill;
             InitializeComponent();

@@ -10,7 +10,7 @@ namespace TrionControlPanelDesktop
     public partial class MainForm : MetroForm
     {
         readonly HomeControl homeControl = new();
-        readonly LoadingControlcs loadingControl = new();
+        readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
         CurrentControl CurrentControl { get; set; }
         void LoadData()
@@ -42,7 +42,6 @@ namespace TrionControlPanelDesktop
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Data.LoadSettings();
         }
 
         private void SettingsBTN_Click(object sender, EventArgs e)
@@ -88,7 +87,15 @@ namespace TrionControlPanelDesktop
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-
+            if (UIData.StartUpLoading == 2)
+            {
+                HomeBTN.Enabled = true;
+                SettingsBTN.Enabled = true;
+                TerminaBTN.Enabled = true;
+                PNLControl.Controls.Clear();
+                PNLControl.Controls.Add(homeControl);
+                CurrentControl = CurrentControl.Home;
+            }
             if (Data.Message != string.Empty)
             {
                 TimerWacher.Stop();
