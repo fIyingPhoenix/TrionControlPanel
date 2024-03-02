@@ -37,24 +37,28 @@ namespace TrionControlPanelDesktop.Controls
             PNLLayoutBot = new TableLayoutPanel();
             metroPanel1 = new MetroPanel();
             label4 = new Label();
-            PCLoginPbarCPU = new CustomProgressBar();
-            PCLoginPbarRAM = new CustomProgressBar();
+            LoginPbarCPU = new CustomProgressBar();
+            LoginPbarRAM = new CustomProgressBar();
             label5 = new Label();
             label6 = new Label();
             metroPanel2 = new MetroPanel();
+            metroPanel3 = new MetroPanel();
+            LBLWorldsOpen = new Label();
+            customButton1 = new UI.Controls.CustomButton();
+            BTNMySQLOpenFolder = new UI.Controls.CustomButton();
             label7 = new Label();
-            PCWorldPbarCPU = new CustomProgressBar();
+            WorldPbarCPU = new CustomProgressBar();
             label9 = new Label();
-            PCWorldPbarRAM = new CustomProgressBar();
+            WorldPbarRAM = new CustomProgressBar();
             label8 = new Label();
             PNLLayoutTop = new TableLayoutPanel();
             PNLServerStatus = new MetroPanel();
-            label12 = new Label();
-            label11 = new Label();
-            label10 = new Label();
+            LBLWorldServerStatus = new Label();
+            LBLLogonServerStatus = new Label();
+            LBLMySQLServerStatus = new Label();
             PICMySqlServerStatus = new PictureBox();
-            PicWorldServerStatus = new PictureBox();
-            PICLoginServerStatus = new PictureBox();
+            PICWorldServerStatus = new PictureBox();
+            PICLogonServerStatus = new PictureBox();
             PNLPCResorce = new MetroPanel();
             label1 = new Label();
             PCResorcePbarCPU = new CustomProgressBar();
@@ -64,11 +68,12 @@ namespace TrionControlPanelDesktop.Controls
             PNLLayoutBot.SuspendLayout();
             metroPanel1.SuspendLayout();
             metroPanel2.SuspendLayout();
+            metroPanel3.SuspendLayout();
             PNLLayoutTop.SuspendLayout();
             PNLServerStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PicWorldServerStatus).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PICLoginServerStatus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PICWorldServerStatus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PICLogonServerStatus).BeginInit();
             PNLPCResorce.SuspendLayout();
             SuspendLayout();
             // 
@@ -102,8 +107,8 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
             metroPanel1.Controls.Add(label4);
-            metroPanel1.Controls.Add(PCLoginPbarCPU);
-            metroPanel1.Controls.Add(PCLoginPbarRAM);
+            metroPanel1.Controls.Add(LoginPbarCPU);
+            metroPanel1.Controls.Add(LoginPbarRAM);
             metroPanel1.Controls.Add(label5);
             metroPanel1.Controls.Add(label6);
             metroPanel1.CustomBackground = true;
@@ -136,37 +141,37 @@ namespace TrionControlPanelDesktop.Controls
             label4.TabIndex = 32;
             label4.Text = "Login Server Resource";
             // 
-            // PCLoginPbarCPU
+            // LoginPbarCPU
             // 
-            PCLoginPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCLoginPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
-            PCLoginPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
-            PCLoginPbarCPU.FontSize = 10;
-            PCLoginPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
-            PCLoginPbarCPU.LabelText = "%";
-            PCLoginPbarCPU.Location = new Point(13, 139);
-            PCLoginPbarCPU.MaximumValue = false;
-            PCLoginPbarCPU.Name = "PCLoginPbarCPU";
-            PCLoginPbarCPU.ShowStatus = true;
-            PCLoginPbarCPU.Size = new Size(390, 20);
-            PCLoginPbarCPU.TabIndex = 36;
-            PCLoginPbarCPU.TextColor = Color.White;
+            LoginPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LoginPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
+            LoginPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
+            LoginPbarCPU.FontSize = 10;
+            LoginPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
+            LoginPbarCPU.LabelText = "%";
+            LoginPbarCPU.Location = new Point(13, 139);
+            LoginPbarCPU.MaximumValue = false;
+            LoginPbarCPU.Name = "LoginPbarCPU";
+            LoginPbarCPU.ShowStatus = true;
+            LoginPbarCPU.Size = new Size(390, 20);
+            LoginPbarCPU.TabIndex = 36;
+            LoginPbarCPU.TextColor = Color.White;
             // 
-            // PCLoginPbarRAM
+            // LoginPbarRAM
             // 
-            PCLoginPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCLoginPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
-            PCLoginPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
-            PCLoginPbarRAM.FontSize = 10;
-            PCLoginPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
-            PCLoginPbarRAM.LabelText = "MB";
-            PCLoginPbarRAM.Location = new Point(13, 87);
-            PCLoginPbarRAM.MaximumValue = true;
-            PCLoginPbarRAM.Name = "PCLoginPbarRAM";
-            PCLoginPbarRAM.ShowStatus = true;
-            PCLoginPbarRAM.Size = new Size(390, 20);
-            PCLoginPbarRAM.TabIndex = 33;
-            PCLoginPbarRAM.TextColor = Color.White;
+            LoginPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LoginPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
+            LoginPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
+            LoginPbarRAM.FontSize = 10;
+            LoginPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
+            LoginPbarRAM.LabelText = "MB";
+            LoginPbarRAM.Location = new Point(13, 87);
+            LoginPbarRAM.MaximumValue = true;
+            LoginPbarRAM.Name = "LoginPbarRAM";
+            LoginPbarRAM.ShowStatus = true;
+            LoginPbarRAM.Size = new Size(390, 20);
+            LoginPbarRAM.TabIndex = 33;
+            LoginPbarRAM.TextColor = Color.White;
             // 
             // label5
             // 
@@ -196,10 +201,13 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(metroPanel3);
+            metroPanel2.Controls.Add(customButton1);
+            metroPanel2.Controls.Add(BTNMySQLOpenFolder);
             metroPanel2.Controls.Add(label7);
-            metroPanel2.Controls.Add(PCWorldPbarCPU);
+            metroPanel2.Controls.Add(WorldPbarCPU);
             metroPanel2.Controls.Add(label9);
-            metroPanel2.Controls.Add(PCWorldPbarRAM);
+            metroPanel2.Controls.Add(WorldPbarRAM);
             metroPanel2.Controls.Add(label8);
             metroPanel2.CustomBackground = true;
             metroPanel2.Dock = DockStyle.Fill;
@@ -219,6 +227,87 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             metroPanel2.VerticalScrollbarSize = 10;
             // 
+            // metroPanel3
+            // 
+            metroPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel3.Border = true;
+            metroPanel3.BorderColor = Color.FromArgb(0, 174, 219);
+            metroPanel3.BorderSize = 1;
+            metroPanel3.Controls.Add(LBLWorldsOpen);
+            metroPanel3.CustomBackground = true;
+            metroPanel3.HorizontalScrollbar = false;
+            metroPanel3.HorizontalScrollbarBarColor = true;
+            metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel3.HorizontalScrollbarSize = 10;
+            metroPanel3.Location = new Point(320, 14);
+            metroPanel3.Name = "metroPanel3";
+            metroPanel3.Padding = new Padding(2);
+            metroPanel3.Size = new Size(55, 25);
+            metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel3.StyleManager = null;
+            metroPanel3.TabIndex = 44;
+            metroPanel3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel3.VerticalScrollbar = false;
+            metroPanel3.VerticalScrollbarBarColor = true;
+            metroPanel3.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel3.VerticalScrollbarSize = 10;
+            // 
+            // LBLWorldsOpen
+            // 
+            LBLWorldsOpen.Dock = DockStyle.Fill;
+            LBLWorldsOpen.ForeColor = Color.White;
+            LBLWorldsOpen.Location = new Point(2, 2);
+            LBLWorldsOpen.Name = "LBLWorldsOpen";
+            LBLWorldsOpen.Size = new Size(51, 21);
+            LBLWorldsOpen.TabIndex = 19;
+            LBLWorldsOpen.Text = "0/0";
+            LBLWorldsOpen.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // customButton1
+            // 
+            customButton1.Anchor = AnchorStyles.Right;
+            customButton1.BackColor = Color.FromArgb(28, 33, 40);
+            customButton1.BackgroundColor = Color.FromArgb(28, 33, 40);
+            customButton1.BorderColor = Color.FromArgb(0, 174, 219);
+            customButton1.BorderRadius = 0;
+            customButton1.BorderSize = 1;
+            customButton1.Cursor = Cursors.Hand;
+            customButton1.FlatAppearance.BorderSize = 0;
+            customButton1.FlatStyle = FlatStyle.Flat;
+            customButton1.ForeColor = Color.White;
+            customButton1.Image = (Image)resources.GetObject("customButton1.Image");
+            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            customButton1.Location = new Point(376, 14);
+            customButton1.Name = "customButton1";
+            customButton1.RightToLeft = RightToLeft.No;
+            customButton1.Size = new Size(25, 25);
+            customButton1.TabIndex = 43;
+            customButton1.TextColor = Color.White;
+            customButton1.UseVisualStyleBackColor = false;
+            // 
+            // BTNMySQLOpenFolder
+            // 
+            BTNMySQLOpenFolder.Anchor = AnchorStyles.Right;
+            BTNMySQLOpenFolder.BackColor = Color.FromArgb(28, 33, 40);
+            BTNMySQLOpenFolder.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNMySQLOpenFolder.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNMySQLOpenFolder.BorderRadius = 0;
+            BTNMySQLOpenFolder.BorderSize = 1;
+            BTNMySQLOpenFolder.Cursor = Cursors.Hand;
+            BTNMySQLOpenFolder.FlatAppearance.BorderSize = 0;
+            BTNMySQLOpenFolder.FlatStyle = FlatStyle.Flat;
+            BTNMySQLOpenFolder.ForeColor = Color.White;
+            BTNMySQLOpenFolder.Image = (Image)resources.GetObject("BTNMySQLOpenFolder.Image");
+            BTNMySQLOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNMySQLOpenFolder.Location = new Point(293, 14);
+            BTNMySQLOpenFolder.Name = "BTNMySQLOpenFolder";
+            BTNMySQLOpenFolder.RightToLeft = RightToLeft.No;
+            BTNMySQLOpenFolder.Size = new Size(25, 25);
+            BTNMySQLOpenFolder.TabIndex = 42;
+            BTNMySQLOpenFolder.TextColor = Color.White;
+            BTNMySQLOpenFolder.UseVisualStyleBackColor = false;
+            // 
             // label7
             // 
             label7.AutoSize = true;
@@ -231,21 +320,21 @@ namespace TrionControlPanelDesktop.Controls
             label7.TabIndex = 37;
             label7.Text = "World Server Resource";
             // 
-            // PCWorldPbarCPU
+            // WorldPbarCPU
             // 
-            PCWorldPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCWorldPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
-            PCWorldPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
-            PCWorldPbarCPU.FontSize = 10;
-            PCWorldPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
-            PCWorldPbarCPU.LabelText = "%";
-            PCWorldPbarCPU.Location = new Point(13, 139);
-            PCWorldPbarCPU.MaximumValue = false;
-            PCWorldPbarCPU.Name = "PCWorldPbarCPU";
-            PCWorldPbarCPU.ShowStatus = true;
-            PCWorldPbarCPU.Size = new Size(390, 20);
-            PCWorldPbarCPU.TabIndex = 41;
-            PCWorldPbarCPU.TextColor = Color.White;
+            WorldPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            WorldPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
+            WorldPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
+            WorldPbarCPU.FontSize = 10;
+            WorldPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
+            WorldPbarCPU.LabelText = "%";
+            WorldPbarCPU.Location = new Point(13, 139);
+            WorldPbarCPU.MaximumValue = false;
+            WorldPbarCPU.Name = "WorldPbarCPU";
+            WorldPbarCPU.ShowStatus = true;
+            WorldPbarCPU.Size = new Size(390, 20);
+            WorldPbarCPU.TabIndex = 41;
+            WorldPbarCPU.TextColor = Color.White;
             // 
             // label9
             // 
@@ -258,21 +347,21 @@ namespace TrionControlPanelDesktop.Controls
             label9.TabIndex = 39;
             label9.Text = "Random-Access Memory  (RAM)";
             // 
-            // PCWorldPbarRAM
+            // WorldPbarRAM
             // 
-            PCWorldPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCWorldPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
-            PCWorldPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
-            PCWorldPbarRAM.FontSize = 10;
-            PCWorldPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
-            PCWorldPbarRAM.LabelText = "MB";
-            PCWorldPbarRAM.Location = new Point(13, 87);
-            PCWorldPbarRAM.MaximumValue = true;
-            PCWorldPbarRAM.Name = "PCWorldPbarRAM";
-            PCWorldPbarRAM.ShowStatus = true;
-            PCWorldPbarRAM.Size = new Size(390, 20);
-            PCWorldPbarRAM.TabIndex = 38;
-            PCWorldPbarRAM.TextColor = Color.White;
+            WorldPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            WorldPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
+            WorldPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
+            WorldPbarRAM.FontSize = 10;
+            WorldPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
+            WorldPbarRAM.LabelText = "MB";
+            WorldPbarRAM.Location = new Point(13, 87);
+            WorldPbarRAM.MaximumValue = true;
+            WorldPbarRAM.Name = "WorldPbarRAM";
+            WorldPbarRAM.ShowStatus = true;
+            WorldPbarRAM.Size = new Size(390, 20);
+            WorldPbarRAM.TabIndex = 38;
+            WorldPbarRAM.TextColor = Color.White;
             // 
             // label8
             // 
@@ -308,12 +397,12 @@ namespace TrionControlPanelDesktop.Controls
             PNLServerStatus.Border = true;
             PNLServerStatus.BorderColor = Color.Black;
             PNLServerStatus.BorderSize = 1;
-            PNLServerStatus.Controls.Add(label12);
-            PNLServerStatus.Controls.Add(label11);
-            PNLServerStatus.Controls.Add(label10);
+            PNLServerStatus.Controls.Add(LBLWorldServerStatus);
+            PNLServerStatus.Controls.Add(LBLLogonServerStatus);
+            PNLServerStatus.Controls.Add(LBLMySQLServerStatus);
             PNLServerStatus.Controls.Add(PICMySqlServerStatus);
-            PNLServerStatus.Controls.Add(PicWorldServerStatus);
-            PNLServerStatus.Controls.Add(PICLoginServerStatus);
+            PNLServerStatus.Controls.Add(PICWorldServerStatus);
+            PNLServerStatus.Controls.Add(PICLogonServerStatus);
             PNLServerStatus.CustomBackground = true;
             PNLServerStatus.Dock = DockStyle.Fill;
             PNLServerStatus.HorizontalScrollbar = true;
@@ -333,38 +422,38 @@ namespace TrionControlPanelDesktop.Controls
             PNLServerStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLServerStatus.VerticalScrollbarSize = 10;
             // 
-            // label12
+            // LBLWorldServerStatus
             // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(73, 115);
-            label12.Name = "label12";
-            label12.Size = new Size(147, 21);
-            label12.TabIndex = 33;
-            label12.Text = "World Server Status";
+            LBLWorldServerStatus.AutoSize = true;
+            LBLWorldServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLWorldServerStatus.ForeColor = Color.White;
+            LBLWorldServerStatus.Location = new Point(73, 115);
+            LBLWorldServerStatus.Name = "LBLWorldServerStatus";
+            LBLWorldServerStatus.Size = new Size(101, 21);
+            LBLWorldServerStatus.TabIndex = 33;
+            LBLWorldServerStatus.Text = "World Server";
             // 
-            // label11
+            // LBLLogonServerStatus
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.ForeColor = Color.White;
-            label11.Location = new Point(73, 74);
-            label11.Name = "label11";
-            label11.Size = new Size(144, 21);
-            label11.TabIndex = 32;
-            label11.Text = "LogIn Server Status";
+            LBLLogonServerStatus.AutoSize = true;
+            LBLLogonServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLLogonServerStatus.ForeColor = Color.White;
+            LBLLogonServerStatus.Location = new Point(73, 74);
+            LBLLogonServerStatus.Name = "LBLLogonServerStatus";
+            LBLLogonServerStatus.Size = new Size(103, 21);
+            LBLLogonServerStatus.TabIndex = 32;
+            LBLLogonServerStatus.Text = "Logon Server";
             // 
-            // label10
+            // LBLMySQLServerStatus
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(73, 33);
-            label10.Name = "label10";
-            label10.Size = new Size(156, 21);
-            label10.TabIndex = 31;
-            label10.Text = "MySQL Server Status";
+            LBLMySQLServerStatus.AutoSize = true;
+            LBLMySQLServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLMySQLServerStatus.ForeColor = Color.White;
+            LBLMySQLServerStatus.Location = new Point(73, 33);
+            LBLMySQLServerStatus.Name = "LBLMySQLServerStatus";
+            LBLMySQLServerStatus.Size = new Size(110, 21);
+            LBLMySQLServerStatus.TabIndex = 31;
+            LBLMySQLServerStatus.Text = "MySQL Server";
             // 
             // PICMySqlServerStatus
             // 
@@ -376,25 +465,25 @@ namespace TrionControlPanelDesktop.Controls
             PICMySqlServerStatus.TabIndex = 30;
             PICMySqlServerStatus.TabStop = false;
             // 
-            // PicWorldServerStatus
+            // PICWorldServerStatus
             // 
-            PicWorldServerStatus.Image = (Image)resources.GetObject("PicWorldServerStatus.Image");
-            PicWorldServerStatus.Location = new Point(32, 108);
-            PicWorldServerStatus.Name = "PicWorldServerStatus";
-            PicWorldServerStatus.Size = new Size(35, 35);
-            PicWorldServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
-            PicWorldServerStatus.TabIndex = 29;
-            PicWorldServerStatus.TabStop = false;
+            PICWorldServerStatus.Image = (Image)resources.GetObject("PICWorldServerStatus.Image");
+            PICWorldServerStatus.Location = new Point(32, 108);
+            PICWorldServerStatus.Name = "PICWorldServerStatus";
+            PICWorldServerStatus.Size = new Size(35, 35);
+            PICWorldServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
+            PICWorldServerStatus.TabIndex = 29;
+            PICWorldServerStatus.TabStop = false;
             // 
-            // PICLoginServerStatus
+            // PICLogonServerStatus
             // 
-            PICLoginServerStatus.Image = (Image)resources.GetObject("PICLoginServerStatus.Image");
-            PICLoginServerStatus.Location = new Point(32, 67);
-            PICLoginServerStatus.Name = "PICLoginServerStatus";
-            PICLoginServerStatus.Size = new Size(35, 35);
-            PICLoginServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
-            PICLoginServerStatus.TabIndex = 28;
-            PICLoginServerStatus.TabStop = false;
+            PICLogonServerStatus.Image = (Image)resources.GetObject("PICLogonServerStatus.Image");
+            PICLogonServerStatus.Location = new Point(32, 67);
+            PICLogonServerStatus.Name = "PICLogonServerStatus";
+            PICLogonServerStatus.Size = new Size(35, 35);
+            PICLogonServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
+            PICLogonServerStatus.TabIndex = 28;
+            PICLogonServerStatus.TabStop = false;
             // 
             // PNLPCResorce
             // 
@@ -508,12 +597,13 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel1.PerformLayout();
             metroPanel2.ResumeLayout(false);
             metroPanel2.PerformLayout();
+            metroPanel3.ResumeLayout(false);
             PNLLayoutTop.ResumeLayout(false);
             PNLServerStatus.ResumeLayout(false);
             PNLServerStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PicWorldServerStatus).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PICLoginServerStatus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PICWorldServerStatus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PICLogonServerStatus).EndInit();
             PNLPCResorce.ResumeLayout(false);
             PNLPCResorce.PerformLayout();
             ResumeLayout(false);
@@ -525,12 +615,9 @@ namespace TrionControlPanelDesktop.Controls
         private TableLayoutPanel PNLLayoutBot;
         private TableLayoutPanel PNLLayoutTop;
         private MetroPanel PNLServerStatus;
-        private Label label12;
-        private Label label11;
-        private Label label10;
-        private PictureBox PICMySqlServerStatus;
-        private PictureBox PicWorldServerStatus;
-        private PictureBox PICLoginServerStatus;
+        private Label LBLWorldServerStatus;
+        private Label LBLLogonServerStatus;
+        private Label LBLMySQLServerStatus;
         private MetroPanel PNLPCResorce;
         private Label label1;
         private CustomProgressBar PCResorcePbarCPU;
@@ -539,15 +626,22 @@ namespace TrionControlPanelDesktop.Controls
         private Label label3;
         private MetroPanel metroPanel1;
         private Label label4;
-        private CustomProgressBar PCLoginPbarCPU;
-        private CustomProgressBar PCLoginPbarRAM;
+        private CustomProgressBar LoginPbarCPU;
+        private CustomProgressBar LoginPbarRAM;
         private Label label5;
         private Label label6;
         private MetroPanel metroPanel2;
         private Label label7;
-        private CustomProgressBar PCWorldPbarCPU;
+        private CustomProgressBar WorldPbarCPU;
         private Label label9;
-        private CustomProgressBar PCWorldPbarRAM;
+        private CustomProgressBar WorldPbarRAM;
         private Label label8;
+        private UI.Controls.CustomButton BTNMySQLOpenFolder;
+        private UI.Controls.CustomButton customButton1;
+        private MetroPanel metroPanel3;
+        private Label LBLWorldsOpen;
+        public PictureBox PICMySqlServerStatus;
+        public PictureBox PICWorldServerStatus;
+        public PictureBox PICLogonServerStatus;
     }
 }

@@ -1,24 +1,26 @@
-﻿using Microsoft.Extensions.Configuration;
-using Org.BouncyCastle.Tls;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace TrionLibrary
 {
     public class Data
     {
+        //Error Message (4 later) dont feel do it now
         public static string Message = string.Empty;
+        //Settings File Location
         public static string SettingsDataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml"; //HardCoded File Location. Maybe one day a dynamic one
-        public static Settings Settings = new Settings();
-
-        public static string GetExecutableLocation(string Name)
+        //Global Settings Data
+        public static SettingsList Settings = new SettingsList();
+        public static string GetExecutableLocation(string location, string Executable)
         {
-            if(Name != null)
+            //Search for files in a directory and all subdirectories
+            if(Executable != null)
             {
-                foreach (string f in Directory.EnumerateFiles(Settings.WorkingDirectory, $"{Name}.exe", SearchOption.AllDirectories))
+                foreach (string f in Directory.EnumerateFiles(location, $"{Executable}.exe", SearchOption.AllDirectories))
                 {
                     return f;
                 }
@@ -41,14 +43,15 @@ namespace TrionLibrary
                 Settings.MySQLLocation = "";
                 Settings.MySQLServerHost = "localhost";
                 Settings.MySQLServerUser = "root";
-                Settings.MySQLServerPassword = "fIyingPhoenix";
+                Settings.MySQLServerPassword = "FlyingPhoenix";
                 Settings.MySQLServerPort = "3306";
                 Settings.MySQLExecutableName = "mysqld";
                 Settings.CoreLocation = "";
                 Settings.WorldExecutableLocation = "";
-                Settings.BnetExecutableLocation = "";
-                Settings.WorldExecutableName = "WorldServer";
-                Settings.BnetExecutableName = "BNetServer";
+                Settings.LogonExecutableLocation = "";
+                Settings.MySQLExecutableLocation = "";
+                Settings.WorldExecutableName = "worldserver";
+                Settings.LogonExecutableName = "authserver";
                 Settings.ServerCrash = false;
                 Settings.NotificationSound = true;
                 Settings.ConsolHide = false;
@@ -56,8 +59,9 @@ namespace TrionLibrary
                 Settings.RunWithWindows = false;
                 Settings.CustomNames = false;
                 Settings.RunServerWithWindows = false;
-                Settings.SettingsUpdate = false;
-                Settings.SelectedCore = EnumModels.Cores.TrinityCore;
+                Settings.AutoUpdateCore = false;
+                Settings.AutoUpdateTrion = false;
+                Settings.SelectedCore = EnumModels.Cores.AzerothCore;
                 WriteData(Settings, SettingsDataFile);
             }
         }
@@ -84,8 +88,7 @@ namespace TrionLibrary
                 {
                     CreateSettingsFile(true);
                     Settings = ReaderData(SettingsDataFile);
-                }
-               
+                }     
             }
             catch (Exception ex)
             {
@@ -100,22 +103,41 @@ namespace TrionLibrary
             serializer.Serialize(writer, o);
             writer.Close();
         }
-        private static Settings ReaderData(string fileName)
+        private static SettingsList ReaderData(string fileName)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+            XmlSerializer serializer = new XmlSerializer(typeof(SettingsList));
             FileStream reader = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            Settings = (Settings)serializer.Deserialize(reader);
+            Settings = (SettingsList)serializer.Deserialize(reader);
             reader.Close();
             return Settings;
         }
-        public class Server
+        public static void CreateMySQLConfigFile (string Location)
         {
-            public static EnumModels.ServerStatus WorldServerStatus;
-            public static EnumModels.ServerStatus LoginServerStatus;
-            public static EnumModels.ServerStatus MysqlServerStatus;
+            string ConfigFile = $@"{Location}\my.ini";
+            if(!File.Exists(ConfigFile))
+            {
+                File.Create(ConfigFile);
+                List<string> lines = File.ReadAllLines(ConfigFile).ToList();
+                lines.Add("[client]");
+                lines.Add("port=3306");
+                lines.Add("socket=/tmp/mysql.sock");
+                lines.Add("");
+                lines.Add("[mysql]");
+                lines.Add("default-character-set=utf8");
+                lines.Add("");
+                lines.Add("[mysqld]");
+                lines.Add("port=3306");
+                lines.Add("socket=/tmp/mysql.sock");
+                lines.Add("key_buffer_size=16M");
+                lines.Add("max_allowed_packet=1G");
+                lines.Add("");
+                lines.Add($"basedir=\"{Settings.MySQLLocation}\"");
+                lines.Add($"datadir=\"{Settings.MySQLLocation}\\data\"");
+                lines.Add("");
+            }
         }
     }
-    public class Settings
+    public class SettingsList
     {
         public string WorkingDirectory;
         public string WorldDatabase;
@@ -129,11 +151,13 @@ namespace TrionLibrary
         public string MySQLExecutableName;
         public string MySQLExecutablePath;
         public string CoreLocation;
+        public string MySQLExecutableLocation;
         public string WorldExecutableLocation;
-        public string BnetExecutableLocation;
+        public string LogonExecutableLocation;
         public string WorldExecutableName;
-        public string BnetExecutableName;
-        public bool SettingsUpdate;
+        public string LogonExecutableName;
+        public bool AutoUpdateCore;
+        public bool AutoUpdateTrion;
         public bool ServerCrash;
         public bool NotificationSound;
         public bool ConsolHide;
@@ -143,4 +167,5 @@ namespace TrionLibrary
         public bool RunServerWithWindows;
         public EnumModels.Cores SelectedCore;
     }
+
 }

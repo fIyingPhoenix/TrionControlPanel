@@ -21,13 +21,11 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 using MetroFramework.Components;
 using MetroFramework.Design;
 using MetroFramework.Drawing;
+using MetroFramework.Forms;
 using MetroFramework.Interfaces;
 
 namespace MetroFramework.Controls
@@ -65,13 +63,8 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
         [Browsable(false)]
-        public MetroStyleManager StyleManager
-        {
-            get { return metroStyleManager; }
-            set { metroStyleManager = value; }
-        }
+        public MetroStyleManager? StyleManager { get; set; } = null;
 
         #endregion
 
@@ -106,7 +99,16 @@ namespace MetroFramework.Controls
         #endregion
 
         #region Routing Fields
-
+        public char PasswordChar
+        {
+            get { return baseTextBox.PasswordChar; }
+            set { baseTextBox.PasswordChar = value; UpdateBaseTextBox(); }
+        }
+        public bool ReadOnly
+        {
+            get { return baseTextBox.ReadOnly; }
+            set { baseTextBox.ReadOnly = value; baseTextBox.ForeColor = this.ForeColor; }
+        }
         public bool Multiline
         {
             get { return baseTextBox.Multiline; }
@@ -118,7 +120,6 @@ namespace MetroFramework.Controls
             get { return baseTextBox.Text; }
             set { baseTextBox.Text = value; }
         }
-
         [Browsable(false)]
         public string SelectedText
         {
@@ -231,13 +232,13 @@ namespace MetroFramework.Controls
 
             e.Graphics.Clear(MetroPaint.BackColor.Button.Normal(Theme));
             baseTextBox.BackColor = MetroPaint.BackColor.Button.Normal(Theme);
-            baseTextBox.ForeColor = MetroPaint.ForeColor.Button.Normal(Theme);
+            baseTextBox.ForeColor = ForeColor;//MetroPaint.ForeColor.Button.Normal(Theme);
 
             Color borderColor = MetroPaint.BorderColor.Button.Normal(Theme);
             if (useStyleColors)
                 borderColor = MetroPaint.GetStyleColor(Style);
 
-            using (Pen p = new Pen(borderColor))
+            using (Pen p = new(borderColor))
             {
                 e.Graphics.DrawRectangle(p, new Rectangle(0, 0, Width - 1, Height - 1));
             }
@@ -267,15 +268,17 @@ namespace MetroFramework.Controls
         {
             if (baseTextBox != null) return;
 
-            baseTextBox = new TextBox();
-
-            baseTextBox.BorderStyle = BorderStyle.None;
-            baseTextBox.Font = MetroFonts.TextBox(metroTextBoxSize, metroTextBoxWeight);
-            baseTextBox.Location = new Point(3, 3);
-            baseTextBox.Size = new Size(Width - 6, Height - 6);
+            baseTextBox = new TextBox
+            {
+                BorderStyle = BorderStyle.None,
+                Font = MetroFonts.TextBox(metroTextBoxSize, metroTextBoxWeight),
+                Location = new Point(3, 3),
+                Size = new Size(Width - 6, Height - 6),
+                ForeColor = Color.White
+            };
 
             Size = new Size(baseTextBox.Width + 6, baseTextBox.Height + 6);
-            //baseTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right;
+            baseTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right;
 
             Controls.Add(baseTextBox);
         }

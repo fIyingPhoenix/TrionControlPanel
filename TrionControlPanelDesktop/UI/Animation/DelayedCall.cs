@@ -149,7 +149,7 @@ namespace MetroFramework.Animation
         {
             if (milliseconds < 0)
             {
-                throw new ArgumentOutOfRangeException("milliseconds", "The new timeout must be 0 or greater.");
+                throw new ArgumentOutOfRangeException(nameof(milliseconds), "The new timeout must be 0 or greater.");
             }
 
             dc.context = null!;
@@ -380,7 +380,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T> Create(Callback cb, T data, int milliseconds)
         {
-            DelayedCall<T> dc = new DelayedCall<T>();
+            DelayedCall<T> dc = new();
             PrepareDCObject(dc, milliseconds, false);
             dc.callback = cb;
             dc.data = data;
@@ -389,7 +389,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T> CreateAsync(Callback cb, T data, int milliseconds)
         {
-            DelayedCall<T> dc = new DelayedCall<T>();
+            DelayedCall<T> dc = new();
             PrepareDCObject(dc, milliseconds, true);
             dc.callback = cb;
             dc.data = data;
@@ -455,7 +455,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T1, T2> CreateAsync(Callback cb, T1 data1, T2 data2, int milliseconds)
         {
-            DelayedCall<T1, T2> dc = new DelayedCall<T1, T2>();
+            DelayedCall<T1, T2> dc = new();
             PrepareDCObject(dc, milliseconds, true);
             dc.callback = cb;
             dc.data1 = data1;

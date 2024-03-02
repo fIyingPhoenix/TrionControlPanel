@@ -15,8 +15,21 @@
     <Authors>Trion Contro Panel</Authors>
     <Company>FlyingPhoenix</Company>
     <Description>An awesome Contro Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu... </Description>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/fIyingPhoenix/TrionControlPanel</PackageProjectUrl>
     <RepositoryUrl>https://github.com/fIyingPhoenix/TrionControlPanel</RepositoryUrl>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <SignAssembly>False</SignAssembly>
+    <Copyright>FlyingPhoenix</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Deterministic>True</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Deterministic>True</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,10 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.21" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2151.40" />
-    <PackageReference Include="MySql.Data" Version="8.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Dapper" Version="2.1.28" />
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
   </ItemGroup>
 
   <ItemGroup>

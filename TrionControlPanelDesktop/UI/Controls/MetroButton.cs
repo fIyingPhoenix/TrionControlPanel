@@ -146,7 +146,7 @@ namespace MetroFramework.Controls
 
             if (Highlight && !isHovered && !isPressed && Enabled)
             {
-                using (Pen p = MetroPaint.GetStylePen(Style))
+                using (Pen p = MetroPaint.GetStyl5ePen(Style))
                 {
                     Rectangle borderRect = new(0, 0, Width - 1, Height - 1);
                     e.Graphics.DrawRectangle(p, borderRect);

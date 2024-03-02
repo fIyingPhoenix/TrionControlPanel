@@ -109,10 +109,7 @@ namespace MetroFramework.Controls
             {
                 return base.Font;
             }
-            set
-            {
-                base.Font = value!;
-            }
+            set => base.Font = value!;
         }
 
         [Browsable(false)]

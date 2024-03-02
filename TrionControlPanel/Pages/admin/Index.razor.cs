@@ -30,16 +30,16 @@ namespace TrionControlPanel.Pages.admin
             MachineCurrentRam = SystemWatcher.CurentPcRamUsage();
             calculate = 100 - Convert.ToInt32(MachineCurrentRam / MachineMaxRam * (long)100);
             MachineRamProcent = calculate.ToString() + "%";
-            if (SystemWatcher.ApplicationRuning("fdm") == EnumModels.ServerStatus.Running)
-            {
-                WorldColor = "Green";
-                Data.Server.WorldServerStatus = EnumModels.ServerStatus.Running;
-            }
-            else
-            {
-                WorldColor = "Red";
-                Data.Server.WorldServerStatus = EnumModels.ServerStatus.NotRunning;
-            }
+            //if ()
+            //{
+            //    WorldColor = "Green";
+                
+            //}
+            //else
+            //{
+            //    WorldColor = "Red";
+                
+            //}
             await InvokeAsync(() => StateHasChanged());
         }
         private void StartTimers()

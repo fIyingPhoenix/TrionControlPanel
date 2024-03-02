@@ -114,7 +114,7 @@
           "dependencies": {
             "Dapper": {
               "target": "Package",
-              "version": "[2.1.21, )"
+              "version": "[2.1.28, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -122,7 +122,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.2.0, )"
+              "version": "[8.3.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",

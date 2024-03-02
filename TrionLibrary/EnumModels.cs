@@ -31,7 +31,9 @@ namespace TrionLibrary
             AzerothCore,
             CMaNGOS,
             CypherCore,
+            TrinityCore335,
             TrinityCore,
+            TrinityCoreClassic,
             VMaNGOS
         }
     }

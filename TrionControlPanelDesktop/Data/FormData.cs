@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,18 @@ namespace TrionControlPanelDesktop.FormData
 {
     public class UIData
     {
+        public static bool MySQLisRunning = false;
+        public static bool WorldisRunning = false;
+        public static bool LogonisRunning = false;
+
+        public static string TrionVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string DownloadOneDriveAPI(string url)
+        {
+            // Get Download Url          
+            string base64Value = Convert.ToBase64String(Encoding.UTF8.GetBytes(url));
+            string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
+            return  string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
+        }
         public static int StartUpLoading { get; set; }
         public static string ContributorsURL()
         {

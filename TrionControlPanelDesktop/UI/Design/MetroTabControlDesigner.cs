@@ -39,7 +39,7 @@ namespace MetroFramework.Design
         /// <summary>
         /// 
         /// </summary>
-        private readonly DesignerVerbCollection _verbs = new DesignerVerbCollection();
+        private readonly DesignerVerbCollection _verbs = new();
         /// <summary>
         /// 
         /// </summary>
@@ -75,7 +75,7 @@ namespace MetroFramework.Design
         {
             get
             {
-                return _designerHost ?? (_designerHost = (IDesignerHost)(GetService(typeof(IDesignerHost))));
+                return _designerHost ??= (IDesignerHost)(GetService(typeof(IDesignerHost)));
             }
         }
 

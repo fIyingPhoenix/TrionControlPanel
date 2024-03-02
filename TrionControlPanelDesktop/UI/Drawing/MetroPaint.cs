@@ -21,8 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MetroFramework.Drawing
 {
@@ -783,7 +781,7 @@ namespace MetroFramework.Drawing
             }
         }
 
-        public static Pen GetStylePen(MetroColorStyle style)
+        public static Pen GetStyl5ePen(MetroColorStyle style)
         {
             switch (style)
             {

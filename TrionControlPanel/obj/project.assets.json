@@ -15,7 +15,7 @@
           }
         }
       },
-      "Dapper/2.1.21": {
+      "Dapper/2.1.28": {
         "type": "package",
         "compile": {
           "lib/net5.0/Dapper.dll": {
@@ -28,7 +28,7 @@
           }
         }
       },
-      "Google.Protobuf/3.21.9": {
+      "Google.Protobuf/3.25.1": {
         "type": "package",
         "compile": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -183,11 +183,11 @@
           }
         }
       },
-      "MySql.Data/8.2.0": {
+      "MySql.Data/8.3.0": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.Cryptography": "2.2.1",
-          "Google.Protobuf": "3.21.9",
+          "Google.Protobuf": "3.25.1",
           "K4os.Compression.LZ4.Streams": "1.3.5",
           "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
@@ -688,9 +688,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Dapper": "2.1.21",
+          "Dapper": "2.1.28",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "8.2.0",
+          "MySql.Data": "8.3.0",
           "System.CodeDom": "8.0.0",
           "System.Diagnostics.PerformanceCounter": "8.0.0",
           "System.Management": "8.0.0"
@@ -725,15 +725,15 @@
         "packageIcon.png"
       ]
     },
-    "Dapper/2.1.21": {
-      "sha512": "EaTXNZX60/k9snRsLxFhD2XmoSKubc+VOeL3hBM6/R8j2MT8/81xOc2V8EEhwr8Mu3Sf951PJPxjlXN4FznH0w==",
+    "Dapper/2.1.28": {
+      "sha512": "ha49pzOEDmCPkMxwfPSR/wxa/6RD3r42TESIgpzpi7FXq/gNVUuJVEO+wtUzntNRhtmq3BKCl0s0aAlSZLkBUA==",
       "type": "package",
-      "path": "dapper/2.1.21",
+      "path": "dapper/2.1.28",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Dapper.png",
-        "dapper.2.1.21.nupkg.sha512",
+        "dapper.2.1.28.nupkg.sha512",
         "dapper.nuspec",
         "lib/net461/Dapper.dll",
         "lib/net461/Dapper.xml",
@@ -746,14 +746,14 @@
         "readme.md"
       ]
     },
-    "Google.Protobuf/3.21.9": {
-      "sha512": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
+    "Google.Protobuf/3.25.1": {
+      "sha512": "Sw9bq4hOD+AaS3RrnmP5IT25cyZ/T1qpM0e8+G+23Nojhv7+ScJFPEAQo1m4EFQWhXoI4FRZDrK+wjHCPw9yxg==",
       "type": "package",
-      "path": "google.protobuf/3.21.9",
+      "path": "google.protobuf/3.25.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "google.protobuf.3.21.9.nupkg.sha512",
+        "google.protobuf.3.25.1.nupkg.sha512",
         "google.protobuf.nuspec",
         "lib/net45/Google.Protobuf.dll",
         "lib/net45/Google.Protobuf.pdb",
@@ -983,13 +983,14 @@
         "version.txt"
       ]
     },
-    "MySql.Data/8.2.0": {
-      "sha512": "p62lWlKvJJ5UnBNvtal3JM9SOyQaaIA4C6E5LO2TOlO8CF5BDX0I8HsihbzP8wOELZhD4I3vpferDRv7uBNkOg==",
+    "MySql.Data/8.3.0": {
+      "sha512": "bAQlkLYvTYt5MtXAgHGURSBSUWynIvyN2FVQFUg51I2grxsOfnJSyGvO7YsDRnU7IvUNfMdxq8rNXiP5P4hMlw==",
       "type": "package",
-      "path": "mysql.data/8.2.0",
+      "path": "mysql.data/8.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "README.md",
         "lib/net462/MySql.Data.dll",
         "lib/net462/MySql.Data.xml",
         "lib/net48/MySql.Data.dll",
@@ -1005,7 +1006,7 @@
         "lib/netstandard2.1/MySql.Data.dll",
         "lib/netstandard2.1/MySql.Data.xml",
         "logo-mysql-170x115.png",
-        "mysql.data.8.2.0.nupkg.sha512",
+        "mysql.data.8.3.0.nupkg.sha512",
         "mysql.data.nuspec",
         "runtimes/win-x64/native/comerr64.dll",
         "runtimes/win-x64/native/gssapi64.dll",

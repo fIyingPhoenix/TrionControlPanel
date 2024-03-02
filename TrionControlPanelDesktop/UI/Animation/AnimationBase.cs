@@ -123,7 +123,7 @@ namespace MetroFramework.Animation
 
                 case TransitionType.EaseOutQuad:
                     // quadratic (t^2) easing out - decelerating to zero velocity
-                    return (int)(-c * (t = t / d) * (t - 2) + b);
+                    return (int)(-c * (t /= d) * (t - 2) + b);
 
                 case TransitionType.EaseInOutQuad:
                     // quadratic easing in/out - acceleration until halfway, then deceleration
