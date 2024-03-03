@@ -153,7 +153,6 @@ namespace TrionLibrary
         }
         public static EnumModels.ServerStatus ApplicationKill(string ApplicationName)
         {
-
             foreach (var process in Process.GetProcessesByName(ApplicationName))
             {
                 try { process.Kill(); return EnumModels.ServerStatus.NotRunning; }

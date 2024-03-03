@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -18,14 +19,14 @@ namespace TrionLibrary
         public static string GetExecutableLocation(string location, string Executable)
         {
             //Search for files in a directory and all subdirectories
-            if(Executable != null)
+            if (Executable != null)
             {
                 foreach (string f in Directory.EnumerateFiles(location, $"{Executable}.exe", SearchOption.AllDirectories))
                 {
                     return f;
                 }
             }
-            return "";
+            return string.Empty;
         }
         public static void CreateSettingsFile(bool PopulateSettingsData)
         {
@@ -61,6 +62,7 @@ namespace TrionLibrary
                 Settings.RunServerWithWindows = false;
                 Settings.AutoUpdateCore = false;
                 Settings.AutoUpdateTrion = false;
+                Settings.FirstRun = true;
                 Settings.SelectedCore = EnumModels.Cores.AzerothCore;
                 WriteData(Settings, SettingsDataFile);
             }
@@ -71,14 +73,15 @@ namespace TrionLibrary
             {
                 if (File.Exists(SettingsDataFile))
                     WriteData(Settings, SettingsDataFile);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Message = ex.Message;
-            }    
+            }
         }
-        public static async Task LoadSettings() 
+        public static async Task LoadSettings()
         {
-           try
+            try
             {
                 if (File.Exists(SettingsDataFile))
                 {
@@ -88,7 +91,7 @@ namespace TrionLibrary
                 {
                     CreateSettingsFile(true);
                     Settings = ReaderData(SettingsDataFile);
-                }     
+                }
             }
             catch (Exception ex)
             {
@@ -111,12 +114,13 @@ namespace TrionLibrary
             reader.Close();
             return Settings;
         }
-        public static void CreateMySQLConfigFile (string Location)
+        public static void CreateMySQLConfigFile(string Location)
         {
             string ConfigFile = $@"{Location}\my.ini";
-            if(!File.Exists(ConfigFile))
+            if (!File.Exists(ConfigFile))
             {
-                File.Create(ConfigFile);
+                var createFile = File.Create(ConfigFile);
+                createFile.Close();
                 List<string> lines = File.ReadAllLines(ConfigFile).ToList();
                 lines.Add("[client]");
                 lines.Add("port=3306");
@@ -132,13 +136,16 @@ namespace TrionLibrary
                 lines.Add("max_allowed_packet=1G");
                 lines.Add("");
                 lines.Add($"basedir=\"{Settings.MySQLLocation}\"");
-                lines.Add($"datadir=\"{Settings.MySQLLocation}\\data\"");
+                lines.Add($"datadir=\"{Settings.MySQLLocation}data\"");
                 lines.Add("");
+                File.WriteAllLines(ConfigFile, lines);
             }
         }
+       
     }
     public class SettingsList
     {
+        
         public string WorkingDirectory;
         public string WorldDatabase;
         public string AuthDatabase;
@@ -165,6 +172,7 @@ namespace TrionLibrary
         public bool RunWithWindows;
         public bool CustomNames;
         public bool RunServerWithWindows;
+        public bool FirstRun;
         public EnumModels.Cores SelectedCore;
     }
 

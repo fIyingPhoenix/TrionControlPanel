@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsControl));
             metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             TabPageTrion = new TabPage();
@@ -54,7 +55,6 @@
             TXTBoxMySQLLocation = new MetroFramework.Controls.MetroTextBox();
             TXTBoxCoreLocation = new MetroFramework.Controls.MetroTextBox();
             TabPageCore = new TabPage();
-            customProgressBar1 = new TrionControlPanel.UI.CustomProgressBar();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
             label19 = new Label();
             ComboBoxCores = new TrionControlPanel.UI.CustomComboBox();
@@ -96,6 +96,7 @@
             TXTMysqlPort = new MetroFramework.Controls.MetroTextBox();
             label12 = new Label();
             TXTMysqlHost = new MetroFramework.Controls.MetroTextBox();
+            TimerWacher = new System.Windows.Forms.Timer(components);
             metroTabControl1.SuspendLayout();
             TabPageTrion.SuspendLayout();
             metroPanel4.SuspendLayout();
@@ -111,8 +112,8 @@
             // 
             // metroTabControl1
             // 
-            metroTabControl1.Controls.Add(TabPageTrion);
             metroTabControl1.Controls.Add(TabPageCore);
+            metroTabControl1.Controls.Add(TabPageTrion);
             metroTabControl1.Controls.Add(TabPageDatabase);
             metroTabControl1.CustomBackground = false;
             metroTabControl1.Dock = DockStyle.Fill;
@@ -537,7 +538,6 @@
             // TabPageCore
             // 
             TabPageCore.BackColor = Color.FromArgb(45, 51, 59);
-            TabPageCore.Controls.Add(customProgressBar1);
             TabPageCore.Controls.Add(metroPanel2);
             TabPageCore.Controls.Add(metroPanel1);
             TabPageCore.Controls.Add(PNLControl);
@@ -546,23 +546,6 @@
             TabPageCore.Size = new Size(837, 331);
             TabPageCore.TabIndex = 1;
             TabPageCore.Text = "Core";
-            // 
-            // customProgressBar1
-            // 
-            customProgressBar1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            customProgressBar1.BackColor = Color.FromArgb(28, 33, 40);
-            customProgressBar1.BarColor = Color.FromArgb(0, 174, 219);
-            customProgressBar1.FontSize = 10;
-            customProgressBar1.ForeColor = Color.FromArgb(0, 174, 219);
-            customProgressBar1.LabelText = "%";
-            customProgressBar1.Location = new Point(19, 312);
-            customProgressBar1.MaximumValue = true;
-            customProgressBar1.Name = "customProgressBar1";
-            customProgressBar1.ShowStatus = true;
-            customProgressBar1.Size = new Size(800, 10);
-            customProgressBar1.TabIndex = 41;
-            customProgressBar1.TextColor = Color.White;
-            customProgressBar1.Visible = false;
             // 
             // metroPanel2
             // 
@@ -586,7 +569,7 @@
             metroPanel2.HorizontalScrollbarBarColor = true;
             metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel2.HorizontalScrollbarSize = 10;
-            metroPanel2.Location = new Point(236, 16);
+            metroPanel2.Location = new Point(236, 20);
             metroPanel2.Name = "metroPanel2";
             metroPanel2.Size = new Size(317, 290);
             metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
@@ -763,7 +746,7 @@
             metroPanel1.HorizontalScrollbarBarColor = true;
             metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel1.HorizontalScrollbarSize = 10;
-            metroPanel1.Location = new Point(559, 16);
+            metroPanel1.Location = new Point(559, 20);
             metroPanel1.Name = "metroPanel1";
             metroPanel1.Padding = new Padding(2);
             metroPanel1.Size = new Size(260, 96);
@@ -824,7 +807,7 @@
             PNLControl.HorizontalScrollbarBarColor = true;
             PNLControl.HorizontalScrollbarHighlightOnWheel = false;
             PNLControl.HorizontalScrollbarSize = 10;
-            PNLControl.Location = new Point(19, 16);
+            PNLControl.Location = new Point(19, 20);
             PNLControl.Name = "PNLControl";
             PNLControl.Padding = new Padding(2);
             PNLControl.Size = new Size(211, 292);
@@ -1275,6 +1258,12 @@
             TXTMysqlHost.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTMysqlHost.UseStyleColors = true;
             // 
+            // TimerWacher
+            // 
+            TimerWacher.Enabled = true;
+            TimerWacher.Interval = 1000;
+            TimerWacher.Tick += TimerWacher_Tick;
+            // 
             // SettingsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1350,7 +1339,6 @@
         private Label label17;
         private MetroFramework.Controls.MetroPanel metroPanel2;
         private Label label19;
-        private TrionControlPanel.UI.CustomProgressBar customProgressBar1;
         private MetroFramework.Controls.MetroPanel metroPanel3;
         private Label label18;
         private MetroFramework.Controls.MetroTextBox TXTMysqlPassword;
@@ -1374,5 +1362,6 @@
         private MetroFramework.Controls.MetroPanel panel1;
         private Label LBLAutoUpdateSPP;
         private TrionControlPanel.UI.CustomToggleButton TGLAutoUpdateCore;
+        private System.Windows.Forms.Timer TimerWacher;
     }
 }

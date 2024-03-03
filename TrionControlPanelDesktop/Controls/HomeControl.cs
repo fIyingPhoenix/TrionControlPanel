@@ -23,7 +23,6 @@ namespace TrionControlPanelDesktop.Controls
             if (UIData.MySQLisRunning == true) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
             if (UIData.MySQLisRunning == false) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
         }
-
         private void HomeControl_Load(object sender, EventArgs e)
         {
             FirstLoad();

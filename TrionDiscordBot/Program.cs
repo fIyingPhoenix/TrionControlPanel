@@ -14,7 +14,7 @@ namespace TrionDiscordBot
     internal class Program
     {
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var DiscordConfig = new DiscordConfiguration()
             {
@@ -93,8 +93,6 @@ namespace TrionDiscordBot
         {
             throw new NotImplementedException();
         }
-
-        
 
         private static Task InteractionEventHandler(DiscordClient sender, ComponentInteractionCreateEventArgs args)
         {

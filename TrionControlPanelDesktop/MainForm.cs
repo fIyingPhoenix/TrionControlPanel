@@ -12,6 +12,7 @@ namespace TrionControlPanelDesktop
         readonly HomeControl homeControl = new();
         readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
+        readonly DownloadControl downloadControl = new();
         CurrentControl CurrentControl { get; set; }
         void LoadData()
         {
@@ -19,10 +20,7 @@ namespace TrionControlPanelDesktop
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
-            if (Data.Settings.MySQLLocation != string.Empty)
-            {
-                Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(Data.Settings.MySQLLocation, Data.Settings.MySQLExecutableName);
-            }
+
             Data.SaveSettings();
         }
         public MainForm()
@@ -33,7 +31,6 @@ namespace TrionControlPanelDesktop
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -47,7 +44,6 @@ namespace TrionControlPanelDesktop
                 CurrentControl = CurrentControl.Settings;
             }
         }
-
         private void HomeBTN_Click(object sender, EventArgs e)
         {
             if (CurrentControl != CurrentControl.Home)
@@ -111,6 +107,10 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
+                if(Data.Settings.FirstRun == true)
+                {
+                    StartDirectoryScan(Directory.GetCurrentDirectory());
+                } 
             }
             if (Data.Message != string.Empty)
             {
@@ -122,6 +122,12 @@ namespace TrionControlPanelDesktop
         }
         private void TerminaBTN_Click(object sender, EventArgs e)
         {
+            if (CurrentControl != CurrentControl.Control)
+            {
+                PNLControl.Controls.Clear();
+                PNLControl.Controls.Add(downloadControl);
+                CurrentControl = CurrentControl.Control;
+            }
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
@@ -129,8 +135,12 @@ namespace TrionControlPanelDesktop
             {
                 if (Data.Settings.MySQLExecutableLocation != string.Empty)
                 {
-                    string Arguments = $@"{Directory.GetCurrentDirectory()}\my.ini";
-                    SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{Arguments}\"");
+                    string ConfigFile = $@"{Directory.GetCurrentDirectory()}\my.ini";
+                    if (!File.Exists(ConfigFile))
+                    {
+                        Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                    }
+                    SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{ConfigFile}\" --console");
                 }
             }
             else
@@ -165,6 +175,64 @@ namespace TrionControlPanelDesktop
             {
                 SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
             }
+        }
+        private static void StartDirectoryScan(string path)
+        {
+            if(Data.GetExecutableLocation(path,Data.Settings.MySQLExecutableName) != string.Empty)
+            {
+                Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName);
+                if(Data.Settings.MySQLExecutableLocation != string.Empty)
+                {
+                    string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
+                    Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
+                }
+            }
+            else
+            {
+                if(MessageBox.Show("MySQL Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    using (var FolderBrowser = new FolderBrowserDialog())
+                    {
+                        DialogResult Result = FolderBrowser.ShowDialog();
+                        if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
+                        {
+                            Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.MySQLExecutableName);
+                            if (Data.Settings.MySQLExecutableLocation != string.Empty)
+                            {
+                                string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
+                                Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
+                            }
+
+                        }
+                    }
+                }
+            }
+            if (Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName) != string.Empty)
+            {
+                Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.LogonExecutableName);
+                Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName);
+                Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
+                
+            }
+            else
+            {
+                if(MessageBox.Show("Core Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    using (var FolderBrowser = new FolderBrowserDialog())
+                    {
+                        DialogResult Result = FolderBrowser.ShowDialog();
+                        if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
+                        {
+                            Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.LogonExecutableName);
+                            Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.WorldExecutableName);
+                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
+                           
+                        }
+                    }
+                }
+            }
+            Data.Settings.FirstRun = false;
+            Data.SaveSettings();
         }
     }
 }

@@ -64,10 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UI\MessageBox\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
   </ItemGroup>
 

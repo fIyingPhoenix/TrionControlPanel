@@ -1,7 +1,6 @@
 ﻿using static TrionLibrary.EnumModels;
 using TrionLibrary;
 using TrionControlPanelDesktop.FormData;
-using System.Reflection;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -128,11 +127,13 @@ namespace TrionControlPanelDesktop.Controls
             Data.Settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
             Data.SaveSettings();
         }
-
         private void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
+            Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+        }
+        private void TimerWacher_Tick(object sender, EventArgs e)
+        {
 
-            Data.CreateMySQLConfigFile(Data.Settings.MySQLLocation);
         }
     }
 }
