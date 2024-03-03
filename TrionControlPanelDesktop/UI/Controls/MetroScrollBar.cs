@@ -74,11 +74,11 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager? metroStyleManager = null;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
-            get { return metroStyleManager; }
+            get => metroStyleManager;
             set { metroStyleManager = value; }
         }
 
@@ -159,7 +159,7 @@ namespace MetroFramework.Controls
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("value", "MouseWheelBarPartitions has to be greather than zero");
+                    throw new ArgumentOutOfRangeException(nameof(value), "MouseWheelBarPartitions has to be greather than zero");
                 }
             }
         }
@@ -369,9 +369,11 @@ namespace MetroFramework.Controls
 
                     if (autoHoverTimer == null)
                     {
-                        autoHoverTimer = new();
-                        autoHoverTimer.Interval = 1000;
-                        autoHoverTimer.Tick += new EventHandler(autoHoverTimer_Tick);
+                        autoHoverTimer = new()
+                        {
+                            Interval = 1000
+                        };
+                        autoHoverTimer.Tick += new EventHandler(AutoHoverTimer_Tick);
                         autoHoverTimer.Start();
                     }
                     else
@@ -389,14 +391,14 @@ namespace MetroFramework.Controls
             }
         }
 
-        private void autoHoverTimer_Tick(object sender, EventArgs e)
+        private void AutoHoverTimer_Tick(object sender, EventArgs e)
         {
             isHovered = false;
             Invalidate();
             autoHoverTimer.Stop();
         }
 
-        private System.Windows.Forms.Timer autoHoverTimer = null;
+        private System.Windows.Forms.Timer? autoHoverTimer = null;
 
         #endregion
 
@@ -442,13 +444,13 @@ namespace MetroFramework.Controls
 
         public void BeginUpdate()
         {
-            WinApi.SendMessage(Handle, (int) WinApi.Messages.WM_SETREDRAW, false, 0);
+            _ = WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_SETREDRAW, false, 0);
             inUpdate = true;
         }
 
         public void EndUpdate()
         {
-            WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_SETREDRAW, true, 0);
+            _ = WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_SETREDRAW, true, 0);
             inUpdate = false;
             SetupScrollBar();
             Refresh();
@@ -593,11 +595,8 @@ namespace MetroFramework.Controls
                 isPressed = true;
                 Invalidate();
             }
-
             base.OnMouseDown(e);
-
             Focus();
-
             if (e.Button == MouseButtons.Left) {
 
                 var mouseLocation = e.Location;
@@ -606,13 +605,11 @@ namespace MetroFramework.Controls
                 {
                     thumbClicked = true;
                     thumbPosition = metroOrientation == MetroScrollOrientation.Vertical ? mouseLocation.Y - thumbRectangle.Y : mouseLocation.X - thumbRectangle.X;
-
                     Invalidate(thumbRectangle);
                 }
                 else
                 {
                     trackPosition = metroOrientation == MetroScrollOrientation.Vertical ? mouseLocation.Y : mouseLocation.X;
-
                     if (trackPosition < (metroOrientation == MetroScrollOrientation.Vertical ? thumbRectangle.Y : thumbRectangle.X))
                     {
                         topBarClicked = true;
@@ -621,7 +618,6 @@ namespace MetroFramework.Controls
                     {
                         bottomBarClicked = true;
                     }
-
                     ProgressThumb(true);
                 }
             }
@@ -630,13 +626,10 @@ namespace MetroFramework.Controls
                 trackPosition = metroOrientation == MetroScrollOrientation.Vertical ? e.Y : e.X;
             }
         }
-
         protected override void OnMouseUp(MouseEventArgs e)
         {
             isPressed = false;
-
             base.OnMouseUp(e);
-
             if (e.Button == MouseButtons.Left)
             {
                 if (thumbClicked)
@@ -654,7 +647,6 @@ namespace MetroFramework.Controls
                     bottomBarClicked = false;
                     StopTimer();
                 }
-
                 Invalidate();
             }
         }

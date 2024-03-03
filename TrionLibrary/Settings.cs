@@ -141,11 +141,9 @@ namespace TrionLibrary
                 File.WriteAllLines(ConfigFile, lines);
             }
         }
-       
     }
     public class SettingsList
-    {
-        
+    {  
         public string WorkingDirectory;
         public string WorldDatabase;
         public string AuthDatabase;

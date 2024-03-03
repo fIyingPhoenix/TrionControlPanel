@@ -20,7 +20,6 @@ namespace TrionControlPanelDesktop
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
-
             Data.SaveSettings();
         }
         public MainForm()
@@ -202,7 +201,6 @@ namespace TrionControlPanelDesktop
                                 string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
                                 Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
                             }
-
                         }
                     }
                 }
@@ -211,8 +209,7 @@ namespace TrionControlPanelDesktop
             {
                 Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.LogonExecutableName);
                 Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName);
-                Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
-                
+                Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);  
             }
             else
             {
@@ -225,8 +222,7 @@ namespace TrionControlPanelDesktop
                         {
                             Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.LogonExecutableName);
                             Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.WorldExecutableName);
-                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
-                           
+                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);                    
                         }
                     }
                 }
