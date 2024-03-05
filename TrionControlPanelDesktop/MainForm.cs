@@ -13,7 +13,8 @@ namespace TrionControlPanelDesktop
         readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
-        CurrentControl CurrentControl { get; set; }
+        public static CurrentControl CurrentControl { get; set; }
+        private static bool LoadControl = false;
         void LoadData()
         {
             CurrentControl = CurrentControl.Load;
@@ -38,18 +39,37 @@ namespace TrionControlPanelDesktop
         {
             if (CurrentControl != CurrentControl.Settings)
             {
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(settingsControl);
                 CurrentControl = CurrentControl.Settings;
+                TimerChangeControl.Start();
             }
         }
         private void HomeBTN_Click(object sender, EventArgs e)
         {
             if (CurrentControl != CurrentControl.Home)
             {
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
+                TimerChangeControl.Start();
+            }
+        }
+        private void TerminaBTN_Click(object sender, EventArgs e)
+        {
+            if (CurrentControl != CurrentControl.Control)
+            {
+                CurrentControl = CurrentControl.Control;
+                TimerChangeControl.Start();
+            }
+        }
+        public static void LoadDownloadControl()
+        {
+            if (CurrentControl != CurrentControl.Download)
+            {
+                CurrentControl = CurrentControl.Download;
+                LoadControl = true;
+            }
+            else
+            {
+                CurrentControl = CurrentControl.Home;
+                LoadControl = true;
             }
         }
         private void ButtonsDesing()
@@ -94,6 +114,10 @@ namespace TrionControlPanelDesktop
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             ButtonsDesing();
+            if (LoadControl == true)
+            {
+                TimerChangeControl.Start();
+            }
             if (UIData.StartUpLoading == 2)
             {
                 BTNStartAll.Visible = true;
@@ -106,10 +130,10 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
-                if(Data.Settings.FirstRun == true)
+                if (Data.Settings.FirstRun == true)
                 {
                     StartDirectoryScan(Directory.GetCurrentDirectory());
-                } 
+                }
             }
             if (Data.Message != string.Empty)
             {
@@ -117,15 +141,6 @@ namespace TrionControlPanelDesktop
                 MessageBox.Show(Data.Message);
                 Data.Message = string.Empty;
                 TimerWacher.Start();
-            }
-        }
-        private void TerminaBTN_Click(object sender, EventArgs e)
-        {
-            if (CurrentControl != CurrentControl.Control)
-            {
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(downloadControl);
-                CurrentControl = CurrentControl.Control;
             }
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
@@ -175,12 +190,12 @@ namespace TrionControlPanelDesktop
                 SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
             }
         }
-        private static void StartDirectoryScan(string path)
+        public static void StartDirectoryScan(string path)
         {
-            if(Data.GetExecutableLocation(path,Data.Settings.MySQLExecutableName) != string.Empty)
+            if (Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName) != string.Empty)
             {
                 Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName);
-                if(Data.Settings.MySQLExecutableLocation != string.Empty)
+                if (Data.Settings.MySQLExecutableLocation != string.Empty)
                 {
                     string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
                     Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
@@ -188,7 +203,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                if(MessageBox.Show("MySQL Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("MySQL Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     using (var FolderBrowser = new FolderBrowserDialog())
                     {
@@ -209,11 +224,11 @@ namespace TrionControlPanelDesktop
             {
                 Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.LogonExecutableName);
                 Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName);
-                Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);  
+                Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
             }
             else
             {
-                if(MessageBox.Show("Core Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Core Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     using (var FolderBrowser = new FolderBrowserDialog())
                     {
@@ -222,13 +237,39 @@ namespace TrionControlPanelDesktop
                         {
                             Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.LogonExecutableName);
                             Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.WorldExecutableName);
-                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);                    
+                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
                         }
                     }
                 }
             }
             Data.Settings.FirstRun = false;
             Data.SaveSettings();
+        }
+        private void TimerChangeControl_Tick(object sender, EventArgs e)
+        {
+            if (CurrentControl == CurrentControl.Control)
+            {
+                TimerChangeControl.Stop();
+
+            }
+            if (CurrentControl == CurrentControl.Home)
+            {
+                TimerChangeControl.Stop();
+                PNLControl.Controls.Clear();
+                PNLControl.Controls.Add(homeControl);
+            }
+            if (CurrentControl == CurrentControl.Settings)
+            {
+                TimerChangeControl.Stop();
+                PNLControl.Controls.Clear();
+                PNLControl.Controls.Add(settingsControl);
+            }
+            if (CurrentControl == CurrentControl.Download)
+            {
+                TimerChangeControl.Stop();
+                PNLControl.Controls.Clear();
+                PNLControl.Controls.Add(downloadControl);
+            }
         }
     }
 }

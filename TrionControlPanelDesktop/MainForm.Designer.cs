@@ -47,6 +47,7 @@ namespace TrionControlPanelDesktop
             BTNStartLogin = new UI.Controls.CustomButton();
             BTNStartWorld = new UI.Controls.CustomButton();
             ContributorsPNLFront = new MetroPanel();
+            TimerChangeControl = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             PnlButtonFront.SuspendLayout();
@@ -330,6 +331,11 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront.VerticalScrollbarHighlightOnWheel = false;
             ContributorsPNLFront.VerticalScrollbarSize = 10;
             // 
+            // TimerChangeControl
+            // 
+            TimerChangeControl.Interval = 10;
+            TimerChangeControl.Tick += TimerChangeControl_Tick;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -372,5 +378,6 @@ namespace TrionControlPanelDesktop
         private UI.Controls.CustomButton BTNStartLogin;
         private UI.Controls.CustomButton BTNStartWorld;
         private MetroPanel ContributorsPNLFront;
+        private System.Windows.Forms.Timer TimerChangeControl;
     }
 }

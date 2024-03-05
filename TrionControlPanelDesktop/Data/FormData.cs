@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TrionControlPanelDesktop.FormData
 {
@@ -12,14 +8,37 @@ namespace TrionControlPanelDesktop.FormData
         public static bool MySQLisRunning = false;
         public static bool WorldisRunning = false;
         public static bool LogonisRunning = false;
-
-        public static string TrionVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        //OneDriveAPI
         public static string DownloadOneDriveAPI(string url)
         {
             // Get Download Url          
             string base64Value = Convert.ToBase64String(Encoding.UTF8.GetBytes(url));
             string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
-            return  string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);
+            return  string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);//
+        }
+        //Gogole Drive API need fixing
+        public static string DownloadGoogleDriveAPi(string url)
+        {
+            string startText = "https://drive.google.com/file/d/";
+            string endText = "/view?usp=drive_link";
+            string DirectURL = "https://drive.google.com/uc?export=download&&id=";
+
+            int startIndex = url.IndexOf(startText);
+
+            if (startIndex == -1)
+            {
+                  // Start text not found
+                   return null!;
+            }
+            startIndex += startText.Length;
+            int endIndex = url.IndexOf(endText, startIndex);
+            if (endIndex == -1)
+            {
+                // End text not found
+                return null;
+            }
+            string downloadID = url.Substring(startIndex, endIndex - startIndex);
+            return DirectURL + downloadID;
         }
         public static int StartUpLoading { get; set; }
         public static string ContributorsURL()
@@ -42,5 +61,12 @@ namespace TrionControlPanelDesktop.FormData
         {
             return "https://camo.githubusercontent.com/2125f70052fc2f8ee12556574d3ade67cab4c4bbb6e815ace3d7b8f74c2e933a/68747470733a2f2f696d672e736869656c64732e696f2f636f6465666163746f722f67726164652f6769746875622f664979696e6750686f656e69782f5472696f6e436f6e74726f6c50616e656c3f7374796c653d666f722d7468652d6261646765";
         }
+    }
+    public class URLList
+    {
+        public string FileName;
+        public string FileWebLink;
+        public int Zipfile;
+
     }
 }

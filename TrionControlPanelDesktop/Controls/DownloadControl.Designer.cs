@@ -31,12 +31,14 @@
             components = new System.ComponentModel.Container();
             PBARDownload = new TrionControlPanel.UI.CustomProgressBar();
             PNLDownloadStatus = new MetroFramework.Controls.MetroPanel();
+            LBLStatus = new Label();
             LBLQueue = new Label();
             LBLDownloadName = new Label();
             LBLDownloadSpeed = new Label();
             LBLDownloadSize = new Label();
             TimerWacher = new System.Windows.Forms.Timer(components);
-            BTNTestDownload = new Button();
+            LBLFIleName = new Label();
+            TimerDownloadStart = new System.Windows.Forms.Timer(components);
             PNLDownloadStatus.SuspendLayout();
             SuspendLayout();
             // 
@@ -62,6 +64,7 @@
             PNLDownloadStatus.Border = true;
             PNLDownloadStatus.BorderColor = Color.Black;
             PNLDownloadStatus.BorderSize = 1;
+            PNLDownloadStatus.Controls.Add(LBLStatus);
             PNLDownloadStatus.Controls.Add(LBLQueue);
             PNLDownloadStatus.Controls.Add(LBLDownloadName);
             PNLDownloadStatus.Controls.Add(LBLDownloadSpeed);
@@ -84,12 +87,23 @@
             PNLDownloadStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLDownloadStatus.VerticalScrollbarSize = 10;
             // 
+            // LBLStatus
+            // 
+            LBLStatus.AutoSize = true;
+            LBLStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLStatus.ForeColor = Color.White;
+            LBLStatus.Location = new Point(20, 149);
+            LBLStatus.Name = "LBLStatus";
+            LBLStatus.Size = new Size(55, 21);
+            LBLStatus.TabIndex = 35;
+            LBLStatus.Text = "Status:";
+            // 
             // LBLQueue
             // 
             LBLQueue.AutoSize = true;
             LBLQueue.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LBLQueue.ForeColor = Color.White;
-            LBLQueue.Location = new Point(28, 134);
+            LBLQueue.Location = new Point(20, 123);
             LBLQueue.Name = "LBLQueue";
             LBLQueue.Size = new Size(99, 21);
             LBLQueue.TabIndex = 35;
@@ -100,29 +114,29 @@
             LBLDownloadName.AutoSize = true;
             LBLDownloadName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LBLDownloadName.ForeColor = Color.White;
-            LBLDownloadName.Location = new Point(28, 108);
+            LBLDownloadName.Location = new Point(20, 97);
             LBLDownloadName.Name = "LBLDownloadName";
-            LBLDownloadName.Size = new Size(129, 21);
+            LBLDownloadName.Size = new Size(116, 21);
             LBLDownloadName.TabIndex = 34;
-            LBLDownloadName.Text = "Name:  FileName";
+            LBLDownloadName.Text = "Task:  FileName";
             // 
             // LBLDownloadSpeed
             // 
             LBLDownloadSpeed.AutoSize = true;
             LBLDownloadSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LBLDownloadSpeed.ForeColor = Color.White;
-            LBLDownloadSpeed.Location = new Point(28, 45);
+            LBLDownloadSpeed.Location = new Point(20, 40);
             LBLDownloadSpeed.Name = "LBLDownloadSpeed";
-            LBLDownloadSpeed.Size = new Size(171, 21);
+            LBLDownloadSpeed.Size = new Size(96, 21);
             LBLDownloadSpeed.TabIndex = 33;
-            LBLDownloadSpeed.Text = "Download Speed: Mb/s";
+            LBLDownloadSpeed.Text = "Speed: Mb/s";
             // 
             // LBLDownloadSize
             // 
             LBLDownloadSize.AutoSize = true;
             LBLDownloadSize.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             LBLDownloadSize.ForeColor = Color.White;
-            LBLDownloadSize.Location = new Point(28, 24);
+            LBLDownloadSize.Location = new Point(20, 19);
             LBLDownloadSize.Name = "LBLDownloadSize";
             LBLDownloadSize.Size = new Size(68, 21);
             LBLDownloadSize.TabIndex = 32;
@@ -134,22 +148,28 @@
             TimerWacher.Interval = 1000;
             TimerWacher.Tick += TimerWacher_Tick;
             // 
-            // BTNTestDownload
+            // LBLFIleName
             // 
-            BTNTestDownload.Location = new Point(636, 49);
-            BTNTestDownload.Name = "BTNTestDownload";
-            BTNTestDownload.Size = new Size(191, 23);
-            BTNTestDownload.TabIndex = 31;
-            BTNTestDownload.Text = "Test Download";
-            BTNTestDownload.UseVisualStyleBackColor = true;
-            BTNTestDownload.Click += BTNTestDownload_ClickAsync;
+            LBLFIleName.AutoSize = true;
+            LBLFIleName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLFIleName.ForeColor = Color.White;
+            LBLFIleName.Location = new Point(19, 291);
+            LBLFIleName.Name = "LBLFIleName";
+            LBLFIleName.Size = new Size(37, 21);
+            LBLFIleName.TabIndex = 36;
+            LBLFIleName.Text = "File:";
+            // 
+            // TimerDownloadStart
+            // 
+            TimerDownloadStart.Interval = 1000;
+            TimerDownloadStart.Tick += TimerDownloadStart_Tick;
             // 
             // DownloadControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
-            Controls.Add(BTNTestDownload);
+            Controls.Add(LBLFIleName);
             Controls.Add(PNLDownloadStatus);
             Controls.Add(PBARDownload);
             Name = "DownloadControl";
@@ -158,6 +178,7 @@
             PNLDownloadStatus.ResumeLayout(false);
             PNLDownloadStatus.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -169,6 +190,8 @@
         private Label LBLQueue;
         private Label LBLDownloadName;
         private System.Windows.Forms.Timer TimerWacher;
-        private Button BTNTestDownload;
+        private Label LBLStatus;
+        private Label LBLFIleName;
+        private System.Windows.Forms.Timer TimerDownloadStart;
     }
 }

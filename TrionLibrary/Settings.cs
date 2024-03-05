@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -10,6 +12,42 @@ namespace TrionLibrary
 {
     public class Data
     {
+        public class Version
+        {
+            public static async Task<string> GetOnline(string Location)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    if (!string.IsNullOrEmpty(Location))
+                    {
+                        HttpResponseMessage response = await client.GetAsync(Location);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return await response.Content.ReadAsStringAsync();
+                        }
+                        else
+                        {
+                            return ($"N/A");
+                        }
+                    }
+                    else
+                    {
+                        return ($"N/A");
+                    }
+                }
+            }
+            public static string GetLocal(string Location)
+            {
+                if (!string.IsNullOrEmpty(Location))
+                {
+                    FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                    return versionInfo.FileVersion;
+                } else
+                {
+                    return "N/A";
+                }
+            }
+        }
         //Error Message (4 later) dont feel do it now
         public static string Message = string.Empty;
         //Settings File Location
