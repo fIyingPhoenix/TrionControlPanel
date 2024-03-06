@@ -21,16 +21,14 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using MetroFramework.Interfaces;
 
 namespace MetroFramework.Components
 {
     public class MetroStyleManager : Component, ICloneable
     {
-        private Form ownerForm = null;
+        private Form ownerForm = null!;
         public Form OwnerForm
         {
             get { return ownerForm; }
@@ -75,22 +73,22 @@ namespace MetroFramework.Components
 
         public MetroStyleManager(Form ownerForm)
         {
-            this.OwnerForm = ownerForm;
+            OwnerForm = ownerForm;
         }
 
         private void NewControlOnOwnerForm(object sender, ControlEventArgs e)
         {
-            if (e.Control is IMetroControl)
+            if (e.Control is IMetroControl control)
             {
-                ((IMetroControl)e.Control).Style = Style;
-                ((IMetroControl)e.Control).Theme = Theme;
-                ((IMetroControl)e.Control).StyleManager = this;
+                control.Style = Style;
+                control.Theme = Theme;
+                control.StyleManager = this;
             }
-            else if (e.Control is IMetroComponent)
+            else if (e.Control is IMetroComponent component)
             {
-                ((IMetroComponent)e.Control).Style = Style;
-                ((IMetroComponent)e.Control).Theme = Theme;
-                ((IMetroComponent)e.Control).StyleManager = this;
+                component.Style = Style;
+                component.Theme = Theme;
+                component.StyleManager = this;
             }
             else
             {
@@ -103,21 +101,21 @@ namespace MetroFramework.Components
             if (ownerForm == null)
                 return;
 
-            if (ownerForm is IMetroForm)
+            if (ownerForm is IMetroForm form)
             {
-                ((IMetroForm)ownerForm).Style = Style;
-                ((IMetroForm)ownerForm).Theme = Theme;
-                ((IMetroForm)ownerForm).StyleManager = this;
+                form.Style = Style;
+                form.Theme = Theme;
+                form.StyleManager = this;
             }
 
             if (ownerForm.Controls.Count > 0)
                 UpdateControlCollection(ownerForm.Controls);
 
-            if (ownerForm.ContextMenuStrip != null && ownerForm.ContextMenuStrip is IMetroComponent)
+            if (ownerForm.ContextMenuStrip != null && ownerForm.ContextMenuStrip is IMetroComponent component)
             {
-                ((IMetroComponent)ownerForm.ContextMenuStrip).Style = Style;
-                ((IMetroComponent)ownerForm.ContextMenuStrip).Theme = Theme;
-                ((IMetroComponent)ownerForm.ContextMenuStrip).StyleManager = this;
+                component.Style = Style;
+                component.Theme = Theme;
+                component.StyleManager = this;
             }
 
             ownerForm.Refresh();
@@ -127,29 +125,29 @@ namespace MetroFramework.Components
         {
             foreach (Control c in controls)
             {
-                if (c is IMetroControl)
+                if (c is IMetroControl control)
                 {
-                    ((IMetroControl)c).Style = Style;
-                    ((IMetroControl)c).Theme = Theme;
-                    ((IMetroControl)c).StyleManager = this;
+                    control.Style = Style;
+                    control.Theme = Theme;
+                    control.StyleManager = this;
                 }
 
-                if (c.ContextMenuStrip != null && c.ContextMenuStrip is IMetroComponent)
+                if (c.ContextMenuStrip != null && c.ContextMenuStrip is IMetroComponent component)
                 {
-                    ((IMetroComponent)c.ContextMenuStrip).Style = Style;
-                    ((IMetroComponent)c.ContextMenuStrip).Theme = Theme;
-                    ((IMetroComponent)c.ContextMenuStrip).StyleManager = this;
+                    component.Style = Style;
+                    component.Theme = Theme;
+                    component.StyleManager = this;
                 }
                 else if (c is IMetroComponent)
                 {
-                    ((IMetroComponent)c.ContextMenuStrip).Style = Style;
+                    ((IMetroComponent)c.ContextMenuStrip!).Style = Style;
                     ((IMetroComponent)c.ContextMenuStrip).Theme = Theme;
                     ((IMetroComponent)c.ContextMenuStrip).StyleManager = this;
                 }
 
-                if (c is TabControl)
+                if (c is TabControl control1)
                 {
-                    foreach (TabPage tp in ((TabControl)c).TabPages)
+                    foreach (TabPage tp in control1.TabPages)
                     {
                         if (tp is IMetroControl)
                         {
@@ -177,10 +175,12 @@ namespace MetroFramework.Components
 
         public object Clone()
         {
-            MetroStyleManager newStyleManager = new();
-            newStyleManager.metroTheme = this.Theme;
-            newStyleManager.metroStyle = this.Style;
-            newStyleManager.ownerForm = null;
+            MetroStyleManager newStyleManager = new()
+            {
+                metroTheme = this.Theme,
+                metroStyle = this.Style,
+                ownerForm = null!
+            };
 
             return newStyleManager;
         }

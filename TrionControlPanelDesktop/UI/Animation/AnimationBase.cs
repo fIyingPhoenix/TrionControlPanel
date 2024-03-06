@@ -21,8 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Windows.Forms;
 
 namespace MetroFramework.Animation
 {
@@ -80,12 +78,12 @@ namespace MetroFramework.Animation
         {
             Start(control, transitionType, duration, actionHandler, null);
         }
-        protected void Start(Control control, TransitionType transitionType, int duration, AnimationAction actionHandler, AnimationFinishedEvaluator evaluatorHandler)
+        protected void Start(Control control, TransitionType transitionType, int duration, AnimationAction actionHandler, AnimationFinishedEvaluator? evaluatorHandler)
         {
             this.targetControl = control;
             this.transitionType = transitionType;
             this.actionHandler = actionHandler;
-            this.evaluatorHandler = evaluatorHandler;
+            this.evaluatorHandler = evaluatorHandler!;
 
             this.counter = 0;
             this.startTime = 0;

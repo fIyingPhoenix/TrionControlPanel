@@ -64,7 +64,7 @@ namespace MetroFramework.Controls
         }
 
         [Browsable(false)]
-        public MetroStyleManager? StyleManager { get; set; } = null;
+        public MetroStyleManager StyleManager { get; set; } = null!;
 
         #endregion
 
@@ -106,7 +106,7 @@ namespace MetroFramework.Controls
         }
         public bool ReadOnly
         {
-            get { return baseTextBox.ReadOnly; }
+            get => baseTextBox.ReadOnly;
             set { baseTextBox.ReadOnly = value; baseTextBox.ForeColor = this.ForeColor; }
         }
         public bool Multiline
@@ -117,8 +117,8 @@ namespace MetroFramework.Controls
 
         public override string Text
         {
-            get { return baseTextBox.Text; }
-            set { baseTextBox.Text = value; }
+            get => baseTextBox.Text;
+            set => baseTextBox.Text = value;
         }
         [Browsable(false)]
         public string SelectedText
@@ -146,8 +146,7 @@ namespace MetroFramework.Controls
         public event EventHandler AcceptsTabChanged;
         private void BaseTextBoxAcceptsTabChanged(object sender, EventArgs e)
         {
-            if (AcceptsTabChanged != null)
-                AcceptsTabChanged(this, e);
+            AcceptsTabChanged?.Invoke(this, e);
         }
         
         private void BaseTextBoxSizeChanged(object sender, EventArgs e)

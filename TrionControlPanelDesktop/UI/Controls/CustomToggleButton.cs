@@ -64,11 +64,11 @@ namespace TrionControlPanel.UI
             set
             {
                 offToggleColor = value;
-                this.Invalidate();
+                Invalidate();
             }
         }
         [Browsable(false)]
-        public override string? Text
+        public override string Text
         {
             get
             {

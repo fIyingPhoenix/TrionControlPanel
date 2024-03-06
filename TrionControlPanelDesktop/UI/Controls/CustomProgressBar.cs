@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using static MetroFramework.Drawing.MetroPaint;
 
 namespace TrionControlPanel.UI
 {

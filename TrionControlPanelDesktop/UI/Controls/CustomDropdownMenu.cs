@@ -79,7 +79,7 @@ namespace TrionControlPanel.UI
             //Fields
             var graph = e.Graphics;
             var arrowSize = new Size(5, 12);
-            var arrowColor = e.Item.Selected ? Color.White : primaryColor;
+            var arrowColor = e.Item!.Selected ? Color.White : primaryColor;
             var rect = new Rectangle(e.ArrowRectangle.Location.X, (e.ArrowRectangle.Height - arrowSize.Height) / 2,
                 arrowSize.Width, arrowSize.Height);
             using (GraphicsPath path = new())
@@ -147,22 +147,22 @@ namespace TrionControlPanel.UI
             foreach (ToolStripMenuItem menuItemL1 in this.Items)
             {
                 menuItemL1.ImageScaling = ToolStripItemImageScaling.None;
-                if (menuItemL1.Image == null) menuItemL1.Image = menuItemHeaderSize;
+                menuItemL1.Image ??= menuItemHeaderSize;
 
                 foreach (ToolStripMenuItem menuItemL2 in menuItemL1.DropDownItems)
                 {
                     menuItemL2.ImageScaling = ToolStripItemImageScaling.None;
-                    if (menuItemL2.Image == null) menuItemL2.Image = menuItemHeaderSize;
+                    menuItemL2.Image ??= menuItemHeaderSize;
 
                     foreach (ToolStripMenuItem menuItemL3 in menuItemL2.DropDownItems)
                     {
                         menuItemL3.ImageScaling = ToolStripItemImageScaling.None;
-                        if (menuItemL3.Image == null) menuItemL3.Image = menuItemHeaderSize;
+                        menuItemL3.Image ??= menuItemHeaderSize;
 
                         foreach (ToolStripMenuItem menuItemL4 in menuItemL3.DropDownItems)
                         {
                             menuItemL4.ImageScaling = ToolStripItemImageScaling.None;
-                            if (menuItemL4.Image == null) menuItemL4.Image = menuItemHeaderSize;
+                            menuItemL4.Image ??= menuItemHeaderSize;
                             ///Level 5++
                         }
                     }

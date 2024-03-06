@@ -33,7 +33,7 @@ namespace TrionControlPanel.UI
 
             //ComboBox: Dropdown list
             cmbList.BackColor = listBackColor;
-            cmbList.Font = new Font(this.Font.Name, 10F);
+            cmbList.Font = new Font(Font!.Name, 10F);
             cmbList.ForeColor = listTextColor;
             cmbList.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged); //Default event
             cmbList.TextChanged +=  new EventHandler(ComboBox_TextChanged); //Refresh text
@@ -79,7 +79,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public new Color BackColor
         {
-            get { return backColor; }
+            get => backColor;
             set
             {
                 backColor = value;
@@ -91,7 +91,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public Color IconColor
         {
-            get { return iconColor; }
+            get => iconColor; 
             set
             {
                 iconColor = value;
@@ -102,7 +102,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public Color ListBackColor
         {
-            get { return listBackColor; }
+            get => listBackColor; 
             set
             {
                 listBackColor = value;
@@ -113,7 +113,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public Color ListTextColor
         {
-            get { return listTextColor; }
+            get => listTextColor; 
             set
             {
                 listTextColor = value;
@@ -124,7 +124,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public Color BorderColor
         {
-            get { return borderColor; }
+            get => borderColor; 
             set
             {
                 borderColor = value;
@@ -135,7 +135,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public int BorderSize
         {
-            get { return borderSize; }
+            get => borderSize; 
             set
             {
                 borderSize = value;
@@ -147,7 +147,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public override Color ForeColor
         {
-            get { return base.ForeColor; }
+            get => base.ForeColor; 
             set
             {
                 base.ForeColor = value;
@@ -158,7 +158,7 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public override Font Font
         {
-            get { return base.Font; }
+            get => base.Font; 
             set
             {
                 base.Font = value;
@@ -170,14 +170,14 @@ namespace TrionControlPanel.UI
         [Category("1 CustomComboBox - Properties")]
         public string Texts
         {
-            get { return lblText.Text; }
-            set { lblText.Text = value; }
+            get => lblText.Text; 
+            set => lblText.Text = value; 
         }
 
         [Category("1 CustomComboBox - Properties- Properties")]
         public ComboBoxStyle DropDownStyle
         {
-            get { return cmbList.DropDownStyle; }
+            get => cmbList.DropDownStyle; 
             set
             {
                 if (cmbList.DropDownStyle != ComboBoxStyle.Simple)
@@ -193,7 +193,7 @@ namespace TrionControlPanel.UI
         [MergableProperty(false)]
         public ComboBox.ObjectCollection Items
         {
-            get { return cmbList.Items; }
+            get => cmbList.Items; 
         }
 
         [Category("1 CustomComboBox - Data")]
@@ -201,8 +201,8 @@ namespace TrionControlPanel.UI
         [DefaultValue(null)]
         public object DataSource
         {
-            get { return cmbList.DataSource; }
-            set { cmbList.DataSource = value; }
+            get => cmbList.DataSource;
+            set => cmbList.DataSource = value; 
         }
 
         [Category("1 CustomComboBox  - Data")]
@@ -213,8 +213,8 @@ namespace TrionControlPanel.UI
         [Localizable(true)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
         {
-            get { return cmbList.AutoCompleteCustomSource; }
-            set { cmbList.AutoCompleteCustomSource = value; }
+            get => cmbList.AutoCompleteCustomSource;
+            set => cmbList.AutoCompleteCustomSource = value; 
         }
 
         [Category("1 CustomComboBox  - Data")]
@@ -223,8 +223,8 @@ namespace TrionControlPanel.UI
         [EditorBrowsable(EditorBrowsableState.Always)]
         public AutoCompleteSource AutoCompleteSource
         {
-            get { return cmbList.AutoCompleteSource; }
-            set { cmbList.AutoCompleteSource = value; }
+            get => cmbList.AutoCompleteSource;
+            set => cmbList.AutoCompleteSource = value; 
         }
 
         [Category("1 CustomComboBox  - Data")]
@@ -233,8 +233,8 @@ namespace TrionControlPanel.UI
         [EditorBrowsable(EditorBrowsableState.Always)]
         public AutoCompleteMode AutoCompleteMode
         {
-            get { return cmbList.AutoCompleteMode; }
-            set { cmbList.AutoCompleteMode = value; }
+            get => cmbList.AutoCompleteMode;
+            set => cmbList.AutoCompleteMode = value;
         }
 
         [Category("1 CustomComboBox - Data")]
@@ -243,8 +243,8 @@ namespace TrionControlPanel.UI
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedItem
         {
-            get { return cmbList.SelectedItem; }
-            set { cmbList.SelectedItem = value; }
+            get => cmbList.SelectedItem;
+            set => cmbList.SelectedItem = value;
         }
 
         [Category("1 CustomComboBox  - Data")]
@@ -252,8 +252,8 @@ namespace TrionControlPanel.UI
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SelectedIndex
         {
-            get { return cmbList.SelectedIndex; }
-            set { cmbList.SelectedIndex = value; }
+            get => cmbList.SelectedIndex;
+            set => cmbList.SelectedIndex = value;
         }
 
         [Category("1 CustomComboBox  - Data")]
@@ -262,8 +262,8 @@ namespace TrionControlPanel.UI
         [TypeConverter("System.Windows.Forms.Design.DataMemberFieldConverter, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         public string DisplayMember
         {
-            get { return cmbList.DisplayMember; }
-            set { cmbList.DisplayMember = value; }
+            get => cmbList.DisplayMember;
+            set => cmbList.DisplayMember = value; 
         }
 
         [Category("1 CustomComboBox - Data")]
@@ -271,8 +271,8 @@ namespace TrionControlPanel.UI
         [Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public string ValueMember
         {
-            get { return cmbList.ValueMember; }
-            set { cmbList.ValueMember = value; }
+            get => cmbList.ValueMember;
+            set => cmbList.ValueMember = value; 
         }
         //Private methods
         private void AdjustComboBoxDimensions()
@@ -280,7 +280,7 @@ namespace TrionControlPanel.UI
             cmbList.Width = lblText.Width;
             cmbList.Location = new Point()
             {
-                X = this.Width - this.Padding.Right - cmbList.Width,
+                X = Width - Padding.Right - cmbList.Width,
                 Y = lblText.Bottom - cmbList.Height
             };
         }
@@ -288,8 +288,7 @@ namespace TrionControlPanel.UI
         //-> Default event
         private void ComboBox_SelectedIndexChanged(object ?sender, EventArgs e)
         {
-            if (OnSelectedIndexChanged != null)
-                OnSelectedIndexChanged.Invoke(sender, e);
+            OnSelectedIndexChanged?.Invoke(sender, e);
             //Refresh text
             lblText.Text = cmbList.Text;
         }

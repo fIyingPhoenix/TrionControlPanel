@@ -2,7 +2,6 @@
 using TrionLibrary;
 using TrionControlPanelDesktop.FormData;
 using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -17,7 +16,6 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
             _ = LoadData();
-
         }
         private static string GetFolder()
         {

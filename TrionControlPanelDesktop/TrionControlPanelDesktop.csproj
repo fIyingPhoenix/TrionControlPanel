@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <!-- Other configuration settings -->
+    <NoWarn>CS8764</NoWarn>
+    <NoWarn>CS8765</NoWarn>
+</PropertyGroup>
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>

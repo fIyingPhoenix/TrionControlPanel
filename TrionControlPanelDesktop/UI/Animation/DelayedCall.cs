@@ -21,9 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace MetroFramework.Animation
 {
@@ -89,7 +86,7 @@ namespace MetroFramework.Animation
             oldData = data;
             if (milliseconds > 0) Start();
         }
-
+        
         [Obsolete("Use the method Restart of the generic class instead.")]
         public void Reset(object data)
         {
@@ -159,7 +156,7 @@ namespace MetroFramework.Animation
                 if (dc.context == null)
                     throw new InvalidOperationException("Cannot delay calls synchronously on a non-UI thread. Use the *Async methods instead.");
             }
-            if (dc.context == null) dc.context = new SynchronizationContext();   // Run asynchronously silently
+            dc.context ??= new SynchronizationContext();   // Run asynchronously silently
 
             dc.timer = new System.Timers.Timer();
             if (milliseconds > 0) dc.timer.Interval = milliseconds;
@@ -313,9 +310,9 @@ namespace MetroFramework.Animation
                     if (cancelled) return;
                 }
 
-                if (callback != null) callback();
+                callback?.Invoke();
                 #region Compatibility code
-                if (oldCallback != null) oldCallback(oldData);
+                oldCallback?.Invoke(oldData);
                 #endregion
             }, null);
         }
@@ -419,7 +416,7 @@ namespace MetroFramework.Animation
                     if (cancelled) return;
                 }
 
-                if (callback != null) callback(data);
+                callback?.Invoke(data);
             }, null);
         }
 
@@ -445,7 +442,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T1, T2> Create(Callback cb, T1 data1, T2 data2, int milliseconds)
         {
-            DelayedCall<T1, T2> dc = new DelayedCall<T1, T2>();
+            DelayedCall<T1, T2> dc = new();
             PrepareDCObject(dc, milliseconds, false);
             dc.callback = cb;
             dc.data1 = data1;
@@ -486,7 +483,7 @@ namespace MetroFramework.Animation
                     if (cancelled) return;
                 }
 
-                if (callback != null) callback(data1, data2);
+                callback?.Invoke(data1, data2);
             }, null);
         }
 
@@ -514,7 +511,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T1, T2, T3> Create(Callback cb, T1 data1, T2 data2, T3 data3, int milliseconds)
         {
-            DelayedCall<T1, T2, T3> dc = new DelayedCall<T1, T2, T3>();
+            DelayedCall<T1, T2, T3> dc = new();
             PrepareDCObject(dc, milliseconds, false);
             dc.callback = cb;
             dc.data1 = data1;
@@ -525,7 +522,7 @@ namespace MetroFramework.Animation
 
         public static DelayedCall<T1, T2, T3> CreateAsync(Callback cb, T1 data1, T2 data2, T3 data3, int milliseconds)
         {
-            DelayedCall<T1, T2, T3> dc = new DelayedCall<T1, T2, T3>();
+            DelayedCall<T1, T2, T3> dc = new();
             PrepareDCObject(dc, milliseconds, true);
             dc.callback = cb;
             dc.data1 = data1;
@@ -557,7 +554,7 @@ namespace MetroFramework.Animation
                     if (cancelled) return;
                 }
 
-                if (callback != null) callback(data1, data2, data3);
+                callback?.Invoke(data1, data2, data3);
             }, null);
         }
 

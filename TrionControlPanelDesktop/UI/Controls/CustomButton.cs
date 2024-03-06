@@ -14,60 +14,60 @@ namespace TrionControlPanelDesktop.UI.Controls
         [Category("1 CustomButton Advance")]
         public int BorderSize
         {
-            get { return borderSize; }
+            get => borderSize; 
             set
             {
                 borderSize = value;
-                this.Invalidate();
+                Invalidate();
             }
         }
 
         [Category("1 CustomButton Advance")]
         public int BorderRadius
         {
-            get { return borderRadius; }
+            get => borderRadius; 
             set
             {
                 borderRadius = value;
-                this.Invalidate();
+                Invalidate();
             }
         }
 
         [Category("1 CustomButton Advance")]
         public Color BorderColor
         {
-            get { return borderColor; }
+            get => borderColor;
             set
-            {
+            { 
                 borderColor = value;
-                this.Invalidate();
+                Invalidate();
             }
         }
 
         [Category("1 CustomButton Advance")]
         public Color BackgroundColor
         {
-            get { return this.BackColor; }
-            set { this.BackColor = value; }
+            get => BackColor; 
+            set => BackColor = value; 
         }
 
         [Category("1 CustomButton Advance")]
         public Color TextColor
         {
-            get { return this.ForeColor; }
-            set { this.ForeColor = value; }
+            get => ForeColor; 
+            set => ForeColor = value;
         }
 
         //Constructor
         public CustomButton()
         {
 
-            this.FlatStyle = FlatStyle.Flat;
-            this.FlatAppearance.BorderSize = 0;
-            this.Size = new Size(150, 40);
-            this.BackColor = Color.MediumSlateBlue;
-            this.ForeColor = Color.White;
-            this.Resize += new EventHandler(Button_Resize);
+            FlatStyle = FlatStyle.Flat;
+            FlatAppearance.BorderSize = 0;
+            Size = new Size(150, 40);
+            BackColor = Color.MediumSlateBlue;
+            ForeColor = Color.White;
+            Resize += new EventHandler(Button_Resize);
         }
 
         //Methods

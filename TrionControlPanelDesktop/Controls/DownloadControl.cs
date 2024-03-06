@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO.Compression;
-using System.Security.Policy;
+
 using TrionControlPanelDesktop.FormData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -10,7 +9,7 @@ namespace TrionControlPanelDesktop.Controls
     {
         private static bool ListFull = false;
         // List of URLs to download
-        private static List<URLList> DownloadList = new();
+        private static List<UrlData> DownloadList = new();
         // Counting Downloaded URLs
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
@@ -43,7 +42,7 @@ namespace TrionControlPanelDesktop.Controls
                     {
                         string[] Entry = lines.Split(',');
 
-                        URLList newUrlList = new();
+                        UrlData newUrlList = new();
                         
                         newUrlList.FileName = Entry[0];
                         if (Entry[1].Contains("1drv.ms"))

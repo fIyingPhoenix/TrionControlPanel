@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Text;
+﻿using System.Text;
 
 namespace TrionControlPanelDesktop.FormData
 {
@@ -35,9 +34,9 @@ namespace TrionControlPanelDesktop.FormData
             if (endIndex == -1)
             {
                 // End text not found
-                return null;
+                return null!;
             }
-            string downloadID = url.Substring(startIndex, endIndex - startIndex);
+            string downloadID = url[startIndex..endIndex];
             return DirectURL + downloadID;
         }
         public static int StartUpLoading { get; set; }
@@ -61,12 +60,5 @@ namespace TrionControlPanelDesktop.FormData
         {
             return "https://camo.githubusercontent.com/2125f70052fc2f8ee12556574d3ade67cab4c4bbb6e815ace3d7b8f74c2e933a/68747470733a2f2f696d672e736869656c64732e696f2f636f6465666163746f722f67726164652f6769746875622f664979696e6750686f656e69782f5472696f6e436f6e74726f6c50616e656c3f7374796c653d666f722d7468652d6261646765";
         }
-    }
-    public class URLList
-    {
-        public string FileName;
-        public string FileWebLink;
-        public int Zipfile;
-
     }
 }
