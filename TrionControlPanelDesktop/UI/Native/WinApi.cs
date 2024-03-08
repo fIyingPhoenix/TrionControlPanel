@@ -24,27 +24,78 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace MetroFramework.Native
 {
-    internal class WinApi
+    [SuppressUnmanagedCodeSecurity]
+    internal static class WinApi
     {
         #region Structs
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public Int32 x;
+            public Int32 y;
+
+            public POINT(Int32 x, Int32 y) { this.x = x; this.y = y; }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SIZE
+        {
+            public Int32 cx;
+            public Int32 cy;
+
+            public SIZE(Int32 cx, Int32 cy) { this.cx = cx; this.cy = cy; }
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct ARGB
+        {
+            public byte Blue;
+            public byte Green;
+            public byte Red;
+            public byte Alpha;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct BLENDFUNCTION
+        {
+            public byte BlendOp;
+            public byte BlendFlags;
+            public byte SourceConstantAlpha;
+            public byte AlphaFormat;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
         public struct TCHITTESTINFO
         {
-            public Point pt;
+            public System.Drawing.Point pt;
             public uint flags;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
+            public RECT(Rectangle rc)
+            {
+                this.Left = rc.Left;
+                this.Top = rc.Top;
+                this.Right = rc.Right;
+                this.Bottom = rc.Bottom;
+            }
+
             public int Left;
             public int Top;
             public int Right;
             public int Bottom;
+
+            public Rectangle ToRectangle()
+            {
+                return Rectangle.FromLTRB(Left, Top, Right, Bottom);
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -54,6 +105,16 @@ namespace MetroFramework.Native
             public RECT rect1;
             public RECT rect2;
             public IntPtr lppos;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MINMAXINFO
+        {
+            public POINT ptReserved;
+            public POINT ptMaxSize;
+            public POINT ptMaxPosition;
+            public POINT ptMinTrackSize;
+            public POINT ptMaxTrackSize;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -365,8 +426,20 @@ namespace MetroFramework.Native
             WM_PENWINLAST = 0x38f,
             WM_USER = 0x400,
             WM_REFLECT = 0x2000,
-            WM_APP = 0x8000
+            WM_APP = 0x8000,
+            WM_DWMCOMPOSITIONCHANGED = 0x031E,
+
+            SC_MOVE = 0xF010,
+            SC_MINIMIZE = 0XF020,
+            SC_MAXIMIZE = 0xF030,
+            SC_RESTORE = 0xF120
         }
+
+        public enum Bool
+        {
+            False = 0,
+            True
+        };
 
         #endregion
 
@@ -380,9 +453,55 @@ namespace MetroFramework.Native
 
         public const int TCM_HITTEST = 0x1313;
 
+        public const Int32 ULW_COLORKEY = 0x00000001;
+        public const Int32 ULW_ALPHA = 0x00000002;
+        public const Int32 ULW_OPAQUE = 0x00000004;
+
+        public const byte AC_SRC_OVER = 0x00;
+        public const byte AC_SRC_ALPHA = 0x01;
+
+        // GetWindow() constants
+        public const int GW_HWNDFIRST = 0;
+        public const int GW_HWNDLAST = 1;
+        public const int GW_HWNDNEXT = 2;
+        public const int GW_HWNDPREV = 3;
+        public const int GW_OWNER = 4;
+        public const int GW_CHILD = 5;
+        public const int HC_ACTION = 0;
+        public const int WH_CALLWNDPROC = 4;
+        public const int GWL_WNDPROC = -4;
+
         #endregion
 
         #region API Calls
+
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern Bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref POINT pptDst, ref SIZE psize, IntPtr hdcSrc, ref POINT pprSrc, Int32 crKey, ref BLENDFUNCTION pblend, Int32 dwFlags);
+
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern Bool DeleteDC(IntPtr hdc);
+
+        [DllImport("gdi32.dll", ExactSpelling = true)]
+        public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern Bool DeleteObject(IntPtr hObject);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern UInt32 GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, UInt32 dwNewLong);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int W, int H, uint uFlags);
+
         [DllImport("user32.dll")]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
@@ -420,10 +539,43 @@ namespace MetroFramework.Native
         public static extern IntPtr GetDCEx(IntPtr hwnd, IntPtr hrgnclip, uint fdwOptions);
 
         [DllImport("user32.dll")]
-        public static extern int ReleaseDC(IntPtr hwnd, IntPtr hDc);
-
-        [DllImport("user32.dll")]
         public static extern bool ShowScrollBar(IntPtr hWnd, int bar, int cmd);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetWindowDC(IntPtr handle);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr ReleaseDC(IntPtr handle, IntPtr hDC);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetClassName(IntPtr hwnd, char[] className, int maxCount);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetWindow(IntPtr hwnd, int uCmd);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool IsWindowVisible(IntPtr hwnd);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern int GetClientRect(IntPtr hwnd, ref RECT lpRect);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern int GetClientRect(IntPtr hwnd, [In, Out] ref Rectangle rect);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern bool MoveWindow(IntPtr hwnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern bool UpdateWindow(IntPtr hwnd);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern bool InvalidateRect(IntPtr hwnd, ref Rectangle rect, bool bErase);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern bool ValidateRect(IntPtr hwnd, ref Rectangle rect);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern bool GetWindowRect(IntPtr hWnd, [In, Out] ref Rectangle rect);
 
         #endregion
 

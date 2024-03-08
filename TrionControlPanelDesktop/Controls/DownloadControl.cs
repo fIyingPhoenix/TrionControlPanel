@@ -2,6 +2,7 @@
 using System.IO.Compression;
 
 using TrionControlPanelDesktop.FormData;
+using System;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -22,10 +23,8 @@ namespace TrionControlPanelDesktop.Controls
         {
             // Split the inputString into lines using newline characters
             string[] linesArray = inputString.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-
             // Create a new list and add the lines to it
-            List<string> linesList = new List<string>(linesArray);
-
+            List<string> linesList = new(linesArray);
             return linesList;
         }
         public async static Task AddToList(string Weblink)
@@ -36,21 +35,26 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     // Download the text file content
                     string fileContent = await client.GetStringAsync(Weblink);
-                    List<string> strings = ReadLinesFromString(fileContent);
+                    List<string> strings = ReadLinesFromString(fileContent).Where(s => !s.StartsWith("#")).ToList();
                     // Split the file content by comma and add each item to the list
                     foreach (var lines in strings)
                     {
                         string[] Entry = lines.Split(',');
-
-                        UrlData newUrlList = new();
-                        
-                        newUrlList.FileName = Entry[0];
+                        UrlData newUrlList = new();                   
                         if (Entry[1].Contains("1drv.ms"))
-                        { newUrlList.FileWebLink = UIData.DownloadOneDriveAPI(Entry[1]);}
-                        else{ newUrlList.FileWebLink = Entry[1];}
-                        newUrlList.Zipfile = int.Parse(Entry[2]);
-                        DownloadList.Add(newUrlList);
-                        MessageBox.Show($"{Entry[0]} \n {Entry[1]} \n {Entry[2]}");
+                        {
+                            newUrlList.FileName = Entry[0];
+                            newUrlList.FileWebLink = UIData.DownloadOneDriveAPI(Entry[1]);
+                            newUrlList.FileType = Entry[2];
+                        }
+                        else
+                        {
+                            newUrlList.FileName = Path.GetFileNameWithoutExtension(Entry[1]);
+                            newUrlList.FileWebLink = Entry[1];
+                            newUrlList.FileType = Path.GetExtension(Entry[1]);
+                        }
+                       
+                        DownloadList.Add(newUrlList);                        
                     }
                     ListFull = true;
                 }
@@ -70,10 +74,9 @@ namespace TrionControlPanelDesktop.Controls
                     TotalDownloads = DownloadList.Count;
                      // Update Downloaded URLs
                     CurrentDownload++;
-                   
                     try
                     {
-                        int Unzip;
+                        string fileType; 
                         // Send GET request to the server
                         using (HttpResponseMessage response = await client.GetAsync(url.FileWebLink, HttpCompletionOption.ResponseHeadersRead))
                         {
@@ -85,10 +88,10 @@ namespace TrionControlPanelDesktop.Controls
                             LBLStatus.Text = "Status: Read File!";
                             // Get the file name from the URL
                             string fileName = Path.GetFileName(url.FileName);
-                            string downloadPath = Path.Combine(downloadDirectory, fileName + ".zip");
+                            fileType = url.FileType;
+                            string downloadPath = Path.Combine(downloadDirectory, $@"{fileName}.{fileType}");
                             LBLDownloadName.Text = @$"Name: {fileName}";
                             LBLStatus.Text = "Status: Prepare Download!";
-                            Unzip = url.Zipfile;
                             // Create a file stream to write the downloaded content
                             using (FileStream fileStream = new(downloadPath, FileMode.Create, FileAccess.Write, FileShare.None))
                             {
@@ -124,7 +127,7 @@ namespace TrionControlPanelDesktop.Controls
                             LBLStatus.Text = "Status: Done!";
                             // Delay task so we dont get Still in use error
                             await Task.Delay(1500);
-                            if(Unzip== 1)
+                            if(fileType == "zip" )
                             {
                                 await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), url.FileName + ".zip"), Directory.GetCurrentDirectory());
                             }
@@ -146,7 +149,7 @@ namespace TrionControlPanelDesktop.Controls
                 using (FileStream zipFileStream = File.OpenRead(zipFilePath))
                 {
                     LBLStatus.Text = "Status: Read File!";
-                    using (ZipArchive archive = new ZipArchive(zipFileStream, ZipArchiveMode.Read))
+                    using (ZipArchive archive = new(zipFileStream, ZipArchiveMode.Read))
                     {
                         long totalBytes = 0;
                         long extractedBytes = 0;
@@ -173,13 +176,13 @@ namespace TrionControlPanelDesktop.Controls
                                 {
                                     byte[] buffer = new byte[4096]; //8 KB buffer
                                     int bytesRead;
-                                    while ((bytesRead = await entryStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                                    while ((bytesRead = await entryStream.ReadAsync(buffer)) > 0)
                                     {
                                         // Calculate writing speed
                                         double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
                                         double speedMbps = (extractedBytes / (1024 * 1024)) / elapsedSeconds;
 
-                                        await outputStream.WriteAsync(buffer, 0, bytesRead);
+                                        await outputStream.WriteAsync(buffer.AsMemory(0, bytesRead));
                                         extractedBytes += bytesRead;
                                         double progress = (double)extractedBytes / totalBytes * 100;
                                         PBARDownload.Value = (int)progress;
@@ -196,8 +199,8 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     MainForm.LoadDownloadControl();
                     MainForm.StartDirectoryScan(Directory.GetCurrentDirectory());
-                } 
-            }
+                }
+            }     
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");

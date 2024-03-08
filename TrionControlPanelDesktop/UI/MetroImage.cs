@@ -21,24 +21,31 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+using System;
+using System.Drawing;
+
 namespace MetroFramework
 {
-    public enum MetroColorStyle
+    class MetroImage
     {
-        Default,
-        Black,
-        White,
-        Silver,
-        Blue,
-        Green,
-        Lime,
-        Teal,
-        Orange,
-        Brown,
-        Pink,
-        Magenta,
-        Purple,
-        Red,
-        Yellow
+        public static Image ResizeImage(Image imgToResize, Rectangle maxOffset)
+        {
+            int sourceWidth = imgToResize.Width;
+            int sourceHeight = imgToResize.Height;
+
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+
+            nPercentW = (float)maxOffset.Width / sourceWidth;
+            nPercentH = (float)maxOffset.Height / sourceHeight;
+
+            nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
+
+            int destWidth = (int)(sourceWidth * nPercent);
+            int destHeight = (int)(sourceHeight * nPercent);
+
+            return imgToResize.GetThumbnailImage(destWidth, destHeight, null, IntPtr.Zero);
+        }
     }
 }

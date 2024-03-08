@@ -257,6 +257,7 @@ namespace TrionControlPanelDesktop
             BTNStartAll.TextColor = Color.White;
             BTNStartAll.UseVisualStyleBackColor = false;
             BTNStartAll.Visible = false;
+            BTNStartAll.Click += BTNStartAll_Click;
             // 
             // BTNStartLogin
             // 
@@ -355,6 +356,7 @@ namespace TrionControlPanelDesktop
             TextAlign = MetroFramework.Forms.TextAlign.Center;
             Theme = MetroFramework.MetroThemeStyle.Dark;
             TransparencyKey = Color.Magenta;
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);

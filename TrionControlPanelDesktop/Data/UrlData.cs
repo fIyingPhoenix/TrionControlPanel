@@ -1,9 +1,9 @@
-﻿namespace TrionControlPanelDesktop
+﻿namespace TrionControlPanelDesktop.FormData
 {
     internal class UrlData
     {
         public string FileName;
         public string FileWebLink;
-        public int Zipfile;
+        public string FileType;
     }
 }

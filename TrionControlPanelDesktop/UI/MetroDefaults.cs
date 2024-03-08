@@ -21,24 +21,19 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+using System;
+
 namespace MetroFramework
 {
-    public enum MetroColorStyle
+    internal static class MetroDefaults
     {
-        Default,
-        Black,
-        White,
-        Silver,
-        Blue,
-        Green,
-        Lime,
-        Teal,
-        Orange,
-        Brown,
-        Pink,
-        Magenta,
-        Purple,
-        Red,
-        Yellow
+        public const MetroColorStyle Style = MetroColorStyle.Blue;
+        public const MetroThemeStyle Theme = MetroThemeStyle.Light;
+
+        public static class PropertyCategory
+        {
+            public const string Appearance = "Metro Appearance";
+            public const string Behaviour = "Metro Behaviour";
+        }
     }
 }

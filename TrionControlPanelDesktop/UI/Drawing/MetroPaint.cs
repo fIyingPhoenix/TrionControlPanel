@@ -24,6 +24,19 @@
 
 namespace MetroFramework.Drawing
 {
+    public class MetroPaintEventArgs : EventArgs
+    {
+        public Color BackColor { get; private set; }
+        public Color ForeColor { get; private set; }
+        public Graphics Graphics { get; private set; }
+
+        public MetroPaintEventArgs(Color backColor, Color foreColor, Graphics g)
+        {
+            BackColor = backColor;
+            ForeColor = foreColor;
+            Graphics = g;
+        }
+    }
     public sealed class MetroPaint
     {
         public sealed class BorderColor
@@ -780,58 +793,56 @@ namespace MetroFramework.Drawing
                     return MetroBrushes.Blue;
             }
         }
-
         public static Pen GetStyl5ePen(MetroColorStyle style)
         {
             switch (style)
             {
                 case MetroColorStyle.Black:
-                    return MetroPens.Black;
+                    return MetroPens.Black!;
 
                 case MetroColorStyle.White:
-                    return MetroPens.White;
+                    return MetroPens.White!;
                 
                 case MetroColorStyle.Silver:
-                    return MetroPens.Silver;
+                    return MetroPens.Silver!;
 
                 case MetroColorStyle.Blue:
-                    return MetroPens.Blue;
+                    return MetroPens.Blue!;
 
                 case MetroColorStyle.Green:
-                    return MetroPens.Green;
+                    return MetroPens.Green!;
 
                 case MetroColorStyle.Lime:
-                    return MetroPens.Lime;
+                    return MetroPens.Lime!;
 
                 case MetroColorStyle.Teal:
-                    return MetroPens.Teal;
+                    return MetroPens.Teal!;
 
                 case MetroColorStyle.Orange:
-                    return MetroPens.Orange;
+                    return MetroPens.Orange!;
 
                 case MetroColorStyle.Brown:
-                    return MetroPens.Brown;
+                    return MetroPens.Brown!;
 
                 case MetroColorStyle.Pink:
-                    return MetroPens.Pink;
+                    return MetroPens.Pink!;
 
                 case MetroColorStyle.Magenta:
-                    return MetroPens.Magenta;
+                    return MetroPens.Magenta!;
 
                 case MetroColorStyle.Purple:
-                    return MetroPens.Purple;
+                    return MetroPens.Purple!;
 
                 case MetroColorStyle.Red:
-                    return MetroPens.Red;
+                    return MetroPens.Red!;
 
                 case MetroColorStyle.Yellow:
-                    return MetroPens.Yellow;
+                    return MetroPens.Yellow!;
 
                 default:
-                    return MetroPens.Blue;
+                    return MetroPens.Blue!;
             }
         }
-
         public static TextFormatFlags GetTextFormatFlags(ContentAlignment textAlign)
         {
             TextFormatFlags controlFlags = TextFormatFlags.EndEllipsis;

@@ -2,15 +2,20 @@
 using TrionLibrary;
 using TrionControlPanelDesktop.FormData;
 using System.Reflection;
+using System.Diagnostics;
+using MetroFramework;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class SettingsControl : UserControl
     {
-        private readonly string MySQlVersURL = "";
-        private readonly string CorelVersURL = "";
-        private readonly string TrionVersURL = "";
         private readonly string TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+        private string TrionVersON = "N/A";
+        private string MySQLVerOFF = "N/A";
+        private string MySQLVerON = "N/A";
+        private string SPPVerOFF = "N/A";
+        private string SPPVerON = "N/A";
+        static System.Threading.Timer TextTimer;
         public SettingsControl()
         {
             Dock = DockStyle.Fill;
@@ -41,6 +46,12 @@ namespace TrionControlPanelDesktop.Controls
                 }
             }
         }
+        private void CustomNames()
+        {
+            TXTBoxLoginExecName.ReadOnly = !Data.Settings.CustomNames;
+            TXTBoxWorldExecName.ReadOnly = !Data.Settings.CustomNames;
+            TXTBoxMySQLExecName.ReadOnly = !Data.Settings.CustomNames;
+        }
         private void SettingsControl_Load(object sender, EventArgs e)
         {
             ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
@@ -49,10 +60,6 @@ namespace TrionControlPanelDesktop.Controls
         private async Task LoadData()
         {
             await Data.LoadSettings();
-            //Version
-            LBLTrionVersion.Text = $"Trion Version: Local {TrionVersOFF} / Online {await Data.Version.GetOnline(TrionVersURL)}";
-            LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {Data.Version.GetLocal(Data.Settings.MySQLExecutableLocation)} \n •Online {await Data.Version.GetOnline(MySQlVersURL)} ";
-            LBLCoreVersion.Text = $"Core Version: \n •Local: {Data.Version.GetLocal(Data.Settings.WorldExecutableLocation)} \n •Online {await Data.Version.GetOnline(CorelVersURL)} ";
             //Load Names
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
@@ -75,9 +82,19 @@ namespace TrionControlPanelDesktop.Controls
             TGLHideConsole.Checked = Data.Settings.ConsolHide;
             TGLNotificationSound.Checked = Data.Settings.NotificationSound;
             TGLStayInTrey.Checked = Data.Settings.StayInTray;
-            //VersionCheck
-
+            TGLCustomNames.Checked = Data.Settings.CustomNames;
             //Update Loader
+            CustomNames();
+            //Version Load
+            TrionVersON = await Data.Version.GetOnline(WebLinks.TrionVer);
+            MySQLVerOFF = Data.Version.GetLocal(Data.Settings.MySQLExecutableLocation);
+            MySQLVerON = await Data.Version.GetOnline(WebLinks.MySQLVer);
+            SPPVerOFF = Data.Version.GetLocal(Data.Settings.WorldExecutableLocation);
+            SPPVerON = await Data.Version.GetOnline(WebLinks.SPPCoreVer);
+            //Update Labels
+            LBLTrionVersion.Text = $"Trion Version: Local {TrionVersOFF} / Online: {TrionVersON}";
+            LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {MySQLVerOFF} \n •Online: {MySQLVerON} ";
+            LBLCoreVersion.Text = $"Core Version: \n •Local: {SPPVerOFF} \n •Online: {SPPVerON} ";
             UIData.StartUpLoading++;
         }
         private void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -88,49 +105,41 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableName = "world";
                     Data.Settings.LogonExecutableName = "logon";
                     Data.Settings.SelectedCore = Cores.AscEmu;
-                    Data.SaveSettings();
                     break;
                 case "AzerothCore":
                     Data.Settings.WorldExecutableName = "worldserver";
                     Data.Settings.LogonExecutableName = "authserver";
                     Data.Settings.SelectedCore = Cores.AzerothCore;
-                    Data.SaveSettings();
                     break;
                 case "CMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.CMaNGOS;
-                    Data.SaveSettings();
                     break;
                 case "CypherCore":
                     Data.Settings.WorldExecutableName = "WorldServer";
                     Data.Settings.LogonExecutableName = "BNetServer";
                     Data.Settings.SelectedCore = Cores.CypherCore;
-                    Data.SaveSettings();
                     break;
                 case "TrinityCore":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore;
-                    Data.SaveSettings();
                     break;
                 case "TrinityCore335":
                     Data.Settings.WorldExecutableName = "authserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore335;
-                    Data.SaveSettings();
                     break;
                 case "TrinityCoreClassic":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
-                    Data.SaveSettings();
                     break;
                 case "VMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.VMaNGOS;
-                    Data.SaveSettings();
                     break;
             }
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
@@ -139,27 +148,31 @@ namespace TrionControlPanelDesktop.Controls
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.StayInTray = TGLStayInTrey.Checked;
-            Data.SaveSettings();
         }
         private void TGLNotificationSound_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.NotificationSound = TGLNotificationSound.Checked;
-            Data.SaveSettings();
         }
         private void TGLHideConsole_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.ConsolHide = TGLHideConsole.Checked;
-            Data.SaveSettings();
         }
         private void TGLAutoUpdateTrion_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
-            Data.SaveSettings();
         }
         private void TGLAutoUpdateCore_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
-            Data.SaveSettings();
+        }
+        private void TGLAutoUpdateMySQL_CheckedChanged(object sender, EventArgs e)
+        {
+            Data.Settings.AutoUpdateMySQL = TGLAutoUpdateMySQL.Checked;
+        }
+        private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
+        {
+            Data.Settings.CustomNames = TGLCustomNames.Checked; ;
+            CustomNames();
         }
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
@@ -170,7 +183,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName);
                     Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(Data.Settings.MySQLExecutableLocation, @"..\"));
-                    Data.SaveSettings();
+                    await Data.SaveSettings();
                     Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                     await LoadData();
 
@@ -199,7 +212,6 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.WorldExecutableName);
                     Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.LogonExecutableName);
                     Data.Settings.CoreLocation = Path.GetFullPath(Folder);
-                    Data.SaveSettings();
                     await LoadData(); ;
                 }
             }
@@ -213,11 +225,129 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+            if (UIData.StartupUpdateCheck)
+            {
+                UIData.StartupUpdateCheck = false;
+                CheckForUpdate();
+            }
         }
-        private async void BtnDownloadSPP_ClickAsync(object sender, EventArgs e)
+        private void BtnDownloadSPP_ClickAsync(object sender, EventArgs e)
         {
-            await DownloadControl.AddToList("");
-            MainForm.LoadDownloadControl();
+            DownlaodThread(WebLinks.SPPCoreFiles);
         }
+        private void BTNDownloadMySQL_Click(object sender, EventArgs e)
+        {
+            DownlaodThread(WebLinks.MySQLFiles);
+        }
+        private void CheckForUpdate()
+        {
+            //SPP Update with Date 
+            DateTime SPPLocal = DateTime.Parse(SPPVerOFF);
+            DateTime SPPOnline = DateTime.Parse(SPPVerON);
+            if (SPPOnline != DateTime.MinValue)
+            {
+                if (SPPLocal < SPPOnline)
+                {
+                    if (Data.Settings.AutoUpdateCore)
+                    {
+                        DownlaodThread(WebLinks.SPPCoreUpdate);
+                    }
+                    else
+                    {
+                        if (MetroMessageBox.Show(this, "A new Single Player Project version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
+                        {
+                            DownlaodThread(WebLinks.SPPCoreUpdate);
+                        }
+                    }
+                }
+            }
+            //MySQL and Trion number based Version
+            string MySQLLocal = MySQLVerOFF;
+            string MySQLOnline = MySQLVerON;
+            string TrionLocal = TrionVersOFF;
+            string TrionOnline = TrionVersON;
+
+            if (MySQLOnline != string.Empty)// A LITTLE FAIL PROOF and so i can reuse the struings
+            {
+                string[] vComps1 = MySQLLocal.Split('.');
+                string[] vComps2 = MySQLOnline.Split('.');
+                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
+                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
+                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
+                {
+                    if (vNumb1[i] < vNumb2[i])
+                    {
+                        if (Data.Settings.AutoUpdateMySQL)
+                        {
+                            DownlaodThread(WebLinks.MySQLUpdate);
+                        }
+                        else
+                        {
+                            MainForm form = new();
+                            if (MetroMessageBox.Show(form, "A new MySQl version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
+                            {
+                                DownlaodThread(WebLinks.MySQLUpdate);
+                            }
+                        }
+                    }
+                }
+            }
+            if (TrionOnline != string.Empty)
+            {
+                string[] vComps1 = TrionLocal.Split('.');
+                string[] vComps2 = TrionOnline.Split('.');
+                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
+                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
+                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
+                {
+                    if (vNumb1[i] < vNumb2[i])
+                    {
+                        if (Data.Settings.AutoUpdateTrion)
+                        {
+                            DownlaodThread(WebLinks.TrionUpdate);
+                        }
+                        else
+                        {
+                            MainForm form = new();
+                            if (MetroMessageBox.Show(form, "A new Trion version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
+                            {
+                                DownlaodThread(WebLinks.TrionUpdate);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private void DownlaodThread(string Weblink)
+        {
+            Thread DwonloadThread = new(() =>
+            {
+                Task.Run(() => DownloadControl.AddToList(Weblink));
+                MainForm.LoadDownloadControl();
+            });
+            DwonloadThread.Start();
+        }
+        private void BTNAuthConfig_Click(object sender, EventArgs e)
+        {
+        }
+        private void BTNDiscord_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", WebLinks.Discord);
+        }
+        private void SaveDataTextbox(object state)
+        {
+            // Seve data
+            Data.Settings.MySQLExecutableName = TXTBoxMySQLExecName.Text;
+            Data.Settings.WorldExecutableName = TXTBoxWorldExecName.Text;
+            Data.Settings.LogonExecutableName = TXTBoxLoginExecName.Text;
+        }
+        private void TXTBox_TextChanged(object sender, EventArgs e)
+        {
+            // Stop the timer if it's running
+            TextTimer?.Dispose();
+            // Start a new timer
+            TextTimer = new(SaveDataTextbox, null, 1000, Timeout.Infinite);
+        }
+
     }
 }

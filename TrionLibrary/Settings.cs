@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -40,8 +40,30 @@ namespace TrionLibrary
             {
                 if (!string.IsNullOrEmpty(Location))
                 {
-                    FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                    return versionInfo.FileVersion;
+                    if(Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
+                    {
+                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                        // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
+                        if (versionInfo.FileVersion.Contains("SPP"))
+                        {
+                            string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
+                            // Create a Regex object with the pattern
+                            Regex regex = new Regex(pattern);
+                            // Find all matches in the text
+                            MatchCollection matches = regex.Matches(versionInfo.ToString());
+                            // Print each match
+                            foreach (Match match in matches)
+                            {
+                                return match.Value;
+                            }
+                        }
+                        return "N/A";
+                    }
+                    else
+                    {
+                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                        return versionInfo.FileVersion;
+                    }
                 } else
                 {
                     return "N/A";
@@ -105,16 +127,18 @@ namespace TrionLibrary
                 WriteData(Settings, SettingsDataFile);
             }
         }
-        public static void SaveSettings()
+        public static Task SaveSettings()
         {
             try
             {
-                if (File.Exists(SettingsDataFile))
+               if (File.Exists(SettingsDataFile))
                     WriteData(Settings, SettingsDataFile);
+                return Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 Message = ex.Message;
+                throw new Exception(ex.Message);
             }
         }
         public static async Task LoadSettings()
@@ -201,6 +225,7 @@ namespace TrionLibrary
         public string LogonExecutableName;
         public bool AutoUpdateCore;
         public bool AutoUpdateTrion;
+        public bool AutoUpdateMySQL;
         public bool ServerCrash;
         public bool NotificationSound;
         public bool ConsolHide;

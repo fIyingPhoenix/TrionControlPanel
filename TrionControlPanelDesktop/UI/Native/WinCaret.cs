@@ -23,9 +23,11 @@
  */
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace MetroFramework.Native
 {
+    [SuppressUnmanagedCodeSecurity]
     internal sealed class WinCaret
     {
         [DllImport("User32.dll")]

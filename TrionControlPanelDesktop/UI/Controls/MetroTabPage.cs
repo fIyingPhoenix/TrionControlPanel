@@ -25,10 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Security;
 using System.Windows.Forms;
 
 using MetroFramework.Interfaces;
-using MetroFramework.Design;
 using MetroFramework.Drawing;
 using MetroFramework.Components;
 using MetroFramework.Native;
@@ -36,45 +36,136 @@ using MetroFramework.Native;
 namespace MetroFramework.Controls
 {
     [ToolboxItem(false)]
-    [Designer(typeof(MetroTabPageDesigner))]
+    [Designer("MetroFramework.Design.Controls.MetroTabPageDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     public class MetroTabPage : TabPage, IMetroControl
     {
         #region Interface
 
-        private MetroColorStyle metroStyle = MetroColorStyle.Blue;
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+        protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
+            {
+                CustomPaintBackground(this, e);
+            }
+        }
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaint;
+        protected virtual void OnCustomPaint(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
+            {
+                CustomPaint(this, e);
+            }
+        }
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+        protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
+            {
+                CustomPaintForeground(this, e);
+            }
+        }
+
+        private MetroColorStyle metroStyle = MetroColorStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroColorStyle.Default)]
         public MetroColorStyle Style
         {
             get
             {
-                if (StyleManager != null)
+                if (DesignMode || metroStyle != MetroColorStyle.Default)
+                {
+                    return metroStyle;
+                }
+
+                if (StyleManager != null && metroStyle == MetroColorStyle.Default)
+                {
                     return StyleManager.Style;
+                }
+                if (StyleManager == null && metroStyle == MetroColorStyle.Default)
+                {
+                    return MetroDefaults.Style;
+                }
 
                 return metroStyle;
             }
-            set { metroStyle = value; horizontalScrollbar.Style = value; verticalScrollbar.Style = value; }
+            set { metroStyle = value; }
         }
 
-        private MetroThemeStyle metroTheme = MetroThemeStyle.Light;
-        [Category("Metro Appearance")]
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroThemeStyle.Default)]
         public MetroThemeStyle Theme
         {
             get
             {
-                if (StyleManager != null)
+                if (DesignMode || metroTheme != MetroThemeStyle.Default)
+                {
+                    return metroTheme;
+                }
+
+                if (StyleManager != null && metroTheme == MetroThemeStyle.Default)
+                {
                     return StyleManager.Theme;
+                }
+                if (StyleManager == null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return MetroDefaults.Theme;
+                }
 
                 return metroTheme;
             }
-            set { metroTheme = value; horizontalScrollbar.Theme = value; verticalScrollbar.Theme = value; }
+            set { metroTheme = value; }
         }
 
         private MetroStyleManager metroStyleManager = null;
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MetroStyleManager StyleManager
         {
             get { return metroStyleManager; }
-            set { metroStyleManager = value; horizontalScrollbar.StyleManager = value; verticalScrollbar.StyleManager = value; }
+            set { metroStyleManager = value; }
+        }
+
+        private bool useCustomBackColor = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseCustomBackColor
+        {
+            get { return useCustomBackColor; }
+            set { useCustomBackColor = value; }
+        }
+
+        private bool useCustomForeColor = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseCustomForeColor
+        {
+            get { return useCustomForeColor; }
+            set { useCustomForeColor = value; }
+        }
+
+        private bool useStyleColors = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseStyleColors
+        {
+            get { return useStyleColors; }
+            set { useStyleColors = value; }
+        }
+
+        [Browsable(false)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
+        [DefaultValue(false)]
+        public bool UseSelectable
+        {
+            get { return GetStyle(ControlStyles.Selectable); }
+            set { SetStyle(ControlStyles.Selectable, value); }
         }
 
         #endregion
@@ -84,65 +175,67 @@ namespace MetroFramework.Controls
         private MetroScrollBar verticalScrollbar = new MetroScrollBar(MetroScrollOrientation.Vertical);
         private MetroScrollBar horizontalScrollbar = new MetroScrollBar(MetroScrollOrientation.Horizontal);
 
-        [Category("Metro Appearance")]
         private bool showHorizontalScrollbar = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool HorizontalScrollbar 
         {
             get { return showHorizontalScrollbar; }
             set { showHorizontalScrollbar = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int HorizontalScrollbarSize
         {
             get { return horizontalScrollbar.ScrollbarSize; }
             set { horizontalScrollbar.ScrollbarSize = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool HorizontalScrollbarBarColor
         {
             get { return horizontalScrollbar.UseBarColor; }
             set { horizontalScrollbar.UseBarColor = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool HorizontalScrollbarHighlightOnWheel
         {
             get { return horizontalScrollbar.HighlightOnWheel; }
             set { horizontalScrollbar.HighlightOnWheel = value; }
         }
 
-        [Category("Metro Appearance")]
         private bool showVerticalScrollbar = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool VerticalScrollbar
         {
             get { return showVerticalScrollbar; }
             set { showVerticalScrollbar = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int VerticalScrollbarSize
         {
             get { return verticalScrollbar.ScrollbarSize; }
             set { verticalScrollbar.ScrollbarSize = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool VerticalScrollbarBarColor
         {
             get { return verticalScrollbar.UseBarColor; }
             set { verticalScrollbar.UseBarColor = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool VerticalScrollbarHighlightOnWheel
         {
             get { return verticalScrollbar.HighlightOnWheel; }
             set { verticalScrollbar.HighlightOnWheel = value; }
         }
 
-        [Category("Metro Appearance")]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public new bool AutoScroll
         {
             get
@@ -159,14 +252,6 @@ namespace MetroFramework.Controls
 
                 base.AutoScroll = value;
             }
-        }
-
-        private bool useCustomBackground = false;
-        [Category("Metro Appearance")]
-        public bool CustomBackground
-        {
-            get { return useCustomBackground; }
-            set { useCustomBackground = value; }
         }
 
         #endregion
@@ -211,17 +296,55 @@ namespace MetroFramework.Controls
 
         #region Overridden Methods
 
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            try
+            {
+                Color backColor = BackColor;
+
+                if (!useCustomBackColor)
+                {
+                    backColor = MetroPaint.BackColor.Form(Theme);
+                }
+
+                if (backColor.A == 255 && BackgroundImage == null)
+                {
+                    e.Graphics.Clear(backColor);
+                    return;
+                }
+
+                base.OnPaintBackground(e);
+
+                OnCustomPaintBackground(new MetroPaintEventArgs(backColor, Color.Empty, e.Graphics));
+            }
+            catch
+            {
+                Invalidate();
+            }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            Color backColor = MetroPaint.BackColor.Form(Theme);
+            try
+            {
+                if (GetStyle(ControlStyles.AllPaintingInWmPaint))
+                {
+                    OnPaintBackground(e);
+                }
 
-            if (useCustomBackground)
-                backColor = BackColor;
+                OnCustomPaint(new MetroPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                OnPaintForeground(e);
+            }
+            catch
+            {
+                Invalidate();
+            }
+        }
 
-            e.Graphics.Clear(backColor);
-
+        protected virtual void OnPaintForeground(PaintEventArgs e)
+        {
             if (DesignMode)
             {
                 horizontalScrollbar.Visible = false;
@@ -254,6 +377,8 @@ namespace MetroFramework.Controls
                 verticalScrollbar.SmallChange = VerticalScroll.SmallChange;
                 verticalScrollbar.LargeChange = VerticalScroll.LargeChange;
             }
+
+            OnCustomPaintForeground(new MetroPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -264,6 +389,7 @@ namespace MetroFramework.Controls
             horizontalScrollbar.Value = HorizontalScroll.Value;
         }
 
+        [SecuritySafeCritical]
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -291,28 +417,19 @@ namespace MetroFramework.Controls
                 horizontalScrollbar.Visible = false;
                 return;
             }
-            if (VerticalScrollbar)
-            {
-                if (VerticalScroll.Visible)
-                {
-                    verticalScrollbar.Location = new Point(ClientRectangle.Width - verticalScrollbar.Width, ClientRectangle.Y);
-                    verticalScrollbar.Height = ClientRectangle.Height;
-                }
-            }
-            else
+
+            verticalScrollbar.Location = new Point(ClientRectangle.Width - verticalScrollbar.Width, ClientRectangle.Y);
+            verticalScrollbar.Height = ClientRectangle.Height;
+
+            if (!VerticalScrollbar)
             {
                 verticalScrollbar.Visible = false;
             }
 
-            if (HorizontalScrollbar)
-            {
-                if (HorizontalScroll.Visible)
-                {
-                    horizontalScrollbar.Location = new Point(ClientRectangle.X, ClientRectangle.Height - horizontalScrollbar.Height);
-                    horizontalScrollbar.Width = ClientRectangle.Width;
-                }
-            }
-            else
+            horizontalScrollbar.Location = new Point(ClientRectangle.X, ClientRectangle.Height - horizontalScrollbar.Height);
+            horizontalScrollbar.Width = ClientRectangle.Width;
+
+            if (!HorizontalScrollbar)
             {
                 horizontalScrollbar.Visible = false;
             }

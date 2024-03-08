@@ -1,3 +1,4 @@
+using MetroFramework;
 using MetroFramework.Forms;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
@@ -130,6 +131,8 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
+                UIData.StartupUpdateCheck = true;
+
                 if (Data.Settings.FirstRun == true)
                 {
                     StartDirectoryScan(Directory.GetCurrentDirectory());
@@ -138,7 +141,7 @@ namespace TrionControlPanelDesktop
             if (Data.Message != string.Empty)
             {
                 TimerWacher.Stop();
-                MessageBox.Show(Data.Message);
+                MetroMessageBox.Show(this, Data.Message,"Info",Data.Settings.NotificationSound, MessageBoxButtons.OK,MessageBoxIcon.Information);
                 Data.Message = string.Empty;
                 TimerWacher.Start();
             }
@@ -270,6 +273,15 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(downloadControl);
             }
+        }
+        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await Data.SaveSettings();
+        }
+
+        private void BTNStartAll_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

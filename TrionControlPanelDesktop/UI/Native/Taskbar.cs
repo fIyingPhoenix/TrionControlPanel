@@ -21,7 +21,10 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace MetroFramework.Native
 {
@@ -38,16 +41,18 @@ namespace MetroFramework.Native
     {
         private const string ClassName = "Shell_TrayWnd";
 
+        private Rectangle bounds = Rectangle.Empty;
         public Rectangle Bounds
         {
-            get;
-            private set;
+            get { return bounds; }
+            private set { bounds = value; }
         }
 
+        private TaskbarPosition position = TaskbarPosition.Unknown;
         public TaskbarPosition Position
         {
-            get;
-            private set;
+            get { return position; }
+            private set { position = value; }
         }
 
         public Point Location
@@ -66,40 +71,41 @@ namespace MetroFramework.Native
             }
         }
 
+        private bool alwaysOnTop = false;
         public bool AlwaysOnTop
         {
-            get;
-            private set;
+            get { return alwaysOnTop; }
+            private set { alwaysOnTop = value; }
         }
 
+        private bool autoHide = false;
         public bool AutoHide
         {
-            get;
-            private set;
+            get { return autoHide; }
+            private set { autoHide = value; }
         }
 
+        [SecuritySafeCritical]
         public Taskbar()
         {
-            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null!);
+            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null);
 
-            WinApi.APPBARDATA data = new() 
-            {
-                 cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA)),
-                 hWnd = taskbarHandle
-            };
-
+            WinApi.APPBARDATA data = new WinApi.APPBARDATA();
+            data.cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA));
+            data.hWnd = taskbarHandle;
             IntPtr result = WinApi.SHAppBarMessage(WinApi.ABM.GetTaskbarPos, ref data);
             if (result == IntPtr.Zero)
                 throw new InvalidOperationException();
 
-            Position = (TaskbarPosition)data.uEdge;
-            Bounds = Rectangle.FromLTRB(data.rc.Left, data.rc.Top, data.rc.Right, data.rc.Bottom);
+            this.Position = (TaskbarPosition)data.uEdge;
+            this.Bounds = Rectangle.FromLTRB(data.rc.Left, data.rc.Top, data.rc.Right, data.rc.Bottom);
 
             data.cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA));
             result = WinApi.SHAppBarMessage(WinApi.ABM.GetState, ref data);
             int state = result.ToInt32();
-            AlwaysOnTop = (state & WinApi.AlwaysOnTop) == WinApi.AlwaysOnTop;
-            AutoHide = (state & WinApi.Autohide) == WinApi.Autohide;
+            this.AlwaysOnTop = (state & WinApi.AlwaysOnTop) == WinApi.AlwaysOnTop;
+            this.AutoHide = (state & WinApi.Autohide) == WinApi.Autohide;
         }
+
     }
 }

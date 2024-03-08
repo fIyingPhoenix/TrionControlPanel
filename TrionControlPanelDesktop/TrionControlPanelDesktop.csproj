@@ -4,12 +4,17 @@
     <NoWarn>CS8764</NoWarn>
     <NoWarn>CS8765</NoWarn>
 </PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <!-- Other configuration settings -->
+    <NoWarn>CS8764</NoWarn>
+    <NoWarn>CS8765</NoWarn>
+</PropertyGroup>
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>True</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU</Platforms>
     <PackageIcon>logo.png</PackageIcon>
@@ -43,6 +48,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.28" />
+    <PackageReference Include="DynamicLanguageRuntime" Version="1.3.4" />
     <PackageReference Include="MySql.Data" Version="8.3.0" />
   </ItemGroup>
 
@@ -51,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -62,6 +73,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Resorces\icons\logo\logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -70,6 +85,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\MessageBox\" />
   </ItemGroup>
 
 </Project>

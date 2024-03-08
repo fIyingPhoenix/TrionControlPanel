@@ -21,11 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
 using MetroFramework.Animation;
 using MetroFramework.Components;
 using MetroFramework.Controls;
@@ -44,14 +39,16 @@ namespace MetroFramework.Forms
             {
                 singletonWindow.Close();
                 singletonWindow.Dispose();
-                singletonWindow = null;
+                singletonWindow = null!;
             }
 
-            singletonWindow = new MetroTaskWindow(secToClose, userControl);
-            singletonWindow.Text = title;
-            singletonWindow.Resizable = false;
-            singletonWindow.StartPosition = FormStartPosition.Manual;
-            
+            singletonWindow = new MetroTaskWindow(secToClose, userControl)
+            {
+                Text = title,
+                Resizable = false,
+                StartPosition = FormStartPosition.Manual
+            };
+
             if (parent != null && parent is IMetroForm form)
             {
                 singletonWindow.Theme = form.Theme;
@@ -77,12 +74,12 @@ namespace MetroFramework.Forms
 
         public static void ShowTaskWindow(string text, Control userControl, int secToClose)
         {
-            ShowTaskWindow(null, text, userControl, secToClose);
+            ShowTaskWindow(null!, text, userControl, secToClose);
         }
 
         public static void ShowTaskWindow(string text, Control userControl)
         {
-            ShowTaskWindow(null, text, userControl);
+            ShowTaskWindow(null!, text, userControl);
         }
 
         public static void CancelAutoClose()
@@ -98,7 +95,7 @@ namespace MetroFramework.Forms
                 CancelAutoClose();
                 singletonWindow.Close();
                 singletonWindow.Dispose();
-                singletonWindow = null;
+                singletonWindow = null!;
             }
         }
 
@@ -108,7 +105,6 @@ namespace MetroFramework.Forms
             get { return cancelTimer; }
             set { cancelTimer = value; }
         }
-
         private readonly int closeTime = 0;
         private int elapsedTime = 0;
         private int progressWidth = 0;
@@ -121,7 +117,6 @@ namespace MetroFramework.Forms
             controlContainer = new MetroPanel();
             Controls.Add(controlContainer);
         }
-
         public MetroTaskWindow(int duration, Control userControl)
             : this()
         {
@@ -132,8 +127,6 @@ namespace MetroFramework.Forms
             if (closeTime > 0)
                 timer = DelayedCall.Start(UpdateProgress, 5);
         }
-
-
         private bool isInitialized = false;
         protected override void OnActivated(EventArgs e)
         {
@@ -149,9 +142,7 @@ namespace MetroFramework.Forms
 
                 TopMost = true;
                 FormBorderStyle = FormBorderStyle.FixedDialog;
-
                 Size = new Size(400, 200);
-
                 Taskbar myTaskbar = new();
                 Location = myTaskbar.Position switch
                 {
@@ -159,7 +150,7 @@ namespace MetroFramework.Forms
                     TaskbarPosition.Top => new(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Height + 5),
                     TaskbarPosition.Right => new(myTaskbar.Bounds.X - Width - 5, myTaskbar.Bounds.Height - Height - 5),
                     TaskbarPosition.Bottom => new(myTaskbar.Bounds.Width - Width - 5, myTaskbar.Bounds.Y - Height - 5),
-                    _ => new(Screen.PrimaryScreen.Bounds.Width - Width - 5, Screen.PrimaryScreen.Bounds.Height - Height - 5),
+                    _ => new(Screen.PrimaryScreen!.Bounds.Width - Width - 5, Screen.PrimaryScreen.Bounds.Height - Height - 5),
                 };
                 controlContainer.Location = new(0, 60);
                 controlContainer.Size = new Size(Width - 40, Height - 80);
@@ -175,7 +166,6 @@ namespace MetroFramework.Forms
 
             base.OnActivated(e);
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -185,7 +175,6 @@ namespace MetroFramework.Forms
                 e.Graphics.FillRectangle(b, new Rectangle(Width - progressWidth, 0, progressWidth, 5));
             }
         }
-
         private void UpdateProgress()
         {
             if (elapsedTime == closeTime)
