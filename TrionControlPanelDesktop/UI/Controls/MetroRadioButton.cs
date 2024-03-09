@@ -162,22 +162,22 @@ namespace MetroFramework.Controls
             if (isHovered && !isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Hover(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Hover(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Hover");
             }
             else if (isHovered && isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Press(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Press(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Press");
             }
             else if (!Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Disabled(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Disabled(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Disabled");
             }
             else
             {
                 foreColor = !useStyleColors ? MetroPaint.ForeColor.CheckBox.Normal(Theme) : MetroPaint.GetStyleColor(Style);
-                borderColor = MetroPaint.BorderColor.CheckBox.Normal(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Normal");
             }
 
             e.Graphics.Clear(backColor);

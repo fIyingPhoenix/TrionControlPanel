@@ -348,6 +348,7 @@ namespace TrionControlPanelDesktop
             Controls.Add(PNLControl);
             Controls.Add(panel1);
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Location = new Point(0, 0);
             MinimumSize = new Size(1000, 600);
             Name = "MainForm";

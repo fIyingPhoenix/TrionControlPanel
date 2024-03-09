@@ -10,17 +10,18 @@ namespace TrionControlPanelDesktop.Controls
     public partial class SettingsControl : UserControl
     {
         private readonly string TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-        private string TrionVersON = "N/A";
-        private string MySQLVerOFF = "N/A";
-        private string MySQLVerON = "N/A";
-        private string SPPVerOFF = "N/A";
-        private string SPPVerON = "N/A";
+        private string TrionVersON = "";
+        private string MySQLVerOFF = "";
+        private string MySQLVerON = "";
+        private string SPPVerOFF = "";
+        private string SPPVerON = "";
+
         static System.Threading.Timer TextTimer;
         public SettingsControl()
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
-            _ = LoadData();
+            ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
         }
         private static string GetFolder()
         {
@@ -52,14 +53,14 @@ namespace TrionControlPanelDesktop.Controls
             TXTBoxWorldExecName.ReadOnly = !Data.Settings.CustomNames;
             TXTBoxMySQLExecName.ReadOnly = !Data.Settings.CustomNames;
         }
-        private void SettingsControl_Load(object sender, EventArgs e)
+        private async void SettingsControl_LoadAsync(object sender, EventArgs e)
         {
-            ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
-            ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
+            await Data.LoadSettings();
+            await LoadData();
         }
         private async Task LoadData()
         {
-            await Data.LoadSettings();
+            ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
             //Load Names
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
@@ -171,7 +172,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.CustomNames = TGLCustomNames.Checked; ;
+            Data.Settings.CustomNames = TGLCustomNames.Checked;
             CustomNames();
         }
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
@@ -185,8 +186,8 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(Data.Settings.MySQLExecutableLocation, @"..\"));
                     await Data.SaveSettings();
                     Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                    await Data.SaveSettings();
                     await LoadData();
-
                 }
                 else
                 {
@@ -212,7 +213,8 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.WorldExecutableName);
                     Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.LogonExecutableName);
                     Data.Settings.CoreLocation = Path.GetFullPath(Folder);
-                    await LoadData(); ;
+                    await Data.SaveSettings();
+                    await LoadData();
                 }
             }
             else
@@ -230,6 +232,11 @@ namespace TrionControlPanelDesktop.Controls
                 UIData.StartupUpdateCheck = false;
                 CheckForUpdate();
             }
+            if (UIData.LoadData == true)
+            {
+                UIData.LoadData = false;
+                _ = LoadData();
+            }
         }
         private void BtnDownloadSPP_ClickAsync(object sender, EventArgs e)
         {
@@ -241,88 +248,82 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void CheckForUpdate()
         {
-            //SPP Update with Date 
-            DateTime SPPLocal = DateTime.Parse(SPPVerOFF);
-            DateTime SPPOnline = DateTime.Parse(SPPVerON);
-            if (SPPOnline != DateTime.MinValue)
+            // Single Player Project Update
+            if (DateTime.TryParse(SPPVerOFF, out DateTime SPPLocal) && DateTime.TryParse(SPPVerON, out DateTime SPPOnline))
             {
-                if (SPPLocal < SPPOnline)
+                if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
                 {
                     if (Data.Settings.AutoUpdateCore)
                     {
+
                         DownlaodThread(WebLinks.SPPCoreUpdate);
                     }
                     else
                     {
-                        if (MetroMessageBox.Show(this, "A new Single Player Project version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
-                        {
-                            DownlaodThread(WebLinks.SPPCoreUpdate);
-                        }
+                        MainForm.UpdatePromptAppName = "Single Player Project";
                     }
                 }
             }
-            //MySQL and Trion number based Version
-            string MySQLLocal = MySQLVerOFF;
-            string MySQLOnline = MySQLVerON;
-            string TrionLocal = TrionVersOFF;
-            string TrionOnline = TrionVersON;
 
-            if (MySQLOnline != string.Empty)// A LITTLE FAIL PROOF and so i can reuse the struings
+            // MySQL Update
+            if (!string.IsNullOrEmpty(MySQLVerOFF) && !string.IsNullOrEmpty(MySQLVerON))
             {
-                string[] vComps1 = MySQLLocal.Split('.');
-                string[] vComps2 = MySQLOnline.Split('.');
-                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
-                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
-                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
+                if (VersionCompare(MySQLVerOFF, MySQLVerON) < 0)
                 {
-                    if (vNumb1[i] < vNumb2[i])
+                    if (Data.Settings.AutoUpdateMySQL)
                     {
-                        if (Data.Settings.AutoUpdateMySQL)
-                        {
-                            DownlaodThread(WebLinks.MySQLUpdate);
-                        }
-                        else
-                        {
-                            MainForm form = new();
-                            if (MetroMessageBox.Show(form, "A new MySQl version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
-                            {
-                                DownlaodThread(WebLinks.MySQLUpdate);
-                            }
-                        }
+
+                        DownlaodThread(WebLinks.MySQLUpdate);
+                    }
+                    else
+                    {
+                        MainForm.UpdatePromptAppName = "MySQL";
                     }
                 }
             }
-            if (TrionOnline != string.Empty)
+
+            // Trion Update
+            if (!string.IsNullOrEmpty(TrionVersOFF) && !string.IsNullOrEmpty(TrionVersON))
             {
-                string[] vComps1 = TrionLocal.Split('.');
-                string[] vComps2 = TrionOnline.Split('.');
-                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
-                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
-                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
+                if (VersionCompare(TrionVersOFF, TrionVersON) < 0)
                 {
-                    if (vNumb1[i] < vNumb2[i])
+                    if (Data.Settings.AutoUpdateTrion)
                     {
-                        if (Data.Settings.AutoUpdateTrion)
-                        {
-                            DownlaodThread(WebLinks.TrionUpdate);
-                        }
-                        else
-                        {
-                            MainForm form = new();
-                            if (MetroMessageBox.Show(form, "A new Trion version is available.\nDo you want To download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
-                            {
-                                DownlaodThread(WebLinks.TrionUpdate);
-                            }
-                        }
+
+                        DownlaodThread(WebLinks.TrionUpdate);
+                    }
+                    else
+                    {
+                        MainForm.UpdatePromptAppName = "Trion";
                     }
                 }
             }
         }
-        private void DownlaodThread(string Weblink)
+        private static int VersionCompare(string ver1, string ver2)
         {
-            Thread DwonloadThread = new(() =>
+            if (ver1 != "N/A" && ver2 != "N/A")
             {
-                Task.Run(() => DownloadControl.AddToList(Weblink));
+                string[] vComps1 = ver1.Split('.');
+                string[] vComps2 = ver2.Split('.');
+                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
+                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
+
+                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
+                {
+                    if (vNumb1[i] != vNumb2[i])
+                    {
+                        return vNumb1[i].CompareTo(vNumb2[i]);
+                    }
+                }
+                return vNumb1.Length.CompareTo(vNumb2.Length);
+            }
+            return 0;
+        }
+        public static void DownlaodThread(string Weblink)
+        {
+            Thread DwonloadThread = new(async () =>
+            {
+                await Task.Run(() => DownloadControl.AddToList(Weblink));
                 MainForm.LoadDownloadControl();
             });
             DwonloadThread.Start();
@@ -348,6 +349,18 @@ namespace TrionControlPanelDesktop.Controls
             // Start a new timer
             TextTimer = new(SaveDataTextbox, null, 1000, Timeout.Infinite);
         }
+        private void BTNFixMysql_Click(object sender, EventArgs e)
+        {
+            if (UIData.MySQLisRunning == false)
+            {
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--initialize --console");
 
+            }
+            else
+            {
+                SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--initialize --console");
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace TrionControlPanelDesktop.FormData
 {
     public class UIData
     {
+        public static bool LoadData =false;
         public static bool StartupUpdateCheck= false;
         public static bool MySQLisRunning = false;
         public static bool WorldisRunning = false;

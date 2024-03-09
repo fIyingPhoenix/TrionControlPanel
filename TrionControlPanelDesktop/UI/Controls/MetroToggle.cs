@@ -181,22 +181,22 @@ namespace MetroFramework.Controls
             if (isHovered && !isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Hover(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Hover(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Hover");
             }
             else if (isHovered && isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Press(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Press(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Press");
             }
             else if (!Enabled)
             {
                 foreColor = MetroPaint.ForeColor.CheckBox.Disabled(Theme);
-                borderColor = MetroPaint.BorderColor.CheckBox.Disabled(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Disabled");
             }
             else
             {
                 foreColor = !useStyleColors ? MetroPaint.ForeColor.CheckBox.Normal(Theme) : MetroPaint.GetStyleColor(Style);
-                borderColor = MetroPaint.BorderColor.CheckBox.Normal(Theme);
+                borderColor = MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Normal");
             }
 
             e.Graphics.Clear(backColor);
@@ -207,7 +207,7 @@ namespace MetroFramework.Controls
                 e.Graphics.DrawRectangle(p, boxRect);
             }
 
-            Color fillColor = Checked ? MetroPaint.GetStyleColor(Style) : MetroPaint.BorderColor.CheckBox.Normal(Theme);
+            Color fillColor = Checked ? MetroPaint.GetStyleColor(Style) : MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Normal");
 
             using (SolidBrush b = new(fillColor))
             {
@@ -222,7 +222,7 @@ namespace MetroFramework.Controls
                 Rectangle boxRect = new(left, 0, 11, ClientRectangle.Height);
                 e.Graphics.FillRectangle(b, boxRect);
             }
-            using (SolidBrush b = new(MetroPaint.BorderColor.CheckBox.Hover(Theme)))
+            using (SolidBrush b = new(MetroPaint.BorderColor.CheckBox.GetCheckBoxColor(Theme, "Hover")))
             {
                 int left = Checked ? Width - 10 : (DisplayStatus ? 30 : 0);
 

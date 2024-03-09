@@ -112,25 +112,25 @@ namespace MetroFramework.Controls
             if (isHovered && !isPressed && Enabled)
             {
                 backColor = MetroPaint.BackColor.Button.Hover(Theme);
-                borderColor = MetroPaint.BorderColor.Button.Hover(Theme);
+                borderColor = MetroPaint.BorderColor.Button.GetButtonColor(Theme, "Hover");
                 foreColor = MetroPaint.ForeColor.Button.Hover(Theme);
             }
             else if (isHovered && isPressed && Enabled)
             {
                 backColor = MetroPaint.BackColor.Button.Press(Theme);
-                borderColor = MetroPaint.BorderColor.Button.Press(Theme);
+                borderColor = MetroPaint.BorderColor.Button.GetButtonColor(Theme,"Press");
                 foreColor = MetroPaint.ForeColor.Button.Press(Theme);
             }
             else if (!Enabled)
             {
                 backColor = MetroPaint.BackColor.Button.Disabled(Theme);
-                borderColor = MetroPaint.BorderColor.Button.Disabled(Theme);
+                borderColor = MetroPaint.BorderColor.Button.GetButtonColor(Theme, "Disabled");
                 foreColor = MetroPaint.ForeColor.Button.Disabled(Theme);
             }
             else
             {
                 backColor = MetroPaint.BackColor.Button.Normal(Theme);
-                borderColor = MetroPaint.BorderColor.Button.Normal(Theme);
+                borderColor = MetroPaint.BorderColor.Button.GetButtonColor(Theme, "Normal");
                 foreColor = MetroPaint.ForeColor.Button.Normal(Theme);
             }
 

@@ -4,7 +4,7 @@ namespace TrionControlPanelDesktop.FormData
     public class WebLinks
     {
         public static string MySQLFiles { get => "http://web.aclab.local/data/clean/mysql.txt"; }
-        public static string SPPCoreFiles { get => "http://web.aclab.local/data/clean/spp.txt"; }
+        public static string SPPCoreFiles { get => "http://web.aclab.localdata/clean/spp.txt"; }
         public static string TrionVer { get => "http://web.aclab.local/vers/trion.txt"; }
         public static string MySQLVer { get => "http://web.aclab.local/vers/mysql.txt"; }
         public static string SPPCoreVer { get => "http://web.aclab.local/vers/spp.txt"; }

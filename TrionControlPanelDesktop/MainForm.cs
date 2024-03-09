@@ -14,7 +14,23 @@ namespace TrionControlPanelDesktop
         readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
+        public static string UpdatePromptAppName = string.Empty;
         public static CurrentControl CurrentControl { get; set; }
+        private string GetLink()
+        {
+            switch (UpdatePromptAppName)
+            {
+                case "Trion":
+                    return WebLinks.TrionUpdate;
+                case "Single Player Project":
+                    return WebLinks.SPPCoreUpdate;
+                case "MySQL":
+                    return WebLinks.MySQLUpdate;
+                default:
+                    break;
+            }
+            return string.Empty;
+        }
         private static bool LoadControl = false;
         void LoadData()
         {
@@ -40,6 +56,7 @@ namespace TrionControlPanelDesktop
         {
             if (CurrentControl != CurrentControl.Settings)
             {
+                UIData.LoadData = true;
                 CurrentControl = CurrentControl.Settings;
                 TimerChangeControl.Start();
             }
@@ -141,9 +158,17 @@ namespace TrionControlPanelDesktop
             if (Data.Message != string.Empty)
             {
                 TimerWacher.Stop();
-                MetroMessageBox.Show(this, Data.Message,"Info",Data.Settings.NotificationSound, MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MetroMessageBox.Show(this, Data.Message, "Info", Data.Settings.NotificationSound, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Data.Message = string.Empty;
                 TimerWacher.Start();
+            }
+            if (UpdatePromptAppName != string.Empty)
+            {
+                UpdatePromptAppName = string.Empty;
+                if (ShowUpdatePrompt(UpdatePromptAppName))
+                {
+                    SettingsControl.DownlaodThread(GetLink());
+                }
             }
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
@@ -278,7 +303,10 @@ namespace TrionControlPanelDesktop
         {
             await Data.SaveSettings();
         }
-
+        private bool ShowUpdatePrompt(string appName)
+        {
+            return MetroMessageBox.Show(this, $"A new {appName} version is available.\nDo you want to download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
+        }
         private void BTNStartAll_Click(object sender, EventArgs e)
         {
 

@@ -233,7 +233,7 @@ namespace MetroFramework.Controls
             baseTextBox.BackColor = MetroPaint.BackColor.Button.Normal(Theme);
             baseTextBox.ForeColor = ForeColor;//MetroPaint.ForeColor.Button.Normal(Theme);
 
-            Color borderColor = MetroPaint.BorderColor.Button.Normal(Theme);
+            Color borderColor = MetroPaint.BorderColor.Button.GetButtonColor(Theme, "Normal"); ;
             if (useStyleColors)
                 borderColor = MetroPaint.GetStyleColor(Style);
 

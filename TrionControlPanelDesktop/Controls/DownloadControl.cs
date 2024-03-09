@@ -53,7 +53,6 @@ namespace TrionControlPanelDesktop.Controls
                             newUrlList.FileWebLink = Entry[1];
                             newUrlList.FileType = Path.GetExtension(Entry[1]);
                         }
-                       
                         DownloadList.Add(newUrlList);                        
                     }
                     ListFull = true;
@@ -76,7 +75,8 @@ namespace TrionControlPanelDesktop.Controls
                     CurrentDownload++;
                     try
                     {
-                        string fileType; 
+                        string FullFile;
+                        string downloadPath;
                         // Send GET request to the server
                         using (HttpResponseMessage response = await client.GetAsync(url.FileWebLink, HttpCompletionOption.ResponseHeadersRead))
                         {
@@ -88,9 +88,10 @@ namespace TrionControlPanelDesktop.Controls
                             LBLStatus.Text = "Status: Read File!";
                             // Get the file name from the URL
                             string fileName = Path.GetFileName(url.FileName);
-                            fileType = url.FileType;
-                            string downloadPath = Path.Combine(downloadDirectory, $@"{fileName}.{fileType}");
-                            LBLDownloadName.Text = @$"Name: {fileName}";
+                            string fileType = url.FileType;
+                            FullFile = $@"{fileName}{fileType}";
+                            downloadPath = Path.Combine(downloadDirectory, FullFile);
+                            LBLDownloadName.Text = @$"Name: {FullFile}";
                             LBLStatus.Text = "Status: Prepare Download!";
                             // Create a file stream to write the downloaded content
                             using (FileStream fileStream = new(downloadPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -127,9 +128,13 @@ namespace TrionControlPanelDesktop.Controls
                             LBLStatus.Text = "Status: Done!";
                             // Delay task so we dont get Still in use error
                             await Task.Delay(1500);
-                            if(fileType == "zip" )
+                            if(fileType.Contains(".zip"))
                             {
-                                await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), url.FileName + ".zip"), Directory.GetCurrentDirectory());
+                                await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), FullFile), Directory.GetCurrentDirectory());
+                            }else if (fileType.Contains(".exe"))
+                            {
+                                Process.Start(downloadPath);
+                                Environment.Exit(0);
                             }
                         }
                     }

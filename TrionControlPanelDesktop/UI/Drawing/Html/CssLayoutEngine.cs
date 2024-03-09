@@ -40,7 +40,7 @@ namespace MetroFramework.Drawing.Html
     {
         #region Fields
 
-        private static CssBoxWord _lastTreatedWord = null;
+        private static CssBoxWord _lastTreatedWord = null!;
 
         #endregion
 

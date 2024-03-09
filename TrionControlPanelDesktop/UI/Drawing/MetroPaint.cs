@@ -43,71 +43,65 @@ namespace MetroFramework.Drawing
         {
             public static class Button
             {
-                public static Color Normal(MetroThemeStyle theme)
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new Dictionary<MetroThemeStyle, Dictionary<string, Color>>()
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
-
-                    return Color.FromArgb(204, 204, 204);
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(204, 204, 204) },
+                             { "Hover", Color.FromArgb(102, 102, 102) },
+                             { "Press", Color.FromArgb(51, 51, 51) },
+                             { "Disabled", Color.FromArgb(155, 155, 155) },
+                         }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(68, 68, 68) },
+                             { "Hover", Color.FromArgb(170, 170, 170) },
+                             { "Press", Color.FromArgb(238, 238, 238) },
+                             { "Disabled", Color.FromArgb(109, 109, 109) },
+                    }
                 }
+            };
 
-                public static Color Hover(MetroThemeStyle theme)
+                public static Color GetButtonColor(MetroThemeStyle theme, string state)
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(170, 170, 170);
-
-                    return Color.FromArgb(102, 102, 102);
-                }
-
-                public static Color Press(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(238, 238, 238);
-
-                    return Color.FromArgb(51, 51, 51);
-                }
-
-                public static Color Disabled(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(109, 109, 109);
-
-                    return Color.FromArgb(155, 155, 155);
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
                 }
             }
 
             public static class CheckBox
             {
-                public static Color Normal(MetroThemeStyle theme)
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new Dictionary<MetroThemeStyle, Dictionary<string, Color>>()
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(153, 153, 153);
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                       {
+                         { "Normal", Color.FromArgb(153, 153, 153) },
+                         { "Hover", Color.FromArgb(51, 51, 51) },
+                         { "Press", Color.FromArgb(153, 153, 153) },
+                         { "Disabled", Color.FromArgb(204, 204, 204) },
+                       }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                      {
+                        { "Normal", Color.FromArgb(153, 153, 153) },
+                        { "Hover", Color.FromArgb(204, 204, 204) },
+                        { "Press", Color.FromArgb(153, 153, 153) },
+                        { "Disabled", Color.FromArgb(85, 85, 85) },
+                      }
+                    }
+                 };
 
-                    return Color.FromArgb(153, 153, 153);
-                }
-
-                public static Color Hover(MetroThemeStyle theme)
+                public static Color GetCheckBoxColor(MetroThemeStyle theme, string state)
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(204, 204, 204);
-
-                    return Color.FromArgb(51, 51, 51);
-                }
-
-                public static Color Press(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(153, 153, 153);
-
-                    return Color.FromArgb(153, 153, 153);
-                }
-
-                public static Color Disabled(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(85, 85, 85);
-
-                    return Color.FromArgb(204, 204, 204);
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
                 }
             }
 
@@ -223,7 +217,7 @@ namespace MetroFramework.Drawing
             {
                 if (theme == MetroThemeStyle.Dark)
                     return Color.FromArgb(28, 33, 40);
-                
+
                 return Color.FromArgb(255, 255, 255);
             }
 
@@ -694,154 +688,67 @@ namespace MetroFramework.Drawing
 
         public static Color GetStyleColor(MetroColorStyle style)
         {
-            switch (style)
+            return style switch
             {
-                case MetroColorStyle.Black:
-                    return MetroColors.Black;
-
-                case MetroColorStyle.White:
-                    return MetroColors.White;
-
-                case MetroColorStyle.Silver:
-                    return MetroColors.Silver;
-
-                case MetroColorStyle.Blue:
-                    return MetroColors.Blue;
-
-                case MetroColorStyle.Green:
-                    return MetroColors.Green;
-
-                case MetroColorStyle.Lime:
-                    return MetroColors.Lime;
-
-                case MetroColorStyle.Teal:
-                    return MetroColors.Teal;
-
-                case MetroColorStyle.Orange:
-                    return MetroColors.Orange;
-
-                case MetroColorStyle.Brown:
-                    return MetroColors.Brown;
-
-                case MetroColorStyle.Pink:
-                    return MetroColors.Pink;
-
-                case MetroColorStyle.Magenta:
-                    return MetroColors.Magenta;
-
-                case MetroColorStyle.Purple:
-                    return MetroColors.Purple;
-
-                case MetroColorStyle.Red:
-                    return MetroColors.Red;
-
-                case MetroColorStyle.Yellow:
-                    return MetroColors.Yellow;
-
-                default:
-                    return MetroColors.Blue;
-            }
+                MetroColorStyle.Black => MetroColors.Black,
+                MetroColorStyle.White => MetroColors.White,
+                MetroColorStyle.Silver => MetroColors.Silver,
+                MetroColorStyle.Blue => MetroColors.Blue,
+                MetroColorStyle.Green => MetroColors.Green,
+                MetroColorStyle.Lime => MetroColors.Lime,
+                MetroColorStyle.Teal => MetroColors.Teal,
+                MetroColorStyle.Orange => MetroColors.Orange,
+                MetroColorStyle.Brown => MetroColors.Brown,
+                MetroColorStyle.Pink => MetroColors.Pink,
+                MetroColorStyle.Magenta => MetroColors.Magenta,
+                MetroColorStyle.Purple => MetroColors.Purple,
+                MetroColorStyle.Red => MetroColors.Red,
+                MetroColorStyle.Yellow => MetroColors.Yellow,
+                _ => MetroColors.Blue,
+            };
         }
 
         public static SolidBrush GetStyleBrush(MetroColorStyle style)
         {
-            switch (style)
+            return style switch
             {
-                case MetroColorStyle.Black:
-                    return MetroBrushes.Black;
-
-                case MetroColorStyle.White:
-                    return MetroBrushes.White;
-
-                case MetroColorStyle.Silver:
-                    return MetroBrushes.Silver;
-
-                case MetroColorStyle.Blue:
-                    return MetroBrushes.Blue;
-
-                case MetroColorStyle.Green:
-                    return MetroBrushes.Green;
-
-                case MetroColorStyle.Lime:
-                    return MetroBrushes.Lime;
-
-                case MetroColorStyle.Teal:
-                    return MetroBrushes.Teal;
-
-                case MetroColorStyle.Orange:
-                    return MetroBrushes.Orange;
-
-                case MetroColorStyle.Brown:
-                    return MetroBrushes.Brown;
-
-                case MetroColorStyle.Pink:
-                    return MetroBrushes.Pink;
-
-                case MetroColorStyle.Magenta:
-                    return MetroBrushes.Magenta;
-
-                case MetroColorStyle.Purple:
-                    return MetroBrushes.Purple;
-
-                case MetroColorStyle.Red:
-                    return MetroBrushes.Red;
-
-                case MetroColorStyle.Yellow:
-                    return MetroBrushes.Yellow;
-
-                default:
-                    return MetroBrushes.Blue;
-            }
+                MetroColorStyle.Black => MetroBrushes.Black,
+                MetroColorStyle.White => MetroBrushes.White,
+                MetroColorStyle.Silver => MetroBrushes.Silver,
+                MetroColorStyle.Blue => MetroBrushes.Blue,
+                MetroColorStyle.Green => MetroBrushes.Green,
+                MetroColorStyle.Lime => MetroBrushes.Lime,
+                MetroColorStyle.Teal => MetroBrushes.Teal,
+                MetroColorStyle.Orange => MetroBrushes.Orange,
+                MetroColorStyle.Brown => MetroBrushes.Brown,
+                MetroColorStyle.Pink => MetroBrushes.Pink,
+                MetroColorStyle.Magenta => MetroBrushes.Magenta,
+                MetroColorStyle.Purple => MetroBrushes.Purple,
+                MetroColorStyle.Red => MetroBrushes.Red,
+                MetroColorStyle.Yellow => MetroBrushes.Yellow,
+                _ => MetroBrushes.Blue,
+            };
         }
         public static Pen GetStyl5ePen(MetroColorStyle style)
         {
-            switch (style)
+            return style switch
             {
-                case MetroColorStyle.Black:
-                    return MetroPens.Black!;
-
-                case MetroColorStyle.White:
-                    return MetroPens.White!;
-                
-                case MetroColorStyle.Silver:
-                    return MetroPens.Silver!;
-
-                case MetroColorStyle.Blue:
-                    return MetroPens.Blue!;
-
-                case MetroColorStyle.Green:
-                    return MetroPens.Green!;
-
-                case MetroColorStyle.Lime:
-                    return MetroPens.Lime!;
-
-                case MetroColorStyle.Teal:
-                    return MetroPens.Teal!;
-
-                case MetroColorStyle.Orange:
-                    return MetroPens.Orange!;
-
-                case MetroColorStyle.Brown:
-                    return MetroPens.Brown!;
-
-                case MetroColorStyle.Pink:
-                    return MetroPens.Pink!;
-
-                case MetroColorStyle.Magenta:
-                    return MetroPens.Magenta!;
-
-                case MetroColorStyle.Purple:
-                    return MetroPens.Purple!;
-
-                case MetroColorStyle.Red:
-                    return MetroPens.Red!;
-
-                case MetroColorStyle.Yellow:
-                    return MetroPens.Yellow!;
-
-                default:
-                    return MetroPens.Blue!;
-            }
+                MetroColorStyle.Black => MetroPens.Black!,
+                MetroColorStyle.White => MetroPens.White!,
+                MetroColorStyle.Silver => MetroPens.Silver!,
+                MetroColorStyle.Blue => MetroPens.Blue!,
+                MetroColorStyle.Green => MetroPens.Green!,
+                MetroColorStyle.Lime => MetroPens.Lime!,
+                MetroColorStyle.Teal => MetroPens.Teal!,
+                MetroColorStyle.Orange => MetroPens.Orange!,
+                MetroColorStyle.Brown => MetroPens.Brown!,
+                MetroColorStyle.Pink => MetroPens.Pink!,
+                MetroColorStyle.Magenta => MetroPens.Magenta!,
+                MetroColorStyle.Purple => MetroPens.Purple!,
+                MetroColorStyle.Red => MetroPens.Red!,
+                MetroColorStyle.Yellow => MetroPens.Yellow!,
+                _ => MetroPens.Blue!,
+            };
         }
         public static TextFormatFlags GetTextFormatFlags(ContentAlignment textAlign)
         {
@@ -858,7 +765,6 @@ namespace MetroFramework.Drawing
                 case ContentAlignment.TopRight:
                     controlFlags |= TextFormatFlags.Top | TextFormatFlags.Right;
                     break;
-
                 case ContentAlignment.MiddleLeft:
                     controlFlags |= TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
                     break;
@@ -868,7 +774,6 @@ namespace MetroFramework.Drawing
                 case ContentAlignment.MiddleRight:
                     controlFlags |= TextFormatFlags.VerticalCenter | TextFormatFlags.Right;
                     break;
-
                 case ContentAlignment.BottomLeft:
                     controlFlags |= TextFormatFlags.Bottom | TextFormatFlags.Left;
                     break;
@@ -879,10 +784,8 @@ namespace MetroFramework.Drawing
                     controlFlags |= TextFormatFlags.Bottom | TextFormatFlags.Right;
                     break;
             }
-
             return controlFlags;
         }
-
         #endregion
     }
 }
