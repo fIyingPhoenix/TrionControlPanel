@@ -191,15 +191,12 @@ namespace TrionControlPanelDesktop.Controls
                 }
                 else
                 {
-                    MessageBox.Show("Wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Data.Message = "Getting MySQL File location failed!";
                 }
             }
             else
             {
-                if (MessageBox.Show("", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    //Do something! Download a new mysql server or idk yet
-                }
+                Data.Message = "";
             }
         }
         private async void BTNCoreExecLovation_Click(object sender, EventArgs e)
@@ -219,10 +216,7 @@ namespace TrionControlPanelDesktop.Controls
             }
             else
             {
-                if (MessageBox.Show("", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    //Do something! Download a new mysql server or idk yet
-                }
+                Data.Message = "Getting Core File location failed!";
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
@@ -272,7 +266,6 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateMySQL)
                     {
-
                         DownlaodThread(WebLinks.MySQLUpdate);
                     }
                     else

@@ -21,15 +21,12 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
 using System.ComponentModel;
-using System.Windows.Forms;
-
 using MetroFramework.Drawing;
 using MetroFramework.Design;
 using MetroFramework.Components;
 using MetroFramework.Interfaces;
+using System.Drawing.Drawing2D;
 
 namespace MetroFramework.Controls
 {
@@ -38,7 +35,6 @@ namespace MetroFramework.Controls
     public class MetroTile : Button, IContainerControl, IMetroControl
     {
         #region Interface
-
         private MetroColorStyle metroStyle = MetroColorStyle.Blue;
         [Category("Metro Appearance")]
         public MetroColorStyle Style
@@ -52,7 +48,6 @@ namespace MetroFramework.Controls
             }
             set { metroStyle = value; }
         }
-
         private MetroThemeStyle metroTheme = MetroThemeStyle.Light;
         [Category("Metro Appearance")]
         public MetroThemeStyle Theme
@@ -66,7 +61,6 @@ namespace MetroFramework.Controls
             }
             set { metroTheme = value; }
         }
-
         private MetroStyleManager? metroStyleManager = null;
         [Browsable(false)]
         public MetroStyleManager StyleManager
@@ -74,7 +68,6 @@ namespace MetroFramework.Controls
             get { return metroStyleManager!; }
             set { metroStyleManager = value; }
         }
-
         private Control? activeControl = null;
         [Browsable(false)]
         public Control? ActiveControl
@@ -82,7 +75,6 @@ namespace MetroFramework.Controls
             get { return activeControl!; }
             set { activeControl = value; }
         }
-
         public bool ActivateControl(Control ctrl)
         {
             if (Controls.Contains(ctrl))
@@ -94,7 +86,6 @@ namespace MetroFramework.Controls
 
             return false;
         }
-
         #endregion
 
         #region Fields
@@ -107,14 +98,12 @@ namespace MetroFramework.Controls
                 return MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
             }
         }
-
         private int tileCount = 0;
         public int TileCount
         {
             get { return tileCount; }
             set { tileCount = value; }
         }
-
         private bool isHovered = false;
         private bool isPressed = false;
         private bool isFocused = false;
@@ -137,29 +126,10 @@ namespace MetroFramework.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Color backColor, foreColor;
+            Color foreColor = GetForeColor();
 
-            backColor = MetroPaint.GetStyleColor(Style);
-
-            if (isHovered && !isPressed && Enabled)
-            {
-                foreColor = MetroPaint.ForeColor.Tile.Hover(Theme);
-            }
-            else if (isHovered && isPressed && Enabled)
-            {
-                foreColor = MetroPaint.ForeColor.Tile.Press(Theme);
-            }
-            else if (!Enabled)
-            {
-                foreColor = MetroPaint.ForeColor.Tile.Disabled(Theme);
-            }
-            else
-            {
-                foreColor = MetroPaint.ForeColor.Tile.Normal(Theme);
-            }
-
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
 
             if (!isPressed)
             {
@@ -171,11 +141,44 @@ namespace MetroFramework.Controls
 
                 using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
                 {
-                    Point[] polyPoints = new Point[] { new Point(0,0), new Point(Width-1,2),new Point(Width-1,Height-2),new Point(0,Height) };
+                    Point[] polyPoints = new Point[] { new Point(0, 0), new Point(Width - 1, 2), new Point(Width - 1, Height - 2), new Point(0, Height) };
                     e.Graphics.FillPolygon(b, polyPoints);
                 }
             }
+            DrawTileCount(e, foreColor);//method to draw tile
+            DrawText(e, foreColor);//method to draw text
+           // DrawImage(e); // method to draw image
 
+            if (false && isFocused)
+                ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle);
+
+        }
+        private void DrawImage(PaintEventArgs e)
+        {
+            if (Image != null)
+            {
+                // Calculate the position to center the image
+                int x = (Width - Image.Width) / 2;
+                int y = (Height - Image.Height) / 2;
+
+                e.Graphics.DrawImage(Image, x, y);
+            }
+        }
+        private Color GetForeColor()
+        {
+            if (!Enabled)
+                return MetroPaint.ForeColor.Tile.Disabled(Theme);
+
+            if (isHovered && isPressed)
+                return MetroPaint.ForeColor.Tile.Press(Theme);
+
+            if (isHovered)
+                return MetroPaint.ForeColor.Tile.Hover(Theme);
+
+            return MetroPaint.ForeColor.Tile.Normal(Theme);
+        }
+        private void DrawTileCount(PaintEventArgs e, Color foreColor)
+        {
             if (TileCount > 0)
             {
                 Size countSize = TextRenderer.MeasureText(TileCount.ToString(), MetroFonts.TileCount);
@@ -184,13 +187,11 @@ namespace MetroFramework.Controls
                 TextRenderer.DrawText(e.Graphics, TileCount.ToString(), MetroFonts.TileCount, new Point(Width - countSize.Width, 0), foreColor);
                 e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             }
-
+        }
+        private void DrawText(PaintEventArgs e, Color foreColor)
+        {
             Size textSize = TextRenderer.MeasureText(Text, MetroFonts.Tile);
-            TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Tile, new Point(0, Height-textSize.Height), foreColor);
-
-
-            if (false && isFocused)
-                ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle);
+            TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Tile, new Point(0, Height - textSize.Height), foreColor);
         }
 
         #endregion
@@ -300,13 +301,11 @@ namespace MetroFramework.Controls
         #endregion
 
         #region Overridden Methods
-
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
             Invalidate();
         }
-
         #endregion
     }
 }

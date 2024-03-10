@@ -118,17 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="BTNDownload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAEmSURBVGhD7ZdLCsIwFEUzdHEOBQduSIS6BTdgux/TgeO6
-        BSvaSF9t82maEsMNvAOXDppHzpVIVDAME4nLfSOq+iwq2XTPtyMPUdan71o4lJhd2kwpi34KCPXp2mQn
-        kfRs+ikgDFlP4DAk5XYa7T0cuiAXSI0uyAVSowtygdToglwgNbogF0iNLghV4Frvu5/LT0NiNp4Cc1F7
-        qT2jUspdWIm1BWTb7XXod41MUImQAsP/hD/KE4tLLC2QUp6wlpAvUd6Kn7Art2O3vu1naDahPLGqBIo8
-        EVQCTZ5YVAJVnpgtgS5P2C87JT6VV2uiX1KxcN7YOcgTrhJZyBPGdwLxzPsYSuQoT6gjk82xYRgGhPHl
-        gxgvtiGkeLENIcWLbQgpDMOMEOIDnESCVzHKHTAAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="BTNSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -224,6 +213,24 @@
         TC7I0CMbX0bcDDQcHpKhazp1b+w6lo2YsYpnLYp7r6xj2a3KBHHN4G7CuDZfbCyHdzPB7DNB7MDR7ISO
         scFt+dmEp3acvlTG1qGWmaDeZ3wTvpmguoNF31TvznCG8uGNkRVaTjZIjE6RmRG6u9yQdIVofbS2K3tt
         qyC+QuxlpdQ3hdUmCvQgwd8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNDownload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAALJJREFUSEvt1bEOwVAYxfH7Gp0MBouBweTtNTyEpAaDxCAeoc6nf99ASNVZhF9y
+        lnN7z0DSlt/Rtu1auampfRhO1D7sJmofdhO1D7uJ2ofdRO3DbqL2YTdR+7CbqIfTxq6b6qXhWn+6tFBO
+        1+uvnZUl196ji3PlGCtPxNmMx4fRwETZx9qdgzLlsc9oaKRsYxXx/4w59tBgpWyUeKtW1H9G+l1rxeXx
+        ixdld2axYvbrlXIBBYjyy1zkF5AAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNNotification.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAALxJREFUSEvllDEOwjAQBN3lEfAgeAwRT0jJ05BooIYK3gCtWcdjiYawsVwgGGkb
+        62bv0iT8DzHGQSkMPLcjlebukXYLVNYpvXJJzXBWNkrHWB0qWCon5R1HZcH4PCSmy6fKC2nJ/C+RtB11
+        jx7NR9IhuxZ7NB9Jj+xa3NF8EG3QfPBs0HzwbNB88GzQfPBs0HzwbNA8NP/6Y3PZoU+jwZrywuclDFZD
+        zRei4275xpErz+1Q6ToVkxXPP08IT3O7Dd13Arv/AAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="TimerChangeControl.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

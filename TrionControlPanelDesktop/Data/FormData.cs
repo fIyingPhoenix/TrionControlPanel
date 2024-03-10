@@ -4,11 +4,13 @@ namespace TrionControlPanelDesktop.FormData
 {
     public class UIData
     {
-        public static bool LoadData =false;
-        public static bool StartupUpdateCheck= false;
-        public static bool MySQLisRunning = false;
-        public static bool WorldisRunning = false;
-        public static bool LogonisRunning = false;
+        public static int Notyfications {  get; set; }
+        public static int CurrentDownloads { get; set; }
+        public static bool LoadData { get; set; }
+        public static bool StartupUpdateCheck { get; set; }
+        public static bool MySQLisRunning { get; set; }
+        public static bool WorldisRunning { get; set; }
+        public static bool LogonisRunning { get; set; }
         //OneDriveAPI
         public static string DownloadOneDriveAPI(string url)
         {

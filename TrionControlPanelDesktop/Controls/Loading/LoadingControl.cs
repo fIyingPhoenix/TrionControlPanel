@@ -14,7 +14,7 @@ namespace TrionControlPanelDesktop.Controls
     {
         public LoadingControl()
         {
-            this.Dock = DockStyle.Fill;
+            Dock = DockStyle.Fill;
             InitializeComponent();
         }
     }

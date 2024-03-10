@@ -5,12 +5,23 @@ namespace TrionControlPanelDesktop.UI.Controls
 {
     public class CustomButton : Button
     {
+        private int notificationCount = 0;
         //Fields
         private int borderSize = 0;
         private int borderRadius = 0;
         private Color borderColor = Color.PaleVioletRed;
 
         //Properties
+        [Category("1 CustomButton Advance")]
+        public int NotificationCount
+        {
+            get { return notificationCount; }
+            set
+            {
+                notificationCount = value;
+                Invalidate();
+            }
+        }
         [Category("1 CustomButton Advance")]
         public int BorderSize
         {
@@ -92,6 +103,26 @@ namespace TrionControlPanelDesktop.UI.Controls
             Rectangle rectSurface = ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
             int smoothSize = 2;
+            // Draw the notification count
+            if (notificationCount > 0)
+            {
+                Graphics g = pevent.Graphics;
+                // Set smoothing mode to AntiAlias for smoother drawing
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                // Draw the red ellipse
+                using (SolidBrush brush = new(Color.Red))
+                {
+                    g.FillEllipse(brush, Width - 13, 5, 13,13);
+                }
+                // Draw the notification count text
+                using (Font font = new("Arial", notificationCount >= 10 ? 6 : 10)) // Adjust font size
+                { // notification count 
+                    string countText = notificationCount > 99 ? "99+" : notificationCount.ToString();
+                    SizeF textSize = g.MeasureString(countText, font);
+                    PointF textPosition = new(Width - 13 + (13 - textSize.Width) / 2, 5 + (13 - textSize.Height) / 2);
+                    g.DrawString(countText, font, Brushes.White, textPosition);
+                }
+            }
             if (borderSize > 0)
                 smoothSize = borderSize;
 
@@ -102,7 +133,7 @@ namespace TrionControlPanelDesktop.UI.Controls
                 using Pen penSurface = new(Parent!.BackColor, smoothSize);
                 using Pen penBorder = new(borderColor, borderSize);
                 {
-                    pevent.Graphics.SmoothingMode = SmoothingMode.None;
+                    pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     //Button surface
                     Region = new Region(pathSurface);
                     //Draw surface border for HD result
@@ -114,6 +145,7 @@ namespace TrionControlPanelDesktop.UI.Controls
                         pevent.Graphics.DrawPath(penBorder, pathBorder);
 
                 }
+               
             }
             else //Normal button
             {

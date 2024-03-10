@@ -19,7 +19,8 @@ namespace TrionLibrary
             Control,
             Settings,
             Load,
-            Download
+            Download,
+            Notify
         }
         public enum LoadWebsite
         {

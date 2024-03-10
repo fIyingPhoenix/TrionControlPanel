@@ -2,6 +2,7 @@ using MetroFramework;
 using MetroFramework.Forms;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
+using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
 using TrionLibrary;
 using static TrionLibrary.EnumModels;
@@ -14,6 +15,7 @@ namespace TrionControlPanelDesktop
         readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
+        readonly NotificationsControl notificationsControl = new();
         public static string UpdatePromptAppName = string.Empty;
         public static CurrentControl CurrentControl { get; set; }
         private string GetLink()
@@ -43,7 +45,10 @@ namespace TrionControlPanelDesktop
         public MainForm()
         {
             //flickering fix
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.ResizeRedraw |
+                     ControlStyles.UserPaint, true);
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
@@ -131,6 +136,8 @@ namespace TrionControlPanelDesktop
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+            BTNNotification.NotificationCount = UIData.Notyfications;
+            BTNDownload.NotificationCount = UIData.CurrentDownloads;
             ButtonsDesing();
             if (LoadControl == true)
             {
@@ -155,13 +162,6 @@ namespace TrionControlPanelDesktop
                     StartDirectoryScan(Directory.GetCurrentDirectory());
                 }
             }
-            if (Data.Message != string.Empty)
-            {
-                TimerWacher.Stop();
-                MetroMessageBox.Show(this, Data.Message, "Info", Data.Settings.NotificationSound, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Data.Message = string.Empty;
-                TimerWacher.Start();
-            }
             if (UpdatePromptAppName != string.Empty)
             {
                 UpdatePromptAppName = string.Empty;
@@ -171,52 +171,74 @@ namespace TrionControlPanelDesktop
                 }
             }
         }
+        private void ManageProcess(bool isRunning, string executableLocation, string executableName)
+        {
+            if (!isRunning && !string.IsNullOrEmpty(executableLocation))
+            {
+                SystemWatcher.ApplicationStart(executableLocation, Data.Settings.ConsolHide, null);
+            }
+            else if (isRunning)
+            {
+                SystemWatcher.ApplicationKill(executableName);
+            }
+        }
+        private void BTNStartAll_Click(object sender, EventArgs e)
+        {
+            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
+
+            string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
+            ManageProcess(UIData.MySQLisRunning, Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName);
+
+            if (!UIData.MySQLisRunning && !string.IsNullOrEmpty(Data.Settings.MySQLExecutableLocation))
+            {
+                if (!File.Exists(configFile))
+                {
+                    Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                }
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
+            }
+
+            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
+        }
+        private void BTNDownload_Click(object sender, EventArgs e)
+        {
+            if (CurrentControl != CurrentControl.Download)
+            {
+                CurrentControl = CurrentControl.Download;
+                TimerChangeControl.Start();
+            }
+        }
+        private void BTNNotification_Click(object sender, EventArgs e)
+        {
+            if (CurrentControl != CurrentControl.Notify)
+            {
+                CurrentControl = CurrentControl.Notify;
+                TimerChangeControl.Start();
+            }
+        }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
-            if (UIData.MySQLisRunning == false)
+            if (!UIData.MySQLisRunning && Data.Settings.MySQLExecutableLocation != string.Empty)
             {
-                if (Data.Settings.MySQLExecutableLocation != string.Empty)
+                string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
+                if (!File.Exists(configFile))
                 {
-                    string ConfigFile = $@"{Directory.GetCurrentDirectory()}\my.ini";
-                    if (!File.Exists(ConfigFile))
-                    {
-                        Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-                    }
-                    SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{ConfigFile}\" --console");
+                    Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 }
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
             }
-            else
+            else if (UIData.MySQLisRunning)
             {
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
             }
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            if (UIData.LogonisRunning == false)
-            {
-                if (Data.Settings.LogonExecutableLocation != string.Empty)
-                {
-                    SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.ConsolHide, null);
-                }
-            }
-            else
-            {
-                SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
-            }
+            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            if (UIData.WorldisRunning == false)
-            {
-                if (Data.Settings.WorldExecutableLocation != string.Empty)
-                {
-                    SystemWatcher.ApplicationStart(Data.Settings.WorldExecutableLocation, Data.Settings.ConsolHide, null);
-                }
-            }
-            else
-            {
-                SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
-            }
+            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
         }
         public static void StartDirectoryScan(string path)
         {
@@ -275,29 +297,28 @@ namespace TrionControlPanelDesktop
         }
         private void TimerChangeControl_Tick(object sender, EventArgs e)
         {
-            if (CurrentControl == CurrentControl.Control)
+            TimerChangeControl.Stop();
+            switch (CurrentControl)
             {
-                TimerChangeControl.Stop();
+                case CurrentControl.Home:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(homeControl);
+                    break;
+                case CurrentControl.Settings:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(settingsControl);
+                    break;
+                case CurrentControl.Download:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(downloadControl);
+                    break;
+                case CurrentControl.Notify:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(notificationsControl);
+                    break;
+                default: break;
+            }
 
-            }
-            if (CurrentControl == CurrentControl.Home)
-            {
-                TimerChangeControl.Stop();
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(homeControl);
-            }
-            if (CurrentControl == CurrentControl.Settings)
-            {
-                TimerChangeControl.Stop();
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(settingsControl);
-            }
-            if (CurrentControl == CurrentControl.Download)
-            {
-                TimerChangeControl.Stop();
-                PNLControl.Controls.Clear();
-                PNLControl.Controls.Add(downloadControl);
-            }
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -307,9 +328,6 @@ namespace TrionControlPanelDesktop
         {
             return MetroMessageBox.Show(this, $"A new {appName} version is available.\nDo you want to download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
         }
-        private void BTNStartAll_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }
