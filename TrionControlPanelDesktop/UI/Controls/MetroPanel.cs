@@ -235,7 +235,7 @@ namespace MetroFramework.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Color backColor = MetroPaint.BackColor.Form(Theme);
+            Color backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
             if (useCustomBackground)
                 backColor = BackColor;

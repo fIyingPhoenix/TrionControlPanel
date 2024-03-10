@@ -104,7 +104,7 @@ namespace MetroFramework.Controls
         {
             get
             {
-                return MetroPaint.BackColor.Form(Theme);
+                return MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
             }
         }
 
@@ -167,8 +167,8 @@ namespace MetroFramework.Controls
             }
             else
             {
-                e.Graphics.Clear(MetroPaint.BackColor.Form(Theme));
-                
+                e.Graphics.Clear(MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal"));
+
                 using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
                 {
                     Point[] polyPoints = new Point[] { new Point(0,0), new Point(Width-1,2),new Point(Width-1,Height-2),new Point(0,Height) };

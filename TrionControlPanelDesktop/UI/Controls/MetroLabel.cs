@@ -156,7 +156,7 @@ namespace MetroFramework.Controls
                 backColor = BackColor;
             else
             {
-                backColor = MetroPaint.BackColor.Form(Theme);
+                backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                 if (Parent is MetroTile)
                 {
                     backColor = MetroPaint.GetStyleColor(Style);
@@ -312,7 +312,7 @@ namespace MetroFramework.Controls
             if (useCustomBackground)
                 baseTextBox.BackColor = BackColor;
             else
-                baseTextBox.BackColor = MetroPaint.BackColor.Form(Theme);
+                baseTextBox.BackColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
             if (!Enabled)
             {

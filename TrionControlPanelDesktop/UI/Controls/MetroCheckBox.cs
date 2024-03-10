@@ -147,7 +147,7 @@ namespace MetroFramework.Controls
             }   
             else
             {
-                backColor = MetroPaint.BackColor.Form(Theme);
+                backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme,"Normal");
             }
             if (isHovered && !isPressed && Enabled)
             {

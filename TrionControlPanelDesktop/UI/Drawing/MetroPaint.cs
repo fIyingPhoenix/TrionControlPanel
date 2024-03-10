@@ -72,7 +72,6 @@ namespace MetroFramework.Drawing
                     return colorMap[theme][state];
                 }
             }
-
             public static class CheckBox
             {
                 private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new Dictionary<MetroThemeStyle, Dictionary<string, Color>>()
@@ -104,121 +103,128 @@ namespace MetroFramework.Drawing
                     return colorMap[theme][state];
                 }
             }
-
             public static class ComboBox
             {
-                public static Color Normal(MetroThemeStyle theme)
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new Dictionary<MetroThemeStyle, Dictionary<string, Color>>()
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(153, 153, 153);
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(153, 153, 153) },
+                             { "Hover", Color.FromArgb(102, 102, 102) },
+                             { "Press", Color.FromArgb(51, 51, 51) },
+                             { "Disabled", Color.FromArgb(155, 155, 155) },
+                         }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(153, 153, 153) },
+                             { "Hover", Color.FromArgb(170, 170, 170) },
+                             { "Press", Color.FromArgb(238, 238, 238) },
+                             { "Disabled", Color.FromArgb(109, 109, 109) },
+                        }
+                    }
+                };
 
-                    return Color.FromArgb(153, 153, 153);
-                }
-
-                public static Color Hover(MetroThemeStyle theme)
+                public static Color GetButtonColor(MetroThemeStyle theme, string state)
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(204, 204, 204);
-
-                    return Color.FromArgb(51, 51, 51);
-                }
-
-                public static Color Press(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(153, 153, 153);
-
-                    return Color.FromArgb(153, 153, 153);
-                }
-
-                public static Color Disabled(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(85, 85, 85);
-
-                    return Color.FromArgb(204, 204, 204);
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
                 }
             }
-
             public static class ProgressBar
             {
-                public static Color Normal(MetroThemeStyle theme)
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new()
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.Black; //Color.FromArgb(68, 68, 68);
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(204, 204, 204) }, //FromArgb(153, 153, 153) },
+                             { "Hover", Color.FromArgb(68, 68, 68) },
+                             { "Press", Color.FromArgb(68, 68, 68) },
+                             { "Disabled", Color.FromArgb(155, 155, 155) },
+                         }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.Black },
+                             { "Hover", Color.FromArgb(204, 204, 204) },
+                             { "Press", Color.FromArgb(204, 204, 204) },
+                             { "Disabled", Color.FromArgb(109, 109, 109) },
+                        }
+                    }
+                };
 
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Hover(MetroThemeStyle theme)
+                public static Color GetButtonColor(MetroThemeStyle theme, string state)
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
-
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Press(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
-
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Disabled(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(109, 109, 109);
-
-                    return Color.FromArgb(155, 155, 155);
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
                 }
             }
-
             public static class TabControl
             {
-                public static Color Normal(MetroThemeStyle theme)
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new()
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(204, 204, 204) }, //FromArgb(153, 153, 153) },
+                             { "Hover", Color.FromArgb(68, 68, 68) },
+                             { "Press", Color.FromArgb(68, 68, 68) },
+                             { "Disabled", Color.FromArgb(155, 155, 155) },
+                         }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(68, 68, 68) },
+                             { "Hover", Color.FromArgb(204, 204, 204) },
+                             { "Press", Color.FromArgb(204, 204, 204) },
+                             { "Disabled", Color.FromArgb(109, 109, 109) },
+                        }
+                    }
+                };
 
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Hover(MetroThemeStyle theme)
+                public static Color GetButtonColor(MetroThemeStyle theme, string state)
                 {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
-
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Press(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(68, 68, 68);
-
-                    return Color.FromArgb(204, 204, 204);
-                }
-
-                public static Color Disabled(MetroThemeStyle theme)
-                {
-                    if (theme == MetroThemeStyle.Dark)
-                        return Color.FromArgb(109, 109, 109);
-
-                    return Color.FromArgb(155, 155, 155);
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
                 }
             }
         }
 
         public sealed class BackColor
         {
-            public static Color Form(MetroThemeStyle theme)
-            {
-                if (theme == MetroThemeStyle.Dark)
-                    return Color.FromArgb(28, 33, 40);
 
-                return Color.FromArgb(255, 255, 255);
+            public class Form
+            {
+                private static readonly Dictionary<MetroThemeStyle, Dictionary<string, Color>> colorMap = new()
+                {
+                    { MetroThemeStyle.Light, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(255, 255, 255) }
+                         }
+                    },
+                    { MetroThemeStyle.Dark, new Dictionary<string, Color>()
+                        {
+                             { "Normal", Color.FromArgb(28, 33, 40) }
+                        }
+                    }
+                };
+
+                public static Color GetButtonColor(MetroThemeStyle theme, string state)
+                {
+                    if (!colorMap.ContainsKey(theme) || !colorMap[theme].ContainsKey(state))
+                    {
+                        throw new ArgumentException("Invalid theme or state");
+                    }
+                    return colorMap[theme][state];
+                }
             }
 
             public sealed class Button

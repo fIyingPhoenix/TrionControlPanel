@@ -217,7 +217,7 @@ namespace MetroFramework.Controls
 
             DrawProgressText(e.Graphics);
 
-            using (Pen p = new(MetroPaint.BorderColor.ProgressBar.Normal(Theme)))
+            using (Pen p = new(MetroPaint.BorderColor.ProgressBar.GetButtonColor(Theme,"Normal")))
             {
                 Rectangle borderRect = new(0, 0, Width - 1, Height - 1);
                 e.Graphics.DrawRectangle(p, borderRect);
@@ -286,8 +286,10 @@ namespace MetroFramework.Controls
 
             if (marqueeTimer == null)
             {
-                marqueeTimer = new();
-                marqueeTimer.Interval = 10;
+                marqueeTimer = new()
+                {
+                    Interval = 10
+                };
                 marqueeTimer.Tick += new EventHandler(marqueeTimer_Tick);
             }
 

@@ -166,7 +166,7 @@ namespace MetroFramework.Controls
             if (useCustomBackground)
                 backColor = BackColor;
             else
-                backColor = MetroPaint.BackColor.Form(Theme);
+                backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
             if (isHovered && !isPressed && Enabled)
             {

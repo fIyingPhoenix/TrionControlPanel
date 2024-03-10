@@ -170,7 +170,7 @@ namespace MetroFramework.Forms
         {
             base.OnPaint(e);
 
-            using (SolidBrush b = new(MetroPaint.BackColor.Form(Theme)))
+            using (SolidBrush b = new(MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal")))
             {
                 e.Graphics.FillRectangle(b, new Rectangle(Width - progressWidth, 0, progressWidth, 5));
             }

@@ -210,9 +210,9 @@ namespace MetroFramework.Controls
 
         #region Fields
         //Additional variables to be used by HideTab and ShowTab
-        private List<string> tabDisable = new List<string>();
-        private List<string> tabOrder = new List<string>();
-        private List<HiddenTabs> hidTabs = new List<HiddenTabs>();
+        private List<string> tabDisable = new();
+        private List<string> tabOrder = new();
+        private List<HiddenTabs> hidTabs = new();
 
         private SubClass scUpDown = null;
         private bool bUpDown = false;
@@ -310,7 +310,7 @@ namespace MetroFramework.Controls
 
                 if (!useCustomBackColor)
                 {
-                    backColor = MetroPaint.BackColor.Form(Theme);
+                    backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                 }
 
                 if (backColor.A == 255 && BackgroundImage == null)
@@ -370,7 +370,7 @@ namespace MetroFramework.Controls
 
         private void DrawTabBottomBorder(int index, Graphics graphics)
         {
-            using (Brush bgBrush = new SolidBrush(MetroPaint.BorderColor.TabControl.Normal(Theme)))
+            using (Brush bgBrush = new SolidBrush(MetroPaint.BorderColor.TabControl.GetButtonColor(Theme,"Normal")))
             {
                 Rectangle borderRectangle = new Rectangle(DisplayRectangle.X, GetTabRect(index).Bottom + 2 - TabBottomBorderHeight, DisplayRectangle.Width, TabBottomBorderHeight);
                 graphics.FillRectangle(bgBrush, borderRectangle);
@@ -408,7 +408,7 @@ namespace MetroFramework.Controls
 
             if (!useCustomBackColor)
             {
-                backColor = MetroPaint.BackColor.Form(Theme);
+                backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
             }
 
             TabPage tabPage = TabPages[index];
@@ -451,7 +451,7 @@ namespace MetroFramework.Controls
         [SecuritySafeCritical]
         private void DrawUpDown(Graphics graphics)
         {
-            Color backColor = Parent != null ? Parent.BackColor : MetroPaint.BackColor.Form(Theme);
+            Color backColor = Parent != null ? Parent.BackColor : MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
             Rectangle borderRect = new Rectangle();
             WinApi.GetClientRect(scUpDown.Handle, ref borderRect);
@@ -461,7 +461,7 @@ namespace MetroFramework.Controls
 
             graphics.Clear(backColor);
 
-            using (Brush b = new SolidBrush(MetroPaint.BorderColor.TabControl.Normal(Theme)))
+            using (Brush b = new SolidBrush(MetroPaint.BorderColor.TabControl.GetButtonColor(Theme, "Normal")))
             {
                 GraphicsPath gp = new GraphicsPath(FillMode.Winding);
                 PointF[] pts = { new PointF(6, 6), new PointF(16, 0), new PointF(16, 12) };

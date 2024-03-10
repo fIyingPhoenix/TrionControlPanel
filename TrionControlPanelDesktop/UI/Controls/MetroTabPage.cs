@@ -304,7 +304,7 @@ namespace MetroFramework.Controls
 
                 if (!useCustomBackColor)
                 {
-                    backColor = MetroPaint.BackColor.Form(Theme);
+                    backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                 }
 
                 if (backColor.A == 255 && BackgroundImage == null)

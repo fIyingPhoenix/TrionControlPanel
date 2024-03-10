@@ -118,7 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="SettingsBTN.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BTNDownload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAEmSURBVGhD7ZdLCsIwFEUzdHEOBQduSIS6BTdgux/TgeO6
+        BSvaSF9t82maEsMNvAOXDppHzpVIVDAME4nLfSOq+iwq2XTPtyMPUdan71o4lJhd2kwpi34KCPXp2mQn
+        kfRs+ikgDFlP4DAk5XYa7T0cuiAXSI0uyAVSowtygdToglwgNbogF0iNLghV4Frvu5/LT0NiNp4Cc1F7
+        qT2jUspdWIm1BWTb7XXod41MUImQAsP/hD/KE4tLLC2QUp6wlpAvUd6Kn7Art2O3vu1naDahPLGqBIo8
+        EVQCTZ5YVAJVnpgtgS5P2C87JT6VV2uiX1KxcN7YOcgTrhJZyBPGdwLxzPsYSuQoT6gjk82xYRgGhPHl
+        gxgvtiGkeLENIcWLbQgpDMOMEOIDnESCVzHKHTAAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAAudJREFUWEfdWEmLE0EULsXlF7j8APddQWVc7oLiWT2rf8GbCiqOI24nZ0AYERRJ
@@ -136,7 +147,7 @@
         tPdX0IxPs8Fgih86GvF+NhgZbyGJISLtocfgPPwD/89UDiF+AZ3TN7eBiT8SAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="TerminaBTN.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BTNTermina.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAAKJJREFUSEvtljsOAjEMRH0uPj2Iq5LseZYsDXAP2KA4MhoXIGVE4ye9Ippx3KSI
@@ -145,7 +156,7 @@
         QCZfnwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="HomeBTN.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BTNHome.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAAvFJREFUWEftl7tuFDEUho3EpeP2AkAHHYQ3ACSuBRWQAngJoA4gwfIEkIJrmYw9

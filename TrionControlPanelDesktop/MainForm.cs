@@ -142,9 +142,9 @@ namespace TrionControlPanelDesktop
                 BTNStartLogin.Visible = true;
                 BTNStartWorld.Visible = true;
                 BTNStartMySQL.Visible = true;
-                HomeBTN.Visible = true;
-                SettingsBTN.Visible = true;
-                TerminaBTN.Visible = true;
+                BTNHome.Visible = true;
+                BTNSettings.Visible = true;
+                BTNTermina.Visible = true;
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;

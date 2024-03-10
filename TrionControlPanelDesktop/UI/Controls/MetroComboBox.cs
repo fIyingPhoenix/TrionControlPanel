@@ -112,7 +112,7 @@ namespace MetroFramework.Controls
         {
             get
             {
-                return MetroPaint.BackColor.Form(Theme);
+                return MetroPaint.BackColor.Form.GetButtonColor(Theme,"Normal");
             }
         }
 
@@ -168,27 +168,27 @@ namespace MetroFramework.Controls
             if (Parent != null)
                 backColor = Parent.BackColor;
             else
-                backColor = MetroPaint.BackColor.Form(Theme);
+                backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
             if (isHovered && !isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.ComboBox.Hover(Theme);
-                borderColor = MetroPaint.BorderColor.ComboBox.Hover(Theme);
+                borderColor = MetroPaint.BorderColor.ComboBox.GetButtonColor(Theme, "Hover");
             }
             else if (isHovered && isPressed && Enabled)
             {
                 foreColor = MetroPaint.ForeColor.ComboBox.Press(Theme);
-                borderColor = MetroPaint.BorderColor.ComboBox.Press(Theme);
+                borderColor = MetroPaint.BorderColor.ComboBox.GetButtonColor(Theme,"Press");
             }
             else if (!Enabled)
             {
                 foreColor = MetroPaint.ForeColor.ComboBox.Disabled(Theme);
-                borderColor = MetroPaint.BorderColor.ComboBox.Disabled(Theme);
+                borderColor = MetroPaint.BorderColor.ComboBox.GetButtonColor(Theme, "Disabled");
             }
             else
             {
                 foreColor = MetroPaint.ForeColor.ComboBox.Normal(Theme);
-                borderColor = MetroPaint.BorderColor.ComboBox.Normal(Theme);
+                borderColor = MetroPaint.BorderColor.ComboBox.GetButtonColor(Theme, "Normal");
             }
 
             e.Graphics.Clear(backColor);
@@ -219,7 +219,7 @@ namespace MetroFramework.Controls
 
                 if (e.State == (DrawItemState.NoAccelerator | DrawItemState.NoFocusRect) || e.State == DrawItemState.None)
                 {
-                    backColor = MetroPaint.BackColor.Form(Theme);
+                    backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme,"Normal");
                     foreColor = MetroPaint.ForeColor.Link.Normal(Theme);
                 }
                 else

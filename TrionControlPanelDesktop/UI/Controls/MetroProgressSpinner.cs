@@ -245,7 +245,7 @@ namespace MetroFramework.Controls
                 }
                 else
                 {
-                    backColor = MetroPaint.BackColor.Form(Theme);
+                    backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                     foreColor = MetroPaint.GetStyleColor(Style);
                 }
             }

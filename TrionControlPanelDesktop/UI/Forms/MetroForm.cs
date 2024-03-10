@@ -104,7 +104,7 @@ namespace MetroFramework.Forms
         [Browsable(false)]
         public override Color BackColor
         {
-            get { return MetroPaint.BackColor.Form(Theme); }
+            get { return MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal"); }
         }
 
         [DefaultValue(FormBorderStyle.None)]
@@ -230,7 +230,7 @@ namespace MetroFramework.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Color backColor = MetroPaint.BackColor.Form(Theme);
+            Color backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
             Color foreColor = MetroPaint.ForeColor.Title(Theme);
 
             e.Graphics.Clear(backColor);
@@ -616,7 +616,7 @@ namespace MetroFramework.Forms
                 {
                     if (Parent is IMetroForm)
                     {
-                        backColor = MetroPaint.BackColor.Form(Theme);
+                        backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                     }
                     else if (Parent is IMetroControl)
                     {
@@ -629,7 +629,7 @@ namespace MetroFramework.Forms
                 }
                 else
                 {
-                    backColor = MetroPaint.BackColor.Form(Theme);
+                    backColor = MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
                 }
 
                 if (isHovered && !isPressed && Enabled)

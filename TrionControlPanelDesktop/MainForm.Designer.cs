@@ -35,10 +35,11 @@ namespace TrionControlPanelDesktop
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
             panel2 = new Panel();
+            BTNDownload = new UI.Controls.CustomButton();
             LblVersion = new Label();
-            SettingsBTN = new UI.Controls.CustomButton();
-            TerminaBTN = new UI.Controls.CustomButton();
-            HomeBTN = new UI.Controls.CustomButton();
+            BTNSettings = new UI.Controls.CustomButton();
+            BTNTermina = new UI.Controls.CustomButton();
+            BTNHome = new UI.Controls.CustomButton();
             PNLControl = new MetroPanel();
             TimerWacher = new System.Windows.Forms.Timer(components);
             PnlButtonFront = new MetroPanel();
@@ -66,15 +67,36 @@ namespace TrionControlPanelDesktop
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 39, 46);
+            panel2.Controls.Add(BTNDownload);
             panel2.Controls.Add(LblVersion);
-            panel2.Controls.Add(SettingsBTN);
-            panel2.Controls.Add(TerminaBTN);
-            panel2.Controls.Add(HomeBTN);
+            panel2.Controls.Add(BTNSettings);
+            panel2.Controls.Add(BTNTermina);
+            panel2.Controls.Add(BTNHome);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(90, 597);
             panel2.TabIndex = 1;
+            // 
+            // BTNDownload
+            // 
+            BTNDownload.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDownload.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDownload.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDownload.BorderRadius = 0;
+            BTNDownload.BorderSize = 1;
+            BTNDownload.Cursor = Cursors.Hand;
+            BTNDownload.FlatAppearance.BorderSize = 0;
+            BTNDownload.FlatStyle = FlatStyle.Flat;
+            BTNDownload.ForeColor = Color.White;
+            BTNDownload.Image = (Image)resources.GetObject("BTNDownload.Image");
+            BTNDownload.Location = new Point(10, 250);
+            BTNDownload.Name = "BTNDownload";
+            BTNDownload.Size = new Size(70, 70);
+            BTNDownload.TabIndex = 5;
+            BTNDownload.TextColor = Color.White;
+            BTNDownload.UseVisualStyleBackColor = false;
+            BTNDownload.Visible = false;
             // 
             // LblVersion
             // 
@@ -86,68 +108,68 @@ namespace TrionControlPanelDesktop
             LblVersion.Text = "Version: ";
             LblVersion.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // SettingsBTN
+            // BTNSettings
             // 
-            SettingsBTN.BackColor = Color.FromArgb(28, 33, 40);
-            SettingsBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            SettingsBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            SettingsBTN.BorderRadius = 0;
-            SettingsBTN.BorderSize = 1;
-            SettingsBTN.Cursor = Cursors.Hand;
-            SettingsBTN.FlatAppearance.BorderSize = 0;
-            SettingsBTN.FlatStyle = FlatStyle.Flat;
-            SettingsBTN.ForeColor = Color.White;
-            SettingsBTN.Image = (Image)resources.GetObject("SettingsBTN.Image");
-            SettingsBTN.Location = new Point(10, 168);
-            SettingsBTN.Name = "SettingsBTN";
-            SettingsBTN.Size = new Size(70, 70);
-            SettingsBTN.TabIndex = 3;
-            SettingsBTN.TextColor = Color.White;
-            SettingsBTN.UseVisualStyleBackColor = false;
-            SettingsBTN.Visible = false;
-            SettingsBTN.Click += SettingsBTN_Click;
+            BTNSettings.BackColor = Color.FromArgb(28, 33, 40);
+            BTNSettings.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNSettings.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNSettings.BorderRadius = 0;
+            BTNSettings.BorderSize = 1;
+            BTNSettings.Cursor = Cursors.Hand;
+            BTNSettings.FlatAppearance.BorderSize = 0;
+            BTNSettings.FlatStyle = FlatStyle.Flat;
+            BTNSettings.ForeColor = Color.White;
+            BTNSettings.Image = (Image)resources.GetObject("BTNSettings.Image");
+            BTNSettings.Location = new Point(10, 170);
+            BTNSettings.Name = "BTNSettings";
+            BTNSettings.Size = new Size(70, 70);
+            BTNSettings.TabIndex = 3;
+            BTNSettings.TextColor = Color.White;
+            BTNSettings.UseVisualStyleBackColor = false;
+            BTNSettings.Visible = false;
+            BTNSettings.Click += SettingsBTN_Click;
             // 
-            // TerminaBTN
+            // BTNTermina
             // 
-            TerminaBTN.BackColor = Color.FromArgb(28, 33, 40);
-            TerminaBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            TerminaBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            TerminaBTN.BorderRadius = 0;
-            TerminaBTN.BorderSize = 1;
-            TerminaBTN.Cursor = Cursors.Hand;
-            TerminaBTN.FlatAppearance.BorderSize = 0;
-            TerminaBTN.FlatStyle = FlatStyle.Flat;
-            TerminaBTN.ForeColor = Color.White;
-            TerminaBTN.Image = (Image)resources.GetObject("TerminaBTN.Image");
-            TerminaBTN.Location = new Point(10, 89);
-            TerminaBTN.Name = "TerminaBTN";
-            TerminaBTN.Size = new Size(70, 70);
-            TerminaBTN.TabIndex = 2;
-            TerminaBTN.TextColor = Color.White;
-            TerminaBTN.UseVisualStyleBackColor = false;
-            TerminaBTN.Visible = false;
-            TerminaBTN.Click += TerminaBTN_Click;
+            BTNTermina.BackColor = Color.FromArgb(28, 33, 40);
+            BTNTermina.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNTermina.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNTermina.BorderRadius = 0;
+            BTNTermina.BorderSize = 1;
+            BTNTermina.Cursor = Cursors.Hand;
+            BTNTermina.FlatAppearance.BorderSize = 0;
+            BTNTermina.FlatStyle = FlatStyle.Flat;
+            BTNTermina.ForeColor = Color.White;
+            BTNTermina.Image = (Image)resources.GetObject("BTNTermina.Image");
+            BTNTermina.Location = new Point(10, 90);
+            BTNTermina.Name = "BTNTermina";
+            BTNTermina.Size = new Size(70, 70);
+            BTNTermina.TabIndex = 2;
+            BTNTermina.TextColor = Color.White;
+            BTNTermina.UseVisualStyleBackColor = false;
+            BTNTermina.Visible = false;
+            BTNTermina.Click += TerminaBTN_Click;
             // 
-            // HomeBTN
+            // BTNHome
             // 
-            HomeBTN.BackColor = Color.FromArgb(28, 33, 40);
-            HomeBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            HomeBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            HomeBTN.BorderRadius = 0;
-            HomeBTN.BorderSize = 1;
-            HomeBTN.Cursor = Cursors.Hand;
-            HomeBTN.FlatAppearance.BorderSize = 0;
-            HomeBTN.FlatStyle = FlatStyle.Flat;
-            HomeBTN.ForeColor = Color.White;
-            HomeBTN.Image = (Image)resources.GetObject("HomeBTN.Image");
-            HomeBTN.Location = new Point(10, 10);
-            HomeBTN.Name = "HomeBTN";
-            HomeBTN.Size = new Size(70, 70);
-            HomeBTN.TabIndex = 1;
-            HomeBTN.TextColor = Color.White;
-            HomeBTN.UseVisualStyleBackColor = false;
-            HomeBTN.Visible = false;
-            HomeBTN.Click += HomeBTN_Click;
+            BTNHome.BackColor = Color.FromArgb(28, 33, 40);
+            BTNHome.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNHome.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNHome.BorderRadius = 0;
+            BTNHome.BorderSize = 1;
+            BTNHome.Cursor = Cursors.Hand;
+            BTNHome.FlatAppearance.BorderSize = 0;
+            BTNHome.FlatStyle = FlatStyle.Flat;
+            BTNHome.ForeColor = Color.White;
+            BTNHome.Image = (Image)resources.GetObject("BTNHome.Image");
+            BTNHome.Location = new Point(10, 10);
+            BTNHome.Name = "BTNHome";
+            BTNHome.Size = new Size(70, 70);
+            BTNHome.TabIndex = 1;
+            BTNHome.TextColor = Color.White;
+            BTNHome.UseVisualStyleBackColor = false;
+            BTNHome.Visible = false;
+            BTNHome.Click += HomeBTN_Click;
             // 
             // PNLControl
             // 
@@ -369,9 +391,9 @@ namespace TrionControlPanelDesktop
 
         private Panel panel1;
         private Panel panel2;
-        private UI.Controls.CustomButton HomeBTN;
-        private UI.Controls.CustomButton SettingsBTN;
-        private UI.Controls.CustomButton TerminaBTN;
+        private UI.Controls.CustomButton BTNHome;
+        private UI.Controls.CustomButton BTNSettings;
+        private UI.Controls.CustomButton BTNTermina;
         private Label LblVersion;
         private MetroPanel PNLControl;
         private System.Windows.Forms.Timer TimerWacher;
@@ -382,5 +404,6 @@ namespace TrionControlPanelDesktop
         private UI.Controls.CustomButton BTNStartWorld;
         private MetroPanel ContributorsPNLFront;
         private System.Windows.Forms.Timer TimerChangeControl;
+        private UI.Controls.CustomButton BTNDownload;
     }
 }
