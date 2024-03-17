@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Media;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using MetroFramework.Forms;
-using MetroFramework.Interfaces;
-
 namespace MetroFramework
 {
     /// <summary>
@@ -36,14 +26,7 @@ namespace MetroFramework
             control.ArrangeApperance();
             if (Sound)
             {
-                var soundMap = new Dictionary<MessageBoxIcon, SystemSound>
-                {
-                { MessageBoxIcon.Error, SystemSounds.Hand },
-                { MessageBoxIcon.Exclamation, SystemSounds.Exclamation },
-                { MessageBoxIcon.Question, SystemSounds.Beep },
-                { MessageBoxIcon.None, SystemSounds.Hand }
-                };
-                soundMap[icon]?.Play();
+
             }
 
             control.ShowDialog(ownerForm);

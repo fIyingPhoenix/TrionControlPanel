@@ -363,6 +363,7 @@ namespace TrionControlPanelDesktop
             BTNDownload.TabIndex = 8;
             BTNDownload.TextColor = Color.White;
             BTNDownload.UseVisualStyleBackColor = true;
+            BTNDownload.Visible = false;
             BTNDownload.Click += BTNDownload_Click;
             // 
             // BTNNotification

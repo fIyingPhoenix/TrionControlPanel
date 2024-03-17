@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Threading;
-
+using System.Threading.Tasks;
 
 namespace TrionLibrary
 {
@@ -160,35 +160,40 @@ namespace TrionLibrary
             }
             return EnumModels.ServerStatus.Running;
         }
-        public static void ApplicationStart(string ApplicationName, bool HideWindw, string Arguments)
+        public static void ApplicationStart(string Application,string Name, bool HideWindw, string Arguments)
         {
+            Data.Message = $@"Starting {Name}!";
+            Thread.Sleep(100);
             try
             {
                 using (Process myProcess = new Process())
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = ApplicationName;
+                    myProcess.StartInfo.FileName = Application;
                     if(Arguments != null)
                     {
                         myProcess.StartInfo.Arguments = Arguments;
+                        
                     }
-                        if (HideWindw == false)
+                    if (HideWindw == false)
                     {
-
                         myProcess.StartInfo.CreateNoWindow = false;
                         myProcess.Start();
+                        
                     }
-                    else if (HideWindw == true)
+                    if (HideWindw == true)
                     {
                         myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();
+                        myProcess.Start();       
                     }
-                }
+                        // complete the task
+                        Data.Message = $@"Successfully rune {Name}!";
+                } 
             }
             catch (Exception ex)
             {
-                Data.Message = ex.Message;
+                Data.Message = ex.Message; 
             }
         }
         public static int ApplicationRamUsage(string ApplicationName)

@@ -39,7 +39,10 @@
             TimerWacher = new System.Windows.Forms.Timer(components);
             LBLFIleName = new Label();
             TimerDownloadStart = new System.Windows.Forms.Timer(components);
+            LBLTitle = new Label();
+            metroPanel1 = new MetroFramework.Controls.MetroPanel();
             PNLDownloadStatus.SuspendLayout();
+            metroPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // PBARDownload
@@ -74,7 +77,7 @@
             PNLDownloadStatus.HorizontalScrollbarBarColor = true;
             PNLDownloadStatus.HorizontalScrollbarHighlightOnWheel = false;
             PNLDownloadStatus.HorizontalScrollbarSize = 10;
-            PNLDownloadStatus.Location = new Point(19, 49);
+            PNLDownloadStatus.Location = new Point(19, 93);
             PNLDownloadStatus.Name = "PNLDownloadStatus";
             PNLDownloadStatus.Padding = new Padding(2);
             PNLDownloadStatus.Size = new Size(348, 186);
@@ -164,11 +167,49 @@
             TimerDownloadStart.Interval = 1000;
             TimerDownloadStart.Tick += TimerDownloadStart_Tick;
             // 
+            // LBLTitle
+            // 
+            LBLTitle.Dock = DockStyle.Fill;
+            LBLTitle.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLTitle.ForeColor = Color.White;
+            LBLTitle.Location = new Point(2, 2);
+            LBLTitle.Name = "LBLTitle";
+            LBLTitle.Size = new Size(796, 58);
+            LBLTitle.TabIndex = 37;
+            LBLTitle.Text = "Title";
+            LBLTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // metroPanel1
+            // 
+            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel1.Border = true;
+            metroPanel1.BorderColor = Color.Black;
+            metroPanel1.BorderSize = 1;
+            metroPanel1.Controls.Add(LBLTitle);
+            metroPanel1.CustomBackground = true;
+            metroPanel1.HorizontalScrollbar = true;
+            metroPanel1.HorizontalScrollbarBarColor = true;
+            metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel1.HorizontalScrollbarSize = 10;
+            metroPanel1.Location = new Point(19, 14);
+            metroPanel1.Name = "metroPanel1";
+            metroPanel1.Padding = new Padding(2);
+            metroPanel1.Size = new Size(800, 62);
+            metroPanel1.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel1.StyleManager = null;
+            metroPanel1.TabIndex = 38;
+            metroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel1.VerticalScrollbar = true;
+            metroPanel1.VerticalScrollbarBarColor = true;
+            metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel1.VerticalScrollbarSize = 10;
+            // 
             // DownloadControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
+            Controls.Add(metroPanel1);
             Controls.Add(LBLFIleName);
             Controls.Add(PNLDownloadStatus);
             Controls.Add(PBARDownload);
@@ -177,6 +218,7 @@
             Load += DownloadControl_Load;
             PNLDownloadStatus.ResumeLayout(false);
             PNLDownloadStatus.PerformLayout();
+            metroPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -193,5 +235,7 @@
         private Label LBLStatus;
         private Label LBLFIleName;
         private System.Windows.Forms.Timer TimerDownloadStart;
+        private Label LBLTitle;
+        private MetroFramework.Controls.MetroPanel metroPanel1;
     }
 }

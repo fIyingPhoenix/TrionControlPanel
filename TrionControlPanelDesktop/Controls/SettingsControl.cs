@@ -15,6 +15,9 @@ namespace TrionControlPanelDesktop.Controls
         private string MySQLVerON = "";
         private string SPPVerOFF = "";
         private string SPPVerON = "";
+        private bool TrionUpdate = false;
+        private bool MysqlUpdate = false;
+        private bool SppUpdate = false;
 
         static System.Threading.Timer TextTimer;
         public SettingsControl()
@@ -106,41 +109,49 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableName = "world";
                     Data.Settings.LogonExecutableName = "logon";
                     Data.Settings.SelectedCore = Cores.AscEmu;
+                    Data.Message = "The core has been changed to AscEmu";
                     break;
                 case "AzerothCore":
                     Data.Settings.WorldExecutableName = "worldserver";
                     Data.Settings.LogonExecutableName = "authserver";
                     Data.Settings.SelectedCore = Cores.AzerothCore;
+                    Data.Message = "The core has been changed to AzerothCore";
                     break;
                 case "CMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.CMaNGOS;
+                    Data.Message = "The core has been changed to CMaNGOS";
                     break;
                 case "CypherCore":
                     Data.Settings.WorldExecutableName = "WorldServer";
                     Data.Settings.LogonExecutableName = "BNetServer";
                     Data.Settings.SelectedCore = Cores.CypherCore;
+                    Data.Message = "The core has been changed to CypherCore";
                     break;
                 case "TrinityCore":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore;
+                    Data.Message = "The core has been changed to TrinityCore";
                     break;
                 case "TrinityCore335":
                     Data.Settings.WorldExecutableName = "authserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore335;
+                    Data.Message = "The core has been changed to TrinityCore335";
                     break;
                 case "TrinityCoreClassic":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
+                    Data.Message = "The core has been changed to TrinityCoreClassic";
                     break;
                 case "VMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.VMaNGOS;
+                    Data.Message = "The core has been changed to VMaNGOS";
                     break;
             }
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
@@ -178,26 +189,34 @@ namespace TrionControlPanelDesktop.Controls
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
             string Folder = GetFolder();
-            if (Folder != string.Empty)
+            try
             {
-                if (Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName) != string.Empty)
+                if (Folder != string.Empty)
                 {
-                    Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName);
-                    Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(Data.Settings.MySQLExecutableLocation, @"..\"));
-                    await Data.SaveSettings();
-                    Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-                    await Data.SaveSettings();
-                    await LoadData();
+                    if (Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName) != string.Empty)
+                    {
+                        Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName);
+                        Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(Data.Settings.MySQLExecutableLocation, @"..\"));
+                        await Data.SaveSettings();
+                        Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                        await Data.SaveSettings();
+                        await LoadData();
+                    }
+                    else
+                    {
+                        Data.Message = "Faild to find MySQL Lication.";
+                    }
                 }
                 else
                 {
-                    Data.Message = "Getting MySQL File location failed!";
+                    Data.Message = "Faild to select the folder.";
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Data.Message = "";
+                Data.Message = ex.Message;
             }
+
         }
         private async void BTNCoreExecLovation_Click(object sender, EventArgs e)
         {
@@ -234,10 +253,14 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BtnDownloadSPP_ClickAsync(object sender, EventArgs e)
         {
+            Data.Message = "Single Player Project is downloading!";
+            DownloadControl.Title = "Installing Single Player Project.";
             DownlaodThread(WebLinks.SPPCoreFiles);
         }
         private void BTNDownloadMySQL_Click(object sender, EventArgs e)
         {
+            Data.Message = "MySQL Server is downloading!";
+            DownloadControl.Title = "Installing MySQL Server.";
             DownlaodThread(WebLinks.MySQLFiles);
         }
         private void CheckForUpdate()
@@ -249,16 +272,16 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateCore)
                     {
-
                         DownlaodThread(WebLinks.SPPCoreUpdate);
                     }
                     else
                     {
-                        MainForm.UpdatePromptAppName = "Single Player Project";
+                        Data.Message = "A new update to the Single Player Project is available!";
+                        SppUpdate = true;
                     }
                 }
             }
-
+            Thread.Sleep(100);
             // MySQL Update
             if (!string.IsNullOrEmpty(MySQLVerOFF) && !string.IsNullOrEmpty(MySQLVerON))
             {
@@ -270,11 +293,12 @@ namespace TrionControlPanelDesktop.Controls
                     }
                     else
                     {
-                        MainForm.UpdatePromptAppName = "MySQL";
+                        Data.Message = "A new update for MySQL Server is available!";
+                        MysqlUpdate = true;
                     }
                 }
             }
-
+            Thread.Sleep(100);
             // Trion Update
             if (!string.IsNullOrEmpty(TrionVersOFF) && !string.IsNullOrEmpty(TrionVersON))
             {
@@ -282,12 +306,12 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateTrion)
                     {
-
                         DownlaodThread(WebLinks.TrionUpdate);
                     }
                     else
                     {
-                        MainForm.UpdatePromptAppName = "Trion";
+                        Data.Message = "A new update for Trion Control Panel is available!";
+                        TrionUpdate = true;
                     }
                 }
             }
@@ -317,7 +341,6 @@ namespace TrionControlPanelDesktop.Controls
             Thread DwonloadThread = new(async () =>
             {
                 await Task.Run(() => DownloadControl.AddToList(Weblink));
-                MainForm.LoadDownloadControl();
             });
             DwonloadThread.Start();
         }
@@ -346,14 +369,20 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (UIData.MySQLisRunning == false)
             {
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--initialize --console");
-
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
             }
             else
             {
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--initialize --console");
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
             }
+        }
+
+        private void BTNTrionUpdate_Click(object sender, EventArgs e)
+        {
+            if (TrionUpdate) {DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
+            if (SppUpdate) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
+            if (MysqlUpdate) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
         }
     }
 }

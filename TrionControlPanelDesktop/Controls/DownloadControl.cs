@@ -3,6 +3,7 @@ using System.IO.Compression;
 
 using TrionControlPanelDesktop.FormData;
 using System;
+using TrionLibrary;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -14,6 +15,7 @@ namespace TrionControlPanelDesktop.Controls
         // Counting Downloaded URLs
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
+        public static string Title { get; set; }
         public DownloadControl()
         {
             Dock = DockStyle.Fill;
@@ -40,7 +42,7 @@ namespace TrionControlPanelDesktop.Controls
                     foreach (var lines in strings)
                     {
                         string[] Entry = lines.Split(',');
-                        UrlData newUrlList = new();                   
+                        UrlData newUrlList = new();
                         if (Entry[1].Contains("1drv.ms"))
                         {
                             newUrlList.FileName = Entry[0];
@@ -53,7 +55,8 @@ namespace TrionControlPanelDesktop.Controls
                             newUrlList.FileWebLink = Entry[1];
                             newUrlList.FileType = Path.GetExtension(Entry[1]);
                         }
-                        DownloadList.Add(newUrlList);                        
+                        DownloadList.Add(newUrlList);
+                        UIData.CurrentDownloads++;
                     }
                     ListFull = true;
                 }
@@ -71,7 +74,7 @@ namespace TrionControlPanelDesktop.Controls
                 foreach (var url in DownloadList)
                 {
                     TotalDownloads = DownloadList.Count;
-                     // Update Downloaded URLs
+                    // Update Downloaded URLs
                     CurrentDownload++;
                     try
                     {
@@ -128,11 +131,13 @@ namespace TrionControlPanelDesktop.Controls
                             LBLStatus.Text = "Status: Done!";
                             // Delay task so we dont get Still in use error
                             await Task.Delay(1500);
-                            if(fileType.Contains(".zip"))
+                            if (fileType.Contains(".zip"))
                             {
                                 await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), FullFile), Directory.GetCurrentDirectory());
-                            }else if (fileType.Contains(".exe"))
+                            }
+                            else if (fileType.Contains(".exe"))
                             {
+                                UIData.CurrentDownloads--;
                                 Process.Start(downloadPath);
                                 Environment.Exit(0);
                             }
@@ -200,12 +205,12 @@ namespace TrionControlPanelDesktop.Controls
                 }
                 LBLStatus.Text = "Unzip operation completed successfully.";
                 File.Delete(zipFilePath);
-                if(TotalDownloads == CurrentDownload)
+                if (TotalDownloads == CurrentDownload)
                 {
-                    MainForm.LoadDownloadControl();
-                    MainForm.StartDirectoryScan(Directory.GetCurrentDirectory());
+                    Data.Message = "Download complete!";
                 }
-            }     
+                UIData.CurrentDownloads--;
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
@@ -213,7 +218,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if(ListFull == false)
+            if (ListFull == false)
             {
                 TimerDownloadStart.Start();
             }
@@ -221,10 +226,11 @@ namespace TrionControlPanelDesktop.Controls
         private void DownloadControl_Load(object sender, EventArgs e)
         {
             LBLQueue.Text = $@"{TotalDownloads} / {DownloadList.Count}";
+            LBLTitle.Text = Title;
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
-            if(ListFull == true)
+            if (ListFull == true)
             {
                 TimerDownloadStart.Stop();
                 await Download();

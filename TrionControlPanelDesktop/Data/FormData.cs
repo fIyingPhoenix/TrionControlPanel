@@ -5,6 +5,7 @@ namespace TrionControlPanelDesktop.FormData
     public class UIData
     {
         public static int Notyfications {  get; set; }
+        public static int DownloadStatus { get; set; }
         public static int CurrentDownloads { get; set; }
         public static bool LoadData { get; set; }
         public static bool StartupUpdateCheck { get; set; }

@@ -1,6 +1,7 @@
 using MetroFramework;
 using MetroFramework.Forms;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
@@ -16,23 +17,7 @@ namespace TrionControlPanelDesktop
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
         readonly NotificationsControl notificationsControl = new();
-        public static string UpdatePromptAppName = string.Empty;
         public static CurrentControl CurrentControl { get; set; }
-        private string GetLink()
-        {
-            switch (UpdatePromptAppName)
-            {
-                case "Trion":
-                    return WebLinks.TrionUpdate;
-                case "Single Player Project":
-                    return WebLinks.SPPCoreUpdate;
-                case "MySQL":
-                    return WebLinks.MySQLUpdate;
-                default:
-                    break;
-            }
-            return string.Empty;
-        }
         private static bool LoadControl = false;
         void LoadData()
         {
@@ -82,19 +67,6 @@ namespace TrionControlPanelDesktop
                 TimerChangeControl.Start();
             }
         }
-        public static void LoadDownloadControl()
-        {
-            if (CurrentControl != CurrentControl.Download)
-            {
-                CurrentControl = CurrentControl.Download;
-                LoadControl = true;
-            }
-            else
-            {
-                CurrentControl = CurrentControl.Home;
-                LoadControl = true;
-            }
-        }
         private void ButtonsDesing()
         {
             if (SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.NotRunning)
@@ -106,7 +78,7 @@ namespace TrionControlPanelDesktop
             if (SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.Running)
             {
                 BTNStartLogin.Text = "            Stop  Login  ";
-                BTNStartLogin.Image = Properties.Resources.stopp_35;
+                BTNStartLogin.Image = Properties.Resources.stop_35;
                 UIData.LogonisRunning = true;
             }
             if (SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.NotRunning)
@@ -118,7 +90,7 @@ namespace TrionControlPanelDesktop
             if (SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.Running)
             {
                 BTNStartWorld.Text = "            Stop  World ";
-                BTNStartWorld.Image = Properties.Resources.stopp_35;
+                BTNStartWorld.Image = Properties.Resources.stop_35;
                 UIData.WorldisRunning = true;
             }
             if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.NotRunning)
@@ -130,14 +102,32 @@ namespace TrionControlPanelDesktop
             if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.Running)
             {
                 BTNStartMySQL.Text = "            Stop  MySQL  ";
-                BTNStartMySQL.Image = Properties.Resources.stopp_35;
+                BTNStartMySQL.Image = Properties.Resources.stop_35;
                 UIData.MySQLisRunning = true;
+            }
+            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.Running || SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.Running || SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.Running)
+            {
+                BTNStartAll.Text = "            Stop  All  ";
+                BTNStartAll.Image = Properties.Resources.stop_35;
+                if (UIData.MySQLisRunning == false) { UIData.MySQLisRunning = true; }
+                if (UIData.WorldisRunning == false) { UIData.WorldisRunning = true; }
+                if (UIData.LogonisRunning == false) { UIData.LogonisRunning = true; }
+            }
+            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.NotRunning || SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.NotRunning || SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.NotRunning)
+            {
+                BTNStartAll.Text = "            Start  All ";
+                BTNStartAll.Image = Properties.Resources.play_35;
+                if (UIData.MySQLisRunning) { UIData.MySQLisRunning = false; }
+                if (UIData.WorldisRunning) { UIData.WorldisRunning = false; }
+                if (UIData.LogonisRunning) { UIData.LogonisRunning = false; }
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             BTNNotification.NotificationCount = UIData.Notyfications;
+            BTNDownload.NotificationCount = UIData.DownloadStatus;
             BTNDownload.NotificationCount = UIData.CurrentDownloads;
+            BTNDownload.Visible = UIData.CurrentDownloads > 0;
             ButtonsDesing();
             if (LoadControl == true)
             {
@@ -156,26 +146,17 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
                 UIData.StartupUpdateCheck = true;
-
                 if (Data.Settings.FirstRun == true)
                 {
                     StartDirectoryScan(Directory.GetCurrentDirectory());
                 }
             }
-            if (UpdatePromptAppName != string.Empty)
-            {
-                UpdatePromptAppName = string.Empty;
-                if (ShowUpdatePrompt(UpdatePromptAppName))
-                {
-                    SettingsControl.DownlaodThread(GetLink());
-                }
-            }
         }
-        private void ManageProcess(bool isRunning, string executableLocation, string executableName)
+        static void ManageProcess(bool isRunning, string executableLocation, string executableName)
         {
             if (!isRunning && !string.IsNullOrEmpty(executableLocation))
             {
-                SystemWatcher.ApplicationStart(executableLocation, Data.Settings.ConsolHide, null);
+                SystemWatcher.ApplicationStart(executableLocation, executableName, Data.Settings.ConsolHide, null);
             }
             else if (isRunning)
             {
@@ -185,7 +166,6 @@ namespace TrionControlPanelDesktop
         private void BTNStartAll_Click(object sender, EventArgs e)
         {
             ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
-
             string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
             ManageProcess(UIData.MySQLisRunning, Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName);
 
@@ -195,7 +175,7 @@ namespace TrionControlPanelDesktop
                 {
                     Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 }
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
             }
 
             ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
@@ -220,12 +200,12 @@ namespace TrionControlPanelDesktop
         {
             if (!UIData.MySQLisRunning && Data.Settings.MySQLExecutableLocation != string.Empty)
             {
-                string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
+                string configFile = "my.ini";
                 if (!File.Exists(configFile))
                 {
                     Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 }
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
             }
             else if (UIData.MySQLisRunning)
             {
@@ -234,13 +214,13 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
+            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
+            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
         }
-        public static void StartDirectoryScan(string path)
+        public void StartDirectoryScan(string path)
         {
             if (Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName) != string.Empty)
             {
@@ -253,7 +233,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                if (MessageBox.Show("MySQL Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "MySQL Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     using (var FolderBrowser = new FolderBrowserDialog())
                     {
@@ -278,7 +258,8 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                if (MessageBox.Show("Core Directory not Found! Do you want To look for it?", "Info!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     using (var FolderBrowser = new FolderBrowserDialog())
                     {
@@ -318,16 +299,10 @@ namespace TrionControlPanelDesktop
                     break;
                 default: break;
             }
-
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await Data.SaveSettings();
         }
-        private bool ShowUpdatePrompt(string appName)
-        {
-            return MetroMessageBox.Show(this, $"A new {appName} version is available.\nDo you want to download it?", "Update Available!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
-        }
-
     }
 }

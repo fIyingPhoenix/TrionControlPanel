@@ -125,7 +125,7 @@
             DGVNotifications.ShowCellToolTips = false;
             DGVNotifications.ShowEditingIcon = false;
             DGVNotifications.ShowRowErrors = false;
-            DGVNotifications.Size = new Size(789, 278);
+            DGVNotifications.Size = new Size(789, 290);
             DGVNotifications.TabIndex = 0;
             // 
             // ID
@@ -173,7 +173,7 @@
             PNLNotify.Location = new Point(24, 25);
             PNLNotify.Name = "PNLNotify";
             PNLNotify.Padding = new Padding(2);
-            PNLNotify.Size = new Size(793, 282);
+            PNLNotify.Size = new Size(793, 294);
             PNLNotify.Style = MetroFramework.MetroColorStyle.Blue;
             PNLNotify.StyleManager = null;
             PNLNotify.TabIndex = 31;

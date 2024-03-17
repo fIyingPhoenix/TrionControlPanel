@@ -38,36 +38,46 @@ namespace TrionLibrary
             }
             public static string GetLocal(string Location)
             {
-                if (!string.IsNullOrEmpty(Location))
+                try
                 {
-                    if(Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
+                    if (!string.IsNullOrEmpty(Location))
                     {
-                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                        // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
-                        if (versionInfo.FileVersion.Contains("SPP"))
+                        if (Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
                         {
-                            string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
-                            // Create a Regex object with the pattern
-                            Regex regex = new Regex(pattern);
-                            // Find all matches in the text
-                            MatchCollection matches = regex.Matches(versionInfo.ToString());
-                            // Print each match
-                            foreach (Match match in matches)
+                            var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                            // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
+                            if (versionInfo.FileVersion.Contains("SPP"))
                             {
-                                return match.Value;
+                                string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
+                                // Create a Regex object with the pattern
+                                Regex regex = new Regex(pattern);
+                                // Find all matches in the text
+                                MatchCollection matches = regex.Matches(versionInfo.ToString());
+                                // Print each match
+                                foreach (Match match in matches)
+                                {
+                                    return match.Value;
+                                }
                             }
+                            return "N/A";
                         }
-                        return "N/A";
+                        else
+                        {
+                            var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                            return versionInfo.FileVersion;
+                        }
                     }
                     else
                     {
-                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                        return versionInfo.FileVersion;
+                        return "N/A";
                     }
-                } else
+                }
+                catch (Exception ex)
                 {
+                    Data.Message = $@"Failed to get the application version! {ex.Message}";
                     return "N/A";
                 }
+                
             }
         }
         //Error Message (4 later) dont feel do it now
