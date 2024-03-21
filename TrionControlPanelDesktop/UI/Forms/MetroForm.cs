@@ -21,13 +21,8 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System;
-using System.Drawing;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
 using MetroFramework.Components;
 using MetroFramework.Drawing;
 using MetroFramework.Interfaces;
@@ -46,7 +41,8 @@ namespace MetroFramework.Forms
     public class MetroForm : Form, IMetroForm, IDisposable
     {
         #region Interface
-
+        [DllImport("User32.dll")]
+        private static extern bool SetProcessDPIAware();
         private MetroColorStyle metroStyle = MetroColorStyle.Blue;
         [Category("Metro Appearance")]
         public MetroColorStyle Style
@@ -204,7 +200,7 @@ namespace MetroFramework.Forms
             Name = "MetroForm";
             Padding = new Padding(20, 60, 20, 20);
             StartPosition = FormStartPosition.CenterScreen;
-
+            SetProcessDPIAware();
             RemoveCloseButton();
             FormBorderStyle = FormBorderStyle.None;
         }
@@ -237,6 +233,7 @@ namespace MetroFramework.Forms
 
             using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
             {
+               
                 Rectangle topRect = new(0, 0, Width, borderWidth);
                 e.Graphics.FillRectangle(b, topRect);
             }
@@ -503,12 +500,11 @@ namespace MetroFramework.Forms
                 }
             }
         }
-
         private void UpdateWindowButtonPosition()
         {
             if (!ControlBox) return;
 
-            Dictionary<int, WindowButtons> priorityOrder = new(3){ {0, WindowButtons.Close}, {1, WindowButtons.Maximize}, {2, WindowButtons.Minimize} };
+            Dictionary<int, WindowButtons> priorityOrder = new(3) { { 0, WindowButtons.Close }, { 1, WindowButtons.Maximize }, { 2, WindowButtons.Minimize } };
 
             Point firstButtonLocation = new(ClientRectangle.Width - 40, borderWidth);
             int lastDrawedButtonPosition = firstButtonLocation.X - 25;
@@ -544,7 +540,6 @@ namespace MetroFramework.Forms
 
             Refresh();
         }
-
         private class MetroFormButton : Button, IMetroControl
         {
             #region Interface

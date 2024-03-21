@@ -2,6 +2,7 @@ using MetroFramework;
 using MetroFramework.Forms;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;

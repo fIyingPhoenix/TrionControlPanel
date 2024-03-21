@@ -346,6 +346,7 @@ namespace TrionControlPanelDesktop
             // 
             // BTNDownload
             // 
+            BTNDownload.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BTNDownload.BackColor = Color.FromArgb(34, 39, 46);
             BTNDownload.BackgroundColor = Color.FromArgb(34, 39, 46);
             BTNDownload.BorderColor = Color.FromArgb(0, 174, 219);
@@ -368,6 +369,7 @@ namespace TrionControlPanelDesktop
             // 
             // BTNNotification
             // 
+            BTNNotification.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BTNNotification.BackColor = Color.FromArgb(34, 39, 46);
             BTNNotification.BackgroundColor = Color.FromArgb(34, 39, 46);
             BTNNotification.BorderColor = Color.FromArgb(0, 174, 219);
