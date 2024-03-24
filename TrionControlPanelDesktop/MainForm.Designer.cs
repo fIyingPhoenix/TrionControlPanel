@@ -387,6 +387,7 @@ namespace TrionControlPanelDesktop
             BTNNotification.TabIndex = 7;
             BTNNotification.TextColor = Color.White;
             BTNNotification.UseVisualStyleBackColor = true;
+            BTNNotification.Visible = false;
             BTNNotification.Click += BTNNotification_Click;
             // 
             // TimerChangeControl
@@ -415,7 +416,7 @@ namespace TrionControlPanelDesktop
             Theme = MetroFramework.MetroThemeStyle.Dark;
             TransparencyKey = Color.Magenta;
             FormClosing += MainForm_FormClosing;
-            Load += MainForm_Load;
+            Load += MainForm_LoadAsync;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             PnlButtonFront.ResumeLayout(false);

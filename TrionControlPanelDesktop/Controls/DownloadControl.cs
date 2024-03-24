@@ -2,7 +2,6 @@
 using System.IO.Compression;
 
 using TrionControlPanelDesktop.FormData;
-using System;
 using TrionLibrary;
 
 namespace TrionControlPanelDesktop.Controls
@@ -16,6 +15,8 @@ namespace TrionControlPanelDesktop.Controls
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
         public static string Title { get; set; }
+        public static bool InstallSPP { get; set; }
+        public static bool InstallMySQL { get; set; }
         public DownloadControl()
         {
             Dock = DockStyle.Fill;
@@ -31,6 +32,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         public async static Task AddToList(string Weblink)
         {
+            DownloadList.Clear();
             using (HttpClient client = new())
             {
                 if (!string.IsNullOrEmpty(Weblink))
@@ -84,7 +86,7 @@ namespace TrionControlPanelDesktop.Controls
                         using (HttpResponseMessage response = await client.GetAsync(url.FileWebLink, HttpCompletionOption.ResponseHeadersRead))
                         {
                             // Update Label
-                            LBLQueue.Text = $@"{CurrentDownload} / {TotalDownloads}";
+                            LBLQueue.Text = $"Queue: {CurrentDownload} / {TotalDownloads}";
                             LBLStatus.Text = "Status: Connect!";
                             // Check if request was successful
                             response.EnsureSuccessStatusCode();
@@ -143,8 +145,9 @@ namespace TrionControlPanelDesktop.Controls
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Data.Message = ex.Message;
                     }
                 }
             }
@@ -204,16 +207,53 @@ namespace TrionControlPanelDesktop.Controls
                     }
                 }
                 LBLStatus.Text = "Unzip operation completed successfully.";
+                LBLFIleName.Text = @$"File: ";
                 File.Delete(zipFilePath);
-                if (TotalDownloads == CurrentDownload)
+
+                if (CurrentDownload == TotalDownloads)
                 {
+                    CurrentDownload = 0;
+                    MainForm.LoadDownload = true;
                     Data.Message = "Download complete!";
+                    string path = Directory.GetCurrentDirectory();
+                    if (Directory.Exists($@"{path}\database\data")) { Directory.Delete($@"{path}\database\data", true); }
+                    if (Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName) != string.Empty)
+                    {
+                        Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName);
+                        if (Data.Settings.MySQLExecutableLocation != string.Empty)
+                        {
+                            string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
+                            Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
+                        }
+                    }
+                    if (Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName) != string.Empty)
+                    {
+                        Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.LogonExecutableName);
+                        Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(path, Data.Settings.WorldExecutableName);
+                        Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
+                    }
+                    await Data.SaveSettings();
+                    if (InstallSPP == true)
+                    {
+                        InstallSPP = false;
+                        ListFull = false;
+                        string SQLLocation = $@"{path}\database\extra\initSPP.sql";
+                        SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                    }
+                    if (InstallMySQL == true)
+                    {
+                        InstallMySQL = false;
+                        ListFull = false;
+                        string SQLLocation = $@"{path}\database\extra\initMySQL.sql";
+                        SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                    }
+
                 }
                 UIData.CurrentDownloads--;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                Data.Message = $"Error: {ex.Message}";
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
@@ -225,7 +265,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {
-            LBLQueue.Text = $@"{TotalDownloads} / {DownloadList.Count}";
+            //LBLQueue.Text = $@"Queue: {CurrentDownload} / {TotalDownloads}";
             LBLTitle.Text = Title;
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)

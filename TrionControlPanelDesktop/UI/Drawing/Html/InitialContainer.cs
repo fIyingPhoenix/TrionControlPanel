@@ -198,7 +198,7 @@ namespace MetroFramework.Drawing.Html
                     if (line.StartsWith("@media") && line.EndsWith("{"))
                     {
                         //Get specified media types in the at-rule
-                        string[] media = line.Substring(6, line.Length - 7).Split(' ');
+                        string[] media = line[6..^1].Split(' ');
 
                         //Scan media types
                         for (int i = 0; i < media.Length; i++)
@@ -209,7 +209,7 @@ namespace MetroFramework.Drawing.Html
                             MatchCollection insideBlocks = Parser.Match(Parser.CssBlocks, atrule);
 
                             //Scan blocks and feed them to the style sheet
-                            foreach (Match insideBlock in insideBlocks)
+                            foreach (Match insideBlock in insideBlocks.Cast<Match>())
                             {
                                 FeedStyleBlock(media[i].Trim(), insideBlock.Value);
                             }
@@ -225,7 +225,7 @@ namespace MetroFramework.Drawing.Html
 
             MatchCollection blocks = Parser.Match(Parser.CssBlocks, stylesheet);
 
-            foreach (Match match in blocks)
+            foreach (Match match in blocks.Cast<Match>())
             {
                 FeedStyleBlock("all", match.Value);
             }
@@ -244,7 +244,7 @@ namespace MetroFramework.Drawing.Html
             if (string.IsNullOrEmpty(media)) media = "all";
 
             int bracketIndex = block.IndexOf("{");
-            string blockSource = block.Substring(bracketIndex).Replace("{", string.Empty).Replace("}", string.Empty);
+            string blockSource = block[bracketIndex..].Replace("{", string.Empty).Replace("}", string.Empty);
 
             if (bracketIndex < 0) return;
 
@@ -256,13 +256,13 @@ namespace MetroFramework.Drawing.Html
             ///h1 > h2 {...
             ///h1:before {...
             ///h1:hover {...
-            string[] classes = block.Substring(0, bracketIndex).Split(',');
+            string[] classes = block[..bracketIndex].Split(',');
 
             for (int i = 0; i < classes.Length; i++)
             {
                 string className = classes[i].Trim(); if(string.IsNullOrEmpty(className)) continue;
 
-                CssBlock newblock = new CssBlock(blockSource);
+                CssBlock newblock = new(blockSource);
 
                 //Create media blocks if necessary
                 if (!MediaBlocks.ContainsKey(media)) MediaBlocks.Add(media, new Dictionary<string, CssBlock>());
@@ -305,22 +305,26 @@ namespace MetroFramework.Drawing.Html
             CssBox curBox = root;
             int lastEnd = -1;
 
-            foreach (Match tagmatch in tags)
+            foreach (Match tagmatch in tags.Cast<Match>())
             {
                 string text = tagmatch.Index > 0 ? DocumentSource.Substring(lastEnd + 1, tagmatch.Index - lastEnd - 1) : string.Empty;
 
                 if (!string.IsNullOrEmpty(text.Trim()))
                 {
-                    CssAnonymousBox abox = new CssAnonymousBox(curBox);
-                    abox.Text = text;
+                    CssAnonymousBox abox = new(curBox)
+                    {
+                        Text = text
+                    };
                 }
                 else if(text != null && text.Length > 0)
                 {
-                    CssAnonymousSpaceBox sbox = new CssAnonymousSpaceBox(curBox);
-                    sbox.Text = text;
+                    CssAnonymousSpaceBox sbox = new(curBox)
+                    {
+                        Text = text
+                    };
                 }
 
-                HtmlTag tag = new HtmlTag(tagmatch.Value);
+                HtmlTag tag = new(tagmatch.Value);
                 
                 if (tag.IsClosing)
                 {
@@ -328,7 +332,7 @@ namespace MetroFramework.Drawing.Html
                 }
                 else if(tag.IsSingle)
                 {
-                    CssBox foo = new CssBox(curBox, tag);
+                    CssBox foo = new(curBox, tag);
                 }
                 else
                 {
@@ -344,8 +348,10 @@ namespace MetroFramework.Drawing.Html
 
             if (!string.IsNullOrEmpty(finaltext))
             {
-                CssAnonymousBox abox = new CssAnonymousBox(curBox);
-                abox.Text = finaltext;
+                _ = new CssAnonymousBox(curBox)
+                {
+                    Text = finaltext
+                };
             }
         }
 
@@ -362,7 +368,7 @@ namespace MetroFramework.Drawing.Html
             }
             else if (b.HtmlTag != null && b.HtmlTag.TagName.Equals(tagName, StringComparison.CurrentCultureIgnoreCase))
             {
-                return b.ParentBox == null ? InitialContainer : b.ParentBox;
+                return b.ParentBox ?? InitialContainer;
             }
             else
             {
@@ -384,24 +390,30 @@ namespace MetroFramework.Drawing.Html
                 if (b.HtmlTag != null)
                 {
                     //Check if tag name matches with a defined class
-                    if (MediaBlocks["all"].ContainsKey(b.HtmlTag.TagName))
+                    if (!MediaBlocks["all"].ContainsKey(b.HtmlTag.TagName))
+                    {
+                    }
+                    else
                     {
                         MediaBlocks["all"][b.HtmlTag.TagName].AssignTo(b);
                     }
 
                     //Check if class="" attribute matches with a defined style
-                    if (b.HtmlTag.HasAttribute("class") &&
-                        MediaBlocks["all"].ContainsKey("." + b.HtmlTag.Attributes["class"]))
+                    if (!b.HtmlTag.HasAttribute("class") ||
+                        !MediaBlocks["all"].ContainsKey("." + b.HtmlTag.Attributes["class"]))
+                    {
+                    }
+                    else
                     {
                         MediaBlocks["all"]["." + b.HtmlTag.Attributes["class"]].AssignTo(b);
                     }
-                    
+
                     b.HtmlTag.TranslateAttributes(b);
 
                     //Check for the style="" attribute
                     if (b.HtmlTag.HasAttribute("style"))
                     {
-                        CssBlock block = new CssBlock(b.HtmlTag.Attributes["style"]);
+                        CssBlock block = new(b.HtmlTag.Attributes["style"]);
                         block.AssignTo(b);
                     }
 
@@ -416,7 +428,7 @@ namespace MetroFramework.Drawing.Html
                     if (b.HtmlTag.TagName.Equals("link", StringComparison.CurrentCultureIgnoreCase) &&
                         b.GetAttribute("rel", string.Empty).Equals("stylesheet", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        FeedStyleSheet(CssValue.GetStyleSheet(b.GetAttribute("href", string.Empty)));
+                        FeedStyleSheet(stylesheet: CssValue.GetStyleSheet(b.GetAttribute("href", string.Empty))!);
                     }
                 }
 
@@ -453,13 +465,13 @@ namespace MetroFramework.Drawing.Html
 
                     if (group.Count == 1 && group[0] is CssAnonymousSpaceBox)
                     {
-                        CssAnonymousSpaceBlockBox sbox = new CssAnonymousSpaceBlockBox(startBox, group[0]);
+                        CssAnonymousSpaceBlockBox sbox = new(startBox, group[0]);
 
                         group[0].ParentBox = sbox;
                     }
                     else
                     {
-                        CssAnonymousBlockBox newbox = new CssAnonymousBlockBox(startBox, group[0]);
+                        CssAnonymousBlockBox newbox = new(startBox, group[0]);
 
                         foreach (CssBox inline in group)
                         {
@@ -480,10 +492,10 @@ namespace MetroFramework.Drawing.Html
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
-        private List<List<CssBox>> BlockCorrection_GetInlineGroups(CssBox box)
+        private static List<List<CssBox>> BlockCorrection_GetInlineGroups(CssBox box)
         {
-            List<List<CssBox>> result = new List<List<CssBox>>();
-            List<CssBox> current = null;
+            List<List<CssBox>> result = new();
+            List<CssBox> current = null!;
 
             //Scan boxes
             for (int i = 0; i < box.Boxes.Count; i++)
@@ -502,13 +514,13 @@ namespace MetroFramework.Drawing.Html
                 }
                 else
                 {
-                    current = null;
+                    current = null!;
                 }
             }
 
 
             //If last list contains nothing, erase it
-            if (result.Count > 0 && result[result.Count - 1].Count == 0)
+            if (result.Count > 0 && result[^1].Count == 0)
             {
                 result.RemoveAt(result.Count - 1);
             }

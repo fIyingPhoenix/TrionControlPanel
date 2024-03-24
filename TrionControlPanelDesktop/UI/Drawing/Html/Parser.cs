@@ -148,7 +148,7 @@ namespace MetroFramework.Drawing.Html
         /// <returns>Collection of matches</returns>
         public static MatchCollection Match(string regex, string source)
         {
-            Regex r = new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Regex r = new(regex, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             return r.Matches(source);
         }
 
@@ -160,8 +160,7 @@ namespace MetroFramework.Drawing.Html
         /// <returns></returns>
         public static string Search(string regex, string source)
         {
-            int position;
-            return Search(regex, source, out position);
+            return Search(regex, source, out _);
         }
 
         /// <summary>
@@ -184,7 +183,7 @@ namespace MetroFramework.Drawing.Html
                 position = -1;
             }
 
-            return null;
+            return null!;
         }
 
         #endregion

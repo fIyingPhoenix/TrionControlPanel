@@ -58,7 +58,6 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void SettingsControl_LoadAsync(object sender, EventArgs e)
         {
-            await Data.LoadSettings();
             await LoadData();
         }
         private async Task LoadData()
@@ -109,53 +108,46 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableName = "world";
                     Data.Settings.LogonExecutableName = "logon";
                     Data.Settings.SelectedCore = Cores.AscEmu;
-                    Data.Message = "The core has been changed to AscEmu";
                     break;
                 case "AzerothCore":
                     Data.Settings.WorldExecutableName = "worldserver";
                     Data.Settings.LogonExecutableName = "authserver";
                     Data.Settings.SelectedCore = Cores.AzerothCore;
-                    Data.Message = "The core has been changed to AzerothCore";
                     break;
                 case "CMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.CMaNGOS;
-                    Data.Message = "The core has been changed to CMaNGOS";
                     break;
                 case "CypherCore":
                     Data.Settings.WorldExecutableName = "WorldServer";
                     Data.Settings.LogonExecutableName = "BNetServer";
                     Data.Settings.SelectedCore = Cores.CypherCore;
-                    Data.Message = "The core has been changed to CypherCore";
                     break;
                 case "TrinityCore":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore;
-                    Data.Message = "The core has been changed to TrinityCore";
                     break;
                 case "TrinityCore335":
                     Data.Settings.WorldExecutableName = "authserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore335;
-                    Data.Message = "The core has been changed to TrinityCore335";
                     break;
                 case "TrinityCoreClassic":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
-                    Data.Message = "The core has been changed to TrinityCoreClassic";
                     break;
                 case "VMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.VMaNGOS;
-                    Data.Message = "The core has been changed to VMaNGOS";
                     break;
             }
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
+            Data.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
         {
@@ -185,6 +177,10 @@ namespace TrionControlPanelDesktop.Controls
         {
             Data.Settings.CustomNames = TGLCustomNames.Checked;
             CustomNames();
+        }
+        private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            Data.Settings.RunServerWithWindows = TGLServerStartup.Checked;
         }
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
@@ -255,12 +251,14 @@ namespace TrionControlPanelDesktop.Controls
         {
             Data.Message = "Single Player Project is downloading!";
             DownloadControl.Title = "Installing Single Player Project.";
+            DownloadControl.InstallSPP = true;
             DownlaodThread(WebLinks.SPPCoreFiles);
         }
         private void BTNDownloadMySQL_Click(object sender, EventArgs e)
         {
             Data.Message = "MySQL Server is downloading!";
             DownloadControl.Title = "Installing MySQL Server.";
+            DownloadControl.InstallMySQL = true;
             DownlaodThread(WebLinks.MySQLFiles);
         }
         private void CheckForUpdate()
@@ -367,22 +365,16 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNFixMysql_Click(object sender, EventArgs e)
         {
-            if (UIData.MySQLisRunning == false)
-            {
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
-            }
-            else
-            {
-                SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
-            }
+            SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+            SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
         }
 
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (TrionUpdate) {DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
+            if (TrionUpdate) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
             if (SppUpdate) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
             if (MysqlUpdate) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
         }
+
     }
 }

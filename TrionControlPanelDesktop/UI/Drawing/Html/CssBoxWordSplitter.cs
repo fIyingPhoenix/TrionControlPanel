@@ -75,7 +75,7 @@ namespace MetroFramework.Drawing.Html
         private CssBoxWordSplitter()
         {
             _words = new List<CssBoxWord>();
-            _curword = null;
+            _curword = null!;
         }
 
         public CssBoxWordSplitter(CssBox box, string text)

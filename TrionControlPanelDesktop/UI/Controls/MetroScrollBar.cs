@@ -78,7 +78,7 @@ namespace MetroFramework.Controls
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
-            get => metroStyleManager;
+            get => metroStyleManager!;
             set { metroStyleManager = value; }
         }
 
@@ -395,7 +395,7 @@ namespace MetroFramework.Controls
         {
             isHovered = false;
             Invalidate();
-            autoHoverTimer.Stop();
+            autoHoverTimer!.Stop();
         }
 
         private System.Windows.Forms.Timer? autoHoverTimer = null;

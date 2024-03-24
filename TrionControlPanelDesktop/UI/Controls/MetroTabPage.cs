@@ -123,7 +123,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MetroStyleManager StyleManager
@@ -172,8 +172,8 @@ namespace MetroFramework.Controls
 
         #region Fields
 
-        private MetroScrollBar verticalScrollbar = new MetroScrollBar(MetroScrollOrientation.Vertical);
-        private MetroScrollBar horizontalScrollbar = new MetroScrollBar(MetroScrollOrientation.Horizontal);
+        private MetroScrollBar verticalScrollbar = new(MetroScrollOrientation.Vertical);
+        private MetroScrollBar horizontalScrollbar = new(MetroScrollOrientation.Horizontal);
 
         private bool showHorizontalScrollbar = false;
         [DefaultValue(false)]

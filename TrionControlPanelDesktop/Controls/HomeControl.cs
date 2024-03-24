@@ -7,7 +7,6 @@ namespace TrionControlPanelDesktop.Controls
     {
         private static void FirstLoad()
         {
-
         }
         public HomeControl()
         {
@@ -46,6 +45,10 @@ namespace TrionControlPanelDesktop.Controls
                     LoginPbarCPU.Value = SystemWatcher.ApplicationCpuUsage(Data.Settings.LogonExecutableName);
                     PCResorcePbarRAM.Value = CurrentRamUsage;
                     PCResorcePbarCPU.Value = SystemWatcher.MachineCpuUtilization();
+
+                    UIData.MySQLisRunning = SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName);
+                    UIData.WorldisRunning = SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName);
+                    UIData.LogonisRunning = SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName);
                 });
 
                 PCResorceUsageThread.Start();

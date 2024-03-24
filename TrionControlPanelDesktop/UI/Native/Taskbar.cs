@@ -88,11 +88,13 @@ namespace MetroFramework.Native
         [SecuritySafeCritical]
         public Taskbar()
         {
-            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null);
+            IntPtr taskbarHandle = WinApi.FindWindow(Taskbar.ClassName, null!);
 
-            WinApi.APPBARDATA data = new WinApi.APPBARDATA();
-            data.cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA));
-            data.hWnd = taskbarHandle;
+            WinApi.APPBARDATA data = new()
+            {
+                cbSize = (uint)Marshal.SizeOf(typeof(WinApi.APPBARDATA)),
+                hWnd = taskbarHandle
+            };
             IntPtr result = WinApi.SHAppBarMessage(WinApi.ABM.GetTaskbarPos, ref data);
             if (result == IntPtr.Zero)
                 throw new InvalidOperationException();

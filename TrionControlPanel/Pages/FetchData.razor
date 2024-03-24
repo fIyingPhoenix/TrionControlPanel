@@ -28,15 +28,15 @@
     </table>
 
 @code {
-    EnumModels.ServerStatus WorldStatus;
+    bool WorldStatus;
 
     private void chekIfRunning()
     {
         SystemWatcher.ApplicationKill("");
         WorldStatus = SystemWatcher.ApplicationRuning("fdm");
     }
-    protected override async Task OnInitializedAsync()
-    {
-        WorldStatus = SystemWatcher.ApplicationRuning("");
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     WorldStatus = SystemWatcher.ApplicationRuning("");
+    // }
 }

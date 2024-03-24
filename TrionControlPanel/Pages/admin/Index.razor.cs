@@ -44,15 +44,16 @@ namespace TrionControlPanel.Pages.admin
         }
         private void StartTimers()
         {
-            TimerWacher = new (1000);
+            TimerWacher = new(1000);
             TimerWacher.Elapsed += OnTimeEvent;
             TimerWacher.Enabled = true;
-            TimerWacher.Start();   
+            TimerWacher.Start();
         }
-        protected override async Task OnInitializedAsync()
-        {
-          StartTimers();
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //     StartTimers();
+             
+        //}
         public void Dispose()
         {
             // While navigating to other components, Dispose method will be called and clean up the Timer function.

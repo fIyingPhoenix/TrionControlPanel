@@ -89,7 +89,6 @@
             label23 = new Label();
             TXTAuthDatabase = new MetroFramework.Controls.MetroTextBox();
             panel3 = new MetroFramework.Controls.MetroPanel();
-            BTNTestConnection = new UI.Controls.CustomButton();
             label18 = new Label();
             TXTMysqlPassword = new MetroFramework.Controls.MetroTextBox();
             label15 = new Label();
@@ -98,7 +97,12 @@
             TXTMysqlPort = new MetroFramework.Controls.MetroTextBox();
             label12 = new Label();
             TXTMysqlHost = new MetroFramework.Controls.MetroTextBox();
+            BTNTestConnection = new UI.Controls.CustomButton();
             TimerWacher = new System.Windows.Forms.Timer(components);
+            customToggleButton1 = new TrionControlPanel.UI.CustomToggleButton();
+            label2 = new Label();
+            TGLServerStartup = new TrionControlPanel.UI.CustomToggleButton();
+            label3 = new Label();
             metroTabControl1.SuspendLayout();
             TabPageTrion.SuspendLayout();
             metroPanel4.SuspendLayout();
@@ -170,7 +174,7 @@
             BTNFixMysql.ForeColor = Color.White;
             BTNFixMysql.Image = (Image)resources.GetObject("BTNFixMysql.Image");
             BTNFixMysql.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNFixMysql.Location = new Point(711, 259);
+            BTNFixMysql.Location = new Point(711, 257);
             BTNFixMysql.Name = "BTNFixMysql";
             BTNFixMysql.NotificationCount = 0;
             BTNFixMysql.RightToLeft = RightToLeft.No;
@@ -194,10 +198,10 @@
             metroPanel4.HorizontalScrollbarBarColor = true;
             metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel4.HorizontalScrollbarSize = 10;
-            metroPanel4.Location = new Point(403, 287);
+            metroPanel4.Location = new Point(418, 285);
             metroPanel4.Name = "metroPanel4";
             metroPanel4.Padding = new Padding(2);
-            metroPanel4.Size = new Size(302, 25);
+            metroPanel4.Size = new Size(287, 25);
             metroPanel4.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel4.StyleManager = null;
             metroPanel4.TabIndex = 42;
@@ -209,11 +213,11 @@
             // 
             // LBLTrionVersion
             // 
-            LBLTrionVersion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LBLTrionVersion.Dock = DockStyle.Fill;
             LBLTrionVersion.ForeColor = Color.FromArgb(0, 174, 219);
             LBLTrionVersion.Location = new Point(2, 2);
             LBLTrionVersion.Name = "LBLTrionVersion";
-            LBLTrionVersion.Size = new Size(298, 21);
+            LBLTrionVersion.Size = new Size(283, 21);
             LBLTrionVersion.TabIndex = 32;
             LBLTrionVersion.Text = "Trion Version: Local / Online";
             LBLTrionVersion.TextAlign = ContentAlignment.MiddleCenter;
@@ -232,7 +236,7 @@
             BTNTrionUpdate.ForeColor = Color.White;
             BTNTrionUpdate.Image = (Image)resources.GetObject("BTNTrionUpdate.Image");
             BTNTrionUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNTrionUpdate.Location = new Point(711, 287);
+            BTNTrionUpdate.Location = new Point(711, 285);
             BTNTrionUpdate.Name = "BTNTrionUpdate";
             BTNTrionUpdate.NotificationCount = 0;
             BTNTrionUpdate.RightToLeft = RightToLeft.No;
@@ -250,6 +254,10 @@
             metroPanel3.Border = true;
             metroPanel3.BorderColor = Color.Black;
             metroPanel3.BorderSize = 1;
+            metroPanel3.Controls.Add(TGLServerStartup);
+            metroPanel3.Controls.Add(label3);
+            metroPanel3.Controls.Add(customToggleButton1);
+            metroPanel3.Controls.Add(label2);
             metroPanel3.Controls.Add(LBLAutoUpdateMySQL);
             metroPanel3.Controls.Add(TGLAutoUpdateMySQL);
             metroPanel3.Controls.Add(LBLAutoUpdateSPP);
@@ -267,10 +275,10 @@
             metroPanel3.HorizontalScrollbarBarColor = true;
             metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel3.HorizontalScrollbarSize = 10;
-            metroPanel3.Location = new Point(19, 116);
+            metroPanel3.Location = new Point(17, 23);
             metroPanel3.Name = "metroPanel3";
             metroPanel3.Padding = new Padding(2);
-            metroPanel3.Size = new Size(186, 196);
+            metroPanel3.Size = new Size(199, 287);
             metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel3.StyleManager = null;
             metroPanel3.TabIndex = 40;
@@ -284,7 +292,7 @@
             // 
             LBLAutoUpdateMySQL.AutoSize = true;
             LBLAutoUpdateMySQL.ForeColor = Color.White;
-            LBLAutoUpdateMySQL.Location = new Point(63, 157);
+            LBLAutoUpdateMySQL.Location = new Point(63, 255);
             LBLAutoUpdateMySQL.Name = "LBLAutoUpdateMySQL";
             LBLAutoUpdateMySQL.Size = new Size(115, 15);
             LBLAutoUpdateMySQL.TabIndex = 37;
@@ -294,7 +302,7 @@
             // 
             TGLAutoUpdateMySQL.AutoSize = true;
             TGLAutoUpdateMySQL.Cursor = Cursors.Hand;
-            TGLAutoUpdateMySQL.Location = new Point(12, 154);
+            TGLAutoUpdateMySQL.Location = new Point(12, 252);
             TGLAutoUpdateMySQL.MinimumSize = new Size(45, 22);
             TGLAutoUpdateMySQL.Name = "TGLAutoUpdateMySQL";
             TGLAutoUpdateMySQL.OffBackColor = Color.FromArgb(0, 174, 219);
@@ -311,7 +319,7 @@
             // 
             LBLAutoUpdateSPP.AutoSize = true;
             LBLAutoUpdateSPP.ForeColor = Color.White;
-            LBLAutoUpdateSPP.Location = new Point(63, 129);
+            LBLAutoUpdateSPP.Location = new Point(63, 227);
             LBLAutoUpdateSPP.Name = "LBLAutoUpdateSPP";
             LBLAutoUpdateSPP.Size = new Size(106, 15);
             LBLAutoUpdateSPP.TabIndex = 35;
@@ -321,7 +329,7 @@
             // 
             TGLAutoUpdateCore.AutoSize = true;
             TGLAutoUpdateCore.Cursor = Cursors.Hand;
-            TGLAutoUpdateCore.Location = new Point(12, 126);
+            TGLAutoUpdateCore.Location = new Point(12, 224);
             TGLAutoUpdateCore.MinimumSize = new Size(45, 22);
             TGLAutoUpdateCore.Name = "TGLAutoUpdateCore";
             TGLAutoUpdateCore.OffBackColor = Color.FromArgb(0, 174, 219);
@@ -338,7 +346,7 @@
             // 
             LBLAutoUpdateTrion.AutoSize = true;
             LBLAutoUpdateTrion.ForeColor = Color.White;
-            LBLAutoUpdateTrion.Location = new Point(63, 101);
+            LBLAutoUpdateTrion.Location = new Point(63, 199);
             LBLAutoUpdateTrion.Name = "LBLAutoUpdateTrion";
             LBLAutoUpdateTrion.Size = new Size(106, 15);
             LBLAutoUpdateTrion.TabIndex = 33;
@@ -348,7 +356,7 @@
             // 
             TGLAutoUpdateTrion.AutoSize = true;
             TGLAutoUpdateTrion.Cursor = Cursors.Hand;
-            TGLAutoUpdateTrion.Location = new Point(12, 98);
+            TGLAutoUpdateTrion.Location = new Point(12, 196);
             TGLAutoUpdateTrion.MinimumSize = new Size(45, 22);
             TGLAutoUpdateTrion.Name = "TGLAutoUpdateTrion";
             TGLAutoUpdateTrion.OffBackColor = Color.FromArgb(0, 174, 219);
@@ -456,7 +464,7 @@
             BTNMySQLOpenFolder.ForeColor = Color.White;
             BTNMySQLOpenFolder.Image = (Image)resources.GetObject("BTNMySQLOpenFolder.Image");
             BTNMySQLOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNMySQLOpenFolder.Location = new Point(211, 287);
+            BTNMySQLOpenFolder.Location = new Point(226, 285);
             BTNMySQLOpenFolder.Name = "BTNMySQLOpenFolder";
             BTNMySQLOpenFolder.NotificationCount = 0;
             BTNMySQLOpenFolder.RightToLeft = RightToLeft.No;
@@ -480,7 +488,7 @@
             BTNCoreOpenFolder.ForeColor = Color.White;
             BTNCoreOpenFolder.Image = (Image)resources.GetObject("BTNCoreOpenFolder.Image");
             BTNCoreOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNCoreOpenFolder.Location = new Point(211, 257);
+            BTNCoreOpenFolder.Location = new Point(226, 257);
             BTNCoreOpenFolder.Name = "BTNCoreOpenFolder";
             BTNCoreOpenFolder.NotificationCount = 0;
             BTNCoreOpenFolder.RightToLeft = RightToLeft.No;
@@ -504,7 +512,7 @@
             BTNMySQLExecLovation.ForeColor = Color.White;
             BTNMySQLExecLovation.Image = (Image)resources.GetObject("BTNMySQLExecLovation.Image");
             BTNMySQLExecLovation.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNMySQLExecLovation.Location = new Point(743, 85);
+            BTNMySQLExecLovation.Location = new Point(743, 83);
             BTNMySQLExecLovation.Name = "BTNMySQLExecLovation";
             BTNMySQLExecLovation.NotificationCount = 0;
             BTNMySQLExecLovation.RightToLeft = RightToLeft.No;
@@ -529,7 +537,7 @@
             BTNCoreExecLovation.ForeColor = Color.White;
             BTNCoreExecLovation.Image = (Image)resources.GetObject("BTNCoreExecLovation.Image");
             BTNCoreExecLovation.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNCoreExecLovation.Location = new Point(743, 30);
+            BTNCoreExecLovation.Location = new Point(743, 28);
             BTNCoreExecLovation.Name = "BTNCoreExecLovation";
             BTNCoreExecLovation.NotificationCount = 0;
             BTNCoreExecLovation.RightToLeft = RightToLeft.No;
@@ -545,7 +553,7 @@
             LBLMysqlWorkingDIr.Anchor = AnchorStyles.Left;
             LBLMysqlWorkingDIr.AutoSize = true;
             LBLMysqlWorkingDIr.ForeColor = Color.White;
-            LBLMysqlWorkingDIr.Location = new Point(19, 66);
+            LBLMysqlWorkingDIr.Location = new Point(226, 65);
             LBLMysqlWorkingDIr.Name = "LBLMysqlWorkingDIr";
             LBLMysqlWorkingDIr.Size = new Size(144, 15);
             LBLMysqlWorkingDIr.TabIndex = 5;
@@ -556,7 +564,7 @@
             LBLCorelWorkingDIr.Anchor = AnchorStyles.Left;
             LBLCorelWorkingDIr.AutoSize = true;
             LBLCorelWorkingDIr.ForeColor = Color.White;
-            LBLCorelWorkingDIr.Location = new Point(19, 11);
+            LBLCorelWorkingDIr.Location = new Point(226, 10);
             LBLCorelWorkingDIr.Name = "LBLCorelWorkingDIr";
             LBLCorelWorkingDIr.Size = new Size(131, 15);
             LBLCorelWorkingDIr.TabIndex = 4;
@@ -568,13 +576,13 @@
             TXTBoxMySQLLocation.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTBoxMySQLLocation.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTBoxMySQLLocation.ForeColor = Color.White;
-            TXTBoxMySQLLocation.Location = new Point(19, 85);
+            TXTBoxMySQLLocation.Location = new Point(226, 83);
             TXTBoxMySQLLocation.Multiline = false;
             TXTBoxMySQLLocation.Name = "TXTBoxMySQLLocation";
             TXTBoxMySQLLocation.PasswordChar = '\0';
             TXTBoxMySQLLocation.ReadOnly = true;
             TXTBoxMySQLLocation.SelectedText = "";
-            TXTBoxMySQLLocation.Size = new Size(718, 25);
+            TXTBoxMySQLLocation.Size = new Size(511, 25);
             TXTBoxMySQLLocation.Style = MetroFramework.MetroColorStyle.Blue;
             TXTBoxMySQLLocation.StyleManager = null;
             TXTBoxMySQLLocation.TabIndex = 2;
@@ -587,13 +595,13 @@
             TXTBoxCoreLocation.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTBoxCoreLocation.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTBoxCoreLocation.ForeColor = Color.White;
-            TXTBoxCoreLocation.Location = new Point(19, 30);
+            TXTBoxCoreLocation.Location = new Point(226, 28);
             TXTBoxCoreLocation.Multiline = false;
             TXTBoxCoreLocation.Name = "TXTBoxCoreLocation";
             TXTBoxCoreLocation.PasswordChar = '\0';
             TXTBoxCoreLocation.ReadOnly = true;
             TXTBoxCoreLocation.SelectedText = "";
-            TXTBoxCoreLocation.Size = new Size(718, 25);
+            TXTBoxCoreLocation.Size = new Size(511, 25);
             TXTBoxCoreLocation.Style = MetroFramework.MetroColorStyle.Blue;
             TXTBoxCoreLocation.StyleManager = null;
             TXTBoxCoreLocation.TabIndex = 0;
@@ -903,7 +911,7 @@
             BTNDownlaodMySQL.RightToLeft = RightToLeft.No;
             BTNDownlaodMySQL.Size = new Size(186, 25);
             BTNDownlaodMySQL.TabIndex = 42;
-            BTNDownlaodMySQL.Text = "   Download MySQL";
+            BTNDownlaodMySQL.Text = "   Install MySQL";
             BTNDownlaodMySQL.TextColor = Color.White;
             BTNDownlaodMySQL.UseVisualStyleBackColor = false;
             BTNDownlaodMySQL.Click += BTNDownloadMySQL_Click;
@@ -1026,7 +1034,7 @@
             BtnDownloadSPP.RightToLeft = RightToLeft.No;
             BtnDownloadSPP.Size = new Size(186, 25);
             BtnDownloadSPP.TabIndex = 35;
-            BtnDownloadSPP.Text = "   Download S.P.P.";
+            BtnDownloadSPP.Text = "   Install S.P.P.";
             BtnDownloadSPP.TextColor = Color.White;
             BtnDownloadSPP.UseVisualStyleBackColor = false;
             BtnDownloadSPP.Click += BtnDownloadSPP_ClickAsync;
@@ -1038,6 +1046,7 @@
             TabPageDatabase.BackColor = Color.FromArgb(45, 51, 59);
             TabPageDatabase.Controls.Add(panel1);
             TabPageDatabase.Controls.Add(panel3);
+            TabPageDatabase.Controls.Add(BTNTestConnection);
             TabPageDatabase.Location = new Point(4, 35);
             TabPageDatabase.Name = "TabPageDatabase";
             TabPageDatabase.Size = new Size(837, 331);
@@ -1061,9 +1070,9 @@
             panel1.HorizontalScrollbarBarColor = true;
             panel1.HorizontalScrollbarHighlightOnWheel = false;
             panel1.HorizontalScrollbarSize = 10;
-            panel1.Location = new Point(427, 22);
+            panel1.Location = new Point(306, 22);
             panel1.Name = "panel1";
-            panel1.Size = new Size(383, 289);
+            panel1.Size = new Size(242, 191);
             panel1.Style = MetroFramework.MetroColorStyle.Blue;
             panel1.StyleManager = null;
             panel1.TabIndex = 14;
@@ -1077,7 +1086,7 @@
             // 
             label21.AutoSize = true;
             label21.ForeColor = Color.White;
-            label21.Location = new Point(18, 113);
+            label21.Location = new Point(16, 131);
             label21.Name = "label21";
             label21.Size = new Size(39, 15);
             label21.TabIndex = 24;
@@ -1089,13 +1098,13 @@
             TXTWorldDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTWorldDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTWorldDatabase.ForeColor = Color.White;
-            TXTWorldDatabase.Location = new Point(18, 131);
+            TXTWorldDatabase.Location = new Point(16, 149);
             TXTWorldDatabase.Multiline = false;
             TXTWorldDatabase.Name = "TXTWorldDatabase";
             TXTWorldDatabase.PasswordChar = '\0';
             TXTWorldDatabase.ReadOnly = false;
             TXTWorldDatabase.SelectedText = "";
-            TXTWorldDatabase.Size = new Size(347, 23);
+            TXTWorldDatabase.Size = new Size(210, 23);
             TXTWorldDatabase.Style = MetroFramework.MetroColorStyle.Blue;
             TXTWorldDatabase.StyleManager = null;
             TXTWorldDatabase.TabIndex = 23;
@@ -1106,7 +1115,7 @@
             // 
             label22.AutoSize = true;
             label22.ForeColor = Color.White;
-            label22.Location = new Point(18, 69);
+            label22.Location = new Point(16, 87);
             label22.Name = "label22";
             label22.Size = new Size(58, 15);
             label22.TabIndex = 22;
@@ -1118,13 +1127,13 @@
             TXTCharDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTCharDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTCharDatabase.ForeColor = Color.White;
-            TXTCharDatabase.Location = new Point(18, 87);
+            TXTCharDatabase.Location = new Point(16, 105);
             TXTCharDatabase.Multiline = false;
             TXTCharDatabase.Name = "TXTCharDatabase";
             TXTCharDatabase.PasswordChar = '\0';
             TXTCharDatabase.ReadOnly = false;
             TXTCharDatabase.SelectedText = "";
-            TXTCharDatabase.Size = new Size(347, 23);
+            TXTCharDatabase.Size = new Size(210, 23);
             TXTCharDatabase.Style = MetroFramework.MetroColorStyle.Blue;
             TXTCharDatabase.StyleManager = null;
             TXTCharDatabase.TabIndex = 21;
@@ -1135,7 +1144,7 @@
             // 
             label23.AutoSize = true;
             label23.ForeColor = Color.White;
-            label23.Location = new Point(18, 25);
+            label23.Location = new Point(16, 43);
             label23.Name = "label23";
             label23.Size = new Size(36, 15);
             label23.TabIndex = 20;
@@ -1147,13 +1156,13 @@
             TXTAuthDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTAuthDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTAuthDatabase.ForeColor = Color.White;
-            TXTAuthDatabase.Location = new Point(18, 43);
+            TXTAuthDatabase.Location = new Point(16, 61);
             TXTAuthDatabase.Multiline = false;
             TXTAuthDatabase.Name = "TXTAuthDatabase";
             TXTAuthDatabase.PasswordChar = '\0';
             TXTAuthDatabase.ReadOnly = false;
             TXTAuthDatabase.SelectedText = "";
-            TXTAuthDatabase.Size = new Size(347, 23);
+            TXTAuthDatabase.Size = new Size(210, 23);
             TXTAuthDatabase.Style = MetroFramework.MetroColorStyle.Blue;
             TXTAuthDatabase.StyleManager = null;
             TXTAuthDatabase.TabIndex = 14;
@@ -1166,7 +1175,6 @@
             panel3.Border = true;
             panel3.BorderColor = Color.Black;
             panel3.BorderSize = 1;
-            panel3.Controls.Add(BTNTestConnection);
             panel3.Controls.Add(label18);
             panel3.Controls.Add(TXTMysqlPassword);
             panel3.Controls.Add(label15);
@@ -1182,7 +1190,7 @@
             panel3.HorizontalScrollbarSize = 10;
             panel3.Location = new Point(23, 22);
             panel3.Name = "panel3";
-            panel3.Size = new Size(383, 289);
+            panel3.Size = new Size(277, 228);
             panel3.Style = MetroFramework.MetroColorStyle.Blue;
             panel3.StyleManager = null;
             panel3.TabIndex = 13;
@@ -1191,6 +1199,122 @@
             panel3.VerticalScrollbarBarColor = true;
             panel3.VerticalScrollbarHighlightOnWheel = false;
             panel3.VerticalScrollbarSize = 10;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.ForeColor = Color.White;
+            label18.Location = new Point(20, 163);
+            label18.Name = "label18";
+            label18.Size = new Size(60, 15);
+            label18.TabIndex = 26;
+            label18.Text = "Password:";
+            // 
+            // TXTMysqlPassword
+            // 
+            TXTMysqlPassword.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            TXTMysqlPassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlPassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlPassword.ForeColor = Color.White;
+            TXTMysqlPassword.Location = new Point(20, 181);
+            TXTMysqlPassword.Multiline = false;
+            TXTMysqlPassword.Name = "TXTMysqlPassword";
+            TXTMysqlPassword.PasswordChar = '*';
+            TXTMysqlPassword.ReadOnly = false;
+            TXTMysqlPassword.SelectedText = "";
+            TXTMysqlPassword.Size = new Size(237, 23);
+            TXTMysqlPassword.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlPassword.StyleManager = null;
+            TXTMysqlPassword.TabIndex = 25;
+            TXTMysqlPassword.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlPassword.UseStyleColors = true;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = Color.White;
+            label15.Location = new Point(20, 119);
+            label15.Name = "label15";
+            label15.Size = new Size(63, 15);
+            label15.TabIndex = 24;
+            label15.Text = "Username:";
+            // 
+            // TXTMysqlUser
+            // 
+            TXTMysqlUser.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            TXTMysqlUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlUser.ForeColor = Color.White;
+            TXTMysqlUser.Location = new Point(20, 137);
+            TXTMysqlUser.Multiline = false;
+            TXTMysqlUser.Name = "TXTMysqlUser";
+            TXTMysqlUser.PasswordChar = '\0';
+            TXTMysqlUser.ReadOnly = false;
+            TXTMysqlUser.SelectedText = "";
+            TXTMysqlUser.Size = new Size(237, 23);
+            TXTMysqlUser.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlUser.StyleManager = null;
+            TXTMysqlUser.TabIndex = 23;
+            TXTMysqlUser.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlUser.UseStyleColors = true;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(20, 75);
+            label13.Name = "label13";
+            label13.Size = new Size(32, 15);
+            label13.TabIndex = 22;
+            label13.Text = "Port:";
+            // 
+            // TXTMysqlPort
+            // 
+            TXTMysqlPort.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            TXTMysqlPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlPort.ForeColor = Color.White;
+            TXTMysqlPort.Location = new Point(20, 93);
+            TXTMysqlPort.Multiline = false;
+            TXTMysqlPort.Name = "TXTMysqlPort";
+            TXTMysqlPort.PasswordChar = '\0';
+            TXTMysqlPort.ReadOnly = false;
+            TXTMysqlPort.SelectedText = "";
+            TXTMysqlPort.Size = new Size(237, 23);
+            TXTMysqlPort.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlPort.StyleManager = null;
+            TXTMysqlPort.TabIndex = 21;
+            TXTMysqlPort.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlPort.UseStyleColors = true;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(20, 31);
+            label12.Name = "label12";
+            label12.Size = new Size(35, 15);
+            label12.TabIndex = 20;
+            label12.Text = "Host:";
+            // 
+            // TXTMysqlHost
+            // 
+            TXTMysqlHost.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            TXTMysqlHost.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlHost.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlHost.ForeColor = Color.White;
+            TXTMysqlHost.Location = new Point(20, 49);
+            TXTMysqlHost.Multiline = false;
+            TXTMysqlHost.Name = "TXTMysqlHost";
+            TXTMysqlHost.PasswordChar = '\0';
+            TXTMysqlHost.ReadOnly = false;
+            TXTMysqlHost.SelectedText = "";
+            TXTMysqlHost.Size = new Size(237, 23);
+            TXTMysqlHost.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlHost.StyleManager = null;
+            TXTMysqlHost.TabIndex = 14;
+            TXTMysqlHost.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlHost.UseStyleColors = true;
             // 
             // BTNTestConnection
             // 
@@ -1206,7 +1330,7 @@
             BTNTestConnection.ForeColor = Color.White;
             BTNTestConnection.Image = (Image)resources.GetObject("BTNTestConnection.Image");
             BTNTestConnection.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNTestConnection.Location = new Point(18, 244);
+            BTNTestConnection.Location = new Point(23, 277);
             BTNTestConnection.Name = "BTNTestConnection";
             BTNTestConnection.NotificationCount = 0;
             BTNTestConnection.RightToLeft = RightToLeft.No;
@@ -1216,127 +1340,64 @@
             BTNTestConnection.TextColor = Color.White;
             BTNTestConnection.UseVisualStyleBackColor = false;
             // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.ForeColor = Color.White;
-            label18.Location = new Point(18, 157);
-            label18.Name = "label18";
-            label18.Size = new Size(60, 15);
-            label18.TabIndex = 26;
-            label18.Text = "Password:";
-            // 
-            // TXTMysqlPassword
-            // 
-            TXTMysqlPassword.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TXTMysqlPassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlPassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlPassword.ForeColor = Color.White;
-            TXTMysqlPassword.Location = new Point(18, 175);
-            TXTMysqlPassword.Multiline = false;
-            TXTMysqlPassword.Name = "TXTMysqlPassword";
-            TXTMysqlPassword.PasswordChar = '*';
-            TXTMysqlPassword.ReadOnly = false;
-            TXTMysqlPassword.SelectedText = "";
-            TXTMysqlPassword.Size = new Size(347, 23);
-            TXTMysqlPassword.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlPassword.StyleManager = null;
-            TXTMysqlPassword.TabIndex = 25;
-            TXTMysqlPassword.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlPassword.UseStyleColors = true;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.ForeColor = Color.White;
-            label15.Location = new Point(18, 113);
-            label15.Name = "label15";
-            label15.Size = new Size(63, 15);
-            label15.TabIndex = 24;
-            label15.Text = "Username:";
-            // 
-            // TXTMysqlUser
-            // 
-            TXTMysqlUser.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TXTMysqlUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlUser.ForeColor = Color.White;
-            TXTMysqlUser.Location = new Point(18, 131);
-            TXTMysqlUser.Multiline = false;
-            TXTMysqlUser.Name = "TXTMysqlUser";
-            TXTMysqlUser.PasswordChar = '\0';
-            TXTMysqlUser.ReadOnly = false;
-            TXTMysqlUser.SelectedText = "";
-            TXTMysqlUser.Size = new Size(347, 23);
-            TXTMysqlUser.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlUser.StyleManager = null;
-            TXTMysqlUser.TabIndex = 23;
-            TXTMysqlUser.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlUser.UseStyleColors = true;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(18, 69);
-            label13.Name = "label13";
-            label13.Size = new Size(32, 15);
-            label13.TabIndex = 22;
-            label13.Text = "Port:";
-            // 
-            // TXTMysqlPort
-            // 
-            TXTMysqlPort.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TXTMysqlPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlPort.ForeColor = Color.White;
-            TXTMysqlPort.Location = new Point(18, 87);
-            TXTMysqlPort.Multiline = false;
-            TXTMysqlPort.Name = "TXTMysqlPort";
-            TXTMysqlPort.PasswordChar = '\0';
-            TXTMysqlPort.ReadOnly = false;
-            TXTMysqlPort.SelectedText = "";
-            TXTMysqlPort.Size = new Size(347, 23);
-            TXTMysqlPort.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlPort.StyleManager = null;
-            TXTMysqlPort.TabIndex = 21;
-            TXTMysqlPort.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlPort.UseStyleColors = true;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(18, 25);
-            label12.Name = "label12";
-            label12.Size = new Size(35, 15);
-            label12.TabIndex = 20;
-            label12.Text = "Host:";
-            // 
-            // TXTMysqlHost
-            // 
-            TXTMysqlHost.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TXTMysqlHost.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlHost.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlHost.ForeColor = Color.White;
-            TXTMysqlHost.Location = new Point(18, 43);
-            TXTMysqlHost.Multiline = false;
-            TXTMysqlHost.Name = "TXTMysqlHost";
-            TXTMysqlHost.PasswordChar = '\0';
-            TXTMysqlHost.ReadOnly = false;
-            TXTMysqlHost.SelectedText = "";
-            TXTMysqlHost.Size = new Size(347, 23);
-            TXTMysqlHost.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlHost.StyleManager = null;
-            TXTMysqlHost.TabIndex = 14;
-            TXTMysqlHost.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlHost.UseStyleColors = true;
-            // 
             // TimerWacher
             // 
             TimerWacher.Enabled = true;
             TimerWacher.Interval = 1000;
             TimerWacher.Tick += TimerWacher_Tick;
+            // 
+            // customToggleButton1
+            // 
+            customToggleButton1.AutoSize = true;
+            customToggleButton1.Cursor = Cursors.Hand;
+            customToggleButton1.Location = new Point(12, 98);
+            customToggleButton1.MinimumSize = new Size(45, 22);
+            customToggleButton1.Name = "customToggleButton1";
+            customToggleButton1.OffBackColor = Color.FromArgb(0, 174, 219);
+            customToggleButton1.OffToggleColor = Color.FromArgb(255, 87, 57);
+            customToggleButton1.OnBackColor = Color.FromArgb(0, 174, 219);
+            customToggleButton1.OnToggleColor = Color.FromArgb(105, 195, 59);
+            customToggleButton1.Size = new Size(45, 22);
+            customToggleButton1.SolidStyle = false;
+            customToggleButton1.TabIndex = 38;
+            customToggleButton1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(63, 101);
+            label2.Name = "label2";
+            label2.Size = new Size(118, 15);
+            label2.TabIndex = 39;
+            label2.Text = "Run Trion on Startup.";
+            // 
+            // TGLServerStartup
+            // 
+            TGLServerStartup.AutoSize = true;
+            TGLServerStartup.Cursor = Cursors.Hand;
+            TGLServerStartup.Location = new Point(12, 126);
+            TGLServerStartup.MinimumSize = new Size(45, 22);
+            TGLServerStartup.Name = "TGLServerStartup";
+            TGLServerStartup.OffBackColor = Color.FromArgb(0, 174, 219);
+            TGLServerStartup.OffToggleColor = Color.FromArgb(255, 87, 57);
+            TGLServerStartup.OnBackColor = Color.FromArgb(0, 174, 219);
+            TGLServerStartup.OnToggleColor = Color.FromArgb(105, 195, 59);
+            TGLServerStartup.Size = new Size(45, 22);
+            TGLServerStartup.SolidStyle = false;
+            TGLServerStartup.TabIndex = 40;
+            TGLServerStartup.UseVisualStyleBackColor = true;
+            TGLServerStartup.CheckedChanged += TGLServerStartup_CheckedChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(63, 129);
+            label3.Name = "label3";
+            label3.Size = new Size(129, 15);
+            label3.TabIndex = 41;
+            label3.Text = "Run Servers on Startup.";
             // 
             // SettingsControl
             // 
@@ -1439,5 +1500,9 @@
         private UI.Controls.CustomButton BTNFixMysql;
         private Label LBLAutoUpdateMySQL;
         private TrionControlPanel.UI.CustomToggleButton TGLAutoUpdateMySQL;
+        private TrionControlPanel.UI.CustomToggleButton TGLServerStartup;
+        private Label label3;
+        private TrionControlPanel.UI.CustomToggleButton customToggleButton1;
+        private Label label2;
     }
 }

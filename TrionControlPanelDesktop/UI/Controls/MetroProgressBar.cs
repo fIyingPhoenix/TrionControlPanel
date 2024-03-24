@@ -68,7 +68,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -290,7 +290,7 @@ namespace MetroFramework.Controls
                 {
                     Interval = 10
                 };
-                marqueeTimer.Tick += new EventHandler(marqueeTimer_Tick);
+                marqueeTimer.Tick += new EventHandler(MarqueeTimer_Tick);
             }
 
             marqueeX = -ProgressBarMarqueeWidth;
@@ -312,7 +312,7 @@ namespace MetroFramework.Controls
             Invalidate();
         }
 
-        private void marqueeTimer_Tick(object sender, EventArgs e)
+        private void MarqueeTimer_Tick(object sender, EventArgs e)
         {
             marqueeX++;
 

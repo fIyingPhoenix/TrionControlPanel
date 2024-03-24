@@ -1,8 +1,7 @@
 using MetroFramework;
 using MetroFramework.Forms;
+using System.Net.Sockets;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
@@ -18,8 +17,12 @@ namespace TrionControlPanelDesktop
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
         readonly NotificationsControl notificationsControl = new();
-        public static CurrentControl CurrentControl { get; set; }
+        //
+        CurrentControl CurrentControl { get; set; }
+        //
+        //
         private static bool LoadControl = false;
+        public static bool LoadDownload { get; set; }
         void LoadData()
         {
             CurrentControl = CurrentControl.Load;
@@ -39,9 +42,14 @@ namespace TrionControlPanelDesktop
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
-        private void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
+            await Data.LoadSettings();
             LoadData();
+            if (Data.Settings.RunServerWithWindows == true)
+            {
+                _ = RunAll(sender, e);
+            }
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -70,65 +78,44 @@ namespace TrionControlPanelDesktop
         }
         private void ButtonsDesing()
         {
-            if (SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.NotRunning)
-            {
-                BTNStartLogin.Text = "            Start  Login  ";
-                BTNStartLogin.Image = Properties.Resources.play_35;
-                UIData.LogonisRunning = false;
-            }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.Running)
-            {
-                BTNStartLogin.Text = "            Stop  Login  ";
-                BTNStartLogin.Image = Properties.Resources.stop_35;
-                UIData.LogonisRunning = true;
-            }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.NotRunning)
-            {
-                BTNStartWorld.Text = "            Start  World ";
-                BTNStartWorld.Image = Properties.Resources.play_35;
-                UIData.WorldisRunning = false;
-            }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.Running)
-            {
-                BTNStartWorld.Text = "            Stop  World ";
-                BTNStartWorld.Image = Properties.Resources.stop_35;
-                UIData.WorldisRunning = true;
-            }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.NotRunning)
-            {
-                BTNStartMySQL.Text = "            Start  MySQL  ";
-                BTNStartMySQL.Image = Properties.Resources.play_35;
-                UIData.MySQLisRunning = false;
-            }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.Running)
+            if (UIData.MySQLisRunning)
             {
                 BTNStartMySQL.Text = "            Stop  MySQL  ";
                 BTNStartMySQL.Image = Properties.Resources.stop_35;
-                UIData.MySQLisRunning = true;
             }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.Running || SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.Running || SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.Running)
+            else if (UIData.MySQLisRunning == false)
             {
-                BTNStartAll.Text = "            Stop  All  ";
-                BTNStartAll.Image = Properties.Resources.stop_35;
-                if (UIData.MySQLisRunning == false) { UIData.MySQLisRunning = true; }
-                if (UIData.WorldisRunning == false) { UIData.WorldisRunning = true; }
-                if (UIData.LogonisRunning == false) { UIData.LogonisRunning = true; }
+                BTNStartMySQL.Text = "            Start  MySQL  ";
+                BTNStartMySQL.Image = Properties.Resources.play_35;
             }
-            if (SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName) == ServerStatus.NotRunning || SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName) == ServerStatus.NotRunning || SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName) == ServerStatus.NotRunning)
+            if (UIData.WorldisRunning)
             {
-                BTNStartAll.Text = "            Start  All ";
-                BTNStartAll.Image = Properties.Resources.play_35;
-                if (UIData.MySQLisRunning) { UIData.MySQLisRunning = false; }
-                if (UIData.WorldisRunning) { UIData.WorldisRunning = false; }
-                if (UIData.LogonisRunning) { UIData.LogonisRunning = false; }
+                BTNStartWorld.Text = "            Stop  World ";
+                BTNStartWorld.Image = Properties.Resources.stop_35;
             }
-        }
-        private void TimerWacher_Tick(object sender, EventArgs e)
-        {
+            else if (UIData.WorldisRunning == false)
+            {
+                BTNStartWorld.Text = "            Start  World ";
+                BTNStartWorld.Image = Properties.Resources.play_35;
+            }
+            if (UIData.LogonisRunning)
+            {
+                BTNStartLogin.Text = "            Stop  Login  ";
+                BTNStartLogin.Image = Properties.Resources.stop_35;
+            }
+            else if (UIData.LogonisRunning == false)
+            {
+                BTNStartLogin.Text = "            Start  Login  ";
+                BTNStartLogin.Image = Properties.Resources.play_35;
+            }
+            //
             BTNNotification.NotificationCount = UIData.Notyfications;
             BTNDownload.NotificationCount = UIData.DownloadStatus;
             BTNDownload.NotificationCount = UIData.CurrentDownloads;
             BTNDownload.Visible = UIData.CurrentDownloads > 0;
+        }
+        private void TimerWacher_Tick(object sender, EventArgs e)
+        {
             ButtonsDesing();
             if (LoadControl == true)
             {
@@ -140,6 +127,7 @@ namespace TrionControlPanelDesktop
                 BTNStartLogin.Visible = true;
                 BTNStartWorld.Visible = true;
                 BTNStartMySQL.Visible = true;
+                BTNNotification.Visible = true;
                 BTNHome.Visible = true;
                 BTNSettings.Visible = true;
                 BTNTermina.Visible = true;
@@ -151,35 +139,53 @@ namespace TrionControlPanelDesktop
                 {
                     StartDirectoryScan(Directory.GetCurrentDirectory());
                 }
-            }
-        }
-        static void ManageProcess(bool isRunning, string executableLocation, string executableName)
-        {
-            if (!isRunning && !string.IsNullOrEmpty(executableLocation))
-            {
-                SystemWatcher.ApplicationStart(executableLocation, executableName, Data.Settings.ConsolHide, null);
-            }
-            else if (isRunning)
-            {
-                SystemWatcher.ApplicationKill(executableName);
-            }
-        }
-        private void BTNStartAll_Click(object sender, EventArgs e)
-        {
-            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
-            string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
-            ManageProcess(UIData.MySQLisRunning, Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName);
 
-            if (!UIData.MySQLisRunning && !string.IsNullOrEmpty(Data.Settings.MySQLExecutableLocation))
+            }
+            if (LoadDownload == true)
             {
-                if (!File.Exists(configFile))
+                LoadDownload = false;
+                if (CurrentControl == CurrentControl.Download)
                 {
-                    Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                    CurrentControl = CurrentControl.Home;
+                    TimerChangeControl.Start();
                 }
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
+                else
+                {
+                    CurrentControl = CurrentControl.Download;
+                    TimerChangeControl.Start();
+                }
             }
-
-            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
+        }
+        static async Task<bool> IsPortOpen()
+        {
+            string host = "localhost";
+            int port = int.Parse(Data.Settings.MySQLServerPort);
+            try
+            {
+                using (TcpClient tcpClient = new())
+                {
+                    await tcpClient.ConnectAsync(host, port);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        private async Task RunAll(object sender, EventArgs e)
+        {
+            BTNStartMySQL_Click(sender, e);
+            while (!await IsPortOpen())
+            {
+                await Task.Delay(1000); // Wait for 1 second before retrying
+            }
+            BTNStartLogin_Click(sender, e);
+            BTNStartWorld_Click(sender, e);
+        }
+        private async void BTNStartAll_Click(object sender, EventArgs e)
+        {
+            await RunAll(sender, e);
         }
         private void BTNDownload_Click(object sender, EventArgs e)
         {
@@ -199,29 +205,50 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
-            if (!UIData.MySQLisRunning && Data.Settings.MySQLExecutableLocation != string.Empty)
+            if (UIData.MySQLisRunning == false && Data.Settings.MySQLExecutableLocation != string.Empty)
             {
-                string configFile = "my.ini";
+                string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
                 if (!File.Exists(configFile))
                 {
                     Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 }
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--defaults-file=\"{configFile}\" --console");
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--console");
+                UIData.MySQLisStarted = true;
             }
-            else if (UIData.MySQLisRunning)
+            if (UIData.MySQLisRunning == true)
             {
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+
+                UIData.MySQLisStarted = false;
             }
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            ManageProcess(UIData.LogonisRunning, Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName);
+            if (UIData.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
+            {
+                SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null);
+                UIData.LogonisStarted = true;
+            }
+            else if (UIData.LogonisRunning == true)
+            {
+                SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
+                UIData.LogonisStarted = false;
+            }
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            ManageProcess(UIData.WorldisRunning, Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName);
+            if (UIData.WorldisRunning == false && Data.Settings.WorldExecutableLocation != string.Empty)
+            {
+                SystemWatcher.ApplicationStart(Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName, Data.Settings.ConsolHide, null);
+                UIData.WorldisStarted = true;
+            }
+            else if (UIData.WorldisRunning == true)
+            {
+                SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
+                UIData.WorldisStarted = false;
+            }
         }
-        public void StartDirectoryScan(string path)
+        private void StartDirectoryScan(string path)
         {
             if (Data.GetExecutableLocation(path, Data.Settings.MySQLExecutableName) != string.Empty)
             {

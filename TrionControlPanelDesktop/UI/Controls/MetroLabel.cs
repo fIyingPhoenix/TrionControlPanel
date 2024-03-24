@@ -73,7 +73,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -139,8 +139,10 @@ namespace MetroFramework.Controls
                      ControlStyles.UserPaint |
                      ControlStyles.SupportsTransparentBackColor, true);
 
-            baseTextBox = new DoubleBufferedTextBox();
-            baseTextBox.Visible = false;
+            baseTextBox = new DoubleBufferedTextBox
+            {
+                Visible = false
+            };
             Controls.Add(baseTextBox);
         }
 

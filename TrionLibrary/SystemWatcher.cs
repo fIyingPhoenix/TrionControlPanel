@@ -124,13 +124,13 @@ namespace TrionLibrary
             }
             return 0;
         }
-        public static EnumModels.ServerStatus ApplicationRuning(string ApplicationName)
+        public static bool ApplicationRuning(string ApplicationName)
         {
             Process[] ProcessID = Process.GetProcessesByName(ApplicationName);
             if (ProcessID.Length <= 0)
-                return EnumModels.ServerStatus.NotRunning;
+                return false;
             else
-                return EnumModels.ServerStatus.Running;
+                return true;
         }
         static int GetProcessIdByName(string processName)
         {
@@ -151,14 +151,14 @@ namespace TrionLibrary
                 return -1; // Return -1 if an error occurs
             }
         }
-        public static EnumModels.ServerStatus ApplicationKill(string ApplicationName)
+        public static void ApplicationKill(string ApplicationName)
         {
             foreach (var process in Process.GetProcessesByName(ApplicationName))
             {
-                try { process.Kill(); return EnumModels.ServerStatus.NotRunning; }
-                catch (Exception) { return EnumModels.ServerStatus.Running; }
+                try { process.Kill(); }
+                catch (Exception) {  }
             }
-            return EnumModels.ServerStatus.Running;
+          
         }
         public static void ApplicationStart(string Application,string Name, bool HideWindw, string Arguments)
         {
@@ -198,7 +198,7 @@ namespace TrionLibrary
         }
         public static int ApplicationRamUsage(string ApplicationName)
         {
-            if (ApplicationRuning(ApplicationName) == EnumModels.ServerStatus.Running)
+            if (ApplicationRuning(ApplicationName) == true)
             {   
                 try
                 {
@@ -221,7 +221,7 @@ namespace TrionLibrary
         {
             try
             {
-                if (ApplicationRuning(ApplicationName) == EnumModels.ServerStatus.Running)
+                if (ApplicationRuning(ApplicationName) == true)
                 {
                     Process process = Process.GetProcessById(GetProcessIdByName(ApplicationName));
 

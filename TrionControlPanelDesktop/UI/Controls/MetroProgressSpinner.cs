@@ -67,7 +67,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -99,7 +99,7 @@ namespace MetroFramework.Controls
             set
             {
                 if (value != -1 && (value < minimum || value > maximum))
-                    throw new ArgumentOutOfRangeException("Progress value must be -1 or between Minimum and Maximum.", (Exception)null);
+                    throw new ArgumentOutOfRangeException("Progress value must be -1 or between Minimum and Maximum.", (Exception?)null);
                 progress = value;
                 Refresh();
             }
@@ -114,9 +114,9 @@ namespace MetroFramework.Controls
             set
             {
                 if (value < 0)
-                    throw new ArgumentOutOfRangeException("Minimum value must be >= 0.", (Exception)null);
+                    throw new ArgumentOutOfRangeException("Minimum value must be >= 0.", (Exception)null!);
                 if (value >= maximum)
-                    throw new ArgumentOutOfRangeException("Minimum value must be < Maximum.", (Exception)null);
+                    throw new ArgumentOutOfRangeException("Minimum value must be < Maximum.", (Exception)null!);
                 minimum = value;
                 if (progress != -1 && progress < minimum)
                     progress = minimum;
@@ -133,7 +133,7 @@ namespace MetroFramework.Controls
             set
             {
                 if (value <= minimum)
-                    throw new ArgumentOutOfRangeException("Maximum value must be > Minimum.", (Exception)null);
+                    throw new ArgumentOutOfRangeException("Maximum value must be > Minimum.", (Exception)null!);
                 maximum = value;
                 if (progress > maximum)
                     progress = maximum;
@@ -159,7 +159,7 @@ namespace MetroFramework.Controls
             set
             {
                 if (value <= 0 || value > 10)
-                    throw new ArgumentOutOfRangeException("Speed value must be > 0 and <= 10.", (Exception)null);
+                    throw new ArgumentOutOfRangeException("Speed value must be > 0 and <= 10.", (Exception)null!);
 
                 speed = value;
             }
@@ -188,9 +188,11 @@ namespace MetroFramework.Controls
 
         public MetroProgressSpinner()
         {
-            timer = new();
-            timer.Interval = 20;
-            timer.Tick += timer_Tick;
+            timer = new()
+            {
+                Interval = 20
+            };
+            timer.Tick += Timer_Tick;
             timer.Enabled = true;
 
             Width = 16;
@@ -214,7 +216,7 @@ namespace MetroFramework.Controls
 
         #region Management Methods
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if (!DesignMode)
             {

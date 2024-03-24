@@ -44,7 +44,7 @@ namespace MetroFramework
         { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private MetroMessageBoxControl _owner = null;
+        private MetroMessageBoxControl _owner = null!;
 
         /// <summary>
         /// Gets the property owner.

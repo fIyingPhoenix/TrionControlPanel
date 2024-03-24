@@ -68,15 +68,15 @@ namespace MetroFramework.Controls
         private int _index;
         private string _tabpage;
 
-        public int index { get { return _index; } }
+        public int Index { get { return _index; } }
 
-        public string tabpage { get { return _tabpage; } }
+        public string Tabpage { get { return _tabpage; } }
     }
     #endregion HiddenTabClass
 
     [Designer("MetroFramework.Design.Controls.MetroTabControlDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     [ToolboxBitmap(typeof(TabControl))]
-    public class MetroTabControl : TabControl, IMetroControl
+    public partial class MetroTabControl : TabControl, IMetroControl
     {
         #region Interface
         [Category(MetroDefaults.PropertyCategory.Appearance)]
@@ -161,7 +161,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null;
+        private MetroStyleManager metroStyleManager = null!;
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MetroStyleManager StyleManager
@@ -214,7 +214,7 @@ namespace MetroFramework.Controls
         private List<string> tabOrder = new();
         private List<HiddenTabs> hidTabs = new();
 
-        private SubClass scUpDown = null;
+        private SubClass scUpDown = null!;
         private bool bUpDown = false;
 
         private const int TabBottomBorderHeight = 3;
@@ -372,7 +372,7 @@ namespace MetroFramework.Controls
         {
             using (Brush bgBrush = new SolidBrush(MetroPaint.BorderColor.TabControl.GetButtonColor(Theme,"Normal")))
             {
-                Rectangle borderRectangle = new Rectangle(DisplayRectangle.X, GetTabRect(index).Bottom + 2 - TabBottomBorderHeight, DisplayRectangle.Width, TabBottomBorderHeight);
+                Rectangle borderRectangle = new(DisplayRectangle.X, GetTabRect(index).Bottom + 2 - TabBottomBorderHeight, DisplayRectangle.Width, TabBottomBorderHeight);
                 graphics.FillRectangle(bgBrush, borderRectangle);
             }
         }
@@ -382,7 +382,7 @@ namespace MetroFramework.Controls
             using (Brush selectionBrush = new SolidBrush(MetroPaint.GetStyleColor(Style)))
             {
                 Rectangle selectedTabRect = GetTabRect(index);
-                Rectangle borderRectangle = new Rectangle(selectedTabRect.X + ((index == 0) ? 2 : 0), GetTabRect(index).Bottom + 2 - TabBottomBorderHeight, selectedTabRect.Width + ((index == 0) ? 0 : 2), TabBottomBorderHeight);
+                Rectangle borderRectangle = new(selectedTabRect.X + ((index == 0) ? 2 : 0), GetTabRect(index).Bottom + 2 - TabBottomBorderHeight, selectedTabRect.Width + ((index == 0) ? 0 : 2), TabBottomBorderHeight);
                 graphics.FillRectangle(selectionBrush, borderRectangle);
             }
         }
@@ -392,7 +392,7 @@ namespace MetroFramework.Controls
             Size preferredSize;
             using (Graphics g = CreateGraphics())
             {
-                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
+                Size proposedSize = new(int.MaxValue, int.MaxValue);
                 preferredSize = TextRenderer.MeasureText(g, text, MetroFonts.TabControl(metroLabelSize, metroLabelWeight),
                                                          proposedSize,
                                                          MetroPaint.GetTextFormatFlags(TextAlign) |
@@ -453,8 +453,8 @@ namespace MetroFramework.Controls
         {
             Color backColor = Parent != null ? Parent.BackColor : MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal");
 
-            Rectangle borderRect = new Rectangle();
-            WinApi.GetClientRect(scUpDown.Handle, ref borderRect);
+            Rectangle borderRect = new();
+            _ = WinApi.GetClientRect(scUpDown.Handle, ref borderRect);
 
             graphics.CompositingQuality = CompositingQuality.HighQuality;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -463,7 +463,7 @@ namespace MetroFramework.Controls
 
             using (Brush b = new SolidBrush(MetroPaint.BorderColor.TabControl.GetButtonColor(Theme, "Normal")))
             {
-                GraphicsPath gp = new GraphicsPath(FillMode.Winding);
+                GraphicsPath gp = new(FillMode.Winding);
                 PointF[] pts = { new PointF(6, 6), new PointF(16, 0), new PointF(16, 12) };
                 gp.AddLines(pts);
 
@@ -613,7 +613,7 @@ namespace MetroFramework.Controls
 
         void MetroTabControl_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (tabDisable.Count > 0 && tabDisable.Contains(e.TabPage.Name))
+            if (tabDisable.Count > 0 && tabDisable.Contains(e.TabPage!.Name))
             {
                 e.Cancel = true;
             }
@@ -637,7 +637,7 @@ namespace MetroFramework.Controls
 
                     int length = WinApi.GetClassName(pWnd, className, 32);
 
-                    string s = new string(className, 0, length);
+                    string s = new(className, 0, length);
 
                     if (s == "msctls_updown32")
                     {
@@ -646,7 +646,7 @@ namespace MetroFramework.Controls
                         if (!bUpDown)
                         {
                             this.scUpDown = new SubClass(pWnd, true);
-                            this.scUpDown.SubClassedWndProc += new SubClass.SubClassWndProcEventHandler(scUpDown_SubClassedWndProc);
+                            this.scUpDown.SubClassedWndProc += new SubClass.SubClassWndProcEventHandler(ScUpDown_SubClassedWndProc);
 
                             bUpDown = true;
                         }
@@ -668,15 +668,15 @@ namespace MetroFramework.Controls
             {
                 if (WinApi.IsWindowVisible(scUpDown.Handle))
                 {
-                    Rectangle rect = new Rectangle();
-                    WinApi.GetClientRect(scUpDown.Handle, ref rect);
+                    Rectangle rect = new();
+                    _ = WinApi.GetClientRect(scUpDown.Handle, ref rect);
                     WinApi.InvalidateRect(scUpDown.Handle, ref rect, true);
                 }
             }
         }
 
         [SecuritySafeCritical]
-        private int scUpDown_SubClassedWndProc(ref Message m)
+        private int ScUpDown_SubClassedWndProc(ref Message m)
         {
             switch (m.Msg)
             {
@@ -694,9 +694,9 @@ namespace MetroFramework.Controls
 
                     m.Result = IntPtr.Zero;
 
-                    Rectangle rect = new Rectangle();
+                    Rectangle rect = new();
 
-                    WinApi.GetClientRect(scUpDown.Handle, ref rect);
+                    _ = WinApi.GetClientRect(scUpDown.Handle, ref rect);
                     WinApi.ValidateRect(scUpDown.Handle, ref rect);
 
                     return 1;
@@ -733,13 +733,13 @@ namespace MetroFramework.Controls
             HiddenTabs result = hidTabs.Find(
                  delegate(HiddenTabs bk)
                  {
-                     return bk.tabpage == tabpage.Name;
+                     return bk.Tabpage == tabpage.Name;
                  }
-             );
+             )!;
 
             if (result != null)
             {
-                this.TabPages.Insert(result.index,tabpage);
+                this.TabPages.Insert(result.Index,tabpage);
                 hidTabs.Remove(result);
             }
         }
@@ -808,9 +808,9 @@ namespace MetroFramework.Controls
             HiddenTabs result = hidTabs.Find(
                 delegate(HiddenTabs bk)
                 {
-                    return bk.tabpage == tabpage.Name;
+                    return bk.Tabpage == tabpage.Name;
                 }
-            );
+            )!;
 
             return (result != null);
         }

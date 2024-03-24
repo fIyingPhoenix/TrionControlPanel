@@ -229,7 +229,6 @@
         private MetroFramework.Controls.MetroPanel PNLDownloadStatus;
         private Label LBLDownloadSize;
         private Label LBLDownloadSpeed;
-        private Label LBLQueue;
         private Label LBLDownloadName;
         private System.Windows.Forms.Timer TimerWacher;
         private Label LBLStatus;
@@ -237,5 +236,6 @@
         private System.Windows.Forms.Timer TimerDownloadStart;
         private Label LBLTitle;
         private MetroFramework.Controls.MetroPanel metroPanel1;
+        private Label LBLQueue;
     }
 }

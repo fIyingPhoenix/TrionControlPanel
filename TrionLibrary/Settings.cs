@@ -131,7 +131,7 @@ namespace TrionLibrary
                 Settings.CustomNames = false;
                 Settings.RunServerWithWindows = false;
                 Settings.AutoUpdateCore = false;
-                Settings.AutoUpdateTrion = false;
+                Settings.AutoUpdateTrion = true;
                 Settings.FirstRun = true;
                 Settings.SelectedCore = EnumModels.Cores.AzerothCore;
                 WriteData(Settings, SettingsDataFile);
@@ -189,6 +189,8 @@ namespace TrionLibrary
         public static void CreateMySQLConfigFile(string Location)
         {
             string ConfigFile = $@"{Location}\my.ini";
+            string DirectoryMYSQL = Settings.MySQLLocation.Replace(@"\","/");
+            
             if (!File.Exists(ConfigFile))
             {
                 var createFile = File.Create(ConfigFile);
@@ -196,19 +198,20 @@ namespace TrionLibrary
                 List<string> lines = File.ReadAllLines(ConfigFile).ToList();
                 lines.Add("[client]");
                 lines.Add("port=3306");
+                lines.Add("default-character-set = utf8mb4");
                 lines.Add("socket=/tmp/mysql.sock");
-                lines.Add("");
-                lines.Add("[mysql]");
-                lines.Add("default-character-set=utf8");
                 lines.Add("");
                 lines.Add("[mysqld]");
                 lines.Add("port=3306");
                 lines.Add("socket=/tmp/mysql.sock");
                 lines.Add("key_buffer_size=16M");
                 lines.Add("max_allowed_packet=1G");
+                lines.Add($"basedir={DirectoryMYSQL}");
+                lines.Add($"datadir={DirectoryMYSQL}data");
                 lines.Add("");
-                lines.Add($"basedir=\"{Settings.MySQLLocation}\"");
-                lines.Add($"datadir=\"{Settings.MySQLLocation}data\"");
+                lines.Add("[mysqldump]");
+                lines.Add("quick");
+                lines.Add("max_allowed_packet = 512M");
                 lines.Add("");
                 File.WriteAllLines(ConfigFile, lines);
             }

@@ -29,10 +29,9 @@ namespace MetroFramework
     public sealed class MetroBrushes
     {
         private static Dictionary<string, SolidBrush> metroBrushes;
-        private static SolidBrush GetSaveBrush(string key, Color color)
+        private static SolidBrush? GetSaveBrush(string key, Color color)
         {
-            if (metroBrushes == null)
-                metroBrushes = new Dictionary<string, SolidBrush>();
+            metroBrushes ??= new Dictionary<string, SolidBrush>();
 
             if (!metroBrushes.ContainsKey(key))
                 metroBrushes.Add(key, new SolidBrush(color));
@@ -44,11 +43,11 @@ namespace MetroFramework
         {
             get
             {
-                return GetSaveBrush("Black", MetroColors.Black);
+                return GetSaveBrush("Black", MetroColors.Black)!;
             }
         }
 
-        public static SolidBrush White
+        public static SolidBrush? White
         {
             get
             {
@@ -56,7 +55,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Silver
+        public static SolidBrush? Silver
         {
             get
             {
@@ -64,7 +63,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Blue
+        public static SolidBrush? Blue
         {
             get
             {
@@ -72,7 +71,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Green
+        public static SolidBrush?Green
         {
             get
             {
@@ -80,7 +79,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Lime
+        public static SolidBrush? Lime
         {
             get
             {
@@ -88,7 +87,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Teal
+        public static SolidBrush? Teal
         {
             get
             {
@@ -96,7 +95,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Orange
+        public static SolidBrush? Orange
         {
             get
             {
@@ -104,7 +103,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Brown
+        public static SolidBrush? Brown
         {
             get
             {
@@ -112,7 +111,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Pink
+        public static SolidBrush? Pink
         {
             get
             {
@@ -120,7 +119,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Magenta
+        public static SolidBrush? Magenta
         {
             get
             {
@@ -128,7 +127,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Purple
+        public static SolidBrush? Purple
         {
             get
             {
@@ -136,7 +135,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Red
+        public static SolidBrush? Red
         {
             get
             {
@@ -144,7 +143,7 @@ namespace MetroFramework
             }
         }
 
-        public static SolidBrush Yellow
+        public static SolidBrush? Yellow
         {
             get
             {
