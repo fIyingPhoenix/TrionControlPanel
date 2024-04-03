@@ -35,6 +35,7 @@ namespace TrionControlPanelDesktop
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
             panel2 = new Panel();
+            BTNTerminal = new UI.Controls.CustomButton();
             LblVersion = new Label();
             BTNSettings = new UI.Controls.CustomButton();
             BTNTermina = new UI.Controls.CustomButton();
@@ -69,6 +70,7 @@ namespace TrionControlPanelDesktop
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 39, 46);
+            panel2.Controls.Add(BTNTerminal);
             panel2.Controls.Add(LblVersion);
             panel2.Controls.Add(BTNSettings);
             panel2.Controls.Add(BTNTermina);
@@ -78,6 +80,26 @@ namespace TrionControlPanelDesktop
             panel2.Name = "panel2";
             panel2.Size = new Size(90, 597);
             panel2.TabIndex = 1;
+            // 
+            // BTNTerminal
+            // 
+            BTNTerminal.BackColor = Color.FromArgb(28, 33, 40);
+            BTNTerminal.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNTerminal.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNTerminal.BorderRadius = 0;
+            BTNTerminal.BorderSize = 1;
+            BTNTerminal.Cursor = Cursors.Hand;
+            BTNTerminal.FlatAppearance.BorderSize = 0;
+            BTNTerminal.FlatStyle = FlatStyle.Flat;
+            BTNTerminal.ForeColor = Color.White;
+            BTNTerminal.Image = (Image)resources.GetObject("BTNTerminal.Image");
+            BTNTerminal.Location = new Point(10, 238);
+            BTNTerminal.Name = "BTNTerminal";
+            BTNTerminal.NotificationCount = 0;
+            BTNTerminal.Size = new Size(70, 70);
+            BTNTerminal.TabIndex = 5;
+            BTNTerminal.TextColor = Color.White;
+            BTNTerminal.UseVisualStyleBackColor = false;
             // 
             // LblVersion
             // 
@@ -101,7 +123,7 @@ namespace TrionControlPanelDesktop
             BTNSettings.FlatStyle = FlatStyle.Flat;
             BTNSettings.ForeColor = Color.White;
             BTNSettings.Image = (Image)resources.GetObject("BTNSettings.Image");
-            BTNSettings.Location = new Point(10, 170);
+            BTNSettings.Location = new Point(10, 162);
             BTNSettings.Name = "BTNSettings";
             BTNSettings.NotificationCount = 0;
             BTNSettings.Size = new Size(70, 70);
@@ -123,7 +145,7 @@ namespace TrionControlPanelDesktop
             BTNTermina.FlatStyle = FlatStyle.Flat;
             BTNTermina.ForeColor = Color.White;
             BTNTermina.Image = (Image)resources.GetObject("BTNTermina.Image");
-            BTNTermina.Location = new Point(10, 90);
+            BTNTermina.Location = new Point(10, 86);
             BTNTermina.Name = "BTNTermina";
             BTNTermina.NotificationCount = 0;
             BTNTermina.Size = new Size(70, 70);
@@ -405,7 +427,7 @@ namespace TrionControlPanelDesktop
             Controls.Add(PnlButtonFront);
             Controls.Add(PNLControl);
             Controls.Add(panel1);
-            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Location = new Point(0, 0);
             MinimumSize = new Size(1000, 600);
@@ -443,5 +465,6 @@ namespace TrionControlPanelDesktop
         private System.Windows.Forms.Timer TimerChangeControl;
         private UI.Controls.CustomButton BTNNotification;
         private UI.Controls.CustomButton BTNDownload;
+        private UI.Controls.CustomButton BTNTerminal;
     }
 }

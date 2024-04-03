@@ -36,6 +36,11 @@ namespace TrionControlPanelDesktop.Controls.Notification
                 AddItem(Data.Message, DateTime.Now);
             }
         }
+
+        private void BTNClean_Click(object sender, EventArgs e)
+        {
+            DGVNotifications.Rows.Clear();
+        }
     }
 }
 

@@ -35,6 +35,7 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationsControl));
             TimerWacher = new System.Windows.Forms.Timer(components);
             TimerNotify = new System.Windows.Forms.Timer(components);
             DGVNotifications = new DataGridView();
@@ -42,6 +43,7 @@
             Message = new DataGridViewTextBoxColumn();
             Time = new DataGridViewTextBoxColumn();
             PNLNotify = new MetroFramework.Controls.MetroPanel();
+            BTNClean = new UI.Controls.CustomButton();
             ((System.ComponentModel.ISupportInitialize)DGVNotifications).BeginInit();
             PNLNotify.SuspendLayout();
             SuspendLayout();
@@ -65,7 +67,7 @@
             DGVNotifications.AllowUserToResizeColumns = false;
             DGVNotifications.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = Color.White;
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle1.SelectionForeColor = Color.White;
@@ -77,7 +79,7 @@
             DGVNotifications.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             dataGridViewCellStyle2.ForeColor = Color.White;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle2.SelectionForeColor = Color.White;
@@ -87,7 +89,7 @@
             DGVNotifications.Columns.AddRange(new DataGridViewColumn[] { ID, Message, Time });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             dataGridViewCellStyle4.ForeColor = Color.White;
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
@@ -103,7 +105,7 @@
             DGVNotifications.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             dataGridViewCellStyle5.ForeColor = Color.White;
             dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle5.SelectionForeColor = Color.White;
@@ -112,27 +114,26 @@
             DGVNotifications.RowHeadersVisible = false;
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             dataGridViewCellStyle6.ForeColor = Color.White;
             dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle6.SelectionForeColor = Color.White;
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
             DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            DGVNotifications.RowTemplate.Height = 25;
             DGVNotifications.RowTemplate.ReadOnly = true;
             DGVNotifications.RowTemplate.Resizable = DataGridViewTriState.True;
             DGVNotifications.ShowCellErrors = false;
             DGVNotifications.ShowCellToolTips = false;
             DGVNotifications.ShowEditingIcon = false;
             DGVNotifications.ShowRowErrors = false;
-            DGVNotifications.Size = new Size(789, 290);
+            DGVNotifications.Size = new Size(801, 311);
             DGVNotifications.TabIndex = 0;
             // 
             // ID
             // 
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             dataGridViewCellStyle3.ForeColor = Color.White;
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(28, 33, 40);
             dataGridViewCellStyle3.SelectionForeColor = Color.White;
@@ -159,7 +160,7 @@
             // 
             // PNLNotify
             // 
-            PNLNotify.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PNLNotify.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PNLNotify.BackColor = Color.FromArgb(34, 39, 46);
             PNLNotify.Border = true;
             PNLNotify.BorderColor = Color.Black;
@@ -170,10 +171,10 @@
             PNLNotify.HorizontalScrollbarBarColor = true;
             PNLNotify.HorizontalScrollbarHighlightOnWheel = false;
             PNLNotify.HorizontalScrollbarSize = 10;
-            PNLNotify.Location = new Point(24, 25);
+            PNLNotify.Location = new Point(20, 20);
             PNLNotify.Name = "PNLNotify";
             PNLNotify.Padding = new Padding(2);
-            PNLNotify.Size = new Size(793, 294);
+            PNLNotify.Size = new Size(805, 315);
             PNLNotify.Style = MetroFramework.MetroColorStyle.Blue;
             PNLNotify.StyleManager = null;
             PNLNotify.TabIndex = 31;
@@ -183,11 +184,34 @@
             PNLNotify.VerticalScrollbarHighlightOnWheel = false;
             PNLNotify.VerticalScrollbarSize = 10;
             // 
+            // BTNClean
+            // 
+            BTNClean.Anchor = AnchorStyles.Right;
+            BTNClean.BackColor = Color.FromArgb(28, 33, 40);
+            BTNClean.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNClean.BorderColor = Color.Black;
+            BTNClean.BorderRadius = 0;
+            BTNClean.BorderSize = 1;
+            BTNClean.Cursor = Cursors.Hand;
+            BTNClean.FlatAppearance.BorderSize = 0;
+            BTNClean.FlatStyle = FlatStyle.Flat;
+            BTNClean.ForeColor = Color.White;
+            BTNClean.Image = (Image)resources.GetObject("BTNClean.Image");
+            BTNClean.Location = new Point(795, 337);
+            BTNClean.Name = "BTNClean";
+            BTNClean.NotificationCount = 0;
+            BTNClean.Size = new Size(30, 30);
+            BTNClean.TabIndex = 32;
+            BTNClean.TextColor = Color.White;
+            BTNClean.UseVisualStyleBackColor = false;
+            BTNClean.Click += BTNClean_Click;
+            // 
             // NotificationsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
+            Controls.Add(BTNClean);
             Controls.Add(PNLNotify);
             Name = "NotificationsControl";
             Size = new Size(845, 370);
@@ -204,5 +228,6 @@
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn Time;
+        private UI.Controls.CustomButton BTNClean;
     }
 }

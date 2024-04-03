@@ -162,11 +162,9 @@ namespace TrionControlPanelDesktop
             int port = int.Parse(Data.Settings.MySQLServerPort);
             try
             {
-                using (TcpClient tcpClient = new())
-                {
-                    await tcpClient.ConnectAsync(host, port);
-                    return true;
-                }
+                using TcpClient tcpClient = new();
+                await tcpClient.ConnectAsync(host, port);
+                return true;
             }
             catch (Exception)
             {
@@ -263,17 +261,15 @@ namespace TrionControlPanelDesktop
             {
                 if (MetroMessageBox.Show(this, "MySQL Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    using (var FolderBrowser = new FolderBrowserDialog())
+                    using var FolderBrowser = new FolderBrowserDialog();
+                    DialogResult Result = FolderBrowser.ShowDialog();
+                    if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
                     {
-                        DialogResult Result = FolderBrowser.ShowDialog();
-                        if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
+                        Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.MySQLExecutableName);
+                        if (Data.Settings.MySQLExecutableLocation != string.Empty)
                         {
-                            Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.MySQLExecutableName);
-                            if (Data.Settings.MySQLExecutableLocation != string.Empty)
-                            {
-                                string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
-                                Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
-                            }
+                            string BinFolder = Path.GetDirectoryName(Data.Settings.MySQLExecutableLocation)!;
+                            Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(BinFolder, @"..\"));
                         }
                     }
                 }
@@ -289,15 +285,13 @@ namespace TrionControlPanelDesktop
 
                 if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    using (var FolderBrowser = new FolderBrowserDialog())
+                    using var FolderBrowser = new FolderBrowserDialog();
+                    DialogResult Result = FolderBrowser.ShowDialog();
+                    if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
                     {
-                        DialogResult Result = FolderBrowser.ShowDialog();
-                        if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(FolderBrowser.SelectedPath))
-                        {
-                            Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.LogonExecutableName);
-                            Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.WorldExecutableName);
-                            Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
-                        }
+                        Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.LogonExecutableName);
+                        Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(FolderBrowser.SelectedPath, Data.Settings.WorldExecutableName);
+                        Data.Settings.CoreLocation = Path.GetDirectoryName(Data.Settings.WorldExecutableLocation);
                     }
                 }
             }

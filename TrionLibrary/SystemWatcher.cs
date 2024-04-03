@@ -157,8 +157,7 @@ namespace TrionLibrary
             {
                 try { process.Kill(); }
                 catch (Exception) {  }
-            }
-          
+            }   
         }
         public static void ApplicationStart(string Application,string Name, bool HideWindw, string Arguments)
         {
