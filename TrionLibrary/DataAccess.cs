@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace TrionLibrary
-{
     public  class MySQLDataAccess
     {
         public static async Task<List<T>> LodaData<T,U> (string sql ,U parameters, string connectionString)
