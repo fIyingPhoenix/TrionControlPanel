@@ -93,7 +93,7 @@
             // LBLStatus
             // 
             LBLStatus.AutoSize = true;
-            LBLStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLStatus.Font = new Font("Segoe UI", 12F);
             LBLStatus.ForeColor = Color.White;
             LBLStatus.Location = new Point(20, 149);
             LBLStatus.Name = "LBLStatus";
@@ -104,7 +104,7 @@
             // LBLQueue
             // 
             LBLQueue.AutoSize = true;
-            LBLQueue.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLQueue.Font = new Font("Segoe UI", 12F);
             LBLQueue.ForeColor = Color.White;
             LBLQueue.Location = new Point(20, 123);
             LBLQueue.Name = "LBLQueue";
@@ -115,7 +115,7 @@
             // LBLDownloadName
             // 
             LBLDownloadName.AutoSize = true;
-            LBLDownloadName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLDownloadName.Font = new Font("Segoe UI", 12F);
             LBLDownloadName.ForeColor = Color.White;
             LBLDownloadName.Location = new Point(20, 97);
             LBLDownloadName.Name = "LBLDownloadName";
@@ -126,7 +126,7 @@
             // LBLDownloadSpeed
             // 
             LBLDownloadSpeed.AutoSize = true;
-            LBLDownloadSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLDownloadSpeed.Font = new Font("Segoe UI", 12F);
             LBLDownloadSpeed.ForeColor = Color.White;
             LBLDownloadSpeed.Location = new Point(20, 40);
             LBLDownloadSpeed.Name = "LBLDownloadSpeed";
@@ -137,7 +137,7 @@
             // LBLDownloadSize
             // 
             LBLDownloadSize.AutoSize = true;
-            LBLDownloadSize.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLDownloadSize.Font = new Font("Segoe UI", 12F);
             LBLDownloadSize.ForeColor = Color.White;
             LBLDownloadSize.Location = new Point(20, 19);
             LBLDownloadSize.Name = "LBLDownloadSize";
@@ -154,7 +154,7 @@
             // LBLFIleName
             // 
             LBLFIleName.AutoSize = true;
-            LBLFIleName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLFIleName.Font = new Font("Segoe UI", 12F);
             LBLFIleName.ForeColor = Color.White;
             LBLFIleName.Location = new Point(19, 291);
             LBLFIleName.Name = "LBLFIleName";
@@ -170,7 +170,7 @@
             // LBLTitle
             // 
             LBLTitle.Dock = DockStyle.Fill;
-            LBLTitle.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLTitle.Font = new Font("Segoe UI", 12F);
             LBLTitle.ForeColor = Color.White;
             LBLTitle.Location = new Point(2, 2);
             LBLTitle.Name = "LBLTitle";

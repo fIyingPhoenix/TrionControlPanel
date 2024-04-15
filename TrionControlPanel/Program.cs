@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using TrionLibrary;
+using TrionDatabase;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<MySQLDataAccess>();
+builder.Services.AddSingleton<SQLDataAccess>();
 
 var app = builder.Build();
 

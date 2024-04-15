@@ -12,7 +12,6 @@ namespace TrionControlPanelDesktop.Controls.Notification
             Dock = DockStyle.Fill;
             InitializeComponent();
         }
-
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
 
@@ -28,7 +27,6 @@ namespace TrionControlPanelDesktop.Controls.Notification
             //Update Notification count
             UIData.Notyfications++;
         }
-
         private void TimerNotify_Tick(object sender, EventArgs e)
         {
             if (Data.Message != string.Empty)
@@ -36,10 +34,10 @@ namespace TrionControlPanelDesktop.Controls.Notification
                 AddItem(Data.Message, DateTime.Now);
             }
         }
-
         private void BTNClean_Click(object sender, EventArgs e)
         {
             DGVNotifications.Rows.Clear();
+            UIData.Notyfications = DGVNotifications.Rows.Count;
         }
     }
 }

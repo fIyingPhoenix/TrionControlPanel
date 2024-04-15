@@ -102,7 +102,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel1
             // 
-            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
@@ -133,18 +133,18 @@ namespace TrionControlPanelDesktop.Controls
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(0, 174, 219);
             label4.Location = new Point(14, 18);
             label4.Name = "label4";
-            label4.Size = new Size(175, 21);
+            label4.Size = new Size(199, 21);
             label4.TabIndex = 32;
-            label4.Text = "Login Server Resource";
+            label4.Text = "LOGIN SERVER RESOURCE";
             // 
             // LoginPbarCPU
             // 
             LoginPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LoginPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
+            LoginPbarCPU.BackColor = Color.FromArgb(34, 34, 34);
             LoginPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
             LoginPbarCPU.FontSize = 10;
             LoginPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
@@ -160,7 +160,7 @@ namespace TrionControlPanelDesktop.Controls
             // LoginPbarRAM
             // 
             LoginPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            LoginPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
+            LoginPbarRAM.BackColor = Color.FromArgb(34, 34, 34);
             LoginPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
             LoginPbarRAM.FontSize = 10;
             LoginPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
@@ -197,7 +197,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel2
             // 
-            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
@@ -252,6 +252,7 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel3.VerticalScrollbarBarColor = true;
             metroPanel3.VerticalScrollbarHighlightOnWheel = false;
             metroPanel3.VerticalScrollbarSize = 10;
+            metroPanel3.Visible = false;
             // 
             // LBLWorldsOpen
             // 
@@ -280,11 +281,13 @@ namespace TrionControlPanelDesktop.Controls
             customButton1.ImageAlign = ContentAlignment.MiddleLeft;
             customButton1.Location = new Point(376, 14);
             customButton1.Name = "customButton1";
+            customButton1.NotificationCount = 0;
             customButton1.RightToLeft = RightToLeft.No;
             customButton1.Size = new Size(25, 25);
             customButton1.TabIndex = 43;
             customButton1.TextColor = Color.White;
             customButton1.UseVisualStyleBackColor = false;
+            customButton1.Visible = false;
             // 
             // BTNMySQLOpenFolder
             // 
@@ -302,28 +305,30 @@ namespace TrionControlPanelDesktop.Controls
             BTNMySQLOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
             BTNMySQLOpenFolder.Location = new Point(293, 14);
             BTNMySQLOpenFolder.Name = "BTNMySQLOpenFolder";
+            BTNMySQLOpenFolder.NotificationCount = 0;
             BTNMySQLOpenFolder.RightToLeft = RightToLeft.No;
             BTNMySQLOpenFolder.Size = new Size(25, 25);
             BTNMySQLOpenFolder.TabIndex = 42;
             BTNMySQLOpenFolder.TextColor = Color.White;
             BTNMySQLOpenFolder.UseVisualStyleBackColor = false;
+            BTNMySQLOpenFolder.Visible = false;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label7.ForeColor = Color.FromArgb(0, 174, 219);
             label7.Location = new Point(14, 18);
             label7.Name = "label7";
-            label7.Size = new Size(179, 21);
+            label7.Size = new Size(207, 21);
             label7.TabIndex = 37;
-            label7.Text = "World Server Resource";
+            label7.Text = "WORLD SERVER RESOURCE";
             // 
             // WorldPbarCPU
             // 
             WorldPbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            WorldPbarCPU.BackColor = Color.FromArgb(28, 33, 40);
+            WorldPbarCPU.BackColor = Color.FromArgb(34, 34, 34);
             WorldPbarCPU.BarColor = Color.FromArgb(0, 174, 219);
             WorldPbarCPU.FontSize = 10;
             WorldPbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
@@ -350,7 +355,7 @@ namespace TrionControlPanelDesktop.Controls
             // WorldPbarRAM
             // 
             WorldPbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            WorldPbarRAM.BackColor = Color.FromArgb(28, 33, 40);
+            WorldPbarRAM.BackColor = Color.FromArgb(34, 34, 34);
             WorldPbarRAM.BarColor = Color.FromArgb(0, 174, 219);
             WorldPbarRAM.FontSize = 10;
             WorldPbarRAM.ForeColor = Color.FromArgb(0, 174, 219);
@@ -393,7 +398,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLServerStatus
             // 
-            PNLServerStatus.BackColor = Color.FromArgb(34, 39, 46);
+            PNLServerStatus.BackColor = Color.FromArgb(28, 33, 40);
             PNLServerStatus.Border = true;
             PNLServerStatus.BorderColor = Color.Black;
             PNLServerStatus.BorderSize = 1;
@@ -425,7 +430,7 @@ namespace TrionControlPanelDesktop.Controls
             // LBLWorldServerStatus
             // 
             LBLWorldServerStatus.AutoSize = true;
-            LBLWorldServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLWorldServerStatus.Font = new Font("Segoe UI", 12F);
             LBLWorldServerStatus.ForeColor = Color.White;
             LBLWorldServerStatus.Location = new Point(73, 115);
             LBLWorldServerStatus.Name = "LBLWorldServerStatus";
@@ -436,7 +441,7 @@ namespace TrionControlPanelDesktop.Controls
             // LBLLogonServerStatus
             // 
             LBLLogonServerStatus.AutoSize = true;
-            LBLLogonServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLLogonServerStatus.Font = new Font("Segoe UI", 12F);
             LBLLogonServerStatus.ForeColor = Color.White;
             LBLLogonServerStatus.Location = new Point(73, 74);
             LBLLogonServerStatus.Name = "LBLLogonServerStatus";
@@ -447,7 +452,7 @@ namespace TrionControlPanelDesktop.Controls
             // LBLMySQLServerStatus
             // 
             LBLMySQLServerStatus.AutoSize = true;
-            LBLMySQLServerStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LBLMySQLServerStatus.Font = new Font("Segoe UI", 12F);
             LBLMySQLServerStatus.ForeColor = Color.White;
             LBLMySQLServerStatus.Location = new Point(73, 33);
             LBLMySQLServerStatus.Name = "LBLMySQLServerStatus";
@@ -487,7 +492,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLPCResorce
             // 
-            PNLPCResorce.BackColor = Color.FromArgb(34, 39, 46);
+            PNLPCResorce.BackColor = Color.FromArgb(28, 33, 40);
             PNLPCResorce.Border = true;
             PNLPCResorce.BorderColor = Color.Black;
             PNLPCResorce.BorderSize = 1;
@@ -520,18 +525,18 @@ namespace TrionControlPanelDesktop.Controls
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(0, 174, 219);
             label1.Location = new Point(14, 18);
             label1.Name = "label1";
-            label1.Size = new Size(92, 21);
+            label1.Size = new Size(100, 21);
             label1.TabIndex = 27;
-            label1.Text = "PC Resorce";
+            label1.Text = "PC RESORCE";
             // 
             // PCResorcePbarCPU
             // 
             PCResorcePbarCPU.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCResorcePbarCPU.BackColor = Color.FromArgb(28, 33, 40);
+            PCResorcePbarCPU.BackColor = Color.FromArgb(34, 34, 34);
             PCResorcePbarCPU.BarColor = Color.FromArgb(0, 174, 219);
             PCResorcePbarCPU.FontSize = 10;
             PCResorcePbarCPU.ForeColor = Color.FromArgb(0, 174, 219);
@@ -547,7 +552,7 @@ namespace TrionControlPanelDesktop.Controls
             // PCResorcePbarRAM
             // 
             PCResorcePbarRAM.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PCResorcePbarRAM.BackColor = Color.FromArgb(28, 33, 40);
+            PCResorcePbarRAM.BackColor = Color.FromArgb(34, 34, 34);
             PCResorcePbarRAM.BarColor = Color.FromArgb(0, 174, 219);
             PCResorcePbarRAM.FontSize = 10;
             PCResorcePbarRAM.ForeColor = Color.FromArgb(0, 174, 219);

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanelDesktop", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionCryptography", "TrionCryptography\TrionCryptography.csproj", "{C64CBD7C-E779-4C00-BB2E-BB9453DF84B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrionUI", "TrionUI\TrionUI.csproj", "{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionUI", "TrionUI\TrionUI.csproj", "{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrionDatabase", "TrionDatabase\TrionDatabase.csproj", "{046A87DD-0229-4DB6-8635-92E916E77670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,14 @@ Global
 		{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}.Release|x64.ActiveCfg = Release|Any CPU
 		{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}.Release|x64.Build.0 = Release|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Debug|x64.Build.0 = Debug|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Release|x64.ActiveCfg = Release|Any CPU
+		{046A87DD-0229-4DB6-8635-92E916E77670}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

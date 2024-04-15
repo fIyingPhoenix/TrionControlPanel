@@ -3,7 +3,8 @@ using TrionLibrary;
 using TrionControlPanelDesktop.FormData;
 using System.Reflection;
 using System.Diagnostics;
-using MetroFramework;
+using Microsoft.Win32;
+using System.IO;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -86,6 +87,7 @@ namespace TrionControlPanelDesktop.Controls
             TGLNotificationSound.Checked = Data.Settings.NotificationSound;
             TGLStayInTrey.Checked = Data.Settings.StayInTray;
             TGLCustomNames.Checked = Data.Settings.CustomNames;
+            TGLRunTrionStartup.Checked = Data.Settings.RunWithWindows;
             //Update Loader
             CustomNames();
             //Version Load
@@ -113,6 +115,9 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableName = "worldserver";
                     Data.Settings.LogonExecutableName = "authserver";
                     Data.Settings.SelectedCore = Cores.AzerothCore;
+                    Data.Settings.CharactersDatabase = "acore_characters";
+                    Data.Settings.WorldDatabase = "acore_world";
+                    Data.Settings.AuthDatabase = "acore_auth";
                     break;
                 case "CMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
@@ -365,16 +370,50 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNFixMysql_Click(object sender, EventArgs e)
         {
+            string path = Directory.GetCurrentDirectory();
             SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-            SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize --console");
+            Directory.Delete($@"{path}\database\data");
+            string SQLLocation = $@"{path}\database\extra\initMySQL.sql";
+            SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
         }
-
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
             if (TrionUpdate) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
             if (SppUpdate) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
             if (MysqlUpdate) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
         }
-
+        public static void AddToStartup(string appName, string executablePath)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
+                key.SetValue(appName, executablePath);
+                key.Close();
+                Data.Message = "Trion Control Panel added to Windows startup successfully.";
+            }
+            catch (Exception ex)
+            {
+                Data.Message = "Error adding Trion Control Panel to Windows startup: " + ex.Message;
+            }
+        }
+        public static void RemoveFromStartup(string appName)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
+                key.DeleteValue(appName, false);
+                key.Close();
+                Data.Message = "Trion Control Panel removed from Windows startup successfully.";
+            }
+            catch (Exception ex)
+            {
+                Data.Message = "Error removing Trion Control Panel from Windows startup: " + ex.Message;
+            }
+        }
+        private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TGLRunTrionStartup.Checked == true) { AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Data.Settings.RunWithWindows = true; }
+            if (TGLRunTrionStartup.Checked == false) { RemoveFromStartup("Trion Control Panel"); Data.Settings.RunWithWindows = false; }
+        }
     }
 }

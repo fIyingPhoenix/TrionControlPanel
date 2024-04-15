@@ -2,6 +2,13 @@
 {
     public class EnumModels
     {
+        public enum ServerType
+        {
+            Database,
+            World,
+            Logon
+        }
+
         public enum ServerStatus
         {
             Running,
@@ -10,10 +17,12 @@
         public enum CurrentControl
         {
             Home,
+            Console,
             Control,
             Settings,
             Load,
             Download,
+            Database,
             Notify
         }
         public enum LoadWebsite

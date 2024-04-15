@@ -30,7 +30,7 @@ namespace MetroFramework
         private static Dictionary<string, Pen> metroPens;
         private static Pen? GetSavePen(string key, Color color)
         {
-            metroPens ??= new Dictionary<string, Pen>();
+            metroPens ??= [];
 
             if (!metroPens.ContainsKey(key))
                 metroPens.Add(key, new Pen(color, 1f));

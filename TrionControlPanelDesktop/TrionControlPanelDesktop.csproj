@@ -49,11 +49,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="MainForm.resx~RF4f4aacf.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resorces\icons\logo\ico1.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.28" />
+    <PackageReference Include="Dapper" Version="2.1.44" />
     <PackageReference Include="DynamicLanguageRuntime" Version="1.3.4" />
     <PackageReference Include="MySql.Data" Version="8.3.0" />
   </ItemGroup>
@@ -90,6 +94,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TrionCryptography\TrionCryptography.csproj" />
+    <ProjectReference Include="..\TrionDatabase\TrionDatabase.csproj" />
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
     <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
   </ItemGroup>

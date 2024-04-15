@@ -1,12 +1,18 @@
 ﻿using Dapper;
-using System.Linq;
 using System.Data;
 using MySql.Data.MySqlClient;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using TrionLibrary;
 
-namespace TrionLibrary
-    public  class MySQLDataAccess
+namespace TrionDatabase
+{
+    public class SQLDataConnect
+    {
+        public static string ConnectionString(string Database)
+        {
+            return new($"Server={Data.Settings.MySQLServerHost};Port={Data.Settings.MySQLServerPort};User Id={Data.Settings.MySQLServerUser};Password={Data.Settings.MySQLServerPassword};Database={Database}");
+        }
+    }
+    public class SQLDataAccess
     {
         public static async Task<List<T>> LodaData<T,U> (string sql ,U parameters, string connectionString)
         {

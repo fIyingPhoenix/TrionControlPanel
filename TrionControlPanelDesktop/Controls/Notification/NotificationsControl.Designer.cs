@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationsControl));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationsControl));
             TimerWacher = new System.Windows.Forms.Timer(components);
             TimerNotify = new System.Windows.Forms.Timer(components);
+            BTNClean = new UI.Controls.CustomButton();
+            metroPanel2 = new MetroFramework.Controls.MetroPanel();
             DGVNotifications = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
             Time = new DataGridViewTextBoxColumn();
-            PNLNotify = new MetroFramework.Controls.MetroPanel();
-            BTNClean = new UI.Controls.CustomButton();
+            metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGVNotifications).BeginInit();
-            PNLNotify.SuspendLayout();
             SuspendLayout();
             // 
             // TimerWacher
@@ -59,6 +59,54 @@
             TimerNotify.Enabled = true;
             TimerNotify.Interval = 1;
             TimerNotify.Tick += TimerNotify_Tick;
+            // 
+            // BTNClean
+            // 
+            BTNClean.BackColor = Color.FromArgb(28, 33, 40);
+            BTNClean.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNClean.BorderColor = Color.Black;
+            BTNClean.BorderRadius = 0;
+            BTNClean.BorderSize = 1;
+            BTNClean.Cursor = Cursors.Hand;
+            BTNClean.Dock = DockStyle.Bottom;
+            BTNClean.FlatAppearance.BorderSize = 0;
+            BTNClean.FlatStyle = FlatStyle.Flat;
+            BTNClean.ForeColor = Color.White;
+            BTNClean.Image = (Image)resources.GetObject("BTNClean.Image");
+            BTNClean.Location = new Point(0, 339);
+            BTNClean.Name = "BTNClean";
+            BTNClean.NotificationCount = 0;
+            BTNClean.Size = new Size(845, 31);
+            BTNClean.TabIndex = 32;
+            BTNClean.TextColor = Color.White;
+            BTNClean.UseVisualStyleBackColor = false;
+            BTNClean.Click += BTNClean_Click;
+            // 
+            // metroPanel2
+            // 
+            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.Border = true;
+            metroPanel2.BorderColor = Color.Black;
+            metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(DGVNotifications);
+            metroPanel2.CustomBackground = true;
+            metroPanel2.Dock = DockStyle.Top;
+            metroPanel2.HorizontalScrollbar = false;
+            metroPanel2.HorizontalScrollbarBarColor = true;
+            metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel2.HorizontalScrollbarSize = 10;
+            metroPanel2.Location = new Point(0, 0);
+            metroPanel2.Name = "metroPanel2";
+            metroPanel2.Padding = new Padding(2);
+            metroPanel2.Size = new Size(845, 338);
+            metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel2.StyleManager = null;
+            metroPanel2.TabIndex = 47;
+            metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel2.VerticalScrollbar = false;
+            metroPanel2.VerticalScrollbarBarColor = true;
+            metroPanel2.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel2.VerticalScrollbarSize = 10;
             // 
             // DGVNotifications
             // 
@@ -120,14 +168,15 @@
             dataGridViewCellStyle6.SelectionForeColor = Color.White;
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
             DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            DGVNotifications.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             DGVNotifications.RowTemplate.ReadOnly = true;
             DGVNotifications.RowTemplate.Resizable = DataGridViewTriState.True;
             DGVNotifications.ShowCellErrors = false;
             DGVNotifications.ShowCellToolTips = false;
             DGVNotifications.ShowEditingIcon = false;
             DGVNotifications.ShowRowErrors = false;
-            DGVNotifications.Size = new Size(801, 311);
-            DGVNotifications.TabIndex = 0;
+            DGVNotifications.Size = new Size(841, 334);
+            DGVNotifications.TabIndex = 35;
             // 
             // ID
             // 
@@ -158,76 +207,28 @@
             Time.Name = "Time";
             Time.ReadOnly = true;
             // 
-            // PNLNotify
-            // 
-            PNLNotify.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PNLNotify.BackColor = Color.FromArgb(34, 39, 46);
-            PNLNotify.Border = true;
-            PNLNotify.BorderColor = Color.Black;
-            PNLNotify.BorderSize = 1;
-            PNLNotify.Controls.Add(DGVNotifications);
-            PNLNotify.CustomBackground = true;
-            PNLNotify.HorizontalScrollbar = true;
-            PNLNotify.HorizontalScrollbarBarColor = true;
-            PNLNotify.HorizontalScrollbarHighlightOnWheel = false;
-            PNLNotify.HorizontalScrollbarSize = 10;
-            PNLNotify.Location = new Point(20, 20);
-            PNLNotify.Name = "PNLNotify";
-            PNLNotify.Padding = new Padding(2);
-            PNLNotify.Size = new Size(805, 315);
-            PNLNotify.Style = MetroFramework.MetroColorStyle.Blue;
-            PNLNotify.StyleManager = null;
-            PNLNotify.TabIndex = 31;
-            PNLNotify.Theme = MetroFramework.MetroThemeStyle.Dark;
-            PNLNotify.VerticalScrollbar = true;
-            PNLNotify.VerticalScrollbarBarColor = true;
-            PNLNotify.VerticalScrollbarHighlightOnWheel = false;
-            PNLNotify.VerticalScrollbarSize = 10;
-            // 
-            // BTNClean
-            // 
-            BTNClean.Anchor = AnchorStyles.Right;
-            BTNClean.BackColor = Color.FromArgb(28, 33, 40);
-            BTNClean.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNClean.BorderColor = Color.Black;
-            BTNClean.BorderRadius = 0;
-            BTNClean.BorderSize = 1;
-            BTNClean.Cursor = Cursors.Hand;
-            BTNClean.FlatAppearance.BorderSize = 0;
-            BTNClean.FlatStyle = FlatStyle.Flat;
-            BTNClean.ForeColor = Color.White;
-            BTNClean.Image = (Image)resources.GetObject("BTNClean.Image");
-            BTNClean.Location = new Point(795, 337);
-            BTNClean.Name = "BTNClean";
-            BTNClean.NotificationCount = 0;
-            BTNClean.Size = new Size(30, 30);
-            BTNClean.TabIndex = 32;
-            BTNClean.TextColor = Color.White;
-            BTNClean.UseVisualStyleBackColor = false;
-            BTNClean.Click += BTNClean_Click;
-            // 
             // NotificationsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
+            Controls.Add(metroPanel2);
             Controls.Add(BTNClean);
-            Controls.Add(PNLNotify);
             Name = "NotificationsControl";
             Size = new Size(845, 370);
+            metroPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DGVNotifications).EndInit();
-            PNLNotify.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
         private System.Windows.Forms.Timer TimerWacher;
         private System.Windows.Forms.Timer TimerNotify;
+        private UI.Controls.CustomButton BTNClean;
+        private MetroFramework.Controls.MetroPanel metroPanel2;
         private DataGridView DGVNotifications;
-        private MetroFramework.Controls.MetroPanel PNLNotify;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn Time;
-        private UI.Controls.CustomButton BTNClean;
     }
 }

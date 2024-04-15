@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TrionLibrary
 {
@@ -11,6 +10,7 @@ namespace TrionLibrary
     {
         //fix "lodctr /R"
         //static Process[] ProcessID;
+
         private static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";
@@ -132,6 +132,42 @@ namespace TrionLibrary
             else
                 return true;
         }
+        public static void ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
+        {
+            Data.Message = $@"Starting {Name}!";
+            Thread.Sleep(100);
+            try
+            {
+                using (Process myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    // You can start any process, HelloWorld is a do-nothing example.
+                    myProcess.StartInfo.FileName = Application;
+                    if (Arguments != null)
+                    {
+                        myProcess.StartInfo.Arguments = Arguments;
+
+                    }
+                    if (HideWindw == false)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = false;
+                        myProcess.Start();
+
+                    }
+                    if (HideWindw == true)
+                    {
+                        myProcess.StartInfo.CreateNoWindow = true;
+                        myProcess.Start();
+                    }
+                    // complete the task
+                    Data.Message = $@"Successfully rune {Name}!";
+                }
+            }
+            catch (Exception ex)
+            {
+                Data.Message = ex.Message;
+            }
+        }
         static int GetProcessIdByName(string processName)
         {
             try
@@ -158,42 +194,6 @@ namespace TrionLibrary
                 try { process.Kill(); }
                 catch (Exception) {  }
             }   
-        }
-        public static void ApplicationStart(string Application,string Name, bool HideWindw, string Arguments)
-        {
-            Data.Message = $@"Starting {Name}!";
-            Thread.Sleep(100);
-            try
-            {
-                using (Process myProcess = new Process())
-                {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Application;
-                    if(Arguments != null)
-                    {
-                        myProcess.StartInfo.Arguments = Arguments;
-                        
-                    }
-                    if (HideWindw == false)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = false;
-                        myProcess.Start();
-                        
-                    }
-                    if (HideWindw == true)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();       
-                    }
-                        // complete the task
-                        Data.Message = $@"Successfully rune {Name}!";
-                } 
-            }
-            catch (Exception ex)
-            {
-                Data.Message = ex.Message; 
-            }
         }
         public static int ApplicationRamUsage(string ApplicationName)
         {

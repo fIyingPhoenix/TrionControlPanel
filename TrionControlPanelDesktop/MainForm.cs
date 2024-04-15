@@ -1,35 +1,48 @@
 using MetroFramework;
 using MetroFramework.Forms;
+using System.Drawing;
 using System.Net.Sockets;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
 using TrionLibrary;
+using Windows.Media.Playback;
 using static TrionLibrary.EnumModels;
 
 namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MetroForm
     {
+        readonly DatabaseControl databaseControl = new();
         readonly HomeControl homeControl = new();
         readonly LoadingControl loadingControl = new();
         readonly SettingsControl settingsControl = new();
         readonly DownloadControl downloadControl = new();
         readonly NotificationsControl notificationsControl = new();
+        readonly ConsoleControl consoleControl = new();
         //
         CurrentControl CurrentControl { get; set; }
         //
         //
         private static bool LoadControl = false;
         public static bool LoadDownload { get; set; }
-        void LoadData()
+        async void LoadData()
         {
             CurrentControl = CurrentControl.Load;
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
-            Data.SaveSettings();
+            if (Data.Settings.RunServerWithWindows) { await RunAll(); }
+            await Data.SaveSettings();
+        }
+
+        static async Task ClosingToDo()
+        {
+            SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+            SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
+            SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
+            await Data.SaveSettings();
         }
         public MainForm()
         {
@@ -46,10 +59,6 @@ namespace TrionControlPanelDesktop
         {
             await Data.LoadSettings();
             LoadData();
-            if (Data.Settings.RunServerWithWindows == true)
-            {
-                _ = RunAll(sender, e);
-            }
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -70,9 +79,9 @@ namespace TrionControlPanelDesktop
         }
         private void TerminaBTN_Click(object sender, EventArgs e)
         {
-            if (CurrentControl != CurrentControl.Control)
+            if (CurrentControl != CurrentControl.Database)
             {
-                CurrentControl = CurrentControl.Control;
+                CurrentControl = CurrentControl.Database;
                 TimerChangeControl.Start();
             }
         }
@@ -80,33 +89,39 @@ namespace TrionControlPanelDesktop
         {
             if (UIData.MySQLisRunning)
             {
-                BTNStartMySQL.Text = "            Stop  MySQL  ";
+                BTNStartMySQL.Text = "            Stop  Database  ";
                 BTNStartMySQL.Image = Properties.Resources.stop_35;
+                StartDatabaseTSMItem.Text = "Stop Database";
             }
             else if (UIData.MySQLisRunning == false)
             {
-                BTNStartMySQL.Text = "            Start  MySQL  ";
+                BTNStartMySQL.Text = "            Start  Database  ";
                 BTNStartMySQL.Image = Properties.Resources.play_35;
+                StartDatabaseTSMItem.Text = "Start Database";
             }
             if (UIData.WorldisRunning)
             {
                 BTNStartWorld.Text = "            Stop  World ";
                 BTNStartWorld.Image = Properties.Resources.stop_35;
+                StartWorldTSMItem.Text = "Stop World";
             }
             else if (UIData.WorldisRunning == false)
             {
                 BTNStartWorld.Text = "            Start  World ";
                 BTNStartWorld.Image = Properties.Resources.play_35;
+                StartWorldTSMItem.Text = "Start World";
             }
             if (UIData.LogonisRunning)
             {
-                BTNStartLogin.Text = "            Stop  Login  ";
+                BTNStartLogin.Text = "            Stop  Logon  ";
                 BTNStartLogin.Image = Properties.Resources.stop_35;
+                StartLogonTSMItem.Text = "Stop Logon";
             }
             else if (UIData.LogonisRunning == false)
             {
-                BTNStartLogin.Text = "            Start  Login  ";
+                BTNStartLogin.Text = "            Start  Logon  ";
                 BTNStartLogin.Image = Properties.Resources.play_35;
+                StartLogonTSMItem.Text = "Start Logon";
             }
             //
             BTNNotification.NotificationCount = UIData.Notyfications;
@@ -123,14 +138,13 @@ namespace TrionControlPanelDesktop
             }
             if (UIData.StartUpLoading == 2)
             {
-                BTNStartAll.Visible = true;
                 BTNStartLogin.Visible = true;
                 BTNStartWorld.Visible = true;
                 BTNStartMySQL.Visible = true;
                 BTNNotification.Visible = true;
                 BTNHome.Visible = true;
                 BTNSettings.Visible = true;
-                BTNTermina.Visible = true;
+                BTNdatabase.Visible = true;
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
@@ -171,19 +185,40 @@ namespace TrionControlPanelDesktop
                 return false;
             }
         }
-        private async Task RunAll(object sender, EventArgs e)
+        private static async Task RunAll()
         {
-            BTNStartMySQL_Click(sender, e);
+            if (UIData.MySQLisRunning == false && Data.Settings.MySQLExecutableLocation != string.Empty)
+            {
+                string configFile = Path.Combine(Directory.GetCurrentDirectory(), "my.ini");
+                if (!File.Exists(configFile))
+                {
+                    Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                }
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--console");
+                UIData.MySQLisStarted = true;
+            }
             while (!await IsPortOpen())
             {
                 await Task.Delay(1000); // Wait for 1 second before retrying
             }
-            BTNStartLogin_Click(sender, e);
-            BTNStartWorld_Click(sender, e);
+            if (UIData.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
+            {
+                SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null);
+                UIData.LogonisStarted = true;
+            }
+            if (UIData.WorldisRunning == false && Data.Settings.WorldExecutableLocation != string.Empty)
+            {
+                SystemWatcher.ApplicationStart(Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName, Data.Settings.ConsolHide, null);
+                UIData.WorldisStarted = true;
+            }
         }
-        private async void BTNStartAll_Click(object sender, EventArgs e)
+        private void BTNConsole_Click(object sender, EventArgs e)
         {
-            await RunAll(sender, e);
+            if (CurrentControl != CurrentControl.Console)
+            {
+                CurrentControl = CurrentControl.Console;
+                TimerChangeControl.Start();
+            }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
         {
@@ -201,6 +236,18 @@ namespace TrionControlPanelDesktop
                 TimerChangeControl.Start();
             }
         }
+        private void StartWorldTSMItem_Click(object sender, EventArgs e)
+        {
+            BTNStartWorld_Click(sender, e);
+        }
+        private void StartLogonTSMItem_Click(object sender, EventArgs e)
+        {
+            BTNStartLogin_Click(sender, e);
+        }
+        private void StartDatabaseTSMItem_Click(object sender, EventArgs e)
+        {
+            BTNStartMySQL_Click(sender, e);
+        }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
             if (UIData.MySQLisRunning == false && Data.Settings.MySQLExecutableLocation != string.Empty)
@@ -216,7 +263,6 @@ namespace TrionControlPanelDesktop
             if (UIData.MySQLisRunning == true)
             {
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-
                 UIData.MySQLisStarted = false;
             }
         }
@@ -319,12 +365,44 @@ namespace TrionControlPanelDesktop
                     PNLControl.Controls.Clear();
                     PNLControl.Controls.Add(notificationsControl);
                     break;
+                case CurrentControl.Console:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(consoleControl);
+                    break;
+                case CurrentControl.Database:
+                    PNLControl.Controls.Clear();
+                    PNLControl.Controls.Add(databaseControl);
+                    break;
                 default: break;
             }
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            await Data.SaveSettings();
+            if (Data.Settings.StayInTray)
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    e.Cancel = true;
+                    Hide();
+                }
+            }
+            else
+            {
+                await ClosingToDo();
+            }
         }
+
+        private async void ExitTSMItem_ClickAsync(object sender, EventArgs e)
+        {
+            await ClosingToDo();
+            NIcon.Dispose();
+            Application.Exit();
+        }
+
+        private void OpenTSMItem_Click(object sender, EventArgs e)
+        {
+            Show();
+        }
+
     }
 }

@@ -16,24 +16,22 @@ namespace TrionLibrary
         {
             public static async Task<string> GetOnline(string Location)
             {
-                using (HttpClient client = new HttpClient())
+                using HttpClient client = new HttpClient();
+                if (!string.IsNullOrEmpty(Location))
                 {
-                    if (!string.IsNullOrEmpty(Location))
+                    HttpResponseMessage response = await client.GetAsync(Location);
+                    if (response.IsSuccessStatusCode)
                     {
-                        HttpResponseMessage response = await client.GetAsync(Location);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            return await response.Content.ReadAsStringAsync();
-                        }
-                        else
-                        {
-                            return ($"N/A");
-                        }
+                        return await response.Content.ReadAsStringAsync();
                     }
                     else
                     {
                         return ($"N/A");
                     }
+                }
+                else
+                {
+                    return ($"N/A");
                 }
             }
             public static string GetLocal(string Location)
@@ -113,8 +111,8 @@ namespace TrionLibrary
                 Settings.CharactersDatabase = "characters";
                 Settings.MySQLLocation = "";
                 Settings.MySQLServerHost = "localhost";
-                Settings.MySQLServerUser = "root";
-                Settings.MySQLServerPassword = "FlyingPhoenix";
+                Settings.MySQLServerUser = "acore";
+                Settings.MySQLServerPassword = "acore";
                 Settings.MySQLServerPort = "3306";
                 Settings.MySQLExecutableName = "mysqld";
                 Settings.CoreLocation = "";

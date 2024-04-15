@@ -226,7 +226,6 @@ namespace MetroFramework.Drawing
                     return colorMap[theme][state];
                 }
             }
-
             public sealed class Button
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -261,7 +260,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(204, 204, 204);
                 }
             }
-
             public sealed class TrackBar
             {
                 public sealed class Thumb
@@ -334,7 +332,6 @@ namespace MetroFramework.Drawing
                     }
                 }
             }
-
             public sealed class ScrollBar
             {
                 public sealed class Thumb
@@ -407,7 +404,6 @@ namespace MetroFramework.Drawing
                     }
                 }
             }
-
             public sealed class ProgressBar
             {
                 public sealed class Bar
@@ -446,7 +442,6 @@ namespace MetroFramework.Drawing
                 }
             }
         }
-
         public sealed class ForeColor
         {
             public sealed class Button
@@ -483,7 +478,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(136, 136, 136);
                 }
             }
-
             public static Color Title(MetroThemeStyle theme)
             {
                 if (theme == MetroThemeStyle.Dark)
@@ -491,7 +485,6 @@ namespace MetroFramework.Drawing
 
                 return Color.FromArgb(0, 0, 0);
             }
-
             public sealed class Tile
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -526,7 +519,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(209, 209, 209);
                 }
             }
-
             public sealed class Link
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -561,7 +553,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(209, 209, 209);
                 }
             }
-
             public sealed class Label
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -580,7 +571,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(209, 209, 209);
                 }
             }
-
             public sealed class CheckBox
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -615,7 +605,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(136, 136, 136);
                 }
             }
-
             public sealed class ComboBox
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -650,7 +639,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(136, 136, 136);
                 }
             }
-
             public sealed class ProgressBar
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -669,7 +657,6 @@ namespace MetroFramework.Drawing
                     return Color.FromArgb(209, 209, 209);
                 }
             }
-
             public sealed class TabControl
             {
                 public static Color Normal(MetroThemeStyle theme)
@@ -691,7 +678,6 @@ namespace MetroFramework.Drawing
         }
 
         #region Helper Methods
-
         public static Color GetStyleColor(MetroColorStyle style)
         {
             return style switch
@@ -732,7 +718,8 @@ namespace MetroFramework.Drawing
                 MetroColorStyle.Purple => MetroBrushes.Purple,
                 MetroColorStyle.Red => MetroBrushes.Red,
                 MetroColorStyle.Yellow => MetroBrushes.Yellow,
-                _ => MetroBrushes.Blue,
+                MetroColorStyle.Default => throw new NotImplementedException(),
+                _ => MetroBrushes.Blue!,
             };
         }
         public static Pen GetStyl5ePen(MetroColorStyle style)

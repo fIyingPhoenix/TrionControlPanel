@@ -21,9 +21,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-using System.Drawing;
-using System.Collections.Generic;
-
 namespace MetroFramework
 {
     public sealed class MetroBrushes
@@ -31,7 +28,7 @@ namespace MetroFramework
         private static Dictionary<string, SolidBrush> metroBrushes;
         private static SolidBrush? GetSaveBrush(string key, Color color)
         {
-            metroBrushes ??= new Dictionary<string, SolidBrush>();
+            metroBrushes ??= [];
 
             if (!metroBrushes.ContainsKey(key))
                 metroBrushes.Add(key, new SolidBrush(color));
