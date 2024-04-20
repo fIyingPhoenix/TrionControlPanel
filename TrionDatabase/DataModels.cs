@@ -16,7 +16,22 @@ namespace TrionDatabase
             public int Timezone { get; set; }
             public int AllowedSecurityLevel { get; set; }
         }
-
-
+        public class RealmListAscemu
+        {
+            public int ID { get; set; }
+            public string Password { get; set; }
+            public string StatusChangeTime { get; set; }
+        }
+        public class RealmListMangos
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Address { get; set; }
+            public int Port { get; set; }
+            public int Icon { get; set; }
+            public int Realmflags { get; set; }
+            public int Timezone { get; set; }
+            public int AllowedSecurityLevel { get; set; }
+        }
     }
 }

@@ -1,18 +1,22 @@
-﻿using ABI.Windows.Media.Protection.PlayReady;
+﻿using MetroFramework;
+using Mysqlx.Crud;
 using TrionDatabase;
 using TrionLibrary;
-using Windows.ApplicationModel.UserDataAccounts.SystemAccess;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class DatabaseControl : UserControl
     {
+        static System.Threading.Timer TextTimer;
         List<DataModels.RealmList> RList;
+        List<DataModels.RealmListAscemu> RListAscemu;
+        List<DataModels.RealmListMangos> RListMangos;
         public DatabaseControl()
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
-            
+            _ = LoadData();
         }
         private async Task LoadData()
         {
@@ -20,58 +24,113 @@ namespace TrionControlPanelDesktop.Controls
             TXTInternIP.Text = NetworkHelper.GetInternalIpAddress();
             TXTPublicIP.Text = await NetworkHelper.GetExternalIpAddress();
         }
-        private static string SaveDataRealmSql()
-        {
-            return Data.Settings.SelectedCore switch
-            {
-                EnumModels.Cores.AscEmu => "",
-                EnumModels.Cores.AzerothCore => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.CMaNGOS => "",
-                EnumModels.Cores.CypherCore => "",
-                EnumModels.Cores.TrinityCore335 => "",
-                EnumModels.Cores.TrinityCore => "",
-                EnumModels.Cores.TrinityCoreClassic => "",
-                EnumModels.Cores.VMaNGOS => "",
-                _ => "",
-            };
-        }
-        private static string LoadDataRealmSql()
-        {
-            return Data.Settings.SelectedCore switch
-            {
-                EnumModels.Cores.AscEmu => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.AzerothCore => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.CMaNGOS => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.CypherCore => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.TrinityCore335 => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.TrinityCore => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.TrinityCoreClassic => $"SELECT * FROM `realmlist` LIMIT 100;",
-                EnumModels.Cores.VMaNGOS => $"SELECT * FROM `realmlist` LIMIT 100;",
-                _ => "",
-            };
-        }
         private async Task LoadRealmList()
         {
             try
             {
                 CBOXReamList.Items.Clear();
-                if(RList != null) { RList.Clear(); }
-                RList = await SQLDataAccess.LodaData<DataModels.RealmList, dynamic>(LoadDataRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
-                foreach (var realm in RList)
+
+                if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.CypherCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore335 ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
                 {
-                    CBOXReamList.Items.Add(realm.Name);
+                    RList?.Clear();
+                    RList = await SQLDataAccess.LodaData<DataModels.RealmList, dynamic>(SQLDataConnect.LoadDataRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    foreach (var realm in RList!)
+                    {
+                        CBOXReamList.Items.Add(realm.Name);
+                    }
+                    CBOXReamList.SelectedIndex = 0;
                 }
-                CBOXReamList.SelectedIndex = 0;
+                if (Data.Settings.SelectedCore == EnumModels.Cores.CMaNGOS ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
+                {
+                    RListMangos?.Clear();
+                    RListMangos = await SQLDataAccess.LodaData<DataModels.RealmListMangos, dynamic>(SQLDataConnect.LoadDataRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    foreach (var realm in RListMangos!)
+                    {
+                        CBOXReamList.Items.Add(realm.Name);
+                    }
+                    CBOXReamList.SelectedIndex = 0;
+                }
+                if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
+                {
+                    RListAscemu?.Clear();
+                    RListAscemu = await SQLDataAccess.LodaData<DataModels.RealmListAscemu, dynamic>(SQLDataConnect.LoadDataRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    foreach (var realm in RListAscemu!)
+                    {
+                        CBOXReamList.Items.Add(realm.ID);
+                    }
+                    CBOXReamList.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
-                Data.Message = "Error getting data: " + ex.Message;
+                Data.Message = "Error loding data: " + ex.Message;
             }
 
         }
         private async Task SaveRealmList()
         {
+            try
+            {
+                if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.CypherCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore335 ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
+                {
+                    //`name`, `address`, `port`, `icon`, `flag`, `timezone`
+                    SQLDataAccess.SaveData(SQLDataConnect.SaveDataRealmSql(), new
+                    {
+                        Name = TXTRealmName.Text,
+                        Address = TXTRealmAddress.Text,
+                        Port = TXTRealmPort.Text,
+                        Icon = TXTRealmIcon.Text,
+                        Flag = TXTRealmFlag.Text,
+                        Timezone = TXTRealmTime.Text,
+                        ID = TXTRealmID.Text
 
+                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    await LoadRealmList();
+                }
+                if (Data.Settings.SelectedCore == EnumModels.Cores.CMaNGOS ||
+                    Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
+                {
+                    RListMangos?.Clear();
+                    SQLDataAccess.SaveData(SQLDataConnect.SaveDataRealmSql(), new
+                    {
+                        Name = TXTRealmName.Text,
+                        Address = TXTRealmAddress.Text,
+                        LocalAddress = TXTRealmLocalAddress.Text,
+                        LocalSubnetMask = TXTRealmSubnetMask.Text,
+                        Port = TXTRealmPort.Text,
+                        Icon = TXTRealmIcon.Text,
+                        Flag = TXTRealmFlag.Text,
+                        Timezone = TXTRealmTime.Text,
+                        ID = TXTRealmID.Text
+
+                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    await LoadRealmList();
+                }
+                if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
+                {
+                    RListAscemu?.Clear();
+                    SQLDataAccess.SaveData(SQLDataConnect.SaveDataRealmSql(), new
+                    {
+                        Password = TXTRealmName.Text,
+                        StatusChangeTime = TXTRealmAddress.Text,
+
+                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    await LoadRealmList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Data.Message = "Error saving data: " + ex.Message;
+            }
         }
         private void CBOXReamList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -88,17 +147,28 @@ namespace TrionControlPanelDesktop.Controls
                 TXTRealmFlag.Text = SearchList.Flag.ToString();
                 TXTRealmTime.Text = SearchList.Timezone.ToString();
             }
-
         }
-
         private async void BTNForceUpdate_Click(object sender, EventArgs e)
         {
             await LoadRealmList();
         }
-
-        private void DatabaseControl_Load(object sender, EventArgs e)
+        private async void DatabaseControl_LoadAsync(object sender, EventArgs e)
         {
-          _ = LoadData();
+            await LoadData();
+        }
+        private async void BTNOpenIntern_Click(object sender, EventArgs e)
+        {
+            TXTRealmAddress.Text = TXTInternIP.Text;
+            await SaveRealmList();
+        }
+        private async void BTNOpenPublic_ClickAsync(object sender, EventArgs e)
+        {
+            TXTRealmAddress.Text = TXTPublicIP.Text;
+            await SaveRealmList();
+        }
+        private async void BTNSaveData_ClickAsync(object sender, EventArgs e)
+        {
+            await SaveRealmList();
         }
     }
 

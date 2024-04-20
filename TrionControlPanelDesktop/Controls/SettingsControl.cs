@@ -4,7 +4,9 @@ using TrionControlPanelDesktop.FormData;
 using System.Reflection;
 using System.Diagnostics;
 using Microsoft.Win32;
-using System.IO;
+using System.Data;
+using MySql.Data.MySqlClient;
+using TrionDatabase;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -19,8 +21,9 @@ namespace TrionControlPanelDesktop.Controls
         private bool TrionUpdate = false;
         private bool MysqlUpdate = false;
         private bool SppUpdate = false;
-
+        //
         static System.Threading.Timer TextTimer;
+        //
         public SettingsControl()
         {
             Dock = DockStyle.Fill;
@@ -63,7 +66,9 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async Task LoadData()
         {
+            ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
+            ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
@@ -102,7 +107,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLCoreVersion.Text = $"Core Version: \n •Local: {SPPVerOFF} \n •Online: {SPPVerON} ";
             UIData.StartUpLoading++;
         }
-        private void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
+        private async void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ComboBoxCores.SelectedItem)
             {
@@ -110,6 +115,11 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.WorldExecutableName = "world";
                     Data.Settings.LogonExecutableName = "logon";
                     Data.Settings.SelectedCore = Cores.AscEmu;
+                    Data.Settings.CharactersDatabase = "ascemu_char";
+                    Data.Settings.WorldDatabase = "ascemu_world";
+                    Data.Settings.AuthDatabase = "ascemu_logon";
+                    Data.Settings.MySQLServerUser = "root";
+                    Data.Settings.MySQLServerPassword = "root";
                     break;
                 case "AzerothCore":
                     Data.Settings.WorldExecutableName = "worldserver";
@@ -118,40 +128,73 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.CharactersDatabase = "acore_characters";
                     Data.Settings.WorldDatabase = "acore_world";
                     Data.Settings.AuthDatabase = "acore_auth";
+                    Data.Settings.MySQLServerUser = "acore";
+                    Data.Settings.MySQLServerPassword = "acore";
                     break;
                 case "CMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.CMaNGOS;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "mangos";
+                    Data.Settings.AuthDatabase = "realmd";
+                    Data.Settings.MySQLServerUser = "mangos";
+                    Data.Settings.MySQLServerPassword = "mangos";
                     break;
                 case "CypherCore":
                     Data.Settings.WorldExecutableName = "WorldServer";
                     Data.Settings.LogonExecutableName = "BNetServer";
                     Data.Settings.SelectedCore = Cores.CypherCore;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "world";
+                    Data.Settings.AuthDatabase = "auth";
+                    Data.Settings.MySQLServerUser = "trinity";
+                    Data.Settings.MySQLServerPassword = "trinity";
                     break;
                 case "TrinityCore":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "world";
+                    Data.Settings.AuthDatabase = "auth";
+                    Data.Settings.MySQLServerUser = "trinity";
+                    Data.Settings.MySQLServerPassword = "trinity";
                     break;
                 case "TrinityCore335":
                     Data.Settings.WorldExecutableName = "authserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore335;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "world";
+                    Data.Settings.AuthDatabase = "auth";
+                    Data.Settings.MySQLServerUser = "trinity";
+                    Data.Settings.MySQLServerPassword = "trinity";
                     break;
                 case "TrinityCoreClassic":
                     Data.Settings.WorldExecutableName = "bnetserver";
                     Data.Settings.LogonExecutableName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "world";
+                    Data.Settings.AuthDatabase = "auth";
+                    Data.Settings.MySQLServerUser = "trinity";
+                    Data.Settings.MySQLServerPassword = "trinity";
                     break;
                 case "VMaNGOS":
                     Data.Settings.WorldExecutableName = "mangosd";
                     Data.Settings.LogonExecutableName = "realmd";
                     Data.Settings.SelectedCore = Cores.VMaNGOS;
+                    Data.Settings.CharactersDatabase = "characters";
+                    Data.Settings.WorldDatabase = "mangos";
+                    Data.Settings.AuthDatabase = "realmd";
+                    Data.Settings.MySQLServerUser = "mangos";
+                    Data.Settings.MySQLServerPassword = "mangos";
                     break;
             }
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
+          await LoadData();
             Data.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
@@ -349,6 +392,8 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNAuthConfig_Click(object sender, EventArgs e)
         {
+            string location = Data.Settings.CoreLocation + "\\configs\\authserver.conf";
+            Process.Start("explorer.exe", location);
         }
         private void BTNDiscord_Click(object sender, EventArgs e)
         {
@@ -360,6 +405,13 @@ namespace TrionControlPanelDesktop.Controls
             Data.Settings.MySQLExecutableName = TXTBoxMySQLExecName.Text;
             Data.Settings.WorldExecutableName = TXTBoxWorldExecName.Text;
             Data.Settings.LogonExecutableName = TXTBoxLoginExecName.Text;
+            Data.Settings.MySQLServerHost = TXTMysqlHost.Text;
+            Data.Settings.MySQLServerPort = TXTMysqlPort.Text;
+            Data.Settings.MySQLServerUser = TXTMysqlUser.Text;
+            Data.Settings.MySQLServerPassword = TXTMysqlPassword.Text;
+            Data.Settings.AuthDatabase = TXTAuthDatabase.Text;
+            Data.Settings.WorldDatabase = TXTWorldDatabase.Text;
+            Data.Settings.CharactersDatabase = TXTCharDatabase.Text; 
         }
         private void TXTBox_TextChanged(object sender, EventArgs e)
         {
@@ -414,6 +466,126 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (TGLRunTrionStartup.Checked == true) { AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Data.Settings.RunWithWindows = true; }
             if (TGLRunTrionStartup.Checked == false) { RemoveFromStartup("Trion Control Panel"); Data.Settings.RunWithWindows = false; }
+        }
+        private async void BTNTestConnection_Click(object sender, EventArgs e)
+        {
+            if (await TestConnection() == true)
+            {
+                BTNTestConnection.ForeColor = Color.Green;
+                BTNTestConnection.Text = "   Success!!";
+                TimerConnectSucess.Start();
+            }
+            else
+            {
+                BTNTestConnection.ForeColor = Color.Red;
+                BTNTestConnection.Text = "   Failed!!";
+                TimerConnectSucess.Start();
+            }
+        }
+        private static async Task<bool> TestConnection()
+        {
+            MySqlConnection conn = new(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            bool status = false;
+            await Task.Run(() =>
+            {
+                try
+                {
+                    if (conn.State == ConnectionState.Closed)
+                    {
+                        conn.Open();
+                        Data.Message = $"The SQL Connection is {conn.State}";
+                        status = true;
+                        conn.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Data.Message = ex.Message;
+                    status = false;
+                }
+                return status;
+            });
+            return status;
+        }
+        private void TimerConnectSucess_Tick(object sender, EventArgs e)
+        {
+            TimerConnectSucess.Stop();
+            BTNTestConnection.ForeColor = Color.White;
+            BTNTestConnection.Text = "   Test Connection";
+        }
+        private void BTNCoreOpenFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Data.Settings.CoreLocation);
+        }
+        private void BTNMySQLOpenFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Data.Settings.MySQLLocation);
+        }
+        private void BTNWorldConfig_Click(object sender, EventArgs e)
+        {
+            string location = Data.Settings.CoreLocation + "\\configs\\worldserver.conf";
+            Process.Start("explorer.exe", location);
+        }
+        private void BTNModsConfig_Click(object sender, EventArgs e)
+        {
+            string location = Data.Settings.CoreLocation + "\\configs\\modules";
+            Process.Start("explorer.exe", location);
+        }
+        private async void BTNDeleteAuth_ClickAsync(object sender, EventArgs e)
+        {
+            BTNDeleteAuth.Click -= BTNDeleteAuth_ClickAsync;
+            // Get all tables in the database
+            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            // Delete each table
+            foreach (string table in tables)
+            {
+                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+            }
+            Data.Message = "Auth Tables deleted successfully.";
+            BTNDeleteAuth.Click += BTNDeleteAuth_ClickAsync;
+        }
+        private async void BTNDeleteChar_ClickAsync(object sender, EventArgs e)
+        {
+            BTNDeleteChar.Click -= BTNDeleteChar_ClickAsync;
+            // Get all tables in the database
+            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            // Delete each table
+            foreach (string table in tables)
+            {
+                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+            }
+            Data.Message = "Char Tables deleted successfully.";
+            BTNDeleteChar.Click += BTNDeleteChar_ClickAsync;
+        }
+        private async void BTNDeleteWorld_ClickAsync(object sender, EventArgs e)
+        {
+            BTNDeleteWorld.Text = "   Working!!";
+            BTNDeleteWorld.ForeColor = Color.Orange;
+            BTNDeleteWorld.Click -= BTNDeleteWorld_ClickAsync;
+            // Get all tables in the database
+            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase));
+            // Delete each table
+            foreach (string table in tables)
+            {
+                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), table);
+            }
+            Data.Message = "Wolrd Tables deleted successfully.";
+            BTNDeleteWorld.Click += BTNDeleteWorld_ClickAsync;
+            BTNDeleteWorld.Text = "   Delete World Database";
+            BTNDeleteWorld.ForeColor = Color.White;
+        }
+        private void TimerEnDis_Tick(object sender, EventArgs e)
+        {
+            if (DownloadControl.InstallSPP == true || DownloadControl.InstallMySQL == true)
+            {
+                BtnDownloadSPP.Click -= BtnDownloadSPP_ClickAsync;
+                BTNDownlaodMySQL.Click -= BTNDownloadMySQL_Click;
+            }
+            else if (DownloadControl.InstallSPP == false || DownloadControl.InstallMySQL == false)
+            {
+                BtnDownloadSPP.Click += BtnDownloadSPP_ClickAsync;
+                BTNDownlaodMySQL.Click += BTNDownloadMySQL_Click;
+            }
         }
     }
 }

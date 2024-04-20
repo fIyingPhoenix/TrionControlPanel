@@ -10,6 +10,7 @@ namespace TrionLibrary
     {
         //fix "lodctr /R"
         //static Process[] ProcessID;
+        public static Process pWorldServer;
 
         private static string OSRuinning()
         {
@@ -132,36 +133,46 @@ namespace TrionLibrary
             else
                 return true;
         }
+        public static void StartWorldTest(string WorldName, bool HideWindw)
+        {
+            string Application = Data.Settings.WorldExecutableLocation;
+            pWorldServer = new Process();
+            pWorldServer.StartInfo.FileName = Application;
+            pWorldServer.StartInfo.RedirectStandardInput = true;
+            pWorldServer.StartInfo.RedirectStandardOutput = true;
+            pWorldServer.StartInfo.CreateNoWindow = HideWindw;
+            pWorldServer.Start();
+            pWorldServer.BeginOutputReadLine();
+
+        }
         public static void ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
         {
             Data.Message = $@"Starting {Name}!";
             Thread.Sleep(100);
             try
             {
-                using (Process myProcess = new Process())
+                using Process myProcess = new Process();
+                myProcess.StartInfo.UseShellExecute = false;
+                // You can start any process, HelloWorld is a do-nothing example.
+                myProcess.StartInfo.FileName = Application;
+                if (Arguments != null)
                 {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    // You can start any process, HelloWorld is a do-nothing example.
-                    myProcess.StartInfo.FileName = Application;
-                    if (Arguments != null)
-                    {
-                        myProcess.StartInfo.Arguments = Arguments;
+                    myProcess.StartInfo.Arguments = Arguments;
 
-                    }
-                    if (HideWindw == false)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = false;
-                        myProcess.Start();
-
-                    }
-                    if (HideWindw == true)
-                    {
-                        myProcess.StartInfo.CreateNoWindow = true;
-                        myProcess.Start();
-                    }
-                    // complete the task
-                    Data.Message = $@"Successfully rune {Name}!";
                 }
+                if (HideWindw == false)
+                {
+                    myProcess.StartInfo.CreateNoWindow = false;
+                    myProcess.Start();
+
+                }
+                if (HideWindw == true)
+                {
+                    myProcess.StartInfo.CreateNoWindow = true;
+                    myProcess.Start();
+                }
+                // complete the task
+                Data.Message = $@"Successfully rune {Name}!";
             }
             catch (Exception ex)
             {

@@ -1,13 +1,13 @@
 using MetroFramework;
 using MetroFramework.Forms;
-using System.Drawing;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Security.Principal;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
 using TrionLibrary;
-using Windows.Media.Playback;
 using static TrionLibrary.EnumModels;
 
 namespace TrionControlPanelDesktop
@@ -36,7 +36,6 @@ namespace TrionControlPanelDesktop
             if (Data.Settings.RunServerWithWindows) { await RunAll(); }
             await Data.SaveSettings();
         }
-
         static async Task ClosingToDo()
         {
             SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
@@ -283,12 +282,14 @@ namespace TrionControlPanelDesktop
         {
             if (UIData.WorldisRunning == false && Data.Settings.WorldExecutableLocation != string.Empty)
             {
+                //SystemWatcher.StartWorldTest(Data.Settings.WorldExecutableName, Data.Settings.ConsolHide);
                 SystemWatcher.ApplicationStart(Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName, Data.Settings.ConsolHide, null);
                 UIData.WorldisStarted = true;
             }
             else if (UIData.WorldisRunning == true)
             {
                 SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
+                //SystemWatcher.pWorldServer.StandardInput.Close(); ;
                 UIData.WorldisStarted = false;
             }
         }
@@ -305,7 +306,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                if (MetroMessageBox.Show(this, "MySQL Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "MySQL Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     using var FolderBrowser = new FolderBrowserDialog();
                     DialogResult Result = FolderBrowser.ShowDialog();
@@ -329,7 +330,7 @@ namespace TrionControlPanelDesktop
             else
             {
 
-                if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info!", Data.Settings.NotificationSound, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     using var FolderBrowser = new FolderBrowserDialog();
                     DialogResult Result = FolderBrowser.ShowDialog();
@@ -382,6 +383,7 @@ namespace TrionControlPanelDesktop
             {
                 if (e.CloseReason == CloseReason.UserClosing)
                 {
+                    NIcon.Visible = true;
                     e.Cancel = true;
                     Hide();
                 }
@@ -391,18 +393,59 @@ namespace TrionControlPanelDesktop
                 await ClosingToDo();
             }
         }
-
         private async void ExitTSMItem_ClickAsync(object sender, EventArgs e)
         {
             await ClosingToDo();
             NIcon.Dispose();
             Application.Exit();
         }
-
         private void OpenTSMItem_Click(object sender, EventArgs e)
         {
+            NIcon.Visible = false;
             Show();
         }
+        static bool IsUserAdministrator()
+        {
+            // Check if the current user is an administrator
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+        static void RunPowerShellCommand(string command)
+        {
+            // Launch PowerShell process with the command
+            ProcessStartInfo psi = new()
+            {
+                FileName = "powershell.exe",
+                Arguments = "-NoProfile -ExecutionPolicy Bypass -Command " + command,
+                Verb = "runas" // Run PowerShell as administrator
+            };
 
+            Process.Start(psi);
+        }
+        private void TimerLoadingCheck_Tick(object sender, EventArgs e)
+        {
+            TimerLoadingCheck.Stop();
+            if (CurrentControl == CurrentControl.Load)
+            {
+                if (MetroMessageBox.Show(this, "It seems like you are stuck on the loading screen. Do you want to fix the problem?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    if (IsUserAdministrator() == true)
+                    {
+                        RunPowerShellCommand("lodctr /R");
+                    }
+                    else
+                    {
+                        MetroMessageBox.Show(this, "Your account is not an administrator!", "Error!.", Data.Settings.NotificationSound, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
+            }
+        }
     }
 }

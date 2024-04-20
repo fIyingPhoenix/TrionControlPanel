@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -38,37 +39,41 @@ namespace TrionLibrary
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(Location))
+                    if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore)
                     {
-                        if (Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
+                        if (!string.IsNullOrEmpty(Location))
                         {
-                            var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                            // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
-                            if (versionInfo.FileVersion.Contains("SPP"))
+                            if (Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
                             {
-                                string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
-                                // Create a Regex object with the pattern
-                                Regex regex = new Regex(pattern);
-                                // Find all matches in the text
-                                MatchCollection matches = regex.Matches(versionInfo.ToString());
-                                // Print each match
-                                foreach (Match match in matches)
+                                var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                                // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
+                                if (versionInfo.FileVersion.Contains("SPP"))
                                 {
-                                    return match.Value;
+                                    string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
+                                    // Create a Regex object with the pattern
+                                    Regex regex = new Regex(pattern);
+                                    // Find all matches in the text
+                                    MatchCollection matches = regex.Matches(versionInfo.ToString());
+                                    // Print each match
+                                    foreach (Match match in matches)
+                                    {
+                                        return match.Value;
+                                    }
                                 }
+                                return "N/A";
                             }
-                            return "N/A";
+                            else
+                            {
+                                var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                                return versionInfo.FileVersion;
+                            }
                         }
                         else
                         {
-                            var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                            return versionInfo.FileVersion;
+                            return "N/A";
                         }
                     }
-                    else
-                    {
-                        return "N/A";
-                    }
+                    else { return "N/A"; }
                 }
                 catch (Exception ex)
                 {
@@ -106,9 +111,9 @@ namespace TrionLibrary
             if (PopulateSettingsData == true)
             {
                 Settings.WorkingDirectory = Directory.GetCurrentDirectory();
-                Settings.WorldDatabase = "world";
-                Settings.AuthDatabase = "auth";
-                Settings.CharactersDatabase = "characters";
+                Settings.WorldDatabase = "acore_world";
+                Settings.AuthDatabase = "acore_auth";
+                Settings.CharactersDatabase = "acore_characters";
                 Settings.MySQLLocation = "";
                 Settings.MySQLServerHost = "localhost";
                 Settings.MySQLServerUser = "acore";

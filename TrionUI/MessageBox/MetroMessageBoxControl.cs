@@ -11,7 +11,6 @@ namespace MetroFramework
         public MetroMessageBoxControl()
         {
             InitializeComponent();
-
             _properties = new MetroMessageBoxProperties(this);
 
             metroButton1.Click += new EventHandler(Button1_Click);
@@ -22,27 +21,23 @@ namespace MetroFramework
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Color _defaultColor = Color.FromArgb(45, 51, 59);
+        private Color _defaultColor = Color.White;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Color _errorColor = Color.FromArgb(45, 51, 59);
+        private Color _errorColor = Color.Red;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Color _warningColor = Color.FromArgb(45, 51, 59);
+        private Color _warningColor = Color.Yellow;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Color _success = Color.FromArgb(45, 51, 59);
+        private Color _success = Color.Green;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Color _question = Color.FromArgb(45, 51, 59);
+        private Color _question = Color.Blue;
 
         /// <summary>
         /// Gets the top body section of the control. 
         /// </summary>
-        public Panel Body
-        {
-            get { return panelbody; }
-        }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private MetroMessageBoxProperties _properties = null!;
@@ -75,14 +70,13 @@ namespace MetroFramework
             switch (_properties.Icon)
             {
                 case MessageBoxIcon.Exclamation:
-                    panelbody.BackColor = _warningColor;
+                    titleLabel.ForeColor = _warningColor;
                     break;
                 case MessageBoxIcon.Error:
-                    panelbody.BackColor = _errorColor;
+                    titleLabel.ForeColor = _errorColor;
                     break;
                 default: break;
             }
-
             switch (_properties.Buttons)
             {
                 case MessageBoxButtons.OK:
@@ -180,21 +174,20 @@ namespace MetroFramework
             switch (_properties.Icon)
             {
                 case MessageBoxIcon.Error:
-                    panelbody.BackColor = _errorColor; break;
+                    titleLabel.ForeColor = _errorColor; break;
                 case MessageBoxIcon.Warning:
-                    panelbody.BackColor = _warningColor; break;
+                    titleLabel.ForeColor = _warningColor; break;
                 case MessageBoxIcon.Information:
-                    panelbody.BackColor = _defaultColor;
+                    titleLabel.ForeColor = _defaultColor;
                     break;
                 case MessageBoxIcon.Question:
-                    panelbody.BackColor = _question; break;
+                    titleLabel.ForeColor = _question; break;
                 default:
-                    panelbody.BackColor = Color.DarkGray; break;
+                    titleLabel.ForeColor = Color.DarkGray; break;
             }
         }
         private void EnableButton(MetroButton button)
         { EnableButton(button, true); }
-
         private void EnableButton(MetroButton button, bool enabled)
         {
             button.Enabled = enabled; button.Visible = enabled;

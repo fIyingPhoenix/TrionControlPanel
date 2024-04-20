@@ -57,6 +57,7 @@ namespace TrionControlPanelDesktop
             StartLogonTSMItem = new ToolStripMenuItem();
             StartDatabaseTSMItem = new ToolStripMenuItem();
             ExitTSMItem = new ToolStripMenuItem();
+            TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             PnlButtonFront.SuspendLayout();
@@ -408,7 +409,6 @@ namespace TrionControlPanelDesktop
             NIcon.ContextMenuStrip = CMSNotify;
             NIcon.Icon = (Icon)resources.GetObject("NIcon.Icon");
             NIcon.Text = "Trion Control Panel";
-            NIcon.Visible = true;
             // 
             // CMSNotify
             // 
@@ -457,6 +457,11 @@ namespace TrionControlPanelDesktop
             ExitTSMItem.Size = new Size(124, 22);
             ExitTSMItem.Text = "Exit";
             ExitTSMItem.Click += ExitTSMItem_ClickAsync;
+            // 
+            // TimerLoadingCheck
+            // 
+            TimerLoadingCheck.Interval = 15000;
+            TimerLoadingCheck.Tick += TimerLoadingCheck_Tick;
             // 
             // MainForm
             // 
@@ -514,5 +519,6 @@ namespace TrionControlPanelDesktop
         private ToolStripMenuItem StartLogonTSMItem;
         private ToolStripMenuItem StartDatabaseTSMItem;
         private ToolStripMenuItem ExitTSMItem;
+        private System.Windows.Forms.Timer TimerLoadingCheck;
     }
 }

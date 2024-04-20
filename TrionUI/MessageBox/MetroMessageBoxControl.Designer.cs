@@ -29,131 +29,117 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetroMessageBoxControl));
-            panelbody = new Panel();
-            tlpBody = new TableLayoutPanel();
             messageLabel = new Label();
-            pnlBottom = new Panel();
             metroButton2 = new Controls.MetroButton();
             metroButton1 = new Controls.MetroButton();
             metroButton3 = new Controls.MetroButton();
             titleLabel = new Label();
-            panelbody.SuspendLayout();
-            tlpBody.SuspendLayout();
-            pnlBottom.SuspendLayout();
+            metroPanel1 = new Controls.MetroPanel();
+            panel1 = new Panel();
+            metroPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panelbody
-            // 
-            panelbody.BackColor = Color.FromArgb(45, 51, 59);
-            panelbody.Controls.Add(tlpBody);
-            panelbody.Dock = DockStyle.Fill;
-            panelbody.Location = new Point(0, 0);
-            panelbody.Margin = new Padding(0);
-            panelbody.Name = "panelbody";
-            panelbody.Size = new Size(804, 211);
-            panelbody.TabIndex = 2;
-            // 
-            // tlpBody
-            // 
-            tlpBody.ColumnCount = 3;
-            tlpBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
-            tlpBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
-            tlpBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
-            tlpBody.Controls.Add(messageLabel, 1, 2);
-            tlpBody.Controls.Add(pnlBottom, 1, 3);
-            tlpBody.Controls.Add(titleLabel, 1, 1);
-            tlpBody.Dock = DockStyle.Fill;
-            tlpBody.Location = new Point(0, 0);
-            tlpBody.Name = "tlpBody";
-            tlpBody.RowCount = 4;
-            tlpBody.RowStyles.Add(new RowStyle(SizeType.Absolute, 5F));
-            tlpBody.RowStyles.Add(new RowStyle());
-            tlpBody.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpBody.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tlpBody.Size = new Size(804, 211);
-            tlpBody.TabIndex = 6;
             // 
             // messageLabel
             // 
-            messageLabel.AutoSize = true;
             messageLabel.BackColor = Color.Transparent;
             messageLabel.Dock = DockStyle.Fill;
             messageLabel.ForeColor = Color.White;
-            messageLabel.Location = new Point(83, 30);
+            messageLabel.Location = new Point(0, 0);
             messageLabel.Margin = new Padding(3, 0, 0, 0);
             messageLabel.Name = "messageLabel";
-            messageLabel.Size = new Size(640, 141);
-            messageLabel.TabIndex = 0;
+            messageLabel.Size = new Size(780, 107);
+            messageLabel.TabIndex = 6;
             messageLabel.Text = "message here";
-            // 
-            // pnlBottom
-            // 
-            pnlBottom.BackColor = Color.Transparent;
-            pnlBottom.Controls.Add(metroButton2);
-            pnlBottom.Controls.Add(metroButton1);
-            pnlBottom.Controls.Add(metroButton3);
-            pnlBottom.Dock = DockStyle.Fill;
-            pnlBottom.Location = new Point(80, 171);
-            pnlBottom.Margin = new Padding(0);
-            pnlBottom.Name = "pnlBottom";
-            pnlBottom.Size = new Size(643, 40);
-            pnlBottom.TabIndex = 2;
+            messageLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // metroButton2
             // 
             metroButton2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             metroButton2.Highlight = false;
-            metroButton2.Location = new Point(448, 7);
+            metroButton2.Location = new Point(604, 173);
             metroButton2.Name = "metroButton2";
             metroButton2.Size = new Size(90, 26);
             metroButton2.Style = MetroColorStyle.Blue;
             metroButton2.StyleManager = null;
-            metroButton2.TabIndex = 4;
+            metroButton2.TabIndex = 9;
             metroButton2.Text = "button 2";
-            metroButton2.Theme = MetroThemeStyle.Light;
+            metroButton2.Theme = MetroThemeStyle.Dark;
             // 
             // metroButton1
             // 
             metroButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             metroButton1.BackColor = Color.ForestGreen;
             metroButton1.Highlight = false;
-            metroButton1.Location = new Point(350, 7);
+            metroButton1.Location = new Point(506, 173);
             metroButton1.Name = "metroButton1";
             metroButton1.Size = new Size(90, 26);
             metroButton1.Style = MetroColorStyle.Blue;
             metroButton1.StyleManager = null;
-            metroButton1.TabIndex = 3;
+            metroButton1.TabIndex = 8;
             metroButton1.Text = "button 1";
-            metroButton1.Theme = MetroThemeStyle.Light;
+            metroButton1.Theme = MetroThemeStyle.Dark;
             metroButton1.UseVisualStyleBackColor = false;
             // 
             // metroButton3
             // 
             metroButton3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             metroButton3.Highlight = false;
-            metroButton3.Location = new Point(546, 7);
+            metroButton3.Location = new Point(702, 173);
             metroButton3.Name = "metroButton3";
             metroButton3.Size = new Size(90, 26);
             metroButton3.Style = MetroColorStyle.Blue;
             metroButton3.StyleManager = null;
-            metroButton3.TabIndex = 5;
+            metroButton3.TabIndex = 10;
             metroButton3.Text = "button 3";
-            metroButton3.Theme = MetroThemeStyle.Light;
+            metroButton3.Theme = MetroThemeStyle.Dark;
             // 
             // titleLabel
             // 
-            titleLabel.AutoSize = true;
             titleLabel.BackColor = Color.Transparent;
             titleLabel.Dock = DockStyle.Fill;
-            titleLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            titleLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             titleLabel.ForeColor = Color.WhiteSmoke;
-            titleLabel.Location = new Point(80, 5);
+            titleLabel.Location = new Point(0, 0);
             titleLabel.Margin = new Padding(0);
             titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(643, 25);
-            titleLabel.TabIndex = 1;
+            titleLabel.Size = new Size(780, 42);
+            titleLabel.TabIndex = 7;
             titleLabel.Text = "message title";
             titleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // metroPanel1
+            // 
+            metroPanel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel1.Border = false;
+            metroPanel1.BorderColor = Color.Black;
+            metroPanel1.BorderSize = 1;
+            metroPanel1.Controls.Add(titleLabel);
+            metroPanel1.CustomBackground = false;
+            metroPanel1.HorizontalScrollbar = false;
+            metroPanel1.HorizontalScrollbarBarColor = true;
+            metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel1.HorizontalScrollbarSize = 10;
+            metroPanel1.Location = new Point(12, 12);
+            metroPanel1.Name = "metroPanel1";
+            metroPanel1.Size = new Size(780, 42);
+            metroPanel1.Style = MetroColorStyle.Blue;
+            metroPanel1.StyleManager = null;
+            metroPanel1.TabIndex = 11;
+            metroPanel1.Theme = MetroThemeStyle.Dark;
+            metroPanel1.VerticalScrollbar = false;
+            metroPanel1.VerticalScrollbarBarColor = true;
+            metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel1.VerticalScrollbarSize = 10;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(messageLabel);
+            panel1.Location = new Point(12, 60);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(780, 107);
+            panel1.TabIndex = 12;
             // 
             // MetroMessageBoxControl
             // 
@@ -162,8 +148,12 @@
             BackColor = Color.FromArgb(45, 51, 59);
             ClientSize = new Size(804, 211);
             ControlBox = false;
-            Controls.Add(panelbody);
-            Font = new Font("Segoe UI Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Controls.Add(panel1);
+            Controls.Add(metroPanel1);
+            Controls.Add(metroButton2);
+            Controls.Add(metroButton1);
+            Controls.Add(metroButton3);
+            Font = new Font("Segoe UI Light", 12F);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 5, 4, 5);
@@ -171,22 +161,19 @@
             StartPosition = FormStartPosition.Manual;
             TopMost = true;
             Load += MetroMessageBoxControl_Load;
-            panelbody.ResumeLayout(false);
-            tlpBody.ResumeLayout(false);
-            tlpBody.PerformLayout();
-            pnlBottom.ResumeLayout(false);
+            metroPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panelbody;
-        private Label titleLabel;
         private Label messageLabel;
-        private Controls.MetroButton metroButton1;
         private Controls.MetroButton metroButton2;
+        private Controls.MetroButton metroButton1;
         private Controls.MetroButton metroButton3;
-        private TableLayoutPanel tlpBody;
-        private Panel pnlBottom;
+        private Label titleLabel;
+        private Controls.MetroPanel metroPanel1;
+        private Panel panel1;
     }
 }

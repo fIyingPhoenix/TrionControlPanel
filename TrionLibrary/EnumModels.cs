@@ -2,6 +2,10 @@
 {
     public class EnumModels
     {
+        public enum DDNSSerivce
+        {
+            DuckDNS
+        }
         public enum ServerType
         {
             Database,

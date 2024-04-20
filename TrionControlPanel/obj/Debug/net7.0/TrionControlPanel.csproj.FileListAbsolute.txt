@@ -56,3 +56,15 @@ D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Debug\n
 D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.pdb
 D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.genruntimeconfig.cache
 D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\ref\TrionControlPanel.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.csproj.AssemblyReference.cache
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.AssemblyInfoInputs.cache
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.AssemblyInfo.cs
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.csproj.CoreCompileInputs.cache
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.MvcApplicationPartsAssemblyInfo.cache
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.RazorAssemblyInfo.cache
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.RazorAssemblyInfo.cs
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.sourcelink.json
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\refint\TrionControlPanel.dll
+D:\Repos\Git\TrionControlPanel\TrionControlPanel\obj\Debug\net7.0\TrionControlPanel.pdb

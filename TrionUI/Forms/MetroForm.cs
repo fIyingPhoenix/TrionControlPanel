@@ -38,11 +38,12 @@ namespace MetroFramework.Forms
         Right
     }
    
-    public class MetroForm : Form, IMetroForm, IDisposable
+    public partial class MetroForm : Form, IMetroForm, IDisposable
     {
         #region Interface
-        [DllImport("User32.dll")]
-        private static extern bool SetProcessDPIAware();
+        [LibraryImport("User32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool SetProcessDPIAware();
         private MetroColorStyle metroStyle = MetroColorStyle.Blue;
         [Category("Metro Appearance")]
         public MetroColorStyle Style
@@ -263,12 +264,12 @@ namespace MetroFramework.Forms
                 {
                     Size resizeHandleSize = new(2, 2);
                     e.Graphics.FillRectangles(b, new Rectangle[] {
-                        new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-6), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-10), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-6), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-10), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-14,ClientRectangle.Height-6), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-14), resizeHandleSize)
+                        new(new Point(ClientRectangle.Width-6,ClientRectangle.Height-6), resizeHandleSize),
+                        new(new Point(ClientRectangle.Width-10,ClientRectangle.Height-10), resizeHandleSize),
+                        new(new Point(ClientRectangle.Width-10,ClientRectangle.Height-6), resizeHandleSize),
+                        new(new Point(ClientRectangle.Width-6,ClientRectangle.Height-10), resizeHandleSize),
+                        new(new Point(ClientRectangle.Width-14,ClientRectangle.Height-6), resizeHandleSize),
+                        new(new Point(ClientRectangle.Width-6,ClientRectangle.Height-14), resizeHandleSize)
                     });
                 }
             }
@@ -336,9 +337,11 @@ namespace MetroFramework.Forms
 
                 if (StartPosition == FormStartPosition.CenterScreen)
                 {
-                    Point initialLocation = new();
-                    initialLocation.X = (Screen.PrimaryScreen!.WorkingArea.Width - (ClientRectangle.Width + 5)) / 2;
-                    initialLocation.Y = (Screen.PrimaryScreen.WorkingArea.Height - (ClientRectangle.Height + 5)) / 2;
+                    Point initialLocation = new()
+                    {
+                        X = (Screen.PrimaryScreen!.WorkingArea.Width - (ClientRectangle.Width + 5)) / 2,
+                        Y = (Screen.PrimaryScreen.WorkingArea.Height - (ClientRectangle.Height + 5)) / 2
+                    };
                     Location = initialLocation;
                     base.OnActivated(e);
                 }
@@ -416,7 +419,7 @@ namespace MetroFramework.Forms
         private void MoveControl()
         {
             WinApi.ReleaseCapture();
-            WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_NCLBUTTONDOWN, (int)WinApi.HitTest.HTCAPTION, 0);
+            _ = WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_NCLBUTTONDOWN, (int)WinApi.HitTest.HTCAPTION, 0);
         }
 
         protected override void OnEnabledChanged(EventArgs e)
@@ -440,7 +443,7 @@ namespace MetroFramework.Forms
 
         private void AddWindowButton(WindowButtons button)
         {
-            windowButtonList ??= new Dictionary<WindowButtons, MetroFormButton>();
+            windowButtonList ??= [];
 
             if (windowButtonList.ContainsKey(button))
                 return;

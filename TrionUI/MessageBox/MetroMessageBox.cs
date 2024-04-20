@@ -12,7 +12,7 @@ namespace MetroFramework
             Form ownerForm = (owner as Form) ?? ((UserControl)owner).ParentForm!;
 
             var control = new MetroMessageBoxControl();
-            control.BackColor = ownerForm.BackColor;
+            control.BackColor = Color.FromArgb(45, 51, 59);//ownerForm.BackColor;
             control.Properties.Buttons = buttons;
             control.Properties.DefaultButton = defaultButton;
             control.Properties.Icon = icon;

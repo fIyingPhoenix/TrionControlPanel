@@ -21,7 +21,7 @@
     <Product>Trion Control Panel</Product>
     <PlatformTarget>x64</PlatformTarget>
     <ApplicationIcon>Resorces\icons\logo\ico1.ico</ApplicationIcon>
-    <Version>0.2.0.2</Version>
+    <Version>0.2.1.3</Version>
     <Authors>Trion Contro Panel</Authors>
     <Company>FlyingPhoenix</Company>
     <Description>An awesome Contro Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu... </Description>

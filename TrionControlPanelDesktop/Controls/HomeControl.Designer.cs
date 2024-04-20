@@ -65,6 +65,7 @@ namespace TrionControlPanelDesktop.Controls
             PCResorcePbarRAM = new CustomProgressBar();
             label2 = new Label();
             label3 = new Label();
+            TimerRam = new System.Windows.Forms.Timer(components);
             PNLLayoutBot.SuspendLayout();
             metroPanel1.SuspendLayout();
             metroPanel2.SuspendLayout();
@@ -587,6 +588,11 @@ namespace TrionControlPanelDesktop.Controls
             label3.TabIndex = 29;
             label3.Text = "Random-Access Memory  (RAM)";
             // 
+            // TimerRam
+            // 
+            TimerRam.Interval = 1000;
+            TimerRam.Tick += TimerRam_Tick;
+            // 
             // HomeControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -648,5 +654,6 @@ namespace TrionControlPanelDesktop.Controls
         public PictureBox PICMySqlServerStatus;
         public PictureBox PICWorldServerStatus;
         public PictureBox PICLogonServerStatus;
+        private System.Windows.Forms.Timer TimerRam;
     }
 }
