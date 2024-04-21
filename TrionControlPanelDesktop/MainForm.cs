@@ -53,6 +53,7 @@ namespace TrionControlPanelDesktop
             //fix the problem with thread calls
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {

@@ -13,14 +13,15 @@ namespace TrionControlPanelDesktop.Controls
     public partial class SettingsControl : UserControl
     {
         private readonly string TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-        private string TrionVersON = "";
+        private string TrionVersON = null!;
         private string MySQLVerOFF = "";
-        private string MySQLVerON = "";
+        private string MySQLVerON = null!;
         private string SPPVerOFF = "";
-        private string SPPVerON = "";
+        private string SPPVerON = null!;
         private bool TrionUpdate = false;
         private bool MysqlUpdate = false;
         private bool SppUpdate = false;
+        
         //
         static System.Threading.Timer TextTimer;
         //
@@ -29,6 +30,7 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
             ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
+            UIData.StartupUpdateCheck = true;
         }
         private static string GetFolder()
         {
@@ -66,6 +68,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async Task LoadData()
         {
+            CheckForUpdate();
             ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
@@ -284,10 +287,10 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if (UIData.StartupUpdateCheck)
+            if (UIData.StartupUpdateCheck == true && TrionVersON != null)
             {
-                UIData.StartupUpdateCheck = false;
                 CheckForUpdate();
+                UIData.StartupUpdateCheck = false;
             }
             if (UIData.LoadData == true)
             {
@@ -318,6 +321,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateCore)
                     {
+                        SppUpdate = true;
                         DownlaodThread(WebLinks.SPPCoreUpdate);
                     }
                     else
@@ -335,6 +339,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateMySQL)
                     {
+                        MysqlUpdate = true;
                         DownlaodThread(WebLinks.MySQLUpdate);
                     }
                     else
@@ -352,6 +357,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (Data.Settings.AutoUpdateTrion)
                     {
+                        TrionUpdate = true;
                         DownlaodThread(WebLinks.TrionUpdate);
                     }
                     else
@@ -430,9 +436,9 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (TrionUpdate) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
-            if (SppUpdate) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
-            if (MysqlUpdate) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
+            if (TrionUpdate == true) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
+            if (SppUpdate == true) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
+            if (MysqlUpdate == true) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
         }
         public static void AddToStartup(string appName, string executablePath)
         {
@@ -578,13 +584,13 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (DownloadControl.InstallSPP == true || DownloadControl.InstallMySQL == true)
             {
-                BtnDownloadSPP.Click -= BtnDownloadSPP_ClickAsync;
-                BTNDownlaodMySQL.Click -= BTNDownloadMySQL_Click;
+                BtnDownloadSPP.Enabled = false;
+                BTNDownlaodMySQL.Enabled = false;
             }
             else if (DownloadControl.InstallSPP == false || DownloadControl.InstallMySQL == false)
             {
-                BtnDownloadSPP.Click += BtnDownloadSPP_ClickAsync;
-                BTNDownlaodMySQL.Click += BTNDownloadMySQL_Click;
+                BtnDownloadSPP.Enabled = true ;
+                BTNDownlaodMySQL.Enabled = true;
             }
         }
     }
