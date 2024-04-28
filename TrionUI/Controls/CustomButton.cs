@@ -110,16 +110,16 @@ namespace TrionControlPanelDesktop.UI.Controls
                 // Set smoothing mode to AntiAlias for smoother drawing
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 // Draw the red ellipse
-                using (SolidBrush brush = new(Color.Red))
+                using (SolidBrush brush = new(Color.FromArgb(0, 174, 219)))
                 {
-                    g.FillEllipse(brush, Width - 13, 5, 13,13);
+                    g.FillEllipse(brush, Width - 15, 4, 14,14);
                 }
                 // Draw the notification count text
-                using (Font font = new("Arial", notificationCount >= 10 ? 6 : 10)) // Adjust font size
+                using (Font font = new("Segoe UI", notificationCount >= 10 ? 6 : 10, FontStyle.Bold)) // Adjust font size
                 { // notification count 
                     string countText = notificationCount > 99 ? "99+" : notificationCount.ToString();
                     SizeF textSize = g.MeasureString(countText, font);
-                    PointF textPosition = new(Width - 13 + (13 - textSize.Width) / 2, 5 + (13 - textSize.Height) / 2);
+                    PointF textPosition = new(Width - 14 + (13 - textSize.Width) / 2, 5 + (14 - textSize.Height) / 2);
                     g.DrawString(countText, font, Brushes.White, textPosition);
                 }
             }

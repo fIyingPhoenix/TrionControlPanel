@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Data;
 using MySql.Data.MySqlClient;
 using TrionDatabase;
+using MetroFramework;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -14,14 +15,14 @@ namespace TrionControlPanelDesktop.Controls
     {
         private readonly string TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
         private string TrionVersON = null!;
-        private string MySQLVerOFF = "";
+        private string MySQLVerOFF = "N/A";
         private string MySQLVerON = null!;
-        private string SPPVerOFF = "";
+        private string SPPVerOFF = "N/A";
         private string SPPVerON = null!;
         private bool TrionUpdate = false;
         private bool MysqlUpdate = false;
         private bool SppUpdate = false;
-        
+
         //
         static System.Threading.Timer TextTimer;
         //
@@ -197,7 +198,7 @@ namespace TrionControlPanelDesktop.Controls
             }
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
             TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
-          await LoadData();
+            await LoadData();
             Data.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
@@ -417,7 +418,7 @@ namespace TrionControlPanelDesktop.Controls
             Data.Settings.MySQLServerPassword = TXTMysqlPassword.Text;
             Data.Settings.AuthDatabase = TXTAuthDatabase.Text;
             Data.Settings.WorldDatabase = TXTWorldDatabase.Text;
-            Data.Settings.CharactersDatabase = TXTCharDatabase.Text; 
+            Data.Settings.CharactersDatabase = TXTCharDatabase.Text;
         }
         private void TXTBox_TextChanged(object sender, EventArgs e)
         {
@@ -425,14 +426,6 @@ namespace TrionControlPanelDesktop.Controls
             TextTimer?.Dispose();
             // Start a new timer
             TextTimer = new(SaveDataTextbox, null, 1000, Timeout.Infinite);
-        }
-        private void BTNFixMysql_Click(object sender, EventArgs e)
-        {
-            string path = Directory.GetCurrentDirectory();
-            SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-            Directory.Delete($@"{path}\database\data");
-            string SQLLocation = $@"{path}\database\extra\initMySQL.sql";
-            SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
         }
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
@@ -537,9 +530,11 @@ namespace TrionControlPanelDesktop.Controls
             string location = Data.Settings.CoreLocation + "\\configs\\modules";
             Process.Start("explorer.exe", location);
         }
-        private async void BTNDeleteAuth_ClickAsync(object sender, EventArgs e)
+        private async void BTNDeleteAuth_Click(object sender, EventArgs e)
         {
-            BTNDeleteAuth.Click -= BTNDeleteAuth_ClickAsync;
+            BTNDeleteAuth.Text = "   Working!!";
+            BTNDeleteAuth.ForeColor = Color.Orange;
+            BTNDeleteAuth.Click -= BTNDeleteAuth_Click;
             // Get all tables in the database
             List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
             // Delete each table
@@ -548,11 +543,15 @@ namespace TrionControlPanelDesktop.Controls
                 SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
             }
             Data.Message = "Auth Tables deleted successfully.";
-            BTNDeleteAuth.Click += BTNDeleteAuth_ClickAsync;
+            BTNDeleteAuth.Click += BTNDeleteAuth_Click;
+            BTNDeleteAuth.Text = "   Delete Auth Database";
+            BTNDeleteAuth.ForeColor = Color.White;
         }
-        private async void BTNDeleteChar_ClickAsync(object sender, EventArgs e)
+        private async void BTNDeleteChar_Click(object sender, EventArgs e)
         {
-            BTNDeleteChar.Click -= BTNDeleteChar_ClickAsync;
+            BTNDeleteChar.Text = "   Working!!";
+            BTNDeleteChar.ForeColor = Color.Orange;
+            BTNDeleteChar.Click -= BTNDeleteChar_Click;
             // Get all tables in the database
             List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
             // Delete each table
@@ -561,13 +560,15 @@ namespace TrionControlPanelDesktop.Controls
                 SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
             }
             Data.Message = "Char Tables deleted successfully.";
-            BTNDeleteChar.Click += BTNDeleteChar_ClickAsync;
+            BTNDeleteChar.Click += BTNDeleteChar_Click;
+            BTNDeleteChar.Text = "   Delete Char Database";
+            BTNDeleteChar.ForeColor = Color.White;
         }
-        private async void BTNDeleteWorld_ClickAsync(object sender, EventArgs e)
+        private async void BTNDeleteWorld_Click(object sender, EventArgs e)
         {
             BTNDeleteWorld.Text = "   Working!!";
             BTNDeleteWorld.ForeColor = Color.Orange;
-            BTNDeleteWorld.Click -= BTNDeleteWorld_ClickAsync;
+            BTNDeleteWorld.Click -= BTNDeleteWorld_Click;
             // Get all tables in the database
             List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase));
             // Delete each table
@@ -576,7 +577,7 @@ namespace TrionControlPanelDesktop.Controls
                 SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), table);
             }
             Data.Message = "Wolrd Tables deleted successfully.";
-            BTNDeleteWorld.Click += BTNDeleteWorld_ClickAsync;
+            BTNDeleteWorld.Click += BTNDeleteWorld_Click;
             BTNDeleteWorld.Text = "   Delete World Database";
             BTNDeleteWorld.ForeColor = Color.White;
         }
@@ -589,9 +590,70 @@ namespace TrionControlPanelDesktop.Controls
             }
             else if (DownloadControl.InstallSPP == false || DownloadControl.InstallMySQL == false)
             {
-                BtnDownloadSPP.Enabled = true ;
+                BtnDownloadSPP.Enabled = true;
                 BTNDownlaodMySQL.Enabled = true;
             }
+        }
+
+        private void BTNFixMysql_Click(object sender, EventArgs e)
+        {
+            string path = Directory.GetCurrentDirectory();
+            string SQLLocation = "";
+
+            BTNFixMysql.Text = "Working!!!";
+            BTNFixMysql.ForeColor = Color.Orange;
+            BTNFixMysql.Click -= BTNFixMysql_Click;
+            if(!Directory.Exists("Backup"))
+            { Directory.CreateDirectory("Backup"); }    
+            if(UIData.MySQLisRunning == true)
+            {
+                if (CBAuthBackup.Checked == true)
+                {
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path+"\\Backup\\AuthBackup.sql");
+                }
+                if (CBCharBackup.Checked == true)
+                {
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path+"\\Backup\\CharBackup.sql");
+                }
+                if (CBWorldBackup.Checked == true)
+                {
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path+"\\Backup\\WorldBackup.sql");
+                }
+
+                SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+                Directory.Delete($@"{path}\database\data", true);
+                if (SPPVerOFF != "N/A")
+                {
+                    SQLLocation = $@"{path}\database\extra\initSPP.sql";
+                }
+                else if (SPPVerOFF == "N/A")
+                {
+                    SQLLocation = $@"{path}\database\extra\initMySQL.sql";
+                }
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+            }
+            else
+            {
+               if( MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
+                    Directory.Delete($@"{path}\database\data", true);
+                    if (SPPVerOFF != "N/A")
+                    {
+                        SQLLocation = $@"{path}\database\extra\initSPP.sql";
+                    }
+                    else if (SPPVerOFF == "N/A")
+                    {
+                        SQLLocation = $@"{path}\database\extra\initMySQL.sql";
+                    }
+                    SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                }         
+
+            }
+
+            BTNFixMysql.Click += BTNFixMysql_Click;
+            BTNFixMysql.Text = "Start";
+            BTNFixMysql.ForeColor = Color.White;
         }
     }
 }

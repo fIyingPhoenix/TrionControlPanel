@@ -1,14 +1,10 @@
-﻿using MetroFramework;
-using Mysqlx.Crud;
-using TrionDatabase;
+﻿using TrionDatabase;
 using TrionLibrary;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class DatabaseControl : UserControl
     {
-        static System.Threading.Timer TextTimer;
         List<DataModels.RealmList> RList;
         List<DataModels.RealmListAscemu> RListAscemu;
         List<DataModels.RealmListMangos> RListMangos;
@@ -74,8 +70,8 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async Task SaveRealmList()
         {
-            try
-            {
+            //try
+            //{
                 if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore ||
                     Data.Settings.SelectedCore == EnumModels.Cores.CypherCore ||
                     Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore ||
@@ -87,6 +83,8 @@ namespace TrionControlPanelDesktop.Controls
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
+                        LocalAddress = TXTRealmLocalAddress.Text,
+                        LocalSubnetMask = TXTRealmSubnetMask.Text,
                         Port = TXTRealmPort.Text,
                         Icon = TXTRealmIcon.Text,
                         Flag = TXTRealmFlag.Text,
@@ -104,8 +102,6 @@ namespace TrionControlPanelDesktop.Controls
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
-                        LocalAddress = TXTRealmLocalAddress.Text,
-                        LocalSubnetMask = TXTRealmSubnetMask.Text,
                         Port = TXTRealmPort.Text,
                         Icon = TXTRealmIcon.Text,
                         Flag = TXTRealmFlag.Text,
@@ -126,11 +122,11 @@ namespace TrionControlPanelDesktop.Controls
                     }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     await LoadRealmList();
                 }
-            }
-            catch (Exception ex)
-            {
-                Data.Message = "Error saving data: " + ex.Message;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Data.Message = "Error saving data: " + ex.Message;
+            //}
         }
         private void CBOXReamList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
