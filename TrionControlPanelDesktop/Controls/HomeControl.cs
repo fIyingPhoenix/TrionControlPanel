@@ -5,11 +5,11 @@ namespace TrionControlPanelDesktop.Controls
 {
     public partial class HomeControl : UserControl
     {
-        static double CurrentRamUsage;
         static double RamProcent;
         bool RamUsageHight;
         private static void FirstLoad()
         {
+
         }
         public HomeControl()
         {
@@ -18,12 +18,12 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void ServerStatus()
         {
-            if (UIData.WorldisRunning == true) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (UIData.WorldisRunning == false) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
-            if (UIData.LogonisRunning == true) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (UIData.LogonisRunning == false) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
-            if (UIData.MySQLisRunning == true) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (UIData.MySQLisRunning == false) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
+            if (User.UI.Form.WorldisRunning == true) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
+            if (User.UI.Form.WorldisRunning == false) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
+            if (User.UI.Form.LogonisRunning == true) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
+            if (User.UI.Form.LogonisRunning == false) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
+            if (User.UI.Form.MySQLisRunning == true) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
+            if (User.UI.Form.MySQLisRunning == false) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
         }
         private void HomeControl_Load(object sender, EventArgs e)
         {
@@ -41,7 +41,7 @@ namespace TrionControlPanelDesktop.Controls
                 RamUsageHight = false;
             }
         }
-        static double CalculatePercentage( double whole, double part)
+        static double CalculatePercentage(double whole, double part)
         {
             return (part / whole) * 100;
         }
@@ -49,39 +49,69 @@ namespace TrionControlPanelDesktop.Controls
         {
             ServerStatus();
             TimerRam.Enabled = true;
-            if (PCResorcePbarRAM.Value > 0) { UIData.StartUpLoading++; }
+            if (PCResorcePbarRAM.Value > 0) { User.UI.Form.StartUpLoading++; }
             try
             {
                 Thread PCResorceUsageThread = new(() =>
                 {
-                    CurrentRamUsage = SystemWatcher.TotalRam() - SystemWatcher.CurentPcRamUsage();
-                    RamProcent = CalculatePercentage(SystemWatcher.TotalRam(), CurrentRamUsage);
-                    PCResorcePbarRAM.Maximum = SystemWatcher.TotalRam();
-                    LoginPbarRAM.Maximum = (int)CurrentRamUsage;
-                    WorldPbarRAM.Maximum = (int)CurrentRamUsage;
-
-                    WorldPbarRAM.Value = SystemWatcher.ApplicationRamUsage(Data.Settings.WorldExecutableName);
-                    WorldPbarCPU.Value = SystemWatcher.ApplicationCpuUsage(Data.Settings.WorldExecutableName);
-                    LoginPbarRAM.Value = SystemWatcher.ApplicationRamUsage(Data.Settings.LogonExecutableName);
-                    LoginPbarCPU.Value = SystemWatcher.ApplicationCpuUsage(Data.Settings.LogonExecutableName);
-                    PCResorcePbarRAM.Value = (int)CurrentRamUsage;
-                    PCResorcePbarCPU.Value = SystemWatcher.MachineCpuUtilization();
-
-                    UIData.MySQLisRunning = SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName);
-                    UIData.WorldisRunning = SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName);
-                    UIData.LogonisRunning = SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName);
+                    User.UI.Resource.MachineTotalRam = SystemWatcher.TotalRam();
+                    User.UI.Resource.MachineUsageRam = SystemWatcher.TotalRam() - SystemWatcher.CurentPcRamUsage();
+                    //
+                    RamProcent = CalculatePercentage(User.UI.Resource.MachineTotalRam, User.UI.Resource.MachineUsageRam);
+                    //
+                    User.UI.Resource.AuthTotalRam = (int)User.UI.Resource.MachineUsageRam;
+                    User.UI.Resource.WorldTotalRam = (int)User.UI.Resource.MachineUsageRam;
+                    //
+                    User.UI.Resource.WorldUsageRam = SystemWatcher.ApplicationRamUsage(Data.Settings.WorldExecutableName);
+                    User.UI.Resource.WorldCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.WorldExecutableName);
+                    User.UI.Resource.AuthUsageRam = SystemWatcher.ApplicationRamUsage(Data.Settings.LogonExecutableName);
+                    User.UI.Resource.AuthCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.LogonExecutableName);
+                    User.UI.Resource.MachineCPUUsage = SystemWatcher.MachineCpuUtilization();
+                    //
+                    User.UI.Form.MySQLisRunning = SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName);
+                    User.UI.Form.WorldisRunning = SystemWatcher.ApplicationRuning(Data.Settings.WorldExecutableName);
+                    User.UI.Form.LogonisRunning = SystemWatcher.ApplicationRuning(Data.Settings.LogonExecutableName);
                 });
-
                 PCResorceUsageThread.Start();
+                LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID)}";
+                LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID)}";
+                LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID)}";
+                PCResorcePbarRAM.Maximum = User.UI.Resource.MachineTotalRam;
+                PCResorcePbarRAM.Value = User.UI.Resource.MachineUsageRam;
+                PCResorcePbarCPU.Value = User.UI.Resource.MachineCPUUsage;
+                WorldPbarRAM.Maximum = User.UI.Resource.WorldTotalRam;
+                WorldPbarRAM.Value = User.UI.Resource.WorldUsageRam;
+                WorldPbarCPU.Maximum = User.UI.Resource.WorldCPUUsage;
+                LoginPbarRAM.Maximum = User.UI.Resource.AuthTotalRam;
+                LoginPbarRAM.Value = User.UI.Resource.AuthUsageRam;
+                LoginPbarRAM.Value = User.UI.Resource.AuthCPUUsage;
             }
             catch
             {
             }
         }
-
         private void TimerRam_Tick(object sender, EventArgs e)
         {
             RamProcentage();
+        }
+
+        private void TimerStopWatch_Tick(object sender, EventArgs e)
+        {
+            if (User.UI.Form.WorldisRunning == true && User.System.WorldProcessesID.Count > 0)
+            {
+                TimeSpan elapsedTime = DateTime.Now - User.System.WorldStartTime;
+                LBLUpTimeWorld.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
+            if (User.UI.Form.MySQLisRunning == true && User.System.DatabaseProcessID.Count > 0)
+            {
+                TimeSpan elapsedTime = DateTime.Now - User.System.DatabaseStartTime;
+                LBLUpTimeDatabase.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
+            if (User.UI.Form.LogonisRunning == true && User.System.LogonProcessesID.Count >  0)
+            {
+                TimeSpan elapsedTime = DateTime.Now - User.System.LogonStartTime;
+                LBLUpTimeLogon.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
         }
     }
 }

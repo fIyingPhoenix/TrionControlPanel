@@ -132,9 +132,9 @@
             // TabControl1
             // 
             TabControl1.Appearance = TabAppearance.Buttons;
-            TabControl1.Controls.Add(TabPageDatabase);
             TabControl1.Controls.Add(TabPageTrion);
             TabControl1.Controls.Add(TabPageCore);
+            TabControl1.Controls.Add(TabPageDatabase);
             TabControl1.CustomBackground = false;
             TabControl1.Dock = DockStyle.Fill;
             TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -1644,7 +1644,6 @@
             ForeColor = Color.White;
             Name = "SettingsControl";
             Size = new Size(845, 370);
-            Load += SettingsControl_LoadAsync;
             TabControl1.ResumeLayout(false);
             TabPageDatabase.ResumeLayout(false);
             metroPanel5.ResumeLayout(false);

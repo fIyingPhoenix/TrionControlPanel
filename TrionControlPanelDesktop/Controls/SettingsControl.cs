@@ -13,17 +13,6 @@ namespace TrionControlPanelDesktop.Controls
 {
     public partial class SettingsControl : UserControl
     {
-        private readonly string TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-        private string TrionVersON = null!;
-        private string MySQLVerOFF = "N/A";
-        private string MySQLVerON = null!;
-        private string SPPVerOFF = "N/A";
-        private string SPPVerON = null!;
-        private bool TrionUpdate = false;
-        private bool MysqlUpdate = false;
-        private bool SppUpdate = false;
-
-        //
         static System.Threading.Timer TextTimer;
         //
         public SettingsControl()
@@ -31,7 +20,7 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
             ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
-            UIData.StartupUpdateCheck = true;
+            User.UI.Update.StartupUpdateCheck = true;
         }
         private static string GetFolder()
         {
@@ -63,13 +52,8 @@ namespace TrionControlPanelDesktop.Controls
             TXTBoxWorldExecName.ReadOnly = !Data.Settings.CustomNames;
             TXTBoxMySQLExecName.ReadOnly = !Data.Settings.CustomNames;
         }
-        private async void SettingsControl_LoadAsync(object sender, EventArgs e)
-        {
-            await LoadData();
-        }
         private async Task LoadData()
-        {
-            CheckForUpdate();
+        { 
             ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
@@ -100,16 +84,18 @@ namespace TrionControlPanelDesktop.Controls
             //Update Loader
             CustomNames();
             //Version Load
-            TrionVersON = await Data.Version.GetOnline(WebLinks.TrionVer);
-            MySQLVerOFF = Data.Version.GetLocal(Data.Settings.MySQLExecutableLocation);
-            MySQLVerON = await Data.Version.GetOnline(WebLinks.MySQLVer);
-            SPPVerOFF = Data.Version.GetLocal(Data.Settings.WorldExecutableLocation);
-            SPPVerON = await Data.Version.GetOnline(WebLinks.SPPCoreVer);
+            User.UI.Update.TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+            User.UI.Update.TrionVersON = await Data.Version.GetOnline(WebLinks.TrionVer);
+            User.UI.Update.MySQLVerOFF = Data.Version.GetLocal(Data.Settings.MySQLExecutableLocation);
+            User.UI.Update.MySQLVerON = await Data.Version.GetOnline(WebLinks.MySQLVer);
+            User.UI.Update.SPPVerOFF = Data.Version.GetLocal(Data.Settings.WorldExecutableLocation);
+            User.UI.Update.SPPVerON = await Data.Version.GetOnline(WebLinks.SPPCoreVer);
             //Update Labels
-            LBLTrionVersion.Text = $"Trion Version: Local {TrionVersOFF} / Online: {TrionVersON}";
-            LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {MySQLVerOFF} \n •Online: {MySQLVerON} ";
-            LBLCoreVersion.Text = $"Core Version: \n •Local: {SPPVerOFF} \n •Online: {SPPVerON} ";
-            UIData.StartUpLoading++;
+            LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Update.TrionVersOFF} / Online: {User.UI.Update.TrionVersON}";
+            LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {User.UI.Update.MySQLVerOFF} \n •Online: {User.UI.Update.MySQLVerON} ";
+            LBLCoreVersion.Text = $"Core Version: \n •Local: {User.UI.Update.SPPVerOFF} \n •Online: {User.UI.Update.SPPVerON} ";
+            CheckForUpdate();
+            User.UI.Form.StartUpLoading++;
         }
         private async void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -288,14 +274,9 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if (UIData.StartupUpdateCheck == true && TrionVersON != null)
+            if (User.UI.Form.LoadData == true)
             {
-                CheckForUpdate();
-                UIData.StartupUpdateCheck = false;
-            }
-            if (UIData.LoadData == true)
-            {
-                UIData.LoadData = false;
+                User.UI.Form.LoadData = false;
                 _ = LoadData();
             }
         }
@@ -313,60 +294,97 @@ namespace TrionControlPanelDesktop.Controls
             DownloadControl.InstallMySQL = true;
             DownlaodThread(WebLinks.MySQLFiles);
         }
-        private void CheckForUpdate()
+        public static async Task CreateBC()
+        {
+            string path = Directory.GetCurrentDirectory();
+            if (!Directory.Exists("Backup"))
+            { Directory.CreateDirectory("Backup"); }
+            if (User.UI.Form.MySQLisRunning != true)
+            {
+               SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, true, $"--console");
+            }
+            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
+            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
+            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
+        }
+        private  async void CheckForUpdate()
         {
             // Single Player Project Update
-            if (DateTime.TryParse(SPPVerOFF, out DateTime SPPLocal) && DateTime.TryParse(SPPVerON, out DateTime SPPOnline))
+            if (DateTime.TryParse(User.UI.Update.SPPVerOFF, out DateTime SPPLocal) && DateTime.TryParse(User.UI.Update.SPPVerON, out DateTime SPPOnline))
             {
                 if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
                 {
                     if (Data.Settings.AutoUpdateCore)
                     {
-                        SppUpdate = true;
+                        await CreateBC();
                         DownlaodThread(WebLinks.SPPCoreUpdate);
                     }
                     else
                     {
-                        Data.Message = "A new update to the Single Player Project is available!";
-                        SppUpdate = true;
+                       
+                        if (MetroMessageBox.Show(this, "A new update to the Single Player Project is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                await CreateBC();
+                            }    
+                                DownlaodThread(WebLinks.SPPCoreUpdate);
+                        }
                     }
+                    User.UI.Update.SppUpdate = true;
                 }
             }
             Thread.Sleep(100);
             // MySQL Update
-            if (!string.IsNullOrEmpty(MySQLVerOFF) && !string.IsNullOrEmpty(MySQLVerON))
+            if (!string.IsNullOrEmpty(User.UI.Update.MySQLVerOFF) && !string.IsNullOrEmpty(User.UI.Update.MySQLVerON))
             {
-                if (VersionCompare(MySQLVerOFF, MySQLVerON) < 0)
+                if (VersionCompare(User.UI.Update.MySQLVerOFF, User.UI.Update.MySQLVerON) < 0)
                 {
                     if (Data.Settings.AutoUpdateMySQL)
                     {
-                        MysqlUpdate = true;
+                        await CreateBC();
+                        
                         DownlaodThread(WebLinks.MySQLUpdate);
                     }
                     else
                     {
-                        Data.Message = "A new update for MySQL Server is available!";
-                        MysqlUpdate = true;
+                        
+                        if (MetroMessageBox.Show(this, "A new update for MySQL Server is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                await CreateBC();
+                            }
+                            DownlaodThread(WebLinks.MySQLUpdate);
+                        }
                     }
+                    User.UI.Update.MysqlUpdate = true;
                 }
             }
             Thread.Sleep(100);
             // Trion Update
-            if (!string.IsNullOrEmpty(TrionVersOFF) && !string.IsNullOrEmpty(TrionVersON))
+            if (!string.IsNullOrEmpty(User.UI.Update.TrionVersOFF) && !string.IsNullOrEmpty(User.UI.Update.TrionVersON))
             {
-                if (VersionCompare(TrionVersOFF, TrionVersON) < 0)
+                if (VersionCompare(User.UI.Update.TrionVersOFF, User.UI.Update.TrionVersON) < 0)
                 {
                     if (Data.Settings.AutoUpdateTrion)
                     {
-                        TrionUpdate = true;
+                        await CreateBC();
                         DownlaodThread(WebLinks.TrionUpdate);
                     }
                     else
                     {
-                        Data.Message = "A new update for Trion Control Panel is available!";
-                        TrionUpdate = true;
+                        if (MetroMessageBox.Show(this, "A new update for MySQL Server is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                await CreateBC();
+                            }
+                            DownlaodThread(WebLinks.TrionUpdate);
+                        }
                     }
                 }
+                User.UI.Update.TrionUpdate = true;
             }
         }
         private static int VersionCompare(string ver1, string ver2)
@@ -429,9 +447,9 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (TrionUpdate == true) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
-            if (SppUpdate == true) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
-            if (MysqlUpdate == true) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
+            if (User.UI.Update.TrionUpdate == true) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
+            if (User.UI.Update.SppUpdate == true) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
+            if (User.UI.Update.MysqlUpdate == true) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
         }
         public static void AddToStartup(string appName, string executablePath)
         {
@@ -594,7 +612,6 @@ namespace TrionControlPanelDesktop.Controls
                 BTNDownlaodMySQL.Enabled = true;
             }
         }
-
         private void BTNFixMysql_Click(object sender, EventArgs e)
         {
             string path = Directory.GetCurrentDirectory();
@@ -605,7 +622,7 @@ namespace TrionControlPanelDesktop.Controls
             BTNFixMysql.Click -= BTNFixMysql_Click;
             if(!Directory.Exists("Backup"))
             { Directory.CreateDirectory("Backup"); }    
-            if(UIData.MySQLisRunning == true)
+            if(User.UI.Form.MySQLisRunning == true)
             {
                 if (CBAuthBackup.Checked == true)
                 {
@@ -622,11 +639,11 @@ namespace TrionControlPanelDesktop.Controls
 
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
                 Directory.Delete($@"{path}\database\data", true);
-                if (SPPVerOFF != "N/A")
+                if (User.UI.Update.SPPVerOFF != "N/A")
                 {
                     SQLLocation = $@"{path}\database\extra\initSPP.sql";
                 }
-                else if (SPPVerOFF == "N/A")
+                else if (User.UI.Update.SPPVerOFF == "N/A")
                 {
                     SQLLocation = $@"{path}\database\extra\initMySQL.sql";
                 }
@@ -638,11 +655,11 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
                     Directory.Delete($@"{path}\database\data", true);
-                    if (SPPVerOFF != "N/A")
+                    if (User.UI.Update.SPPVerOFF != "N/A")
                     {
                         SQLLocation = $@"{path}\database\extra\initSPP.sql";
                     }
-                    else if (SPPVerOFF == "N/A")
+                    else if (User.UI.Update.SPPVerOFF == "N/A")
                     {
                         SQLLocation = $@"{path}\database\extra\initMySQL.sql";
                     }

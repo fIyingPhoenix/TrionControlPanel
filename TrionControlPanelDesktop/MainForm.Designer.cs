@@ -460,6 +460,7 @@ namespace TrionControlPanelDesktop
             // 
             // TimerLoadingCheck
             // 
+            TimerLoadingCheck.Enabled = true;
             TimerLoadingCheck.Interval = 15000;
             TimerLoadingCheck.Tick += TimerLoadingCheck_Tick;
             // 

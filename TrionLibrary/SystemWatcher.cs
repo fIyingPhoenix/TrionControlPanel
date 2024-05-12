@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Threading;
+using static TrionLibrary.EnumModels;
 
 namespace TrionLibrary
 {
@@ -11,7 +15,6 @@ namespace TrionLibrary
         //fix "lodctr /R"
         //static Process[] ProcessID;
         public static Process pWorldServer;
-
         private static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";
@@ -127,6 +130,7 @@ namespace TrionLibrary
         }
         public static bool ApplicationRuning(string ApplicationName)
         {
+
             Process[] ProcessID = Process.GetProcessesByName(ApplicationName);
             if (ProcessID.Length <= 0)
                 return false;
@@ -145,7 +149,7 @@ namespace TrionLibrary
             pWorldServer.BeginOutputReadLine();
 
         }
-        public static void ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
+        public static int ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
         {
             Data.Message = $@"Starting {Name}!";
             Thread.Sleep(100);
@@ -172,14 +176,17 @@ namespace TrionLibrary
                     myProcess.Start();
                 }
                 // complete the task
+                
                 Data.Message = $@"Successfully rune {Name}!";
+                return myProcess.Id;
             }
             catch (Exception ex)
             {
                 Data.Message = ex.Message;
+                return 0;
             }
         }
-        static int GetProcessIdByName(string processName)
+        public static int GetProcessIdByName(string processName)
         {
             try
             {

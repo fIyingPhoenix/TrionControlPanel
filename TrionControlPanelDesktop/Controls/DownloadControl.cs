@@ -9,7 +9,7 @@ namespace TrionControlPanelDesktop.Controls
     {
         private static bool ListFull = false;
         // List of URLs to download
-        private static List<UrlData> DownloadList = new();
+        private static List<UrlData> DownloadList = [];
         // Counting Downloaded URLs
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
@@ -47,7 +47,7 @@ namespace TrionControlPanelDesktop.Controls
                         if (Entry[1].Contains("1drv.ms"))
                         {
                             newUrlList.FileName = Entry[0];
-                            newUrlList.FileWebLink = UIData.DownloadOneDriveAPI(Entry[1]);
+                            newUrlList.FileWebLink = User.API.DownloadOneDriveAPI(Entry[1]);
                             newUrlList.FileType = Entry[2];
                         }
                         else
@@ -57,7 +57,7 @@ namespace TrionControlPanelDesktop.Controls
                             newUrlList.FileType = Path.GetExtension(Entry[1]);
                         }
                         DownloadList.Add(newUrlList);
-                        UIData.CurrentDownloads++;
+                        User.UI.Download.CurrentDownloads++;
                     }
                     ListFull = true;
                 }
@@ -138,7 +138,7 @@ namespace TrionControlPanelDesktop.Controls
                             }
                             else if (fileType.Contains(".exe"))
                             {
-                                UIData.CurrentDownloads--;
+                                User.UI.Download.CurrentDownloads--;
                                 Process.Start(downloadPath);
                                 Environment.Exit(0);
                             }
@@ -208,7 +208,6 @@ namespace TrionControlPanelDesktop.Controls
                 LBLStatus.Text = "Unzip operation completed successfully.";
                 LBLFIleName.Text = @$"File: ";
                 File.Delete(zipFilePath);
-
                 if (CurrentDownload == TotalDownloads)
                 {
                     CurrentDownload = 0;
@@ -246,9 +245,8 @@ namespace TrionControlPanelDesktop.Controls
                         string SQLLocation = $@"{path}\database\extra\initMySQL.sql";
                         SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
                     }
-
                 }
-                UIData.CurrentDownloads--;
+                User.UI.Download.CurrentDownloads--;
             }
             catch (Exception ex)
             {
@@ -264,7 +262,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {
-            //LBLQueue.Text = $@"Queue: {CurrentDownload} / {TotalDownloads}";
+            LBLQueue.Text = $@"Queue: {CurrentDownload} / {TotalDownloads}";
             LBLTitle.Text = Title;
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)

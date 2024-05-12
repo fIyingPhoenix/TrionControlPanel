@@ -53,12 +53,21 @@ namespace TrionControlPanelDesktop.Controls
             label8 = new Label();
             PNLLayoutTop = new TableLayoutPanel();
             PNLServerStatus = new MetroPanel();
-            LBLWorldServerStatus = new Label();
-            LBLLogonServerStatus = new Label();
-            LBLMySQLServerStatus = new Label();
-            PICMySqlServerStatus = new PictureBox();
+            metroPanel6 = new MetroPanel();
+            LBLWordPort = new Label();
+            LBLUpTimeWorld = new Label();
             PICWorldServerStatus = new PictureBox();
+            LBLWorldServerStatus = new Label();
+            metroPanel5 = new MetroPanel();
+            LBLLogonPort = new Label();
+            LBLUpTimeLogon = new Label();
             PICLogonServerStatus = new PictureBox();
+            LBLLogonServerStatus = new Label();
+            metroPanel4 = new MetroPanel();
+            LBLMysqlPort = new Label();
+            LBLUpTimeDatabase = new Label();
+            PICMySqlServerStatus = new PictureBox();
+            LBLMySQLServerStatus = new Label();
             PNLPCResorce = new MetroPanel();
             label1 = new Label();
             PCResorcePbarCPU = new CustomProgressBar();
@@ -66,15 +75,19 @@ namespace TrionControlPanelDesktop.Controls
             label2 = new Label();
             label3 = new Label();
             TimerRam = new System.Windows.Forms.Timer(components);
+            TimerStopWatch = new System.Windows.Forms.Timer(components);
             PNLLayoutBot.SuspendLayout();
             metroPanel1.SuspendLayout();
             metroPanel2.SuspendLayout();
             metroPanel3.SuspendLayout();
             PNLLayoutTop.SuspendLayout();
             PNLServerStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).BeginInit();
+            metroPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PICWorldServerStatus).BeginInit();
+            metroPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PICLogonServerStatus).BeginInit();
+            metroPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).BeginInit();
             PNLPCResorce.SuspendLayout();
             SuspendLayout();
             // 
@@ -103,7 +116,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel1
             // 
-            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
@@ -198,7 +211,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel2
             // 
-            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
@@ -399,16 +412,13 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLServerStatus
             // 
-            PNLServerStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLServerStatus.BackColor = Color.FromArgb(34, 39, 46);
             PNLServerStatus.Border = true;
             PNLServerStatus.BorderColor = Color.Black;
             PNLServerStatus.BorderSize = 1;
-            PNLServerStatus.Controls.Add(LBLWorldServerStatus);
-            PNLServerStatus.Controls.Add(LBLLogonServerStatus);
-            PNLServerStatus.Controls.Add(LBLMySQLServerStatus);
-            PNLServerStatus.Controls.Add(PICMySqlServerStatus);
-            PNLServerStatus.Controls.Add(PICWorldServerStatus);
-            PNLServerStatus.Controls.Add(PICLogonServerStatus);
+            PNLServerStatus.Controls.Add(metroPanel6);
+            PNLServerStatus.Controls.Add(metroPanel5);
+            PNLServerStatus.Controls.Add(metroPanel4);
             PNLServerStatus.CustomBackground = true;
             PNLServerStatus.Dock = DockStyle.Fill;
             PNLServerStatus.HorizontalScrollbar = true;
@@ -428,72 +438,228 @@ namespace TrionControlPanelDesktop.Controls
             PNLServerStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLServerStatus.VerticalScrollbarSize = 10;
             // 
-            // LBLWorldServerStatus
+            // metroPanel6
             // 
-            LBLWorldServerStatus.AutoSize = true;
-            LBLWorldServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLWorldServerStatus.ForeColor = Color.White;
-            LBLWorldServerStatus.Location = new Point(73, 115);
-            LBLWorldServerStatus.Name = "LBLWorldServerStatus";
-            LBLWorldServerStatus.Size = new Size(101, 21);
-            LBLWorldServerStatus.TabIndex = 33;
-            LBLWorldServerStatus.Text = "World Server";
+            metroPanel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel6.Border = true;
+            metroPanel6.BorderColor = Color.Black;
+            metroPanel6.BorderSize = 1;
+            metroPanel6.Controls.Add(LBLWordPort);
+            metroPanel6.Controls.Add(LBLUpTimeWorld);
+            metroPanel6.Controls.Add(PICWorldServerStatus);
+            metroPanel6.Controls.Add(LBLWorldServerStatus);
+            metroPanel6.CustomBackground = true;
+            metroPanel6.HorizontalScrollbar = true;
+            metroPanel6.HorizontalScrollbarBarColor = true;
+            metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel6.HorizontalScrollbarSize = 10;
+            metroPanel6.Location = new Point(7, 118);
+            metroPanel6.Name = "metroPanel6";
+            metroPanel6.Padding = new Padding(2);
+            metroPanel6.Size = new Size(400, 50);
+            metroPanel6.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel6.StyleManager = null;
+            metroPanel6.TabIndex = 36;
+            metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel6.VerticalScrollbar = true;
+            metroPanel6.VerticalScrollbarBarColor = true;
+            metroPanel6.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel6.VerticalScrollbarSize = 10;
             // 
-            // LBLLogonServerStatus
+            // LBLWordPort
             // 
-            LBLLogonServerStatus.AutoSize = true;
-            LBLLogonServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLLogonServerStatus.ForeColor = Color.White;
-            LBLLogonServerStatus.Location = new Point(73, 74);
-            LBLLogonServerStatus.Name = "LBLLogonServerStatus";
-            LBLLogonServerStatus.Size = new Size(103, 21);
-            LBLLogonServerStatus.TabIndex = 32;
-            LBLLogonServerStatus.Text = "Logon Server";
+            LBLWordPort.Anchor = AnchorStyles.Top;
+            LBLWordPort.AutoSize = true;
+            LBLWordPort.ForeColor = Color.White;
+            LBLWordPort.Location = new Point(185, 27);
+            LBLWordPort.Name = "LBLWordPort";
+            LBLWordPort.Size = new Size(61, 15);
+            LBLWordPort.TabIndex = 43;
+            LBLWordPort.Text = "ProcessID:";
             // 
-            // LBLMySQLServerStatus
+            // LBLUpTimeWorld
             // 
-            LBLMySQLServerStatus.AutoSize = true;
-            LBLMySQLServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLMySQLServerStatus.ForeColor = Color.White;
-            LBLMySQLServerStatus.Location = new Point(73, 33);
-            LBLMySQLServerStatus.Name = "LBLMySQLServerStatus";
-            LBLMySQLServerStatus.Size = new Size(110, 21);
-            LBLMySQLServerStatus.TabIndex = 31;
-            LBLMySQLServerStatus.Text = "MySQL Server";
-            // 
-            // PICMySqlServerStatus
-            // 
-            PICMySqlServerStatus.Image = (Image)resources.GetObject("PICMySqlServerStatus.Image");
-            PICMySqlServerStatus.Location = new Point(32, 26);
-            PICMySqlServerStatus.Name = "PICMySqlServerStatus";
-            PICMySqlServerStatus.Size = new Size(35, 35);
-            PICMySqlServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
-            PICMySqlServerStatus.TabIndex = 30;
-            PICMySqlServerStatus.TabStop = false;
+            LBLUpTimeWorld.Anchor = AnchorStyles.Top;
+            LBLUpTimeWorld.AutoSize = true;
+            LBLUpTimeWorld.ForeColor = Color.White;
+            LBLUpTimeWorld.Location = new Point(185, 7);
+            LBLUpTimeWorld.Name = "LBLUpTimeWorld";
+            LBLUpTimeWorld.Size = new Size(54, 15);
+            LBLUpTimeWorld.TabIndex = 42;
+            LBLUpTimeWorld.Text = "Up Time:";
             // 
             // PICWorldServerStatus
             // 
+            PICWorldServerStatus.Anchor = AnchorStyles.Left;
             PICWorldServerStatus.Image = (Image)resources.GetObject("PICWorldServerStatus.Image");
-            PICWorldServerStatus.Location = new Point(32, 108);
+            PICWorldServerStatus.Location = new Point(7, 7);
             PICWorldServerStatus.Name = "PICWorldServerStatus";
             PICWorldServerStatus.Size = new Size(35, 35);
             PICWorldServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
             PICWorldServerStatus.TabIndex = 29;
             PICWorldServerStatus.TabStop = false;
             // 
+            // LBLWorldServerStatus
+            // 
+            LBLWorldServerStatus.AutoSize = true;
+            LBLWorldServerStatus.Font = new Font("Segoe UI", 12F);
+            LBLWorldServerStatus.ForeColor = Color.White;
+            LBLWorldServerStatus.Location = new Point(50, 15);
+            LBLWorldServerStatus.Name = "LBLWorldServerStatus";
+            LBLWorldServerStatus.Size = new Size(56, 21);
+            LBLWorldServerStatus.TabIndex = 33;
+            LBLWorldServerStatus.Text = "World ";
+            // 
+            // metroPanel5
+            // 
+            metroPanel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel5.Border = true;
+            metroPanel5.BorderColor = Color.Black;
+            metroPanel5.BorderSize = 1;
+            metroPanel5.Controls.Add(LBLLogonPort);
+            metroPanel5.Controls.Add(LBLUpTimeLogon);
+            metroPanel5.Controls.Add(PICLogonServerStatus);
+            metroPanel5.Controls.Add(LBLLogonServerStatus);
+            metroPanel5.CustomBackground = true;
+            metroPanel5.HorizontalScrollbar = true;
+            metroPanel5.HorizontalScrollbarBarColor = true;
+            metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel5.HorizontalScrollbarSize = 10;
+            metroPanel5.Location = new Point(7, 63);
+            metroPanel5.Name = "metroPanel5";
+            metroPanel5.Padding = new Padding(2);
+            metroPanel5.Size = new Size(400, 50);
+            metroPanel5.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel5.StyleManager = null;
+            metroPanel5.TabIndex = 35;
+            metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel5.VerticalScrollbar = true;
+            metroPanel5.VerticalScrollbarBarColor = true;
+            metroPanel5.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel5.VerticalScrollbarSize = 10;
+            // 
+            // LBLLogonPort
+            // 
+            LBLLogonPort.Anchor = AnchorStyles.Top;
+            LBLLogonPort.AutoSize = true;
+            LBLLogonPort.ForeColor = Color.White;
+            LBLLogonPort.Location = new Point(185, 27);
+            LBLLogonPort.Name = "LBLLogonPort";
+            LBLLogonPort.Size = new Size(61, 15);
+            LBLLogonPort.TabIndex = 43;
+            LBLLogonPort.Text = "ProcessID:";
+            // 
+            // LBLUpTimeLogon
+            // 
+            LBLUpTimeLogon.Anchor = AnchorStyles.Top;
+            LBLUpTimeLogon.AutoSize = true;
+            LBLUpTimeLogon.ForeColor = Color.White;
+            LBLUpTimeLogon.Location = new Point(185, 7);
+            LBLUpTimeLogon.Name = "LBLUpTimeLogon";
+            LBLUpTimeLogon.Size = new Size(54, 15);
+            LBLUpTimeLogon.TabIndex = 42;
+            LBLUpTimeLogon.Text = "Up Time:";
+            // 
             // PICLogonServerStatus
             // 
+            PICLogonServerStatus.Anchor = AnchorStyles.Left;
             PICLogonServerStatus.Image = (Image)resources.GetObject("PICLogonServerStatus.Image");
-            PICLogonServerStatus.Location = new Point(32, 67);
+            PICLogonServerStatus.Location = new Point(7, 7);
             PICLogonServerStatus.Name = "PICLogonServerStatus";
             PICLogonServerStatus.Size = new Size(35, 35);
             PICLogonServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
             PICLogonServerStatus.TabIndex = 28;
             PICLogonServerStatus.TabStop = false;
             // 
+            // LBLLogonServerStatus
+            // 
+            LBLLogonServerStatus.AutoSize = true;
+            LBLLogonServerStatus.Font = new Font("Segoe UI", 12F);
+            LBLLogonServerStatus.ForeColor = Color.White;
+            LBLLogonServerStatus.Location = new Point(50, 15);
+            LBLLogonServerStatus.Name = "LBLLogonServerStatus";
+            LBLLogonServerStatus.Size = new Size(54, 21);
+            LBLLogonServerStatus.TabIndex = 32;
+            LBLLogonServerStatus.Text = "Logon";
+            // 
+            // metroPanel4
+            // 
+            metroPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel4.Border = true;
+            metroPanel4.BorderColor = Color.Black;
+            metroPanel4.BorderSize = 1;
+            metroPanel4.Controls.Add(LBLMysqlPort);
+            metroPanel4.Controls.Add(LBLUpTimeDatabase);
+            metroPanel4.Controls.Add(PICMySqlServerStatus);
+            metroPanel4.Controls.Add(LBLMySQLServerStatus);
+            metroPanel4.CustomBackground = true;
+            metroPanel4.HorizontalScrollbar = true;
+            metroPanel4.HorizontalScrollbarBarColor = true;
+            metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel4.HorizontalScrollbarSize = 10;
+            metroPanel4.Location = new Point(7, 8);
+            metroPanel4.Name = "metroPanel4";
+            metroPanel4.Padding = new Padding(2);
+            metroPanel4.Size = new Size(400, 50);
+            metroPanel4.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel4.StyleManager = null;
+            metroPanel4.TabIndex = 34;
+            metroPanel4.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel4.VerticalScrollbar = true;
+            metroPanel4.VerticalScrollbarBarColor = true;
+            metroPanel4.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel4.VerticalScrollbarSize = 10;
+            // 
+            // LBLMysqlPort
+            // 
+            LBLMysqlPort.Anchor = AnchorStyles.Top;
+            LBLMysqlPort.AutoSize = true;
+            LBLMysqlPort.ForeColor = Color.White;
+            LBLMysqlPort.Location = new Point(185, 27);
+            LBLMysqlPort.Name = "LBLMysqlPort";
+            LBLMysqlPort.Size = new Size(61, 15);
+            LBLMysqlPort.TabIndex = 41;
+            LBLMysqlPort.Text = "ProcessID:";
+            // 
+            // LBLUpTimeDatabase
+            // 
+            LBLUpTimeDatabase.Anchor = AnchorStyles.Top;
+            LBLUpTimeDatabase.AutoSize = true;
+            LBLUpTimeDatabase.ForeColor = Color.White;
+            LBLUpTimeDatabase.Location = new Point(185, 7);
+            LBLUpTimeDatabase.Name = "LBLUpTimeDatabase";
+            LBLUpTimeDatabase.Size = new Size(54, 15);
+            LBLUpTimeDatabase.TabIndex = 40;
+            LBLUpTimeDatabase.Text = "Up Time:";
+            // 
+            // PICMySqlServerStatus
+            // 
+            PICMySqlServerStatus.Anchor = AnchorStyles.Left;
+            PICMySqlServerStatus.Image = (Image)resources.GetObject("PICMySqlServerStatus.Image");
+            PICMySqlServerStatus.Location = new Point(7, 7);
+            PICMySqlServerStatus.Name = "PICMySqlServerStatus";
+            PICMySqlServerStatus.Size = new Size(35, 35);
+            PICMySqlServerStatus.SizeMode = PictureBoxSizeMode.StretchImage;
+            PICMySqlServerStatus.TabIndex = 30;
+            PICMySqlServerStatus.TabStop = false;
+            // 
+            // LBLMySQLServerStatus
+            // 
+            LBLMySQLServerStatus.AutoSize = true;
+            LBLMySQLServerStatus.Font = new Font("Segoe UI", 12F);
+            LBLMySQLServerStatus.ForeColor = Color.White;
+            LBLMySQLServerStatus.Location = new Point(50, 15);
+            LBLMySQLServerStatus.Name = "LBLMySQLServerStatus";
+            LBLMySQLServerStatus.Size = new Size(61, 21);
+            LBLMySQLServerStatus.TabIndex = 31;
+            LBLMySQLServerStatus.Text = "MySQL";
+            // 
             // PNLPCResorce
             // 
-            PNLPCResorce.BackColor = Color.FromArgb(28, 33, 40);
+            PNLPCResorce.BackColor = Color.FromArgb(34, 39, 46);
             PNLPCResorce.Border = true;
             PNLPCResorce.BorderColor = Color.Black;
             PNLPCResorce.BorderSize = 1;
@@ -593,6 +759,12 @@ namespace TrionControlPanelDesktop.Controls
             TimerRam.Interval = 1000;
             TimerRam.Tick += TimerRam_Tick;
             // 
+            // TimerStopWatch
+            // 
+            TimerStopWatch.Enabled = true;
+            TimerStopWatch.Interval = 1000;
+            TimerStopWatch.Tick += TimerStopWatch_Tick;
+            // 
             // HomeControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -611,10 +783,15 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel3.ResumeLayout(false);
             PNLLayoutTop.ResumeLayout(false);
             PNLServerStatus.ResumeLayout(false);
-            PNLServerStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).EndInit();
+            metroPanel6.ResumeLayout(false);
+            metroPanel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PICWorldServerStatus).EndInit();
+            metroPanel5.ResumeLayout(false);
+            metroPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PICLogonServerStatus).EndInit();
+            metroPanel4.ResumeLayout(false);
+            metroPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).EndInit();
             PNLPCResorce.ResumeLayout(false);
             PNLPCResorce.PerformLayout();
             ResumeLayout(false);
@@ -655,5 +832,15 @@ namespace TrionControlPanelDesktop.Controls
         public PictureBox PICWorldServerStatus;
         public PictureBox PICLogonServerStatus;
         private System.Windows.Forms.Timer TimerRam;
+        private MetroPanel metroPanel4;
+        private MetroPanel metroPanel6;
+        private MetroPanel metroPanel5;
+        private Label LBLUpTimeDatabase;
+        private Label LBLWordPort;
+        private Label LBLUpTimeWorld;
+        private Label LBLLogonPort;
+        private Label LBLUpTimeLogon;
+        private Label LBLMysqlPort;
+        private System.Windows.Forms.Timer TimerStopWatch;
     }
 }

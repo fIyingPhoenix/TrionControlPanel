@@ -25,7 +25,7 @@ namespace TrionControlPanelDesktop.Controls.Notification
             DGVNotifications.Refresh();
 
             //Update Notification count
-            UIData.Notyfications++;
+            User.UI.Form.Notyfications++;
         }
         private void TimerNotify_Tick(object sender, EventArgs e)
         {
@@ -37,7 +37,7 @@ namespace TrionControlPanelDesktop.Controls.Notification
         private void BTNClean_Click(object sender, EventArgs e)
         {
             DGVNotifications.Rows.Clear();
-            UIData.Notyfications = DGVNotifications.Rows.Count;
+            User.UI.Form.Notyfications = DGVNotifications.Rows.Count;
         }
     }
 }
