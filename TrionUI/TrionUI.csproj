@@ -76,15 +76,6 @@
     <Compile Update="Controls\Test\CustomNotificationsButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Drawing\Html\HtmlLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Drawing\Html\HtmlPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Drawing\Html\HtmlToolTip.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="Forms\MetroForm.cs">
       <SubType>Form</SubType>
     </Compile>
