@@ -31,35 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsControl));
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
-            TabPageDatabase = new TabPage();
-            metroPanel5 = new MetroFramework.Controls.MetroPanel();
-            label6 = new Label();
-            CBWorldBackup = new MetroFramework.Controls.MetroCheckBox();
-            CBCharBackup = new MetroFramework.Controls.MetroCheckBox();
-            CBAuthBackup = new MetroFramework.Controls.MetroCheckBox();
-            BTNFixMysql = new UI.Controls.CustomButton();
-            panel1 = new MetroFramework.Controls.MetroPanel();
-            BTNDeleteAuth = new UI.Controls.CustomButton();
-            BTNDeleteChar = new UI.Controls.CustomButton();
-            label4 = new Label();
-            label21 = new Label();
-            BTNDeleteWorld = new UI.Controls.CustomButton();
-            TXTWorldDatabase = new MetroFramework.Controls.MetroTextBox();
-            label22 = new Label();
-            TXTCharDatabase = new MetroFramework.Controls.MetroTextBox();
-            label23 = new Label();
-            TXTAuthDatabase = new MetroFramework.Controls.MetroTextBox();
-            panel3 = new MetroFramework.Controls.MetroPanel();
-            label5 = new Label();
-            label18 = new Label();
-            TXTMysqlPassword = new MetroFramework.Controls.MetroTextBox();
-            BTNTestConnection = new UI.Controls.CustomButton();
-            label15 = new Label();
-            TXTMysqlUser = new MetroFramework.Controls.MetroTextBox();
-            label13 = new Label();
-            TXTMysqlPort = new MetroFramework.Controls.MetroTextBox();
-            label12 = new Label();
-            TXTMysqlHost = new MetroFramework.Controls.MetroTextBox();
             TabPageTrion = new TabPage();
             metroPanel4 = new MetroFramework.Controls.MetroPanel();
             LBLTrionVersion = new Label();
@@ -112,14 +83,39 @@
             BTNWorldConfig = new UI.Controls.CustomButton();
             BTNDiscord = new UI.Controls.CustomButton();
             BtnDownloadSPP = new UI.Controls.CustomButton();
+            TabPageDatabase = new TabPage();
+            metroPanel5 = new MetroFramework.Controls.MetroPanel();
+            label6 = new Label();
+            CBWorldBackup = new MetroFramework.Controls.MetroCheckBox();
+            CBCharBackup = new MetroFramework.Controls.MetroCheckBox();
+            CBAuthBackup = new MetroFramework.Controls.MetroCheckBox();
+            BTNFixMysql = new UI.Controls.CustomButton();
+            panel1 = new MetroFramework.Controls.MetroPanel();
+            BTNDeleteAuth = new UI.Controls.CustomButton();
+            BTNDeleteChar = new UI.Controls.CustomButton();
+            label4 = new Label();
+            label21 = new Label();
+            BTNDeleteWorld = new UI.Controls.CustomButton();
+            TXTWorldDatabase = new MetroFramework.Controls.MetroTextBox();
+            label22 = new Label();
+            TXTCharDatabase = new MetroFramework.Controls.MetroTextBox();
+            label23 = new Label();
+            TXTAuthDatabase = new MetroFramework.Controls.MetroTextBox();
+            panel3 = new MetroFramework.Controls.MetroPanel();
+            label5 = new Label();
+            label18 = new Label();
+            TXTMysqlPassword = new MetroFramework.Controls.MetroTextBox();
+            BTNTestConnection = new UI.Controls.CustomButton();
+            label15 = new Label();
+            TXTMysqlUser = new MetroFramework.Controls.MetroTextBox();
+            label13 = new Label();
+            TXTMysqlPort = new MetroFramework.Controls.MetroTextBox();
+            label12 = new Label();
+            TXTMysqlHost = new MetroFramework.Controls.MetroTextBox();
             TimerWacher = new System.Windows.Forms.Timer(components);
             TimerConnectSucess = new System.Windows.Forms.Timer(components);
             TimerEnDis = new System.Windows.Forms.Timer(components);
             TabControl1.SuspendLayout();
-            TabPageDatabase.SuspendLayout();
-            metroPanel5.SuspendLayout();
-            panel1.SuspendLayout();
-            panel3.SuspendLayout();
             TabPageTrion.SuspendLayout();
             metroPanel4.SuspendLayout();
             metroPanel3.SuspendLayout();
@@ -127,6 +123,10 @@
             metroPanel2.SuspendLayout();
             metroPanel1.SuspendLayout();
             PNLControl.SuspendLayout();
+            TabPageDatabase.SuspendLayout();
+            metroPanel5.SuspendLayout();
+            panel1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // TabControl1
@@ -154,533 +154,6 @@
             TabControl1.TextAlign = ContentAlignment.MiddleLeft;
             TabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             TabControl1.UseStyleColors = true;
-            // 
-            // TabPageDatabase
-            // 
-            TabPageDatabase.AccessibleDescription = "";
-            TabPageDatabase.AccessibleName = "";
-            TabPageDatabase.BackColor = Color.FromArgb(45, 51, 59);
-            TabPageDatabase.Controls.Add(metroPanel5);
-            TabPageDatabase.Controls.Add(panel1);
-            TabPageDatabase.Controls.Add(panel3);
-            TabPageDatabase.Location = new Point(4, 34);
-            TabPageDatabase.Name = "TabPageDatabase";
-            TabPageDatabase.Size = new Size(837, 332);
-            TabPageDatabase.TabIndex = 2;
-            TabPageDatabase.Text = "Database";
-            // 
-            // metroPanel5
-            // 
-            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel5.Border = true;
-            metroPanel5.BorderColor = Color.Black;
-            metroPanel5.BorderSize = 1;
-            metroPanel5.Controls.Add(label6);
-            metroPanel5.Controls.Add(CBWorldBackup);
-            metroPanel5.Controls.Add(CBCharBackup);
-            metroPanel5.Controls.Add(CBAuthBackup);
-            metroPanel5.Controls.Add(BTNFixMysql);
-            metroPanel5.CustomBackground = false;
-            metroPanel5.HorizontalScrollbar = false;
-            metroPanel5.HorizontalScrollbarBarColor = true;
-            metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel5.HorizontalScrollbarSize = 10;
-            metroPanel5.Location = new Point(562, 5);
-            metroPanel5.Name = "metroPanel5";
-            metroPanel5.Size = new Size(270, 320);
-            metroPanel5.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel5.StyleManager = null;
-            metroPanel5.TabIndex = 15;
-            metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel5.VerticalScrollbar = false;
-            metroPanel5.VerticalScrollbarBarColor = true;
-            metroPanel5.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel5.VerticalScrollbarSize = 10;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.FromArgb(0, 174, 219);
-            label6.Location = new Point(68, 17);
-            label6.Name = "label6";
-            label6.Size = new Size(115, 21);
-            label6.TabIndex = 53;
-            label6.Text = "DATABASE FIX";
-            // 
-            // CBWorldBackup
-            // 
-            CBWorldBackup.AutoSize = true;
-            CBWorldBackup.CustomBackground = false;
-            CBWorldBackup.FontSize = MetroFramework.MetroLinkSize.Small;
-            CBWorldBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
-            CBWorldBackup.Location = new Point(14, 117);
-            CBWorldBackup.Name = "CBWorldBackup";
-            CBWorldBackup.Size = new Size(97, 15);
-            CBWorldBackup.Style = MetroFramework.MetroColorStyle.Blue;
-            CBWorldBackup.StyleManager = null;
-            CBWorldBackup.TabIndex = 51;
-            CBWorldBackup.Text = "World Backup";
-            CBWorldBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
-            CBWorldBackup.UseStyleColors = true;
-            CBWorldBackup.UseVisualStyleBackColor = true;
-            // 
-            // CBCharBackup
-            // 
-            CBCharBackup.AutoSize = true;
-            CBCharBackup.CustomBackground = false;
-            CBCharBackup.FontSize = MetroFramework.MetroLinkSize.Small;
-            CBCharBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
-            CBCharBackup.Location = new Point(14, 96);
-            CBCharBackup.Name = "CBCharBackup";
-            CBCharBackup.Size = new Size(121, 15);
-            CBCharBackup.Style = MetroFramework.MetroColorStyle.Blue;
-            CBCharBackup.StyleManager = null;
-            CBCharBackup.TabIndex = 50;
-            CBCharBackup.Text = "Characters Backup";
-            CBCharBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
-            CBCharBackup.UseStyleColors = true;
-            CBCharBackup.UseVisualStyleBackColor = true;
-            // 
-            // CBAuthBackup
-            // 
-            CBAuthBackup.AutoSize = true;
-            CBAuthBackup.CustomBackground = false;
-            CBAuthBackup.FontSize = MetroFramework.MetroLinkSize.Small;
-            CBAuthBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
-            CBAuthBackup.Location = new Point(14, 75);
-            CBAuthBackup.Name = "CBAuthBackup";
-            CBAuthBackup.Size = new Size(136, 15);
-            CBAuthBackup.Style = MetroFramework.MetroColorStyle.Blue;
-            CBAuthBackup.StyleManager = null;
-            CBAuthBackup.TabIndex = 49;
-            CBAuthBackup.Text = "Auth / Logon Backup";
-            CBAuthBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
-            CBAuthBackup.UseStyleColors = true;
-            CBAuthBackup.UseVisualStyleBackColor = true;
-            // 
-            // BTNFixMysql
-            // 
-            BTNFixMysql.Anchor = AnchorStyles.Right;
-            BTNFixMysql.BackColor = Color.FromArgb(28, 33, 40);
-            BTNFixMysql.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNFixMysql.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNFixMysql.BorderRadius = 0;
-            BTNFixMysql.BorderSize = 1;
-            BTNFixMysql.Cursor = Cursors.Hand;
-            BTNFixMysql.FlatAppearance.BorderSize = 0;
-            BTNFixMysql.FlatStyle = FlatStyle.Flat;
-            BTNFixMysql.ForeColor = Color.White;
-            BTNFixMysql.Image = (Image)resources.GetObject("BTNFixMysql.Image");
-            BTNFixMysql.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNFixMysql.Location = new Point(14, 280);
-            BTNFixMysql.Name = "BTNFixMysql";
-            BTNFixMysql.NotificationCount = 0;
-            BTNFixMysql.RightToLeft = RightToLeft.No;
-            BTNFixMysql.Size = new Size(240, 30);
-            BTNFixMysql.TabIndex = 48;
-            BTNFixMysql.Text = "Start";
-            BTNFixMysql.TextColor = Color.White;
-            BTNFixMysql.UseVisualStyleBackColor = false;
-            BTNFixMysql.Click += BTNFixMysql_Click;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(28, 33, 40);
-            panel1.Border = true;
-            panel1.BorderColor = Color.Black;
-            panel1.BorderSize = 1;
-            panel1.Controls.Add(BTNDeleteAuth);
-            panel1.Controls.Add(BTNDeleteChar);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label21);
-            panel1.Controls.Add(BTNDeleteWorld);
-            panel1.Controls.Add(TXTWorldDatabase);
-            panel1.Controls.Add(label22);
-            panel1.Controls.Add(TXTCharDatabase);
-            panel1.Controls.Add(label23);
-            panel1.Controls.Add(TXTAuthDatabase);
-            panel1.CustomBackground = false;
-            panel1.HorizontalScrollbar = false;
-            panel1.HorizontalScrollbarBarColor = true;
-            panel1.HorizontalScrollbarHighlightOnWheel = false;
-            panel1.HorizontalScrollbarSize = 10;
-            panel1.Location = new Point(281, 5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(275, 320);
-            panel1.Style = MetroFramework.MetroColorStyle.Blue;
-            panel1.StyleManager = null;
-            panel1.TabIndex = 14;
-            panel1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            panel1.VerticalScrollbar = false;
-            panel1.VerticalScrollbarBarColor = true;
-            panel1.VerticalScrollbarHighlightOnWheel = false;
-            panel1.VerticalScrollbarSize = 10;
-            // 
-            // BTNDeleteAuth
-            // 
-            BTNDeleteAuth.Anchor = AnchorStyles.Top;
-            BTNDeleteAuth.BackColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteAuth.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteAuth.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNDeleteAuth.BorderRadius = 0;
-            BTNDeleteAuth.BorderSize = 1;
-            BTNDeleteAuth.Cursor = Cursors.Hand;
-            BTNDeleteAuth.FlatAppearance.BorderSize = 0;
-            BTNDeleteAuth.FlatStyle = FlatStyle.Flat;
-            BTNDeleteAuth.ForeColor = Color.White;
-            BTNDeleteAuth.Image = (Image)resources.GetObject("BTNDeleteAuth.Image");
-            BTNDeleteAuth.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNDeleteAuth.Location = new Point(15, 208);
-            BTNDeleteAuth.Name = "BTNDeleteAuth";
-            BTNDeleteAuth.NotificationCount = 0;
-            BTNDeleteAuth.RightToLeft = RightToLeft.No;
-            BTNDeleteAuth.Size = new Size(245, 30);
-            BTNDeleteAuth.TabIndex = 47;
-            BTNDeleteAuth.Text = "   Delete Auth Database";
-            BTNDeleteAuth.TextColor = Color.White;
-            BTNDeleteAuth.UseVisualStyleBackColor = false;
-            BTNDeleteAuth.Click += BTNDeleteAuth_Click;
-            // 
-            // BTNDeleteChar
-            // 
-            BTNDeleteChar.Anchor = AnchorStyles.Top;
-            BTNDeleteChar.BackColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteChar.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteChar.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNDeleteChar.BorderRadius = 0;
-            BTNDeleteChar.BorderSize = 1;
-            BTNDeleteChar.Cursor = Cursors.Hand;
-            BTNDeleteChar.FlatAppearance.BorderSize = 0;
-            BTNDeleteChar.FlatStyle = FlatStyle.Flat;
-            BTNDeleteChar.ForeColor = Color.White;
-            BTNDeleteChar.Image = (Image)resources.GetObject("BTNDeleteChar.Image");
-            BTNDeleteChar.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNDeleteChar.Location = new Point(15, 244);
-            BTNDeleteChar.Name = "BTNDeleteChar";
-            BTNDeleteChar.NotificationCount = 0;
-            BTNDeleteChar.RightToLeft = RightToLeft.No;
-            BTNDeleteChar.Size = new Size(245, 30);
-            BTNDeleteChar.TabIndex = 46;
-            BTNDeleteChar.Text = "   Delete Char Database";
-            BTNDeleteChar.TextColor = Color.White;
-            BTNDeleteChar.UseVisualStyleBackColor = false;
-            BTNDeleteChar.Click += BTNDeleteChar_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.FromArgb(0, 174, 219);
-            label4.Location = new Point(60, 17);
-            label4.Name = "label4";
-            label4.Size = new Size(152, 21);
-            label4.TabIndex = 52;
-            label4.Text = "DATABASE DETAILS";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(15, 149);
-            label21.Name = "label21";
-            label21.Size = new Size(39, 15);
-            label21.TabIndex = 24;
-            label21.Text = "Word:";
-            // 
-            // BTNDeleteWorld
-            // 
-            BTNDeleteWorld.Anchor = AnchorStyles.Top;
-            BTNDeleteWorld.BackColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteWorld.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNDeleteWorld.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNDeleteWorld.BorderRadius = 0;
-            BTNDeleteWorld.BorderSize = 1;
-            BTNDeleteWorld.Cursor = Cursors.Hand;
-            BTNDeleteWorld.FlatAppearance.BorderSize = 0;
-            BTNDeleteWorld.FlatStyle = FlatStyle.Flat;
-            BTNDeleteWorld.ForeColor = Color.White;
-            BTNDeleteWorld.Image = (Image)resources.GetObject("BTNDeleteWorld.Image");
-            BTNDeleteWorld.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNDeleteWorld.Location = new Point(15, 280);
-            BTNDeleteWorld.Name = "BTNDeleteWorld";
-            BTNDeleteWorld.NotificationCount = 0;
-            BTNDeleteWorld.RightToLeft = RightToLeft.No;
-            BTNDeleteWorld.Size = new Size(245, 30);
-            BTNDeleteWorld.TabIndex = 45;
-            BTNDeleteWorld.Text = "   Delete World Database";
-            BTNDeleteWorld.TextColor = Color.White;
-            BTNDeleteWorld.UseVisualStyleBackColor = false;
-            BTNDeleteWorld.Click += BTNDeleteWorld_Click;
-            // 
-            // TXTWorldDatabase
-            // 
-            TXTWorldDatabase.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTWorldDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTWorldDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTWorldDatabase.ForeColor = Color.White;
-            TXTWorldDatabase.Location = new Point(15, 167);
-            TXTWorldDatabase.Multiline = false;
-            TXTWorldDatabase.Name = "TXTWorldDatabase";
-            TXTWorldDatabase.PasswordChar = '\0';
-            TXTWorldDatabase.ReadOnly = false;
-            TXTWorldDatabase.SelectedText = "";
-            TXTWorldDatabase.Size = new Size(245, 25);
-            TXTWorldDatabase.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTWorldDatabase.StyleManager = null;
-            TXTWorldDatabase.TabIndex = 23;
-            TXTWorldDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTWorldDatabase.UseStyleColors = true;
-            TXTWorldDatabase.TextChanged += TXTBox_TextChanged;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.ForeColor = Color.White;
-            label22.Location = new Point(15, 103);
-            label22.Name = "label22";
-            label22.Size = new Size(58, 15);
-            label22.TabIndex = 22;
-            label22.Text = "Character";
-            // 
-            // TXTCharDatabase
-            // 
-            TXTCharDatabase.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTCharDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTCharDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTCharDatabase.ForeColor = Color.White;
-            TXTCharDatabase.Location = new Point(15, 121);
-            TXTCharDatabase.Multiline = false;
-            TXTCharDatabase.Name = "TXTCharDatabase";
-            TXTCharDatabase.PasswordChar = '\0';
-            TXTCharDatabase.ReadOnly = false;
-            TXTCharDatabase.SelectedText = "";
-            TXTCharDatabase.Size = new Size(245, 25);
-            TXTCharDatabase.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTCharDatabase.StyleManager = null;
-            TXTCharDatabase.TabIndex = 21;
-            TXTCharDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTCharDatabase.UseStyleColors = true;
-            TXTCharDatabase.TextChanged += TXTBox_TextChanged;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.ForeColor = Color.White;
-            label23.Location = new Point(18, 57);
-            label23.Name = "label23";
-            label23.Size = new Size(36, 15);
-            label23.TabIndex = 20;
-            label23.Text = "Auth:";
-            // 
-            // TXTAuthDatabase
-            // 
-            TXTAuthDatabase.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TXTAuthDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTAuthDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTAuthDatabase.ForeColor = Color.White;
-            TXTAuthDatabase.Location = new Point(15, 75);
-            TXTAuthDatabase.Multiline = false;
-            TXTAuthDatabase.Name = "TXTAuthDatabase";
-            TXTAuthDatabase.PasswordChar = '\0';
-            TXTAuthDatabase.ReadOnly = false;
-            TXTAuthDatabase.SelectedText = "";
-            TXTAuthDatabase.Size = new Size(245, 25);
-            TXTAuthDatabase.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTAuthDatabase.StyleManager = null;
-            TXTAuthDatabase.TabIndex = 14;
-            TXTAuthDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTAuthDatabase.UseStyleColors = true;
-            TXTAuthDatabase.TextChanged += TXTBox_TextChanged;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(28, 33, 40);
-            panel3.Border = true;
-            panel3.BorderColor = Color.Black;
-            panel3.BorderSize = 1;
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(label18);
-            panel3.Controls.Add(TXTMysqlPassword);
-            panel3.Controls.Add(BTNTestConnection);
-            panel3.Controls.Add(label15);
-            panel3.Controls.Add(TXTMysqlUser);
-            panel3.Controls.Add(label13);
-            panel3.Controls.Add(TXTMysqlPort);
-            panel3.Controls.Add(label12);
-            panel3.Controls.Add(TXTMysqlHost);
-            panel3.CustomBackground = false;
-            panel3.HorizontalScrollbar = false;
-            panel3.HorizontalScrollbarBarColor = true;
-            panel3.HorizontalScrollbarHighlightOnWheel = false;
-            panel3.HorizontalScrollbarSize = 10;
-            panel3.Location = new Point(5, 5);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(270, 320);
-            panel3.Style = MetroFramework.MetroColorStyle.Blue;
-            panel3.StyleManager = null;
-            panel3.TabIndex = 13;
-            panel3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            panel3.VerticalScrollbar = false;
-            panel3.VerticalScrollbarBarColor = true;
-            panel3.VerticalScrollbarHighlightOnWheel = false;
-            panel3.VerticalScrollbarSize = 10;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.FromArgb(0, 174, 219);
-            label5.Location = new Point(52, 17);
-            label5.Name = "label5";
-            label5.Size = new Size(176, 21);
-            label5.TabIndex = 51;
-            label5.Text = "CONNECTION DETAILS";
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.ForeColor = Color.White;
-            label18.Location = new Point(15, 195);
-            label18.Name = "label18";
-            label18.Size = new Size(60, 15);
-            label18.TabIndex = 26;
-            label18.Text = "Password:";
-            // 
-            // TXTMysqlPassword
-            // 
-            TXTMysqlPassword.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTMysqlPassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlPassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlPassword.ForeColor = Color.White;
-            TXTMysqlPassword.Location = new Point(15, 213);
-            TXTMysqlPassword.Multiline = false;
-            TXTMysqlPassword.Name = "TXTMysqlPassword";
-            TXTMysqlPassword.PasswordChar = '*';
-            TXTMysqlPassword.ReadOnly = false;
-            TXTMysqlPassword.SelectedText = "";
-            TXTMysqlPassword.Size = new Size(240, 25);
-            TXTMysqlPassword.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlPassword.StyleManager = null;
-            TXTMysqlPassword.TabIndex = 25;
-            TXTMysqlPassword.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlPassword.UseStyleColors = true;
-            TXTMysqlPassword.TextChanged += TXTBox_TextChanged;
-            // 
-            // BTNTestConnection
-            // 
-            BTNTestConnection.Anchor = AnchorStyles.Top;
-            BTNTestConnection.BackColor = Color.FromArgb(28, 33, 40);
-            BTNTestConnection.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNTestConnection.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNTestConnection.BorderRadius = 0;
-            BTNTestConnection.BorderSize = 1;
-            BTNTestConnection.Cursor = Cursors.Hand;
-            BTNTestConnection.FlatAppearance.BorderSize = 0;
-            BTNTestConnection.FlatStyle = FlatStyle.Flat;
-            BTNTestConnection.ForeColor = Color.White;
-            BTNTestConnection.Image = (Image)resources.GetObject("BTNTestConnection.Image");
-            BTNTestConnection.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNTestConnection.Location = new Point(15, 273);
-            BTNTestConnection.Name = "BTNTestConnection";
-            BTNTestConnection.NotificationCount = 0;
-            BTNTestConnection.RightToLeft = RightToLeft.No;
-            BTNTestConnection.Size = new Size(240, 30);
-            BTNTestConnection.TabIndex = 27;
-            BTNTestConnection.Text = "   Test Connection";
-            BTNTestConnection.TextColor = Color.White;
-            BTNTestConnection.UseVisualStyleBackColor = false;
-            BTNTestConnection.Click += BTNTestConnection_Click;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.ForeColor = Color.White;
-            label15.Location = new Point(15, 149);
-            label15.Name = "label15";
-            label15.Size = new Size(63, 15);
-            label15.TabIndex = 24;
-            label15.Text = "Username:";
-            // 
-            // TXTMysqlUser
-            // 
-            TXTMysqlUser.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTMysqlUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlUser.ForeColor = Color.White;
-            TXTMysqlUser.Location = new Point(15, 167);
-            TXTMysqlUser.Multiline = false;
-            TXTMysqlUser.Name = "TXTMysqlUser";
-            TXTMysqlUser.PasswordChar = '\0';
-            TXTMysqlUser.ReadOnly = false;
-            TXTMysqlUser.SelectedText = "";
-            TXTMysqlUser.Size = new Size(240, 25);
-            TXTMysqlUser.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlUser.StyleManager = null;
-            TXTMysqlUser.TabIndex = 23;
-            TXTMysqlUser.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlUser.UseStyleColors = true;
-            TXTMysqlUser.TextChanged += TXTBox_TextChanged;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(15, 103);
-            label13.Name = "label13";
-            label13.Size = new Size(32, 15);
-            label13.TabIndex = 22;
-            label13.Text = "Port:";
-            // 
-            // TXTMysqlPort
-            // 
-            TXTMysqlPort.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTMysqlPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlPort.ForeColor = Color.White;
-            TXTMysqlPort.Location = new Point(15, 121);
-            TXTMysqlPort.Multiline = false;
-            TXTMysqlPort.Name = "TXTMysqlPort";
-            TXTMysqlPort.PasswordChar = '\0';
-            TXTMysqlPort.ReadOnly = false;
-            TXTMysqlPort.SelectedText = "";
-            TXTMysqlPort.Size = new Size(240, 25);
-            TXTMysqlPort.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlPort.StyleManager = null;
-            TXTMysqlPort.TabIndex = 21;
-            TXTMysqlPort.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlPort.UseStyleColors = true;
-            TXTMysqlPort.TextChanged += TXTBox_TextChanged;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(15, 57);
-            label12.Name = "label12";
-            label12.Size = new Size(35, 15);
-            label12.TabIndex = 20;
-            label12.Text = "Host:";
-            // 
-            // TXTMysqlHost
-            // 
-            TXTMysqlHost.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            TXTMysqlHost.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTMysqlHost.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTMysqlHost.ForeColor = Color.White;
-            TXTMysqlHost.Location = new Point(15, 75);
-            TXTMysqlHost.Multiline = false;
-            TXTMysqlHost.Name = "TXTMysqlHost";
-            TXTMysqlHost.PasswordChar = '\0';
-            TXTMysqlHost.ReadOnly = false;
-            TXTMysqlHost.SelectedText = "";
-            TXTMysqlHost.Size = new Size(240, 25);
-            TXTMysqlHost.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTMysqlHost.StyleManager = null;
-            TXTMysqlHost.TabIndex = 14;
-            TXTMysqlHost.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTMysqlHost.UseStyleColors = true;
-            TXTMysqlHost.TextChanged += TXTBox_TextChanged;
             // 
             // TabPageTrion
             // 
@@ -734,7 +207,7 @@
             // 
             // LBLTrionVersion
             // 
-            LBLTrionVersion.Dock = DockStyle.Fill;
+            LBLTrionVersion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             LBLTrionVersion.ForeColor = Color.FromArgb(0, 174, 219);
             LBLTrionVersion.Location = new Point(2, 2);
             LBLTrionVersion.Name = "LBLTrionVersion";
@@ -745,7 +218,7 @@
             // 
             // BTNTrionUpdate
             // 
-            BTNTrionUpdate.Anchor = AnchorStyles.Right;
+            BTNTrionUpdate.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BTNTrionUpdate.BackColor = Color.FromArgb(28, 33, 40);
             BTNTrionUpdate.BackgroundColor = Color.FromArgb(28, 33, 40);
             BTNTrionUpdate.BorderColor = Color.FromArgb(0, 174, 219);
@@ -770,7 +243,7 @@
             // 
             // metroPanel3
             // 
-            metroPanel3.Anchor = AnchorStyles.Left;
+            metroPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel3.Border = true;
             metroPanel3.BorderColor = Color.Black;
@@ -796,7 +269,7 @@
             metroPanel3.HorizontalScrollbarBarColor = true;
             metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel3.HorizontalScrollbarSize = 10;
-            metroPanel3.Location = new Point(5, 5);
+            metroPanel3.Location = new Point(4, 6);
             metroPanel3.Name = "metroPanel3";
             metroPanel3.Padding = new Padding(2);
             metroPanel3.Size = new Size(199, 320);
@@ -1027,7 +500,7 @@
             // 
             // BTNMySQLOpenFolder
             // 
-            BTNMySQLOpenFolder.Anchor = AnchorStyles.Left;
+            BTNMySQLOpenFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BTNMySQLOpenFolder.BackColor = Color.FromArgb(28, 33, 40);
             BTNMySQLOpenFolder.BackgroundColor = Color.FromArgb(28, 33, 40);
             BTNMySQLOpenFolder.BorderColor = Color.FromArgb(0, 174, 219);
@@ -1052,7 +525,7 @@
             // 
             // BTNCoreOpenFolder
             // 
-            BTNCoreOpenFolder.Anchor = AnchorStyles.Left;
+            BTNCoreOpenFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BTNCoreOpenFolder.BackColor = Color.FromArgb(28, 33, 40);
             BTNCoreOpenFolder.BackgroundColor = Color.FromArgb(28, 33, 40);
             BTNCoreOpenFolder.BorderColor = Color.FromArgb(0, 174, 219);
@@ -1619,6 +1092,533 @@
             BtnDownloadSPP.UseVisualStyleBackColor = false;
             BtnDownloadSPP.Click += BtnDownloadSPP_ClickAsync;
             // 
+            // TabPageDatabase
+            // 
+            TabPageDatabase.AccessibleDescription = "";
+            TabPageDatabase.AccessibleName = "";
+            TabPageDatabase.BackColor = Color.FromArgb(45, 51, 59);
+            TabPageDatabase.Controls.Add(metroPanel5);
+            TabPageDatabase.Controls.Add(panel1);
+            TabPageDatabase.Controls.Add(panel3);
+            TabPageDatabase.Location = new Point(4, 34);
+            TabPageDatabase.Name = "TabPageDatabase";
+            TabPageDatabase.Size = new Size(837, 332);
+            TabPageDatabase.TabIndex = 2;
+            TabPageDatabase.Text = "Database";
+            // 
+            // metroPanel5
+            // 
+            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel5.Border = true;
+            metroPanel5.BorderColor = Color.Black;
+            metroPanel5.BorderSize = 1;
+            metroPanel5.Controls.Add(label6);
+            metroPanel5.Controls.Add(CBWorldBackup);
+            metroPanel5.Controls.Add(CBCharBackup);
+            metroPanel5.Controls.Add(CBAuthBackup);
+            metroPanel5.Controls.Add(BTNFixMysql);
+            metroPanel5.CustomBackground = false;
+            metroPanel5.HorizontalScrollbar = false;
+            metroPanel5.HorizontalScrollbarBarColor = true;
+            metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel5.HorizontalScrollbarSize = 10;
+            metroPanel5.Location = new Point(562, 5);
+            metroPanel5.Name = "metroPanel5";
+            metroPanel5.Size = new Size(270, 320);
+            metroPanel5.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel5.StyleManager = null;
+            metroPanel5.TabIndex = 15;
+            metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel5.VerticalScrollbar = false;
+            metroPanel5.VerticalScrollbarBarColor = true;
+            metroPanel5.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel5.VerticalScrollbarSize = 10;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.FromArgb(0, 174, 219);
+            label6.Location = new Point(68, 17);
+            label6.Name = "label6";
+            label6.Size = new Size(115, 21);
+            label6.TabIndex = 53;
+            label6.Text = "DATABASE FIX";
+            // 
+            // CBWorldBackup
+            // 
+            CBWorldBackup.AutoSize = true;
+            CBWorldBackup.CustomBackground = false;
+            CBWorldBackup.FontSize = MetroFramework.MetroLinkSize.Small;
+            CBWorldBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            CBWorldBackup.Location = new Point(14, 117);
+            CBWorldBackup.Name = "CBWorldBackup";
+            CBWorldBackup.Size = new Size(97, 15);
+            CBWorldBackup.Style = MetroFramework.MetroColorStyle.Blue;
+            CBWorldBackup.StyleManager = null;
+            CBWorldBackup.TabIndex = 51;
+            CBWorldBackup.Text = "World Backup";
+            CBWorldBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
+            CBWorldBackup.UseStyleColors = true;
+            CBWorldBackup.UseVisualStyleBackColor = true;
+            // 
+            // CBCharBackup
+            // 
+            CBCharBackup.AutoSize = true;
+            CBCharBackup.CustomBackground = false;
+            CBCharBackup.FontSize = MetroFramework.MetroLinkSize.Small;
+            CBCharBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            CBCharBackup.Location = new Point(14, 96);
+            CBCharBackup.Name = "CBCharBackup";
+            CBCharBackup.Size = new Size(121, 15);
+            CBCharBackup.Style = MetroFramework.MetroColorStyle.Blue;
+            CBCharBackup.StyleManager = null;
+            CBCharBackup.TabIndex = 50;
+            CBCharBackup.Text = "Characters Backup";
+            CBCharBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
+            CBCharBackup.UseStyleColors = true;
+            CBCharBackup.UseVisualStyleBackColor = true;
+            // 
+            // CBAuthBackup
+            // 
+            CBAuthBackup.AutoSize = true;
+            CBAuthBackup.CustomBackground = false;
+            CBAuthBackup.FontSize = MetroFramework.MetroLinkSize.Small;
+            CBAuthBackup.FontWeight = MetroFramework.MetroLinkWeight.Regular;
+            CBAuthBackup.Location = new Point(14, 75);
+            CBAuthBackup.Name = "CBAuthBackup";
+            CBAuthBackup.Size = new Size(136, 15);
+            CBAuthBackup.Style = MetroFramework.MetroColorStyle.Blue;
+            CBAuthBackup.StyleManager = null;
+            CBAuthBackup.TabIndex = 49;
+            CBAuthBackup.Text = "Auth / Logon Backup";
+            CBAuthBackup.Theme = MetroFramework.MetroThemeStyle.Dark;
+            CBAuthBackup.UseStyleColors = true;
+            CBAuthBackup.UseVisualStyleBackColor = true;
+            // 
+            // BTNFixMysql
+            // 
+            BTNFixMysql.Anchor = AnchorStyles.Right;
+            BTNFixMysql.BackColor = Color.FromArgb(28, 33, 40);
+            BTNFixMysql.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNFixMysql.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNFixMysql.BorderRadius = 0;
+            BTNFixMysql.BorderSize = 1;
+            BTNFixMysql.Cursor = Cursors.Hand;
+            BTNFixMysql.FlatAppearance.BorderSize = 0;
+            BTNFixMysql.FlatStyle = FlatStyle.Flat;
+            BTNFixMysql.ForeColor = Color.White;
+            BTNFixMysql.Image = (Image)resources.GetObject("BTNFixMysql.Image");
+            BTNFixMysql.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNFixMysql.Location = new Point(14, 280);
+            BTNFixMysql.Name = "BTNFixMysql";
+            BTNFixMysql.NotificationCount = 0;
+            BTNFixMysql.RightToLeft = RightToLeft.No;
+            BTNFixMysql.Size = new Size(240, 30);
+            BTNFixMysql.TabIndex = 48;
+            BTNFixMysql.Text = "Start";
+            BTNFixMysql.TextColor = Color.White;
+            BTNFixMysql.UseVisualStyleBackColor = false;
+            BTNFixMysql.Click += BTNFixMysql_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(28, 33, 40);
+            panel1.Border = true;
+            panel1.BorderColor = Color.Black;
+            panel1.BorderSize = 1;
+            panel1.Controls.Add(BTNDeleteAuth);
+            panel1.Controls.Add(BTNDeleteChar);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(label21);
+            panel1.Controls.Add(BTNDeleteWorld);
+            panel1.Controls.Add(TXTWorldDatabase);
+            panel1.Controls.Add(label22);
+            panel1.Controls.Add(TXTCharDatabase);
+            panel1.Controls.Add(label23);
+            panel1.Controls.Add(TXTAuthDatabase);
+            panel1.CustomBackground = false;
+            panel1.HorizontalScrollbar = false;
+            panel1.HorizontalScrollbarBarColor = true;
+            panel1.HorizontalScrollbarHighlightOnWheel = false;
+            panel1.HorizontalScrollbarSize = 10;
+            panel1.Location = new Point(281, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(275, 320);
+            panel1.Style = MetroFramework.MetroColorStyle.Blue;
+            panel1.StyleManager = null;
+            panel1.TabIndex = 14;
+            panel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            panel1.VerticalScrollbar = false;
+            panel1.VerticalScrollbarBarColor = true;
+            panel1.VerticalScrollbarHighlightOnWheel = false;
+            panel1.VerticalScrollbarSize = 10;
+            // 
+            // BTNDeleteAuth
+            // 
+            BTNDeleteAuth.Anchor = AnchorStyles.Top;
+            BTNDeleteAuth.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteAuth.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteAuth.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDeleteAuth.BorderRadius = 0;
+            BTNDeleteAuth.BorderSize = 1;
+            BTNDeleteAuth.Cursor = Cursors.Hand;
+            BTNDeleteAuth.FlatAppearance.BorderSize = 0;
+            BTNDeleteAuth.FlatStyle = FlatStyle.Flat;
+            BTNDeleteAuth.ForeColor = Color.White;
+            BTNDeleteAuth.Image = (Image)resources.GetObject("BTNDeleteAuth.Image");
+            BTNDeleteAuth.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNDeleteAuth.Location = new Point(15, 208);
+            BTNDeleteAuth.Name = "BTNDeleteAuth";
+            BTNDeleteAuth.NotificationCount = 0;
+            BTNDeleteAuth.RightToLeft = RightToLeft.No;
+            BTNDeleteAuth.Size = new Size(245, 30);
+            BTNDeleteAuth.TabIndex = 47;
+            BTNDeleteAuth.Text = "   Delete Auth Database";
+            BTNDeleteAuth.TextColor = Color.White;
+            BTNDeleteAuth.UseVisualStyleBackColor = false;
+            BTNDeleteAuth.Click += BTNDeleteAuth_Click;
+            // 
+            // BTNDeleteChar
+            // 
+            BTNDeleteChar.Anchor = AnchorStyles.Top;
+            BTNDeleteChar.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteChar.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteChar.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDeleteChar.BorderRadius = 0;
+            BTNDeleteChar.BorderSize = 1;
+            BTNDeleteChar.Cursor = Cursors.Hand;
+            BTNDeleteChar.FlatAppearance.BorderSize = 0;
+            BTNDeleteChar.FlatStyle = FlatStyle.Flat;
+            BTNDeleteChar.ForeColor = Color.White;
+            BTNDeleteChar.Image = (Image)resources.GetObject("BTNDeleteChar.Image");
+            BTNDeleteChar.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNDeleteChar.Location = new Point(15, 244);
+            BTNDeleteChar.Name = "BTNDeleteChar";
+            BTNDeleteChar.NotificationCount = 0;
+            BTNDeleteChar.RightToLeft = RightToLeft.No;
+            BTNDeleteChar.Size = new Size(245, 30);
+            BTNDeleteChar.TabIndex = 46;
+            BTNDeleteChar.Text = "   Delete Char Database";
+            BTNDeleteChar.TextColor = Color.White;
+            BTNDeleteChar.UseVisualStyleBackColor = false;
+            BTNDeleteChar.Click += BTNDeleteChar_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.FromArgb(0, 174, 219);
+            label4.Location = new Point(60, 17);
+            label4.Name = "label4";
+            label4.Size = new Size(152, 21);
+            label4.TabIndex = 52;
+            label4.Text = "DATABASE DETAILS";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.ForeColor = Color.White;
+            label21.Location = new Point(15, 149);
+            label21.Name = "label21";
+            label21.Size = new Size(39, 15);
+            label21.TabIndex = 24;
+            label21.Text = "Word:";
+            // 
+            // BTNDeleteWorld
+            // 
+            BTNDeleteWorld.Anchor = AnchorStyles.Top;
+            BTNDeleteWorld.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteWorld.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDeleteWorld.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDeleteWorld.BorderRadius = 0;
+            BTNDeleteWorld.BorderSize = 1;
+            BTNDeleteWorld.Cursor = Cursors.Hand;
+            BTNDeleteWorld.FlatAppearance.BorderSize = 0;
+            BTNDeleteWorld.FlatStyle = FlatStyle.Flat;
+            BTNDeleteWorld.ForeColor = Color.White;
+            BTNDeleteWorld.Image = (Image)resources.GetObject("BTNDeleteWorld.Image");
+            BTNDeleteWorld.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNDeleteWorld.Location = new Point(15, 280);
+            BTNDeleteWorld.Name = "BTNDeleteWorld";
+            BTNDeleteWorld.NotificationCount = 0;
+            BTNDeleteWorld.RightToLeft = RightToLeft.No;
+            BTNDeleteWorld.Size = new Size(245, 30);
+            BTNDeleteWorld.TabIndex = 45;
+            BTNDeleteWorld.Text = "   Delete World Database";
+            BTNDeleteWorld.TextColor = Color.White;
+            BTNDeleteWorld.UseVisualStyleBackColor = false;
+            BTNDeleteWorld.Click += BTNDeleteWorld_Click;
+            // 
+            // TXTWorldDatabase
+            // 
+            TXTWorldDatabase.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTWorldDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTWorldDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTWorldDatabase.ForeColor = Color.White;
+            TXTWorldDatabase.Location = new Point(15, 167);
+            TXTWorldDatabase.Multiline = false;
+            TXTWorldDatabase.Name = "TXTWorldDatabase";
+            TXTWorldDatabase.PasswordChar = '\0';
+            TXTWorldDatabase.ReadOnly = false;
+            TXTWorldDatabase.SelectedText = "";
+            TXTWorldDatabase.Size = new Size(245, 25);
+            TXTWorldDatabase.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTWorldDatabase.StyleManager = null;
+            TXTWorldDatabase.TabIndex = 23;
+            TXTWorldDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTWorldDatabase.UseStyleColors = true;
+            TXTWorldDatabase.TextChanged += TXTBox_TextChanged;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.ForeColor = Color.White;
+            label22.Location = new Point(15, 103);
+            label22.Name = "label22";
+            label22.Size = new Size(58, 15);
+            label22.TabIndex = 22;
+            label22.Text = "Character";
+            // 
+            // TXTCharDatabase
+            // 
+            TXTCharDatabase.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTCharDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTCharDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTCharDatabase.ForeColor = Color.White;
+            TXTCharDatabase.Location = new Point(15, 121);
+            TXTCharDatabase.Multiline = false;
+            TXTCharDatabase.Name = "TXTCharDatabase";
+            TXTCharDatabase.PasswordChar = '\0';
+            TXTCharDatabase.ReadOnly = false;
+            TXTCharDatabase.SelectedText = "";
+            TXTCharDatabase.Size = new Size(245, 25);
+            TXTCharDatabase.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTCharDatabase.StyleManager = null;
+            TXTCharDatabase.TabIndex = 21;
+            TXTCharDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTCharDatabase.UseStyleColors = true;
+            TXTCharDatabase.TextChanged += TXTBox_TextChanged;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.ForeColor = Color.White;
+            label23.Location = new Point(18, 57);
+            label23.Name = "label23";
+            label23.Size = new Size(36, 15);
+            label23.TabIndex = 20;
+            label23.Text = "Auth:";
+            // 
+            // TXTAuthDatabase
+            // 
+            TXTAuthDatabase.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TXTAuthDatabase.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTAuthDatabase.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTAuthDatabase.ForeColor = Color.White;
+            TXTAuthDatabase.Location = new Point(15, 75);
+            TXTAuthDatabase.Multiline = false;
+            TXTAuthDatabase.Name = "TXTAuthDatabase";
+            TXTAuthDatabase.PasswordChar = '\0';
+            TXTAuthDatabase.ReadOnly = false;
+            TXTAuthDatabase.SelectedText = "";
+            TXTAuthDatabase.Size = new Size(245, 25);
+            TXTAuthDatabase.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTAuthDatabase.StyleManager = null;
+            TXTAuthDatabase.TabIndex = 14;
+            TXTAuthDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTAuthDatabase.UseStyleColors = true;
+            TXTAuthDatabase.TextChanged += TXTBox_TextChanged;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(28, 33, 40);
+            panel3.Border = true;
+            panel3.BorderColor = Color.Black;
+            panel3.BorderSize = 1;
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(label18);
+            panel3.Controls.Add(TXTMysqlPassword);
+            panel3.Controls.Add(BTNTestConnection);
+            panel3.Controls.Add(label15);
+            panel3.Controls.Add(TXTMysqlUser);
+            panel3.Controls.Add(label13);
+            panel3.Controls.Add(TXTMysqlPort);
+            panel3.Controls.Add(label12);
+            panel3.Controls.Add(TXTMysqlHost);
+            panel3.CustomBackground = false;
+            panel3.HorizontalScrollbar = false;
+            panel3.HorizontalScrollbarBarColor = true;
+            panel3.HorizontalScrollbarHighlightOnWheel = false;
+            panel3.HorizontalScrollbarSize = 10;
+            panel3.Location = new Point(5, 5);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(270, 320);
+            panel3.Style = MetroFramework.MetroColorStyle.Blue;
+            panel3.StyleManager = null;
+            panel3.TabIndex = 13;
+            panel3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            panel3.VerticalScrollbar = false;
+            panel3.VerticalScrollbarBarColor = true;
+            panel3.VerticalScrollbarHighlightOnWheel = false;
+            panel3.VerticalScrollbarSize = 10;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(0, 174, 219);
+            label5.Location = new Point(52, 17);
+            label5.Name = "label5";
+            label5.Size = new Size(176, 21);
+            label5.TabIndex = 51;
+            label5.Text = "CONNECTION DETAILS";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.ForeColor = Color.White;
+            label18.Location = new Point(15, 195);
+            label18.Name = "label18";
+            label18.Size = new Size(60, 15);
+            label18.TabIndex = 26;
+            label18.Text = "Password:";
+            // 
+            // TXTMysqlPassword
+            // 
+            TXTMysqlPassword.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTMysqlPassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlPassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlPassword.ForeColor = Color.White;
+            TXTMysqlPassword.Location = new Point(15, 213);
+            TXTMysqlPassword.Multiline = false;
+            TXTMysqlPassword.Name = "TXTMysqlPassword";
+            TXTMysqlPassword.PasswordChar = '*';
+            TXTMysqlPassword.ReadOnly = false;
+            TXTMysqlPassword.SelectedText = "";
+            TXTMysqlPassword.Size = new Size(240, 25);
+            TXTMysqlPassword.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlPassword.StyleManager = null;
+            TXTMysqlPassword.TabIndex = 25;
+            TXTMysqlPassword.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlPassword.UseStyleColors = true;
+            TXTMysqlPassword.TextChanged += TXTBox_TextChanged;
+            // 
+            // BTNTestConnection
+            // 
+            BTNTestConnection.Anchor = AnchorStyles.Top;
+            BTNTestConnection.BackColor = Color.FromArgb(28, 33, 40);
+            BTNTestConnection.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNTestConnection.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNTestConnection.BorderRadius = 0;
+            BTNTestConnection.BorderSize = 1;
+            BTNTestConnection.Cursor = Cursors.Hand;
+            BTNTestConnection.FlatAppearance.BorderSize = 0;
+            BTNTestConnection.FlatStyle = FlatStyle.Flat;
+            BTNTestConnection.ForeColor = Color.White;
+            BTNTestConnection.Image = (Image)resources.GetObject("BTNTestConnection.Image");
+            BTNTestConnection.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNTestConnection.Location = new Point(15, 273);
+            BTNTestConnection.Name = "BTNTestConnection";
+            BTNTestConnection.NotificationCount = 0;
+            BTNTestConnection.RightToLeft = RightToLeft.No;
+            BTNTestConnection.Size = new Size(240, 30);
+            BTNTestConnection.TabIndex = 27;
+            BTNTestConnection.Text = "   Test Connection";
+            BTNTestConnection.TextColor = Color.White;
+            BTNTestConnection.UseVisualStyleBackColor = false;
+            BTNTestConnection.Click += BTNTestConnection_Click;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = Color.White;
+            label15.Location = new Point(15, 149);
+            label15.Name = "label15";
+            label15.Size = new Size(63, 15);
+            label15.TabIndex = 24;
+            label15.Text = "Username:";
+            // 
+            // TXTMysqlUser
+            // 
+            TXTMysqlUser.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTMysqlUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlUser.ForeColor = Color.White;
+            TXTMysqlUser.Location = new Point(15, 167);
+            TXTMysqlUser.Multiline = false;
+            TXTMysqlUser.Name = "TXTMysqlUser";
+            TXTMysqlUser.PasswordChar = '\0';
+            TXTMysqlUser.ReadOnly = false;
+            TXTMysqlUser.SelectedText = "";
+            TXTMysqlUser.Size = new Size(240, 25);
+            TXTMysqlUser.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlUser.StyleManager = null;
+            TXTMysqlUser.TabIndex = 23;
+            TXTMysqlUser.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlUser.UseStyleColors = true;
+            TXTMysqlUser.TextChanged += TXTBox_TextChanged;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(15, 103);
+            label13.Name = "label13";
+            label13.Size = new Size(32, 15);
+            label13.TabIndex = 22;
+            label13.Text = "Port:";
+            // 
+            // TXTMysqlPort
+            // 
+            TXTMysqlPort.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTMysqlPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlPort.ForeColor = Color.White;
+            TXTMysqlPort.Location = new Point(15, 121);
+            TXTMysqlPort.Multiline = false;
+            TXTMysqlPort.Name = "TXTMysqlPort";
+            TXTMysqlPort.PasswordChar = '\0';
+            TXTMysqlPort.ReadOnly = false;
+            TXTMysqlPort.SelectedText = "";
+            TXTMysqlPort.Size = new Size(240, 25);
+            TXTMysqlPort.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlPort.StyleManager = null;
+            TXTMysqlPort.TabIndex = 21;
+            TXTMysqlPort.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlPort.UseStyleColors = true;
+            TXTMysqlPort.TextChanged += TXTBox_TextChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(15, 57);
+            label12.Name = "label12";
+            label12.Size = new Size(35, 15);
+            label12.TabIndex = 20;
+            label12.Text = "Host:";
+            // 
+            // TXTMysqlHost
+            // 
+            TXTMysqlHost.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            TXTMysqlHost.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTMysqlHost.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTMysqlHost.ForeColor = Color.White;
+            TXTMysqlHost.Location = new Point(15, 75);
+            TXTMysqlHost.Multiline = false;
+            TXTMysqlHost.Name = "TXTMysqlHost";
+            TXTMysqlHost.PasswordChar = '\0';
+            TXTMysqlHost.ReadOnly = false;
+            TXTMysqlHost.SelectedText = "";
+            TXTMysqlHost.Size = new Size(240, 25);
+            TXTMysqlHost.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTMysqlHost.StyleManager = null;
+            TXTMysqlHost.TabIndex = 14;
+            TXTMysqlHost.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTMysqlHost.UseStyleColors = true;
+            TXTMysqlHost.TextChanged += TXTBox_TextChanged;
+            // 
             // TimerWacher
             // 
             TimerWacher.Enabled = true;
@@ -1645,13 +1645,6 @@
             Name = "SettingsControl";
             Size = new Size(845, 370);
             TabControl1.ResumeLayout(false);
-            TabPageDatabase.ResumeLayout(false);
-            metroPanel5.ResumeLayout(false);
-            metroPanel5.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             TabPageTrion.ResumeLayout(false);
             TabPageTrion.PerformLayout();
             metroPanel4.ResumeLayout(false);
@@ -1663,6 +1656,13 @@
             metroPanel1.ResumeLayout(false);
             metroPanel1.PerformLayout();
             PNLControl.ResumeLayout(false);
+            TabPageDatabase.ResumeLayout(false);
+            metroPanel5.ResumeLayout(false);
+            metroPanel5.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
