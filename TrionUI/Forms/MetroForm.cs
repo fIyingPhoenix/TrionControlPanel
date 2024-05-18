@@ -443,7 +443,7 @@ namespace MetroFramework.Forms
 
         private void AddWindowButton(WindowButtons button)
         {
-            windowButtonList ??= [];
+            windowButtonList ??= new Dictionary<WindowButtons, MetroFormButton>();
 
             if (windowButtonList.ContainsKey(button))
                 return;
@@ -503,14 +503,20 @@ namespace MetroFramework.Forms
                 }
             }
         }
+
         private void UpdateWindowButtonPosition()
         {
             if (!ControlBox) return;
 
             Dictionary<int, WindowButtons> priorityOrder = new(3) { { 0, WindowButtons.Close }, { 1, WindowButtons.Maximize }, { 2, WindowButtons.Minimize } };
 
-            Point firstButtonLocation = new(ClientRectangle.Width - 40, borderWidth);
-            int lastDrawedButtonPosition = firstButtonLocation.X - 25;
+            float dpiScale = GetDpiScale();
+            int buttonWidth = (int)(25 * dpiScale);
+            int buttonHeight = (int)(20 * dpiScale);
+            int buttonMargin = (int)(10 * dpiScale);
+
+            Point firstButtonLocation = new(ClientRectangle.Width - buttonWidth - buttonMargin, borderWidth);
+            int lastDrawedButtonPosition = firstButtonLocation.X - buttonWidth;
 
             MetroFormButton firstButton = null!;
 
@@ -519,6 +525,7 @@ namespace MetroFramework.Forms
                 foreach (KeyValuePair<WindowButtons, MetroFormButton> button in windowButtonList)
                 {
                     button.Value.Location = firstButtonLocation;
+                    button.Value.Size = new Size(buttonWidth, buttonHeight);
                 }
             }
             else
@@ -531,18 +538,29 @@ namespace MetroFramework.Forms
                     {
                         firstButton = windowButtonList[button.Value];
                         firstButton.Location = firstButtonLocation;
+                        firstButton.Size = new Size(buttonWidth, buttonHeight);
                         continue;
                     }
 
                     if (firstButton == null || !buttonExists) continue;
 
                     windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, borderWidth);
-                    lastDrawedButtonPosition -= 25;
+                    windowButtonList[button.Value].Size = new Size(buttonWidth, buttonHeight);
+                    lastDrawedButtonPosition -= buttonWidth;
                 }
             }
 
             Refresh();
         }
+
+        private float GetDpiScale()
+        {
+            using (Graphics g = this.CreateGraphics())
+            {
+                return g.DpiX / 96f;
+            }
+        }
+
         private class MetroFormButton : Button, IMetroControl
         {
             #region Interface
