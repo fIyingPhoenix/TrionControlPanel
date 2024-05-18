@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>af1f0393-0a4c-4f66-b7ff-fc367d6f9ced</UserSecretsId>
@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TrionDatabase\TrionDatabase.csproj" />
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
   </ItemGroup>
 

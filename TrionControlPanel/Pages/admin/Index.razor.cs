@@ -30,29 +30,30 @@ namespace TrionControlPanel.Pages.admin
             MachineCurrentRam = SystemWatcher.CurentPcRamUsage();
             calculate = 100 - Convert.ToInt32(MachineCurrentRam / MachineMaxRam * (long)100);
             MachineRamProcent = calculate.ToString() + "%";
-            if (SystemWatcher.ApplicationRuning("fdm") == EnumModels.ServerStatus.Running)
-            {
-                WorldColor = "Green";
-                Data.Server.WorldServerStatus = EnumModels.ServerStatus.Running;
-            }
-            else
-            {
-                WorldColor = "Red";
-                Data.Server.WorldServerStatus = EnumModels.ServerStatus.NotRunning;
-            }
+            //if ()
+            //{
+            //    WorldColor = "Green";
+                
+            //}
+            //else
+            //{
+            //    WorldColor = "Red";
+                
+            //}
             await InvokeAsync(() => StateHasChanged());
         }
         private void StartTimers()
         {
-            TimerWacher = new (1000);
+            TimerWacher = new(1000);
             TimerWacher.Elapsed += OnTimeEvent;
             TimerWacher.Enabled = true;
-            TimerWacher.Start();   
+            TimerWacher.Start();
         }
-        protected override async Task OnInitializedAsync()
-        {
-          StartTimers();
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //     StartTimers();
+             
+        //}
         public void Dispose()
         {
             // While navigating to other components, Dispose method will be called and clean up the Timer function.

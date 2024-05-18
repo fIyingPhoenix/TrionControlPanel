@@ -1,4 +1,7 @@
-﻿namespace TrionControlPanelDesktop
+﻿using MetroFramework.Controls;
+using TrionControlPanel.UI;
+
+namespace TrionControlPanelDesktop
 {
     partial class MainForm
     {
@@ -32,31 +35,34 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
             panel2 = new Panel();
+            BTNConsole = new UI.Controls.CustomButton();
             LblVersion = new Label();
-            SettingsBTN = new UI.Controls.CustomButton();
-            TerminaBTN = new UI.Controls.CustomButton();
-            HomeBTN = new UI.Controls.CustomButton();
-            ContributorsPNLBack = new Panel();
-            ContributorsPNLFront = new Panel();
-            QualityWEB = new UI.CustomWebBrowser();
-            IssuesWEB = new UI.CustomWebBrowser();
-            StarsWEB = new UI.CustomWebBrowser();
-            ForkWEB = new UI.CustomWebBrowser();
-            ContiWEB = new UI.CustomWebBrowser();
-            PNLControl = new Panel();
-            panel3 = new Panel();
-            panel4 = new Panel();
-            BTNStartMySQL = new UI.Controls.CustomButton();
-            BTNStartAll = new UI.Controls.CustomButton();
-            BTNStartLOgin = new UI.Controls.CustomButton();
-            BTNStartWorld = new UI.Controls.CustomButton();
+            BTNSettings = new UI.Controls.CustomButton();
+            BTNdatabase = new UI.Controls.CustomButton();
+            BTNHome = new UI.Controls.CustomButton();
+            PNLControl = new MetroPanel();
             TimerWacher = new System.Windows.Forms.Timer(components);
+            PnlButtonFront = new MetroPanel();
+            BTNStartMySQL = new UI.Controls.CustomButton();
+            BTNStartLogin = new UI.Controls.CustomButton();
+            BTNStartWorld = new UI.Controls.CustomButton();
+            ContributorsPNLFront = new MetroPanel();
+            BTNDownload = new UI.Controls.CustomButton();
+            BTNNotification = new UI.Controls.CustomButton();
+            TimerChangeControl = new System.Windows.Forms.Timer(components);
+            NIcon = new NotifyIcon(components);
+            CMSNotify = new ContextMenuStrip(components);
+            OpenTSMItem = new ToolStripMenuItem();
+            StartWorldTSMItem = new ToolStripMenuItem();
+            StartLogonTSMItem = new ToolStripMenuItem();
+            StartDatabaseTSMItem = new ToolStripMenuItem();
+            ExitTSMItem = new ToolStripMenuItem();
+            TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ContributorsPNLBack.SuspendLayout();
+            PnlButtonFront.SuspendLayout();
             ContributorsPNLFront.SuspendLayout();
-            panel3.SuspendLayout();
-            panel4.SuspendLayout();
+            CMSNotify.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -72,196 +78,175 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 39, 46);
+            panel2.Controls.Add(BTNConsole);
             panel2.Controls.Add(LblVersion);
-            panel2.Controls.Add(SettingsBTN);
-            panel2.Controls.Add(TerminaBTN);
-            panel2.Controls.Add(HomeBTN);
+            panel2.Controls.Add(BTNSettings);
+            panel2.Controls.Add(BTNdatabase);
+            panel2.Controls.Add(BTNHome);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(90, 597);
             panel2.TabIndex = 1;
             // 
+            // BTNConsole
+            // 
+            BTNConsole.BackColor = Color.FromArgb(28, 33, 40);
+            BTNConsole.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNConsole.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNConsole.BorderRadius = 0;
+            BTNConsole.BorderSize = 1;
+            BTNConsole.Cursor = Cursors.Hand;
+            BTNConsole.FlatAppearance.BorderSize = 0;
+            BTNConsole.FlatStyle = FlatStyle.Flat;
+            BTNConsole.ForeColor = Color.White;
+            BTNConsole.Image = (Image)resources.GetObject("BTNConsole.Image");
+            BTNConsole.Location = new Point(10, 238);
+            BTNConsole.Name = "BTNConsole";
+            BTNConsole.NotificationCount = 0;
+            BTNConsole.Size = new Size(70, 70);
+            BTNConsole.TabIndex = 5;
+            BTNConsole.TextColor = Color.White;
+            BTNConsole.UseVisualStyleBackColor = false;
+            BTNConsole.Visible = false;
+            BTNConsole.Click += BTNConsole_Click;
+            // 
             // LblVersion
             // 
             LblVersion.Anchor = AnchorStyles.Bottom;
-            LblVersion.Location = new Point(-4, 574);
+            LblVersion.Location = new Point(0, 575);
             LblVersion.Name = "LblVersion";
-            LblVersion.Size = new Size(101, 15);
+            LblVersion.Size = new Size(89, 15);
             LblVersion.TabIndex = 4;
             LblVersion.Text = "Version: ";
             LblVersion.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // SettingsBTN
+            // BTNSettings
             // 
-            SettingsBTN.BackColor = Color.FromArgb(28, 33, 40);
-            SettingsBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            SettingsBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            SettingsBTN.BorderRadius = 0;
-            SettingsBTN.BorderSize = 1;
-            SettingsBTN.FlatAppearance.BorderSize = 0;
-            SettingsBTN.FlatStyle = FlatStyle.Flat;
-            SettingsBTN.ForeColor = Color.White;
-            SettingsBTN.Image = (Image)resources.GetObject("SettingsBTN.Image");
-            SettingsBTN.Location = new Point(9, 187);
-            SettingsBTN.Name = "SettingsBTN";
-            SettingsBTN.Size = new Size(70, 70);
-            SettingsBTN.TabIndex = 3;
-            SettingsBTN.TextColor = Color.White;
-            SettingsBTN.UseVisualStyleBackColor = false;
-            SettingsBTN.Click += SettingsBTN_Click;
+            BTNSettings.BackColor = Color.FromArgb(28, 33, 40);
+            BTNSettings.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNSettings.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNSettings.BorderRadius = 0;
+            BTNSettings.BorderSize = 1;
+            BTNSettings.Cursor = Cursors.Hand;
+            BTNSettings.FlatAppearance.BorderSize = 0;
+            BTNSettings.FlatStyle = FlatStyle.Flat;
+            BTNSettings.ForeColor = Color.White;
+            BTNSettings.Image = (Image)resources.GetObject("BTNSettings.Image");
+            BTNSettings.Location = new Point(10, 162);
+            BTNSettings.Name = "BTNSettings";
+            BTNSettings.NotificationCount = 0;
+            BTNSettings.Size = new Size(70, 70);
+            BTNSettings.TabIndex = 3;
+            BTNSettings.TextColor = Color.White;
+            BTNSettings.UseVisualStyleBackColor = false;
+            BTNSettings.Visible = false;
+            BTNSettings.Click += SettingsBTN_Click;
             // 
-            // TerminaBTN
+            // BTNdatabase
             // 
-            TerminaBTN.BackColor = Color.FromArgb(28, 33, 40);
-            TerminaBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            TerminaBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            TerminaBTN.BorderRadius = 0;
-            TerminaBTN.BorderSize = 1;
-            TerminaBTN.FlatAppearance.BorderSize = 0;
-            TerminaBTN.FlatStyle = FlatStyle.Flat;
-            TerminaBTN.ForeColor = Color.White;
-            TerminaBTN.Image = (Image)resources.GetObject("TerminaBTN.Image");
-            TerminaBTN.Location = new Point(9, 98);
-            TerminaBTN.Name = "TerminaBTN";
-            TerminaBTN.Size = new Size(70, 70);
-            TerminaBTN.TabIndex = 2;
-            TerminaBTN.TextColor = Color.White;
-            TerminaBTN.UseVisualStyleBackColor = false;
-            TerminaBTN.Click += TerminaBTN_Click;
+            BTNdatabase.BackColor = Color.FromArgb(28, 33, 40);
+            BTNdatabase.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNdatabase.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNdatabase.BorderRadius = 0;
+            BTNdatabase.BorderSize = 1;
+            BTNdatabase.Cursor = Cursors.Hand;
+            BTNdatabase.FlatAppearance.BorderSize = 0;
+            BTNdatabase.FlatStyle = FlatStyle.Flat;
+            BTNdatabase.ForeColor = Color.White;
+            BTNdatabase.Image = (Image)resources.GetObject("BTNdatabase.Image");
+            BTNdatabase.Location = new Point(10, 86);
+            BTNdatabase.Name = "BTNdatabase";
+            BTNdatabase.NotificationCount = 0;
+            BTNdatabase.Size = new Size(70, 70);
+            BTNdatabase.TabIndex = 2;
+            BTNdatabase.TextColor = Color.White;
+            BTNdatabase.UseVisualStyleBackColor = false;
+            BTNdatabase.Visible = false;
+            BTNdatabase.Click += TerminaBTN_Click;
             // 
-            // HomeBTN
+            // BTNHome
             // 
-            HomeBTN.BackColor = Color.FromArgb(28, 33, 40);
-            HomeBTN.BackgroundColor = Color.FromArgb(28, 33, 40);
-            HomeBTN.BorderColor = Color.FromArgb(0, 174, 219);
-            HomeBTN.BorderRadius = 0;
-            HomeBTN.BorderSize = 1;
-            HomeBTN.FlatAppearance.BorderSize = 0;
-            HomeBTN.FlatStyle = FlatStyle.Flat;
-            HomeBTN.ForeColor = Color.White;
-            HomeBTN.Image = (Image)resources.GetObject("HomeBTN.Image");
-            HomeBTN.Location = new Point(9, 10);
-            HomeBTN.Name = "HomeBTN";
-            HomeBTN.Size = new Size(70, 70);
-            HomeBTN.TabIndex = 1;
-            HomeBTN.TextColor = Color.White;
-            HomeBTN.UseVisualStyleBackColor = false;
-            HomeBTN.Click += HomeBTN_Click;
-            // 
-            // ContributorsPNLBack
-            // 
-            ContributorsPNLBack.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            ContributorsPNLBack.BackColor = Color.Black;
-            ContributorsPNLBack.Controls.Add(ContributorsPNLFront);
-            ContributorsPNLBack.Location = new Point(120, 70);
-            ContributorsPNLBack.Name = "ContributorsPNLBack";
-            ContributorsPNLBack.Padding = new Padding(2);
-            ContributorsPNLBack.Size = new Size(845, 55);
-            ContributorsPNLBack.TabIndex = 3;
-            // 
-            // ContributorsPNLFront
-            // 
-            ContributorsPNLFront.BackColor = Color.FromArgb(45, 51, 59);
-            ContributorsPNLFront.Controls.Add(QualityWEB);
-            ContributorsPNLFront.Controls.Add(IssuesWEB);
-            ContributorsPNLFront.Controls.Add(StarsWEB);
-            ContributorsPNLFront.Controls.Add(ForkWEB);
-            ContributorsPNLFront.Controls.Add(ContiWEB);
-            ContributorsPNLFront.Dock = DockStyle.Fill;
-            ContributorsPNLFront.Location = new Point(2, 2);
-            ContributorsPNLFront.Name = "ContributorsPNLFront";
-            ContributorsPNLFront.Size = new Size(841, 51);
-            ContributorsPNLFront.TabIndex = 0;
-            // 
-            // QualityWEB
-            // 
-            QualityWEB.Anchor = AnchorStyles.Top;
-            QualityWEB.BackColor = Color.FromArgb(45, 51, 59);
-            QualityWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
-            QualityWEB.Location = new Point(618, 11);
-            QualityWEB.Name = "QualityWEB";
-            QualityWEB.Size = new Size(147, 28);
-            QualityWEB.TabIndex = 7;
-            QualityWEB.Url = "";
-            // 
-            // IssuesWEB
-            // 
-            IssuesWEB.Anchor = AnchorStyles.Top;
-            IssuesWEB.BackColor = Color.FromArgb(45, 51, 59);
-            IssuesWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
-            IssuesWEB.Location = new Point(465, 11);
-            IssuesWEB.Name = "IssuesWEB";
-            IssuesWEB.Size = new Size(142, 28);
-            IssuesWEB.TabIndex = 6;
-            IssuesWEB.Url = "";
-            // 
-            // StarsWEB
-            // 
-            StarsWEB.Anchor = AnchorStyles.Top;
-            StarsWEB.BackColor = Color.FromArgb(45, 51, 59);
-            StarsWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
-            StarsWEB.Location = new Point(350, 11);
-            StarsWEB.Name = "StarsWEB";
-            StarsWEB.Size = new Size(104, 28);
-            StarsWEB.TabIndex = 5;
-            StarsWEB.Url = "";
-            // 
-            // ForkWEB
-            // 
-            ForkWEB.Anchor = AnchorStyles.Top;
-            ForkWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
-            ForkWEB.Location = new Point(234, 11);
-            ForkWEB.Name = "ForkWEB";
-            ForkWEB.Size = new Size(105, 28);
-            ForkWEB.TabIndex = 5;
-            ForkWEB.Url = "";
-            // 
-            // ContiWEB
-            // 
-            ContiWEB.Anchor = AnchorStyles.Top;
-            ContiWEB.LoadWebsite = TrionLibrary.EnumModels.LoadWebsite.False;
-            ContiWEB.Location = new Point(71, 11);
-            ContiWEB.Name = "ContiWEB";
-            ContiWEB.Size = new Size(152, 28);
-            ContiWEB.TabIndex = 4;
-            ContiWEB.Url = "";
+            BTNHome.BackColor = Color.FromArgb(28, 33, 40);
+            BTNHome.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNHome.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNHome.BorderRadius = 0;
+            BTNHome.BorderSize = 1;
+            BTNHome.Cursor = Cursors.Hand;
+            BTNHome.FlatAppearance.BorderSize = 0;
+            BTNHome.FlatStyle = FlatStyle.Flat;
+            BTNHome.ForeColor = Color.White;
+            BTNHome.Image = (Image)resources.GetObject("BTNHome.Image");
+            BTNHome.Location = new Point(10, 10);
+            BTNHome.Name = "BTNHome";
+            BTNHome.NotificationCount = 0;
+            BTNHome.Size = new Size(70, 70);
+            BTNHome.TabIndex = 1;
+            BTNHome.TextColor = Color.White;
+            BTNHome.UseVisualStyleBackColor = false;
+            BTNHome.Visible = false;
+            BTNHome.Click += HomeBTN_Click;
             // 
             // PNLControl
             // 
             PNLControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PNLControl.BackColor = Color.Black;
-            PNLControl.Location = new Point(120, 138);
+            PNLControl.BackColor = Color.FromArgb(45, 51, 59);
+            PNLControl.Border = true;
+            PNLControl.BorderColor = Color.Black;
+            PNLControl.BorderSize = 1;
+            PNLControl.CustomBackground = false;
+            PNLControl.HorizontalScrollbar = false;
+            PNLControl.HorizontalScrollbarBarColor = true;
+            PNLControl.HorizontalScrollbarHighlightOnWheel = false;
+            PNLControl.HorizontalScrollbarSize = 10;
+            PNLControl.Location = new Point(120, 142);
             PNLControl.MaximumSize = new Size(0, 370);
             PNLControl.MinimumSize = new Size(845, 370);
             PNLControl.Name = "PNLControl";
             PNLControl.Padding = new Padding(2);
             PNLControl.Size = new Size(845, 370);
+            PNLControl.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLControl.StyleManager = null;
             PNLControl.TabIndex = 4;
+            PNLControl.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLControl.VerticalScrollbar = false;
+            PNLControl.VerticalScrollbarBarColor = true;
+            PNLControl.VerticalScrollbarHighlightOnWheel = false;
+            PNLControl.VerticalScrollbarSize = 10;
             // 
-            // panel3
+            // TimerWacher
             // 
-            panel3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel3.BackColor = Color.Black;
-            panel3.Controls.Add(panel4);
-            panel3.Location = new Point(121, 522);
-            panel3.Name = "panel3";
-            panel3.Padding = new Padding(2);
-            panel3.Size = new Size(845, 55);
-            panel3.TabIndex = 5;
+            TimerWacher.Enabled = true;
+            TimerWacher.Interval = 1000;
+            TimerWacher.Tick += TimerWacher_Tick;
             // 
-            // panel4
+            // PnlButtonFront
             // 
-            panel4.BackColor = Color.FromArgb(45, 51, 59);
-            panel4.Controls.Add(BTNStartMySQL);
-            panel4.Controls.Add(BTNStartAll);
-            panel4.Controls.Add(BTNStartLOgin);
-            panel4.Controls.Add(BTNStartWorld);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(2, 2);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(841, 51);
-            panel4.TabIndex = 0;
+            PnlButtonFront.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PnlButtonFront.BackColor = Color.FromArgb(34, 39, 46);
+            PnlButtonFront.Border = true;
+            PnlButtonFront.BorderColor = Color.Black;
+            PnlButtonFront.BorderSize = 1;
+            PnlButtonFront.Controls.Add(BTNStartMySQL);
+            PnlButtonFront.Controls.Add(BTNStartLogin);
+            PnlButtonFront.Controls.Add(BTNStartWorld);
+            PnlButtonFront.CustomBackground = true;
+            PnlButtonFront.HorizontalScrollbar = false;
+            PnlButtonFront.HorizontalScrollbarBarColor = true;
+            PnlButtonFront.HorizontalScrollbarHighlightOnWheel = false;
+            PnlButtonFront.HorizontalScrollbarSize = 10;
+            PnlButtonFront.Location = new Point(120, 517);
+            PnlButtonFront.Name = "PnlButtonFront";
+            PnlButtonFront.Padding = new Padding(2);
+            PnlButtonFront.Size = new Size(845, 55);
+            PnlButtonFront.Style = MetroFramework.MetroColorStyle.Blue;
+            PnlButtonFront.StyleManager = null;
+            PnlButtonFront.TabIndex = 5;
+            PnlButtonFront.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PnlButtonFront.VerticalScrollbar = false;
+            PnlButtonFront.VerticalScrollbarBarColor = true;
+            PnlButtonFront.VerticalScrollbarHighlightOnWheel = false;
+            PnlButtonFront.VerticalScrollbarSize = 10;
             // 
             // BTNStartMySQL
             // 
@@ -271,65 +256,47 @@
             BTNStartMySQL.BorderColor = Color.FromArgb(0, 174, 219);
             BTNStartMySQL.BorderRadius = 0;
             BTNStartMySQL.BorderSize = 1;
+            BTNStartMySQL.Cursor = Cursors.Hand;
             BTNStartMySQL.FlatAppearance.BorderSize = 0;
             BTNStartMySQL.FlatStyle = FlatStyle.Flat;
             BTNStartMySQL.ForeColor = Color.White;
             BTNStartMySQL.Image = (Image)resources.GetObject("BTNStartMySQL.Image");
             BTNStartMySQL.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartMySQL.Location = new Point(423, 7);
+            BTNStartMySQL.Location = new Point(498, 8);
             BTNStartMySQL.Name = "BTNStartMySQL";
-            BTNStartMySQL.RightToLeft = RightToLeft.No;
-            BTNStartMySQL.Size = new Size(119, 40);
+            BTNStartMySQL.NotificationCount = 0;
+            BTNStartMySQL.Size = new Size(140, 40);
             BTNStartMySQL.TabIndex = 8;
-            BTNStartMySQL.Text = "           Start  Mysql";
+            BTNStartMySQL.Text = "            Start  Database  ";
             BTNStartMySQL.TextColor = Color.White;
             BTNStartMySQL.UseVisualStyleBackColor = false;
+            BTNStartMySQL.Visible = false;
+            BTNStartMySQL.Click += BTNStartMySQL_Click;
             // 
-            // BTNStartAll
+            // BTNStartLogin
             // 
-            BTNStartAll.Anchor = AnchorStyles.Top;
-            BTNStartAll.BackColor = Color.FromArgb(28, 33, 40);
-            BTNStartAll.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNStartAll.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNStartAll.BorderRadius = 0;
-            BTNStartAll.BorderSize = 1;
-            BTNStartAll.FlatAppearance.BorderSize = 0;
-            BTNStartAll.FlatStyle = FlatStyle.Flat;
-            BTNStartAll.ForeColor = Color.White;
-            BTNStartAll.Image = (Image)resources.GetObject("BTNStartAll.Image");
-            BTNStartAll.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartAll.Location = new Point(548, 7);
-            BTNStartAll.Name = "BTNStartAll";
-            BTNStartAll.RightToLeft = RightToLeft.No;
-            BTNStartAll.Size = new Size(119, 40);
-            BTNStartAll.TabIndex = 9;
-            BTNStartAll.Text = "           Start All";
-            BTNStartAll.TextColor = Color.White;
-            BTNStartAll.UseVisualStyleBackColor = false;
-            // 
-            // BTNStartLOgin
-            // 
-            BTNStartLOgin.Anchor = AnchorStyles.Top;
-            BTNStartLOgin.BackColor = Color.FromArgb(28, 33, 40);
-            BTNStartLOgin.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNStartLOgin.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNStartLOgin.BorderRadius = 0;
-            BTNStartLOgin.BorderSize = 1;
-            BTNStartLOgin.FlatAppearance.BorderSize = 0;
-            BTNStartLOgin.FlatStyle = FlatStyle.Flat;
-            BTNStartLOgin.ForeColor = Color.White;
-            BTNStartLOgin.Image = (Image)resources.GetObject("BTNStartLOgin.Image");
-            BTNStartLOgin.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartLOgin.Location = new Point(173, 7);
-            BTNStartLOgin.Name = "BTNStartLOgin";
-            BTNStartLOgin.RightToLeft = RightToLeft.No;
-            BTNStartLOgin.Size = new Size(119, 40);
-            BTNStartLOgin.TabIndex = 7;
-            BTNStartLOgin.Text = "Start Login  ";
-            BTNStartLOgin.TextAlign = ContentAlignment.MiddleRight;
-            BTNStartLOgin.TextColor = Color.White;
-            BTNStartLOgin.UseVisualStyleBackColor = false;
-            BTNStartLOgin.Click += BTNStartLOgin_Click;
+            BTNStartLogin.Anchor = AnchorStyles.Top;
+            BTNStartLogin.BackColor = Color.FromArgb(28, 33, 40);
+            BTNStartLogin.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNStartLogin.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNStartLogin.BorderRadius = 0;
+            BTNStartLogin.BorderSize = 1;
+            BTNStartLogin.Cursor = Cursors.Hand;
+            BTNStartLogin.FlatAppearance.BorderSize = 0;
+            BTNStartLogin.FlatStyle = FlatStyle.Flat;
+            BTNStartLogin.ForeColor = Color.White;
+            BTNStartLogin.Image = (Image)resources.GetObject("BTNStartLogin.Image");
+            BTNStartLogin.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNStartLogin.Location = new Point(206, 8);
+            BTNStartLogin.Name = "BTNStartLogin";
+            BTNStartLogin.NotificationCount = 0;
+            BTNStartLogin.Size = new Size(140, 40);
+            BTNStartLogin.TabIndex = 7;
+            BTNStartLogin.Text = "            Start  Logon  ";
+            BTNStartLogin.TextColor = Color.White;
+            BTNStartLogin.UseVisualStyleBackColor = false;
+            BTNStartLogin.Visible = false;
+            BTNStartLogin.Click += BTNStartLogin_Click;
             // 
             // BTNStartWorld
             // 
@@ -339,25 +306,163 @@
             BTNStartWorld.BorderColor = Color.FromArgb(0, 174, 219);
             BTNStartWorld.BorderRadius = 0;
             BTNStartWorld.BorderSize = 1;
+            BTNStartWorld.Cursor = Cursors.Hand;
             BTNStartWorld.FlatAppearance.BorderSize = 0;
             BTNStartWorld.FlatStyle = FlatStyle.Flat;
             BTNStartWorld.ForeColor = Color.White;
             BTNStartWorld.Image = (Image)resources.GetObject("BTNStartWorld.Image");
             BTNStartWorld.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartWorld.Location = new Point(298, 7);
+            BTNStartWorld.Location = new Point(352, 8);
             BTNStartWorld.Name = "BTNStartWorld";
-            BTNStartWorld.RightToLeft = RightToLeft.No;
-            BTNStartWorld.Size = new Size(119, 40);
+            BTNStartWorld.NotificationCount = 0;
+            BTNStartWorld.Size = new Size(140, 40);
             BTNStartWorld.TabIndex = 6;
-            BTNStartWorld.Text = "           Start  World";
+            BTNStartWorld.Text = "            Start  World ";
             BTNStartWorld.TextColor = Color.White;
             BTNStartWorld.UseVisualStyleBackColor = false;
+            BTNStartWorld.Visible = false;
+            BTNStartWorld.Click += BTNStartWorld_Click;
             // 
-            // TimerWacher
+            // ContributorsPNLFront
             // 
-            TimerWacher.Enabled = true;
-            TimerWacher.Interval = 1000;
-            TimerWacher.Tick += TimerWacher_Tick;
+            ContributorsPNLFront.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            ContributorsPNLFront.BackColor = Color.FromArgb(34, 39, 46);
+            ContributorsPNLFront.Border = true;
+            ContributorsPNLFront.BorderColor = Color.Black;
+            ContributorsPNLFront.BorderSize = 1;
+            ContributorsPNLFront.Controls.Add(BTNDownload);
+            ContributorsPNLFront.Controls.Add(BTNNotification);
+            ContributorsPNLFront.CustomBackground = true;
+            ContributorsPNLFront.HorizontalScrollbar = false;
+            ContributorsPNLFront.HorizontalScrollbarBarColor = true;
+            ContributorsPNLFront.HorizontalScrollbarHighlightOnWheel = false;
+            ContributorsPNLFront.HorizontalScrollbarSize = 10;
+            ContributorsPNLFront.Location = new Point(120, 62);
+            ContributorsPNLFront.Name = "ContributorsPNLFront";
+            ContributorsPNLFront.Padding = new Padding(2);
+            ContributorsPNLFront.Size = new Size(845, 73);
+            ContributorsPNLFront.Style = MetroFramework.MetroColorStyle.Blue;
+            ContributorsPNLFront.StyleManager = null;
+            ContributorsPNLFront.TabIndex = 6;
+            ContributorsPNLFront.Theme = MetroFramework.MetroThemeStyle.Dark;
+            ContributorsPNLFront.VerticalScrollbar = false;
+            ContributorsPNLFront.VerticalScrollbarBarColor = true;
+            ContributorsPNLFront.VerticalScrollbarHighlightOnWheel = false;
+            ContributorsPNLFront.VerticalScrollbarSize = 10;
+            // 
+            // BTNDownload
+            // 
+            BTNDownload.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BTNDownload.BackColor = Color.FromArgb(34, 39, 46);
+            BTNDownload.BackgroundColor = Color.FromArgb(34, 39, 46);
+            BTNDownload.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDownload.BorderRadius = 0;
+            BTNDownload.BorderSize = 0;
+            BTNDownload.Cursor = Cursors.Hand;
+            BTNDownload.FlatAppearance.BorderSize = 0;
+            BTNDownload.FlatStyle = FlatStyle.Flat;
+            BTNDownload.ForeColor = Color.White;
+            BTNDownload.Image = (Image)resources.GetObject("BTNDownload.Image");
+            BTNDownload.Location = new Point(758, 5);
+            BTNDownload.Name = "BTNDownload";
+            BTNDownload.NotificationCount = 0;
+            BTNDownload.Size = new Size(41, 36);
+            BTNDownload.TabIndex = 8;
+            BTNDownload.TextColor = Color.White;
+            BTNDownload.UseVisualStyleBackColor = true;
+            BTNDownload.Visible = false;
+            BTNDownload.Click += BTNDownload_Click;
+            // 
+            // BTNNotification
+            // 
+            BTNNotification.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BTNNotification.BackColor = Color.FromArgb(34, 39, 46);
+            BTNNotification.BackgroundColor = Color.FromArgb(34, 39, 46);
+            BTNNotification.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNNotification.BorderRadius = 0;
+            BTNNotification.BorderSize = 0;
+            BTNNotification.Cursor = Cursors.Hand;
+            BTNNotification.FlatAppearance.BorderSize = 0;
+            BTNNotification.FlatStyle = FlatStyle.Flat;
+            BTNNotification.ForeColor = Color.White;
+            BTNNotification.Image = (Image)resources.GetObject("BTNNotification.Image");
+            BTNNotification.Location = new Point(803, 5);
+            BTNNotification.Name = "BTNNotification";
+            BTNNotification.NotificationCount = 0;
+            BTNNotification.Size = new Size(37, 36);
+            BTNNotification.TabIndex = 7;
+            BTNNotification.TextColor = Color.White;
+            BTNNotification.UseVisualStyleBackColor = true;
+            BTNNotification.Visible = false;
+            BTNNotification.Click += BTNNotification_Click;
+            // 
+            // TimerChangeControl
+            // 
+            TimerChangeControl.Interval = 10;
+            TimerChangeControl.Tick += TimerChangeControl_Tick;
+            // 
+            // NIcon
+            // 
+            NIcon.BalloonTipIcon = ToolTipIcon.Info;
+            NIcon.BalloonTipText = "Control Panel for World of Warcraft Emulators!";
+            NIcon.BalloonTipTitle = "Trion Control Panel";
+            NIcon.ContextMenuStrip = CMSNotify;
+            NIcon.Icon = (Icon)resources.GetObject("NIcon.Icon");
+            NIcon.Text = "Trion Control Panel";
+            // 
+            // CMSNotify
+            // 
+            CMSNotify.BackColor = Color.FromArgb(28, 33, 40);
+            CMSNotify.Items.AddRange(new ToolStripItem[] { OpenTSMItem, StartWorldTSMItem, StartLogonTSMItem, StartDatabaseTSMItem, ExitTSMItem });
+            CMSNotify.Name = "contextMenuStrip1";
+            CMSNotify.ShowImageMargin = false;
+            CMSNotify.Size = new Size(125, 114);
+            // 
+            // OpenTSMItem
+            // 
+            OpenTSMItem.ForeColor = Color.White;
+            OpenTSMItem.Name = "OpenTSMItem";
+            OpenTSMItem.Size = new Size(124, 22);
+            OpenTSMItem.Text = "Open";
+            OpenTSMItem.Click += OpenTSMItem_Click;
+            // 
+            // StartWorldTSMItem
+            // 
+            StartWorldTSMItem.ForeColor = Color.White;
+            StartWorldTSMItem.Name = "StartWorldTSMItem";
+            StartWorldTSMItem.Size = new Size(124, 22);
+            StartWorldTSMItem.Text = "Start World";
+            StartWorldTSMItem.Click += StartWorldTSMItem_Click;
+            // 
+            // StartLogonTSMItem
+            // 
+            StartLogonTSMItem.ForeColor = Color.White;
+            StartLogonTSMItem.Name = "StartLogonTSMItem";
+            StartLogonTSMItem.Size = new Size(124, 22);
+            StartLogonTSMItem.Text = "Start Logon";
+            StartLogonTSMItem.Click += StartLogonTSMItem_Click;
+            // 
+            // StartDatabaseTSMItem
+            // 
+            StartDatabaseTSMItem.ForeColor = Color.White;
+            StartDatabaseTSMItem.Name = "StartDatabaseTSMItem";
+            StartDatabaseTSMItem.Size = new Size(124, 22);
+            StartDatabaseTSMItem.Text = "Start Database";
+            StartDatabaseTSMItem.Click += StartDatabaseTSMItem_Click;
+            // 
+            // ExitTSMItem
+            // 
+            ExitTSMItem.ForeColor = Color.White;
+            ExitTSMItem.Name = "ExitTSMItem";
+            ExitTSMItem.Size = new Size(124, 22);
+            ExitTSMItem.Text = "Exit";
+            ExitTSMItem.Click += ExitTSMItem_ClickAsync;
+            // 
+            // TimerLoadingCheck
+            // 
+            TimerLoadingCheck.Enabled = true;
+            TimerLoadingCheck.Interval = 15000;
+            TimerLoadingCheck.Tick += TimerLoadingCheck_Tick;
             // 
             // MainForm
             // 
@@ -365,25 +470,27 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 33, 40);
             ClientSize = new Size(1000, 600);
-            Controls.Add(panel3);
+            Controls.Add(ContributorsPNLFront);
+            Controls.Add(PnlButtonFront);
             Controls.Add(PNLControl);
-            Controls.Add(ContributorsPNLBack);
             Controls.Add(panel1);
-            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Location = new Point(0, 0);
             MinimumSize = new Size(1000, 600);
             Name = "MainForm";
-            Text = "Trion Contro Panel";
+            Shadow = false;
+            Text = "    Trion Contro Panel";
             TextAlign = MetroFramework.Forms.TextAlign.Center;
             Theme = MetroFramework.MetroThemeStyle.Dark;
             TransparencyKey = Color.Magenta;
-            Load += MainForm_Load;
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_LoadAsync;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ContributorsPNLBack.ResumeLayout(false);
+            PnlButtonFront.ResumeLayout(false);
             ContributorsPNLFront.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel4.ResumeLayout(false);
+            CMSNotify.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -391,24 +498,28 @@
 
         private Panel panel1;
         private Panel panel2;
-        private UI.Controls.CustomButton HomeBTN;
-        private UI.Controls.CustomButton SettingsBTN;
-        private UI.Controls.CustomButton TerminaBTN;
-        private Panel ContributorsPNLBack;
-        private Panel ContributorsPNLFront;
-        private UI.CustomWebBrowser ContiWEB;
-        private UI.CustomWebBrowser QualityWEB;
-        private UI.CustomWebBrowser IssuesWEB;
-        private UI.CustomWebBrowser StarsWEB;
-        private UI.CustomWebBrowser ForkWEB;
+        private UI.Controls.CustomButton BTNHome;
+        private UI.Controls.CustomButton BTNSettings;
+        private UI.Controls.CustomButton BTNdatabase;
         private Label LblVersion;
-        private Panel PNLControl;
-        private Panel panel3;
-        private Panel panel4;
-        private UI.Controls.CustomButton BTNStartWorld;
-        private UI.Controls.CustomButton BTNStartAll;
-        private UI.Controls.CustomButton BTNStartMySQL;
-        private UI.Controls.CustomButton BTNStartLOgin;
+        private MetroPanel PNLControl;
         private System.Windows.Forms.Timer TimerWacher;
+        private MetroPanel PnlButtonFront;
+        private UI.Controls.CustomButton BTNStartMySQL;
+        private UI.Controls.CustomButton BTNStartLogin;
+        private UI.Controls.CustomButton BTNStartWorld;
+        private MetroPanel ContributorsPNLFront;
+        private System.Windows.Forms.Timer TimerChangeControl;
+        private UI.Controls.CustomButton BTNNotification;
+        private UI.Controls.CustomButton BTNDownload;
+        private UI.Controls.CustomButton BTNConsole;
+        private NotifyIcon NIcon;
+        private ContextMenuStrip CMSNotify;
+        private ToolStripMenuItem OpenTSMItem;
+        private ToolStripMenuItem StartWorldTSMItem;
+        private ToolStripMenuItem StartLogonTSMItem;
+        private ToolStripMenuItem StartDatabaseTSMItem;
+        private ToolStripMenuItem ExitTSMItem;
+        private System.Windows.Forms.Timer TimerLoadingCheck;
     }
 }

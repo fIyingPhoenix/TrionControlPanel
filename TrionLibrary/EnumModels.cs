@@ -1,13 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrionLibrary
+﻿namespace TrionLibrary
 {
     public class EnumModels
     {
+        public enum TcpTableClass
+        {
+            TCP_TABLE_BASIC_LISTENER,
+            TCP_TABLE_BASIC_CONNECTIONS,
+            TCP_TABLE_BASIC_ALL,
+            TCP_TABLE_OWNER_PID_LISTENER,
+            TCP_TABLE_OWNER_PID_CONNECTIONS,
+            TCP_TABLE_OWNER_PID_ALL,
+            TCP_TABLE_OWNER_MODULE_LISTENER,
+            TCP_TABLE_OWNER_MODULE_CONNECTIONS,
+            TCP_TABLE_OWNER_MODULE_ALL
+        }
+        public enum DDNSSerivce
+        {
+            DuckDNS
+        }
+        public enum ServerType
+        {
+            Database,
+            World,
+            Logon
+        }
+
         public enum ServerStatus
         {
             Running,
@@ -16,8 +33,13 @@ namespace TrionLibrary
         public enum CurrentControl
         {
             Home,
+            Console,
             Control,
-            Settings
+            Settings,
+            Load,
+            Download,
+            Database,
+            Notify
         }
         public enum LoadWebsite
         {
@@ -30,7 +52,9 @@ namespace TrionLibrary
             AzerothCore,
             CMaNGOS,
             CypherCore,
+            TrinityCore335,
             TrinityCore,
+            TrinityCoreClassic,
             VMaNGOS
         }
     }

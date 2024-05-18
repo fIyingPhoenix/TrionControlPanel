@@ -119,9 +119,15 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="play-35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resorces\icons\anfang\icons8-anfang-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resorces\icons\play\play-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stopp-35" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resorces\icons\stopp-im-quadrat\icons8-stopp-im-quadrat-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="stop-35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resorces\icons\stop\stop-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="verbindungsstatus-35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resorces\icons\verbindungsstatus\verbindungsstatus-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="verbindungsstatus_-an-35" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resorces\icons\verbindungsstatus\verbindungsstatus_-an-35.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
