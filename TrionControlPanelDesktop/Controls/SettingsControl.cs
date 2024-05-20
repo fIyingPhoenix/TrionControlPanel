@@ -20,6 +20,7 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
             ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
+            ComboBoxDDNService.Items.AddRange(Enum.GetNames(typeof(DDNSerivce)));
             User.UI.Update.StartupUpdateCheck = true;
         }
         private static string GetFolder()
@@ -53,9 +54,10 @@ namespace TrionControlPanelDesktop.Controls
             TXTBoxMySQLExecName.ReadOnly = !Data.Settings.CustomNames;
         }
         private async Task LoadData()
-        { 
+        {
             ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
+            ComboBoxDDNService.SelectedItem = Data.Settings.DDNSerivce.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
             TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
@@ -301,13 +303,13 @@ namespace TrionControlPanelDesktop.Controls
             { Directory.CreateDirectory("Backup"); }
             if (User.UI.Form.MySQLisRunning != true)
             {
-               SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, true, $"--console");
+                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, true, $"--console");
             }
             SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
             SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
             SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
         }
-        private  async void CheckForUpdate()
+        private async void CheckForUpdate()
         {
             // Single Player Project Update
             if (DateTime.TryParse(User.UI.Update.SPPVerOFF, out DateTime SPPLocal) && DateTime.TryParse(User.UI.Update.SPPVerON, out DateTime SPPOnline))
@@ -321,14 +323,14 @@ namespace TrionControlPanelDesktop.Controls
                     }
                     else
                     {
-                       
+
                         if (MetroMessageBox.Show(this, "A new update to the Single Player Project is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         {
                             if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 await CreateBC();
-                            }    
-                                DownlaodThread(WebLinks.SPPCoreUpdate);
+                            }
+                            DownlaodThread(WebLinks.SPPCoreUpdate);
                         }
                     }
                     User.UI.Update.SppUpdate = true;
@@ -343,12 +345,12 @@ namespace TrionControlPanelDesktop.Controls
                     if (Data.Settings.AutoUpdateMySQL)
                     {
                         await CreateBC();
-                        
+
                         DownlaodThread(WebLinks.MySQLUpdate);
                     }
                     else
                     {
-                        
+
                         if (MetroMessageBox.Show(this, "A new update for MySQL Server is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         {
                             if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -620,21 +622,21 @@ namespace TrionControlPanelDesktop.Controls
             BTNFixMysql.Text = "Working!!!";
             BTNFixMysql.ForeColor = Color.Orange;
             BTNFixMysql.Click -= BTNFixMysql_Click;
-            if(!Directory.Exists("Backup"))
-            { Directory.CreateDirectory("Backup"); }    
-            if(User.UI.Form.MySQLisRunning == true)
+            if (!Directory.Exists("Backup"))
+            { Directory.CreateDirectory("Backup"); }
+            if (User.UI.Form.MySQLisRunning == true)
             {
                 if (CBAuthBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path+"\\Backup\\AuthBackup.sql");
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
                 }
                 if (CBCharBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path+"\\Backup\\CharBackup.sql");
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
                 }
                 if (CBWorldBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path+"\\Backup\\WorldBackup.sql");
+                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
                 }
 
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
@@ -651,7 +653,7 @@ namespace TrionControlPanelDesktop.Controls
             }
             else
             {
-               if( MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
                     Directory.Delete($@"{path}\database\data", true);
@@ -664,13 +666,45 @@ namespace TrionControlPanelDesktop.Controls
                         SQLLocation = $@"{path}\database\extra\initMySQL.sql";
                     }
                     SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
-                }         
+                }
 
             }
 
             BTNFixMysql.Click += BTNFixMysql_Click;
             BTNFixMysql.Text = "Start";
             BTNFixMysql.ForeColor = Color.White;
+        }
+
+        private void ComboBoxDDNService_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ComboBoxDDNService.SelectedItem)
+            {
+                case "DuckDNS":
+                    break;
+                case "DynamicDNS":
+                    break;
+                case "Dynu":
+                    break;
+                case "Enom":
+                    break;
+                case "AllInkl":
+                    break;
+                case "dynDNS":
+                    break;
+                case "STRATO":
+                    break;
+                case "Freemyip":
+                    break;
+                case "Afraid":
+                    break;
+                case "OVH":
+                    break;
+            }
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

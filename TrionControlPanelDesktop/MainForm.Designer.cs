@@ -53,9 +53,11 @@ namespace TrionControlPanelDesktop
             NIcon = new NotifyIcon(components);
             CMSNotify = new ContextMenuStrip(components);
             OpenTSMItem = new ToolStripMenuItem();
-            StartWorldTSMItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             StartLogonTSMItem = new ToolStripMenuItem();
+            StartWorldTSMItem = new ToolStripMenuItem();
             StartDatabaseTSMItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
             ExitTSMItem = new ToolStripMenuItem();
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
@@ -267,7 +269,7 @@ namespace TrionControlPanelDesktop
             BTNStartMySQL.NotificationCount = 0;
             BTNStartMySQL.Size = new Size(140, 40);
             BTNStartMySQL.TabIndex = 8;
-            BTNStartMySQL.Text = "            Start  Database  ";
+            BTNStartMySQL.Text = "            Database  ";
             BTNStartMySQL.TextColor = Color.White;
             BTNStartMySQL.UseVisualStyleBackColor = false;
             BTNStartMySQL.Visible = false;
@@ -292,7 +294,7 @@ namespace TrionControlPanelDesktop
             BTNStartLogin.NotificationCount = 0;
             BTNStartLogin.Size = new Size(140, 40);
             BTNStartLogin.TabIndex = 7;
-            BTNStartLogin.Text = "            Start  Logon  ";
+            BTNStartLogin.Text = "            Logon";
             BTNStartLogin.TextColor = Color.White;
             BTNStartLogin.UseVisualStyleBackColor = false;
             BTNStartLogin.Visible = false;
@@ -317,7 +319,7 @@ namespace TrionControlPanelDesktop
             BTNStartWorld.NotificationCount = 0;
             BTNStartWorld.Size = new Size(140, 40);
             BTNStartWorld.TabIndex = 6;
-            BTNStartWorld.Text = "            Start  World ";
+            BTNStartWorld.Text = "            World ";
             BTNStartWorld.TextColor = Color.White;
             BTNStartWorld.UseVisualStyleBackColor = false;
             BTNStartWorld.Visible = false;
@@ -413,48 +415,71 @@ namespace TrionControlPanelDesktop
             // CMSNotify
             // 
             CMSNotify.BackColor = Color.FromArgb(28, 33, 40);
-            CMSNotify.Items.AddRange(new ToolStripItem[] { OpenTSMItem, StartWorldTSMItem, StartLogonTSMItem, StartDatabaseTSMItem, ExitTSMItem });
+            CMSNotify.Items.AddRange(new ToolStripItem[] { OpenTSMItem, toolStripSeparator1, StartLogonTSMItem, StartWorldTSMItem, StartDatabaseTSMItem, toolStripSeparator2, ExitTSMItem });
             CMSNotify.Name = "contextMenuStrip1";
-            CMSNotify.ShowImageMargin = false;
-            CMSNotify.Size = new Size(125, 114);
+            CMSNotify.RenderMode = ToolStripRenderMode.System;
+            CMSNotify.Size = new Size(138, 196);
             // 
             // OpenTSMItem
             // 
+            OpenTSMItem.BackgroundImageLayout = ImageLayout.Stretch;
+            OpenTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             OpenTSMItem.ForeColor = Color.White;
+            OpenTSMItem.ImageAlign = ContentAlignment.MiddleLeft;
             OpenTSMItem.Name = "OpenTSMItem";
-            OpenTSMItem.Size = new Size(124, 22);
+            OpenTSMItem.Size = new Size(137, 36);
             OpenTSMItem.Text = "Open";
             OpenTSMItem.Click += OpenTSMItem_Click;
             // 
-            // StartWorldTSMItem
+            // toolStripSeparator1
             // 
-            StartWorldTSMItem.ForeColor = Color.White;
-            StartWorldTSMItem.Name = "StartWorldTSMItem";
-            StartWorldTSMItem.Size = new Size(124, 22);
-            StartWorldTSMItem.Text = "Start World";
-            StartWorldTSMItem.Click += StartWorldTSMItem_Click;
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(134, 6);
             // 
             // StartLogonTSMItem
             // 
+            StartLogonTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             StartLogonTSMItem.ForeColor = Color.White;
+            StartLogonTSMItem.Image = (Image)resources.GetObject("StartLogonTSMItem.Image");
+            StartLogonTSMItem.ImageScaling = ToolStripItemImageScaling.None;
             StartLogonTSMItem.Name = "StartLogonTSMItem";
-            StartLogonTSMItem.Size = new Size(124, 22);
-            StartLogonTSMItem.Text = "Start Logon";
+            StartLogonTSMItem.Size = new Size(137, 36);
+            StartLogonTSMItem.Text = "Logon";
             StartLogonTSMItem.Click += StartLogonTSMItem_Click;
+            // 
+            // StartWorldTSMItem
+            // 
+            StartWorldTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            StartWorldTSMItem.ForeColor = Color.White;
+            StartWorldTSMItem.Image = Properties.Resources.power_on_30;
+            StartWorldTSMItem.ImageScaling = ToolStripItemImageScaling.None;
+            StartWorldTSMItem.Name = "StartWorldTSMItem";
+            StartWorldTSMItem.Size = new Size(137, 36);
+            StartWorldTSMItem.Text = "World";
+            StartWorldTSMItem.Click += StartWorldTSMItem_Click;
             // 
             // StartDatabaseTSMItem
             // 
+            StartDatabaseTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             StartDatabaseTSMItem.ForeColor = Color.White;
+            StartDatabaseTSMItem.Image = (Image)resources.GetObject("StartDatabaseTSMItem.Image");
+            StartDatabaseTSMItem.ImageScaling = ToolStripItemImageScaling.None;
             StartDatabaseTSMItem.Name = "StartDatabaseTSMItem";
-            StartDatabaseTSMItem.Size = new Size(124, 22);
-            StartDatabaseTSMItem.Text = "Start Database";
+            StartDatabaseTSMItem.Size = new Size(137, 36);
+            StartDatabaseTSMItem.Text = "Database";
             StartDatabaseTSMItem.Click += StartDatabaseTSMItem_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(134, 6);
             // 
             // ExitTSMItem
             // 
+            ExitTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ExitTSMItem.ForeColor = Color.White;
             ExitTSMItem.Name = "ExitTSMItem";
-            ExitTSMItem.Size = new Size(124, 22);
+            ExitTSMItem.Size = new Size(137, 36);
             ExitTSMItem.Text = "Exit";
             ExitTSMItem.Click += ExitTSMItem_ClickAsync;
             // 
@@ -521,5 +546,7 @@ namespace TrionControlPanelDesktop
         private ToolStripMenuItem StartDatabaseTSMItem;
         private ToolStripMenuItem ExitTSMItem;
         private System.Windows.Forms.Timer TimerLoadingCheck;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

@@ -55,7 +55,7 @@ namespace TrionLibrary
                                     // Find all matches in the text
                                     MatchCollection matches = regex.Matches(versionInfo.ToString());
                                     // Print each match
-                                    foreach (Match match in matches)
+                                    foreach (Match match in matches.Cast<Match>())
                                     {
                                         return match.Value;
                                     }
@@ -137,6 +137,7 @@ namespace TrionLibrary
                 Settings.AutoUpdateTrion = true;
                 Settings.FirstRun = true;
                 Settings.SelectedCore = EnumModels.Cores.AzerothCore;
+                Settings.DDNSerivce = EnumModels.DDNSerivce.DuckDNS;
                 WriteData(Settings, SettingsDataFile);
             }
         }
@@ -251,6 +252,7 @@ namespace TrionLibrary
         public bool RunServerWithWindows;
         public bool FirstRun;
         public EnumModels.Cores SelectedCore;
+        public EnumModels.DDNSerivce DDNSerivce;
     }
 
 }

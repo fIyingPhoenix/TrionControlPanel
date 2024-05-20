@@ -39,7 +39,6 @@ namespace TrionLibrary
             CTRL_LOGOFF = 5,
             CTRL_SHUTDOWN = 6
         }
-
         private enum CtrlTypes
         {
             CTRL_C_EVENT = 0,
@@ -48,7 +47,6 @@ namespace TrionLibrary
             CTRL_LOGOFF_EVENT = 5,
             CTRL_SHUTDOWN_EVENT
         }
-
         private static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";

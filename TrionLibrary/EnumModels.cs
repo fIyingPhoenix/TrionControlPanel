@@ -14,9 +14,18 @@
             TCP_TABLE_OWNER_MODULE_CONNECTIONS,
             TCP_TABLE_OWNER_MODULE_ALL
         }
-        public enum DDNSSerivce
+        public enum DDNSerivce
         {
-            DuckDNS
+            DuckDNS,
+            DynamicDNS,
+            Dynu,
+            Enom,
+            AllInkl,
+            dynDNS,
+            STRATO,
+            Freemyip,
+            Afraid,
+            OVH
         }
         public enum ServerType
         {

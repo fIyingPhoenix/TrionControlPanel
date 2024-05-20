@@ -18,12 +18,12 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void ServerStatus()
         {
-            if (User.UI.Form.WorldisRunning == true) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (User.UI.Form.WorldisRunning == false) { PICWorldServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
-            if (User.UI.Form.LogonisRunning == true) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (User.UI.Form.LogonisRunning == false) { PICLogonServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
-            if (User.UI.Form.MySQLisRunning == true) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus__an_35; }
-            if (User.UI.Form.MySQLisRunning == false) { PICMySqlServerStatus.Image = Properties.Resources.verbindungsstatus_35; }
+            if (User.UI.Form.WorldisRunning == true) { PICWorldServerStatus.Image = Properties.Resources.cloud_online_50; }
+            if (User.UI.Form.WorldisRunning == false) { PICWorldServerStatus.Image = Properties.Resources.cloud_offline_50; }
+            if (User.UI.Form.LogonisRunning == true) { PICLogonServerStatus.Image = Properties.Resources.cloud_online_50; }
+            if (User.UI.Form.LogonisRunning == false) { PICLogonServerStatus.Image = Properties.Resources.cloud_offline_50; }
+            if (User.UI.Form.MySQLisRunning == true) { PICMySqlServerStatus.Image = Properties.Resources.cloud_online_50; }
+            if (User.UI.Form.MySQLisRunning == false) { PICMySqlServerStatus.Image = Properties.Resources.cloud_offline_50; }
         }
         private void HomeControl_Load(object sender, EventArgs e)
         {

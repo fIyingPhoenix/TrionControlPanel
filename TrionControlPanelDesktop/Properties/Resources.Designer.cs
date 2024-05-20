@@ -63,9 +63,9 @@ namespace TrionControlPanelDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap play_35 {
+        internal static System.Drawing.Bitmap cloud_offline_50 {
             get {
-                object obj = ResourceManager.GetObject("play-35", resourceCulture);
+                object obj = ResourceManager.GetObject("cloud-offline-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace TrionControlPanelDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap stop_35 {
+        internal static System.Drawing.Bitmap cloud_online_50 {
             get {
-                object obj = ResourceManager.GetObject("stop-35", resourceCulture);
+                object obj = ResourceManager.GetObject("cloud-online-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace TrionControlPanelDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap verbindungsstatus__an_35 {
+        internal static System.Drawing.Bitmap power_off_30 {
             get {
-                object obj = ResourceManager.GetObject("verbindungsstatus_-an-35", resourceCulture);
+                object obj = ResourceManager.GetObject("power-off-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace TrionControlPanelDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap verbindungsstatus_35 {
+        internal static System.Drawing.Bitmap power_on_30 {
             get {
-                object obj = ResourceManager.GetObject("verbindungsstatus-35", resourceCulture);
+                object obj = ResourceManager.GetObject("power-on-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

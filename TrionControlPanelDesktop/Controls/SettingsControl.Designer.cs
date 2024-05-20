@@ -30,7 +30,21 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsControl));
-            TabControl1 = new MetroFramework.Controls.MetroTabControl();
+            TBControler = new MetroFramework.Controls.MetroTabControl();
+            TabPageDDNS = new TabPage();
+            metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            label16 = new Label();
+            BTNSaveData = new UI.Controls.CustomButton();
+            metroPanel6 = new MetroFramework.Controls.MetroPanel();
+            LBLRealmAddress = new Label();
+            LBLRealmSubnetMask = new Label();
+            LBLRealmLocalAddress = new Label();
+            TXTRealmLocalAddress = new MetroFramework.Controls.MetroTextBox();
+            TXTRealmAddress = new MetroFramework.Controls.MetroTextBox();
+            TXTRealmSubnetMask = new MetroFramework.Controls.MetroTextBox();
+            ComboBoxDDNService = new TrionControlPanel.UI.CustomComboBox();
+            label7 = new Label();
+            label14 = new Label();
             TabPageCore = new TabPage();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
             label19 = new Label();
@@ -117,7 +131,14 @@
             TimerWacher = new System.Windows.Forms.Timer(components);
             TimerConnectSucess = new System.Windows.Forms.Timer(components);
             TimerEnDis = new System.Windows.Forms.Timer(components);
-            TabControl1.SuspendLayout();
+            label17 = new Label();
+            metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            customToggleButton1 = new TrionControlPanel.UI.CustomToggleButton();
+            label20 = new Label();
+            TBControler.SuspendLayout();
+            TabPageDDNS.SuspendLayout();
+            metroPanel7.SuspendLayout();
+            metroPanel6.SuspendLayout();
             TabPageCore.SuspendLayout();
             metroPanel2.SuspendLayout();
             metroPanel1.SuspendLayout();
@@ -131,29 +152,271 @@
             panel3.SuspendLayout();
             SuspendLayout();
             // 
-            // TabControl1
+            // TBControler
             // 
-            TabControl1.Appearance = TabAppearance.Buttons;
-            TabControl1.Controls.Add(TabPageCore);
-            TabControl1.Controls.Add(TabPageTrion);
-            TabControl1.Controls.Add(TabPageDatabase);
-            TabControl1.CustomBackground = false;
-            TabControl1.Dock = DockStyle.Fill;
-            TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
-            TabControl1.FontSize = MetroFramework.MetroTabControlSize.Medium;
-            TabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
-            TabControl1.ItemSize = new Size(80, 40);
-            TabControl1.Location = new Point(0, 0);
-            TabControl1.Name = "TabControl1";
-            TabControl1.Padding = new Point(0, 0);
-            TabControl1.SelectedIndex = 0;
-            TabControl1.Size = new Size(845, 370);
-            TabControl1.Style = MetroFramework.MetroColorStyle.Blue;
-            TabControl1.StyleManager = null;
-            TabControl1.TabIndex = 2;
-            TabControl1.TextAlign = ContentAlignment.MiddleLeft;
-            TabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TabControl1.UseStyleColors = true;
+            TBControler.Appearance = TabAppearance.Buttons;
+            TBControler.Controls.Add(TabPageDDNS);
+            TBControler.Controls.Add(TabPageTrion);
+            TBControler.Controls.Add(TabPageCore);
+            TBControler.Controls.Add(TabPageDatabase);
+            TBControler.CustomBackground = false;
+            TBControler.Dock = DockStyle.Fill;
+            TBControler.DrawMode = TabDrawMode.OwnerDrawFixed;
+            TBControler.FontSize = MetroFramework.MetroTabControlSize.Medium;
+            TBControler.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
+            TBControler.ItemSize = new Size(80, 40);
+            TBControler.Location = new Point(0, 0);
+            TBControler.Name = "TBControler";
+            TBControler.Padding = new Point(0, 0);
+            TBControler.SelectedIndex = 0;
+            TBControler.Size = new Size(845, 370);
+            TBControler.Style = MetroFramework.MetroColorStyle.Blue;
+            TBControler.StyleManager = null;
+            TBControler.TabIndex = 2;
+            TBControler.TextAlign = ContentAlignment.MiddleLeft;
+            TBControler.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TBControler.UseStyleColors = true;
+            // 
+            // TabPageDDNS
+            // 
+            TabPageDDNS.BackColor = Color.FromArgb(45, 51, 59);
+            TabPageDDNS.Controls.Add(metroPanel7);
+            TabPageDDNS.Controls.Add(metroPanel6);
+            TabPageDDNS.Location = new Point(4, 44);
+            TabPageDDNS.Name = "TabPageDDNS";
+            TabPageDDNS.Size = new Size(837, 322);
+            TabPageDDNS.TabIndex = 3;
+            TabPageDDNS.Text = "DDNS";
+            // 
+            // metroPanel7
+            // 
+            metroPanel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            metroPanel7.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel7.Border = true;
+            metroPanel7.BorderColor = Color.Black;
+            metroPanel7.BorderSize = 1;
+            metroPanel7.Controls.Add(customToggleButton1);
+            metroPanel7.Controls.Add(label20);
+            metroPanel7.Controls.Add(label17);
+            metroPanel7.Controls.Add(metroTextBox1);
+            metroPanel7.Controls.Add(label16);
+            metroPanel7.Controls.Add(BTNSaveData);
+            metroPanel7.CustomBackground = true;
+            metroPanel7.HorizontalScrollbar = false;
+            metroPanel7.HorizontalScrollbarBarColor = true;
+            metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel7.HorizontalScrollbarSize = 10;
+            metroPanel7.Location = new Point(391, 5);
+            metroPanel7.Name = "metroPanel7";
+            metroPanel7.Padding = new Padding(2);
+            metroPanel7.Size = new Size(440, 308);
+            metroPanel7.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel7.StyleManager = null;
+            metroPanel7.TabIndex = 48;
+            metroPanel7.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel7.VerticalScrollbar = false;
+            metroPanel7.VerticalScrollbarBarColor = true;
+            metroPanel7.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel7.VerticalScrollbarSize = 10;
+            // 
+            // label16
+            // 
+            label16.Anchor = AnchorStyles.Top;
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.ForeColor = Color.FromArgb(0, 174, 219);
+            label16.Location = new Point(154, 18);
+            label16.Name = "label16";
+            label16.Size = new Size(61, 21);
+            label16.TabIndex = 53;
+            label16.Text = "TIMER ";
+            // 
+            // BTNSaveData
+            // 
+            BTNSaveData.Anchor = AnchorStyles.Top;
+            BTNSaveData.BackColor = Color.FromArgb(28, 33, 40);
+            BTNSaveData.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNSaveData.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNSaveData.BorderRadius = 0;
+            BTNSaveData.BorderSize = 1;
+            BTNSaveData.Cursor = Cursors.Hand;
+            BTNSaveData.FlatAppearance.BorderSize = 0;
+            BTNSaveData.FlatStyle = FlatStyle.Flat;
+            BTNSaveData.ForeColor = Color.White;
+            BTNSaveData.Image = (Image)resources.GetObject("BTNSaveData.Image");
+            BTNSaveData.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNSaveData.Location = new Point(320, 264);
+            BTNSaveData.Name = "BTNSaveData";
+            BTNSaveData.NotificationCount = 0;
+            BTNSaveData.RightToLeft = RightToLeft.No;
+            BTNSaveData.Size = new Size(109, 30);
+            BTNSaveData.TabIndex = 52;
+            BTNSaveData.Text = "Start";
+            BTNSaveData.TextColor = Color.White;
+            BTNSaveData.UseVisualStyleBackColor = false;
+            // 
+            // metroPanel6
+            // 
+            metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel6.Border = true;
+            metroPanel6.BorderColor = Color.Black;
+            metroPanel6.BorderSize = 1;
+            metroPanel6.Controls.Add(LBLRealmAddress);
+            metroPanel6.Controls.Add(LBLRealmSubnetMask);
+            metroPanel6.Controls.Add(LBLRealmLocalAddress);
+            metroPanel6.Controls.Add(TXTRealmLocalAddress);
+            metroPanel6.Controls.Add(TXTRealmAddress);
+            metroPanel6.Controls.Add(TXTRealmSubnetMask);
+            metroPanel6.Controls.Add(ComboBoxDDNService);
+            metroPanel6.Controls.Add(label7);
+            metroPanel6.Controls.Add(label14);
+            metroPanel6.CustomBackground = true;
+            metroPanel6.HorizontalScrollbar = false;
+            metroPanel6.HorizontalScrollbarBarColor = true;
+            metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel6.HorizontalScrollbarSize = 10;
+            metroPanel6.Location = new Point(6, 5);
+            metroPanel6.Name = "metroPanel6";
+            metroPanel6.Padding = new Padding(2);
+            metroPanel6.Size = new Size(379, 308);
+            metroPanel6.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel6.StyleManager = null;
+            metroPanel6.TabIndex = 47;
+            metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel6.VerticalScrollbar = false;
+            metroPanel6.VerticalScrollbarBarColor = true;
+            metroPanel6.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel6.VerticalScrollbarSize = 10;
+            // 
+            // LBLRealmAddress
+            // 
+            LBLRealmAddress.AutoSize = true;
+            LBLRealmAddress.ForeColor = Color.White;
+            LBLRealmAddress.Location = new Point(16, 143);
+            LBLRealmAddress.Name = "LBLRealmAddress";
+            LBLRealmAddress.Size = new Size(52, 15);
+            LBLRealmAddress.TabIndex = 53;
+            LBLRealmAddress.Text = "Domain:";
+            // 
+            // LBLRealmSubnetMask
+            // 
+            LBLRealmSubnetMask.AutoSize = true;
+            LBLRealmSubnetMask.ForeColor = Color.White;
+            LBLRealmSubnetMask.Location = new Point(16, 241);
+            LBLRealmSubnetMask.Name = "LBLRealmSubnetMask";
+            LBLRealmSubnetMask.Size = new Size(60, 15);
+            LBLRealmSubnetMask.TabIndex = 57;
+            LBLRealmSubnetMask.Text = "Password:";
+            // 
+            // LBLRealmLocalAddress
+            // 
+            LBLRealmLocalAddress.AutoSize = true;
+            LBLRealmLocalAddress.ForeColor = Color.White;
+            LBLRealmLocalAddress.Location = new Point(16, 191);
+            LBLRealmLocalAddress.Name = "LBLRealmLocalAddress";
+            LBLRealmLocalAddress.Size = new Size(63, 15);
+            LBLRealmLocalAddress.TabIndex = 55;
+            LBLRealmLocalAddress.Text = "Username:";
+            // 
+            // TXTRealmLocalAddress
+            // 
+            TXTRealmLocalAddress.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTRealmLocalAddress.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTRealmLocalAddress.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTRealmLocalAddress.ForeColor = Color.White;
+            TXTRealmLocalAddress.Location = new Point(15, 213);
+            TXTRealmLocalAddress.Multiline = false;
+            TXTRealmLocalAddress.Name = "TXTRealmLocalAddress";
+            TXTRealmLocalAddress.PasswordChar = '\0';
+            TXTRealmLocalAddress.ReadOnly = false;
+            TXTRealmLocalAddress.SelectedText = "";
+            TXTRealmLocalAddress.Size = new Size(344, 25);
+            TXTRealmLocalAddress.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTRealmLocalAddress.StyleManager = null;
+            TXTRealmLocalAddress.TabIndex = 54;
+            TXTRealmLocalAddress.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTRealmLocalAddress.UseStyleColors = true;
+            // 
+            // TXTRealmAddress
+            // 
+            TXTRealmAddress.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTRealmAddress.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTRealmAddress.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTRealmAddress.ForeColor = Color.White;
+            TXTRealmAddress.Location = new Point(15, 162);
+            TXTRealmAddress.Multiline = false;
+            TXTRealmAddress.Name = "TXTRealmAddress";
+            TXTRealmAddress.PasswordChar = '\0';
+            TXTRealmAddress.ReadOnly = false;
+            TXTRealmAddress.SelectedText = "";
+            TXTRealmAddress.Size = new Size(344, 25);
+            TXTRealmAddress.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTRealmAddress.StyleManager = null;
+            TXTRealmAddress.TabIndex = 52;
+            TXTRealmAddress.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTRealmAddress.UseStyleColors = true;
+            // 
+            // TXTRealmSubnetMask
+            // 
+            TXTRealmSubnetMask.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTRealmSubnetMask.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTRealmSubnetMask.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTRealmSubnetMask.ForeColor = Color.White;
+            TXTRealmSubnetMask.Location = new Point(15, 261);
+            TXTRealmSubnetMask.Multiline = false;
+            TXTRealmSubnetMask.Name = "TXTRealmSubnetMask";
+            TXTRealmSubnetMask.PasswordChar = '\0';
+            TXTRealmSubnetMask.ReadOnly = false;
+            TXTRealmSubnetMask.SelectedText = "";
+            TXTRealmSubnetMask.Size = new Size(344, 25);
+            TXTRealmSubnetMask.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTRealmSubnetMask.StyleManager = null;
+            TXTRealmSubnetMask.TabIndex = 56;
+            TXTRealmSubnetMask.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTRealmSubnetMask.UseStyleColors = true;
+            // 
+            // ComboBoxDDNService
+            // 
+            ComboBoxDDNService.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            ComboBoxDDNService.BackColor = Color.FromArgb(34, 34, 34);
+            ComboBoxDDNService.BorderColor = Color.FromArgb(0, 174, 219);
+            ComboBoxDDNService.BorderSize = 1;
+            ComboBoxDDNService.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxDDNService.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            ComboBoxDDNService.ForeColor = Color.White;
+            ComboBoxDDNService.IconColor = Color.FromArgb(0, 174, 219);
+            ComboBoxDDNService.ListBackColor = Color.FromArgb(34, 34, 34);
+            ComboBoxDDNService.ListTextColor = Color.FromArgb(0, 174, 219);
+            ComboBoxDDNService.Location = new Point(15, 72);
+            ComboBoxDDNService.MinimumSize = new Size(200, 27);
+            ComboBoxDDNService.Name = "ComboBoxDDNService";
+            ComboBoxDDNService.Padding = new Padding(1);
+            ComboBoxDDNService.Size = new Size(344, 27);
+            ComboBoxDDNService.TabIndex = 43;
+            ComboBoxDDNService.Texts = "";
+            ComboBoxDDNService.OnSelectedIndexChanged += ComboBoxDDNService_OnSelectedIndexChanged;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(0, 174, 219);
+            label7.Location = new Point(151, 18);
+            label7.Name = "label7";
+            label7.Size = new Size(82, 21);
+            label7.TabIndex = 51;
+            label7.Text = "SETTINGS";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.ForeColor = Color.White;
+            label14.Location = new Point(15, 55);
+            label14.Name = "label14";
+            label14.Size = new Size(82, 15);
+            label14.TabIndex = 45;
+            label14.Text = "DDNS services";
             // 
             // TabPageCore
             // 
@@ -1685,16 +1948,78 @@
             TimerEnDis.Enabled = true;
             TimerEnDis.Tick += TimerEnDis_Tick;
             // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.ForeColor = Color.White;
+            label17.Location = new Point(18, 54);
+            label17.Name = "label17";
+            label17.Size = new Size(121, 15);
+            label17.TabIndex = 55;
+            label17.Text = "Interval: (1000 = 1sec)";
+            // 
+            // metroTextBox1
+            // 
+            metroTextBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox1.ForeColor = Color.White;
+            metroTextBox1.Location = new Point(18, 72);
+            metroTextBox1.Multiline = false;
+            metroTextBox1.Name = "metroTextBox1";
+            metroTextBox1.PasswordChar = '\0';
+            metroTextBox1.ReadOnly = false;
+            metroTextBox1.SelectedText = "";
+            metroTextBox1.Size = new Size(411, 25);
+            metroTextBox1.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox1.StyleManager = null;
+            metroTextBox1.TabIndex = 54;
+            metroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox1.UseStyleColors = true;
+            // 
+            // customToggleButton1
+            // 
+            customToggleButton1.AutoSize = true;
+            customToggleButton1.Cursor = Cursors.Hand;
+            customToggleButton1.Location = new Point(18, 117);
+            customToggleButton1.MinimumSize = new Size(45, 22);
+            customToggleButton1.Name = "customToggleButton1";
+            customToggleButton1.OffBackColor = Color.FromArgb(0, 174, 219);
+            customToggleButton1.OffToggleColor = Color.FromArgb(255, 87, 57);
+            customToggleButton1.OnBackColor = Color.FromArgb(0, 174, 219);
+            customToggleButton1.OnToggleColor = Color.FromArgb(105, 195, 59);
+            customToggleButton1.Size = new Size(45, 22);
+            customToggleButton1.SolidStyle = false;
+            customToggleButton1.TabIndex = 56;
+            customToggleButton1.UseVisualStyleBackColor = true;
+            customToggleButton1.CheckedChanged += this.customToggleButton1_CheckedChanged;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.ForeColor = Color.White;
+            label20.Location = new Point(69, 120);
+            label20.Name = "label20";
+            label20.Size = new Size(129, 15);
+            label20.TabIndex = 57;
+            label20.Text = "Run Servers on Startup.";
+            label20.Click += label20_Click;
+            // 
             // SettingsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
-            Controls.Add(TabControl1);
+            Controls.Add(TBControler);
             ForeColor = Color.White;
             Name = "SettingsControl";
             Size = new Size(845, 370);
-            TabControl1.ResumeLayout(false);
+            TBControler.ResumeLayout(false);
+            TabPageDDNS.ResumeLayout(false);
+            metroPanel7.ResumeLayout(false);
+            metroPanel7.PerformLayout();
+            metroPanel6.ResumeLayout(false);
+            metroPanel6.PerformLayout();
             TabPageCore.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
             metroPanel2.PerformLayout();
@@ -1718,7 +2043,7 @@
 
         #endregion
 
-        private MetroFramework.Controls.MetroTabControl TabControl1;
+        private MetroFramework.Controls.MetroTabControl TBControler;
         private TabPage TabPageTrion;
         private TabPage TabPageDatabase;
         private MetroFramework.Controls.MetroPanel panel3;
@@ -1769,18 +2094,11 @@
         private MetroFramework.Controls.MetroTextBox TXTMysqlPort;
         private Label label12;
         private MetroFramework.Controls.MetroTextBox TXTMysqlHost;
-        private Label label21;
-        private MetroFramework.Controls.MetroTextBox TXTWorldDatabase;
-        private Label label22;
-        private MetroFramework.Controls.MetroTextBox TXTCharDatabase;
-        private Label label23;
-        private MetroFramework.Controls.MetroTextBox TXTAuthDatabase;
         private UI.Controls.CustomButton BTNTestConnection;
         private UI.Controls.CustomButton BTNDownlaodMySQL;
         private UI.Controls.CustomButton BTNTrionUpdate;
         private MetroFramework.Controls.MetroPanel metroPanel4;
         private Label LBLTrionVersion;
-        private MetroFramework.Controls.MetroPanel panel1;
         private Label LBLAutoUpdateSPP;
         private TrionControlPanel.UI.CustomToggleButton TGLAutoUpdateCore;
         private System.Windows.Forms.Timer TimerWacher;
@@ -1791,19 +2109,44 @@
         private TrionControlPanel.UI.CustomToggleButton TGLRunTrionStartup;
         private Label label2;
         private Label label5;
-        private Label label4;
         private System.Windows.Forms.Timer TimerConnectSucess;
         private System.Windows.Forms.Timer TimerEnDis;
         private MetroFramework.Controls.MetroPanel metroPanel5;
         private UI.Controls.CustomButton BTNFixMysql;
-        private UI.Controls.CustomButton BTNDeleteAuth;
-        private UI.Controls.CustomButton BTNDeleteChar;
-        private UI.Controls.CustomButton BTNDeleteWorld;
         private MetroFramework.Controls.MetroCheckBox CBAuthBackup;
         private MetroFramework.Controls.MetroCheckBox CBWorldBackup;
         private MetroFramework.Controls.MetroCheckBox CBCharBackup;
         private Label label6;
         private UI.Controls.CustomButton customButton2;
         private UI.Controls.CustomButton customButton1;
+        private TabPage TabPageDDNS;
+        private MetroFramework.Controls.MetroPanel metroPanel6;
+        private UI.Controls.CustomButton BTNSaveData;
+        private Label label7;
+        private Label label14;
+        private TrionControlPanel.UI.CustomComboBox ComboBoxDDNService;
+        private MetroFramework.Controls.MetroPanel panel1;
+        private UI.Controls.CustomButton BTNDeleteAuth;
+        private UI.Controls.CustomButton BTNDeleteChar;
+        private Label label4;
+        private Label label21;
+        private UI.Controls.CustomButton BTNDeleteWorld;
+        private MetroFramework.Controls.MetroTextBox TXTWorldDatabase;
+        private Label label22;
+        private MetroFramework.Controls.MetroTextBox TXTCharDatabase;
+        private Label label23;
+        private MetroFramework.Controls.MetroTextBox TXTAuthDatabase;
+        private MetroFramework.Controls.MetroPanel metroPanel7;
+        private Label LBLRealmAddress;
+        private Label LBLRealmSubnetMask;
+        private Label LBLRealmLocalAddress;
+        private MetroFramework.Controls.MetroTextBox TXTRealmLocalAddress;
+        private MetroFramework.Controls.MetroTextBox TXTRealmAddress;
+        private MetroFramework.Controls.MetroTextBox TXTRealmSubnetMask;
+        private Label label16;
+        private Label label17;
+        private MetroFramework.Controls.MetroTextBox metroTextBox1;
+        private TrionControlPanel.UI.CustomToggleButton customToggleButton1;
+        private Label label20;
     }
 }

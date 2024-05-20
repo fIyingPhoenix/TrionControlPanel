@@ -86,40 +86,34 @@ namespace TrionControlPanelDesktop
         private void ButtonsDesing()
         {
             if (User.UI.Form.MySQLisRunning)
-            {
-                BTNStartMySQL.Text = "            Stop  Database  ";
-                BTNStartMySQL.Image = Properties.Resources.stop_35;
-                StartDatabaseTSMItem.Text = "Stop Database";
+            { 
+                BTNStartMySQL.Image = Properties.Resources.power_off_30;
+                StartDatabaseTSMItem.Image = Properties.Resources.power_off_30;
             }
             else if (User.UI.Form.MySQLisRunning == false)
             {
-                BTNStartMySQL.Text = "            Start  Database  ";
-                BTNStartMySQL.Image = Properties.Resources.play_35;
-                StartDatabaseTSMItem.Text = "Start Database";
+                BTNStartMySQL.Image = Properties.Resources.power_on_30;
+                StartDatabaseTSMItem.Image = Properties.Resources.power_on_30;
             }
             if (User.UI.Form.WorldisRunning)
             {
-                BTNStartWorld.Text = "            Stop  World ";
-                BTNStartWorld.Image = Properties.Resources.stop_35;
-                StartWorldTSMItem.Text = "Stop World";
+                BTNStartWorld.Image = Properties.Resources.power_off_30;
+                StartWorldTSMItem.Image = Properties.Resources.power_off_30;
             }
             else if (User.UI.Form.WorldisRunning == false)
             {
-                BTNStartWorld.Text = "            Start  World ";
-                BTNStartWorld.Image = Properties.Resources.play_35;
-                StartWorldTSMItem.Text = "Start World";
+                BTNStartWorld.Image = Properties.Resources.power_on_30;
+                StartWorldTSMItem.Image = Properties.Resources.power_on_30;
             }
             if (User.UI.Form.LogonisRunning)
             {
-                BTNStartLogin.Text = "            Stop  Logon  ";
-                BTNStartLogin.Image = Properties.Resources.stop_35;
-                StartLogonTSMItem.Text = "Stop Logon";
+                BTNStartLogin.Image = Properties.Resources.power_off_30;
+                StartLogonTSMItem.Image = Properties.Resources.power_off_30;
             }
             else if (User.UI.Form.LogonisRunning == false)
             {
-                BTNStartLogin.Text = "            Start  Logon  ";
-                BTNStartLogin.Image = Properties.Resources.play_35;
-                StartLogonTSMItem.Text = "Start Logon";
+                BTNStartLogin.Image = Properties.Resources.power_on_30;
+                StartLogonTSMItem.Image = Properties.Resources .power_on_30;   
             }
             //
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;
@@ -269,19 +263,19 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            //if (User.UI.Form.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
-            //{
-            //    User.System.LogonProcessesID.Clear();
-            //    User.System.LogonProcessesID.Add(SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null));
-            //    User.UI.Form.LogonisStarted = true;
-            //    User.System.LogonStartTime = DateTime.Now;
-            //}
-            //else if (User.UI.Form.LogonisRunning == true)
-            //{
-            //    SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
-            //    User.UI.Form.LogonisStarted = false;
-            //    User.System.LogonStartTime = DateTime.Now;
-            //}
+            if (User.UI.Form.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
+            {
+                User.System.LogonProcessesID.Clear();
+                User.System.LogonProcessesID.Add(SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null));
+                User.UI.Form.LogonisStarted = true;
+                User.System.LogonStartTime = DateTime.Now;
+            }
+            else if (User.UI.Form.LogonisRunning == true)
+            {
+                SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
+                User.UI.Form.LogonisStarted = false;
+                User.System.LogonStartTime = DateTime.Now;
+            }
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
