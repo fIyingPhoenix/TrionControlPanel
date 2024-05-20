@@ -137,7 +137,7 @@ namespace TrionDatabase
             }
             return insertStatements.ToString();
         }
-        public static string SaveDataRealmSql()
+        public static string SaveRealmSql()
         {
             return Data.Settings.SelectedCore switch
             {
@@ -152,7 +152,7 @@ namespace TrionDatabase
                 _ => ""
             };
         }
-        public static string LoadDataRealmSql()
+        public static string LoadRealmSql()
         {
             return Data.Settings.SelectedCore switch
             {
@@ -164,6 +164,21 @@ namespace TrionDatabase
                 EnumModels.Cores.TrinityCore => $"SELECT * FROM `realmlist` LIMIT 10;",
                 EnumModels.Cores.TrinityCoreClassic => $"SELECT * FROM `realmlist` LIMIT 10;",
                 EnumModels.Cores.VMaNGOS => $"SELECT * FROM `realmlist` LIMIT 10;",
+                _ => ""
+            };
+        }
+        public static string AccountCreateSQL()
+        {
+            return Data.Settings.SelectedCore switch
+            {
+                EnumModels.Cores.AscEmu => "UPDATE `realms` SET `password` = @Password, `status_change_time` = @StatusChangeTime WHERE `id` = @ID;",
+                EnumModels.Cores.AzerothCore => "UPDATE `realmlist` SET `name` = @Name, `address` = @Address, `localAddress` = @LocalAddress, `localSubnetMask` = @LocalSubnetMask, `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
+                EnumModels.Cores.CMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone, `allowedSecurityLevel` = @AllowedSecurityLevel WHERE `id` = @ID;",
+                EnumModels.Cores.CypherCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
+                EnumModels.Cores.TrinityCore335 => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
+                EnumModels.Cores.TrinityCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
+                EnumModels.Cores.TrinityCoreClassic => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
+                EnumModels.Cores.VMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone WHERE `id` = @ID;",
                 _ => ""
             };
         }

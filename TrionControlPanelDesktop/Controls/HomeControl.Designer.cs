@@ -116,7 +116,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel1
             // 
-            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
@@ -211,7 +211,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel2
             // 
-            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
@@ -412,7 +412,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLServerStatus
             // 
-            PNLServerStatus.BackColor = Color.FromArgb(34, 39, 46);
+            PNLServerStatus.BackColor = Color.FromArgb(28, 33, 40);
             PNLServerStatus.Border = true;
             PNLServerStatus.BorderColor = Color.Black;
             PNLServerStatus.BorderSize = 1;
@@ -443,7 +443,7 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel6.Border = true;
-            metroPanel6.BorderColor = Color.Black;
+            metroPanel6.BorderColor = Color.FromArgb(0, 174, 219);
             metroPanel6.BorderSize = 1;
             metroPanel6.Controls.Add(LBLWordPort);
             metroPanel6.Controls.Add(LBLUpTimeWorld);
@@ -516,7 +516,7 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel5.Border = true;
-            metroPanel5.BorderColor = Color.Black;
+            metroPanel5.BorderColor = Color.FromArgb(0, 174, 219);
             metroPanel5.BorderSize = 1;
             metroPanel5.Controls.Add(LBLLogonPort);
             metroPanel5.Controls.Add(LBLUpTimeLogon);
@@ -589,7 +589,7 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel4.Border = true;
-            metroPanel4.BorderColor = Color.Black;
+            metroPanel4.BorderColor = Color.FromArgb(0, 174, 219);
             metroPanel4.BorderSize = 1;
             metroPanel4.Controls.Add(LBLMysqlPort);
             metroPanel4.Controls.Add(LBLUpTimeDatabase);
@@ -659,7 +659,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLPCResorce
             // 
-            PNLPCResorce.BackColor = Color.FromArgb(34, 39, 46);
+            PNLPCResorce.BackColor = Color.FromArgb(28, 33, 40);
             PNLPCResorce.Border = true;
             PNLPCResorce.BorderColor = Color.Black;
             PNLPCResorce.BorderSize = 1;

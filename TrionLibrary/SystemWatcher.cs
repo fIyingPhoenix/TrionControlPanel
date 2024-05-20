@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net.NetworkInformation;
@@ -15,6 +17,38 @@ namespace TrionLibrary
         //fix "lodctr /R"
         //static Process[] ProcessID;
         public static Process pWorldServer;
+        // PInvoke declarations
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool AttachConsole(uint dwProcessId);
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        private static extern bool FreeConsole();
+
+        [DllImport("kernel32.dll")]
+        private static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handler, bool add);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool GenerateConsoleCtrlEvent(ConsoleCtrlEvent sigevent, uint dwProcessGroupId);
+
+        private delegate bool ConsoleCtrlDelegate(CtrlTypes CtrlType);
+        private enum ConsoleCtrlEvent
+        {
+            CTRL_C = 0,
+            CTRL_BREAK = 1,
+            CTRL_CLOSE = 2,
+            CTRL_LOGOFF = 5,
+            CTRL_SHUTDOWN = 6
+        }
+
+        private enum CtrlTypes
+        {
+            CTRL_C_EVENT = 0,
+            CTRL_BREAK_EVENT,
+            CTRL_CLOSE_EVENT,
+            CTRL_LOGOFF_EVENT = 5,
+            CTRL_SHUTDOWN_EVENT
+        }
+
         private static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";
@@ -130,24 +164,11 @@ namespace TrionLibrary
         }
         public static bool ApplicationRuning(string ApplicationName)
         {
-
             Process[] ProcessID = Process.GetProcessesByName(ApplicationName);
             if (ProcessID.Length <= 0)
                 return false;
             else
                 return true;
-        }
-        public static void StartWorldTest(string WorldName, bool HideWindw)
-        {
-            string Application = Data.Settings.WorldExecutableLocation;
-            pWorldServer = new Process();
-            pWorldServer.StartInfo.FileName = Application;
-            pWorldServer.StartInfo.RedirectStandardInput = true;
-            pWorldServer.StartInfo.RedirectStandardOutput = true;
-            pWorldServer.StartInfo.CreateNoWindow = HideWindw;
-            pWorldServer.Start();
-            pWorldServer.BeginOutputReadLine();
-
         }
         public static int ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
         {
@@ -176,7 +197,7 @@ namespace TrionLibrary
                     myProcess.Start();
                 }
                 // complete the task
-                
+
                 Data.Message = $@"Successfully rune {Name}!";
                 return myProcess.Id;
             }
@@ -209,9 +230,35 @@ namespace TrionLibrary
         {
             foreach (var process in Process.GetProcessesByName(ApplicationName))
             {
-                try { process.Kill(); }
-                catch (Exception) {  }
+                SendCtrlC(process);
+                if (!process.WaitForExit(10000)) // wait for 10 seconds, save world!
+                {
+                    // If the process did not exit, forcefully terminate it
+                    Data.Message = "The process did not exit for more then 10 Secoinds. Kill it!";
+                    process.Kill();
+                }
             }   
+        }
+        private static void SendCtrlC(Process process)
+        {
+            // Attach to the process's console
+            if (AttachConsole((uint)process.Id))
+            {
+                // Set up a control-C event handler to ignore it in this process
+                SetConsoleCtrlHandler(null, true);
+
+                // Send Ctrl+C to the console process group
+                GenerateConsoleCtrlEvent(ConsoleCtrlEvent.CTRL_C, 0);
+
+                // Allow some time for the event to be processed
+                Thread.Sleep(1000);
+
+                // Detach from the console
+                FreeConsole();
+
+                // Re-enable the control-C handling in this process
+                SetConsoleCtrlHandler(null, false);
+            }
         }
         public static int ApplicationRamUsage(string ApplicationName)
         {
@@ -234,7 +281,7 @@ namespace TrionLibrary
             }
             return 0;
         }
-        public static int ApplicationCpuUsage(string ApplicationName)
+        public static int ApplicationCpuUsage(string ApplicationName, int ProcessID)
         {
             try
             {
@@ -282,13 +329,12 @@ namespace TrionLibrary
                     // Convert the CPU usage percentage to an integer
                     int cpuUsagePercentageInt = (int)Math.Round(averageCpuUsagePercentage);
                      return cpuUsagePercentageInt;
-
                 }
-                else { return 0; }
+                else { return 1; }
             }
             catch
             {
-                return 0;
+                return 2;
             }
         }
     }

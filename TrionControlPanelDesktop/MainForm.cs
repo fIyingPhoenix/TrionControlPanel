@@ -269,26 +269,25 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            if (User.UI.Form.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
-            {
-                User.System.LogonProcessesID.Clear();
-                User.System.LogonProcessesID.Add(SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null));
-                User.UI.Form.LogonisStarted = true;
-                User.System.LogonStartTime = DateTime.Now;
-            }
-            else if (User.UI.Form.LogonisRunning == true)
-            {
-                SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
-                User.UI.Form.LogonisStarted = false;
-                User.System.LogonStartTime = DateTime.Now;
-            }
+            //if (User.UI.Form.LogonisRunning == false && Data.Settings.LogonExecutableLocation != string.Empty)
+            //{
+            //    User.System.LogonProcessesID.Clear();
+            //    User.System.LogonProcessesID.Add(SystemWatcher.ApplicationStart(Data.Settings.LogonExecutableLocation, Data.Settings.LogonExecutableName, Data.Settings.ConsolHide, null));
+            //    User.UI.Form.LogonisStarted = true;
+            //    User.System.LogonStartTime = DateTime.Now;
+            //}
+            //else if (User.UI.Form.LogonisRunning == true)
+            //{
+            //    SystemWatcher.ApplicationKill(Data.Settings.LogonExecutableName);
+            //    User.UI.Form.LogonisStarted = false;
+            //    User.System.LogonStartTime = DateTime.Now;
+            //}
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
             if (User.UI.Form.WorldisRunning == false && Data.Settings.WorldExecutableLocation != string.Empty)
             {
                 User.System.WorldProcessesID.Clear();
-                //SystemWatcher.StartWorldTest(Data.Settings.WorldExecutableName, Data.Settings.ConsolHide);
                 User.System.WorldProcessesID.Add(SystemWatcher.ApplicationStart(Data.Settings.WorldExecutableLocation, Data.Settings.WorldExecutableName, Data.Settings.ConsolHide, null));
                 User.UI.Form.WorldisStarted = true;
                 User.System.WorldStartTime = DateTime.Now;
@@ -296,7 +295,6 @@ namespace TrionControlPanelDesktop
             else if (User.UI.Form.WorldisRunning == true)
             {
                 SystemWatcher.ApplicationKill(Data.Settings.WorldExecutableName);
-                //SystemWatcher.pWorldServer.StandardInput.Close(); ;
                 User.UI.Form.WorldisStarted = false;
                 User.System.WorldStartTime = DateTime.Now;
             }

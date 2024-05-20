@@ -701,12 +701,23 @@
           "lib/net7.0/ZstdSharp.dll": {}
         }
       },
+      "TrionCryptography/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TrionCryptography.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TrionCryptography.dll": {}
+        }
+      },
       "TrionDatabase/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Dapper": "2.1.44",
           "MySql.Data": "8.3.0",
+          "TrionCryptography": "1.0.0",
           "TrionLibrary": "1.0.0"
         },
         "compile": {
@@ -2231,6 +2242,11 @@
         "zstdsharp.port.nuspec"
       ]
     },
+    "TrionCryptography/1.0.0": {
+      "type": "project",
+      "path": "../TrionCryptography/TrionCryptography.csproj",
+      "msbuildProject": "../TrionCryptography/TrionCryptography.csproj"
+    },
     "TrionDatabase/1.0.0": {
       "type": "project",
       "path": "../TrionDatabase/TrionDatabase.csproj",
@@ -2323,7 +2339,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

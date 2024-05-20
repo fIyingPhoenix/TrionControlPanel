@@ -63,7 +63,7 @@
             // 
             // PNLDownloadStatus
             // 
-            PNLDownloadStatus.BackColor = Color.FromArgb(34, 39, 46);
+            PNLDownloadStatus.BackColor = Color.FromArgb(28, 33, 40);
             PNLDownloadStatus.Border = true;
             PNLDownloadStatus.BorderColor = Color.Black;
             PNLDownloadStatus.BorderSize = 1;
@@ -169,6 +169,7 @@
             // 
             // LBLTitle
             // 
+            LBLTitle.BackColor = Color.FromArgb(28, 33, 40);
             LBLTitle.Dock = DockStyle.Fill;
             LBLTitle.Font = new Font("Segoe UI", 12F);
             LBLTitle.ForeColor = Color.White;

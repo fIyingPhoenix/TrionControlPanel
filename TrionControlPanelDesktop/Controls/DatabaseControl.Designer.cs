@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseControl));
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
-            tabPage1 = new TabPage();
+            tPageRealmList = new TabPage();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            BTNOpenIntern = new UI.Controls.CustomButton();
+            BTNOpenPublic = new UI.Controls.CustomButton();
             BTNSaveData = new UI.Controls.CustomButton();
             label3 = new Label();
             label1 = new Label();
             customComboBox1 = new TrionControlPanel.UI.CustomComboBox();
-            BTNOpenPublic = new UI.Controls.CustomButton();
-            BTNOpenIntern = new UI.Controls.CustomButton();
             BTNForcerefresh = new UI.Controls.CustomButton();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
             label5 = new Label();
@@ -67,8 +67,11 @@
             LBLRealmIcon = new Label();
             TXTRealmSubnetMask = new MetroFramework.Controls.MetroTextBox();
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
+            tPageAccount = new TabPage();
+            TXTDomainName = new MetroFramework.Controls.MetroTextBox();
+            label4 = new Label();
             TabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
+            tPageRealmList.SuspendLayout();
             metroPanel2.SuspendLayout();
             metroPanel1.SuspendLayout();
             metroPanel3.SuspendLayout();
@@ -77,53 +80,53 @@
             // TabControl1
             // 
             TabControl1.Appearance = TabAppearance.Buttons;
-            TabControl1.Controls.Add(tabPage1);
+            TabControl1.Controls.Add(tPageRealmList);
+            TabControl1.Controls.Add(tPageAccount);
             TabControl1.CustomBackground = false;
             TabControl1.Dock = DockStyle.Fill;
             TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             TabControl1.FontSize = MetroFramework.MetroTabControlSize.Medium;
             TabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
-            TabControl1.ItemSize = new Size(100, 30);
+            TabControl1.ItemSize = new Size(80, 40);
             TabControl1.Location = new Point(0, 0);
             TabControl1.Multiline = true;
             TabControl1.Name = "TabControl1";
-            TabControl1.Padding = new Point(6, 8);
+            TabControl1.Padding = new Point(0, 0);
             TabControl1.SelectedIndex = 0;
             TabControl1.Size = new Size(845, 370);
             TabControl1.SizeMode = TabSizeMode.Fixed;
             TabControl1.Style = MetroFramework.MetroColorStyle.Blue;
             TabControl1.StyleManager = null;
             TabControl1.TabIndex = 2;
-            TabControl1.TabStop = false;
             TabControl1.TextAlign = ContentAlignment.MiddleLeft;
             TabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             TabControl1.UseStyleColors = true;
             // 
-            // tabPage1
+            // tPageRealmList
             // 
-            tabPage1.BackColor = Color.FromArgb(45, 51, 59);
-            tabPage1.Controls.Add(metroPanel2);
-            tabPage1.Controls.Add(metroPanel1);
-            tabPage1.Controls.Add(metroPanel3);
-            tabPage1.Location = new Point(4, 34);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(837, 332);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "RealmList";
+            tPageRealmList.BackColor = Color.FromArgb(45, 51, 59);
+            tPageRealmList.Controls.Add(metroPanel2);
+            tPageRealmList.Controls.Add(metroPanel1);
+            tPageRealmList.Controls.Add(metroPanel3);
+            tPageRealmList.Location = new Point(4, 44);
+            tPageRealmList.Name = "tPageRealmList";
+            tPageRealmList.Size = new Size(837, 322);
+            tPageRealmList.TabIndex = 0;
+            tPageRealmList.Text = "RealmList";
             // 
             // metroPanel2
             // 
-            metroPanel2.Anchor = AnchorStyles.Right;
+            metroPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(BTNOpenIntern);
+            metroPanel2.Controls.Add(BTNOpenPublic);
             metroPanel2.Controls.Add(BTNSaveData);
             metroPanel2.Controls.Add(label3);
             metroPanel2.Controls.Add(label1);
             metroPanel2.Controls.Add(customComboBox1);
-            metroPanel2.Controls.Add(BTNOpenPublic);
-            metroPanel2.Controls.Add(BTNOpenIntern);
             metroPanel2.Controls.Add(BTNForcerefresh);
             metroPanel2.CustomBackground = true;
             metroPanel2.HorizontalScrollbar = false;
@@ -133,7 +136,7 @@
             metroPanel2.Location = new Point(517, 5);
             metroPanel2.Name = "metroPanel2";
             metroPanel2.Padding = new Padding(2);
-            metroPanel2.Size = new Size(315, 320);
+            metroPanel2.Size = new Size(315, 310);
             metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel2.StyleManager = null;
             metroPanel2.TabIndex = 46;
@@ -142,6 +145,54 @@
             metroPanel2.VerticalScrollbarBarColor = true;
             metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             metroPanel2.VerticalScrollbarSize = 10;
+            // 
+            // BTNOpenIntern
+            // 
+            BTNOpenIntern.Anchor = AnchorStyles.Top;
+            BTNOpenIntern.BackColor = Color.FromArgb(28, 33, 40);
+            BTNOpenIntern.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNOpenIntern.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNOpenIntern.BorderRadius = 0;
+            BTNOpenIntern.BorderSize = 1;
+            BTNOpenIntern.Cursor = Cursors.Hand;
+            BTNOpenIntern.FlatAppearance.BorderSize = 0;
+            BTNOpenIntern.FlatStyle = FlatStyle.Flat;
+            BTNOpenIntern.ForeColor = Color.White;
+            BTNOpenIntern.Image = (Image)resources.GetObject("BTNOpenIntern.Image");
+            BTNOpenIntern.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNOpenIntern.Location = new Point(14, 187);
+            BTNOpenIntern.Name = "BTNOpenIntern";
+            BTNOpenIntern.NotificationCount = 0;
+            BTNOpenIntern.RightToLeft = RightToLeft.No;
+            BTNOpenIntern.Size = new Size(290, 30);
+            BTNOpenIntern.TabIndex = 53;
+            BTNOpenIntern.Text = "   Open Intern";
+            BTNOpenIntern.TextColor = Color.White;
+            BTNOpenIntern.UseVisualStyleBackColor = false;
+            // 
+            // BTNOpenPublic
+            // 
+            BTNOpenPublic.Anchor = AnchorStyles.Top;
+            BTNOpenPublic.BackColor = Color.FromArgb(28, 33, 40);
+            BTNOpenPublic.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNOpenPublic.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNOpenPublic.BorderRadius = 0;
+            BTNOpenPublic.BorderSize = 1;
+            BTNOpenPublic.Cursor = Cursors.Hand;
+            BTNOpenPublic.FlatAppearance.BorderSize = 0;
+            BTNOpenPublic.FlatStyle = FlatStyle.Flat;
+            BTNOpenPublic.ForeColor = Color.White;
+            BTNOpenPublic.Image = (Image)resources.GetObject("BTNOpenPublic.Image");
+            BTNOpenPublic.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNOpenPublic.Location = new Point(14, 151);
+            BTNOpenPublic.Name = "BTNOpenPublic";
+            BTNOpenPublic.NotificationCount = 0;
+            BTNOpenPublic.RightToLeft = RightToLeft.No;
+            BTNOpenPublic.Size = new Size(290, 30);
+            BTNOpenPublic.TabIndex = 54;
+            BTNOpenPublic.Text = "  Open Public";
+            BTNOpenPublic.TextColor = Color.White;
+            BTNOpenPublic.UseVisualStyleBackColor = false;
             // 
             // BTNSaveData
             // 
@@ -157,7 +208,7 @@
             BTNSaveData.ForeColor = Color.White;
             BTNSaveData.Image = (Image)resources.GetObject("BTNSaveData.Image");
             BTNSaveData.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNSaveData.Location = new Point(14, 166);
+            BTNSaveData.Location = new Point(14, 224);
             BTNSaveData.Name = "BTNSaveData";
             BTNSaveData.NotificationCount = 0;
             BTNSaveData.RightToLeft = RightToLeft.No;
@@ -174,17 +225,17 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(0, 174, 219);
-            label3.Location = new Point(100, 18);
+            label3.Location = new Point(124, 18);
             label3.Name = "label3";
-            label3.Size = new Size(118, 21);
+            label3.Size = new Size(82, 21);
             label3.TabIndex = 51;
-            label3.Text = "DNS SETTINGS";
+            label3.Text = "SETTINGS";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(14, 72);
+            label1.Location = new Point(14, 64);
             label1.Name = "label1";
             label1.Size = new Size(82, 15);
             label1.TabIndex = 45;
@@ -203,7 +254,7 @@
             customComboBox1.IconColor = Color.FromArgb(0, 174, 219);
             customComboBox1.ListBackColor = Color.FromArgb(34, 34, 34);
             customComboBox1.ListTextColor = Color.FromArgb(0, 174, 219);
-            customComboBox1.Location = new Point(14, 89);
+            customComboBox1.Location = new Point(14, 84);
             customComboBox1.MinimumSize = new Size(200, 27);
             customComboBox1.Name = "customComboBox1";
             customComboBox1.Padding = new Padding(1);
@@ -211,56 +262,6 @@
             customComboBox1.TabIndex = 43;
             customComboBox1.Texts = "";
             customComboBox1.Visible = false;
-            // 
-            // BTNOpenPublic
-            // 
-            BTNOpenPublic.Anchor = AnchorStyles.Top;
-            BTNOpenPublic.BackColor = Color.FromArgb(28, 33, 40);
-            BTNOpenPublic.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNOpenPublic.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNOpenPublic.BorderRadius = 0;
-            BTNOpenPublic.BorderSize = 1;
-            BTNOpenPublic.Cursor = Cursors.Hand;
-            BTNOpenPublic.FlatAppearance.BorderSize = 0;
-            BTNOpenPublic.FlatStyle = FlatStyle.Flat;
-            BTNOpenPublic.ForeColor = Color.White;
-            BTNOpenPublic.Image = (Image)resources.GetObject("BTNOpenPublic.Image");
-            BTNOpenPublic.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNOpenPublic.Location = new Point(14, 202);
-            BTNOpenPublic.Name = "BTNOpenPublic";
-            BTNOpenPublic.NotificationCount = 0;
-            BTNOpenPublic.RightToLeft = RightToLeft.No;
-            BTNOpenPublic.Size = new Size(290, 30);
-            BTNOpenPublic.TabIndex = 30;
-            BTNOpenPublic.Text = "  Open Public";
-            BTNOpenPublic.TextColor = Color.White;
-            BTNOpenPublic.UseVisualStyleBackColor = false;
-            BTNOpenPublic.Click += BTNOpenPublic_ClickAsync;
-            // 
-            // BTNOpenIntern
-            // 
-            BTNOpenIntern.Anchor = AnchorStyles.Top;
-            BTNOpenIntern.BackColor = Color.FromArgb(28, 33, 40);
-            BTNOpenIntern.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNOpenIntern.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNOpenIntern.BorderRadius = 0;
-            BTNOpenIntern.BorderSize = 1;
-            BTNOpenIntern.Cursor = Cursors.Hand;
-            BTNOpenIntern.FlatAppearance.BorderSize = 0;
-            BTNOpenIntern.FlatStyle = FlatStyle.Flat;
-            BTNOpenIntern.ForeColor = Color.White;
-            BTNOpenIntern.Image = (Image)resources.GetObject("BTNOpenIntern.Image");
-            BTNOpenIntern.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNOpenIntern.Location = new Point(14, 238);
-            BTNOpenIntern.Name = "BTNOpenIntern";
-            BTNOpenIntern.NotificationCount = 0;
-            BTNOpenIntern.RightToLeft = RightToLeft.No;
-            BTNOpenIntern.Size = new Size(290, 30);
-            BTNOpenIntern.TabIndex = 29;
-            BTNOpenIntern.Text = "   Open Intern";
-            BTNOpenIntern.TextColor = Color.White;
-            BTNOpenIntern.UseVisualStyleBackColor = false;
-            BTNOpenIntern.Click += BTNOpenIntern_Click;
             // 
             // BTNForcerefresh
             // 
@@ -276,7 +277,7 @@
             BTNForcerefresh.ForeColor = Color.White;
             BTNForcerefresh.Image = (Image)resources.GetObject("BTNForcerefresh.Image");
             BTNForcerefresh.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNForcerefresh.Location = new Point(14, 274);
+            BTNForcerefresh.Location = new Point(14, 260);
             BTNForcerefresh.Name = "BTNForcerefresh";
             BTNForcerefresh.NotificationCount = 0;
             BTNForcerefresh.RightToLeft = RightToLeft.No;
@@ -289,11 +290,13 @@
             // 
             // metroPanel1
             // 
-            metroPanel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
+            metroPanel1.Controls.Add(TXTDomainName);
+            metroPanel1.Controls.Add(label4);
             metroPanel1.Controls.Add(label5);
             metroPanel1.Controls.Add(TXTInternIP);
             metroPanel1.Controls.Add(LBLInternIP);
@@ -309,7 +312,7 @@
             metroPanel1.Location = new Point(261, 5);
             metroPanel1.Name = "metroPanel1";
             metroPanel1.Padding = new Padding(2);
-            metroPanel1.Size = new Size(250, 320);
+            metroPanel1.Size = new Size(250, 310);
             metroPanel1.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel1.StyleManager = null;
             metroPanel1.TabIndex = 45;
@@ -337,7 +340,7 @@
             TXTInternIP.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTInternIP.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTInternIP.ForeColor = Color.White;
-            TXTInternIP.Location = new Point(16, 234);
+            TXTInternIP.Location = new Point(16, 221);
             TXTInternIP.Multiline = false;
             TXTInternIP.Name = "TXTInternIP";
             TXTInternIP.PasswordChar = '\0';
@@ -354,7 +357,7 @@
             // 
             LBLInternIP.AutoSize = true;
             LBLInternIP.ForeColor = Color.White;
-            LBLInternIP.Location = new Point(16, 212);
+            LBLInternIP.Location = new Point(16, 202);
             LBLInternIP.Name = "LBLInternIP";
             LBLInternIP.Size = new Size(99, 15);
             LBLInternIP.TabIndex = 49;
@@ -366,7 +369,7 @@
             TXTPublicIP.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTPublicIP.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTPublicIP.ForeColor = Color.White;
-            TXTPublicIP.Location = new Point(16, 279);
+            TXTPublicIP.Location = new Point(16, 266);
             TXTPublicIP.Multiline = false;
             TXTPublicIP.Name = "TXTPublicIP";
             TXTPublicIP.PasswordChar = '\0';
@@ -383,7 +386,7 @@
             // 
             LBLPublicIP.AutoSize = true;
             LBLPublicIP.ForeColor = Color.White;
-            LBLPublicIP.Location = new Point(16, 262);
+            LBLPublicIP.Location = new Point(16, 247);
             LBLPublicIP.Name = "LBLPublicIP";
             LBLPublicIP.Size = new Size(101, 15);
             LBLPublicIP.TabIndex = 47;
@@ -393,7 +396,7 @@
             // 
             LBLRealmsAvailable.AutoSize = true;
             LBLRealmsAvailable.ForeColor = Color.White;
-            LBLRealmsAvailable.Location = new Point(16, 72);
+            LBLRealmsAvailable.Location = new Point(17, 65);
             LBLRealmsAvailable.Name = "LBLRealmsAvailable";
             LBLRealmsAvailable.Size = new Size(99, 15);
             LBLRealmsAvailable.TabIndex = 44;
@@ -411,7 +414,7 @@
             CBOXReamList.IconColor = Color.FromArgb(0, 174, 219);
             CBOXReamList.ListBackColor = Color.FromArgb(34, 34, 34);
             CBOXReamList.ListTextColor = Color.FromArgb(0, 174, 219);
-            CBOXReamList.Location = new Point(16, 89);
+            CBOXReamList.Location = new Point(16, 84);
             CBOXReamList.MinimumSize = new Size(200, 27);
             CBOXReamList.Name = "CBOXReamList";
             CBOXReamList.Padding = new Padding(1);
@@ -422,7 +425,6 @@
             // 
             // metroPanel3
             // 
-            metroPanel3.Anchor = AnchorStyles.Left;
             metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel3.Border = true;
             metroPanel3.BorderColor = Color.Black;
@@ -454,7 +456,7 @@
             metroPanel3.Location = new Point(5, 5);
             metroPanel3.Name = "metroPanel3";
             metroPanel3.Padding = new Padding(2);
-            metroPanel3.Size = new Size(250, 320);
+            metroPanel3.Size = new Size(250, 310);
             metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel3.StyleManager = null;
             metroPanel3.TabIndex = 41;
@@ -482,7 +484,7 @@
             TXTRealmID.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmID.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmID.ForeColor = Color.White;
-            TXTRealmID.Location = new Point(15, 89);
+            TXTRealmID.Location = new Point(13, 77);
             TXTRealmID.Multiline = false;
             TXTRealmID.Name = "TXTRealmID";
             TXTRealmID.PasswordChar = '\0';
@@ -501,7 +503,7 @@
             TXTRealmFlag.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmFlag.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmFlag.ForeColor = Color.White;
-            TXTRealmFlag.Location = new Point(154, 279);
+            TXTRealmFlag.Location = new Point(152, 267);
             TXTRealmFlag.Multiline = false;
             TXTRealmFlag.Name = "TXTRealmFlag";
             TXTRealmFlag.PasswordChar = '\0';
@@ -518,7 +520,7 @@
             // 
             LBLRealmAddress.AutoSize = true;
             LBLRealmAddress.ForeColor = Color.White;
-            LBLRealmAddress.Location = new Point(15, 118);
+            LBLRealmAddress.Location = new Point(14, 104);
             LBLRealmAddress.Name = "LBLRealmAddress";
             LBLRealmAddress.Size = new Size(52, 15);
             LBLRealmAddress.TabIndex = 6;
@@ -528,7 +530,7 @@
             // 
             LBLRealmSubnetMask.AutoSize = true;
             LBLRealmSubnetMask.ForeColor = Color.White;
-            LBLRealmSubnetMask.Location = new Point(15, 212);
+            LBLRealmSubnetMask.Location = new Point(14, 202);
             LBLRealmSubnetMask.Name = "LBLRealmSubnetMask";
             LBLRealmSubnetMask.Size = new Size(109, 15);
             LBLRealmSubnetMask.TabIndex = 10;
@@ -538,7 +540,7 @@
             // 
             label9.AutoSize = true;
             label9.ForeColor = Color.White;
-            label9.Location = new Point(197, 262);
+            label9.Location = new Point(196, 247);
             label9.Name = "label9";
             label9.Size = new Size(36, 15);
             label9.TabIndex = 18;
@@ -550,7 +552,7 @@
             TXTRealmName.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmName.ForeColor = Color.White;
-            TXTRealmName.Location = new Point(55, 89);
+            TXTRealmName.Location = new Point(53, 77);
             TXTRealmName.Multiline = false;
             TXTRealmName.Name = "TXTRealmName";
             TXTRealmName.PasswordChar = '\0';
@@ -567,7 +569,7 @@
             // 
             LBLRealmLocalAddress.AutoSize = true;
             LBLRealmLocalAddress.ForeColor = Color.White;
-            LBLRealmLocalAddress.Location = new Point(15, 166);
+            LBLRealmLocalAddress.Location = new Point(14, 152);
             LBLRealmLocalAddress.Name = "LBLRealmLocalAddress";
             LBLRealmLocalAddress.Size = new Size(83, 15);
             LBLRealmLocalAddress.TabIndex = 8;
@@ -579,7 +581,7 @@
             TXTRealmIcon.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmIcon.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmIcon.ForeColor = Color.White;
-            TXTRealmIcon.Location = new Point(110, 279);
+            TXTRealmIcon.Location = new Point(108, 267);
             TXTRealmIcon.Multiline = false;
             TXTRealmIcon.Name = "TXTRealmIcon";
             TXTRealmIcon.PasswordChar = '\0';
@@ -596,7 +598,7 @@
             // 
             LBLRealmFlag.AutoSize = true;
             LBLRealmFlag.ForeColor = Color.White;
-            LBLRealmFlag.Location = new Point(154, 262);
+            LBLRealmFlag.Location = new Point(153, 247);
             LBLRealmFlag.Name = "LBLRealmFlag";
             LBLRealmFlag.Size = new Size(32, 15);
             LBLRealmFlag.TabIndex = 16;
@@ -608,7 +610,7 @@
             TXTRealmTime.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmTime.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmTime.ForeColor = Color.White;
-            TXTRealmTime.Location = new Point(197, 279);
+            TXTRealmTime.Location = new Point(195, 267);
             TXTRealmTime.Multiline = false;
             TXTRealmTime.Name = "TXTRealmTime";
             TXTRealmTime.PasswordChar = '\0';
@@ -625,7 +627,7 @@
             // 
             LBLRealmName.AutoSize = true;
             LBLRealmName.ForeColor = Color.White;
-            LBLRealmName.Location = new Point(56, 72);
+            LBLRealmName.Location = new Point(55, 58);
             LBLRealmName.Name = "LBLRealmName";
             LBLRealmName.Size = new Size(42, 15);
             LBLRealmName.TabIndex = 4;
@@ -637,7 +639,7 @@
             TXTRealmLocalAddress.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmLocalAddress.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmLocalAddress.ForeColor = Color.White;
-            TXTRealmLocalAddress.Location = new Point(15, 184);
+            TXTRealmLocalAddress.Location = new Point(13, 172);
             TXTRealmLocalAddress.Multiline = false;
             TXTRealmLocalAddress.Name = "TXTRealmLocalAddress";
             TXTRealmLocalAddress.PasswordChar = '\0';
@@ -654,7 +656,7 @@
             // 
             LBLRealmPort.AutoSize = true;
             LBLRealmPort.ForeColor = Color.White;
-            LBLRealmPort.Location = new Point(15, 262);
+            LBLRealmPort.Location = new Point(14, 248);
             LBLRealmPort.Name = "LBLRealmPort";
             LBLRealmPort.Size = new Size(32, 15);
             LBLRealmPort.TabIndex = 12;
@@ -666,7 +668,7 @@
             TXTRealmAddress.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmAddress.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmAddress.ForeColor = Color.White;
-            TXTRealmAddress.Location = new Point(15, 135);
+            TXTRealmAddress.Location = new Point(13, 123);
             TXTRealmAddress.Multiline = false;
             TXTRealmAddress.Name = "TXTRealmAddress";
             TXTRealmAddress.PasswordChar = '\0';
@@ -683,7 +685,7 @@
             // 
             LBLRealmID.AutoSize = true;
             LBLRealmID.ForeColor = Color.White;
-            LBLRealmID.Location = new Point(15, 72);
+            LBLRealmID.Location = new Point(14, 58);
             LBLRealmID.Name = "LBLRealmID";
             LBLRealmID.Size = new Size(18, 15);
             LBLRealmID.TabIndex = 2;
@@ -693,7 +695,7 @@
             // 
             LBLRealmIcon.AutoSize = true;
             LBLRealmIcon.ForeColor = Color.White;
-            LBLRealmIcon.Location = new Point(110, 262);
+            LBLRealmIcon.Location = new Point(109, 248);
             LBLRealmIcon.Name = "LBLRealmIcon";
             LBLRealmIcon.Size = new Size(33, 15);
             LBLRealmIcon.TabIndex = 14;
@@ -705,7 +707,7 @@
             TXTRealmSubnetMask.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmSubnetMask.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmSubnetMask.ForeColor = Color.White;
-            TXTRealmSubnetMask.Location = new Point(15, 234);
+            TXTRealmSubnetMask.Location = new Point(13, 222);
             TXTRealmSubnetMask.Multiline = false;
             TXTRealmSubnetMask.Name = "TXTRealmSubnetMask";
             TXTRealmSubnetMask.PasswordChar = '\0';
@@ -724,7 +726,7 @@
             TXTRealmPort.FontSize = MetroFramework.MetroTextBoxSize.Small;
             TXTRealmPort.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             TXTRealmPort.ForeColor = Color.White;
-            TXTRealmPort.Location = new Point(15, 279);
+            TXTRealmPort.Location = new Point(13, 267);
             TXTRealmPort.Multiline = false;
             TXTRealmPort.Name = "TXTRealmPort";
             TXTRealmPort.PasswordChar = '\0';
@@ -737,6 +739,44 @@
             TXTRealmPort.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTRealmPort.UseStyleColors = true;
             // 
+            // tPageAccount
+            // 
+            tPageAccount.BackColor = Color.FromArgb(45, 51, 59);
+            tPageAccount.Location = new Point(4, 44);
+            tPageAccount.Name = "tPageAccount";
+            tPageAccount.Size = new Size(837, 322);
+            tPageAccount.TabIndex = 1;
+            tPageAccount.Text = "Account";
+            // 
+            // TXTDomainName
+            // 
+            TXTDomainName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTDomainName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTDomainName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTDomainName.ForeColor = Color.White;
+            TXTDomainName.Location = new Point(16, 172);
+            TXTDomainName.Multiline = false;
+            TXTDomainName.Name = "TXTDomainName";
+            TXTDomainName.PasswordChar = '\0';
+            TXTDomainName.ReadOnly = true;
+            TXTDomainName.SelectedText = "";
+            TXTDomainName.Size = new Size(218, 25);
+            TXTDomainName.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTDomainName.StyleManager = null;
+            TXTDomainName.TabIndex = 51;
+            TXTDomainName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTDomainName.UseStyleColors = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(16, 153);
+            label4.Name = "label4";
+            label4.Size = new Size(87, 15);
+            label4.TabIndex = 52;
+            label4.Text = "Domain Name:";
+            // 
             // DatabaseControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -747,7 +787,7 @@
             Size = new Size(845, 370);
             Load += DatabaseControl_LoadAsync;
             TabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tPageRealmList.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
             metroPanel2.PerformLayout();
             metroPanel1.ResumeLayout(false);
@@ -760,7 +800,7 @@
         #endregion
 
         private MetroFramework.Controls.MetroTabControl TabControl1;
-        private TabPage tabPage1;
+        private TabPage tPageRealmList;
         private MetroFramework.Controls.MetroTextBox TXTRealmID;
         private Label LBLRealmID;
         private Label label9;
@@ -791,11 +831,14 @@
         private MetroFramework.Controls.MetroPanel metroPanel2;
         private Label label5;
         private UI.Controls.CustomButton BTNForcerefresh;
-        private UI.Controls.CustomButton BTNOpenIntern;
         private Label label1;
         private TrionControlPanel.UI.CustomComboBox customComboBox1;
-        private UI.Controls.CustomButton BTNOpenPublic;
         private Label label3;
         private UI.Controls.CustomButton BTNSaveData;
+        private UI.Controls.CustomButton BTNOpenIntern;
+        private UI.Controls.CustomButton BTNOpenPublic;
+        private TabPage tPageAccount;
+        private MetroFramework.Controls.MetroTextBox TXTDomainName;
+        private Label label4;
     }
 }

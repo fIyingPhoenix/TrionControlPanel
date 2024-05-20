@@ -63,9 +63,9 @@ namespace TrionControlPanelDesktop.Controls
                     User.UI.Resource.WorldTotalRam = (int)User.UI.Resource.MachineUsageRam;
                     //
                     User.UI.Resource.WorldUsageRam = SystemWatcher.ApplicationRamUsage(Data.Settings.WorldExecutableName);
-                    User.UI.Resource.WorldCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.WorldExecutableName);
+                    User.UI.Resource.WorldCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.WorldExecutableName,0);
                     User.UI.Resource.AuthUsageRam = SystemWatcher.ApplicationRamUsage(Data.Settings.LogonExecutableName);
-                    User.UI.Resource.AuthCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.LogonExecutableName);
+                    User.UI.Resource.AuthCPUUsage = SystemWatcher.ApplicationCpuUsage(Data.Settings.LogonExecutableName, 0);
                     User.UI.Resource.MachineCPUUsage = SystemWatcher.MachineCpuUtilization();
                     //
                     User.UI.Form.MySQLisRunning = SystemWatcher.ApplicationRuning(Data.Settings.MySQLExecutableName);
