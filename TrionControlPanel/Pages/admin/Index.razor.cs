@@ -15,14 +15,6 @@ namespace TrionControlPanel.Pages.admin
         string LoginColor = "Red";
         string MySQLColor = "Red";
 
-        protected override void OnAfterRender(bool firstRender)
-        {
-            if (firstRender)
-            {
-                StartTimers();
-            }
-            base.OnAfterRender(firstRender);
-        }
         private async void OnTimeEvent(Object sorce, ElapsedEventArgs e)
         {
             MachineCpuUsage = SystemWatcher.MachineCpuUtilization().ToString()+"%";
@@ -30,17 +22,6 @@ namespace TrionControlPanel.Pages.admin
             MachineCurrentRam = SystemWatcher.CurentPcRamUsage();
             calculate = 100 - Convert.ToInt32(MachineCurrentRam / MachineMaxRam * (long)100);
             MachineRamProcent = calculate.ToString() + "%";
-            //if ()
-            //{
-            //    WorldColor = "Green";
-                
-            //}
-            //else
-            //{
-            //    WorldColor = "Red";
-                
-            //}
-            await InvokeAsync(() => StateHasChanged());
         }
         private void StartTimers()
         {

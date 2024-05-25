@@ -60,6 +60,7 @@ namespace TrionControlPanelDesktop
             toolStripSeparator2 = new ToolStripSeparator();
             ExitTSMItem = new ToolStripMenuItem();
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
+            TLTHome = new TrionUI.Controls.CustomToolTip();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             PnlButtonFront.SuspendLayout();
@@ -179,12 +180,13 @@ namespace TrionControlPanelDesktop
             BTNHome.FlatStyle = FlatStyle.Flat;
             BTNHome.ForeColor = Color.White;
             BTNHome.Image = (Image)resources.GetObject("BTNHome.Image");
-            BTNHome.Location = new Point(10, 10);
+            BTNHome.Location = new Point(10, 9);
             BTNHome.Name = "BTNHome";
             BTNHome.NotificationCount = 0;
             BTNHome.Size = new Size(70, 70);
             BTNHome.TabIndex = 1;
             BTNHome.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNHome, "Test TEst Test Test TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\n");
             BTNHome.UseVisualStyleBackColor = false;
             BTNHome.Visible = false;
             BTNHome.Click += HomeBTN_Click;
@@ -489,6 +491,17 @@ namespace TrionControlPanelDesktop
             TimerLoadingCheck.Interval = 15000;
             TimerLoadingCheck.Tick += TimerLoadingCheck_Tick;
             // 
+            // TLTHome
+            // 
+            TLTHome.BackColor = Color.FromArgb(34, 39, 46);
+            TLTHome.BackgroundColor = Color.FromArgb(34, 39, 46);
+            TLTHome.BorderColor = Color.FromArgb(0, 174, 219);
+            TLTHome.ForeColor = Color.WhiteSmoke;
+            TLTHome.OwnerDraw = true;
+            TLTHome.TextColor = Color.White;
+            TLTHome.TitleColor = Color.FromArgb(0, 174, 219);
+            TLTHome.ToolTipTitle = "Test Name";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -505,7 +518,7 @@ namespace TrionControlPanelDesktop
             MinimumSize = new Size(1000, 600);
             Name = "MainForm";
             Shadow = false;
-            Text = "    Trion Contro Panel";
+            Text = "    Trion Control Panel";
             TextAlign = MetroFramework.Forms.TextAlign.Center;
             Theme = MetroFramework.MetroThemeStyle.Dark;
             TransparencyKey = Color.Magenta;
@@ -548,5 +561,6 @@ namespace TrionControlPanelDesktop
         private System.Windows.Forms.Timer TimerLoadingCheck;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
+        private TrionUI.Controls.CustomToolTip TLTHome;
     }
 }

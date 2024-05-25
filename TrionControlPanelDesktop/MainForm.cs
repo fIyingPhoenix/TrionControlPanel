@@ -51,6 +51,8 @@ namespace TrionControlPanelDesktop
             //fix the problem with thread calls
             //CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            TLTHome.BackColor = Color.Red;
+           
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
@@ -86,34 +88,34 @@ namespace TrionControlPanelDesktop
         private void ButtonsDesing()
         {
             if (User.UI.Form.MySQLisRunning)
-            { 
-                BTNStartMySQL.Image = Properties.Resources.power_off_30;
-                StartDatabaseTSMItem.Image = Properties.Resources.power_off_30;
-            }
-            else if (User.UI.Form.MySQLisRunning == false)
             {
                 BTNStartMySQL.Image = Properties.Resources.power_on_30;
                 StartDatabaseTSMItem.Image = Properties.Resources.power_on_30;
             }
-            if (User.UI.Form.WorldisRunning)
+            else if (User.UI.Form.MySQLisRunning == false)
             {
-                BTNStartWorld.Image = Properties.Resources.power_off_30;
-                StartWorldTSMItem.Image = Properties.Resources.power_off_30;
+                BTNStartMySQL.Image = Properties.Resources.power_off_30;
+                StartDatabaseTSMItem.Image = Properties.Resources.power_off_30;
             }
-            else if (User.UI.Form.WorldisRunning == false)
+            if (User.UI.Form.WorldisRunning)
             {
                 BTNStartWorld.Image = Properties.Resources.power_on_30;
                 StartWorldTSMItem.Image = Properties.Resources.power_on_30;
             }
+            else if (User.UI.Form.WorldisRunning == false)
+            {
+                BTNStartWorld.Image = Properties.Resources.power_off_30;
+                StartWorldTSMItem.Image = Properties.Resources.power_off_30;
+            }
             if (User.UI.Form.LogonisRunning)
             {
-                BTNStartLogin.Image = Properties.Resources.power_off_30;
-                StartLogonTSMItem.Image = Properties.Resources.power_off_30;
+                BTNStartLogin.Image = Properties.Resources.power_on_30;
+                StartLogonTSMItem.Image = Properties.Resources.power_on_30;
             }
             else if (User.UI.Form.LogonisRunning == false)
             {
-                BTNStartLogin.Image = Properties.Resources.power_on_30;
-                StartLogonTSMItem.Image = Properties.Resources .power_on_30;   
+                BTNStartLogin.Image = Properties.Resources.power_off_30;
+                StartLogonTSMItem.Image = Properties.Resources.power_off_30;
             }
             //
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;

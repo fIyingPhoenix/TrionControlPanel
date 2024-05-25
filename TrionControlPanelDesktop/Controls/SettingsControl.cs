@@ -25,26 +25,24 @@ namespace TrionControlPanelDesktop.Controls
         }
         private static string GetFolder()
         {
-            using (FolderBrowserDialog FolderDialog = new())
-            {
-                // Set the initial selected folder
-                FolderDialog.SelectedPath = Directory.GetCurrentDirectory();
-                // Set the title of the dialog
-                FolderDialog.Description = "Select a folder";
-                // Show the folder browser dialog
-                DialogResult result = FolderDialog.ShowDialog();
+            using FolderBrowserDialog FolderDialog = new();
+            // Set the initial selected folder
+            FolderDialog.SelectedPath = Directory.GetCurrentDirectory();
+            // Set the title of the dialog
+            FolderDialog.Description = "Select a folder";
+            // Show the folder browser dialog
+            DialogResult result = FolderDialog.ShowDialog();
 
-                // Check if the user clicked OK
-                if (result == DialogResult.OK)
-                {
-                    // Return the selected folder path
-                    return FolderDialog.SelectedPath;
-                }
-                else
-                {
-                    // Return empty string 
-                    return string.Empty;
-                }
+            // Check if the user clicked OK
+            if (result == DialogResult.OK)
+            {
+                // Return the selected folder path
+                return FolderDialog.SelectedPath;
+            }
+            else
+            {
+                // Return empty string 
+                return string.Empty;
             }
         }
         private void CustomNames()
@@ -96,6 +94,12 @@ namespace TrionControlPanelDesktop.Controls
             LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Update.TrionVersOFF} / Online: {User.UI.Update.TrionVersON}";
             LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {User.UI.Update.MySQLVerOFF} \n •Online: {User.UI.Update.MySQLVerON} ";
             LBLCoreVersion.Text = $"Core Version: \n •Local: {User.UI.Update.SPPVerOFF} \n •Online: {User.UI.Update.SPPVerON} ";
+            //DDNS
+            TXTDDNSDomain.Text = Data.Settings.DDNSDomain;
+            TXTDDNSUsername.Text = Data.Settings.DDNSUsername;
+            TXTDDNSPassword.Text = Data.Settings.DDNSPassword;
+            TXTDDNSInterval.Text = Data.Settings.DDNSInterval.ToString();
+            TGLDDNSRunOnStartup.Checked = Data.Settings.DDNSRunOnStartup;
             CheckForUpdate();
             User.UI.Form.StartUpLoading++;
         }
@@ -305,9 +309,9 @@ namespace TrionControlPanelDesktop.Controls
             {
                 SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, true, $"--console");
             }
-            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
-            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
-            SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
+            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
+            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
+            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
         }
         private async void CheckForUpdate()
         {
@@ -439,6 +443,10 @@ namespace TrionControlPanelDesktop.Controls
             Data.Settings.AuthDatabase = TXTAuthDatabase.Text;
             Data.Settings.WorldDatabase = TXTWorldDatabase.Text;
             Data.Settings.CharactersDatabase = TXTCharDatabase.Text;
+            Data.Settings.DDNSDomain = TXTDDNSDomain.Text;
+            Data.Settings.DDNSUsername = TXTDDNSUsername.Text;
+            Data.Settings.DDNSPassword = TXTDDNSPassword.Text;
+            Data.Settings.DDNSInterval = Convert.ToInt32(TXTDDNSInterval.Text);
         }
         private void TXTBox_TextChanged(object sender, EventArgs e)
         {
@@ -603,6 +611,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerEnDis_Tick(object sender, EventArgs e)
         {
+            //Enable / Disable buttons.
             if (DownloadControl.InstallSPP == true || DownloadControl.InstallMySQL == true)
             {
                 BtnDownloadSPP.Enabled = false;
@@ -614,11 +623,10 @@ namespace TrionControlPanelDesktop.Controls
                 BTNDownlaodMySQL.Enabled = true;
             }
         }
-        private void BTNFixMysql_Click(object sender, EventArgs e)
+        private async void BTNFixMysql_Click(object sender, EventArgs e)
         {
             string path = Directory.GetCurrentDirectory();
             string SQLLocation = "";
-
             BTNFixMysql.Text = "Working!!!";
             BTNFixMysql.ForeColor = Color.Orange;
             BTNFixMysql.Click -= BTNFixMysql_Click;
@@ -628,17 +636,16 @@ namespace TrionControlPanelDesktop.Controls
             {
                 if (CBAuthBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
+                  await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
                 }
                 if (CBCharBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
+                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
                 }
                 if (CBWorldBackup.Checked == true)
                 {
-                    SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
+                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
                 }
-
                 SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
                 Directory.Delete($@"{path}\database\data", true);
                 if (User.UI.Update.SPPVerOFF != "N/A")
@@ -667,44 +674,54 @@ namespace TrionControlPanelDesktop.Controls
                     }
                     SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
                 }
-
             }
-
             BTNFixMysql.Click += BTNFixMysql_Click;
             BTNFixMysql.Text = "Start";
             BTNFixMysql.ForeColor = Color.White;
         }
-
         private void ComboBoxDDNService_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ComboBoxDDNService.SelectedItem)
             {
                 case "DuckDNS":
+                    Data.Settings.DDNSerivce = DDNSerivce.DuckDNS;
                     break;
                 case "DynamicDNS":
+                    Data.Settings.DDNSerivce = DDNSerivce.DynamicDNS;
                     break;
                 case "Dynu":
+                    Data.Settings.DDNSerivce = DDNSerivce.Dynu;
                     break;
                 case "Enom":
+                    Data.Settings.DDNSerivce = DDNSerivce.Enom;
                     break;
                 case "AllInkl":
+                    Data.Settings.DDNSerivce = DDNSerivce.AllInkl;
                     break;
                 case "dynDNS":
+                    Data.Settings.DDNSerivce = DDNSerivce.dynDNS;
                     break;
                 case "STRATO":
+                    Data.Settings.DDNSerivce = DDNSerivce.STRATO;
                     break;
                 case "Freemyip":
+                    Data.Settings.DDNSerivce = DDNSerivce.Freemyip;
                     break;
                 case "Afraid":
+                    Data.Settings.DDNSerivce = DDNSerivce.Afraid;
                     break;
                 case "OVH":
+                    Data.Settings.DDNSerivce = DDNSerivce.OVH;
                     break;
             }
         }
-
-        private void label20_Click(object sender, EventArgs e)
+        private void TXTDDNSInterval_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            e.Handled = !char.IsNumber(e.KeyChar);
+        }
+        private void TGLDDNSRunOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            Data.Settings.DDNSRunOnStartup = TGLDDNSRunOnStartup.Checked;
         }
     }
 }

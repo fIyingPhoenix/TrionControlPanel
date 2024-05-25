@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using TrionDatabase;
+using TrionLibrary;
 
 namespace TrionControlPanelDesktop.FormData
 {
@@ -37,6 +39,37 @@ namespace TrionControlPanelDesktop.FormData
                 }
                 string downloadID = url[startIndex..endIndex];
                 return DirectURL + downloadID;
+            }
+            //DDNS links
+            public static async Task<string> DDNSUpdateURL(string Domain, string Username, string Password)
+            {
+                switch (Data.Settings.DDNSerivce)
+                {
+                    case EnumModels.DDNSerivce.DuckDNS:
+                        return $"http://www.duckdns.org/update?domains={Domain}&token={Username}&ip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.DynamicDNS:
+                        return $"http://{Username}:{Password}@dynupdate.no-ip.com/nic/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.Dynu:
+                        return $"http://{Username}:{Password}@members.dyndns.org/v3/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.Enom:
+                        return $"http://dynamic.name-services.com/interface.asp?command=SetDnsHost&HostName={Domain}&Zone={Username}&DomainPassword={Password}&Address={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.AllInkl:
+                        return $"http://{Username}:{Password}@dyndns.kasserver.com/?myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.dynDNS:
+                        return $"http://{Username}:{Password}@update.dyndns.it/nic/update?hostname={Domain}";
+                    case EnumModels.DDNSerivce.STRATO:
+                        return $"http://{Username}:{Password}@dyndns.strato.com/nic/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.Freemyip:
+                        return $"http://freemyip.com/update?domain={Domain}&token={Username}&myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.Afraid:
+                        return $"http://sync.afraid.org/u/{Username}/";
+                    case EnumModels.DDNSerivce.OVH:
+                        return $"http://{Username}:{Password}@www.ovh.com/nic/update?system=dyndns&hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}";
+                    case EnumModels.DDNSerivce.Cloudflare:
+                        return  "";
+                    default:
+                        return "";
+                }
             }
         }
         public class UI

@@ -149,7 +149,7 @@ namespace TrionControlPanelDesktop.Controls
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(0, 174, 219);
-            label4.Location = new Point(14, 18);
+            label4.Location = new Point(14, 14);
             label4.Name = "label4";
             label4.Size = new Size(199, 21);
             label4.TabIndex = 32;
@@ -333,7 +333,7 @@ namespace TrionControlPanelDesktop.Controls
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label7.ForeColor = Color.FromArgb(0, 174, 219);
-            label7.Location = new Point(14, 18);
+            label7.Location = new Point(14, 14);
             label7.Name = "label7";
             label7.Size = new Size(207, 21);
             label7.TabIndex = 37;
@@ -441,9 +441,9 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel6
             // 
             metroPanel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel6.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel6.Border = true;
-            metroPanel6.BorderColor = Color.FromArgb(0, 174, 219);
+            metroPanel6.BorderColor = Color.Black;
             metroPanel6.BorderSize = 1;
             metroPanel6.Controls.Add(LBLWordPort);
             metroPanel6.Controls.Add(LBLUpTimeWorld);
@@ -514,9 +514,9 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel5
             // 
             metroPanel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel5.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel5.Border = true;
-            metroPanel5.BorderColor = Color.FromArgb(0, 174, 219);
+            metroPanel5.BorderColor = Color.Black;
             metroPanel5.BorderSize = 1;
             metroPanel5.Controls.Add(LBLLogonPort);
             metroPanel5.Controls.Add(LBLUpTimeLogon);
@@ -587,9 +587,9 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel4
             // 
             metroPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel4.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel4.Border = true;
-            metroPanel4.BorderColor = Color.FromArgb(0, 174, 219);
+            metroPanel4.BorderColor = Color.Black;
             metroPanel4.BorderSize = 1;
             metroPanel4.Controls.Add(LBLMysqlPort);
             metroPanel4.Controls.Add(LBLUpTimeDatabase);
@@ -694,11 +694,11 @@ namespace TrionControlPanelDesktop.Controls
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(0, 174, 219);
-            label1.Location = new Point(14, 18);
+            label1.Location = new Point(14, 14);
             label1.Name = "label1";
-            label1.Size = new Size(100, 21);
+            label1.Size = new Size(111, 21);
             label1.TabIndex = 27;
-            label1.Text = "PC RESORCE";
+            label1.Text = "PC RESOURCE";
             // 
             // PCResorcePbarCPU
             // 

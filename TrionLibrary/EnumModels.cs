@@ -16,16 +16,17 @@
         }
         public enum DDNSerivce
         {
+            Afraid,
+            AllInkl,
+            Cloudflare,
             DuckDNS,
             DynamicDNS,
             Dynu,
-            Enom,
-            AllInkl,
             dynDNS,
-            STRATO,
+            Enom,
             Freemyip,
-            Afraid,
-            OVH
+            OVH,
+            STRATO
         }
         public enum ServerType
         {

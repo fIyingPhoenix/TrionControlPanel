@@ -1,14 +1,9 @@
-﻿using Org.BouncyCastle.Bcpg;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Management;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading;
-using static TrionLibrary.EnumModels;
 
 namespace TrionLibrary
 {
@@ -109,35 +104,54 @@ namespace TrionLibrary
                         if (long.TryParse(outputParts[1], out long totalRamKB))
                         {
                             // Convert total RAM from kilobytes to megabytes
-                            double totalRamMB = totalRamKB / 1024.0;
-                            return Convert.ToInt32(totalRamInMB);
+                            totalRamInMB = totalRamKB / 1024.0;
                         }
                         else
                         {
-                            return 0;
+                            totalRamInMB = 0;
                         }
                     }
                     else
                     {
-                        return 0;
+                        totalRamInMB = 0;
                     }
                 }
-
                 // Return the total RAM
                 return Convert.ToInt32(totalRamInMB);
+
             }
             catch
             {
                 return 0;
             }
         }
+        static float GetCpuUsage(PerformanceCounter cpuCounter)
+        {
+            // Average out multiple samples
+            float total = 0f;
+            int samples = 5;
+            for (int i = 0; i < samples; i++)
+            {
+                total += cpuCounter.NextValue();
+                Thread.Sleep(200); // Adjust sleep time to balance responsiveness and accuracy
+            }
+            return total / samples;
+        }
         public static int MachineCpuUtilization()
         {
-            // Create a new instance of the PerformanceCounter
-            var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total", Environment.MachineName);
+            // Create an instance of PerformanceCounter to monitor the total CPU usage
+            PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+
+            // Give some time to initialize
             cpuCounter.NextValue();
             Thread.Sleep(1000);
-            return (int)cpuCounter.NextValue();
+
+            // Continuous monitoring
+            while (true)
+            {
+                float cpuUsage = GetCpuUsage(cpuCounter);
+                return (int)cpuUsage;
+            }
         }
         public static int CurentPcRamUsage()
         {
@@ -226,16 +240,20 @@ namespace TrionLibrary
         }
         public static void ApplicationKill(string ApplicationName)
         {
-            foreach (var process in Process.GetProcessesByName(ApplicationName))
+            Thread ApplicationKillThread = new Thread(() =>
             {
-                SendCtrlC(process);
-                if (!process.WaitForExit(10000)) // wait for 10 seconds, save world!
+                foreach (var process in Process.GetProcessesByName(ApplicationName))
                 {
-                    // If the process did not exit, forcefully terminate it
-                    Data.Message = "The process did not exit for more then 10 Secoinds. Kill it!";
-                    process.Kill();
+                    SendCtrlC(process);
+                    if (!process.WaitForExit(10000)) // wait for 10 seconds, save world!
+                    {
+                        // If the process did not exit, forcefully terminate it
+                        Data.Message = "The process did not exit for more then 10 Secoinds. Kill it!";
+                        process.Kill();
+                    }
                 }
-            }   
+            });
+            ApplicationKillThread.Start();
         }
         private static void SendCtrlC(Process process)
         {
@@ -258,81 +276,66 @@ namespace TrionLibrary
                 SetConsoleCtrlHandler(null, false);
             }
         }
-        public static int ApplicationRamUsage(string ApplicationName)
-        {
-            if (ApplicationRuning(ApplicationName) == true)
-            {   
-                try
-                {
-                    Process process = Process.GetProcessById(GetProcessIdByName(ApplicationName));
-                    PerformanceCounter ramCounter = new PerformanceCounter("Process", "Working Set", process.ProcessName);
-                    while (true)
-                    {
-                        double ram = ramCounter.NextValue();
-                        return Convert.ToInt32(ram / 1024d / 1024d);   
-                    }
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-            return 0;
-        }
-        public static int ApplicationCpuUsage(string ApplicationName, int ProcessID)
+        public static int ApplicationRamUsage(int ProcessId)
         {
             try
             {
-                if (ApplicationRuning(ApplicationName) == true)
+                Process process = Process.GetProcessById(ProcessId);
+                PerformanceCounter ramCounter = new PerformanceCounter("Process", "Working Set", process.ProcessName);
+                while (true)
                 {
-                    Process process = Process.GetProcessById(GetProcessIdByName(ApplicationName));
-
-                    // Get the initial CPU time for all cores
-                    TimeSpan[] initialCpuTimes = new TimeSpan[Environment.ProcessorCount];
-                    for (int i = 0; i < Environment.ProcessorCount; i++)
-                    {
-                        initialCpuTimes[i] = process.TotalProcessorTime;
-                    }
-
-                    // Wait for some time
-                    Thread.Sleep(1000); // Wait for 3 seconds (adjust as needed)
-
-                    // Refresh the process object
-                    process.Refresh();
-
-                    // Get the CPU time after the delay for all cores
-                    TimeSpan[] cpuTimesAfterDelay = new TimeSpan[Environment.ProcessorCount];
-                    for (int i = 0; i < Environment.ProcessorCount; i++)
-                    {
-                        cpuTimesAfterDelay[i] = process.TotalProcessorTime;
-                    }
-                    // Calculate the CPU usage percentage for all cores
-                    double[] cpuUsagePercentages = new double[Environment.ProcessorCount];
-                    for (int i = 0; i < Environment.ProcessorCount; i++)
-                    {
-                        cpuUsagePercentages[i] = ((cpuTimesAfterDelay[i] - initialCpuTimes[i]).TotalMilliseconds /
-                                                   (DateTime.Now - process.StartTime).TotalMilliseconds) * 100;
-                    }
-                    // Calculate the average CPU usage across all cores
-                    double totalCpuUsagePercentage = 0;
-                    foreach (double cpuUsagePercentage in cpuUsagePercentages)
-                    {
-                        totalCpuUsagePercentage += cpuUsagePercentage;
-                    }
-                    double averageCpuUsagePercentage = totalCpuUsagePercentage / Environment.ProcessorCount;
-
-                    // Limit CPU usage to 100%
-                    averageCpuUsagePercentage = Math.Min(averageCpuUsagePercentage, 100);
-
-                    // Convert the CPU usage percentage to an integer
-                    int cpuUsagePercentageInt = (int)Math.Round(averageCpuUsagePercentage);
-                     return cpuUsagePercentageInt;
+                    double ram = ramCounter.NextValue();
+                    return Convert.ToInt32(ram / 1024d / 1024d);
                 }
-                else { return 1; }
             }
             catch
             {
-                return 2;
+                return 0;
+            }
+        }
+        public static int ApplicationCpuUsage(int ProcessID)
+        {
+            try
+            {
+                Process process = Process.GetProcessById(ProcessID);
+                // Get the initial CPU time for all cores
+                TimeSpan[] initialCpuTimes = new TimeSpan[Environment.ProcessorCount];
+                for (int i = 0; i < Environment.ProcessorCount; i++)
+                {
+                    initialCpuTimes[i] = process.TotalProcessorTime;
+                }
+                // Wait for some time
+                Thread.Sleep(3000); // Wait for 3 seconds (adjust as needed)
+                // Refresh the process object
+                process.Refresh();
+                // Get the CPU time after the delay for all cores
+                TimeSpan[] cpuTimesAfterDelay = new TimeSpan[Environment.ProcessorCount];
+                for (int i = 0; i < Environment.ProcessorCount; i++)
+                {
+                    cpuTimesAfterDelay[i] = process.TotalProcessorTime;
+                }
+                // Calculate the CPU usage percentage for all cores
+                double[] cpuUsagePercentages = new double[Environment.ProcessorCount];
+                for (int i = 0; i < Environment.ProcessorCount; i++)
+                {
+                    cpuUsagePercentages[i] = ((cpuTimesAfterDelay[i] - initialCpuTimes[i]).TotalMilliseconds /
+                                               (DateTime.Now - process.StartTime).TotalMilliseconds) * 100;
+                }
+                // Calculate the average CPU usage across all cores
+                double totalCpuUsagePercentage = 0;
+                foreach (double cpuUsagePercentage in cpuUsagePercentages)
+                {
+                    totalCpuUsagePercentage += cpuUsagePercentage;
+                }
+                double averageCpuUsagePercentage = totalCpuUsagePercentage / Environment.ProcessorCount;
+                // Limit CPU usage to 100%
+                averageCpuUsagePercentage = Math.Min(averageCpuUsagePercentage, 100);
+                // Convert the CPU usage percentage to an integer
+                return (int)Math.Round(averageCpuUsagePercentage);
+            }
+            catch
+            {
+                return 0;
             }
         }
     }

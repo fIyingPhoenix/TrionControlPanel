@@ -126,6 +126,10 @@ namespace TrionLibrary
                 Settings.MySQLExecutableLocation = "";
                 Settings.WorldExecutableName = "worldserver";
                 Settings.LogonExecutableName = "authserver";
+                Settings.DDNSDomain = "";
+                Settings.DDNSInterval = 1000;
+                Settings.DDNSUsername = "";
+                Settings.DDNSPassword = "";
                 Settings.ServerCrash = false;
                 Settings.NotificationSound = true;
                 Settings.ConsolHide = false;
@@ -136,6 +140,7 @@ namespace TrionLibrary
                 Settings.AutoUpdateCore = false;
                 Settings.AutoUpdateTrion = true;
                 Settings.FirstRun = true;
+                Settings.DDNSRunOnStartup = false;
                 Settings.SelectedCore = EnumModels.Cores.AzerothCore;
                 Settings.DDNSerivce = EnumModels.DDNSerivce.DuckDNS;
                 WriteData(Settings, SettingsDataFile);
@@ -240,6 +245,9 @@ namespace TrionLibrary
         public string LogonExecutableLocation;
         public string WorldExecutableName;
         public string LogonExecutableName;
+        public string DDNSDomain;
+        public string DDNSUsername;
+        public string DDNSPassword;
         public bool AutoUpdateCore;
         public bool AutoUpdateTrion;
         public bool AutoUpdateMySQL;
@@ -251,6 +259,8 @@ namespace TrionLibrary
         public bool CustomNames;
         public bool RunServerWithWindows;
         public bool FirstRun;
+        public bool DDNSRunOnStartup;
+        public int DDNSInterval;
         public EnumModels.Cores SelectedCore;
         public EnumModels.DDNSerivce DDNSerivce;
     }
