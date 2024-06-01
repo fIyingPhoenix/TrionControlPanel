@@ -13,24 +13,12 @@
     <Compile Update="Components\MetroStyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controls\CustomButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CustomComboBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\CustomProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CustomToggleButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\MetroButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\MetroCheckBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controls\CustomButton.cs" />
+    <Compile Update="Controls\CustomComboBox.cs" />
+    <Compile Update="Controls\CustomProgressBar.cs" />
+    <Compile Update="Controls\CustomToggleButton.cs" />
+    <Compile Update="Controls\MetroButton.cs" />
+    <Compile Update="Controls\MetroCheckBox.cs" />
     <Compile Update="Controls\MetroComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -43,9 +31,7 @@
     <Compile Update="Controls\MetroPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controls\MetroProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controls\MetroProgressBar.cs" />
     <Compile Update="Controls\MetroProgressSpinner.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -61,30 +47,18 @@
     <Compile Update="Controls\MetroTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controls\MetroTile.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\MetroToggle.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controls\MetroTile.cs" />
+    <Compile Update="Controls\MetroToggle.cs" />
     <Compile Update="Controls\MetroTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Controls\MetroUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\Test\CustomNotificationsButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Forms\MetroForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\MetroTaskWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="MessageBox\MetroMessageBoxControl.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Controls\Test\CustomNotificationsButton.cs" />
+    <Compile Update="Forms\MetroForm.cs" />
+    <Compile Update="Forms\MetroTaskWindow.cs" />
+    <Compile Update="MessageBox\MetroMessageBoxControl.cs" />
   </ItemGroup>
 
 </Project>

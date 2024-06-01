@@ -8,6 +8,9 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using TrionDatabase;
 using MetroFramework;
+using System.Net;
+using System.Security.Policy;
+using System.Text;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -636,7 +639,7 @@ namespace TrionControlPanelDesktop.Controls
             {
                 if (CBAuthBackup.Checked == true)
                 {
-                  await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
+                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
                 }
                 if (CBCharBackup.Checked == true)
                 {
@@ -722,6 +725,76 @@ namespace TrionControlPanelDesktop.Controls
         private void TGLDDNSRunOnStartup_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.DDNSRunOnStartup = TGLDDNSRunOnStartup.Checked;
+        }
+        private async void TimerDDNSInterval_Tick(object sender, EventArgs e)
+        {
+            TimerDDNSInterval.Interval = Data.Settings.DDNSInterval;
+            string CurrentIP = await NetworkHelper.GetExternalIpAddress();
+            string URL = await User.API.DDNSUpdateURL(TXTDDNSDomain.Text, TXTDDNSUsername.Text, TXTDDNSPassword.Text);
+            if (!CurrentIP.Contains(Data.Settings.IPAddress))
+            {
+                Data.Message = $"Updateing {URL} with {CurrentIP}";
+                UpdateDNSIP(URL, CurrentIP);
+            }
+        }
+        private void UpdateDNSIP(string url, string ip)
+        {
+            if (!string.IsNullOrEmpty(ip))
+            {
+                try
+                {
+                    // Create a request for the URL
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = "GET";
+
+                    // Get the response
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        // Check the status code
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            // Request succeeded
+                            Data.Message = " DNS update request succeeded!";
+                            Data.Settings.IPAddress = ip;
+                        }
+                        else
+                        {
+                            // Request failed
+                            Data.Message = $"Response status code: {response.StatusCode}";
+                            TimerDDNSInterval.Stop();
+                        }
+                    }
+                }
+                catch (WebException webEx)
+                {
+                    // Handle web exceptions, e.g., 404, 500, etc.
+                    if (webEx.Response is HttpWebResponse errorResponse)
+                    {
+                        Data.Message = $"Request failed with status code: {errorResponse.StatusCode}";
+                    }
+                    else
+                    {
+                        Data.Message = $"Request failed: {webEx.Message}";
+                    }
+                    TimerDDNSInterval.Stop();
+                }
+                catch (Exception ex)
+                {
+                    // Handle other exceptions
+                    Data.Message = $"An error occurred: {ex.Message}";
+                    TimerDDNSInterval.Stop();
+                }
+            }
+        }
+
+        private void BTNSaveData_Click(object sender, EventArgs e)
+        {
+            TimerDDNSInterval.Start();
+        }
+
+        private void SettingsControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -313,6 +313,7 @@
             BTNSaveData.Text = "Start";
             BTNSaveData.TextColor = Color.White;
             BTNSaveData.UseVisualStyleBackColor = false;
+            BTNSaveData.Click += BTNSaveData_Click;
             // 
             // metroPanel6
             // 
@@ -2013,6 +2014,7 @@
             // TimerDDNSInterval
             // 
             TimerDDNSInterval.Interval = 1000;
+            TimerDDNSInterval.Tick += TimerDDNSInterval_Tick;
             // 
             // SettingsControl
             // 

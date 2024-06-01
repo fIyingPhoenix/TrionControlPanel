@@ -52,7 +52,7 @@ namespace TrionControlPanelDesktop
             //CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             TLTHome.BackColor = Color.Red;
-           
+
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
@@ -92,9 +92,9 @@ namespace TrionControlPanelDesktop
                 BTNStartMySQL.Image = Properties.Resources.power_on_30;
                 StartDatabaseTSMItem.Image = Properties.Resources.power_on_30;
             }
-            else if (User.UI.Form.MySQLisRunning == false)
+            else if (!User.UI.Form.MySQLisRunning)
             {
-                BTNStartMySQL.Image = Properties.Resources.power_off_30;
+                BTNStartMySQL.Image = Properties.Resources.power_30;
                 StartDatabaseTSMItem.Image = Properties.Resources.power_off_30;
             }
             if (User.UI.Form.WorldisRunning)
@@ -102,9 +102,9 @@ namespace TrionControlPanelDesktop
                 BTNStartWorld.Image = Properties.Resources.power_on_30;
                 StartWorldTSMItem.Image = Properties.Resources.power_on_30;
             }
-            else if (User.UI.Form.WorldisRunning == false)
+            else if (!User.UI.Form.WorldisRunning)
             {
-                BTNStartWorld.Image = Properties.Resources.power_off_30;
+                BTNStartWorld.Image = Properties.Resources.power_30;
                 StartWorldTSMItem.Image = Properties.Resources.power_off_30;
             }
             if (User.UI.Form.LogonisRunning)
@@ -112,9 +112,9 @@ namespace TrionControlPanelDesktop
                 BTNStartLogin.Image = Properties.Resources.power_on_30;
                 StartLogonTSMItem.Image = Properties.Resources.power_on_30;
             }
-            else if (User.UI.Form.LogonisRunning == false)
+            else if (!User.UI.Form.LogonisRunning)
             {
-                BTNStartLogin.Image = Properties.Resources.power_off_30;
+                BTNStartLogin.Image = Properties.Resources.power_30;
                 StartLogonTSMItem.Image = Properties.Resources.power_off_30;
             }
             //

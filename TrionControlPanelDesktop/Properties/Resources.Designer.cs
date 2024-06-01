@@ -83,6 +83,16 @@ namespace TrionControlPanelDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap power_30 {
+            get {
+                object obj = ResourceManager.GetObject("power-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap power_off_30 {
             get {
                 object obj = ResourceManager.GetObject("power-off-30", resourceCulture);

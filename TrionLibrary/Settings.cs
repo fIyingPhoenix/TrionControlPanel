@@ -130,6 +130,7 @@ namespace TrionLibrary
                 Settings.DDNSInterval = 1000;
                 Settings.DDNSUsername = "";
                 Settings.DDNSPassword = "";
+                Settings.IPAddress = "0.0.0.0";
                 Settings.ServerCrash = false;
                 Settings.NotificationSound = true;
                 Settings.ConsolHide = false;
@@ -248,6 +249,7 @@ namespace TrionLibrary
         public string DDNSDomain;
         public string DDNSUsername;
         public string DDNSPassword;
+        public string IPAddress;
         public bool AutoUpdateCore;
         public bool AutoUpdateTrion;
         public bool AutoUpdateMySQL;

@@ -64,7 +64,7 @@ namespace TrionControlPanelDesktop.Controls
                 User.UI.Resource.AuthTotalRam = (int)User.UI.Resource.MachineUsageRam;
                 User.UI.Resource.WorldTotalRam = (int)User.UI.Resource.MachineUsageRam;
                 //
-                Thread ApplicationResourceUsage = new Thread(() =>
+                Thread ApplicationResourceUsage = new(() =>
                 {
                     foreach (var WorldProcessid in User.System.WorldProcessesID)
                     {

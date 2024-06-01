@@ -46,7 +46,7 @@ namespace TrionControlPanelDesktop.FormData
                 switch (Data.Settings.DDNSerivce)
                 {
                     case EnumModels.DDNSerivce.DuckDNS:
-                        return $"http://www.duckdns.org/update?domains={Domain}&token={Username}&ip={await NetworkHelper.GetExternalIpAddress()}";
+                        return $"http://www.duckdns.org/update?domains={Domain}&token={Password}&ip={await NetworkHelper.GetExternalIpAddress()}";
                     case EnumModels.DDNSerivce.DynamicDNS:
                         return $"http://{Username}:{Password}@dynupdate.no-ip.com/nic/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}";
                     case EnumModels.DDNSerivce.Dynu:

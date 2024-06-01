@@ -8,4 +8,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TrionCryptography\TrionCryptography.csproj" />
+  </ItemGroup>
+
 </Project>
