@@ -33,6 +33,7 @@
             TBControler = new MetroFramework.Controls.MetroTabControl();
             TabPageDDNS = new TabPage();
             metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            BTNWebiste = new UI.Controls.CustomButton();
             TGLDDNSRunOnStartup = new TrionControlPanel.UI.CustomToggleButton();
             label20 = new Label();
             label17 = new Label();
@@ -196,6 +197,7 @@
             metroPanel7.Border = true;
             metroPanel7.BorderColor = Color.Black;
             metroPanel7.BorderSize = 1;
+            metroPanel7.Controls.Add(BTNWebiste);
             metroPanel7.Controls.Add(TGLDDNSRunOnStartup);
             metroPanel7.Controls.Add(label20);
             metroPanel7.Controls.Add(label17);
@@ -219,6 +221,31 @@
             metroPanel7.VerticalScrollbarBarColor = true;
             metroPanel7.VerticalScrollbarHighlightOnWheel = false;
             metroPanel7.VerticalScrollbarSize = 10;
+            // 
+            // BTNWebiste
+            // 
+            BTNWebiste.Anchor = AnchorStyles.Top;
+            BTNWebiste.BackColor = Color.FromArgb(28, 33, 40);
+            BTNWebiste.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNWebiste.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNWebiste.BorderRadius = 0;
+            BTNWebiste.BorderSize = 1;
+            BTNWebiste.Cursor = Cursors.Hand;
+            BTNWebiste.FlatAppearance.BorderSize = 0;
+            BTNWebiste.FlatStyle = FlatStyle.Flat;
+            BTNWebiste.ForeColor = Color.White;
+            BTNWebiste.Image = (Image)resources.GetObject("BTNWebiste.Image");
+            BTNWebiste.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNWebiste.Location = new Point(18, 264);
+            BTNWebiste.Name = "BTNWebiste";
+            BTNWebiste.NotificationCount = 0;
+            BTNWebiste.RightToLeft = RightToLeft.No;
+            BTNWebiste.Size = new Size(109, 30);
+            BTNWebiste.TabIndex = 58;
+            BTNWebiste.Text = "Website";
+            BTNWebiste.TextColor = Color.White;
+            BTNWebiste.UseVisualStyleBackColor = false;
+            BTNWebiste.Click += BTNWebiste_Click;
             // 
             // TGLDDNSRunOnStartup
             // 
@@ -310,7 +337,7 @@
             BTNSaveData.RightToLeft = RightToLeft.No;
             BTNSaveData.Size = new Size(109, 30);
             BTNSaveData.TabIndex = 52;
-            BTNSaveData.Text = "Start";
+            BTNSaveData.Text = "     Start Timer";
             BTNSaveData.TextColor = Color.White;
             BTNSaveData.UseVisualStyleBackColor = false;
             BTNSaveData.Click += BTNSaveData_Click;
@@ -2160,5 +2187,6 @@
         private TrionControlPanel.UI.CustomToggleButton TGLDDNSRunOnStartup;
         private Label label20;
         private System.Windows.Forms.Timer TimerDDNSInterval;
+        private UI.Controls.CustomButton BTNWebiste;
     }
 }

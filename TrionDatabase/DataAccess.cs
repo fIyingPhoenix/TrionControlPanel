@@ -48,7 +48,7 @@ namespace TrionDatabase
                 Data.Message = $"Error deleting table '{tableName}': {ex.Message}";
             }
         }
-        public static async Task DumpAllTables(string connectionString, string outputFile)
+        public static Task DumpAllTables(string connectionString, string outputFile)
         {
            Thread MachineCpuUtilizationThread = new(() =>
            {
@@ -83,7 +83,9 @@ namespace TrionDatabase
                     }
                 }
             });
+           
             MachineCpuUtilizationThread.Start();
+            return Task.CompletedTask;
         }
         static string GetCreateTableStatement(MySqlConnection connection, string tableName)
         {

@@ -21,10 +21,11 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
         }
+        private static readonly string[] separator = ["\n", "\r\n"];
         static List<string> ReadLinesFromString(string inputString)
         {
             // Split the inputString into lines using newline characters
-            string[] linesArray = inputString.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] linesArray = inputString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             // Create a new list and add the lines to it
             List<string> linesList = new(linesArray);
             return linesList;
@@ -38,7 +39,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     // Download the text file content
                     string fileContent = await client.GetStringAsync(Weblink);
-                    List<string> strings = ReadLinesFromString(fileContent).Where(s => !s.StartsWith("#")).ToList();
+                    List<string> strings = ReadLinesFromString(fileContent).Where(predicate: s => !s.StartsWith("#")).ToList();
                     // Split the file content by comma and add each item to the list
                     foreach (var lines in strings)
                     {
@@ -47,14 +48,14 @@ namespace TrionControlPanelDesktop.Controls
                         if (Entry[1].Contains("1drv.ms"))
                         {
                             newUrlList.FileName = Entry[0];
-                            newUrlList.FileWebLink = User.API.DownloadOneDriveAPI(Entry[1]);
-                            newUrlList.FileType = Entry[2];
+                            //newUrlList.FileWebLink = User.API.DownloadOneDriveAPI(Entry[1]);
+                            //newUrlList.FileType = Entry[2];
                         }
                         else
                         {
                             newUrlList.FileName = Path.GetFileNameWithoutExtension(Entry[1]);
-                            newUrlList.FileWebLink = Entry[1];
-                            newUrlList.FileType = Path.GetExtension(Entry[1]);
+                            //newUrlList.FileWebLink = Entry[1];
+                            //newUrlList.FileType = Path.GetExtension(Entry[1]);
                         }
                         DownloadList.Add(newUrlList);
                         User.UI.Download.CurrentDownloads++;
@@ -82,21 +83,21 @@ namespace TrionControlPanelDesktop.Controls
                         string FullFile;
                         string downloadPath;
                         // Send GET request to the server
-                        using (HttpResponseMessage response = await client.GetAsync(url.FileWebLink, HttpCompletionOption.ResponseHeadersRead))
+                        using (HttpResponseMessage response = await client.GetAsync("url.FileWebLink", HttpCompletionOption.ResponseHeadersRead))
                         {
                             // Update Label
-                            LBLQueue.Text = $"Queue: {CurrentDownload} / {TotalDownloads}";
-                            LBLStatus.Text = "Status: Connect!";
+                            LBLQueue.Text = $"{CurrentDownload} : {TotalDownloads}";
+                          
                             // Check if request was successful
                             response.EnsureSuccessStatusCode();
-                            LBLStatus.Text = "Status: Read File!";
+                        
                             // Get the file name from the URL
                             string fileName = Path.GetFileName(url.FileName);
-                            string fileType = url.FileType;
-                            FullFile = $@"{fileName}{fileType}";
-                            downloadPath = Path.Combine(downloadDirectory, FullFile);
-                            LBLDownloadName.Text = @$"Name: {FullFile}";
-                            LBLStatus.Text = "Status: Prepare Download!";
+                           // string fileType = url.FileType;
+                            //FullFile = $@"{fileName}{fileType}";
+                            downloadPath = Path.Combine(downloadDirectory, "FullFile");
+                            LBLDownloadName.Text = @$"{"FullFile"}";
+                          
                             // Create a file stream to write the downloaded content
                             using (FileStream fileStream = new(downloadPath, FileMode.Create, FileAccess.Write, FileShare.None))
                             {
@@ -111,7 +112,6 @@ namespace TrionControlPanelDesktop.Controls
                                     // Read from the stream in chunks and write to the file stream
                                     while ((bytesRead = await stream.ReadAsync(buffer)) > 0)
                                     {
-                                        LBLStatus.Text = "Status: Downloading!";
                                         await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
                                         totalBytesRead += bytesRead;
                                         // Calculate download speed
@@ -124,24 +124,23 @@ namespace TrionControlPanelDesktop.Controls
                                         PBARDownload.LabelText = "MB";
                                         PBARDownload.Maximum = (int)totalDownloadSizeMB;
                                         PBARDownload.Value = (int)totalBytesReadMB;
-                                        LBLDownloadSize.Text = $@"Size: {totalDownloadSizeMB:F2} MB";
-                                        LBLDownloadSpeed.Text = $@"Speed: {speedMBps:F2}MBps";
+                                        LBLDownloadSize.Text = $@"{totalDownloadSizeMB:F2} MB";
+                                        LBLDownloadSpeed.Text = $@"{speedMBps:F2}MBps";
                                     }
                                 }
                             }
-                            LBLStatus.Text = "Status: Done!";
                             // Delay task so we dont get Still in use error
                             await Task.Delay(1500);
-                            if (fileType.Contains(".zip"))
-                            {
-                                await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), FullFile), Directory.GetCurrentDirectory());
-                            }
-                            else if (fileType.Contains(".exe"))
-                            {
-                                User.UI.Download.CurrentDownloads--;
-                                Process.Start(downloadPath);
-                                Environment.Exit(0);
-                            }
+                            //if (fileType.Contains(".zip"))
+                            //{
+                            //    await UnzipFileAsync(Path.Combine(Directory.GetCurrentDirectory(), FullFile), Directory.GetCurrentDirectory());
+                            //}
+                            //else if (fileType.Contains("TrionControlPanelDesktop.exe"))
+                            //{
+                            //    User.UI.Download.CurrentDownloads--;
+                            //    Process.Start(downloadPath);
+                            //    Environment.Exit(0);
+                            //}
                         }
                     }
                     catch (Exception ex)
@@ -157,10 +156,9 @@ namespace TrionControlPanelDesktop.Controls
             {
                 PBARDownload.Maximum = 100;
                 PBARDownload.LabelText = "%";
-                LBLStatus.Text = "Status: Prepare to Unpackage!";
                 using (FileStream zipFileStream = File.OpenRead(zipFilePath))
                 {
-                    LBLStatus.Text = "Status: Read File!";
+                    
                     using (ZipArchive archive = new(zipFileStream, ZipArchiveMode.Read))
                     {
                         long totalBytes = 0;
@@ -176,17 +174,17 @@ namespace TrionControlPanelDesktop.Controls
                             string? directoryName = Path.GetDirectoryName(fullPath);
                             if (!string.IsNullOrEmpty(directoryName) && !Directory.Exists(directoryName))
                             {
-                                LBLStatus.Text = "Status: Prepare directorys!";
+                               
                                 Directory.CreateDirectory(directoryName); // Create directory if it doesn't exist
                             }
                             if (!entry.Name.Equals(string.Empty))
                             {
-                                LBLStatus.Text = "Status: Write Data!";
+                                
                                 LBLFIleName.Text = @$"File: {entry.Name}";
                                 using (Stream entryStream = entry.Open())
                                 using (FileStream outputStream = File.Create(fullPath))
                                 {
-                                    byte[] buffer = new byte[4096]; //8 KB buffer
+                                    byte[] buffer = new byte[4096]; //4 KB buffer
                                     int bytesRead;
                                     while ((bytesRead = await entryStream.ReadAsync(buffer)) > 0)
                                     {
@@ -205,7 +203,7 @@ namespace TrionControlPanelDesktop.Controls
                         }
                     }
                 }
-                LBLStatus.Text = "Unzip operation completed successfully.";
+               
                 LBLFIleName.Text = @$"File: ";
                 File.Delete(zipFilePath);
                 if (CurrentDownload == TotalDownloads)

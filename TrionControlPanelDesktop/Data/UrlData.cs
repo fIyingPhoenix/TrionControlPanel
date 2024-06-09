@@ -3,7 +3,7 @@
     internal class UrlData
     {
         public string FileName;
-        public string FileWebLink;
-        public string FileType;
+        public string FileFullName;
+        public string FileHash;
     }
 }

@@ -199,7 +199,6 @@ namespace TrionCryptography
                 // Report progress
                 Console.WriteLine($"{progressPercentage:F2}% Processing file: {fileInfo.FileName} ({currentFileIndex}/{totalFiles}) - completed");
             }
-
             // Export file information to XML
             ExportToXML(fileInfos, xmlFilePath + "FileHashes.xml");
         }

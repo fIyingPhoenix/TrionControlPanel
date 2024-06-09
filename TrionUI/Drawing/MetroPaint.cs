@@ -700,7 +700,7 @@ namespace MetroFramework.Drawing
             };
         }
 
-        public static SolidBrush GetStyleBrush(MetroColorStyle style)
+        public static SolidBrush? GetStyleBrush(MetroColorStyle style)
         {
             return style switch
             {
@@ -719,7 +719,7 @@ namespace MetroFramework.Drawing
                 MetroColorStyle.Red => MetroBrushes.Red,
                 MetroColorStyle.Yellow => MetroBrushes.Yellow,
                 MetroColorStyle.Default => throw new NotImplementedException(),
-                _ => MetroBrushes.Blue!,
+                _ => MetroBrushes.Blue!
             };
         }
         public static Pen GetStyl5ePen(MetroColorStyle style)

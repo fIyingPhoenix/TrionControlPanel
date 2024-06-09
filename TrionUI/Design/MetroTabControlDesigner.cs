@@ -65,7 +65,7 @@ namespace MetroFramework.Design
                 if (_verbs.Count == 2)
                 {
                     var myControl = (MetroTabControl)Control;
-                    _verbs[1].Enabled = myControl.TabCount != 0;
+                    _verbs[1]!.Enabled = myControl.TabCount != 0;
                 }
                 return _verbs;
             }

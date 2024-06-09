@@ -20,7 +20,7 @@
             AllInkl,
             Cloudflare,
             DuckDNS,
-            DynamicDNS,
+            NoIP,
             Dynu,
             dynDNS,
             Enom,

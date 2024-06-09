@@ -9,7 +9,6 @@
     <NoWarn>CS8764</NoWarn>
     <NoWarn>CS8765</NoWarn>
 </PropertyGroup>
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.22000.0</TargetFramework>
@@ -48,7 +47,7 @@
   <ItemGroup>
     <AdditionalFiles Remove="app.manifest" />
   </ItemGroup>
-
+ 
   <ItemGroup>
     <None Remove="MainForm.resx~RF4f4aacf.TMP" />
   </ItemGroup>

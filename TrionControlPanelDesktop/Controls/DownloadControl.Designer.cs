@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadControl));
             PBARDownload = new TrionControlPanel.UI.CustomProgressBar();
             PNLDownloadStatus = new MetroFramework.Controls.MetroPanel();
-            LBLStatus = new Label();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             LBLQueue = new Label();
             LBLDownloadName = new Label();
             LBLDownloadSpeed = new Label();
@@ -41,8 +44,23 @@
             TimerDownloadStart = new System.Windows.Forms.Timer(components);
             LBLTitle = new Label();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            pictureBox4 = new PictureBox();
+            pictureBox5 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            pictureBox7 = new PictureBox();
+            pictureBox8 = new PictureBox();
             PNLDownloadStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             metroPanel1.SuspendLayout();
+            metroPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             SuspendLayout();
             // 
             // PBARDownload
@@ -67,7 +85,10 @@
             PNLDownloadStatus.Border = true;
             PNLDownloadStatus.BorderColor = Color.Black;
             PNLDownloadStatus.BorderSize = 1;
-            PNLDownloadStatus.Controls.Add(LBLStatus);
+            PNLDownloadStatus.Controls.Add(pictureBox4);
+            PNLDownloadStatus.Controls.Add(pictureBox3);
+            PNLDownloadStatus.Controls.Add(pictureBox2);
+            PNLDownloadStatus.Controls.Add(pictureBox1);
             PNLDownloadStatus.Controls.Add(LBLQueue);
             PNLDownloadStatus.Controls.Add(LBLDownloadName);
             PNLDownloadStatus.Controls.Add(LBLDownloadSpeed);
@@ -90,23 +111,40 @@
             PNLDownloadStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLDownloadStatus.VerticalScrollbarSize = 10;
             // 
-            // LBLStatus
+            // pictureBox3
             // 
-            LBLStatus.AutoSize = true;
-            LBLStatus.Font = new Font("Segoe UI", 12F);
-            LBLStatus.ForeColor = Color.White;
-            LBLStatus.Location = new Point(20, 149);
-            LBLStatus.Name = "LBLStatus";
-            LBLStatus.Size = new Size(55, 21);
-            LBLStatus.TabIndex = 35;
-            LBLStatus.Text = "Status:";
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(15, 138);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(35, 35);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 38;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(15, 56);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(35, 35);
+            pictureBox2.TabIndex = 37;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(15, 15);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(35, 35);
+            pictureBox1.TabIndex = 36;
+            pictureBox1.TabStop = false;
             // 
             // LBLQueue
             // 
             LBLQueue.AutoSize = true;
             LBLQueue.Font = new Font("Segoe UI", 12F);
             LBLQueue.ForeColor = Color.White;
-            LBLQueue.Location = new Point(20, 123);
+            LBLQueue.Location = new Point(53, 145);
             LBLQueue.Name = "LBLQueue";
             LBLQueue.Size = new Size(99, 21);
             LBLQueue.TabIndex = 35;
@@ -117,7 +155,7 @@
             LBLDownloadName.AutoSize = true;
             LBLDownloadName.Font = new Font("Segoe UI", 12F);
             LBLDownloadName.ForeColor = Color.White;
-            LBLDownloadName.Location = new Point(20, 97);
+            LBLDownloadName.Location = new Point(53, 104);
             LBLDownloadName.Name = "LBLDownloadName";
             LBLDownloadName.Size = new Size(116, 21);
             LBLDownloadName.TabIndex = 34;
@@ -128,7 +166,7 @@
             LBLDownloadSpeed.AutoSize = true;
             LBLDownloadSpeed.Font = new Font("Segoe UI", 12F);
             LBLDownloadSpeed.ForeColor = Color.White;
-            LBLDownloadSpeed.Location = new Point(20, 40);
+            LBLDownloadSpeed.Location = new Point(53, 63);
             LBLDownloadSpeed.Name = "LBLDownloadSpeed";
             LBLDownloadSpeed.Size = new Size(96, 21);
             LBLDownloadSpeed.TabIndex = 33;
@@ -139,7 +177,7 @@
             LBLDownloadSize.AutoSize = true;
             LBLDownloadSize.Font = new Font("Segoe UI", 12F);
             LBLDownloadSize.ForeColor = Color.White;
-            LBLDownloadSize.Location = new Point(20, 19);
+            LBLDownloadSize.Location = new Point(53, 22);
             LBLDownloadSize.Name = "LBLDownloadSize";
             LBLDownloadSize.Size = new Size(68, 21);
             LBLDownloadSize.TabIndex = 32;
@@ -205,11 +243,86 @@
             metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // metroPanel2
+            // 
+            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.Border = true;
+            metroPanel2.BorderColor = Color.Black;
+            metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(pictureBox8);
+            metroPanel2.Controls.Add(pictureBox7);
+            metroPanel2.Controls.Add(pictureBox6);
+            metroPanel2.Controls.Add(pictureBox5);
+            metroPanel2.CustomBackground = true;
+            metroPanel2.HorizontalScrollbar = true;
+            metroPanel2.HorizontalScrollbarBarColor = true;
+            metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel2.HorizontalScrollbarSize = 10;
+            metroPanel2.Location = new Point(469, 93);
+            metroPanel2.Name = "metroPanel2";
+            metroPanel2.Padding = new Padding(2);
+            metroPanel2.Size = new Size(348, 186);
+            metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel2.StyleManager = null;
+            metroPanel2.TabIndex = 39;
+            metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel2.VerticalScrollbar = true;
+            metroPanel2.VerticalScrollbarBarColor = true;
+            metroPanel2.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel2.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(15, 97);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(35, 35);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 39;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(15, 15);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(35, 35);
+            pictureBox5.TabIndex = 40;
+            pictureBox5.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(15, 56);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(35, 35);
+            pictureBox6.TabIndex = 41;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
+            pictureBox7.Location = new Point(15, 97);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(35, 35);
+            pictureBox7.TabIndex = 42;
+            pictureBox7.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
+            pictureBox8.Location = new Point(15, 138);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(35, 35);
+            pictureBox8.TabIndex = 43;
+            pictureBox8.TabStop = false;
+            // 
             // DownloadControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
+            Controls.Add(metroPanel2);
             Controls.Add(metroPanel1);
             Controls.Add(LBLFIleName);
             Controls.Add(PNLDownloadStatus);
@@ -219,7 +332,16 @@
             Load += DownloadControl_Load;
             PNLDownloadStatus.ResumeLayout(false);
             PNLDownloadStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             metroPanel1.ResumeLayout(false);
+            metroPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -232,11 +354,19 @@
         private Label LBLDownloadSpeed;
         private Label LBLDownloadName;
         private System.Windows.Forms.Timer TimerWacher;
-        private Label LBLStatus;
         private Label LBLFIleName;
         private System.Windows.Forms.Timer TimerDownloadStart;
         private Label LBLTitle;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private Label LBLQueue;
+        private MetroFramework.Controls.MetroPanel metroPanel2;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox8;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox5;
     }
 }

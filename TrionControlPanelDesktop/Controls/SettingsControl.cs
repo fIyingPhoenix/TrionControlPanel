@@ -9,8 +9,7 @@ using MySql.Data.MySqlClient;
 using TrionDatabase;
 using MetroFramework;
 using System.Net;
-using System.Security.Policy;
-using System.Text;
+
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -689,8 +688,8 @@ namespace TrionControlPanelDesktop.Controls
                 case "DuckDNS":
                     Data.Settings.DDNSerivce = DDNSerivce.DuckDNS;
                     break;
-                case "DynamicDNS":
-                    Data.Settings.DDNSerivce = DDNSerivce.DynamicDNS;
+                case "NoIP":
+                    Data.Settings.DDNSerivce = DDNSerivce.NoIP;
                     break;
                 case "Dynu":
                     Data.Settings.DDNSerivce = DDNSerivce.Dynu;
@@ -791,10 +790,9 @@ namespace TrionControlPanelDesktop.Controls
         {
             TimerDDNSInterval.Start();
         }
-
-        private void SettingsControl_Load(object sender, EventArgs e)
+        private void BTNWebiste_Click(object sender, EventArgs e)
         {
-
+            Process.Start("explorer.exe", WebLinks.DDNSWebsits());
         }
     }
 }
