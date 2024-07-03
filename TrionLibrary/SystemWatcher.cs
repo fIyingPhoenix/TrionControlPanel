@@ -48,7 +48,7 @@ namespace TrionLibrary
             else if (Environment.OSVersion.Platform == PlatformID.Win32NT) return "Widnows";
             else return "Unknown";
         }
-        public static int TotalRam()
+        public static int MachineTotalRam()
         {
             double totalRamInMB = 0;
             try
@@ -174,15 +174,27 @@ namespace TrionLibrary
             }
             return 0;
         }
-        public static bool ApplicationRuning(string ApplicationName)
+        public static bool IsProceessRunning(string ProcessName)
         {
-            Process[] ProcessID = Process.GetProcessesByName(ApplicationName);
+            Process[] ProcessID = Process.GetProcessesByName(ProcessName);
             if (ProcessID.Length <= 0)
                 return false;
             else
                 return true;
         }
-        public static int ApplicationStart(string Application, string Name, bool HideWindw, string Arguments)
+        public static bool ApplicationRuning(int ProcessId)
+        {
+            try
+            {
+                Process process = Process.GetProcessById(ProcessId);
+                return !process.HasExited;
+            }
+            catch (ArgumentException)
+            {
+                return false; // Process with the specified ID does not exist
+            }
+        }
+        public static int ApplicationStart(string Application, string WorkingDirectory,  string Name, bool HideWindw, string Arguments)
         {
             Data.Message = $@"Starting {Name}!";
             Thread.Sleep(100);
@@ -192,6 +204,7 @@ namespace TrionLibrary
                 myProcess.StartInfo.UseShellExecute = false;
                 // You can start any process, HelloWorld is a do-nothing example.
                 myProcess.StartInfo.FileName = Application;
+                myProcess.StartInfo.WorkingDirectory = WorkingDirectory;
                 if (Arguments != null)
                 {
                     myProcess.StartInfo.Arguments = Arguments;

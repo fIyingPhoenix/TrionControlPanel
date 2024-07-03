@@ -18,7 +18,7 @@ namespace TrionControlPanel.Pages.admin
         private async void OnTimeEvent(Object sorce, ElapsedEventArgs e)
         {
             MachineCpuUsage = SystemWatcher.MachineCpuUtilization().ToString()+"%";
-            MachineMaxRam = SystemWatcher.TotalRam();
+            MachineMaxRam = SystemWatcher.MachineTotalRam();
             MachineCurrentRam = SystemWatcher.CurentPcRamUsage();
             calculate = 100 - Convert.ToInt32(MachineCurrentRam / MachineMaxRam * (long)100);
             MachineRamProcent = calculate.ToString() + "%";

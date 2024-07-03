@@ -186,7 +186,7 @@ namespace TrionControlPanelDesktop
             BTNHome.Size = new Size(70, 70);
             BTNHome.TabIndex = 1;
             BTNHome.TextColor = Color.White;
-            TLTHome.SetToolTip(BTNHome, "Test TEst Test Test TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\nTest TEst Test \r\n");
+            TLTHome.SetToolTip(BTNHome, "System Resorces");
             BTNHome.UseVisualStyleBackColor = false;
             BTNHome.Visible = false;
             BTNHome.Click += HomeBTN_Click;

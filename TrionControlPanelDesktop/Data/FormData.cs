@@ -61,19 +61,41 @@ namespace TrionControlPanelDesktop.FormData
             }
         }
         public class UI
-        {    
-            public class Update
+        {
+            public static object Update { get; internal set; }
+
+            public class Version
             {
-                public static string TrionVersOFF { get; set; }
-                public static string TrionVersON { get; set; }
-                public static string MySQLVerOFF { get; set; }
-                public static string MySQLVerON { get; set; }
-                public static string SPPVerOFF { get; set; }
-                public static string SPPVerON { get; set; }
-                public static bool TrionUpdate { get; set; }
-                public static bool MysqlUpdate { get; set; }
-                public static bool SppUpdate { get; set; }
-                public static bool StartupUpdateCheck { get; set; }
+                public class ON
+                {
+                    public static string Trion { get; set; }
+                    public static string Database { get; set; }
+                    public static string Classic { get; set; }
+                    public static string TBC { get; set; }
+                    public static string WotLK { get; set; }
+                    public static string Cata { get; set; }
+                    public static string Mop { get; set; }
+                }
+                public class OFF
+                {
+                    public static string Trion { get; set; }
+                    public static string Database { get; set; }
+                    public static string Classic { get; set; }
+                    public static string TBC { get; set; }
+                    public static string WotLK { get; set; }
+                    public static string Cata { get; set; }
+                    public static string Mop { get; set; }
+                }
+                public class Update
+                {
+                    public static bool Trion { get; set; }
+                    public static bool Database { get; set; }
+                    public static bool Classic { get; set; }
+                    public static bool TBC { get; set; }
+                    public static bool WotLK { get; set; }
+                    public static bool Caataa { get; set; }
+                    public static bool Mop { get; set; }
+                }
             }
             public class Resource
             {
@@ -94,13 +116,41 @@ namespace TrionControlPanelDesktop.FormData
             }
             public class Form
             {
-                public static bool MySQLisRunning { get; set; }
-                public static bool WorldisRunning { get; set; }
-                public static bool LogonisRunning { get; set; }
+                //DB
+                public static bool DBRunning { get; set; }
+                public static bool DBStarted { get; set; }
+                //Custom 
+                public static bool CustWorldRunning { get; set; }
+                public static bool CustLogonRunning { get; set; }
+                public static bool CustWorldStarted { get; set; }
+                public static bool CustLogonStarted { get; set; }
+                //SPP Classic
+                public static bool ClassicWorldRunning { get; set; }
+                public static bool ClassicLogonRunning { get; set; }
+                public static bool ClassicWorldStarted { get; set; }
+                public static bool ClassicLogonStarted { get; set; }
+                //SPP TBC
+                public static bool TBCWorldRunning { get; set; }
+                public static bool TBCLogonRunning { get; set; }
+                public static bool TBCWorldStarted { get; set; }
+                public static bool TBCLogonStarted { get; set; }
+                //SPP WotLK
+                public static bool WotLKWorldRunning { get; set; }
+                public static bool WotLKLogonRunning { get; set; }
+                public static bool WotLKWorldStarted { get; set; }
+                public static bool WotLKLogonStarted { get; set; }
+                //SPP Cata
+                public static bool CataWorldRunning { get; set; }
+                public static bool CataLogonRunning { get; set; }
+                public static bool CataWorldStarted { get; set; }
+                public static bool CataLogonStarted { get; set; }
+                //SPP MOP
+                public static bool MOPWorldRunning { get; set; }
+                public static bool MOPLogonRunning { get; set; }
+                public static bool MOPWorldStarted { get; set; }
+                public static bool MOPLogonStarted { get; set; }
+                //
                 public static bool LoadData { get; set; }
-                public static bool MySQLisStarted { get; set; }
-                public static bool WorldisStarted { get; set; }
-                public static bool LogonisStarted { get; set; }
                 public static int Notyfications { get; set; }
                 public static int StartUpLoading { get; set; }
             }
@@ -110,12 +160,12 @@ namespace TrionControlPanelDesktop.FormData
             public static DateTime DatabaseStartTime { get; set; }
             public static DateTime WorldStartTime { get; set; }
             public static DateTime LogonStartTime { get; set; }
-            public static List<int> DatabaseProcessID = [];
-            public static List<int> WorldProcessesID = [];
-            public static List<int> LogonProcessesID = [];
-            public static List<int> DatabasePort = [];
-            public static List<int> WorldPort = [];
-            public static List<int> LogonPort = [];
+            public static List<ProcessID> DatabaseProcessID = [];
+            public static List<ProcessID> WorldProcessesID = [];
+            public static List<ProcessID> LogonProcessesID = [];
+            public static List<ProcessPort> DatabasePort = [];
+            public static List<ProcessPort> WorldPort = [];
+            public static List<ProcessPort> LogonPort = [];
         }
     }
 }

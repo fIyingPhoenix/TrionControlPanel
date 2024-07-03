@@ -33,7 +33,7 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
                 {
                     RList?.Clear();
-                    RList = await SQLDataAccess.LodaData<DataModels.RealmList, dynamic>(SQLDataConnect.LoadRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    RList = await DataAccess.LodaData<DataModels.RealmList, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     foreach (var realm in RList!)
                     {
                         CBOXReamList.Items.Add(realm.Name);
@@ -44,7 +44,7 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
                 {
                     RListMangos?.Clear();
-                    RListMangos = await SQLDataAccess.LodaData<DataModels.RealmListMangos, dynamic>(SQLDataConnect.LoadRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    RListMangos = await DataAccess.LodaData<DataModels.RealmListMangos, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     foreach (var realm in RListMangos!)
                     {
                         CBOXReamList.Items.Add(realm.Name);
@@ -54,7 +54,7 @@ namespace TrionControlPanelDesktop.Controls
                 if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
                 {
                     RListAscemu?.Clear();
-                    RListAscemu = await SQLDataAccess.LodaData<DataModels.RealmListAscemu, dynamic>(SQLDataConnect.LoadRealmSql(), new { }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    RListAscemu = await DataAccess.LodaData<DataModels.RealmListAscemu, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     foreach (var realm in RListAscemu!)
                     {
                         CBOXReamList.Items.Add(realm.ID);
@@ -79,7 +79,7 @@ namespace TrionControlPanelDesktop.Controls
                     Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
                 {
                     //`name`, `address`, `port`, `icon`, `flag`, `timezone`
-                    SQLDataAccess.SaveData(SQLDataConnect.SaveRealmSql(), new
+                    DataAccess.SaveData(SQL.SaveRealm(), new
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
@@ -91,14 +91,14 @@ namespace TrionControlPanelDesktop.Controls
                         Timezone = TXTRealmTime.Text,
                         ID = TXTRealmID.Text
 
-                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     await LoadRealmList();
                 }
                 if (Data.Settings.SelectedCore == EnumModels.Cores.CMaNGOS ||
                     Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
                 {
                     RListMangos?.Clear();
-                    SQLDataAccess.SaveData(SQLDataConnect.SaveRealmSql(), new
+                    DataAccess.SaveData(SQL.SaveRealm(), new
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
@@ -108,18 +108,18 @@ namespace TrionControlPanelDesktop.Controls
                         Timezone = TXTRealmTime.Text,
                         ID = TXTRealmID.Text
 
-                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     await LoadRealmList();
                 }
                 if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
                 {
                     RListAscemu?.Clear();
-                    SQLDataAccess.SaveData(SQLDataConnect.SaveRealmSql(), new
+                    DataAccess.SaveData(SQL.SaveRealm(), new
                     {
                         Password = TXTRealmName.Text,
                         StatusChangeTime = TXTRealmAddress.Text,
 
-                    }, SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
                     await LoadRealmList();
                 }
             //}

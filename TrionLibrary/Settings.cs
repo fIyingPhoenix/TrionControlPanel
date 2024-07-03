@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Bcpg;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -35,7 +34,7 @@ namespace TrionLibrary
                     return ($"N/A");
                 }
             }
-            public static string GetLocal(string Location)
+            public static string GetLocal(string Location , string ExecName)
             {
                 try
                 {
@@ -43,7 +42,7 @@ namespace TrionLibrary
                     {
                         if (!string.IsNullOrEmpty(Location))
                         {
-                            if (Location.Contains(Settings.WorldExecutableName) || Location.Contains(Settings.LogonExecutableName))
+                            if (Location.Contains(ExecName))
                             {
                                 var versionInfo = FileVersionInfo.GetVersionInfo(Location);
                                 // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
@@ -79,8 +78,7 @@ namespace TrionLibrary
                 {
                     Data.Message = $@"Failed to get the application version! {ex.Message}";
                     return "N/A";
-                }
-                
+                }              
             }
         }
         //Error Message (4 later) dont feel do it now
@@ -110,22 +108,22 @@ namespace TrionLibrary
             }
             if (PopulateSettingsData == true)
             {
-                Settings.WorkingDirectory = Directory.GetCurrentDirectory();
+                Settings.CustomWorkingDirectory = Directory.GetCurrentDirectory();
                 Settings.WorldDatabase = "acore_world";
                 Settings.AuthDatabase = "acore_auth";
                 Settings.CharactersDatabase = "acore_characters";
-                Settings.MySQLLocation = "";
-                Settings.MySQLServerHost = "localhost";
-                Settings.MySQLServerUser = "acore";
-                Settings.MySQLServerPassword = "acore";
-                Settings.MySQLServerPort = "3306";
-                Settings.MySQLExecutableName = "mysqld";
-                Settings.CoreLocation = "";
-                Settings.WorldExecutableLocation = "";
-                Settings.LogonExecutableLocation = "";
-                Settings.MySQLExecutableLocation = "";
-                Settings.WorldExecutableName = "worldserver";
-                Settings.LogonExecutableName = "authserver";
+                Settings.DBExeLoca = "";
+                Settings.DBLocation = "";
+                Settings.DBServerHost = "localhost";
+                Settings.DBServerUser = "acore";
+                Settings.DBServerPassword = "acore";
+                Settings.DBServerPort = "3306";
+                Settings.DBExecutableName = "mysqld";
+                Settings.CustomWorkingDirectory = "";
+                Settings.CustomWorldExeLoc = "";
+                Settings.CustomLogonExeLoc = "";
+                Settings.CustomWorldExeName = "worldserver";
+                Settings.CustomLogonExeName = "authserver";
                 Settings.DDNSDomain = "";
                 Settings.DDNSInterval = 1000;
                 Settings.DDNSUsername = "";
@@ -199,7 +197,7 @@ namespace TrionLibrary
         public static void CreateMySQLConfigFile(string Location)
         {
             string ConfigFile = $@"{Location}\my.ini";
-            string DirectoryMYSQL = Settings.MySQLLocation.Replace(@"\","/");
+            string DirectoryMYSQL = Settings.DBLocation.Replace(@"\","/");
             
             if (!File.Exists(ConfigFile))
             {
@@ -214,7 +212,7 @@ namespace TrionLibrary
                 lines.Add("[mysqld]");
                 lines.Add("port=3306");
                 lines.Add("socket=/tmp/mysql.sock");
-                lines.Add("key_buffer_size=16M");
+                lines.Add("key_buffer_size=256M");
                 lines.Add("max_allowed_packet=1G");
                 lines.Add($"basedir={DirectoryMYSQL}");
                 lines.Add($"datadir={DirectoryMYSQL}data");
@@ -229,27 +227,60 @@ namespace TrionLibrary
     }
     public class SettingsList
     {  
-        public string WorkingDirectory;
+        //Database Names
         public string WorldDatabase;
         public string AuthDatabase;
         public string CharactersDatabase;
-        public string MySQLLocation;
-        public string MySQLServerHost;
-        public string MySQLServerUser;
-        public string MySQLServerPassword;
-        public string MySQLServerPort;
-        public string MySQLExecutableName;
-        public string MySQLExecutablePath;
-        public string CoreLocation;
-        public string MySQLExecutableLocation;
-        public string WorldExecutableLocation;
-        public string LogonExecutableLocation;
-        public string WorldExecutableName;
-        public string LogonExecutableName;
+        public string HotfixDatabase;
+        //Dataabase Settings
+        public string DBExeLoca;
+        public string DBLocation;
+        public string DBServerHost;
+        public string DBServerUser;
+        public string DBServerPassword;
+        public string DBServerPort;
+        public string DBExecutableName;
+        public string DBExecutablePath;
+        //Custom Cores
+        public string CustomWorkingDirectory;
+        public string CustomWorldExeLoc;
+        public string CustomLogonExeLoc;
+        public string CustomLogonExeName;
+        public string CustomWorldExeName;
+        //Classic Core
+        public string ClassicWorkingDirectory;
+        public string ClassicDBExeLoca;
+        public string ClassicWorldExeLoc;
+        public string ClassicLogonExeLoc;
+        public string ClassicLogonExeName;
+        public string ClassicWorldExeName;
+        //TBC Core
+        public string TBCWorkingDirectory;
+        public string TBCDBExeLoca;
+        public string TBCWorldExeLoc;
+        public string TBCLogonExeLoc;
+        public string TBCLogonExeName;
+        public string TBCWorldExeName;
+        //WotLK Core
+        public string WotLKWorkingDirectory;
+        public string WotLKDBExeLoca;
+        public string WotLKWorldExeLoc;
+        public string WotLKLogonExeLoc;
+        public string WotLKLogonExeName;
+        public string WotLKWorldExeName;
+        //Mop Core
+        public string MopCWorkingDirectory;
+        public string MopDBExeLoca;
+        public string MopWorldExeLoc;
+        public string MopLogonExeLoc;
+        public string MopLogonExeName;
+        public string MopWorldExeName;
+        //DDNS Settings
         public string DDNSDomain;
         public string DDNSUsername;
         public string DDNSPassword;
         public string IPAddress;
+        //Trion
         public bool AutoUpdateCore;
         public bool AutoUpdateTrion;
         public bool AutoUpdateMySQL;

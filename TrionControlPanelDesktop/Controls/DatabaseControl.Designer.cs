@@ -40,6 +40,8 @@
             customComboBox1 = new TrionControlPanel.UI.CustomComboBox();
             BTNForcerefresh = new UI.Controls.CustomButton();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            TXTDomainName = new MetroFramework.Controls.MetroTextBox();
+            label4 = new Label();
             label5 = new Label();
             TXTInternIP = new MetroFramework.Controls.MetroTextBox();
             LBLInternIP = new Label();
@@ -68,13 +70,17 @@
             TXTRealmSubnetMask = new MetroFramework.Controls.MetroTextBox();
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
             tPageAccount = new TabPage();
-            TXTDomainName = new MetroFramework.Controls.MetroTextBox();
-            label4 = new Label();
+            metroPanel20 = new MetroFramework.Controls.MetroPanel();
+            metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            metroPanel5 = new MetroFramework.Controls.MetroPanel();
             TabControl1.SuspendLayout();
             tPageRealmList.SuspendLayout();
             metroPanel2.SuspendLayout();
             metroPanel1.SuspendLayout();
             metroPanel3.SuspendLayout();
+            metroPanel20.SuspendLayout();
+            metroPanel4.SuspendLayout();
+            metroPanel5.SuspendLayout();
             SuspendLayout();
             // 
             // TabControl1
@@ -117,14 +123,14 @@
             // metroPanel2
             // 
             metroPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(metroPanel5);
             metroPanel2.Controls.Add(BTNOpenIntern);
             metroPanel2.Controls.Add(BTNOpenPublic);
             metroPanel2.Controls.Add(BTNSaveData);
-            metroPanel2.Controls.Add(label3);
             metroPanel2.Controls.Add(label1);
             metroPanel2.Controls.Add(customComboBox1);
             metroPanel2.Controls.Add(BTNForcerefresh);
@@ -221,15 +227,15 @@
             // 
             // label3
             // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(0, 174, 219);
-            label3.Location = new Point(124, 18);
+            label3.Location = new Point(2, 2);
             label3.Name = "label3";
-            label3.Size = new Size(82, 21);
+            label3.Size = new Size(311, 26);
             label3.TabIndex = 51;
             label3.Text = "SETTINGS";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -291,13 +297,13 @@
             // metroPanel1
             // 
             metroPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
+            metroPanel1.Controls.Add(metroPanel20);
             metroPanel1.Controls.Add(TXTDomainName);
             metroPanel1.Controls.Add(label4);
-            metroPanel1.Controls.Add(label5);
             metroPanel1.Controls.Add(TXTInternIP);
             metroPanel1.Controls.Add(LBLInternIP);
             metroPanel1.Controls.Add(TXTPublicIP);
@@ -322,17 +328,46 @@
             metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // TXTDomainName
+            // 
+            TXTDomainName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTDomainName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTDomainName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTDomainName.ForeColor = Color.White;
+            TXTDomainName.Location = new Point(16, 172);
+            TXTDomainName.Multiline = false;
+            TXTDomainName.Name = "TXTDomainName";
+            TXTDomainName.PasswordChar = '\0';
+            TXTDomainName.ReadOnly = true;
+            TXTDomainName.SelectedText = "";
+            TXTDomainName.Size = new Size(218, 25);
+            TXTDomainName.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTDomainName.StyleManager = null;
+            TXTDomainName.TabIndex = 51;
+            TXTDomainName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTDomainName.UseStyleColors = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(16, 153);
+            label4.Name = "label4";
+            label4.Size = new Size(87, 15);
+            label4.TabIndex = 52;
+            label4.Text = "Domain Name:";
+            // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Top;
-            label5.AutoSize = true;
+            label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.FromArgb(0, 174, 219);
-            label5.Location = new Point(83, 18);
+            label5.Location = new Point(2, 2);
             label5.Name = "label5";
-            label5.Size = new Size(78, 21);
+            label5.Size = new Size(246, 26);
             label5.TabIndex = 50;
             label5.Text = "OPTIONS";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TXTInternIP
             // 
@@ -425,11 +460,11 @@
             // 
             // metroPanel3
             // 
-            metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel3.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel3.Border = true;
             metroPanel3.BorderColor = Color.Black;
             metroPanel3.BorderSize = 1;
-            metroPanel3.Controls.Add(label2);
+            metroPanel3.Controls.Add(metroPanel4);
             metroPanel3.Controls.Add(TXTRealmID);
             metroPanel3.Controls.Add(TXTRealmFlag);
             metroPanel3.Controls.Add(LBLRealmAddress);
@@ -468,15 +503,15 @@
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
+            label2.Dock = DockStyle.Fill;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(0, 174, 219);
-            label2.Location = new Point(98, 18);
+            label2.Location = new Point(2, 2);
             label2.Name = "label2";
-            label2.Size = new Size(50, 21);
+            label2.Size = new Size(246, 26);
             label2.TabIndex = 19;
             label2.Text = "DATA";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TXTRealmID
             // 
@@ -748,34 +783,83 @@
             tPageAccount.TabIndex = 1;
             tPageAccount.Text = "Account";
             // 
-            // TXTDomainName
+            // metroPanel20
             // 
-            TXTDomainName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTDomainName.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTDomainName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTDomainName.ForeColor = Color.White;
-            TXTDomainName.Location = new Point(16, 172);
-            TXTDomainName.Multiline = false;
-            TXTDomainName.Name = "TXTDomainName";
-            TXTDomainName.PasswordChar = '\0';
-            TXTDomainName.ReadOnly = true;
-            TXTDomainName.SelectedText = "";
-            TXTDomainName.Size = new Size(218, 25);
-            TXTDomainName.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTDomainName.StyleManager = null;
-            TXTDomainName.TabIndex = 51;
-            TXTDomainName.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTDomainName.UseStyleColors = true;
+            metroPanel20.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel20.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel20.Border = true;
+            metroPanel20.BorderColor = Color.Black;
+            metroPanel20.BorderSize = 1;
+            metroPanel20.Controls.Add(label5);
+            metroPanel20.CustomBackground = true;
+            metroPanel20.HorizontalScrollbar = true;
+            metroPanel20.HorizontalScrollbarBarColor = true;
+            metroPanel20.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel20.HorizontalScrollbarSize = 10;
+            metroPanel20.Location = new Point(0, 0);
+            metroPanel20.Name = "metroPanel20";
+            metroPanel20.Padding = new Padding(2);
+            metroPanel20.Size = new Size(250, 30);
+            metroPanel20.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel20.StyleManager = null;
+            metroPanel20.TabIndex = 57;
+            metroPanel20.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel20.VerticalScrollbar = true;
+            metroPanel20.VerticalScrollbarBarColor = true;
+            metroPanel20.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel20.VerticalScrollbarSize = 10;
             // 
-            // label4
+            // metroPanel4
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(16, 153);
-            label4.Name = "label4";
-            label4.Size = new Size(87, 15);
-            label4.TabIndex = 52;
-            label4.Text = "Domain Name:";
+            metroPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel4.Border = true;
+            metroPanel4.BorderColor = Color.Black;
+            metroPanel4.BorderSize = 1;
+            metroPanel4.Controls.Add(label2);
+            metroPanel4.CustomBackground = true;
+            metroPanel4.HorizontalScrollbar = true;
+            metroPanel4.HorizontalScrollbarBarColor = true;
+            metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel4.HorizontalScrollbarSize = 10;
+            metroPanel4.Location = new Point(0, 0);
+            metroPanel4.Name = "metroPanel4";
+            metroPanel4.Padding = new Padding(2);
+            metroPanel4.Size = new Size(250, 30);
+            metroPanel4.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel4.StyleManager = null;
+            metroPanel4.TabIndex = 58;
+            metroPanel4.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel4.VerticalScrollbar = true;
+            metroPanel4.VerticalScrollbarBarColor = true;
+            metroPanel4.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel4.VerticalScrollbarSize = 10;
+            // 
+            // metroPanel5
+            // 
+            metroPanel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel5.Border = true;
+            metroPanel5.BorderColor = Color.Black;
+            metroPanel5.BorderSize = 1;
+            metroPanel5.Controls.Add(label3);
+            metroPanel5.CustomBackground = true;
+            metroPanel5.HorizontalScrollbar = true;
+            metroPanel5.HorizontalScrollbarBarColor = true;
+            metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel5.HorizontalScrollbarSize = 10;
+            metroPanel5.Location = new Point(0, 0);
+            metroPanel5.Name = "metroPanel5";
+            metroPanel5.Padding = new Padding(2);
+            metroPanel5.Size = new Size(315, 30);
+            metroPanel5.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel5.StyleManager = null;
+            metroPanel5.TabIndex = 58;
+            metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel5.VerticalScrollbar = true;
+            metroPanel5.VerticalScrollbarBarColor = true;
+            metroPanel5.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel5.VerticalScrollbarSize = 10;
             // 
             // DatabaseControl
             // 
@@ -794,6 +878,9 @@
             metroPanel1.PerformLayout();
             metroPanel3.ResumeLayout(false);
             metroPanel3.PerformLayout();
+            metroPanel20.ResumeLayout(false);
+            metroPanel4.ResumeLayout(false);
+            metroPanel5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -840,5 +927,8 @@
         private TabPage tPageAccount;
         private MetroFramework.Controls.MetroTextBox TXTDomainName;
         private Label label4;
+        private MetroFramework.Controls.MetroPanel metroPanel5;
+        private MetroFramework.Controls.MetroPanel metroPanel20;
+        private MetroFramework.Controls.MetroPanel metroPanel4;
     }
 }

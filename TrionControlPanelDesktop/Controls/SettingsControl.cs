@@ -1,15 +1,11 @@
-﻿using static TrionLibrary.EnumModels;
-using TrionLibrary;
-using TrionControlPanelDesktop.FormData;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Diagnostics;
-using Microsoft.Win32;
-using System.Data;
-using MySql.Data.MySqlClient;
+using static TrionLibrary.EnumModels;
+using TrionLibrary;
 using TrionDatabase;
+using TrionControlPanelDesktop.Classes;
+using TrionControlPanelDesktop.FormData;
 using MetroFramework;
-using System.Net;
-
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -22,32 +18,11 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
             ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
+            ComboBoxSPPVersion.Items.AddRange(Enum.GetNames(typeof(SPP)));
             ComboBoxDDNService.Items.AddRange(Enum.GetNames(typeof(DDNSerivce)));
-            User.UI.Update.StartupUpdateCheck = true;
+            _ = LoadData();
         }
-        private static string GetFolder()
-        {
-            using FolderBrowserDialog FolderDialog = new();
-            // Set the initial selected folder
-            FolderDialog.SelectedPath = Directory.GetCurrentDirectory();
-            // Set the title of the dialog
-            FolderDialog.Description = "Select a folder";
-            // Show the folder browser dialog
-            DialogResult result = FolderDialog.ShowDialog();
-
-            // Check if the user clicked OK
-            if (result == DialogResult.OK)
-            {
-                // Return the selected folder path
-                return FolderDialog.SelectedPath;
-            }
-            else
-            {
-                // Return empty string 
-                return string.Empty;
-            }
-        }
-        private void CustomNames()
+        private void EnableCustomNames()
         {
             TXTBoxLoginExecName.ReadOnly = !Data.Settings.CustomNames;
             TXTBoxWorldExecName.ReadOnly = !Data.Settings.CustomNames;
@@ -60,17 +35,17 @@ namespace TrionControlPanelDesktop.Controls
             ComboBoxDDNService.SelectedItem = Data.Settings.DDNSerivce.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
-            TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
-            TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
-            TXTBoxMySQLExecName.Text = Data.Settings.MySQLExecutableName;
+            TXTBoxLoginExecName.Text = Data.Settings.CustomLogonExeName;
+            TXTBoxWorldExecName.Text = Data.Settings.CustomWorldExeName;
+            TXTBoxMySQLExecName.Text = Data.Settings.DBExecutableName;
             //Working Directory
-            TXTBoxCoreLocation.Text = Data.Settings.CoreLocation;
-            TXTBoxMySQLLocation.Text = Data.Settings.MySQLLocation;
+            TXTBoxCoreLocation.Text = Data.Settings.CustomWorkingDirectory;
+            TXTBoxMySQLLocation.Text = Data.Settings.DBLocation;
             //MySQL Host Data
-            TXTMysqlHost.Text = Data.Settings.MySQLServerHost;
-            TXTMysqlPort.Text = Data.Settings.MySQLServerPort;
-            TXTMysqlUser.Text = Data.Settings.MySQLServerUser;
-            TXTMysqlPassword.Text = Data.Settings.MySQLServerPassword;
+            TXTMysqlHost.Text = Data.Settings.DBServerHost;
+            TXTMysqlPort.Text = Data.Settings.DBServerPort;
+            TXTMysqlUser.Text = Data.Settings.DBServerUser;
+            TXTMysqlPassword.Text = Data.Settings.DBServerPassword;
             //MysqlDatabases
             TXTCharDatabase.Text = Data.Settings.CharactersDatabase;
             TXTAuthDatabase.Text = Data.Settings.AuthDatabase;
@@ -84,25 +59,31 @@ namespace TrionControlPanelDesktop.Controls
             TGLCustomNames.Checked = Data.Settings.CustomNames;
             TGLRunTrionStartup.Checked = Data.Settings.RunWithWindows;
             //Update Loader
-            CustomNames();
+            EnableCustomNames();
             //Version Load
-            User.UI.Update.TrionVersOFF = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            User.UI.Update.TrionVersON = await Data.Version.GetOnline(WebLinks.TrionVer);
-            User.UI.Update.MySQLVerOFF = Data.Version.GetLocal(Data.Settings.MySQLExecutableLocation);
-            User.UI.Update.MySQLVerON = await Data.Version.GetOnline(WebLinks.MySQLVer);
-            User.UI.Update.SPPVerOFF = Data.Version.GetLocal(Data.Settings.WorldExecutableLocation);
-            User.UI.Update.SPPVerON = await Data.Version.GetOnline(WebLinks.SPPCoreVer);
+            User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+            User.UI.Version.OFF.Database = Data.Version.GetLocal(Data.Settings.DBExeLoca, Data.Settings.DBExecutableName);
+            User.UI.Version.ON.Trion = await Data.Version.GetOnline(WebLinks.Version.Trion);
+            User.UI.Version.ON.Database = await Data.Version.GetOnline(WebLinks.Version.Database);
+            User.UI.Version.ON.Classic = await Data.Version.GetOnline(WebLinks.Version.Classic);
+            User.UI.Version.ON.TBC = await Data.Version.GetOnline(WebLinks.Version.TBC);
+            User.UI.Version.ON.WotLK = await Data.Version.GetOnline(WebLinks.Version.WotLK);
+            User.UI.Version.ON.Cata = await Data.Version.GetOnline(WebLinks.Version.Cata);
+            User.UI.Version.ON.Mop = await Data.Version.GetOnline(WebLinks.Version.Mop);
             //Update Labels
-            LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Update.TrionVersOFF} / Online: {User.UI.Update.TrionVersON}";
-            LBLMySQLVersion.Text = $"MySQL Version: \n •Local: {User.UI.Update.MySQLVerOFF} \n •Online: {User.UI.Update.MySQLVerON} ";
-            LBLCoreVersion.Text = $"Core Version: \n •Local: {User.UI.Update.SPPVerOFF} \n •Online: {User.UI.Update.SPPVerON} ";
+            LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Version.OFF.Trion} / Online: {User.UI.Version.ON.Trion}";
+            LBLDBVersion.Text = $"Database Version: \n •Local: {User.UI.Version.OFF.Database} \n •Online: {User.UI.Version.ON.Database} ";
+            LBLClassicVersion.Text = $"Classic Version: \n •Local: {User.UI.Version.OFF.Classic} \n •Online: {User.UI.Version.OFF.Classic} ";
+            LBLTBCVersion.Text = $"TBC Version: \n •Local: {User.UI.Version.OFF.TBC} \n •Online: {User.UI.Version.OFF.TBC} ";
+            LBLWotLKVersion.Text = $"WotLK Version: \n •Local: {User.UI.Version.OFF.WotLK} \n •Online: {User.UI.Version.OFF.WotLK} ";
+            LBLCataVersion.Text = $"Cata Version: \n •Local: {User.UI.Version.OFF.Cata} \n •Online: {User.UI.Version.OFF.Cata} ";
+            LBLMoPVersion.Text = $"MoP Version: \n •Local: {User.UI.Version.OFF.Mop} \n •Online: {User.UI.Version.OFF.Mop} ";
             //DDNS
             TXTDDNSDomain.Text = Data.Settings.DDNSDomain;
             TXTDDNSUsername.Text = Data.Settings.DDNSUsername;
             TXTDDNSPassword.Text = Data.Settings.DDNSPassword;
             TXTDDNSInterval.Text = Data.Settings.DDNSInterval.ToString();
             TGLDDNSRunOnStartup.Checked = Data.Settings.DDNSRunOnStartup;
-            CheckForUpdate();
             User.UI.Form.StartUpLoading++;
         }
         private async void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -110,88 +91,88 @@ namespace TrionControlPanelDesktop.Controls
             switch (ComboBoxCores.SelectedItem)
             {
                 case "AscEmu":
-                    Data.Settings.WorldExecutableName = "world";
-                    Data.Settings.LogonExecutableName = "logon";
+                    Data.Settings.CustomWorldExeName = "world";
+                    Data.Settings.CustomLogonExeName = "logon";
                     Data.Settings.SelectedCore = Cores.AscEmu;
                     Data.Settings.CharactersDatabase = "ascemu_char";
                     Data.Settings.WorldDatabase = "ascemu_world";
                     Data.Settings.AuthDatabase = "ascemu_logon";
-                    Data.Settings.MySQLServerUser = "root";
-                    Data.Settings.MySQLServerPassword = "root";
+                    Data.Settings.DBServerUser = "root";
+                    Data.Settings.DBServerPassword = "root";
                     break;
                 case "AzerothCore":
-                    Data.Settings.WorldExecutableName = "worldserver";
-                    Data.Settings.LogonExecutableName = "authserver";
+                    Data.Settings.CustomWorldExeName = "worldserver";
+                    Data.Settings.CustomLogonExeName = "authserver";
                     Data.Settings.SelectedCore = Cores.AzerothCore;
                     Data.Settings.CharactersDatabase = "acore_characters";
                     Data.Settings.WorldDatabase = "acore_world";
                     Data.Settings.AuthDatabase = "acore_auth";
-                    Data.Settings.MySQLServerUser = "acore";
-                    Data.Settings.MySQLServerPassword = "acore";
+                    Data.Settings.DBServerUser = "acore";
+                    Data.Settings.DBServerPassword = "acore";
                     break;
                 case "CMaNGOS":
-                    Data.Settings.WorldExecutableName = "mangosd";
-                    Data.Settings.LogonExecutableName = "realmd";
+                    Data.Settings.CustomWorldExeName = "mangosd";
+                    Data.Settings.CustomLogonExeName = "realmd";
                     Data.Settings.SelectedCore = Cores.CMaNGOS;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "mangos";
                     Data.Settings.AuthDatabase = "realmd";
-                    Data.Settings.MySQLServerUser = "mangos";
-                    Data.Settings.MySQLServerPassword = "mangos";
+                    Data.Settings.DBServerUser = "mangos";
+                    Data.Settings.DBServerPassword = "mangos";
                     break;
                 case "CypherCore":
-                    Data.Settings.WorldExecutableName = "WorldServer";
-                    Data.Settings.LogonExecutableName = "BNetServer";
+                    Data.Settings.CustomWorldExeName = "WorldServer";
+                    Data.Settings.CustomLogonExeName = "BNetServer";
                     Data.Settings.SelectedCore = Cores.CypherCore;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "world";
                     Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.MySQLServerUser = "trinity";
-                    Data.Settings.MySQLServerPassword = "trinity";
+                    Data.Settings.DBServerUser = "trinity";
+                    Data.Settings.DBServerPassword = "trinity";
                     break;
                 case "TrinityCore":
-                    Data.Settings.WorldExecutableName = "bnetserver";
-                    Data.Settings.LogonExecutableName = "worldserver";
+                    Data.Settings.CustomWorldExeName = "worldserver";
+                    Data.Settings.CustomLogonExeName = "bnetserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "world";
                     Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.MySQLServerUser = "trinity";
-                    Data.Settings.MySQLServerPassword = "trinity";
+                    Data.Settings.DBServerUser = "trinity";
+                    Data.Settings.DBServerPassword = "trinity";
                     break;
                 case "TrinityCore335":
-                    Data.Settings.WorldExecutableName = "authserver";
-                    Data.Settings.LogonExecutableName = "worldserver";
+                    Data.Settings.CustomLogonExeName = "authserver";
+                    Data.Settings.CustomWorldExeName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCore335;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "world";
                     Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.MySQLServerUser = "trinity";
-                    Data.Settings.MySQLServerPassword = "trinity";
+                    Data.Settings.DBServerUser = "trinity";
+                    Data.Settings.DBServerPassword = "trinity";
                     break;
                 case "TrinityCoreClassic":
-                    Data.Settings.WorldExecutableName = "bnetserver";
-                    Data.Settings.LogonExecutableName = "worldserver";
+                    Data.Settings.CustomLogonExeName = "bnetserver";
+                    Data.Settings.CustomWorldExeName = "worldserver";
                     Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "world";
                     Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.MySQLServerUser = "trinity";
-                    Data.Settings.MySQLServerPassword = "trinity";
+                    Data.Settings.DBServerUser = "trinity";
+                    Data.Settings.DBServerPassword = "trinity";
                     break;
                 case "VMaNGOS":
-                    Data.Settings.WorldExecutableName = "mangosd";
-                    Data.Settings.LogonExecutableName = "realmd";
+                    Data.Settings.CustomWorldExeName = "mangosd";
+                    Data.Settings.CustomLogonExeName = "realmd";
                     Data.Settings.SelectedCore = Cores.VMaNGOS;
                     Data.Settings.CharactersDatabase = "characters";
                     Data.Settings.WorldDatabase = "mangos";
                     Data.Settings.AuthDatabase = "realmd";
-                    Data.Settings.MySQLServerUser = "mangos";
-                    Data.Settings.MySQLServerPassword = "mangos";
+                    Data.Settings.DBServerUser = "mangos";
+                    Data.Settings.DBServerPassword = "mangos";
                     break;
             }
-            TXTBoxLoginExecName.Text = Data.Settings.LogonExecutableName;
-            TXTBoxWorldExecName.Text = Data.Settings.WorldExecutableName;
+            TXTBoxLoginExecName.Text = Data.Settings.CustomLogonExeName;
+            TXTBoxWorldExecName.Text = Data.Settings.CustomWorldExeName;
             await LoadData();
             Data.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
@@ -222,7 +203,7 @@ namespace TrionControlPanelDesktop.Controls
         private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
         {
             Data.Settings.CustomNames = TGLCustomNames.Checked;
-            CustomNames();
+            EnableCustomNames();
         }
         private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
         {
@@ -230,15 +211,15 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
-            string Folder = GetFolder();
+            string Folder = SettingsClass.GetWorkingDirectory();
             try
             {
                 if (Folder != string.Empty)
                 {
-                    if (Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName) != string.Empty)
+                    if (Data.GetExecutableLocation(Folder, Data.Settings.DBExecutableName) != string.Empty)
                     {
-                        Data.Settings.MySQLExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.MySQLExecutableName);
-                        Data.Settings.MySQLLocation = Path.GetFullPath(Path.Combine(Data.Settings.MySQLExecutableLocation, @"..\"));
+                        Data.Settings.DBExeLoca = Data.GetExecutableLocation(Folder, Data.Settings.DBExecutableName);
+                        Data.Settings.DBLocation = Path.GetFullPath(Path.Combine(Data.Settings.DBExeLoca, @"..\"));
                         await Data.SaveSettings();
                         Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                         await Data.SaveSettings();
@@ -258,19 +239,18 @@ namespace TrionControlPanelDesktop.Controls
             {
                 Data.Message = ex.Message;
             }
-
         }
         private async void BTNCoreExecLovation_Click(object sender, EventArgs e)
         {
-            string Folder = GetFolder();
+            string Folder = SettingsClass.GetWorkingDirectory();
             if (Folder != string.Empty)
             {
-                if (Data.GetExecutableLocation(Folder, Data.Settings.WorldExecutableName) != string.Empty &&
-                    Data.GetExecutableLocation(Folder, Data.Settings.LogonExecutableName) != string.Empty)
+                if (Data.GetExecutableLocation(Folder, Data.Settings.CustomWorldExeName) != string.Empty &&
+                    Data.GetExecutableLocation(Folder, Data.Settings.CustomLogonExeName) != string.Empty)
                 {
-                    Data.Settings.WorldExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.WorldExecutableName);
-                    Data.Settings.LogonExecutableLocation = Data.GetExecutableLocation(Folder, Data.Settings.LogonExecutableName);
-                    Data.Settings.CoreLocation = Path.GetFullPath(Folder);
+                    Data.Settings.CustomWorldExeLoc = Data.GetExecutableLocation(Folder, Data.Settings.CustomWorldExeName);
+                    Data.Settings.CustomWorldExeLoc = Data.GetExecutableLocation(Folder, Data.Settings.CustomLogonExeName);
+                    Data.Settings.CustomWorkingDirectory = Path.GetFullPath(Folder);
                     await Data.SaveSettings();
                     await LoadData();
                 }
@@ -293,140 +273,15 @@ namespace TrionControlPanelDesktop.Controls
             Data.Message = "Single Player Project is downloading!";
             DownloadControl.Title = "Installing Single Player Project.";
             DownloadControl.InstallSPP = true;
-            DownlaodThread(WebLinks.SPPCoreFiles);
         }
         private void BTNDownloadMySQL_Click(object sender, EventArgs e)
         {
             Data.Message = "MySQL Server is downloading!";
             DownloadControl.Title = "Installing MySQL Server.";
             DownloadControl.InstallMySQL = true;
-            DownlaodThread(WebLinks.MySQLFiles);
         }
         public static async Task CreateBC()
         {
-            string path = Directory.GetCurrentDirectory();
-            if (!Directory.Exists("Backup"))
-            { Directory.CreateDirectory("Backup"); }
-            if (User.UI.Form.MySQLisRunning != true)
-            {
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, true, $"--console");
-            }
-            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
-            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
-            await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
-        }
-        private async void CheckForUpdate()
-        {
-            // Single Player Project Update
-            if (DateTime.TryParse(User.UI.Update.SPPVerOFF, out DateTime SPPLocal) && DateTime.TryParse(User.UI.Update.SPPVerON, out DateTime SPPOnline))
-            {
-                if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
-                {
-                    if (Data.Settings.AutoUpdateCore)
-                    {
-                        await CreateBC();
-                        DownlaodThread(WebLinks.SPPCoreUpdate);
-                    }
-                    else
-                    {
-
-                        if (MetroMessageBox.Show(this, "A new update to the Single Player Project is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                await CreateBC();
-                            }
-                            DownlaodThread(WebLinks.SPPCoreUpdate);
-                        }
-                    }
-                    User.UI.Update.SppUpdate = true;
-                }
-            }
-            Thread.Sleep(100);
-            // MySQL Update
-            if (!string.IsNullOrEmpty(User.UI.Update.MySQLVerOFF) && !string.IsNullOrEmpty(User.UI.Update.MySQLVerON))
-            {
-                if (VersionCompare(User.UI.Update.MySQLVerOFF, User.UI.Update.MySQLVerON) < 0)
-                {
-                    if (Data.Settings.AutoUpdateMySQL)
-                    {
-                        await CreateBC();
-
-                        DownlaodThread(WebLinks.MySQLUpdate);
-                    }
-                    else
-                    {
-
-                        if (MetroMessageBox.Show(this, "A new update for MySQL Server is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                await CreateBC();
-                            }
-                            DownlaodThread(WebLinks.MySQLUpdate);
-                        }
-                    }
-                    User.UI.Update.MysqlUpdate = true;
-                }
-            }
-            Thread.Sleep(100);
-            // Trion Update
-            if (!string.IsNullOrEmpty(User.UI.Update.TrionVersOFF) && !string.IsNullOrEmpty(User.UI.Update.TrionVersON))
-            {
-                if (VersionCompare(User.UI.Update.TrionVersOFF, User.UI.Update.TrionVersON) < 0)
-                {
-                    if (Data.Settings.AutoUpdateTrion)
-                    {
-                        await CreateBC();
-                        DownlaodThread(WebLinks.TrionUpdate);
-                    }
-                    else
-                    {
-                        if (MetroMessageBox.Show(this, "A new update for MySQL Server is available!", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            if (MetroMessageBox.Show(this, "Do you want to create a database backup?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                await CreateBC();
-                            }
-                            DownlaodThread(WebLinks.TrionUpdate);
-                        }
-                    }
-                }
-                User.UI.Update.TrionUpdate = true;
-            }
-        }
-        private static int VersionCompare(string ver1, string ver2)
-        {
-            if (ver1 != "N/A" && ver2 != "N/A")
-            {
-                string[] vComps1 = ver1.Split('.');
-                string[] vComps2 = ver2.Split('.');
-                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
-                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
-
-                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
-                {
-                    if (vNumb1[i] != vNumb2[i])
-                    {
-                        return vNumb1[i].CompareTo(vNumb2[i]);
-                    }
-                }
-                return vNumb1.Length.CompareTo(vNumb2.Length);
-            }
-            return 0;
-        }
-        public static void DownlaodThread(string Weblink)
-        {
-            Thread DwonloadThread = new(async () =>
-            {
-                await Task.Run(() => DownloadControl.AddToList(Weblink));
-            });
-            DwonloadThread.Start();
-        }
-        private void BTNAuthConfig_Click(object sender, EventArgs e)
-        {
-            string location = Data.Settings.CoreLocation + "\\configs\\authserver.conf";
-            Process.Start("explorer.exe", location);
         }
         private void BTNDiscord_Click(object sender, EventArgs e)
         {
@@ -435,13 +290,13 @@ namespace TrionControlPanelDesktop.Controls
         private void SaveDataTextbox(object state)
         {
             // Seve data
-            Data.Settings.MySQLExecutableName = TXTBoxMySQLExecName.Text;
-            Data.Settings.WorldExecutableName = TXTBoxWorldExecName.Text;
-            Data.Settings.LogonExecutableName = TXTBoxLoginExecName.Text;
-            Data.Settings.MySQLServerHost = TXTMysqlHost.Text;
-            Data.Settings.MySQLServerPort = TXTMysqlPort.Text;
-            Data.Settings.MySQLServerUser = TXTMysqlUser.Text;
-            Data.Settings.MySQLServerPassword = TXTMysqlPassword.Text;
+            Data.Settings.DBExecutableName = TXTBoxMySQLExecName.Text;
+            Data.Settings.CustomWorldExeName = TXTBoxWorldExecName.Text;
+            Data.Settings.CustomLogonExeName = TXTBoxLoginExecName.Text;
+            Data.Settings.DBServerHost = TXTMysqlHost.Text;
+            Data.Settings.DBServerPort = TXTMysqlPort.Text;
+            Data.Settings.DBServerUser = TXTMysqlUser.Text;
+            Data.Settings.DBServerPassword = TXTMysqlPassword.Text;
             Data.Settings.AuthDatabase = TXTAuthDatabase.Text;
             Data.Settings.WorldDatabase = TXTWorldDatabase.Text;
             Data.Settings.CharactersDatabase = TXTCharDatabase.Text;
@@ -459,46 +314,15 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (User.UI.Update.TrionUpdate == true) { DownlaodThread(WebLinks.TrionUpdate); DownloadControl.Title = "Trion Control Panel Update.S"; }
-            if (User.UI.Update.SppUpdate == true) { DownlaodThread(WebLinks.SPPCoreUpdate); DownloadControl.Title = "Single Player Project Update."; }
-            if (User.UI.Update.MysqlUpdate == true) { DownlaodThread(WebLinks.MySQLUpdate); DownloadControl.Title = "MySQL Server Update."; }
-        }
-        public static void AddToStartup(string appName, string executablePath)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
-                key.SetValue(appName, executablePath);
-                key.Close();
-                Data.Message = "Trion Control Panel added to Windows startup successfully.";
-            }
-            catch (Exception ex)
-            {
-                Data.Message = "Error adding Trion Control Panel to Windows startup: " + ex.Message;
-            }
-        }
-        public static void RemoveFromStartup(string appName)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
-                key.DeleteValue(appName, false);
-                key.Close();
-                Data.Message = "Trion Control Panel removed from Windows startup successfully.";
-            }
-            catch (Exception ex)
-            {
-                Data.Message = "Error removing Trion Control Panel from Windows startup: " + ex.Message;
-            }
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
-            if (TGLRunTrionStartup.Checked == true) { AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Data.Settings.RunWithWindows = true; }
-            if (TGLRunTrionStartup.Checked == false) { RemoveFromStartup("Trion Control Panel"); Data.Settings.RunWithWindows = false; }
+            if (TGLRunTrionStartup.Checked == true) { SettingsClass.AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Data.Settings.RunWithWindows = true; }
+            if (TGLRunTrionStartup.Checked == false) { SettingsClass.RemoveFromStartup("Trion Control Panel"); Data.Settings.RunWithWindows = false; }
         }
         private async void BTNTestConnection_Click(object sender, EventArgs e)
         {
-            if (await TestConnection() == true)
+            if (await DataConnect.TestConnection() == true)
             {
                 BTNTestConnection.ForeColor = Color.Green;
                 BTNTestConnection.Text = "   Success!!";
@@ -511,31 +335,6 @@ namespace TrionControlPanelDesktop.Controls
                 TimerConnectSucess.Start();
             }
         }
-        private static async Task<bool> TestConnection()
-        {
-            MySqlConnection conn = new(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
-            bool status = false;
-            await Task.Run(() =>
-            {
-                try
-                {
-                    if (conn.State == ConnectionState.Closed)
-                    {
-                        conn.Open();
-                        Data.Message = $"The SQL Connection is {conn.State}";
-                        status = true;
-                        conn.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Data.Message = ex.Message;
-                    status = false;
-                }
-                return status;
-            });
-            return status;
-        }
         private void TimerConnectSucess_Tick(object sender, EventArgs e)
         {
             TimerConnectSucess.Stop();
@@ -544,21 +343,11 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNCoreOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Data.Settings.CoreLocation);
+            Process.Start("explorer.exe", Data.Settings.CustomWorkingDirectory);
         }
         private void BTNMySQLOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Data.Settings.MySQLLocation);
-        }
-        private void BTNWorldConfig_Click(object sender, EventArgs e)
-        {
-            string location = Data.Settings.CoreLocation + "\\configs\\worldserver.conf";
-            Process.Start("explorer.exe", location);
-        }
-        private void BTNModsConfig_Click(object sender, EventArgs e)
-        {
-            string location = Data.Settings.CoreLocation + "\\configs\\modules";
-            Process.Start("explorer.exe", location);
+            Process.Start("explorer.exe", Data.Settings.DBLocation);
         }
         private async void BTNDeleteAuth_Click(object sender, EventArgs e)
         {
@@ -566,11 +355,11 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteAuth.ForeColor = Color.Orange;
             BTNDeleteAuth.Click -= BTNDeleteAuth_Click;
             // Get all tables in the database
-            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.AuthDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
             }
             Data.Message = "Auth Tables deleted successfully.";
             BTNDeleteAuth.Click += BTNDeleteAuth_Click;
@@ -583,11 +372,11 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteChar.ForeColor = Color.Orange;
             BTNDeleteChar.Click -= BTNDeleteChar_Click;
             // Get all tables in the database
-            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.AuthDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
             }
             Data.Message = "Char Tables deleted successfully.";
             BTNDeleteChar.Click += BTNDeleteChar_Click;
@@ -600,11 +389,11 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteWorld.ForeColor = Color.Orange;
             BTNDeleteWorld.Click -= BTNDeleteWorld_Click;
             // Get all tables in the database
-            List<string> tables = await SQLDataConnect.GetTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase));
+            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.WorldDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                SQLDataConnect.DeleteTable(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), table);
+                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.WorldDatabase), table);
             }
             Data.Message = "Wolrd Tables deleted successfully.";
             BTNDeleteWorld.Click += BTNDeleteWorld_Click;
@@ -627,59 +416,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNFixMysql_Click(object sender, EventArgs e)
         {
-            string path = Directory.GetCurrentDirectory();
-            string SQLLocation = "";
-            BTNFixMysql.Text = "Working!!!";
-            BTNFixMysql.ForeColor = Color.Orange;
-            BTNFixMysql.Click -= BTNFixMysql_Click;
-            if (!Directory.Exists("Backup"))
-            { Directory.CreateDirectory("Backup"); }
-            if (User.UI.Form.MySQLisRunning == true)
-            {
-                if (CBAuthBackup.Checked == true)
-                {
-                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.AuthDatabase), path + "\\Backup\\AuthBackup.sql");
-                }
-                if (CBCharBackup.Checked == true)
-                {
-                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.CharactersDatabase), path + "\\Backup\\CharBackup.sql");
-                }
-                if (CBWorldBackup.Checked == true)
-                {
-                    await SQLDataConnect.DumpAllTables(SQLDataConnect.ConnectionString(Data.Settings.WorldDatabase), path + "\\Backup\\WorldBackup.sql");
-                }
-                SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-                Directory.Delete($@"{path}\database\data", true);
-                if (User.UI.Update.SPPVerOFF != "N/A")
-                {
-                    SQLLocation = $@"{path}\database\extra\initSPP.sql";
-                }
-                else if (User.UI.Update.SPPVerOFF == "N/A")
-                {
-                    SQLLocation = $@"{path}\database\extra\initMySQL.sql";
-                }
-                SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
-            }
-            else
-            {
-                if (MetroMessageBox.Show(this, "Core Directory not Found! Do you want To look for it?", "Info.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    SystemWatcher.ApplicationKill(Data.Settings.MySQLExecutableName);
-                    Directory.Delete($@"{path}\database\data", true);
-                    if (User.UI.Update.SPPVerOFF != "N/A")
-                    {
-                        SQLLocation = $@"{path}\database\extra\initSPP.sql";
-                    }
-                    else if (User.UI.Update.SPPVerOFF == "N/A")
-                    {
-                        SQLLocation = $@"{path}\database\extra\initMySQL.sql";
-                    }
-                    SystemWatcher.ApplicationStart(Data.Settings.MySQLExecutableLocation, Data.Settings.MySQLExecutableName, Data.Settings.ConsolHide, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
-                }
-            }
-            BTNFixMysql.Click += BTNFixMysql_Click;
-            BTNFixMysql.Text = "Start";
-            BTNFixMysql.ForeColor = Color.White;
+
         }
         private void ComboBoxDDNService_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -733,56 +470,7 @@ namespace TrionControlPanelDesktop.Controls
             if (!CurrentIP.Contains(Data.Settings.IPAddress))
             {
                 Data.Message = $"Updateing {URL} with {CurrentIP}";
-                UpdateDNSIP(URL, CurrentIP);
-            }
-        }
-        private void UpdateDNSIP(string url, string ip)
-        {
-            if (!string.IsNullOrEmpty(ip))
-            {
-                try
-                {
-                    // Create a request for the URL
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    request.Method = "GET";
-
-                    // Get the response
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                    {
-                        // Check the status code
-                        if (response.StatusCode == HttpStatusCode.OK)
-                        {
-                            // Request succeeded
-                            Data.Message = " DNS update request succeeded!";
-                            Data.Settings.IPAddress = ip;
-                        }
-                        else
-                        {
-                            // Request failed
-                            Data.Message = $"Response status code: {response.StatusCode}";
-                            TimerDDNSInterval.Stop();
-                        }
-                    }
-                }
-                catch (WebException webEx)
-                {
-                    // Handle web exceptions, e.g., 404, 500, etc.
-                    if (webEx.Response is HttpWebResponse errorResponse)
-                    {
-                        Data.Message = $"Request failed with status code: {errorResponse.StatusCode}";
-                    }
-                    else
-                    {
-                        Data.Message = $"Request failed: {webEx.Message}";
-                    }
-                    TimerDDNSInterval.Stop();
-                }
-                catch (Exception ex)
-                {
-                    // Handle other exceptions
-                    Data.Message = $"An error occurred: {ex.Message}";
-                    TimerDDNSInterval.Stop();
-                }
+                SettingsClass.UpdateDNSIP(URL, CurrentIP);
             }
         }
 

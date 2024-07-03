@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadControl));
             PBARDownload = new TrionControlPanel.UI.CustomProgressBar();
             PNLDownloadStatus = new MetroFramework.Controls.MetroPanel();
+            pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -45,28 +46,27 @@
             LBLTitle = new Label();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
-            pictureBox4 = new PictureBox();
-            pictureBox5 = new PictureBox();
-            pictureBox6 = new PictureBox();
-            pictureBox7 = new PictureBox();
             pictureBox8 = new PictureBox();
+            pictureBox7 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            pictureBox5 = new PictureBox();
             PNLDownloadStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             metroPanel1.SuspendLayout();
             metroPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // PBARDownload
             // 
             PBARDownload.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            PBARDownload.BackColor = Color.FromArgb(28, 33, 40);
+            PBARDownload.BackColor = Color.FromArgb(34, 39, 46);
             PBARDownload.BarColor = Color.FromArgb(0, 174, 219);
             PBARDownload.FontSize = 10;
             PBARDownload.ForeColor = Color.FromArgb(0, 174, 219);
@@ -81,7 +81,7 @@
             // 
             // PNLDownloadStatus
             // 
-            PNLDownloadStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLDownloadStatus.BackColor = Color.FromArgb(34, 39, 46);
             PNLDownloadStatus.Border = true;
             PNLDownloadStatus.BorderColor = Color.Black;
             PNLDownloadStatus.BorderSize = 1;
@@ -110,6 +110,16 @@
             PNLDownloadStatus.VerticalScrollbarBarColor = true;
             PNLDownloadStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLDownloadStatus.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(15, 97);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(35, 35);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 39;
+            pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
@@ -207,7 +217,7 @@
             // 
             // LBLTitle
             // 
-            LBLTitle.BackColor = Color.FromArgb(28, 33, 40);
+            LBLTitle.BackColor = Color.FromArgb(34, 39, 46);
             LBLTitle.Dock = DockStyle.Fill;
             LBLTitle.Font = new Font("Segoe UI", 12F);
             LBLTitle.ForeColor = Color.White;
@@ -245,7 +255,7 @@
             // 
             // metroPanel2
             // 
-            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
@@ -271,33 +281,14 @@
             metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             metroPanel2.VerticalScrollbarSize = 10;
             // 
-            // pictureBox4
+            // pictureBox8
             // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(15, 97);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(35, 35);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 39;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(15, 15);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(35, 35);
-            pictureBox5.TabIndex = 40;
-            pictureBox5.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(15, 56);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(35, 35);
-            pictureBox6.TabIndex = 41;
-            pictureBox6.TabStop = false;
+            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
+            pictureBox8.Location = new Point(15, 138);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(35, 35);
+            pictureBox8.TabIndex = 43;
+            pictureBox8.TabStop = false;
             // 
             // pictureBox7
             // 
@@ -308,14 +299,23 @@
             pictureBox7.TabIndex = 42;
             pictureBox7.TabStop = false;
             // 
-            // pictureBox8
+            // pictureBox6
             // 
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(15, 138);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(35, 35);
-            pictureBox8.TabIndex = 43;
-            pictureBox8.TabStop = false;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(15, 56);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(35, 35);
+            pictureBox6.TabIndex = 41;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(15, 15);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(35, 35);
+            pictureBox5.TabIndex = 40;
+            pictureBox5.TabStop = false;
             // 
             // DownloadControl
             // 
@@ -332,16 +332,16 @@
             Load += DownloadControl_Load;
             PNLDownloadStatus.ResumeLayout(false);
             PNLDownloadStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             metroPanel1.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

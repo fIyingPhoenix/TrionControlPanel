@@ -67,5 +67,13 @@
             TrinityCoreClassic,
             VMaNGOS
         }
+        public enum SPP
+        {
+            Classic,
+            TheBurningCrusade,
+            WrathOfTheLichKing,
+            Cataclysm,
+            MistOfPandaria,
+        }
     }
 }

@@ -36,17 +36,23 @@ namespace TrionControlPanelDesktop.Controls
             TimerWacher = new System.Windows.Forms.Timer(components);
             PNLLayoutBot = new TableLayoutPanel();
             metroPanel1 = new MetroPanel();
+            metroPanel9 = new MetroPanel();
+            label10 = new Label();
+            customButton2 = new UI.Controls.CustomButton();
+            customButton3 = new UI.Controls.CustomButton();
+            metroPanel7 = new MetroPanel();
             label4 = new Label();
             LoginPbarCPU = new CustomProgressBar();
             LoginPbarRAM = new CustomProgressBar();
             label5 = new Label();
             label6 = new Label();
             metroPanel2 = new MetroPanel();
+            metroPanel8 = new MetroPanel();
+            label7 = new Label();
             metroPanel3 = new MetroPanel();
             LBLWorldsOpen = new Label();
             customButton1 = new UI.Controls.CustomButton();
             BTNMySQLOpenFolder = new UI.Controls.CustomButton();
-            label7 = new Label();
             WorldPbarCPU = new CustomProgressBar();
             label9 = new Label();
             WorldPbarRAM = new CustomProgressBar();
@@ -69,6 +75,7 @@ namespace TrionControlPanelDesktop.Controls
             PICMySqlServerStatus = new PictureBox();
             LBLMySQLServerStatus = new Label();
             PNLPCResorce = new MetroPanel();
+            metroPanel20 = new MetroPanel();
             label1 = new Label();
             PCResorcePbarCPU = new CustomProgressBar();
             PCResorcePbarRAM = new CustomProgressBar();
@@ -78,7 +85,10 @@ namespace TrionControlPanelDesktop.Controls
             TimerStopWatch = new System.Windows.Forms.Timer(components);
             PNLLayoutBot.SuspendLayout();
             metroPanel1.SuspendLayout();
+            metroPanel9.SuspendLayout();
+            metroPanel7.SuspendLayout();
             metroPanel2.SuspendLayout();
+            metroPanel8.SuspendLayout();
             metroPanel3.SuspendLayout();
             PNLLayoutTop.SuspendLayout();
             PNLServerStatus.SuspendLayout();
@@ -89,6 +99,7 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).BeginInit();
             PNLPCResorce.SuspendLayout();
+            metroPanel20.SuspendLayout();
             SuspendLayout();
             // 
             // TimerWacher
@@ -116,11 +127,14 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel1
             // 
-            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
-            metroPanel1.Controls.Add(label4);
+            metroPanel1.Controls.Add(metroPanel9);
+            metroPanel1.Controls.Add(customButton2);
+            metroPanel1.Controls.Add(customButton3);
+            metroPanel1.Controls.Add(metroPanel7);
             metroPanel1.Controls.Add(LoginPbarCPU);
             metroPanel1.Controls.Add(LoginPbarRAM);
             metroPanel1.Controls.Add(label5);
@@ -143,17 +157,127 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // metroPanel9
+            // 
+            metroPanel9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            metroPanel9.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel9.Border = true;
+            metroPanel9.BorderColor = Color.FromArgb(0, 174, 219);
+            metroPanel9.BorderSize = 1;
+            metroPanel9.Controls.Add(label10);
+            metroPanel9.CustomBackground = true;
+            metroPanel9.HorizontalScrollbar = false;
+            metroPanel9.HorizontalScrollbarBarColor = true;
+            metroPanel9.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel9.HorizontalScrollbarSize = 10;
+            metroPanel9.Location = new Point(348, 36);
+            metroPanel9.Name = "metroPanel9";
+            metroPanel9.Padding = new Padding(2);
+            metroPanel9.Size = new Size(36, 25);
+            metroPanel9.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel9.StyleManager = null;
+            metroPanel9.TabIndex = 60;
+            metroPanel9.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel9.VerticalScrollbar = false;
+            metroPanel9.VerticalScrollbarBarColor = true;
+            metroPanel9.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // label10
+            // 
+            label10.Dock = DockStyle.Fill;
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(2, 2);
+            label10.Name = "label10";
+            label10.Size = new Size(32, 21);
+            label10.TabIndex = 19;
+            label10.Text = "0/0";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // customButton2
+            // 
+            customButton2.Anchor = AnchorStyles.Right;
+            customButton2.BackColor = Color.FromArgb(28, 33, 40);
+            customButton2.BackgroundColor = Color.FromArgb(28, 33, 40);
+            customButton2.BorderColor = Color.FromArgb(0, 174, 219);
+            customButton2.BorderRadius = 0;
+            customButton2.BorderSize = 1;
+            customButton2.Cursor = Cursors.Hand;
+            customButton2.FlatAppearance.BorderSize = 0;
+            customButton2.FlatStyle = FlatStyle.Flat;
+            customButton2.ForeColor = Color.White;
+            customButton2.Image = (Image)resources.GetObject("customButton2.Image");
+            customButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            customButton2.Location = new Point(383, 36);
+            customButton2.Name = "customButton2";
+            customButton2.NotificationCount = 0;
+            customButton2.RightToLeft = RightToLeft.No;
+            customButton2.Size = new Size(25, 25);
+            customButton2.TabIndex = 59;
+            customButton2.TextColor = Color.White;
+            customButton2.UseVisualStyleBackColor = false;
+            // 
+            // customButton3
+            // 
+            customButton3.Anchor = AnchorStyles.Right;
+            customButton3.BackColor = Color.FromArgb(28, 33, 40);
+            customButton3.BackgroundColor = Color.FromArgb(28, 33, 40);
+            customButton3.BorderColor = Color.FromArgb(0, 174, 219);
+            customButton3.BorderRadius = 0;
+            customButton3.BorderSize = 1;
+            customButton3.Cursor = Cursors.Hand;
+            customButton3.FlatAppearance.BorderSize = 0;
+            customButton3.FlatStyle = FlatStyle.Flat;
+            customButton3.ForeColor = Color.White;
+            customButton3.Image = (Image)resources.GetObject("customButton3.Image");
+            customButton3.ImageAlign = ContentAlignment.MiddleLeft;
+            customButton3.Location = new Point(324, 36);
+            customButton3.Name = "customButton3";
+            customButton3.NotificationCount = 0;
+            customButton3.RightToLeft = RightToLeft.No;
+            customButton3.Size = new Size(25, 25);
+            customButton3.TabIndex = 58;
+            customButton3.TextColor = Color.White;
+            customButton3.UseVisualStyleBackColor = false;
+            // 
+            // metroPanel7
+            // 
+            metroPanel7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel7.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel7.Border = true;
+            metroPanel7.BorderColor = Color.Black;
+            metroPanel7.BorderSize = 1;
+            metroPanel7.Controls.Add(label4);
+            metroPanel7.CustomBackground = true;
+            metroPanel7.HorizontalScrollbar = true;
+            metroPanel7.HorizontalScrollbarBarColor = true;
+            metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel7.HorizontalScrollbarSize = 10;
+            metroPanel7.Location = new Point(0, 0);
+            metroPanel7.Name = "metroPanel7";
+            metroPanel7.Padding = new Padding(2);
+            metroPanel7.Size = new Size(415, 30);
+            metroPanel7.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel7.StyleManager = null;
+            metroPanel7.TabIndex = 57;
+            metroPanel7.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel7.VerticalScrollbar = true;
+            metroPanel7.VerticalScrollbarBarColor = true;
+            metroPanel7.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel7.VerticalScrollbarSize = 10;
+            // 
             // label4
             // 
-            label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
+            label4.Dock = DockStyle.Fill;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(0, 174, 219);
-            label4.Location = new Point(14, 14);
+            label4.Location = new Point(2, 2);
             label4.Name = "label4";
-            label4.Size = new Size(199, 21);
+            label4.Size = new Size(411, 26);
             label4.TabIndex = 32;
             label4.Text = "LOGIN SERVER RESOURCE";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LoginPbarCPU
             // 
@@ -211,14 +335,14 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // metroPanel2
             // 
-            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(metroPanel8);
             metroPanel2.Controls.Add(metroPanel3);
             metroPanel2.Controls.Add(customButton1);
             metroPanel2.Controls.Add(BTNMySQLOpenFolder);
-            metroPanel2.Controls.Add(label7);
             metroPanel2.Controls.Add(WorldPbarCPU);
             metroPanel2.Controls.Add(label9);
             metroPanel2.Controls.Add(WorldPbarRAM);
@@ -241,6 +365,45 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             metroPanel2.VerticalScrollbarSize = 10;
             // 
+            // metroPanel8
+            // 
+            metroPanel8.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel8.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel8.Border = true;
+            metroPanel8.BorderColor = Color.Black;
+            metroPanel8.BorderSize = 1;
+            metroPanel8.Controls.Add(label7);
+            metroPanel8.CustomBackground = true;
+            metroPanel8.HorizontalScrollbar = true;
+            metroPanel8.HorizontalScrollbarBarColor = true;
+            metroPanel8.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel8.HorizontalScrollbarSize = 10;
+            metroPanel8.Location = new Point(0, 0);
+            metroPanel8.Name = "metroPanel8";
+            metroPanel8.Padding = new Padding(2);
+            metroPanel8.Size = new Size(414, 30);
+            metroPanel8.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel8.StyleManager = null;
+            metroPanel8.TabIndex = 58;
+            metroPanel8.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel8.VerticalScrollbar = true;
+            metroPanel8.VerticalScrollbarBarColor = true;
+            metroPanel8.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel8.VerticalScrollbarSize = 10;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Dock = DockStyle.Fill;
+            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label7.ForeColor = Color.FromArgb(0, 174, 219);
+            label7.Location = new Point(2, 2);
+            label7.Name = "label7";
+            label7.Size = new Size(410, 26);
+            label7.TabIndex = 37;
+            label7.Text = "WORLD SERVER RESOURCE";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // metroPanel3
             // 
             metroPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -254,10 +417,10 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel3.HorizontalScrollbarBarColor = true;
             metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel3.HorizontalScrollbarSize = 10;
-            metroPanel3.Location = new Point(320, 14);
+            metroPanel3.Location = new Point(347, 36);
             metroPanel3.Name = "metroPanel3";
             metroPanel3.Padding = new Padding(2);
-            metroPanel3.Size = new Size(55, 25);
+            metroPanel3.Size = new Size(36, 25);
             metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel3.StyleManager = null;
             metroPanel3.TabIndex = 44;
@@ -266,7 +429,6 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel3.VerticalScrollbarBarColor = true;
             metroPanel3.VerticalScrollbarHighlightOnWheel = false;
             metroPanel3.VerticalScrollbarSize = 10;
-            metroPanel3.Visible = false;
             // 
             // LBLWorldsOpen
             // 
@@ -274,7 +436,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLWorldsOpen.ForeColor = Color.White;
             LBLWorldsOpen.Location = new Point(2, 2);
             LBLWorldsOpen.Name = "LBLWorldsOpen";
-            LBLWorldsOpen.Size = new Size(51, 21);
+            LBLWorldsOpen.Size = new Size(32, 21);
             LBLWorldsOpen.TabIndex = 19;
             LBLWorldsOpen.Text = "0/0";
             LBLWorldsOpen.TextAlign = ContentAlignment.MiddleCenter;
@@ -293,7 +455,7 @@ namespace TrionControlPanelDesktop.Controls
             customButton1.ForeColor = Color.White;
             customButton1.Image = (Image)resources.GetObject("customButton1.Image");
             customButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton1.Location = new Point(376, 14);
+            customButton1.Location = new Point(382, 36);
             customButton1.Name = "customButton1";
             customButton1.NotificationCount = 0;
             customButton1.RightToLeft = RightToLeft.No;
@@ -301,7 +463,6 @@ namespace TrionControlPanelDesktop.Controls
             customButton1.TabIndex = 43;
             customButton1.TextColor = Color.White;
             customButton1.UseVisualStyleBackColor = false;
-            customButton1.Visible = false;
             // 
             // BTNMySQLOpenFolder
             // 
@@ -317,7 +478,7 @@ namespace TrionControlPanelDesktop.Controls
             BTNMySQLOpenFolder.ForeColor = Color.White;
             BTNMySQLOpenFolder.Image = (Image)resources.GetObject("BTNMySQLOpenFolder.Image");
             BTNMySQLOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNMySQLOpenFolder.Location = new Point(293, 14);
+            BTNMySQLOpenFolder.Location = new Point(323, 36);
             BTNMySQLOpenFolder.Name = "BTNMySQLOpenFolder";
             BTNMySQLOpenFolder.NotificationCount = 0;
             BTNMySQLOpenFolder.RightToLeft = RightToLeft.No;
@@ -325,19 +486,6 @@ namespace TrionControlPanelDesktop.Controls
             BTNMySQLOpenFolder.TabIndex = 42;
             BTNMySQLOpenFolder.TextColor = Color.White;
             BTNMySQLOpenFolder.UseVisualStyleBackColor = false;
-            BTNMySQLOpenFolder.Visible = false;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label7.ForeColor = Color.FromArgb(0, 174, 219);
-            label7.Location = new Point(14, 14);
-            label7.Name = "label7";
-            label7.Size = new Size(207, 21);
-            label7.TabIndex = 37;
-            label7.Text = "WORLD SERVER RESOURCE";
             // 
             // WorldPbarCPU
             // 
@@ -412,7 +560,7 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLServerStatus
             // 
-            PNLServerStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLServerStatus.BackColor = Color.FromArgb(34, 39, 46);
             PNLServerStatus.Border = true;
             PNLServerStatus.BorderColor = Color.Black;
             PNLServerStatus.BorderSize = 1;
@@ -441,7 +589,7 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel6
             // 
             metroPanel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel6.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel6.Border = true;
             metroPanel6.BorderColor = Color.Black;
             metroPanel6.BorderSize = 1;
@@ -472,7 +620,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLWordPort.Anchor = AnchorStyles.Top;
             LBLWordPort.AutoSize = true;
             LBLWordPort.ForeColor = Color.White;
-            LBLWordPort.Location = new Point(185, 27);
+            LBLWordPort.Location = new Point(163, 27);
             LBLWordPort.Name = "LBLWordPort";
             LBLWordPort.Size = new Size(61, 15);
             LBLWordPort.TabIndex = 43;
@@ -483,7 +631,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLUpTimeWorld.Anchor = AnchorStyles.Top;
             LBLUpTimeWorld.AutoSize = true;
             LBLUpTimeWorld.ForeColor = Color.White;
-            LBLUpTimeWorld.Location = new Point(185, 7);
+            LBLUpTimeWorld.Location = new Point(163, 7);
             LBLUpTimeWorld.Name = "LBLUpTimeWorld";
             LBLUpTimeWorld.Size = new Size(54, 15);
             LBLUpTimeWorld.TabIndex = 42;
@@ -514,7 +662,7 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel5
             // 
             metroPanel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel5.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel5.Border = true;
             metroPanel5.BorderColor = Color.Black;
             metroPanel5.BorderSize = 1;
@@ -545,7 +693,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLLogonPort.Anchor = AnchorStyles.Top;
             LBLLogonPort.AutoSize = true;
             LBLLogonPort.ForeColor = Color.White;
-            LBLLogonPort.Location = new Point(185, 27);
+            LBLLogonPort.Location = new Point(163, 27);
             LBLLogonPort.Name = "LBLLogonPort";
             LBLLogonPort.Size = new Size(61, 15);
             LBLLogonPort.TabIndex = 43;
@@ -556,7 +704,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLUpTimeLogon.Anchor = AnchorStyles.Top;
             LBLUpTimeLogon.AutoSize = true;
             LBLUpTimeLogon.ForeColor = Color.White;
-            LBLUpTimeLogon.Location = new Point(185, 7);
+            LBLUpTimeLogon.Location = new Point(163, 7);
             LBLUpTimeLogon.Name = "LBLUpTimeLogon";
             LBLUpTimeLogon.Size = new Size(54, 15);
             LBLUpTimeLogon.TabIndex = 42;
@@ -587,7 +735,7 @@ namespace TrionControlPanelDesktop.Controls
             // metroPanel4
             // 
             metroPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel4.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
             metroPanel4.Border = true;
             metroPanel4.BorderColor = Color.Black;
             metroPanel4.BorderSize = 1;
@@ -618,7 +766,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLMysqlPort.Anchor = AnchorStyles.Top;
             LBLMysqlPort.AutoSize = true;
             LBLMysqlPort.ForeColor = Color.White;
-            LBLMysqlPort.Location = new Point(185, 27);
+            LBLMysqlPort.Location = new Point(163, 27);
             LBLMysqlPort.Name = "LBLMysqlPort";
             LBLMysqlPort.Size = new Size(61, 15);
             LBLMysqlPort.TabIndex = 41;
@@ -629,7 +777,7 @@ namespace TrionControlPanelDesktop.Controls
             LBLUpTimeDatabase.Anchor = AnchorStyles.Top;
             LBLUpTimeDatabase.AutoSize = true;
             LBLUpTimeDatabase.ForeColor = Color.White;
-            LBLUpTimeDatabase.Location = new Point(185, 7);
+            LBLUpTimeDatabase.Location = new Point(163, 7);
             LBLUpTimeDatabase.Name = "LBLUpTimeDatabase";
             LBLUpTimeDatabase.Size = new Size(54, 15);
             LBLUpTimeDatabase.TabIndex = 40;
@@ -659,11 +807,11 @@ namespace TrionControlPanelDesktop.Controls
             // 
             // PNLPCResorce
             // 
-            PNLPCResorce.BackColor = Color.FromArgb(28, 33, 40);
+            PNLPCResorce.BackColor = Color.FromArgb(34, 39, 46);
             PNLPCResorce.Border = true;
             PNLPCResorce.BorderColor = Color.Black;
             PNLPCResorce.BorderSize = 1;
-            PNLPCResorce.Controls.Add(label1);
+            PNLPCResorce.Controls.Add(metroPanel20);
             PNLPCResorce.Controls.Add(PCResorcePbarCPU);
             PNLPCResorce.Controls.Add(PCResorcePbarRAM);
             PNLPCResorce.Controls.Add(label2);
@@ -688,17 +836,44 @@ namespace TrionControlPanelDesktop.Controls
             PNLPCResorce.VerticalScrollbarHighlightOnWheel = false;
             PNLPCResorce.VerticalScrollbarSize = 10;
             // 
+            // metroPanel20
+            // 
+            metroPanel20.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel20.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel20.Border = true;
+            metroPanel20.BorderColor = Color.Black;
+            metroPanel20.BorderSize = 1;
+            metroPanel20.Controls.Add(label1);
+            metroPanel20.CustomBackground = true;
+            metroPanel20.HorizontalScrollbar = true;
+            metroPanel20.HorizontalScrollbarBarColor = true;
+            metroPanel20.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel20.HorizontalScrollbarSize = 10;
+            metroPanel20.Location = new Point(0, 0);
+            metroPanel20.Name = "metroPanel20";
+            metroPanel20.Padding = new Padding(2);
+            metroPanel20.Size = new Size(417, 30);
+            metroPanel20.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel20.StyleManager = null;
+            metroPanel20.TabIndex = 56;
+            metroPanel20.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel20.VerticalScrollbar = true;
+            metroPanel20.VerticalScrollbarBarColor = true;
+            metroPanel20.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel20.VerticalScrollbarSize = 10;
+            // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
+            label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(0, 174, 219);
-            label1.Location = new Point(14, 14);
+            label1.Location = new Point(2, 2);
             label1.Name = "label1";
-            label1.Size = new Size(111, 21);
+            label1.Size = new Size(413, 26);
             label1.TabIndex = 27;
             label1.Text = "PC RESOURCE";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PCResorcePbarCPU
             // 
@@ -778,8 +953,11 @@ namespace TrionControlPanelDesktop.Controls
             PNLLayoutBot.ResumeLayout(false);
             metroPanel1.ResumeLayout(false);
             metroPanel1.PerformLayout();
+            metroPanel9.ResumeLayout(false);
+            metroPanel7.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
             metroPanel2.PerformLayout();
+            metroPanel8.ResumeLayout(false);
             metroPanel3.ResumeLayout(false);
             PNLLayoutTop.ResumeLayout(false);
             PNLServerStatus.ResumeLayout(false);
@@ -794,6 +972,7 @@ namespace TrionControlPanelDesktop.Controls
             ((System.ComponentModel.ISupportInitialize)PICMySqlServerStatus).EndInit();
             PNLPCResorce.ResumeLayout(false);
             PNLPCResorce.PerformLayout();
+            metroPanel20.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -842,5 +1021,12 @@ namespace TrionControlPanelDesktop.Controls
         private Label LBLUpTimeLogon;
         private Label LBLMysqlPort;
         private System.Windows.Forms.Timer TimerStopWatch;
+        private MetroPanel metroPanel20;
+        private MetroPanel metroPanel7;
+        private MetroPanel metroPanel8;
+        private MetroPanel metroPanel9;
+        private Label label10;
+        private UI.Controls.CustomButton customButton2;
+        private UI.Controls.CustomButton customButton3;
     }
 }

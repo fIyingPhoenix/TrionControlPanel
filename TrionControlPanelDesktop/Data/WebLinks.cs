@@ -1,21 +1,40 @@
-﻿
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.DirectoryServices.ActiveDirectory;
-using TrionDatabase;
-using TrionLibrary;
+﻿using TrionLibrary;
 
 namespace TrionControlPanelDesktop.FormData
 {
     public class WebLinks
     {
-        public static string MySQLFiles { get => ""; } 
-        public static string SPPCoreFiles { get => ""; } 
-        public static string TrionVer { get => ""; } 
-        public static string MySQLVer { get => ""; }
-        public static string SPPCoreVer { get => ""; }
-        public static string TrionUpdate { get => ""; }
-        public static string MySQLUpdate { get => ""; }
-        public static string SPPCoreUpdate { get => ""; }
+        public class Version
+        {
+            public static string Trion { get => ""; }
+            public static string Database { get => ""; }
+            public static string Classic { get => ""; }
+            public static string TBC { get => ""; }
+            public static string WotLK { get => ""; }
+            public static string Cata { get => ""; }
+            public static string Mop { get => ""; }
+        }
+        public class Update
+        {
+            public static string Trion { get => ""; }
+            public static string Database { get => ""; }
+            public static string Classic { get => ""; }
+            public static string TBC { get => ""; }
+            public static string WotLK { get => ""; }
+            public static string Cata { get => ""; }
+            public static string Mop { get => ""; }
+        }
+        public class Files
+        {
+            public static string Trion { get => ""; }
+            public static string Database { get => ""; }
+            public static string Classic { get => ""; }
+            public static string TBC { get => ""; }
+            public static string WotLK { get => ""; }
+            public static string Cata { get => ""; }
+            public static string Mop { get => ""; }
+
+        }
         public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
         public static string DDNSWebsits()
         {

@@ -1,6 +1,6 @@
 ﻿@page "/fetchdata"
 @using TrionDatabase;
-@inject SQLDataAccess DataAccess
+@inject DataAccess DataAccess
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -33,7 +33,6 @@
     private void chekIfRunning()
     {
         SystemWatcher.ApplicationKill("");
-        WorldStatus = SystemWatcher.ApplicationRuning("fdm");
     }
     // protected override async Task OnInitializedAsync()
     // {

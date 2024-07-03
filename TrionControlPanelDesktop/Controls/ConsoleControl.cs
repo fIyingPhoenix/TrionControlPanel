@@ -29,7 +29,7 @@ namespace TrionControlPanelDesktop.Controls
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.CreateNoWindow = true;
-            if (Arguments != null && Application.Contains(Data.Settings.MySQLExecutableName))
+            if (Arguments != null && Application.Contains(Data.Settings.DBExecutableName))
             {
                 process.StartInfo.Arguments = Arguments;
             }
