@@ -140,8 +140,14 @@ namespace TrionLibrary
                 Settings.AutoUpdateTrion = true;
                 Settings.FirstRun = true;
                 Settings.DDNSRunOnStartup = false;
+                Settings.ClassicInstalled= false;
+                Settings.TBCInstalled =false;
+                Settings.WotLKInstalled = false;
+                Settings.CataInstalled = false;
+                Settings.MOPInstalled = false;
                 Settings.SelectedCore = EnumModels.Cores.AzerothCore;
                 Settings.DDNSerivce = EnumModels.DDNSerivce.DuckDNS;
+                Settings.SelectedSPP = EnumModels.SPP.WrathOfTheLichKing;
                 WriteData(Settings, SettingsDataFile);
             }
         }
@@ -247,6 +253,7 @@ namespace TrionLibrary
         public string CustomLogonExeLoc;
         public string CustomLogonExeName;
         public string CustomWorldExeName;
+        public bool CustomInstalled;
         //Classic Core
         public string ClassicWorkingDirectory;
         public string ClassicDBExeLoca;
@@ -254,6 +261,7 @@ namespace TrionLibrary
         public string ClassicLogonExeLoc;
         public string ClassicLogonExeName;
         public string ClassicWorldExeName;
+        public bool ClassicInstalled;
         //TBC Core
         public string TBCWorkingDirectory;
         public string TBCDBExeLoca;
@@ -261,6 +269,7 @@ namespace TrionLibrary
         public string TBCLogonExeLoc;
         public string TBCLogonExeName;
         public string TBCWorldExeName;
+        public bool TBCInstalled;
         //WotLK Core
         public string WotLKWorkingDirectory;
         public string WotLKDBExeLoca;
@@ -268,13 +277,23 @@ namespace TrionLibrary
         public string WotLKLogonExeLoc;
         public string WotLKLogonExeName;
         public string WotLKWorldExeName;
+        public bool WotLKInstalled;
+        //Cata Core
+        public string CataWorkingDirectory;
+        public string CataDBExeLoca;
+        public string CataWorldExeLoc;
+        public string CataLogonExeLoc;
+        public string CataLogonExeName;
+        public string CataWorldExeName;
+        public bool CataInstalled;
         //Mop Core
-        public string MopCWorkingDirectory;
+        public string MopWorkingDirectory;
         public string MopDBExeLoca;
         public string MopWorldExeLoc;
         public string MopLogonExeLoc;
         public string MopLogonExeName;
         public string MopWorldExeName;
+        public bool MOPInstalled;
         //DDNS Settings
         public string DDNSDomain;
         public string DDNSUsername;
@@ -296,6 +315,7 @@ namespace TrionLibrary
         public int DDNSInterval;
         public EnumModels.Cores SelectedCore;
         public EnumModels.DDNSerivce DDNSerivce;
+        public EnumModels.SPP SelectedSPP;
     }
 
 }

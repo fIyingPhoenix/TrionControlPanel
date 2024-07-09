@@ -62,8 +62,6 @@ namespace TrionControlPanelDesktop.FormData
         }
         public class UI
         {
-            public static object Update { get; internal set; }
-
             public class Version
             {
                 public class ON

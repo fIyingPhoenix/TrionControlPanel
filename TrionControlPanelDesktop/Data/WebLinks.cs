@@ -4,6 +4,7 @@ namespace TrionControlPanelDesktop.FormData
 {
     public class WebLinks
     {
+        public static string MainHost { get => "http://localhost/"; }
         public class Version
         {
             public static string Trion { get => ""; }

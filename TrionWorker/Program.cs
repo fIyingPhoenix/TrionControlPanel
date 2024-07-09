@@ -46,7 +46,7 @@ namespace TrionWorker
             {
                 case "GetHash":
                     Console.WriteLine("Error: 'GetHash' command requires '--Directory' arguments.");
-                    Console.WriteLine("Usage: TrionWorker --GetHash --Directory <directory>");
+                    Console.WriteLine("Usage: TrionWorker GetHash --Directory <directory>");
                     break;
                 default:
                     DisplayUsageInstructions();
@@ -57,8 +57,8 @@ namespace TrionWorker
         {
             Console.WriteLine("Usage: TrionWorker [command] [arguments]");
             Console.WriteLine("Available commands:");
-            Console.WriteLine("--FixLoading  : Restores counter registry settings and explanatory text from current registry settings and cached performance files related to the registry.");
-            Console.WriteLine("--GetHash --Directory <directory>  : The program will create an XML file named file_hashes.xml in the specified directory, containing the SHA-256 hash, filename, and directory for each file.");
+            Console.WriteLine("FixLoading  : Restores counter registry settings and explanatory text from current registry settings and cached performance files related to the registry.");
+            Console.WriteLine("GetHash --Directory <directory>  : The program will create an XML file named file_hashes.xml in the specified directory, containing the SHA-256 hash, filename, and directory for each file.");
             // Include other available commands...
         }
         static void RunPowerShellCommand(string command)

@@ -15,7 +15,7 @@ namespace TrionControlPanel.Pages.admin
         string LoginColor = "Red";
         string MySQLColor = "Red";
 
-        private async void OnTimeEvent(Object sorce, ElapsedEventArgs e)
+        private void OnTimeEvent(Object sorce, ElapsedEventArgs e)
         {
             MachineCpuUsage = SystemWatcher.MachineCpuUtilization().ToString()+"%";
             MachineMaxRam = SystemWatcher.MachineTotalRam();

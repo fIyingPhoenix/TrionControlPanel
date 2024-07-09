@@ -30,10 +30,22 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async Task LoadData()
         {
+            //Load Installed Emulators
+            TGLClassicInstalled.Checked = Data.Settings.ClassicInstalled;
+            TGLTBCInstalled.Checked = Data.Settings.TBCInstalled;
+            TGLWotLKInstalled.Checked = Data.Settings.WotLKInstalled;
+            TGLCataInstalled.Checked = Data.Settings.CataInstalled;
+            TGLMoPInstalled.Checked = Data.Settings.MOPInstalled;
+            //
             ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
+            ComboBoxDDNService.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
+            ComboBoxSPPVersion.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
             ComboBoxDDNService.SelectedItem = Data.Settings.DDNSerivce.ToString();
+            ComboBoxSPPVersion.SelectedItem = Data.Settings.SelectedSPP.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
+            ComboBoxDDNService.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
+            ComboBoxSPPVersion.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
             TXTBoxLoginExecName.Text = Data.Settings.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Data.Settings.CustomWorldExeName;
@@ -268,21 +280,6 @@ namespace TrionControlPanelDesktop.Controls
                 _ = LoadData();
             }
         }
-        private void BtnDownloadSPP_ClickAsync(object sender, EventArgs e)
-        {
-            Data.Message = "Single Player Project is downloading!";
-            DownloadControl.Title = "Installing Single Player Project.";
-            DownloadControl.InstallSPP = true;
-        }
-        private void BTNDownloadMySQL_Click(object sender, EventArgs e)
-        {
-            Data.Message = "MySQL Server is downloading!";
-            DownloadControl.Title = "Installing MySQL Server.";
-            DownloadControl.InstallMySQL = true;
-        }
-        public static async Task CreateBC()
-        {
-        }
         private void BTNDiscord_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", WebLinks.Discord);
@@ -402,19 +399,8 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerEnDis_Tick(object sender, EventArgs e)
         {
-            //Enable / Disable buttons.
-            if (DownloadControl.InstallSPP == true || DownloadControl.InstallMySQL == true)
-            {
-                BtnDownloadSPP.Enabled = false;
-                BTNDownlaodMySQL.Enabled = false;
-            }
-            else if (DownloadControl.InstallSPP == false || DownloadControl.InstallMySQL == false)
-            {
-                BtnDownloadSPP.Enabled = true;
-                BTNDownlaodMySQL.Enabled = true;
-            }
         }
-        private async void BTNFixMysql_Click(object sender, EventArgs e)
+        private void BTNFixMysql_Click(object sender, EventArgs e)
         {
 
         }
@@ -473,7 +459,6 @@ namespace TrionControlPanelDesktop.Controls
                 SettingsClass.UpdateDNSIP(URL, CurrentIP);
             }
         }
-
         private void BTNSaveData_Click(object sender, EventArgs e)
         {
             TimerDDNSInterval.Start();
@@ -481,6 +466,56 @@ namespace TrionControlPanelDesktop.Controls
         private void BTNWebiste_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", WebLinks.DDNSWebsits());
+        }
+
+        private void ComboBoxSPPVersion_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ComboBoxSPPVersion.SelectedItem)
+            {
+                case "Classic":
+                    Data.Settings.SelectedSPP = SPP.Classic;
+
+                    break;
+                case "TheBurningCrusade":
+                    Data.Settings.SelectedSPP = SPP.TheBurningCrusade;
+                    break;
+                case "WrathOfTheLichKing":
+                    Data.Settings.SelectedSPP = SPP.WrathOfTheLichKing;
+                    break;
+                case "Cataclysm":
+                    Data.Settings.SelectedSPP = SPP.Cataclysm;
+                    break;
+                case "MistOfPandaria":
+                    Data.Settings.SelectedSPP = SPP.MistOfPandaria;
+                    break;
+            }
+        }
+
+        private void BTNInstallSPP_Click(object sender, EventArgs e)
+        {
+            Thread DwonloadThread = new(async () =>
+            {
+                switch (Data.Settings.SelectedSPP)
+                {
+                    case SPP.Classic:
+
+                        break;
+                    case SPP.TheBurningCrusade:
+
+                        break;
+                    case SPP.WrathOfTheLichKing:
+                        await DownloadClass.CompareAndExportChangesOnline(Directory.GetCurrentDirectory(), "http://localhost/wotlkHashes.xml");
+                        break;
+                    case SPP.Cataclysm:
+
+                        break;
+                    case SPP.MistOfPandaria:
+
+                        break;
+                }
+            });
+            DwonloadThread.Start();
+           
         }
     }
 }

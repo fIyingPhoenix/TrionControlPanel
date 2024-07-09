@@ -41,7 +41,6 @@
             LBLDownloadSpeed = new Label();
             LBLDownloadSize = new Label();
             TimerWacher = new System.Windows.Forms.Timer(components);
-            LBLFIleName = new Label();
             TimerDownloadStart = new System.Windows.Forms.Timer(components);
             LBLTitle = new Label();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
@@ -71,11 +70,11 @@
             PBARDownload.FontSize = 10;
             PBARDownload.ForeColor = Color.FromArgb(0, 174, 219);
             PBARDownload.LabelText = "MB";
-            PBARDownload.Location = new Point(19, 315);
+            PBARDownload.Location = new Point(19, 327);
             PBARDownload.MaximumValue = true;
             PBARDownload.Name = "PBARDownload";
             PBARDownload.ShowStatus = true;
-            PBARDownload.Size = new Size(808, 35);
+            PBARDownload.Size = new Size(808, 30);
             PBARDownload.TabIndex = 29;
             PBARDownload.TextColor = Color.White;
             // 
@@ -98,7 +97,7 @@
             PNLDownloadStatus.HorizontalScrollbarBarColor = true;
             PNLDownloadStatus.HorizontalScrollbarHighlightOnWheel = false;
             PNLDownloadStatus.HorizontalScrollbarSize = 10;
-            PNLDownloadStatus.Location = new Point(19, 93);
+            PNLDownloadStatus.Location = new Point(19, 104);
             PNLDownloadStatus.Name = "PNLDownloadStatus";
             PNLDownloadStatus.Padding = new Padding(2);
             PNLDownloadStatus.Size = new Size(348, 186);
@@ -199,17 +198,6 @@
             TimerWacher.Interval = 1000;
             TimerWacher.Tick += TimerWacher_Tick;
             // 
-            // LBLFIleName
-            // 
-            LBLFIleName.AutoSize = true;
-            LBLFIleName.Font = new Font("Segoe UI", 12F);
-            LBLFIleName.ForeColor = Color.White;
-            LBLFIleName.Location = new Point(19, 291);
-            LBLFIleName.Name = "LBLFIleName";
-            LBLFIleName.Size = new Size(37, 21);
-            LBLFIleName.TabIndex = 36;
-            LBLFIleName.Text = "File:";
-            // 
             // TimerDownloadStart
             // 
             TimerDownloadStart.Interval = 1000;
@@ -268,7 +256,7 @@
             metroPanel2.HorizontalScrollbarBarColor = true;
             metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel2.HorizontalScrollbarSize = 10;
-            metroPanel2.Location = new Point(469, 93);
+            metroPanel2.Location = new Point(469, 104);
             metroPanel2.Name = "metroPanel2";
             metroPanel2.Padding = new Padding(2);
             metroPanel2.Size = new Size(348, 186);
@@ -324,7 +312,6 @@
             BackColor = Color.FromArgb(45, 51, 59);
             Controls.Add(metroPanel2);
             Controls.Add(metroPanel1);
-            Controls.Add(LBLFIleName);
             Controls.Add(PNLDownloadStatus);
             Controls.Add(PBARDownload);
             Name = "DownloadControl";
@@ -343,7 +330,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -354,7 +340,6 @@
         private Label LBLDownloadSpeed;
         private Label LBLDownloadName;
         private System.Windows.Forms.Timer TimerWacher;
-        private Label LBLFIleName;
         private System.Windows.Forms.Timer TimerDownloadStart;
         private Label LBLTitle;
         private MetroFramework.Controls.MetroPanel metroPanel1;

@@ -174,7 +174,7 @@ namespace TrionLibrary
             }
             return 0;
         }
-        public static bool IsProceessRunning(string ProcessName)
+        public static bool IsApplicationRunning(string ProcessName)
         {
             Process[] ProcessID = Process.GetProcessesByName(ProcessName);
             if (ProcessID.Length <= 0)
@@ -251,22 +251,21 @@ namespace TrionLibrary
                 return -1; // Return -1 if an error occurs
             }
         }
-        public static void ApplicationKill(string ApplicationName)
+        public static void ApplicationStop(int ApplicationID)
         {
-            Thread ApplicationKillThread = new Thread(() =>
+            Thread ApplicationStopThread = new Thread(() =>
             {
-                foreach (var process in Process.GetProcessesByName(ApplicationName))
+                var process = Process.GetProcessById(ApplicationID);
+
+                SendCtrlC(process);
+                if (!process.WaitForExit(15000)) // wait for 15 seconds, save world!
                 {
-                    SendCtrlC(process);
-                    if (!process.WaitForExit(10000)) // wait for 10 seconds, save world!
-                    {
-                        // If the process did not exit, forcefully terminate it
-                        Data.Message = "The process did not exit for more then 10 Secoinds. Kill it!";
-                        process.Kill();
-                    }
+                    // If the process did not exit, forcefully terminate it
+                    Data.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
+                    process.Kill();
                 }
             });
-            ApplicationKillThread.Start();
+            ApplicationStopThread.Start();
         }
         private static void SendCtrlC(Process process)
         {

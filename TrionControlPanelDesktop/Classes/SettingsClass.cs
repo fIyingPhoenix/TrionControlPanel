@@ -1,13 +1,7 @@
 ﻿using MetroFramework;
 using Microsoft.Win32;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Net;
-using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.FormData;
-using TrionDatabase;
 using TrionLibrary;
 
 namespace TrionControlPanelDesktop.Classes
@@ -16,7 +10,63 @@ namespace TrionControlPanelDesktop.Classes
     {
         private async void CheckForUpdate()
         {
-           
+            // Single Player Project Update
+            if (DateTime.TryParse(User.UI.Version.OFF.WotLK, out DateTime SPPLocal) && DateTime.TryParse(User.UI.Version.ON.WotLK, out DateTime SPPOnline))
+            {
+                if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
+                {
+                    if (Data.Settings.AutoUpdateCore)
+                    {
+                        //do auto update
+                    }
+                    else
+                    {
+
+                    }
+                    User.UI.Version.Update.WotLK = true;
+                }
+                else
+                {
+                  
+                    User.UI.Version.Update.WotLK = false;
+                }
+
+            }
+            Thread.Sleep(100);
+            // MySQL Update
+            if (!string.IsNullOrEmpty(User.UI.Version.OFF.Database) && !string.IsNullOrEmpty(User.UI.Version.ON.Database))
+            {
+                if (VersionCompare(User.UI.Version.OFF.Database, User.UI.Version.ON.Database) < 0)
+                {
+                    if (Data.Settings.AutoUpdateMySQL)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                    User.UI.Version.Update.Database = true;
+                }
+            }
+            Thread.Sleep(100);
+            // Trion Update
+            if (!string.IsNullOrEmpty(User.UI.Version.OFF.Trion) && !string.IsNullOrEmpty(User.UI.Version.ON.Trion))
+            {
+                if (VersionCompare(User.UI.Version.OFF.Trion, User.UI.Version.ON.Trion) < 0)
+                {
+                    if (Data.Settings.AutoUpdateTrion)
+                    {
+
+                    }
+                    else
+                    {
+                      
+                        
+                    }
+                }
+                User.UI.Version.Update.Trion = true;
+            }
         }
         private static int VersionCompare(string ver1, string ver2)
         {
@@ -111,7 +161,6 @@ namespace TrionControlPanelDesktop.Classes
             }
             return false;
         }
-
         public static void RemoveFromStartup(string appName)
         {
             try
@@ -144,7 +193,7 @@ namespace TrionControlPanelDesktop.Classes
         {
             Thread DwonloadThread = new(async () =>
             {
-                await Task.Run(() => DownloadControl.AddToList(Weblink));
+                //await Task.Run(() => DownloadControl.AddToList(Weblink));
             });
             DwonloadThread.Start();
         }

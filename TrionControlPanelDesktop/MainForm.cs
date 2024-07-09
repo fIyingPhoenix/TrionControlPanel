@@ -3,6 +3,7 @@ using MetroFramework.Forms;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Reflection;
+using TrionControlPanelDesktop.Classes;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.FormData;
@@ -32,7 +33,7 @@ namespace TrionControlPanelDesktop
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
-            if (Data.Settings.RunServerWithWindows) { await RunAll(); }
+            //if (Data.Settings.RunServerWithWindows) { await RunAll(); }
             await Data.SaveSettings();
         }
         static async Task ClosingToDo()
@@ -112,7 +113,7 @@ namespace TrionControlPanelDesktop
                 CurrentControl = CurrentControl.Home;
                 if (Data.Settings.FirstRun == true)
                 {
-                    
+
                 }
 
             }
@@ -130,25 +131,6 @@ namespace TrionControlPanelDesktop
                     TimerChangeControl.Start();
                 }
             }
-        }
-        static async Task<bool> IsPortOpen()
-        {
-            string host = "localhost";
-            int port = int.Parse(Data.Settings.DBServerPort);
-            try
-            {
-                using TcpClient tcpClient = new();
-                await tcpClient.ConnectAsync(host, port);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        private static async Task RunAll()
-        {
-            
         }
         private void BTNConsole_Click(object sender, EventArgs e)
         {
@@ -188,14 +170,15 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
+
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-
+            MainFormClass.StartLogon();
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            
+            MainFormClass.StartWorld();
         }
         private void TimerChangeControl_Tick(object sender, EventArgs e)
         {

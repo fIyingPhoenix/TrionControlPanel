@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Org.BouncyCastle.Asn1.Cmp;
+using System.Diagnostics;
 using System.IO.Compression;
 using TrionControlPanelDesktop.FormData;
 using TrionLibrary;
@@ -7,19 +8,21 @@ namespace TrionControlPanelDesktop.Controls
 {
     public partial class DownloadControl : UserControl
     {
-        private static bool ListFull = false;
+        public static bool ListFull { get; set; }
         // List of URLs to download
-        private static List<UrlData> DownloadList = [];
+        public static List<UrlData> DownloadList = [];
+
         // Counting Downloaded URLs
-        private int TotalDownloads = 0;
+        public static int TotalDownloads { get; set; }
+        //Current Queue;
         private int CurrentDownload = 0;
         public static string Title { get; set; }
-        public static bool InstallSPP { get; set; }
-        public static bool InstallMySQL { get; set; }
         public DownloadControl()
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
+            ListFull = false;
+            TotalDownloads= 0;
         }
         private static readonly string[] separator = ["\n", "\r\n"];
         static List<string> ReadLinesFromString(string inputString)
@@ -30,19 +33,66 @@ namespace TrionControlPanelDesktop.Controls
             List<string> linesList = new(linesArray);
             return linesList;
         }
-        public async static Task AddToList(string Weblink)
-        {
-
-        }
         private async Task Download()
         {
             string downloadDirectory = Directory.GetCurrentDirectory();
             using (HttpClient client = new())
             {
-                foreach (var url in DownloadList)
+                foreach (var url in DownloadList.ToList())
                 {
-
+                    CurrentDownload++;
+                    LBLQueue.Text = $"Queue: {CurrentDownload} / {TotalDownloads}";
+                    try
+                    {
+                        string DownloadLinkg = @$"{WebLinks.MainHost}{url.FileFullName}";
+                        using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            // Check if request was successful
+                            response.EnsureSuccessStatusCode();
+                            Uri uri = new Uri(DownloadLinkg);
+                            string relativePath = uri.AbsolutePath.TrimStart('/'); // Get the path without the leading slash
+                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), relativePath);
+                            if (!Directory.Exists(filePath)) { Directory.CreateDirectory(filePath); }
+                            // Create a file stream to write the downloaded content
+                            using (FileStream fileStream = new(url.FileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                // Get the response stream
+                                using (Stream stream = await response.Content.ReadAsStreamAsync())
+                                {
+                                    byte[] buffer = new byte[8192]; // 8 KB buffer
+                                    int bytesRead;
+                                    long totalBytesRead = 0;
+                                    long totalDownloadSize = response.Content.Headers.ContentLength ?? -1;
+                                    Stopwatch stopwatch = Stopwatch.StartNew();
+                                    // Read from the stream in chunks and write to the file stream
+                                    while ((bytesRead = await stream.ReadAsync(buffer)) > 0)
+                                    {
+                                        await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                                        totalBytesRead += bytesRead;
+                                        // Calculate download speed
+                                        double elapsedTimeSeconds = stopwatch.Elapsed.TotalSeconds;
+                                        double speedMBps = totalBytesRead / 1024 / 1024 / elapsedTimeSeconds; // bytes to MBps
+                                        // Display progress
+                                        double totalDownloadSizeMB = (double)totalDownloadSize / 1024 / 1024; // bytes to MB
+                                        double totalBytesReadMB = (double)totalBytesRead / 1024 / 1024; // bytes to MB
+                                        // Update PBar Maximum Value
+                                        PBARDownload.LabelText = "MB";
+                                        PBARDownload.Maximum = (int)totalDownloadSizeMB;
+                                        PBARDownload.Value = (int)totalBytesReadMB;
+                                        LBLDownloadSize.Text = $@"Size: {totalDownloadSizeMB:F2} MB";
+                                        LBLDownloadSpeed.Text = $@"Speed: {speedMBps:F2}MBps";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) 
+                    { 
+                        Data.Message = ex.Message;
+                        DownloadList.Clear();
+                    }  
                 }
+                DownloadList.Clear();
             }
         }
         private async Task UnzipFileAsync(string zipFilePath, string extractPath)
@@ -74,8 +124,7 @@ namespace TrionControlPanelDesktop.Controls
                             }
                             if (!entry.Name.Equals(string.Empty))
                             {
-                                
-                                LBLFIleName.Text = @$"File: {entry.Name}";
+                              
                                 using (Stream entryStream = entry.Open())
                                 using (FileStream outputStream = File.Create(fullPath))
                                 {

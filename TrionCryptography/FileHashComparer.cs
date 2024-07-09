@@ -1,5 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
 using System.Xml.Linq;
+using TrionLibrary;
 
 namespace TrionCryptography
 {
@@ -151,13 +153,7 @@ namespace TrionCryptography
 
                 // Calculate progress percentage
                 double progressPercentage = (double)currentFileIndex / totalFiles * 100;
-
-                // Report progress
-                Console.WriteLine($"Processing file: {fileInfo.FileName} ({currentFileIndex}/{totalFiles}) - {progressPercentage:F2}% completed");
             }
-
-            // Export current file information to XML
-            ExportToXML(currentFileInfos, currentXmlFilePath);
 
             // Identify missing files (present in previous XML but not in current folder)
             var missingFiles = previousFileInfos.Where(previous => !currentFileInfos.Any(current => current.FileFullName == previous.FileFullName));
@@ -168,8 +164,12 @@ namespace TrionCryptography
             // Combine missing files and changed files
             var allChangedFiles = missingFiles.Concat(changedFiles);
 
-            // Export all changes to XML
-            ExportToXML(allChangedFiles, currentXmlFilePath.Replace(".xml", "_changes.xml"));
+            // Export all changes to List
+            foreach (var file in allChangedFiles) 
+            {
+               
+            }
+
         }
         // Function to export file hashes to XML
         public static void ExportFileHashesToXML(string folderPath, string xmlFilePath)
@@ -185,8 +185,8 @@ namespace TrionCryptography
                 string _fileName = Path.GetFileName(file);
                 var fileInfo = new FileInfo
                 {
-                    FileName = _fileName.Replace(@"\", "/"),
-                    FileFullName = file,
+                    FileName = _fileName,
+                    FileFullName = file.Replace(@"\", "/"),
                     FileHash = CalculateSHA256(file)
                 };
                 fileInfos.Add(fileInfo);
