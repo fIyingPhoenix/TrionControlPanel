@@ -1,8 +1,6 @@
 ﻿using MetroFramework.Controls;
-using Microsoft.Scripting.Hosting.Shell;
 using System.Diagnostics;
-using System.Xml;
-using TrionLibrary;
+using TrionLibrary.Setting;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -29,7 +27,7 @@ namespace TrionControlPanelDesktop.Controls
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.CreateNoWindow = true;
-            if (Arguments != null && Application.Contains(Data.Settings.DBExecutableName))
+            if (Arguments != null && Application.Contains(Setting.List.DBExecutableName))
             {
                 process.StartInfo.Arguments = Arguments;
             }

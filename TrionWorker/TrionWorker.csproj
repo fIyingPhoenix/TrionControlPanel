@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrionCryptography\TrionCryptography.csproj" />
+    <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
   </ItemGroup>
 
 </Project>

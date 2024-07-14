@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrionDatabase\TrionDatabase.csproj" />
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
   </ItemGroup>
 

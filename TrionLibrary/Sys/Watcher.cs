@@ -5,13 +5,15 @@ using System.Management;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace TrionLibrary
+namespace TrionLibrary.Sys
 {
-    public class SystemWatcher
+    public class Watcher
     {
         //fix "lodctr /R"
         //static Process[] ProcessID;
-        public static Process pWorldServer;
+
+        private static readonly char[] separator = [' ', ':'];
+
         // PInvoke declarations
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool AttachConsole(uint dwProcessId);
@@ -56,7 +58,7 @@ namespace TrionLibrary
                 if (OSRuinning() == "Widnows")
                 {
                     // Create a new instance of the ManagementClass
-                    ManagementClass managementClass = new ManagementClass("Win32_ComputerSystem");
+                    ManagementClass managementClass = new("Win32_ComputerSystem");
 
                     // Get the total physical memory (RAM)
                     ManagementObjectCollection managementObjects = managementClass.GetInstances();
@@ -75,7 +77,7 @@ namespace TrionLibrary
                     string shellCommand = "cat /proc/meminfo | grep MemTotal";
 
                     // Create a ProcessStartInfo instance to specify the shell command
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo()
+                    ProcessStartInfo processStartInfo = new()
                     {
                         FileName = "/bin/bash",
                         Arguments = $"-c \"{shellCommand}\"",
@@ -85,7 +87,7 @@ namespace TrionLibrary
                     };
 
                     // Create and start the process to execute the shell command
-                    Process process = new Process()
+                    Process process = new()
                     {
                         StartInfo = processStartInfo
                     };
@@ -98,7 +100,7 @@ namespace TrionLibrary
                     process.WaitForExit();
 
                     // Parse the output to extract the total RAM
-                    string[] outputParts = output.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] outputParts = output.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                     if (outputParts.Length >= 2 && outputParts[0] == "MemTotal")
                     {
                         if (long.TryParse(outputParts[1], out long totalRamKB))
@@ -140,7 +142,7 @@ namespace TrionLibrary
         public static int MachineCpuUtilization()
         {
             // Create an instance of PerformanceCounter to monitor the total CPU usage
-            PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            PerformanceCounter cpuCounter = new("Processor", "% Processor Time", "_Total");
 
             // Give some time to initialize
             cpuCounter.NextValue();
@@ -162,7 +164,7 @@ namespace TrionLibrary
                 string counterName = "Available MBytes"; // You can also use "Available MBytes" for available memory
 
                 // Create a PerformanceCounter instance
-                PerformanceCounter performanceCounter = new PerformanceCounter(categoryName, counterName);
+                PerformanceCounter performanceCounter = new(categoryName, counterName);
 
                 // Get the memory usage in megabytes
                 float memoryUsageMB = performanceCounter.NextValue();
@@ -194,13 +196,13 @@ namespace TrionLibrary
                 return false; // Process with the specified ID does not exist
             }
         }
-        public static int ApplicationStart(string Application, string WorkingDirectory,  string Name, bool HideWindw, string Arguments)
+        public static int ApplicationStart(string Application, string WorkingDirectory, string Name, bool HideWindw, string Arguments)
         {
-            Data.Message = $@"Starting {Name}!";
+            Infos.Message = $@"Starting {Name}!";
             Thread.Sleep(100);
             try
             {
-                using Process myProcess = new Process();
+                using Process myProcess = new();
                 myProcess.StartInfo.UseShellExecute = false;
                 // You can start any process, HelloWorld is a do-nothing example.
                 myProcess.StartInfo.FileName = Application;
@@ -223,12 +225,12 @@ namespace TrionLibrary
                 }
                 // complete the task
 
-                Data.Message = $@"Successfully rune {Name}!";
+                Infos.Message = $@"Successfully rune {Name}!";
                 return myProcess.Id;
             }
             catch (Exception ex)
             {
-                Data.Message = ex.Message;
+                Infos.Message = ex.Message;
                 return 0;
             }
         }
@@ -253,7 +255,7 @@ namespace TrionLibrary
         }
         public static void ApplicationStop(int ApplicationID)
         {
-            Thread ApplicationStopThread = new Thread(() =>
+            Thread ApplicationStopThread = new(() =>
             {
                 var process = Process.GetProcessById(ApplicationID);
 
@@ -261,7 +263,7 @@ namespace TrionLibrary
                 if (!process.WaitForExit(15000)) // wait for 15 seconds, save world!
                 {
                     // If the process did not exit, forcefully terminate it
-                    Data.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
+                    Infos.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
                     process.Kill();
                 }
             });
@@ -293,7 +295,7 @@ namespace TrionLibrary
             try
             {
                 Process process = Process.GetProcessById(ProcessId);
-                PerformanceCounter ramCounter = new PerformanceCounter("Process", "Working Set", process.ProcessName);
+                PerformanceCounter ramCounter = new("Process", "Working Set", process.ProcessName);
                 while (true)
                 {
                     double ram = ramCounter.NextValue();
@@ -330,8 +332,8 @@ namespace TrionLibrary
                 double[] cpuUsagePercentages = new double[Environment.ProcessorCount];
                 for (int i = 0; i < Environment.ProcessorCount; i++)
                 {
-                    cpuUsagePercentages[i] = ((cpuTimesAfterDelay[i] - initialCpuTimes[i]).TotalMilliseconds /
-                                               (DateTime.Now - process.StartTime).TotalMilliseconds) * 100;
+                    cpuUsagePercentages[i] = (cpuTimesAfterDelay[i] - initialCpuTimes[i]).TotalMilliseconds /
+                                               (DateTime.Now - process.StartTime).TotalMilliseconds * 100;
                 }
                 // Calculate the average CPU usage across all cores
                 double totalCpuUsagePercentage = 0;

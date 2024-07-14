@@ -1,5 +1,5 @@
-﻿using TrionControlPanelDesktop.FormData;
-using TrionLibrary;
+﻿using TrionControlPanelDesktop.Data;
+using TrionLibrary.Sys;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -60,7 +60,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (RamProcent > 80 && RamUsageHight == false)
             {
-                Data.Message = "Your Ram is in a critical availability phase! More than 80% are used!!";
+                Infos.Message = "Your Ram is in a critical availability phase! More than 80% are used!!";
                 RamUsageHight = true;
             }
             if (RamProcent < 80)
@@ -81,8 +81,8 @@ namespace TrionControlPanelDesktop.Controls
             {
                 Thread MachineRamThread = new(() =>
                 {
-                    User.UI.Resource.MachineTotalRam = SystemWatcher.MachineTotalRam();
-                    User.UI.Resource.MachineUsageRam = User.UI.Resource.MachineTotalRam - SystemWatcher.CurentPcRamUsage();
+                    User.UI.Resource.MachineTotalRam = Watcher.MachineTotalRam();
+                    User.UI.Resource.MachineUsageRam = User.UI.Resource.MachineTotalRam - Watcher.CurentPcRamUsage();
                 });
                 MachineRamThread.Start();
                 //
@@ -95,20 +95,20 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     foreach (var WorldProcessid in User.System.WorldProcessesID)
                     {
-                        User.UI.Resource.WorldCPUUsage = SystemWatcher.ApplicationCpuUsage(WorldProcessid.ID);
-                        User.UI.Resource.WorldUsageRam = SystemWatcher.ApplicationRamUsage(WorldProcessid.ID);
+                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(WorldProcessid.ID);
+                        User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(WorldProcessid.ID);
                     }
                     foreach (var logonProcessesID in User.System.LogonProcessesID)
                     {
-                        User.UI.Resource.AuthUsageRam = SystemWatcher.ApplicationRamUsage(logonProcessesID.ID);
-                        User.UI.Resource.AuthCPUUsage = SystemWatcher.ApplicationCpuUsage(logonProcessesID.ID);
+                        User.UI.Resource.AuthUsageRam = Watcher.ApplicationRamUsage(logonProcessesID.ID);
+                        User.UI.Resource.AuthCPUUsage = Watcher.ApplicationCpuUsage(logonProcessesID.ID);
                     }
                 });
                 ApplicationResourceUsage.Start();
 
                 Thread MachineCpuUtilizationThread = new(() =>
                 {
-                    User.UI.Resource.MachineCPUUsage = SystemWatcher.MachineCpuUtilization();
+                    User.UI.Resource.MachineCPUUsage = Watcher.MachineCpuUtilization();
                 });
                 MachineCpuUtilizationThread.Start();
                 //

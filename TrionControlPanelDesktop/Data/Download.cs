@@ -1,13 +1,24 @@
-﻿using System.Xml.Linq;
+﻿using System.Text;
+using System.Xml.Linq;
 using TrionControlPanelDesktop.Controls;
-using TrionControlPanelDesktop.FormData;
-using TrionCryptography;
+using TrionLibrary.Crypto;
+using TrionLibrary.Models;
 
-namespace TrionControlPanelDesktop.Classes
+namespace TrionControlPanelDesktop.Data
 {
 
-    internal class DownloadClass
+    internal class Download
     {
+        public static bool ListFull { get; set; }
+        public static bool InstallDatabase { get; set; }
+        public static bool InstallClassic { get; set; }
+        public static bool InstallTBC { get; set; }
+        public static bool InstallWotLK { get; set; }
+        public static bool InstallCata { get; set; }
+        public static bool InstallMop { get; set; }
+        //
+        //
+        public static double ProgressPercentage;
         public class FileInfo
         {
             public string FileName { get; set; }
@@ -19,7 +30,7 @@ namespace TrionControlPanelDesktop.Classes
         {
             DownloadControl.DownloadList.Clear();
 
-           var previousFileInfos = new List<FileInfo>();
+            var previousFileInfos = new List<FileInfo>();
 
             // Load previous XML file from the web
             using (var httpClient = new HttpClient())
@@ -37,7 +48,7 @@ namespace TrionControlPanelDesktop.Classes
 
             var currentFileInfos = new List<FileInfo>();
 
-            var allFiles = FileHashComparer.GetAllFiles(folderPath).ToList();
+            var allFiles = FileHash.GetAllFiles(folderPath).ToList();
             int totalFiles = allFiles.Count;
             int currentFileIndex = 0;
 
@@ -47,46 +58,44 @@ namespace TrionControlPanelDesktop.Classes
                 string _fileName = Path.GetFileName(file);
                 var fileInfo = new FileInfo
                 {
-                    FileName = _fileName.Replace(@"\", "/"),
-                    FileFullName = file,
-                    FileHash = FileHashComparer.CalculateSHA256(file)
+                    FileName = _fileName,
+                    FileFullName = file.Replace(@"\", "/"),
+                    FileHash = FileHash.CalculateSHA256(file)
                 };
                 currentFileInfos.Add(fileInfo);
 
                 currentFileIndex++;
 
                 // Calculate progress percentage
-                double progressPercentage = (double)currentFileIndex / totalFiles * 100;
+                ProgressPercentage = (double)currentFileIndex / totalFiles * 100;
             }
 
             // Identify missing files (present in previous XML but not in current folder)
-            var missingFiles = previousFileInfos.Where(previous => !currentFileInfos.Any(current => current.FileFullName == previous.FileFullName));
+            var missingFiles = previousFileInfos.Where(previous => !currentFileInfos.Any(current => current.FileHash == previous.FileHash));
 
             // Compare current file hashes with previous ones and export changes to XML
-            var changedFiles = currentFileInfos.Where(current => !previousFileInfos.Any(previous => previous.FileFullName == current.FileFullName && previous.FileHash == current.FileHash));
+            var changedFiles = currentFileInfos.Where(current => !previousFileInfos.Any(previous => previous.FileName == current.FileName && previous.FileHash == current.FileHash));
 
             // Combine missing files and changed files
             var allChangedFiles = missingFiles.Concat(changedFiles);
 
             // Export all changes to List
+            StringBuilder csvContent = new();
+
             foreach (var file in allChangedFiles)
             {
-
+                csvContent.AppendLine($"{file.FileName},{file.FileFullName},{file.FileHash}");
                 DownloadControl.DownloadList.Add(
-                    new UrlData()
+                    new Lists.File()
                     {
                         FileName = file.FileName,
                         FileFullName = file.FileFullName,
-                        FileHash =  file.FileHash
+                        FileHash = file.FileHash
                     }
                     );
-
                 User.UI.Download.CurrentDownloads++;
             }
-            
-            MessageBox.Show("it Runs");
-            DownloadControl.ListFull = true;
-            MainForm.LoadDownload = true;
+            ListFull = true;
         }
     }
 }

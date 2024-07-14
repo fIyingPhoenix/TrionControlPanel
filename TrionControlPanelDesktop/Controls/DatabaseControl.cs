@@ -1,13 +1,17 @@
-﻿using TrionDatabase;
-using TrionLibrary;
+﻿using TrionLibrary;
+using TrionLibrary.Models;
+using TrionLibrary.Network;
+using TrionLibrary.Setting;
+using TrionLibrary.Database;
+using TrionLibrary.Sys;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class DatabaseControl : UserControl
     {
-        List<DataModels.RealmList> RList;
-        List<DataModels.RealmListAscemu> RListAscemu;
-        List<DataModels.RealmListMangos> RListMangos;
+        List<Realmlist.Trinity> RealmlistTrinity;
+        List<Realmlist.Ascemu> RealmlistAscemu;
+        List<Realmlist.Mangos> RealmlistMangos;
         public DatabaseControl()
         {
             Dock = DockStyle.Fill;
@@ -17,8 +21,8 @@ namespace TrionControlPanelDesktop.Controls
         private async Task LoadData()
         {
             await LoadRealmList();
-            TXTInternIP.Text = NetworkHelper.GetInternalIpAddress();
-            TXTPublicIP.Text = await NetworkHelper.GetExternalIpAddress();
+            TXTInternIP.Text = Helper.GetInternalIpAddress();
+            TXTPublicIP.Text = await Helper.GetExternalIpAddress();
         }
         private async Task LoadRealmList()
         {
@@ -26,36 +30,36 @@ namespace TrionControlPanelDesktop.Controls
             {
                 CBOXReamList.Items.Clear();
 
-                if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.CypherCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore335 ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
+                if (Setting.List.SelectedCore == Enums.Cores.AzerothCore ||
+                    Setting.List.SelectedCore == Enums.Cores.CypherCore ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCore ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCore335 ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCoreClassic)
                 {
-                    RList?.Clear();
-                    RList = await DataAccess.LodaData<DataModels.RealmList, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
-                    foreach (var realm in RList!)
+                    RealmlistTrinity?.Clear();
+                    RealmlistTrinity = await Access.LodaData<Realmlist.Trinity, dynamic>(SQLQuery.LoadRealm(), new { }, Connect.String(Setting.List.AuthDatabase));
+                    foreach (var realm in RealmlistTrinity!)
                     {
                         CBOXReamList.Items.Add(realm.Name);
                     }
                     CBOXReamList.SelectedIndex = 0;
                 }
-                if (Data.Settings.SelectedCore == EnumModels.Cores.CMaNGOS ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
+                if (Setting.List.SelectedCore == Enums.Cores.CMaNGOS ||
+                    Setting.List.SelectedCore == Enums.Cores.VMaNGOS)
                 {
-                    RListMangos?.Clear();
-                    RListMangos = await DataAccess.LodaData<DataModels.RealmListMangos, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
-                    foreach (var realm in RListMangos!)
+                    RealmlistMangos?.Clear();
+                    RealmlistMangos = await Access.LodaData<Realmlist.Mangos, dynamic>(SQLQuery.LoadRealm(), new { }, Connect.String(Setting.List.AuthDatabase));
+                    foreach (var realm in RealmlistMangos!)
                     {
                         CBOXReamList.Items.Add(realm.Name);
                     }
                     CBOXReamList.SelectedIndex = 0;
                 }
-                if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
+                if (Setting.List.SelectedCore == Enums.Cores.AscEmu)
                 {
-                    RListAscemu?.Clear();
-                    RListAscemu = await DataAccess.LodaData<DataModels.RealmListAscemu, dynamic>(SQL.LoadRealm(), new { }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
-                    foreach (var realm in RListAscemu!)
+                    RealmlistAscemu?.Clear();
+                    RealmlistAscemu = await Access.LodaData<Realmlist.Ascemu, dynamic>(SQLQuery.LoadRealm(), new { }, Connect.String(Setting.List.AuthDatabase));
+                    foreach (var realm in RealmlistAscemu!)
                     {
                         CBOXReamList.Items.Add(realm.ID);
                     }
@@ -64,7 +68,7 @@ namespace TrionControlPanelDesktop.Controls
             }
             catch (Exception ex)
             {
-                Data.Message = "Error loding data: " + ex.Message;
+               Infos.Message = "Error loding data: " + ex.Message;
             }
 
         }
@@ -72,14 +76,14 @@ namespace TrionControlPanelDesktop.Controls
         {
             //try
             //{
-                if (Data.Settings.SelectedCore == EnumModels.Cores.AzerothCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.CypherCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCore335 ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.TrinityCoreClassic)
+                if (Setting.List.SelectedCore == Enums.Cores.AzerothCore ||
+                    Setting.List.SelectedCore == Enums.Cores.CypherCore ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCore ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCore335 ||
+                    Setting.List.SelectedCore == Enums.Cores.TrinityCoreClassic)
                 {
                     //`name`, `address`, `port`, `icon`, `flag`, `timezone`
-                    DataAccess.SaveData(SQL.SaveRealm(), new
+                    Access.SaveData(SQLQuery.SaveRealm(), new
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
@@ -91,14 +95,14 @@ namespace TrionControlPanelDesktop.Controls
                         Timezone = TXTRealmTime.Text,
                         ID = TXTRealmID.Text
 
-                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, Connect.String(Setting.List.AuthDatabase));
                     await LoadRealmList();
                 }
-                if (Data.Settings.SelectedCore == EnumModels.Cores.CMaNGOS ||
-                    Data.Settings.SelectedCore == EnumModels.Cores.VMaNGOS)
+                if (Setting.List.SelectedCore == Enums.Cores.CMaNGOS ||
+                    Setting.List.SelectedCore == Enums.Cores.VMaNGOS)
                 {
-                    RListMangos?.Clear();
-                    DataAccess.SaveData(SQL.SaveRealm(), new
+                RealmlistMangos?.Clear();
+                    Access.SaveData(SQLQuery.SaveRealm(), new
                     {
                         Name = TXTRealmName.Text,
                         Address = TXTRealmAddress.Text,
@@ -108,18 +112,18 @@ namespace TrionControlPanelDesktop.Controls
                         Timezone = TXTRealmTime.Text,
                         ID = TXTRealmID.Text
 
-                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, Connect.String(Setting.List.AuthDatabase));
                     await LoadRealmList();
                 }
-                if (Data.Settings.SelectedCore == EnumModels.Cores.AscEmu)
+                if (Setting.List.SelectedCore == Enums.Cores.AscEmu)
                 {
-                    RListAscemu?.Clear();
-                    DataAccess.SaveData(SQL.SaveRealm(), new
+                       RealmlistAscemu?.Clear();
+                    Access.SaveData(SQLQuery.SaveRealm(), new
                     {
                         Password = TXTRealmName.Text,
                         StatusChangeTime = TXTRealmAddress.Text,
 
-                    }, DataConnect.ConnectionString(Data.Settings.AuthDatabase));
+                    }, Connect.String(Setting.List.AuthDatabase));
                     await LoadRealmList();
                 }
             //}
@@ -130,7 +134,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void CBOXReamList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            DataModels.RealmList SearchList = RList.Find(obj => obj.Name == CBOXReamList.SelectedItem.ToString())!;
+            Realmlist.Trinity SearchList = RealmlistTrinity.Find(obj => obj.Name == CBOXReamList.SelectedItem.ToString())!;
             if (SearchList != null)
             {
                 TXTRealmID.Text = SearchList.ID.ToString();

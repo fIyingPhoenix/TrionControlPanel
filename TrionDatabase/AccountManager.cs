@@ -22,7 +22,6 @@ namespace TrionDatabase
         }
         const int MaxAccountLength = 16;
         const int MaxEmailLength = 64;
-
         public static AccountOpResult CreateAccount(string username, string password, string email = "", uint bnetAccountId = 0, byte bnetIndex = 0)
         {
             if (username.Length > MaxAccountLength)
@@ -38,7 +37,6 @@ namespace TrionDatabase
 
             return AccountOpResult.Ok;
         }
-
         private static int GetId(string username)
         {
             throw new NotImplementedException();

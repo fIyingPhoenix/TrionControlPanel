@@ -1,13 +1,10 @@
 ﻿@page "/fetchdata"
-@using TrionDatabase;
-@inject DataAccess DataAccess
-
 <PageTitle>Weather forecast</PageTitle>
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service. </p>
-<p role="status">World Running: @WorldStatus and name </p>
+<p role="status">World Running: and name </p>
 <button type="button" class="btn btn-secondary" @onclick=chekIfRunning>Test</button>
 <input type="text" class="form-control" id="inputPassword" placeholder="Password">
    <p><em>Loading...</em></p>
@@ -28,14 +25,8 @@
     </table>
 
 @code {
-    bool WorldStatus;
 
     private void chekIfRunning()
     {
-        SystemWatcher.ApplicationStop(0);
     }
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     WorldStatus = SystemWatcher.ApplicationRuning("");
-    // }
 }

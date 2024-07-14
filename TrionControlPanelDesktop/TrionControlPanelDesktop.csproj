@@ -94,10 +94,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrionCryptography\TrionCryptography.csproj" />
-    <ProjectReference Include="..\TrionDatabase\TrionDatabase.csproj" />
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
     <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\" />
   </ItemGroup>
 
 </Project>

@@ -64,7 +64,7 @@
             // 
             // PBARDownload
             // 
-            PBARDownload.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            PBARDownload.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PBARDownload.BackColor = Color.FromArgb(34, 39, 46);
             PBARDownload.BarColor = Color.FromArgb(0, 174, 219);
             PBARDownload.FontSize = 10;
@@ -80,6 +80,7 @@
             // 
             // PNLDownloadStatus
             // 
+            PNLDownloadStatus.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             PNLDownloadStatus.BackColor = Color.FromArgb(34, 39, 46);
             PNLDownloadStatus.Border = true;
             PNLDownloadStatus.BorderColor = Color.Black;
@@ -218,6 +219,7 @@
             // 
             // metroPanel1
             // 
+            metroPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
@@ -243,6 +245,7 @@
             // 
             // metroPanel2
             // 
+            metroPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;

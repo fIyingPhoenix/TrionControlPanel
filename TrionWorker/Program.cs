@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using TrionCryptography;
+using TrionLibrary.Crypto;
 
 namespace TrionWorker
 {
@@ -28,11 +28,11 @@ namespace TrionWorker
                         DisplayOpenUsage(commands);
                         Console.ReadLine();
                     }
-                    FileHashComparer.ExportFileHashesToXML(arguments["directory"], AppDomain.CurrentDomain.BaseDirectory);
+                    FileHash.ExportFileHashesToXML(arguments["directory"], AppDomain.CurrentDomain.BaseDirectory);
                     Console.ReadLine();
                     break;
                 case "CompareHash":
-                    FileHashComparer.CompareAndExportChangesOffline(arguments["directory"], arguments["old"], arguments["new"]);
+                    FileHash.CompareAndExportChangesOffline(arguments["directory"], arguments["old"], arguments["new"]);
                     break;
                 default:
                     DisplayUsageInstructions();

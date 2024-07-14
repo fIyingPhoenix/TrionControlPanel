@@ -1,6 +1,5 @@
-﻿using System.Windows.Forms;
-using TrionControlPanelDesktop.FormData;
-using TrionLibrary;
+﻿using TrionControlPanelDesktop.Data;
+using TrionLibrary.Sys;
 
 namespace TrionControlPanelDesktop.Controls.Notification
 {
@@ -20,7 +19,7 @@ namespace TrionControlPanelDesktop.Controls.Notification
         {
             // Add a new row to the DataTable
             DGVNotifications.Rows.Add(DGVNotifications.Rows.Count + 1.ToString(), message.ToString(), DateTime.ToString());
-            Data.Message = string.Empty;
+            Infos.Message = string.Empty;
             // Refresh the DataGridView to reflect the changes
             DGVNotifications.Refresh();
 
@@ -29,9 +28,9 @@ namespace TrionControlPanelDesktop.Controls.Notification
         }
         private void TimerNotify_Tick(object sender, EventArgs e)
         {
-            if (Data.Message != string.Empty)
+            if (Infos.Message != string.Empty)
             {
-                AddItem(Data.Message, DateTime.Now);
+                AddItem(Infos.Message, DateTime.Now);
             }
         }
         private void BTNClean_Click(object sender, EventArgs e)

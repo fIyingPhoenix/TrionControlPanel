@@ -1,38 +1,19 @@
 ﻿using Dapper;
 using System.Data;
 using MySql.Data.MySqlClient;
-using TrionLibrary;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System;
+using System.IO;
+using TrionLibrary.Sys;
 
-namespace TrionDatabase
+namespace TrionLibrary.Database
 {
-    public class DataConnect
+    public class Access
     {
-        public static async Task<bool> TestConnection()
-        {
-            MySqlConnection conn = new(DataConnect.ConnectionString(Data.Settings.AuthDatabase));
-            bool status = false;
-            await Task.Run(() =>
-            {
-                try
-                {
-                    if (conn.State == ConnectionState.Closed)
-                    {
-                        conn.Open();
-                        Data.Message = $"The SQL Connection is {conn.State}";
-                        status = true;
-                        conn.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Data.Message = ex.Message;
-                    status = false;
-                }
-                return status;
-            });
-            return status;
-        }
         public static async Task<List<string>> GetTables(string connectionString)
         {
             List<string> tables = [];
@@ -52,7 +33,7 @@ namespace TrionDatabase
             }
             catch (Exception ex)
             {
-                Data.Message = $"Error getting tables: {ex.Message}";
+                Infos.Message = $"Error getting tables: {ex.Message}";
             }
             return tables;
         }
@@ -70,13 +51,13 @@ namespace TrionDatabase
             }
             catch (Exception ex)
             {
-                Data.Message = $"Error deleting table '{tableName}': {ex.Message}";
+                Infos.Message = $"Error deleting table '{tableName}': {ex.Message}";
             }
         }
         public static Task DumpAllTables(string connectionString, string outputFile)
         {
-           Thread MachineCpuUtilizationThread = new(() =>
-           {
+            Thread MachineCpuUtilizationThread = new(() =>
+            {
                 using (MySqlConnection connection = new(connectionString))
                 {
                     using (StreamWriter writer = new(outputFile))
@@ -108,7 +89,7 @@ namespace TrionDatabase
                     }
                 }
             });
-           
+
             MachineCpuUtilizationThread.Start();
             return Task.CompletedTask;
         }
@@ -152,14 +133,6 @@ namespace TrionDatabase
             }
             return insertStatements.ToString();
         }
-
-        public static string ConnectionString(string Database)
-        {
-            return new($"Server={Data.Settings.DBServerHost};Port={Data.Settings.DBServerPort};User Id={Data.Settings.DBServerUser};Password={Data.Settings.DBServerPassword};Database={Database}");
-        }
-    }
-    public class DataAccess
-    {
         public static async Task<List<T>> LodaData<T, U>(string sql, U parameters, string connectionString)
         {
             using (IDbConnection con = new MySqlConnection(connectionString))
@@ -172,55 +145,6 @@ namespace TrionDatabase
         {
             using IDbConnection con = new MySqlConnection(connectionString);
             con.Execute(sql, parameters);
-
-        }
-    }
-    public class SQL
-    {
-        public static string SaveRealm()
-        {
-            return Data.Settings.SelectedCore switch
-            {
-                EnumModels.Cores.AscEmu => "UPDATE `realms` SET `password` = @Password, `status_change_time` = @StatusChangeTime WHERE `id` = @ID;",
-                EnumModels.Cores.AzerothCore => "UPDATE `realmlist` SET `name` = @Name, `address` = @Address, `localAddress` = @LocalAddress, `localSubnetMask` = @LocalSubnetMask, `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                EnumModels.Cores.CMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone, `allowedSecurityLevel` = @AllowedSecurityLevel WHERE `id` = @ID;",
-                EnumModels.Cores.CypherCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                EnumModels.Cores.TrinityCore335 => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                EnumModels.Cores.TrinityCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                EnumModels.Cores.TrinityCoreClassic => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                EnumModels.Cores.VMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone WHERE `id` = @ID;",
-                _ => ""
-            };
-        }
-        public static string LoadRealm()
-        {
-            return Data.Settings.SelectedCore switch
-            {
-                EnumModels.Cores.AscEmu => $"SELECT * FROM `realms` LIMIT 10;",
-                EnumModels.Cores.AzerothCore => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.CMaNGOS => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.CypherCore => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.TrinityCore335 => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.TrinityCore => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.TrinityCoreClassic => $"SELECT * FROM `realmlist` LIMIT 10;",
-                EnumModels.Cores.VMaNGOS => $"SELECT * FROM `realmlist` LIMIT 10;",
-                _ => ""
-            };
-        }
-        public static string AccountCreate()
-        {
-            return Data.Settings.SelectedCore switch
-            {
-                EnumModels.Cores.AscEmu => $"",
-                EnumModels.Cores.AzerothCore => $"",
-                EnumModels.Cores.CMaNGOS => $"",
-                EnumModels.Cores.CypherCore => $"",
-                EnumModels.Cores.TrinityCore335 => $"",
-                EnumModels.Cores.TrinityCore => $"",
-                EnumModels.Cores.TrinityCoreClassic => $"",
-                EnumModels.Cores.VMaNGOS => $"",
-                _ => ""
-            };
         }
     }
 }

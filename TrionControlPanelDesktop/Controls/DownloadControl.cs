@@ -1,16 +1,16 @@
-﻿using Org.BouncyCastle.Asn1.Cmp;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Compression;
-using TrionControlPanelDesktop.FormData;
-using TrionLibrary;
+using TrionControlPanelDesktop.Data;
+using TrionLibrary.Models;
+using TrionLibrary.Sys;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class DownloadControl : UserControl
     {
-        public static bool ListFull { get; set; }
+        
         // List of URLs to download
-        public static List<UrlData> DownloadList = [];
+        public static List<Lists.File> DownloadList = [];
 
         // Counting Downloaded URLs
         public static int TotalDownloads { get; set; }
@@ -21,7 +21,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
-            ListFull = false;
+            Data.Download.ListFull = false;
             TotalDownloads= 0;
         }
         private static readonly string[] separator = ["\n", "\r\n"];
@@ -35,24 +35,25 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async Task Download()
         {
-            string downloadDirectory = Directory.GetCurrentDirectory();
+            TotalDownloads = DownloadList.Count;
             using (HttpClient client = new())
             {
                 foreach (var url in DownloadList.ToList())
                 {
                     CurrentDownload++;
+                    User.UI.Download.CurrentDownloads--;
                     LBLQueue.Text = $"Queue: {CurrentDownload} / {TotalDownloads}";
                     try
                     {
-                        string DownloadLinkg = @$"{WebLinks.MainHost}{url.FileFullName}";
+                        string DownloadLinkg = @$"{Links.MainHost}{url.FileFullName}";
+                        LBLDownloadName.Text = $"Task: {url.FileName}";
                         using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
                         {
                             // Check if request was successful
                             response.EnsureSuccessStatusCode();
-                            Uri uri = new Uri(DownloadLinkg);
-                            string relativePath = uri.AbsolutePath.TrimStart('/'); // Get the path without the leading slash
-                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), relativePath);
-                            if (!Directory.Exists(filePath)) { Directory.CreateDirectory(filePath); }
+
+                            string directoryPath = Path.GetDirectoryName(url.FileFullName)!;
+                            if (!Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
                             // Create a file stream to write the downloaded content
                             using (FileStream fileStream = new(url.FileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
                             {
@@ -88,7 +89,7 @@ namespace TrionControlPanelDesktop.Controls
                     }
                     catch (Exception ex) 
                     { 
-                        Data.Message = ex.Message;
+                        Infos.Message = ex.Message;
                         DownloadList.Clear();
                     }  
                 }
@@ -151,12 +152,12 @@ namespace TrionControlPanelDesktop.Controls
             }
             catch (Exception ex)
             {
-                Data.Message = $"Error: {ex.Message}";
+                Infos.Message = $"Error: {ex.Message}";
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if (ListFull == false)
+            if (Data.Download.ListFull == false)
             {
                 TimerDownloadStart.Start();
             }
@@ -168,7 +169,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
-            if (ListFull == true)
+            if (Data.Download.ListFull == true)
             {
                 TimerDownloadStart.Stop();
                 await Download();

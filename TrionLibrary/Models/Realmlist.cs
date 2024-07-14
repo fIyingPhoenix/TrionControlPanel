@@ -1,9 +1,9 @@
 ﻿
-namespace TrionDatabase
+namespace TrionLibrary.Models
 {
-    public class DataModels
+    public class Realmlist
     {
-        public class RealmList
+        public class Trinity
         {
             public int ID { get; set; }
             public string Name { get; set; }
@@ -16,13 +16,13 @@ namespace TrionDatabase
             public int Timezone { get; set; }
             public int AllowedSecurityLevel { get; set; }
         }
-        public class RealmListAscemu
+        public class Ascemu
         {
             public int ID { get; set; }
             public string Password { get; set; }
             public string StatusChangeTime { get; set; }
         }
-        public class RealmListMangos
+        public class Mangos
         {
             public int ID { get; set; }
             public string Name { get; set; }

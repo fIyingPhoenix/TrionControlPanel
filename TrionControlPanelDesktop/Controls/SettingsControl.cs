@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Diagnostics;
-using static TrionLibrary.EnumModels;
-using TrionLibrary;
-using TrionDatabase;
-using TrionControlPanelDesktop.Classes;
-using TrionControlPanelDesktop.FormData;
-using MetroFramework;
+using static TrionLibrary.Models.Enums;
+using TrionLibrary.Setting;
+using TrionControlPanelDesktop.Data;
+using TrionLibrary.Sys;
+using TrionLibrary.Database;
+using TrionLibrary.Network;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class SettingsControl : UserControl
     {
+        bool readFiles = false;
         static System.Threading.Timer TextTimer;
         //
         public SettingsControl()
@@ -24,64 +25,64 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void EnableCustomNames()
         {
-            TXTBoxLoginExecName.ReadOnly = !Data.Settings.CustomNames;
-            TXTBoxWorldExecName.ReadOnly = !Data.Settings.CustomNames;
-            TXTBoxMySQLExecName.ReadOnly = !Data.Settings.CustomNames;
+            TXTBoxLoginExecName.ReadOnly = !Setting.List.CustomNames;
+            TXTBoxWorldExecName.ReadOnly = !Setting.List.CustomNames;
+            TXTBoxMySQLExecName.ReadOnly = !Setting.List.CustomNames;
         }
         private async Task LoadData()
         {
             //Load Installed Emulators
-            TGLClassicInstalled.Checked = Data.Settings.ClassicInstalled;
-            TGLTBCInstalled.Checked = Data.Settings.TBCInstalled;
-            TGLWotLKInstalled.Checked = Data.Settings.WotLKInstalled;
-            TGLCataInstalled.Checked = Data.Settings.CataInstalled;
-            TGLMoPInstalled.Checked = Data.Settings.MOPInstalled;
+            TGLClassicInstalled.Checked = Setting.List.ClassicInstalled;
+            TGLTBCInstalled.Checked = Setting.List.TBCInstalled;
+            TGLWotLKInstalled.Checked = Setting.List.WotLKInstalled;
+            TGLCataInstalled.Checked = Setting.List.CataInstalled;
+            TGLMoPInstalled.Checked = Setting.List.MOPInstalled;
             //
             ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxDDNService.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxSPPVersion.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxCores.SelectedItem = Data.Settings.SelectedCore.ToString();
-            ComboBoxDDNService.SelectedItem = Data.Settings.DDNSerivce.ToString();
-            ComboBoxSPPVersion.SelectedItem = Data.Settings.SelectedSPP.ToString();
+            ComboBoxCores.SelectedItem = Setting.List.SelectedCore.ToString();
+            ComboBoxDDNService.SelectedItem = Setting.List.DDNSerivce.ToString();
+            ComboBoxSPPVersion.SelectedItem = Setting.List.SelectedSPP.ToString();
             ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxDDNService.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             ComboBoxSPPVersion.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
-            TXTBoxLoginExecName.Text = Data.Settings.CustomLogonExeName;
-            TXTBoxWorldExecName.Text = Data.Settings.CustomWorldExeName;
-            TXTBoxMySQLExecName.Text = Data.Settings.DBExecutableName;
+            TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
+            TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
+            TXTBoxMySQLExecName.Text = Setting.List.DBExecutableName;
             //Working Directory
-            TXTBoxCoreLocation.Text = Data.Settings.CustomWorkingDirectory;
-            TXTBoxMySQLLocation.Text = Data.Settings.DBLocation;
+            TXTBoxCoreLocation.Text = Setting.List.CustomWorkingDirectory;
+            TXTBoxMySQLLocation.Text = Setting.List.DBLocation;
             //MySQL Host Data
-            TXTMysqlHost.Text = Data.Settings.DBServerHost;
-            TXTMysqlPort.Text = Data.Settings.DBServerPort;
-            TXTMysqlUser.Text = Data.Settings.DBServerUser;
-            TXTMysqlPassword.Text = Data.Settings.DBServerPassword;
+            TXTMysqlHost.Text = Setting.List.DBServerHost;
+            TXTMysqlPort.Text = Setting.List.DBServerPort;
+            TXTMysqlUser.Text = Setting.List.DBServerUser;
+            TXTMysqlPassword.Text = Setting.List.DBServerPassword;
             //MysqlDatabases
-            TXTCharDatabase.Text = Data.Settings.CharactersDatabase;
-            TXTAuthDatabase.Text = Data.Settings.AuthDatabase;
-            TXTWorldDatabase.Text = Data.Settings.WorldDatabase;
+            TXTCharDatabase.Text = Setting.List.CharactersDatabase;
+            TXTAuthDatabase.Text = Setting.List.AuthDatabase;
+            TXTWorldDatabase.Text = Setting.List.WorldDatabase;
             //ToggleButtons
-            TGLAutoUpdateTrion.Checked = Data.Settings.AutoUpdateTrion;
-            TGLAutoUpdateCore.Checked = Data.Settings.AutoUpdateCore;
-            TGLHideConsole.Checked = Data.Settings.ConsolHide;
-            TGLNotificationSound.Checked = Data.Settings.NotificationSound;
-            TGLStayInTrey.Checked = Data.Settings.StayInTray;
-            TGLCustomNames.Checked = Data.Settings.CustomNames;
-            TGLRunTrionStartup.Checked = Data.Settings.RunWithWindows;
+            TGLAutoUpdateTrion.Checked = Setting.List.AutoUpdateTrion;
+            TGLAutoUpdateCore.Checked = Setting.List.AutoUpdateCore;
+            TGLHideConsole.Checked = Setting.List.ConsolHide;
+            TGLNotificationSound.Checked = Setting.List.NotificationSound;
+            TGLStayInTrey.Checked = Setting.List.StayInTray;
+            TGLCustomNames.Checked = Setting.List.CustomNames;
+            TGLRunTrionStartup.Checked = Setting.List.RunWithWindows;
             //Update Loader
             EnableCustomNames();
             //Version Load
             User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            User.UI.Version.OFF.Database = Data.Version.GetLocal(Data.Settings.DBExeLoca, Data.Settings.DBExecutableName);
-            User.UI.Version.ON.Trion = await Data.Version.GetOnline(WebLinks.Version.Trion);
-            User.UI.Version.ON.Database = await Data.Version.GetOnline(WebLinks.Version.Database);
-            User.UI.Version.ON.Classic = await Data.Version.GetOnline(WebLinks.Version.Classic);
-            User.UI.Version.ON.TBC = await Data.Version.GetOnline(WebLinks.Version.TBC);
-            User.UI.Version.ON.WotLK = await Data.Version.GetOnline(WebLinks.Version.WotLK);
-            User.UI.Version.ON.Cata = await Data.Version.GetOnline(WebLinks.Version.Cata);
-            User.UI.Version.ON.Mop = await Data.Version.GetOnline(WebLinks.Version.Mop);
+            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoca, Setting.List.DBExecutableName);
+            User.UI.Version.ON.Trion = await Infos.Version.Online(Links.Version.Trion);
+            User.UI.Version.ON.Database = await Infos.Version.Online(Links.Version.Database);
+            User.UI.Version.ON.Classic = await Infos.Version.Online(Links.Version.Classic);
+            User.UI.Version.ON.TBC = await Infos.Version.Online(Links.Version.TBC);
+            User.UI.Version.ON.WotLK = await Infos.Version.Online(Links.Version.WotLK);
+            User.UI.Version.ON.Cata = await Infos.Version.Online(Links.Version.Cata);
+            User.UI.Version.ON.Mop = await Infos.Version.Online(Links.Version.Mop);
             //Update Labels
             LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Version.OFF.Trion} / Online: {User.UI.Version.ON.Trion}";
             LBLDBVersion.Text = $"Database Version: \n •Local: {User.UI.Version.OFF.Database} \n •Online: {User.UI.Version.ON.Database} ";
@@ -91,11 +92,11 @@ namespace TrionControlPanelDesktop.Controls
             LBLCataVersion.Text = $"Cata Version: \n •Local: {User.UI.Version.OFF.Cata} \n •Online: {User.UI.Version.OFF.Cata} ";
             LBLMoPVersion.Text = $"MoP Version: \n •Local: {User.UI.Version.OFF.Mop} \n •Online: {User.UI.Version.OFF.Mop} ";
             //DDNS
-            TXTDDNSDomain.Text = Data.Settings.DDNSDomain;
-            TXTDDNSUsername.Text = Data.Settings.DDNSUsername;
-            TXTDDNSPassword.Text = Data.Settings.DDNSPassword;
-            TXTDDNSInterval.Text = Data.Settings.DDNSInterval.ToString();
-            TGLDDNSRunOnStartup.Checked = Data.Settings.DDNSRunOnStartup;
+            TXTDDNSDomain.Text = Setting.List.DDNSDomain;
+            TXTDDNSUsername.Text = Setting.List.DDNSUsername;
+            TXTDDNSPassword.Text = Setting.List.DDNSPassword;
+            TXTDDNSInterval.Text = Setting.List.DDNSInterval.ToString();
+            TGLDDNSRunOnStartup.Checked = Setting.List.DDNSRunOnStartup;
             User.UI.Form.StartUpLoading++;
         }
         private async void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -103,204 +104,222 @@ namespace TrionControlPanelDesktop.Controls
             switch (ComboBoxCores.SelectedItem)
             {
                 case "AscEmu":
-                    Data.Settings.CustomWorldExeName = "world";
-                    Data.Settings.CustomLogonExeName = "logon";
-                    Data.Settings.SelectedCore = Cores.AscEmu;
-                    Data.Settings.CharactersDatabase = "ascemu_char";
-                    Data.Settings.WorldDatabase = "ascemu_world";
-                    Data.Settings.AuthDatabase = "ascemu_logon";
-                    Data.Settings.DBServerUser = "root";
-                    Data.Settings.DBServerPassword = "root";
+                    Setting.List.CustomWorldExeName = "world";
+                    Setting.List.CustomLogonExeName = "logon";
+                    Setting.List.SelectedCore = Cores.AscEmu;
+                    Setting.List.CharactersDatabase = "ascemu_char";
+                    Setting.List.WorldDatabase = "ascemu_world";
+                    Setting.List.AuthDatabase = "ascemu_logon";
+                    Setting.List.DBServerUser = "root";
+                    Setting.List.DBServerPassword = "root";
                     break;
                 case "AzerothCore":
-                    Data.Settings.CustomWorldExeName = "worldserver";
-                    Data.Settings.CustomLogonExeName = "authserver";
-                    Data.Settings.SelectedCore = Cores.AzerothCore;
-                    Data.Settings.CharactersDatabase = "acore_characters";
-                    Data.Settings.WorldDatabase = "acore_world";
-                    Data.Settings.AuthDatabase = "acore_auth";
-                    Data.Settings.DBServerUser = "acore";
-                    Data.Settings.DBServerPassword = "acore";
+                    Setting.List.CustomWorldExeName = "worldserver";
+                    Setting.List.CustomLogonExeName = "authserver";
+                    Setting.List.SelectedCore = Cores.AzerothCore;
+                    Setting.List.CharactersDatabase = "acore_characters";
+                    Setting.List.WorldDatabase = "acore_world";
+                    Setting.List.AuthDatabase = "acore_auth";
+                    Setting.List.DBServerUser = "acore";
+                    Setting.List.DBServerPassword = "acore";
                     break;
                 case "CMaNGOS":
-                    Data.Settings.CustomWorldExeName = "mangosd";
-                    Data.Settings.CustomLogonExeName = "realmd";
-                    Data.Settings.SelectedCore = Cores.CMaNGOS;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "mangos";
-                    Data.Settings.AuthDatabase = "realmd";
-                    Data.Settings.DBServerUser = "mangos";
-                    Data.Settings.DBServerPassword = "mangos";
+                    Setting.List.CustomWorldExeName = "mangosd";
+                    Setting.List.CustomLogonExeName = "realmd";
+                    Setting.List.SelectedCore = Cores.CMaNGOS;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "mangos";
+                    Setting.List.AuthDatabase = "realmd";
+                    Setting.List.DBServerUser = "mangos";
+                    Setting.List.DBServerPassword = "mangos";
                     break;
                 case "CypherCore":
-                    Data.Settings.CustomWorldExeName = "WorldServer";
-                    Data.Settings.CustomLogonExeName = "BNetServer";
-                    Data.Settings.SelectedCore = Cores.CypherCore;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "world";
-                    Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.DBServerUser = "trinity";
-                    Data.Settings.DBServerPassword = "trinity";
+                    Setting.List.CustomWorldExeName = "WorldServer";
+                    Setting.List.CustomLogonExeName = "BNetServer";
+                    Setting.List.SelectedCore = Cores.CypherCore;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "world";
+                    Setting.List.AuthDatabase = "auth";
+                    Setting.List.DBServerUser = "trinity";
+                    Setting.List.DBServerPassword = "trinity";
                     break;
                 case "TrinityCore":
-                    Data.Settings.CustomWorldExeName = "worldserver";
-                    Data.Settings.CustomLogonExeName = "bnetserver";
-                    Data.Settings.SelectedCore = Cores.TrinityCore;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "world";
-                    Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.DBServerUser = "trinity";
-                    Data.Settings.DBServerPassword = "trinity";
+                    Setting.List.CustomWorldExeName = "worldserver";
+                    Setting.List.CustomLogonExeName = "bnetserver";
+                    Setting.List.SelectedCore = Cores.TrinityCore;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "world";
+                    Setting.List.AuthDatabase = "auth";
+                    Setting.List.DBServerUser = "trinity";
+                    Setting.List.DBServerPassword = "trinity";
                     break;
                 case "TrinityCore335":
-                    Data.Settings.CustomLogonExeName = "authserver";
-                    Data.Settings.CustomWorldExeName = "worldserver";
-                    Data.Settings.SelectedCore = Cores.TrinityCore335;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "world";
-                    Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.DBServerUser = "trinity";
-                    Data.Settings.DBServerPassword = "trinity";
+                    Setting.List.CustomLogonExeName = "authserver";
+                    Setting.List.CustomWorldExeName = "worldserver";
+                    Setting.List.SelectedCore = Cores.TrinityCore335;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "world";
+                    Setting.List.AuthDatabase = "auth";
+                    Setting.List.DBServerUser = "trinity";
+                    Setting.List.DBServerPassword = "trinity";
                     break;
                 case "TrinityCoreClassic":
-                    Data.Settings.CustomLogonExeName = "bnetserver";
-                    Data.Settings.CustomWorldExeName = "worldserver";
-                    Data.Settings.SelectedCore = Cores.TrinityCoreClassic;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "world";
-                    Data.Settings.AuthDatabase = "auth";
-                    Data.Settings.DBServerUser = "trinity";
-                    Data.Settings.DBServerPassword = "trinity";
+                    Setting.List.CustomLogonExeName = "bnetserver";
+                    Setting.List.CustomWorldExeName = "worldserver";
+                    Setting.List.SelectedCore = Cores.TrinityCoreClassic;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "world";
+                    Setting.List.AuthDatabase = "auth";
+                    Setting.List.DBServerUser = "trinity";
+                    Setting.List.DBServerPassword = "trinity";
                     break;
                 case "VMaNGOS":
-                    Data.Settings.CustomWorldExeName = "mangosd";
-                    Data.Settings.CustomLogonExeName = "realmd";
-                    Data.Settings.SelectedCore = Cores.VMaNGOS;
-                    Data.Settings.CharactersDatabase = "characters";
-                    Data.Settings.WorldDatabase = "mangos";
-                    Data.Settings.AuthDatabase = "realmd";
-                    Data.Settings.DBServerUser = "mangos";
-                    Data.Settings.DBServerPassword = "mangos";
+                    Setting.List.CustomWorldExeName = "mangosd";
+                    Setting.List.CustomLogonExeName = "realmd";
+                    Setting.List.SelectedCore = Cores.VMaNGOS;
+                    Setting.List.CharactersDatabase = "characters";
+                    Setting.List.WorldDatabase = "mangos";
+                    Setting.List.AuthDatabase = "realmd";
+                    Setting.List.DBServerUser = "mangos";
+                    Setting.List.DBServerPassword = "mangos";
                     break;
             }
-            TXTBoxLoginExecName.Text = Data.Settings.CustomLogonExeName;
-            TXTBoxWorldExecName.Text = Data.Settings.CustomWorldExeName;
+            TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
+            TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
             await LoadData();
-            Data.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
+            Infos.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.StayInTray = TGLStayInTrey.Checked;
+            Setting.List.StayInTray = TGLStayInTrey.Checked;
         }
         private void TGLNotificationSound_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.NotificationSound = TGLNotificationSound.Checked;
+            Setting.List.NotificationSound = TGLNotificationSound.Checked;
         }
         private void TGLHideConsole_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.ConsolHide = TGLHideConsole.Checked;
+            Setting.List.ConsolHide = TGLHideConsole.Checked;
         }
         private void TGLAutoUpdateTrion_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
+            Setting.List.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
         }
         private void TGLAutoUpdateCore_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
+            Setting.List.AutoUpdateCore = TGLAutoUpdateCore.Checked;
         }
         private void TGLAutoUpdateMySQL_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.AutoUpdateMySQL = TGLAutoUpdateMySQL.Checked;
+            Setting.List.AutoUpdateMySQL = TGLAutoUpdateMySQL.Checked;
         }
         private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.CustomNames = TGLCustomNames.Checked;
+            Setting.List.CustomNames = TGLCustomNames.Checked;
             EnableCustomNames();
         }
         private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.RunServerWithWindows = TGLServerStartup.Checked;
+            Setting.List.RunServerWithWindows = TGLServerStartup.Checked;
         }
         private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
         {
-            string Folder = SettingsClass.GetWorkingDirectory();
+            string Folder = Settings.GetWorkingDirectory();
             try
             {
                 if (Folder != string.Empty)
                 {
-                    if (Data.GetExecutableLocation(Folder, Data.Settings.DBExecutableName) != string.Empty)
+                    if (Infos.GetExecutableLocation(Folder, Setting.List.DBExecutableName) != string.Empty)
                     {
-                        Data.Settings.DBExeLoca = Data.GetExecutableLocation(Folder, Data.Settings.DBExecutableName);
-                        Data.Settings.DBLocation = Path.GetFullPath(Path.Combine(Data.Settings.DBExeLoca, @"..\"));
-                        await Data.SaveSettings();
-                        Data.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-                        await Data.SaveSettings();
+                        Setting.List.DBExeLoca = Infos.GetExecutableLocation(Folder, Setting.List.DBExecutableName);
+                        Setting.List.DBLocation = Path.GetFullPath(Path.Combine(Setting.List.DBExeLoca, @"..\"));
+                        await Setting.Save();
+                        Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                        await Setting.Save();
                         await LoadData();
                     }
                     else
                     {
-                        Data.Message = "Faild to find MySQL Lication.";
+                        Infos.Message = "Faild to find MySQL Lication.";
                     }
                 }
                 else
                 {
-                    Data.Message = "Faild to select the folder.";
+                    Infos.Message = "Faild to select the folder.";
                 }
             }
             catch (Exception ex)
             {
-                Data.Message = ex.Message;
+                Infos.Message = ex.Message;
             }
         }
         private async void BTNCoreExecLovation_Click(object sender, EventArgs e)
         {
-            string Folder = SettingsClass.GetWorkingDirectory();
+            string Folder = Settings.GetWorkingDirectory();
             if (Folder != string.Empty)
             {
-                if (Data.GetExecutableLocation(Folder, Data.Settings.CustomWorldExeName) != string.Empty &&
-                    Data.GetExecutableLocation(Folder, Data.Settings.CustomLogonExeName) != string.Empty)
+                if (Infos.GetExecutableLocation(Folder, Setting.List.CustomWorldExeName) != string.Empty &&
+                    Infos.GetExecutableLocation(Folder, Setting.List.CustomLogonExeName) != string.Empty)
                 {
-                    Data.Settings.CustomWorldExeLoc = Data.GetExecutableLocation(Folder, Data.Settings.CustomWorldExeName);
-                    Data.Settings.CustomWorldExeLoc = Data.GetExecutableLocation(Folder, Data.Settings.CustomLogonExeName);
-                    Data.Settings.CustomWorkingDirectory = Path.GetFullPath(Folder);
-                    await Data.SaveSettings();
+                    Setting.List.CustomWorldExeLoc = Infos.GetExecutableLocation(Folder, Setting.List.CustomWorldExeName);
+                    Setting.List.CustomWorldExeLoc = Infos.GetExecutableLocation(Folder, Setting.List.CustomLogonExeName);
+                    Setting.List.CustomWorkingDirectory = Path.GetFullPath(Folder);
+                    await Setting.Save();
                     await LoadData();
                 }
             }
             else
             {
-                Data.Message = "Getting Core File location failed!";
+                Infos.Message = "Getting Core File location failed!";
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+
             if (User.UI.Form.LoadData == true)
             {
                 User.UI.Form.LoadData = false;
                 _ = LoadData();
             }
+            if (readFiles)
+            {
+                BTNInstallSPP.Enabled = false;
+                BTNRepairSPP.Enabled = false;
+                BTNUninstallSPP.Enabled = false;
+                PBarReadingFiles.Visible = true;
+                LBLReadingFiles.Visible = true;
+            }
+            else
+            {
+                BTNInstallSPP.Enabled = true;
+                BTNRepairSPP.Enabled = true;
+                BTNUninstallSPP.Enabled = true;
+                PBarReadingFiles.Visible = false;
+                LBLReadingFiles.Visible = false;
+            }
+            PBarReadingFiles.Value = (int)Download.ProgressPercentage;
         }
         private void BTNDiscord_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", WebLinks.Discord);
+            Process.Start("explorer.exe", Links.Discord);
         }
         private void SaveDataTextbox(object state)
         {
             // Seve data
-            Data.Settings.DBExecutableName = TXTBoxMySQLExecName.Text;
-            Data.Settings.CustomWorldExeName = TXTBoxWorldExecName.Text;
-            Data.Settings.CustomLogonExeName = TXTBoxLoginExecName.Text;
-            Data.Settings.DBServerHost = TXTMysqlHost.Text;
-            Data.Settings.DBServerPort = TXTMysqlPort.Text;
-            Data.Settings.DBServerUser = TXTMysqlUser.Text;
-            Data.Settings.DBServerPassword = TXTMysqlPassword.Text;
-            Data.Settings.AuthDatabase = TXTAuthDatabase.Text;
-            Data.Settings.WorldDatabase = TXTWorldDatabase.Text;
-            Data.Settings.CharactersDatabase = TXTCharDatabase.Text;
-            Data.Settings.DDNSDomain = TXTDDNSDomain.Text;
-            Data.Settings.DDNSUsername = TXTDDNSUsername.Text;
-            Data.Settings.DDNSPassword = TXTDDNSPassword.Text;
-            Data.Settings.DDNSInterval = Convert.ToInt32(TXTDDNSInterval.Text);
+            Setting.List.DBExecutableName = TXTBoxMySQLExecName.Text;
+            Setting.List.CustomWorldExeName = TXTBoxWorldExecName.Text;
+            Setting.List.CustomLogonExeName = TXTBoxLoginExecName.Text;
+            Setting.List.DBServerHost = TXTMysqlHost.Text;
+            Setting.List.DBServerPort = TXTMysqlPort.Text;
+            Setting.List.DBServerUser = TXTMysqlUser.Text;
+            Setting.List.DBServerPassword = TXTMysqlPassword.Text;
+            Setting.List.AuthDatabase = TXTAuthDatabase.Text;
+            Setting.List.WorldDatabase = TXTWorldDatabase.Text;
+            Setting.List.CharactersDatabase = TXTCharDatabase.Text;
+            Setting.List.DDNSDomain = TXTDDNSDomain.Text;
+            Setting.List.DDNSUsername = TXTDDNSUsername.Text;
+            Setting.List.DDNSPassword = TXTDDNSPassword.Text;
+            Setting.List.DDNSInterval = Convert.ToInt32(TXTDDNSInterval.Text);
         }
         private void TXTBox_TextChanged(object sender, EventArgs e)
         {
@@ -314,12 +333,12 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
-            if (TGLRunTrionStartup.Checked == true) { SettingsClass.AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Data.Settings.RunWithWindows = true; }
-            if (TGLRunTrionStartup.Checked == false) { SettingsClass.RemoveFromStartup("Trion Control Panel"); Data.Settings.RunWithWindows = false; }
+            if (TGLRunTrionStartup.Checked == true) { Settings.AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Setting.List.RunWithWindows = true; }
+            if (TGLRunTrionStartup.Checked == false) { Settings.RemoveFromStartup("Trion Control Panel"); Setting.List.RunWithWindows = false; }
         }
         private async void BTNTestConnection_Click(object sender, EventArgs e)
         {
-            if (await DataConnect.TestConnection() == true)
+            if (await Connect.Test() == true)
             {
                 BTNTestConnection.ForeColor = Color.Green;
                 BTNTestConnection.Text = "   Success!!";
@@ -340,11 +359,11 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNCoreOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Data.Settings.CustomWorkingDirectory);
+            Process.Start("explorer.exe", Setting.List.CustomWorkingDirectory);
         }
         private void BTNMySQLOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Data.Settings.DBLocation);
+            Process.Start("explorer.exe", Setting.List.DBLocation);
         }
         private async void BTNDeleteAuth_Click(object sender, EventArgs e)
         {
@@ -352,13 +371,13 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteAuth.ForeColor = Color.Orange;
             BTNDeleteAuth.Click -= BTNDeleteAuth_Click;
             // Get all tables in the database
-            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            List<string> tables = await Access.GetTables(Connect.String(Setting.List.AuthDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+                Access.DeleteTable(Connect.String(Setting.List.AuthDatabase), table);
             }
-            Data.Message = "Auth Tables deleted successfully.";
+            Infos.Message = "Auth Tables deleted successfully.";
             BTNDeleteAuth.Click += BTNDeleteAuth_Click;
             BTNDeleteAuth.Text = "   Delete Auth Database";
             BTNDeleteAuth.ForeColor = Color.White;
@@ -369,13 +388,13 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteChar.ForeColor = Color.Orange;
             BTNDeleteChar.Click -= BTNDeleteChar_Click;
             // Get all tables in the database
-            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.AuthDatabase));
+            List<string> tables = await Access.GetTables(Connect.String(Setting.List.AuthDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.AuthDatabase), table);
+                Access.DeleteTable(Connect.String(Setting.List.AuthDatabase), table);
             }
-            Data.Message = "Char Tables deleted successfully.";
+            Infos.Message = "Char Tables deleted successfully.";
             BTNDeleteChar.Click += BTNDeleteChar_Click;
             BTNDeleteChar.Text = "   Delete Char Database";
             BTNDeleteChar.ForeColor = Color.White;
@@ -386,13 +405,13 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteWorld.ForeColor = Color.Orange;
             BTNDeleteWorld.Click -= BTNDeleteWorld_Click;
             // Get all tables in the database
-            List<string> tables = await DataConnect.GetTables(DataConnect.ConnectionString(Data.Settings.WorldDatabase));
+            List<string> tables = await Access.GetTables(Connect.String(Setting.List.WorldDatabase));
             // Delete each table
             foreach (string table in tables)
             {
-                DataConnect.DeleteTable(DataConnect.ConnectionString(Data.Settings.WorldDatabase), table);
+                Access.DeleteTable(Connect.String(Setting.List.WorldDatabase), table);
             }
-            Data.Message = "Wolrd Tables deleted successfully.";
+            Infos.Message = "Wolrd Tables deleted successfully.";
             BTNDeleteWorld.Click += BTNDeleteWorld_Click;
             BTNDeleteWorld.Text = "   Delete World Database";
             BTNDeleteWorld.ForeColor = Color.White;
@@ -409,34 +428,34 @@ namespace TrionControlPanelDesktop.Controls
             switch (ComboBoxDDNService.SelectedItem)
             {
                 case "DuckDNS":
-                    Data.Settings.DDNSerivce = DDNSerivce.DuckDNS;
+                    Setting.List.DDNSerivce = DDNSerivce.DuckDNS;
                     break;
                 case "NoIP":
-                    Data.Settings.DDNSerivce = DDNSerivce.NoIP;
+                    Setting.List.DDNSerivce = DDNSerivce.NoIP;
                     break;
                 case "Dynu":
-                    Data.Settings.DDNSerivce = DDNSerivce.Dynu;
+                    Setting.List.DDNSerivce = DDNSerivce.Dynu;
                     break;
                 case "Enom":
-                    Data.Settings.DDNSerivce = DDNSerivce.Enom;
+                    Setting.List.DDNSerivce = DDNSerivce.Enom;
                     break;
                 case "AllInkl":
-                    Data.Settings.DDNSerivce = DDNSerivce.AllInkl;
+                    Setting.List.DDNSerivce = DDNSerivce.AllInkl;
                     break;
                 case "dynDNS":
-                    Data.Settings.DDNSerivce = DDNSerivce.dynDNS;
+                    Setting.List.DDNSerivce = DDNSerivce.dynDNS;
                     break;
                 case "STRATO":
-                    Data.Settings.DDNSerivce = DDNSerivce.STRATO;
+                    Setting.List.DDNSerivce = DDNSerivce.STRATO;
                     break;
                 case "Freemyip":
-                    Data.Settings.DDNSerivce = DDNSerivce.Freemyip;
+                    Setting.List.DDNSerivce = DDNSerivce.Freemyip;
                     break;
                 case "Afraid":
-                    Data.Settings.DDNSerivce = DDNSerivce.Afraid;
+                    Setting.List.DDNSerivce = DDNSerivce.Afraid;
                     break;
                 case "OVH":
-                    Data.Settings.DDNSerivce = DDNSerivce.OVH;
+                    Setting.List.DDNSerivce = DDNSerivce.OVH;
                     break;
             }
         }
@@ -446,17 +465,17 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TGLDDNSRunOnStartup_CheckedChanged(object sender, EventArgs e)
         {
-            Data.Settings.DDNSRunOnStartup = TGLDDNSRunOnStartup.Checked;
+            Setting.List.DDNSRunOnStartup = TGLDDNSRunOnStartup.Checked;
         }
         private async void TimerDDNSInterval_Tick(object sender, EventArgs e)
         {
-            TimerDDNSInterval.Interval = Data.Settings.DDNSInterval;
-            string CurrentIP = await NetworkHelper.GetExternalIpAddress();
+            TimerDDNSInterval.Interval = Setting.List.DDNSInterval;
+            string CurrentIP = await Helper.GetExternalIpAddress();
             string URL = await User.API.DDNSUpdateURL(TXTDDNSDomain.Text, TXTDDNSUsername.Text, TXTDDNSPassword.Text);
-            if (!CurrentIP.Contains(Data.Settings.IPAddress))
+            if (!CurrentIP.Contains(Setting.List.IPAddress))
             {
-                Data.Message = $"Updateing {URL} with {CurrentIP}";
-                SettingsClass.UpdateDNSIP(URL, CurrentIP);
+                Infos.Message = $"Updateing {URL} with {CurrentIP}";
+                Settings.UpdateDNSIP(URL, CurrentIP);
             }
         }
         private void BTNSaveData_Click(object sender, EventArgs e)
@@ -465,7 +484,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNWebiste_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", WebLinks.DDNSWebsits());
+            Process.Start("explorer.exe", Links.DDNSWebsits());
         }
 
         private void ComboBoxSPPVersion_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -473,20 +492,20 @@ namespace TrionControlPanelDesktop.Controls
             switch (ComboBoxSPPVersion.SelectedItem)
             {
                 case "Classic":
-                    Data.Settings.SelectedSPP = SPP.Classic;
+                    Setting.List.SelectedSPP = SPP.Classic;
 
                     break;
                 case "TheBurningCrusade":
-                    Data.Settings.SelectedSPP = SPP.TheBurningCrusade;
+                    Setting.List.SelectedSPP = SPP.TheBurningCrusade;
                     break;
                 case "WrathOfTheLichKing":
-                    Data.Settings.SelectedSPP = SPP.WrathOfTheLichKing;
+                    Setting.List.SelectedSPP = SPP.WrathOfTheLichKing;
                     break;
                 case "Cataclysm":
-                    Data.Settings.SelectedSPP = SPP.Cataclysm;
+                    Setting.List.SelectedSPP = SPP.Cataclysm;
                     break;
                 case "MistOfPandaria":
-                    Data.Settings.SelectedSPP = SPP.MistOfPandaria;
+                    Setting.List.SelectedSPP = SPP.MistOfPandaria;
                     break;
             }
         }
@@ -495,27 +514,46 @@ namespace TrionControlPanelDesktop.Controls
         {
             Thread DwonloadThread = new(async () =>
             {
-                switch (Data.Settings.SelectedSPP)
+                try
                 {
-                    case SPP.Classic:
-
-                        break;
-                    case SPP.TheBurningCrusade:
-
-                        break;
-                    case SPP.WrathOfTheLichKing:
-                        await DownloadClass.CompareAndExportChangesOnline(Directory.GetCurrentDirectory(), "http://localhost/wotlkHashes.xml");
-                        break;
-                    case SPP.Cataclysm:
-
-                        break;
-                    case SPP.MistOfPandaria:
-
-                        break;
                 }
+                catch (Exception ex)
+                {
+                    Infos.Message = ex.Message;
+                }
+                switch (Setting.List.SelectedSPP)
+                    {
+                        case SPP.Classic:
+
+                            break;
+                        case SPP.TheBurningCrusade:
+
+                            break;
+                        case SPP.WrathOfTheLichKing:
+                            readFiles = true;
+                            if (!Directory.Exists(Links.Install.WotLK)) { Directory.CreateDirectory(Links.Install.WotLK); }
+                            DownloadControl.Title = "Install Single Player Project - Wrath of the Lich King";
+                            await Download.CompareAndExportChangesOnline(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
+                            break;
+                        case SPP.Cataclysm:
+
+                            break;
+                        case SPP.MistOfPandaria:
+
+                            break;
+                    }
             });
             DwonloadThread.Start();
-           
+        }
+
+        private void BTNRepairSPP_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNUninstallSPP_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

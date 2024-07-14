@@ -51,6 +51,8 @@
             label28 = new Label();
             TGLMoPInstalled = new TrionControlPanel.UI.CustomToggleButton();
             metroPanel9 = new MetroFramework.Controls.MetroPanel();
+            LBLReadingFiles = new Label();
+            PBarReadingFiles = new TrionControlPanel.UI.CustomProgressBar();
             BTNInstallSPP = new UI.Controls.CustomButton();
             metroPanel17 = new MetroFramework.Controls.MetroPanel();
             label30 = new Label();
@@ -600,6 +602,8 @@
             metroPanel9.Border = true;
             metroPanel9.BorderColor = Color.Black;
             metroPanel9.BorderSize = 1;
+            metroPanel9.Controls.Add(LBLReadingFiles);
+            metroPanel9.Controls.Add(PBarReadingFiles);
             metroPanel9.Controls.Add(BTNInstallSPP);
             metroPanel9.Controls.Add(metroPanel17);
             metroPanel9.Controls.Add(BTNRepairSPP);
@@ -622,6 +626,33 @@
             metroPanel9.VerticalScrollbarBarColor = true;
             metroPanel9.VerticalScrollbarHighlightOnWheel = false;
             metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // LBLReadingFiles
+            // 
+            LBLReadingFiles.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LBLReadingFiles.AutoSize = true;
+            LBLReadingFiles.ForeColor = Color.White;
+            LBLReadingFiles.Location = new Point(7, 170);
+            LBLReadingFiles.Name = "LBLReadingFiles";
+            LBLReadingFiles.Size = new Size(80, 15);
+            LBLReadingFiles.TabIndex = 57;
+            LBLReadingFiles.Text = "Reading files..";
+            LBLReadingFiles.Visible = false;
+            // 
+            // PBarReadingFiles
+            // 
+            PBarReadingFiles.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PBarReadingFiles.BarColor = Color.FromArgb(83, 155, 245);
+            PBarReadingFiles.FontSize = 10;
+            PBarReadingFiles.LabelText = "";
+            PBarReadingFiles.Location = new Point(5, 190);
+            PBarReadingFiles.MaximumValue = false;
+            PBarReadingFiles.Name = "PBarReadingFiles";
+            PBarReadingFiles.ShowStatus = false;
+            PBarReadingFiles.Size = new Size(305, 10);
+            PBarReadingFiles.TabIndex = 56;
+            PBarReadingFiles.TextColor = Color.FromArgb(45, 51, 59);
+            PBarReadingFiles.Visible = false;
             // 
             // BTNInstallSPP
             // 
@@ -711,6 +742,7 @@
             BTNRepairSPP.Text = "Repair S.P.P.";
             BTNRepairSPP.TextColor = Color.White;
             BTNRepairSPP.UseVisualStyleBackColor = false;
+            BTNRepairSPP.Click += BTNRepairSPP_Click;
             // 
             // BTNUninstallSPP
             // 
@@ -735,6 +767,7 @@
             BTNUninstallSPP.Text = "Uninstall S.P.P.";
             BTNUninstallSPP.TextColor = Color.White;
             BTNUninstallSPP.UseVisualStyleBackColor = false;
+            BTNUninstallSPP.Click += BTNUninstallSPP_Click;
             // 
             // label29
             // 
@@ -1484,6 +1517,7 @@
             TXTDDNSInterval.Style = MetroFramework.MetroColorStyle.Blue;
             TXTDDNSInterval.StyleManager = null;
             TXTDDNSInterval.TabIndex = 54;
+            TXTDDNSInterval.Text = "1000";
             TXTDDNSInterval.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTDDNSInterval.UseStyleColors = true;
             TXTDDNSInterval.TextChanged += TXTBox_TextChanged;
@@ -3147,5 +3181,7 @@
         private UI.Controls.CustomButton BTNInstallSPP;
         private Label label33;
         private TrionControlPanel.UI.CustomToggleButton TGLCustomInstalled;
+        private TrionControlPanel.UI.CustomProgressBar PBarReadingFiles;
+        private Label LBLReadingFiles;
     }
 }

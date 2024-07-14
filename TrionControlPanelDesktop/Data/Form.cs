@@ -1,8 +1,9 @@
 ﻿using System.Text;
-using TrionDatabase;
-using TrionLibrary;
+using TrionLibrary.Models;
+using TrionLibrary.Network;
+using TrionLibrary.Setting;
 
-namespace TrionControlPanelDesktop.FormData
+namespace TrionControlPanelDesktop.Data
 {
     public class User
     {
@@ -43,19 +44,19 @@ namespace TrionControlPanelDesktop.FormData
             //DDNS links
             public static async Task<string> DDNSUpdateURL(string Domain, string Username, string Password)
             {
-                return Data.Settings.DDNSerivce switch
+                return Setting.List.DDNSerivce switch
                 {
-                    EnumModels.DDNSerivce.DuckDNS => $"http://www.duckdns.org/update?domains={Domain}&token={Password}&ip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.NoIP => $"http://{Username}:{Password}@dynupdate.no-ip.com/nic/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.Dynu => $"http://{Username}:{Password}@members.dyndns.org/v3/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.Enom => $"http://dynamic.name-services.com/interface.asp?command=SetDnsHost&HostName={Domain}&Zone={Username}&DomainPassword={Password}&Address={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.AllInkl => $"http://{Username}:{Password}@dyndns.kasserver.com/?myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.dynDNS => $"http://{Username}:{Password}@update.dyndns.it/nic/update?hostname={Domain}",
-                    EnumModels.DDNSerivce.STRATO => $"http://{Username}:{Password}@dyndns.strato.com/nic/update?hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.Freemyip => $"http://freemyip.com/update?domain={Domain}&token={Username}&myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.Afraid => $"http://sync.afraid.org/u/{Username}/",
-                    EnumModels.DDNSerivce.OVH => $"http://{Username}:{Password}@www.ovh.com/nic/update?system=dyndns&hostname={Domain}&myip={await NetworkHelper.GetExternalIpAddress()}",
-                    EnumModels.DDNSerivce.Cloudflare => $"https://api.cloudflare.com/client/v4/zones/{Username}/dns_records/{Password}",
+                    Enums.DDNSerivce.DuckDNS => $"http://www.duckdns.org/update?domains={Domain}&token={Password}&ip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.NoIP => $"http://{Username}:{Password}@dynupdate.no-ip.com/nic/update?hostname={Domain}&myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.Dynu => $"http://{Username}:{Password}@members.dyndns.org/v3/update?hostname={Domain}&myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.Enom => $"http://dynamic.name-services.com/interface.asp?command=SetDnsHost&HostName={Domain}&Zone={Username}&DomainPassword={Password}&Address={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.AllInkl => $"http://{Username}:{Password}@dyndns.kasserver.com/?myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.dynDNS => $"http://{Username}:{Password}@update.dyndns.it/nic/update?hostname={Domain}",
+                    Enums.DDNSerivce.STRATO => $"http://{Username}:{Password}@dyndns.strato.com/nic/update?hostname={Domain}&myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.Freemyip => $"http://freemyip.com/update?domain={Domain}&token={Username}&myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.Afraid => $"http://sync.afraid.org/u/{Username}/",
+                    Enums.DDNSerivce.OVH => $"http://{Username}:{Password}@www.ovh.com/nic/update?system=dyndns&hostname={Domain}&myip={await Helper.GetExternalIpAddress()}",
+                    Enums.DDNSerivce.Cloudflare => $"https://api.cloudflare.com/client/v4/zones/{Username}/dns_records/{Password}",
                     _ => "",
                 };
             }
@@ -158,12 +159,12 @@ namespace TrionControlPanelDesktop.FormData
             public static DateTime DatabaseStartTime { get; set; }
             public static DateTime WorldStartTime { get; set; }
             public static DateTime LogonStartTime { get; set; }
-            public static List<ProcessID> DatabaseProcessID = [];
-            public static List<ProcessID> WorldProcessesID = [];
-            public static List<ProcessID> LogonProcessesID = [];
-            public static List<ProcessPort> DatabasePort = [];
-            public static List<ProcessPort> WorldPort = [];
-            public static List<ProcessPort> LogonPort = [];
+            public static List<Lists.ProcessID> DatabaseProcessID = [];
+            public static List<Lists.ProcessID> WorldProcessesID = [];
+            public static List<Lists.ProcessID> LogonProcessesID = [];
+            public static List<Lists.ProcessPort> DatabasePort = [];
+            public static List<Lists.ProcessPort> WorldPort = [];
+            public static List<Lists.ProcessPort> LogonPort = [];
         }
     }
 }

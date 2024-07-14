@@ -1,14 +1,13 @@
 using MetroFramework;
 using MetroFramework.Forms;
 using System.Diagnostics;
-using System.Net.Sockets;
 using System.Reflection;
-using TrionControlPanelDesktop.Classes;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
-using TrionControlPanelDesktop.FormData;
-using TrionLibrary;
-using static TrionLibrary.EnumModels;
+using TrionControlPanelDesktop.Data;
+using TrionLibrary.Setting;
+using static TrionLibrary.Models.Enums;
+
 
 namespace TrionControlPanelDesktop
 {
@@ -34,11 +33,11 @@ namespace TrionControlPanelDesktop
             PNLControl.Controls.Add(loadingControl);
             LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
             //if (Data.Settings.RunServerWithWindows) { await RunAll(); }
-            await Data.SaveSettings();
+            await Setting.Save();
         }
         static async Task ClosingToDo()
         {
-            await Data.SaveSettings();
+            await Setting.Save();
         }
         public MainForm()
         {
@@ -56,7 +55,7 @@ namespace TrionControlPanelDesktop
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
-            await Data.LoadSettings();
+            await Setting.Load();
             LoadData();
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
@@ -88,9 +87,8 @@ namespace TrionControlPanelDesktop
         {
             //
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;
-            BTNDownload.NotificationCount = User.UI.Download.DownloadStatus;
             BTNDownload.NotificationCount = User.UI.Download.CurrentDownloads;
-            BTNDownload.Visible = User.UI.Download.CurrentDownloads > 0;
+            BTNDownload.Visible = User.UI.Download.CurrentDownloads > 0 && Download.ListFull == true;
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
@@ -111,7 +109,7 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
-                if (Data.Settings.FirstRun == true)
+                if (Setting.List.FirstRun == true)
                 {
 
                 }
@@ -174,11 +172,11 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            MainFormClass.StartLogon();
+            Main.StartLogon();
         }
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            MainFormClass.StartWorld();
+            Main.StartWorld();
         }
         private void TimerChangeControl_Tick(object sender, EventArgs e)
         {
@@ -214,7 +212,7 @@ namespace TrionControlPanelDesktop
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Data.Settings.StayInTray)
+            if (Setting.List.StayInTray)
             {
                 if (e.CloseReason == CloseReason.UserClosing)
                 {
@@ -244,7 +242,7 @@ namespace TrionControlPanelDesktop
             TimerLoadingCheck.Stop();
             if (CurrentControl == CurrentControl.Load)
             {
-                if (MetroMessageBox.Show(this, "It seems like you are stuck on the loading screen. Do you want to fix the problem?", "Question.", Data.Settings.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "It seems like you are stuck on the loading screen. Do you want to fix the problem?", "Question.", Setting.List.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     Process.Start("TrionWorker.exe", "--FixLoading");
                 }

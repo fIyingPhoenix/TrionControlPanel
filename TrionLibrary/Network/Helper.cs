@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
-using TrionLibrary;
+using TrionLibrary.Sys;
 
-namespace TrionDatabase
+namespace TrionLibrary.Network
 {
-    public static class NetworkHelper
+    public class Helper
     {
         public static async Task<string> GetExternalIpAddress()
         {
@@ -26,13 +23,13 @@ namespace TrionDatabase
                     }
                     else
                     {
-                        Data.Message = "Failed to retrieve IP address. Status code: " + response.StatusCode;
+                        Infos.Message = "Failed to retrieve IP address. Status code: " + response.StatusCode;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Data.Message =  "Error getting external IP address: " + ex.Message;
+                Infos.Message = "Error getting external IP address: " + ex.Message;
             }
             return externalIpAddress;
         }
@@ -63,7 +60,7 @@ namespace TrionDatabase
             }
             catch (Exception ex)
             {
-                Data.Message = "Error getting IPv4 addresses: " + ex.Message;
+                Infos.Message = "Error getting IPv4 addresses: " + ex.Message;
                 return internalIpAddress;
             }
         }

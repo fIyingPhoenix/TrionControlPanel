@@ -701,38 +701,9 @@
           "lib/net7.0/ZstdSharp.dll": {}
         }
       },
-      "TrionCryptography/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "TrionLibrary": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/TrionCryptography.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/TrionCryptography.dll": {}
-        }
-      },
-      "TrionDatabase/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Dapper": "2.1.44",
-          "MySql.Data": "8.3.0",
-          "TrionCryptography": "1.0.0",
-          "TrionLibrary": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/TrionDatabase.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/TrionDatabase.dll": {}
-        }
-      },
       "TrionLibrary/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
+        "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Dapper": "2.1.44",
           "Microsoft.Extensions.Configuration": "8.0.0",
@@ -2245,16 +2216,6 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "TrionCryptography/1.0.0": {
-      "type": "project",
-      "path": "../TrionCryptography/TrionCryptography.csproj",
-      "msbuildProject": "../TrionCryptography/TrionCryptography.csproj"
-    },
-    "TrionDatabase/1.0.0": {
-      "type": "project",
-      "path": "../TrionDatabase/TrionDatabase.csproj",
-      "msbuildProject": "../TrionDatabase/TrionDatabase.csproj"
-    },
     "TrionLibrary/1.0.0": {
       "type": "project",
       "path": "../TrionLibrary/TrionLibrary.csproj",
@@ -2263,7 +2224,6 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "TrionDatabase >= 1.0.0",
       "TrionLibrary >= 1.0.0"
     ]
   },
@@ -2300,9 +2260,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Repos\\Git\\TrionControlPanel\\TrionDatabase\\TrionDatabase.csproj": {
-              "projectPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionDatabase\\TrionDatabase.csproj"
-            },
             "D:\\Repos\\Git\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj": {
               "projectPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionLibrary\\TrionLibrary.csproj"
             }

@@ -1,7 +1,18 @@
-﻿namespace TrionLibrary
+﻿namespace TrionLibrary.Models
 {
-    public class EnumModels
+    public class Enums
     {
+        public enum AccountOpResult
+        {
+            Ok,
+            NameTooLong,
+            PassTooLong,
+            EmailTooLong,
+            NameAlreadyExist,
+            NameNotExist,
+            DBInternalError,
+            BadLink
+        }
         public enum TcpTableClass
         {
             TCP_TABLE_BASIC_LISTENER,

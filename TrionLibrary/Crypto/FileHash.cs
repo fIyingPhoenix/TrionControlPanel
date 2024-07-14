@@ -1,11 +1,15 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Xml.Linq;
-using TrionLibrary;
 
-namespace TrionCryptography
+namespace TrionLibrary.Crypto
 {
-    public class FileHashComparer
+    public class FileHash
     {
         // Structure to hold file information
         public class FileInfo

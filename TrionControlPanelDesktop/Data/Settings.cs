@@ -1,13 +1,13 @@
-﻿using MetroFramework;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Net;
-using TrionControlPanelDesktop.FormData;
-using TrionLibrary;
+using TrionLibrary.Setting;
+using TrionLibrary.Sys;
 
-namespace TrionControlPanelDesktop.Classes
+namespace TrionControlPanelDesktop.Data
 {
-    public class SettingsClass
+    public class Settings
     {
+        public static bool AddToListDone { get; set; }
         private async void CheckForUpdate()
         {
             // Single Player Project Update
@@ -15,7 +15,7 @@ namespace TrionControlPanelDesktop.Classes
             {
                 if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
                 {
-                    if (Data.Settings.AutoUpdateCore)
+                    if (Setting.List.AutoUpdateCore)
                     {
                         //do auto update
                     }
@@ -27,7 +27,7 @@ namespace TrionControlPanelDesktop.Classes
                 }
                 else
                 {
-                  
+
                     User.UI.Version.Update.WotLK = false;
                 }
 
@@ -38,7 +38,7 @@ namespace TrionControlPanelDesktop.Classes
             {
                 if (VersionCompare(User.UI.Version.OFF.Database, User.UI.Version.ON.Database) < 0)
                 {
-                    if (Data.Settings.AutoUpdateMySQL)
+                    if (Setting.List.AutoUpdateMySQL)
                     {
 
                     }
@@ -55,14 +55,14 @@ namespace TrionControlPanelDesktop.Classes
             {
                 if (VersionCompare(User.UI.Version.OFF.Trion, User.UI.Version.ON.Trion) < 0)
                 {
-                    if (Data.Settings.AutoUpdateTrion)
+                    if (Setting.List.AutoUpdateTrion)
                     {
 
                     }
                     else
                     {
-                      
-                        
+
+
                     }
                 }
                 User.UI.Version.Update.Trion = true;
@@ -127,14 +127,14 @@ namespace TrionControlPanelDesktop.Classes
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             // Request succeeded
-                            Data.Message = " DNS update request succeeded!";
-                            Data.Settings.IPAddress = ip;
+                            Infos.Message = " DNS update request succeeded!";
+                            Setting.List.IPAddress = ip;
                             return true;
                         }
                         else
                         {
                             // Request failed
-                            Data.Message = $"Response status code: {response.StatusCode}";
+                            Infos.Message = $"Response status code: {response.StatusCode}";
                             return false;
                         }
                     }
@@ -144,20 +144,20 @@ namespace TrionControlPanelDesktop.Classes
                     // Handle web exceptions, e.g., 404, 500, etc.
                     if (webEx.Response is HttpWebResponse errorResponse)
                     {
-                        Data.Message = $"Request failed with status code: {errorResponse.StatusCode}";
+                        Infos.Message = $"Request failed with status code: {errorResponse.StatusCode}";
                     }
                     else
                     {
-                        Data.Message = $"Request failed: {webEx.Message}";
+                        Infos.Message = $"Request failed: {webEx.Message}";
                     }
                     return false;
                 }
                 catch (Exception ex)
                 {
                     // Handle other exceptions
-                    Data.Message = $"An error occurred: {ex.Message}";
+                    Infos.Message = $"An error occurred: {ex.Message}";
                     return false;
-                }     
+                }
             }
             return false;
         }
@@ -168,11 +168,11 @@ namespace TrionControlPanelDesktop.Classes
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
                 key.DeleteValue(appName, false);
                 key.Close();
-                Data.Message = "Trion Control Panel removed from Windows startup successfully.";
+                Infos.Message = "Trion Control Panel removed from Windows startup successfully.";
             }
             catch (Exception ex)
             {
-                Data.Message = "Error removing Trion Control Panel from Windows startup: " + ex.Message;
+                Infos.Message = "Error removing Trion Control Panel from Windows startup: " + ex.Message;
             }
         }
         public static void AddToStartup(string appName, string executablePath)
@@ -182,20 +182,13 @@ namespace TrionControlPanelDesktop.Classes
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
                 key.SetValue(appName, executablePath);
                 key.Close();
-                Data.Message = "Trion Control Panel added to Windows startup successfully.";
+                Infos.Message = "Trion Control Panel added to Windows startup successfully.";
             }
             catch (Exception ex)
             {
-                Data.Message = "Error adding Trion Control Panel to Windows startup: " + ex.Message;
+                Infos.Message = "Error adding Trion Control Panel to Windows startup: " + ex.Message;
             }
         }
-        public static void DownlaodADDToList(string Weblink)
-        {
-            Thread DwonloadThread = new(async () =>
-            {
-                //await Task.Run(() => DownloadControl.AddToList(Weblink));
-            });
-            DwonloadThread.Start();
-        }
+
     }
 }
