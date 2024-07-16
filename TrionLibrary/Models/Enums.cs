@@ -54,7 +54,6 @@
         public enum CurrentControl
         {
             Home,
-            Console,
             Control,
             Settings,
             Load,

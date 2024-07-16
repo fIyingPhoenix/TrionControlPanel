@@ -1,4 +1,5 @@
 ﻿using System;
+using TrionLibrary.Crypto;
 using static TrionLibrary.Models.Enums;
 
 namespace TrionDatabase
@@ -19,7 +20,7 @@ namespace TrionDatabase
             if (GetId(username) != 0)
                 return AccountOpResult.NameAlreadyExist;
 
-          // (byte[] salt, byte[] verifier) = SRP6.MakeAccountRegistrationData<GruntSRP6>(username, password);
+            (byte[] salt, byte[] verifier) = SRP6.MakeAccountRegistrationData<GruntSRP6>(username, password);
 
             return AccountOpResult.Ok;
         }

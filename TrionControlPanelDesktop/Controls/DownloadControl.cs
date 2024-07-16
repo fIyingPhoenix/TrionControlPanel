@@ -8,11 +8,6 @@ namespace TrionControlPanelDesktop.Controls
 {
     public partial class DownloadControl : UserControl
     {
-        
-        // List of URLs to download
-        public static List<Lists.File> DownloadList = [];
-
-        // Counting Downloaded URLs
         public static int TotalDownloads { get; set; }
         //Current Queue;
         private int CurrentDownload = 0;
@@ -21,7 +16,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
-            Data.Download.ListFull = false;
+            Data.Download.Infos.ListFull = false;
             TotalDownloads= 0;
         }
         private static readonly string[] separator = ["\n", "\r\n"];
@@ -33,69 +28,7 @@ namespace TrionControlPanelDesktop.Controls
             List<string> linesList = new(linesArray);
             return linesList;
         }
-        private async Task Download()
-        {
-            TotalDownloads = DownloadList.Count;
-            using (HttpClient client = new())
-            {
-                foreach (var url in DownloadList.ToList())
-                {
-                    CurrentDownload++;
-                    User.UI.Download.CurrentDownloads--;
-                    LBLQueue.Text = $"Queue: {CurrentDownload} / {TotalDownloads}";
-                    try
-                    {
-                        string DownloadLinkg = @$"{Links.MainHost}{url.FileFullName}";
-                        LBLDownloadName.Text = $"Task: {url.FileName}";
-                        using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
-                        {
-                            // Check if request was successful
-                            response.EnsureSuccessStatusCode();
 
-                            string directoryPath = Path.GetDirectoryName(url.FileFullName)!;
-                            if (!Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
-                            // Create a file stream to write the downloaded content
-                            using (FileStream fileStream = new(url.FileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
-                            {
-                                // Get the response stream
-                                using (Stream stream = await response.Content.ReadAsStreamAsync())
-                                {
-                                    byte[] buffer = new byte[8192]; // 8 KB buffer
-                                    int bytesRead;
-                                    long totalBytesRead = 0;
-                                    long totalDownloadSize = response.Content.Headers.ContentLength ?? -1;
-                                    Stopwatch stopwatch = Stopwatch.StartNew();
-                                    // Read from the stream in chunks and write to the file stream
-                                    while ((bytesRead = await stream.ReadAsync(buffer)) > 0)
-                                    {
-                                        await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-                                        totalBytesRead += bytesRead;
-                                        // Calculate download speed
-                                        double elapsedTimeSeconds = stopwatch.Elapsed.TotalSeconds;
-                                        double speedMBps = totalBytesRead / 1024 / 1024 / elapsedTimeSeconds; // bytes to MBps
-                                        // Display progress
-                                        double totalDownloadSizeMB = (double)totalDownloadSize / 1024 / 1024; // bytes to MB
-                                        double totalBytesReadMB = (double)totalBytesRead / 1024 / 1024; // bytes to MB
-                                        // Update PBar Maximum Value
-                                        PBARDownload.LabelText = "MB";
-                                        PBARDownload.Maximum = (int)totalDownloadSizeMB;
-                                        PBARDownload.Value = (int)totalBytesReadMB;
-                                        LBLDownloadSize.Text = $@"Size: {totalDownloadSizeMB:F2} MB";
-                                        LBLDownloadSpeed.Text = $@"Speed: {speedMBps:F2}MBps";
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex) 
-                    { 
-                        Infos.Message = ex.Message;
-                        DownloadList.Clear();
-                    }  
-                }
-                DownloadList.Clear();
-            }
-        }
         private async Task UnzipFileAsync(string zipFilePath, string extractPath)
         {
             try
@@ -157,7 +90,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if (Data.Download.ListFull == false)
+            if (Data.Download.Infos.ListFull == false)
             {
                 TimerDownloadStart.Start();
             }
@@ -169,11 +102,6 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
-            if (Data.Download.ListFull == true)
-            {
-                TimerDownloadStart.Stop();
-                await Download();
-            }
         }
     }
 }

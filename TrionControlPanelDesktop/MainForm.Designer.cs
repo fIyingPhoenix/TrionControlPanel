@@ -35,7 +35,6 @@ namespace TrionControlPanelDesktop
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
             panel2 = new Panel();
-            BTNConsole = new UI.Controls.CustomButton();
             LblVersion = new Label();
             BTNSettings = new UI.Controls.CustomButton();
             BTNdatabase = new UI.Controls.CustomButton();
@@ -49,7 +48,6 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront = new MetroPanel();
             BTNDownload = new UI.Controls.CustomButton();
             BTNNotification = new UI.Controls.CustomButton();
-            TimerChangeControl = new System.Windows.Forms.Timer(components);
             NIcon = new NotifyIcon(components);
             CMSNotify = new ContextMenuStrip(components);
             OpenTSMItem = new ToolStripMenuItem();
@@ -81,7 +79,6 @@ namespace TrionControlPanelDesktop
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 39, 46);
-            panel2.Controls.Add(BTNConsole);
             panel2.Controls.Add(LblVersion);
             panel2.Controls.Add(BTNSettings);
             panel2.Controls.Add(BTNdatabase);
@@ -91,28 +88,6 @@ namespace TrionControlPanelDesktop
             panel2.Name = "panel2";
             panel2.Size = new Size(90, 597);
             panel2.TabIndex = 1;
-            // 
-            // BTNConsole
-            // 
-            BTNConsole.BackColor = Color.FromArgb(28, 33, 40);
-            BTNConsole.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNConsole.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNConsole.BorderRadius = 0;
-            BTNConsole.BorderSize = 1;
-            BTNConsole.Cursor = Cursors.Hand;
-            BTNConsole.FlatAppearance.BorderSize = 0;
-            BTNConsole.FlatStyle = FlatStyle.Flat;
-            BTNConsole.ForeColor = Color.White;
-            BTNConsole.Image = (Image)resources.GetObject("BTNConsole.Image");
-            BTNConsole.Location = new Point(10, 238);
-            BTNConsole.Name = "BTNConsole";
-            BTNConsole.NotificationCount = 0;
-            BTNConsole.Size = new Size(70, 70);
-            BTNConsole.TabIndex = 5;
-            BTNConsole.TextColor = Color.White;
-            BTNConsole.UseVisualStyleBackColor = false;
-            BTNConsole.Visible = false;
-            BTNConsole.Click += BTNConsole_Click;
             // 
             // LblVersion
             // 
@@ -400,11 +375,6 @@ namespace TrionControlPanelDesktop
             BTNNotification.Visible = false;
             BTNNotification.Click += BTNNotification_Click;
             // 
-            // TimerChangeControl
-            // 
-            TimerChangeControl.Interval = 10;
-            TimerChangeControl.Tick += TimerChangeControl_Tick;
-            // 
             // NIcon
             // 
             NIcon.BalloonTipIcon = ToolTipIcon.Info;
@@ -540,17 +510,14 @@ namespace TrionControlPanelDesktop
         private UI.Controls.CustomButton BTNSettings;
         private UI.Controls.CustomButton BTNdatabase;
         private Label LblVersion;
-        private MetroPanel PNLControl;
         private System.Windows.Forms.Timer TimerWacher;
         private MetroPanel PnlButtonFront;
         private UI.Controls.CustomButton BTNStartMySQL;
         private UI.Controls.CustomButton BTNStartLogin;
         private UI.Controls.CustomButton BTNStartWorld;
         private MetroPanel ContributorsPNLFront;
-        private System.Windows.Forms.Timer TimerChangeControl;
         private UI.Controls.CustomButton BTNNotification;
         private UI.Controls.CustomButton BTNDownload;
-        private UI.Controls.CustomButton BTNConsole;
         private NotifyIcon NIcon;
         private ContextMenuStrip CMSNotify;
         private ToolStripMenuItem OpenTSMItem;
@@ -562,5 +529,6 @@ namespace TrionControlPanelDesktop
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
         private TrionUI.Controls.CustomToolTip TLTHome;
+        private static MetroPanel PNLControl;
     }
 }

@@ -75,7 +75,12 @@ namespace TrionControlPanelDesktop.Controls
             EnableCustomNames();
             //Version Load
             User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoca, Setting.List.DBExecutableName);
+            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoca);
+            User.UI.Version.OFF.Classic = Infos.Version.Local(Setting.List.ClassicWorldExeLoc);
+            User.UI.Version.OFF.TBC =  Infos.Version.Local(Setting.List.TBCDBExeLoca);
+            User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKDBExeLoca);
+            User.UI.Version.OFF.Cata = Infos.Version.Local(Setting.List.CataDBExeLoca);
+            User.UI.Version.OFF.Mop = Infos.Version.Local(Setting.List.MopDBExeLoca);
             User.UI.Version.ON.Trion = await Infos.Version.Online(Links.Version.Trion);
             User.UI.Version.ON.Database = await Infos.Version.Online(Links.Version.Database);
             User.UI.Version.ON.Classic = await Infos.Version.Online(Links.Version.Classic);
@@ -103,7 +108,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             switch (ComboBoxCores.SelectedItem)
             {
-                case "AscEmu":
+                case "Asc Emu":
                     Setting.List.CustomWorldExeName = "world";
                     Setting.List.CustomLogonExeName = "logon";
                     Setting.List.SelectedCore = Cores.AscEmu;
@@ -297,7 +302,6 @@ namespace TrionControlPanelDesktop.Controls
                 PBarReadingFiles.Visible = false;
                 LBLReadingFiles.Visible = false;
             }
-            PBarReadingFiles.Value = (int)Download.ProgressPercentage;
         }
         private void BTNDiscord_Click(object sender, EventArgs e)
         {

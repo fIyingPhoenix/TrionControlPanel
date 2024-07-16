@@ -13,18 +13,16 @@ namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MetroForm
     {
-        readonly DatabaseControl databaseControl = new();
-        readonly HomeControl homeControl = new();
-        readonly LoadingControl loadingControl = new();
-        readonly SettingsControl settingsControl = new();
-        readonly DownloadControl downloadControl = new();
-        readonly NotificationsControl notificationsControl = new();
-        readonly ConsoleControl consoleControl = new();
+        readonly static DatabaseControl databaseControl = new();
+        readonly static HomeControl homeControl = new();
+        readonly static LoadingControl loadingControl = new();
+        readonly static SettingsControl settingsControl = new();
+        readonly static DownloadControl downloadControl = new();
+        readonly static NotificationsControl notificationsControl = new();
         //
-        CurrentControl CurrentControl { get; set; }
+         static CurrentControl CurrentControl { get; set; }
         //
         //
-        private static bool LoadControl = false;
         public static bool LoadDownload { get; set; }
         async void LoadData()
         {
@@ -46,11 +44,8 @@ namespace TrionControlPanelDesktop
                      ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
                      ControlStyles.UserPaint, true);
-            //fix the problem with thread calls
-            //CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             TLTHome.BackColor = Color.Red;
-
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
@@ -62,9 +57,8 @@ namespace TrionControlPanelDesktop
         {
             if (CurrentControl != CurrentControl.Settings)
             {
-                User.UI.Form.LoadData = true;
                 CurrentControl = CurrentControl.Settings;
-                TimerChangeControl.Start();
+                ChangeControl();
             }
         }
         private void HomeBTN_Click(object sender, EventArgs e)
@@ -72,7 +66,7 @@ namespace TrionControlPanelDesktop
             if (CurrentControl != CurrentControl.Home)
             {
                 CurrentControl = CurrentControl.Home;
-                TimerChangeControl.Start();
+                ChangeControl();
             }
         }
         private void TerminaBTN_Click(object sender, EventArgs e)
@@ -80,23 +74,18 @@ namespace TrionControlPanelDesktop
             if (CurrentControl != CurrentControl.Database)
             {
                 CurrentControl = CurrentControl.Database;
-                TimerChangeControl.Start();
+                ChangeControl();
             }
         }
         private void ButtonsDesing()
         {
-            //
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;
             BTNDownload.NotificationCount = User.UI.Download.CurrentDownloads;
-            BTNDownload.Visible = User.UI.Download.CurrentDownloads > 0 && Download.ListFull == true;
+            BTNDownload.Visible = User.UI.Download.CurrentDownloads > 0;
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             ButtonsDesing();
-            if (LoadControl == true)
-            {
-                TimerChangeControl.Start();
-            }
             if (User.UI.Form.StartUpLoading == 2)
             {
                 BTNStartLogin.Visible = true;
@@ -121,21 +110,13 @@ namespace TrionControlPanelDesktop
                 if (CurrentControl == CurrentControl.Download)
                 {
                     CurrentControl = CurrentControl.Home;
-                    TimerChangeControl.Start();
+                    ChangeControl();
                 }
                 else
                 {
                     CurrentControl = CurrentControl.Download;
-                    TimerChangeControl.Start();
+                    ChangeControl();
                 }
-            }
-        }
-        private void BTNConsole_Click(object sender, EventArgs e)
-        {
-            if (CurrentControl != CurrentControl.Console)
-            {
-                CurrentControl = CurrentControl.Console;
-                TimerChangeControl.Start();
             }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
@@ -143,7 +124,7 @@ namespace TrionControlPanelDesktop
             if (CurrentControl != CurrentControl.Download)
             {
                 CurrentControl = CurrentControl.Download;
-                TimerChangeControl.Start();
+                ChangeControl();
             }
         }
         private void BTNNotification_Click(object sender, EventArgs e)
@@ -151,7 +132,7 @@ namespace TrionControlPanelDesktop
             if (CurrentControl != CurrentControl.Notify)
             {
                 CurrentControl = CurrentControl.Notify;
-                TimerChangeControl.Start();
+                ChangeControl();
             }
         }
         private void StartWorldTSMItem_Click(object sender, EventArgs e)
@@ -178,9 +159,8 @@ namespace TrionControlPanelDesktop
         {
             Main.StartWorld();
         }
-        private void TimerChangeControl_Tick(object sender, EventArgs e)
+        public static void ChangeControl()
         {
-            TimerChangeControl.Stop();
             switch (CurrentControl)
             {
                 case CurrentControl.Home:
@@ -198,10 +178,6 @@ namespace TrionControlPanelDesktop
                 case CurrentControl.Notify:
                     PNLControl.Controls.Clear();
                     PNLControl.Controls.Add(notificationsControl);
-                    break;
-                case CurrentControl.Console:
-                    PNLControl.Controls.Clear();
-                    PNLControl.Controls.Add(consoleControl);
                     break;
                 case CurrentControl.Database:
                     PNLControl.Controls.Clear();

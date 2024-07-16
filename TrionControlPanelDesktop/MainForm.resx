@@ -118,15 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="BTNConsole.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAL5JREFUSEvtljEKwjAUhnMOsQieQvdewcv0Arp7CMXNVbroJiq4Kg7O1U2cn/97
-        7Zgmaeyrix98kLfkgwTaGHWIaAyncNayvOeIAw+oRcEBVThw1JQDqaadHJEqPw284LZcxuMKPOEQLmSK
-        xHdEd8iRpUwRhNzBFQ7gWqaGhAROMIEbmRriCxxgH+YyReAKXGAP7mQi2sNJjXNoxRV4w1u5FPiru6rx
-        DK2E3MFX/ANeOglk0PbTbsOseltoYcwHEUz7ZSq34jwAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="BTNSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -176,7 +167,7 @@
 </value>
   </data>
   <metadata name="TLTHome.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>678, 13</value>
+    <value>468, 23</value>
   </metadata>
   <metadata name="TimerWacher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -251,14 +242,11 @@
         zRei4275xpErz+1Q6ToVkxXPP08IT3O7Dd13Arv/AAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="TimerChangeControl.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>141, 17</value>
-  </metadata>
   <metadata name="NIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>308, 16</value>
+    <value>131, 21</value>
   </metadata>
   <metadata name="CMSNotify.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>409, 16</value>
+    <value>209, 23</value>
   </metadata>
   <data name="StartLogonTSMItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -759,7 +747,7 @@
 </value>
   </data>
   <metadata name="TimerLoadingCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>521, 16</value>
+    <value>314, 23</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>63</value>

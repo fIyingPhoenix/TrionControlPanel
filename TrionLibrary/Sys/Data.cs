@@ -15,65 +15,63 @@ namespace TrionLibrary.Sys
         public static string Message = string.Empty;
         public class Version
         {
-            public static async Task<string> Online(string Location)
+            public static async Task<string> Online(string WebLink)
             {
-                using HttpClient client = new();
-                if (!string.IsNullOrEmpty(Location))
+                try
                 {
-                    HttpResponseMessage response = await client.GetAsync(Location);
-                    if (response.IsSuccessStatusCode)
+                    using HttpClient client = new();
+                    if (!string.IsNullOrEmpty(WebLink))
                     {
-                        return await response.Content.ReadAsStringAsync();
+                        HttpResponseMessage response = await client.GetAsync(WebLink);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return await response.Content.ReadAsStringAsync();
+                        }
+                        else
+                        {
+                            return $"N/A";
+                        }
                     }
                     else
                     {
                         return $"N/A";
                     }
                 }
-                else
+                catch (Exception ex)
                 {
+                    Message = ex.Message;
                     return $"N/A";
                 }
+
             }
-            public static string Local(string Location, string ExecName)
+            public static string Local(string Location)
             {
                 try
                 {
-                    if (Setting.Setting.List.SelectedCore == Enums.Cores.AzerothCore)
+                    if (!string.IsNullOrEmpty(Location))
                     {
-                        if (!string.IsNullOrEmpty(Location))
+                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                        // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
+                        if (versionInfo.FileVersion.Contains("SPP"))
                         {
-                            if (Location.Contains(ExecName))
+                            string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
+                            // Create a Regex object with the pattern
+                            Regex regex = new(pattern);
+                            // Find all matches in the text
+                            MatchCollection matches = regex.Matches(versionInfo.ToString());
+                            // Print each match
+                            foreach (Match match in matches.Cast<Match>())
                             {
-                                var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                                // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
-                                if (versionInfo.FileVersion.Contains("SPP"))
-                                {
-                                    string pattern = @"\b\d{4}[-/]\d{2}[-/]\d{2}\b";
-                                    // Create a Regex object with the pattern
-                                    Regex regex = new(pattern);
-                                    // Find all matches in the text
-                                    MatchCollection matches = regex.Matches(versionInfo.ToString());
-                                    // Print each match
-                                    foreach (Match match in matches.Cast<Match>())
-                                    {
-                                        return match.Value;
-                                    }
-                                }
-                                return "N/A";
-                            }
-                            else
-                            {
-                                var versionInfo = FileVersionInfo.GetVersionInfo(Location);
-                                return versionInfo.FileVersion;
+                                return match.Value;
                             }
                         }
-                        else
-                        {
-                            return "N/A";
-                        }
+                        return "N/A";
                     }
-                    else { return "N/A"; }
+                    else
+                    {
+                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
+                        return versionInfo.FileVersion;
+                    }
                 }
                 catch (Exception ex)
                 {
