@@ -14,6 +14,7 @@ namespace TrionLibrary.Setting
         //Settings File Location
         public static string SettingsDataFile = $@"{Directory.GetCurrentDirectory()}\Settings.xml"; //HardCoded File Location. Maybe one day a dynamic one
         //Global Settings Data
+
         public static Lists.Setting List = new();
         public static void CreateSettingsFile(bool PopulateSettingsData)
         {
@@ -28,22 +29,22 @@ namespace TrionLibrary.Setting
                 List.WorldDatabase = "acore_world";
                 List.AuthDatabase = "acore_auth";
                 List.CharactersDatabase = "acore_characters";
-                List.DBExeLoca = "";
-                List.DBLocation = "";
+                List.DBExeLoca = "N/A";
+                List.DBLocation = "N/A";
                 List.DBServerHost = "localhost";
                 List.DBServerUser = "acore";
                 List.DBServerPassword = "acore";
                 List.DBServerPort = "3306";
                 List.DBExecutableName = "mysqld";
-                List.CustomWorkingDirectory = "";
-                List.CustomWorldExeLoc = "";
-                List.CustomLogonExeLoc = "";
+                List.CustomWorkingDirectory = "N/A";
+                List.CustomWorldExeLoc = "N/A";
+                List.CustomLogonExeLoc = "N/A";
                 List.CustomWorldExeName = "worldserver";
                 List.CustomLogonExeName = "authserver";
-                List.DDNSDomain = "";
+                List.DDNSDomain = "N/A";
                 List.DDNSInterval = 1000;
-                List.DDNSUsername = "";
-                List.DDNSPassword = "";
+                List.DDNSUsername = "N/A";
+                List.DDNSPassword = "N/A";
                 List.IPAddress = "0.0.0.0";
                 List.ServerCrash = false;
                 List.NotificationSound = true;

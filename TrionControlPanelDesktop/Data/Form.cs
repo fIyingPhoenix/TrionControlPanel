@@ -108,11 +108,6 @@ namespace TrionControlPanelDesktop.Data
                 public static int AuthUsageRam { get; set; }
                 public static int AuthCPUUsage { get; set; }
             }
-            public class Download
-            {
-                public static int DownloadStatus { get; set; }
-                public static int CurrentDownloads { get; set; }
-            }
             public class Form
             {
                 //DB

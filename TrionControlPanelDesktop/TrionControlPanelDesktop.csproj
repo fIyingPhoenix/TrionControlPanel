@@ -45,6 +45,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Classes\**" />
+    <EmbeddedResource Remove="Classes\**" />
+    <None Remove="Classes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Remove="app.manifest" />
   </ItemGroup>
  
@@ -96,10 +102,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
     <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Classes\" />
   </ItemGroup>
 
 </Project>

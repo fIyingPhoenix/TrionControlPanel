@@ -1,11 +1,12 @@
 ﻿using Microsoft.Win32;
 using System.Net;
+using TrionControlPanelDesktop.Data;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
 
-namespace TrionControlPanelDesktop.Data
+namespace TrionControlPanelDesktop.Settings
 {
-    public class Settings
+    public class SettingsData
     {
         public static bool AddToListDone { get; set; }
         private async void CheckForUpdate()

@@ -40,6 +40,7 @@ namespace TrionLibrary.Models
             public string DBServerPort;
             public string DBExecutableName;
             public string DBExecutablePath;
+            public bool DBInstalled;
             //Custom Cores
             public string CustomWorkingDirectory;
             public string CustomWorldExeLoc;
@@ -49,7 +50,6 @@ namespace TrionLibrary.Models
             public bool CustomInstalled;
             //Classic Core
             public string ClassicWorkingDirectory;
-            public string ClassicDBExeLoca;
             public string ClassicWorldExeLoc;
             public string ClassicLogonExeLoc;
             public string ClassicLogonExeName;

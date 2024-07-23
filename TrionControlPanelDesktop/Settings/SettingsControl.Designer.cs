@@ -52,7 +52,6 @@
             TGLMoPInstalled = new TrionControlPanel.UI.CustomToggleButton();
             metroPanel9 = new MetroFramework.Controls.MetroPanel();
             LBLReadingFiles = new Label();
-            PBarReadingFiles = new TrionControlPanel.UI.CustomProgressBar();
             BTNInstallSPP = new UI.Controls.CustomButton();
             metroPanel17 = new MetroFramework.Controls.MetroPanel();
             label30 = new Label();
@@ -68,6 +67,27 @@
             LBLWotLKVersion = new Label();
             LBLTBCVersion = new Label();
             LBLClassicVersion = new Label();
+            TabPageDDNS = new TabPage();
+            metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            metroPanel22 = new MetroFramework.Controls.MetroPanel();
+            label16 = new Label();
+            BTNWebiste = new UI.Controls.CustomButton();
+            TGLDDNSRunOnStartup = new TrionControlPanel.UI.CustomToggleButton();
+            label20 = new Label();
+            label17 = new Label();
+            TXTDDNSInterval = new MetroFramework.Controls.MetroTextBox();
+            BTNSaveData = new UI.Controls.CustomButton();
+            metroPanel6 = new MetroFramework.Controls.MetroPanel();
+            metroPanel21 = new MetroFramework.Controls.MetroPanel();
+            label7 = new Label();
+            LBLRealmAddress = new Label();
+            LBLRealmSubnetMask = new Label();
+            LBLRealmLocalAddress = new Label();
+            TXTDDNSUsername = new MetroFramework.Controls.MetroTextBox();
+            TXTDDNSDomain = new MetroFramework.Controls.MetroTextBox();
+            TXTDDNSPassword = new MetroFramework.Controls.MetroTextBox();
+            ComboBoxDDNService = new TrionControlPanel.UI.CustomComboBox();
+            label14 = new Label();
             TabPageCore = new TabPage();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
             label33 = new Label();
@@ -91,27 +111,6 @@
             BTNWorldConfig = new UI.Controls.CustomButton();
             BTNDiscord = new UI.Controls.CustomButton();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            TabPageDDNS = new TabPage();
-            metroPanel7 = new MetroFramework.Controls.MetroPanel();
-            metroPanel22 = new MetroFramework.Controls.MetroPanel();
-            label16 = new Label();
-            BTNWebiste = new UI.Controls.CustomButton();
-            TGLDDNSRunOnStartup = new TrionControlPanel.UI.CustomToggleButton();
-            label20 = new Label();
-            label17 = new Label();
-            TXTDDNSInterval = new MetroFramework.Controls.MetroTextBox();
-            BTNSaveData = new UI.Controls.CustomButton();
-            metroPanel6 = new MetroFramework.Controls.MetroPanel();
-            metroPanel21 = new MetroFramework.Controls.MetroPanel();
-            label7 = new Label();
-            LBLRealmAddress = new Label();
-            LBLRealmSubnetMask = new Label();
-            LBLRealmLocalAddress = new Label();
-            TXTDDNSUsername = new MetroFramework.Controls.MetroTextBox();
-            TXTDDNSDomain = new MetroFramework.Controls.MetroTextBox();
-            TXTDDNSPassword = new MetroFramework.Controls.MetroTextBox();
-            ComboBoxDDNService = new TrionControlPanel.UI.CustomComboBox();
-            label14 = new Label();
             TabPageTrion = new TabPage();
             metroPanel11 = new MetroFramework.Controls.MetroPanel();
             LBLDBVersion = new Label();
@@ -194,15 +193,15 @@
             metroPanel17.SuspendLayout();
             metroPanel8.SuspendLayout();
             metroPanel19.SuspendLayout();
-            TabPageCore.SuspendLayout();
-            metroPanel2.SuspendLayout();
-            metroPanel20.SuspendLayout();
-            PNLControl.SuspendLayout();
             TabPageDDNS.SuspendLayout();
             metroPanel7.SuspendLayout();
             metroPanel22.SuspendLayout();
             metroPanel6.SuspendLayout();
             metroPanel21.SuspendLayout();
+            TabPageCore.SuspendLayout();
+            metroPanel2.SuspendLayout();
+            metroPanel20.SuspendLayout();
+            PNLControl.SuspendLayout();
             TabPageTrion.SuspendLayout();
             metroPanel11.SuspendLayout();
             metroPanel4.SuspendLayout();
@@ -219,8 +218,8 @@
             // TBControler
             // 
             TBControler.Controls.Add(TabPageSPP);
-            TBControler.Controls.Add(TabPageCore);
             TBControler.Controls.Add(TabPageDDNS);
+            TBControler.Controls.Add(TabPageCore);
             TBControler.Controls.Add(TabPageTrion);
             TBControler.Controls.Add(TabPageDatabase);
             TBControler.CustomBackground = false;
@@ -603,7 +602,6 @@
             metroPanel9.BorderColor = Color.Black;
             metroPanel9.BorderSize = 1;
             metroPanel9.Controls.Add(LBLReadingFiles);
-            metroPanel9.Controls.Add(PBarReadingFiles);
             metroPanel9.Controls.Add(BTNInstallSPP);
             metroPanel9.Controls.Add(metroPanel17);
             metroPanel9.Controls.Add(BTNRepairSPP);
@@ -632,27 +630,11 @@
             LBLReadingFiles.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             LBLReadingFiles.AutoSize = true;
             LBLReadingFiles.ForeColor = Color.White;
-            LBLReadingFiles.Location = new Point(7, 170);
+            LBLReadingFiles.Location = new Point(5, 185);
             LBLReadingFiles.Name = "LBLReadingFiles";
             LBLReadingFiles.Size = new Size(80, 15);
             LBLReadingFiles.TabIndex = 57;
             LBLReadingFiles.Text = "Reading files..";
-            LBLReadingFiles.Visible = false;
-            // 
-            // PBarReadingFiles
-            // 
-            PBarReadingFiles.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PBarReadingFiles.BarColor = Color.FromArgb(83, 155, 245);
-            PBarReadingFiles.FontSize = 10;
-            PBarReadingFiles.LabelText = "";
-            PBarReadingFiles.Location = new Point(5, 190);
-            PBarReadingFiles.MaximumValue = false;
-            PBarReadingFiles.Name = "PBarReadingFiles";
-            PBarReadingFiles.ShowStatus = false;
-            PBarReadingFiles.Size = new Size(305, 10);
-            PBarReadingFiles.TabIndex = 56;
-            PBarReadingFiles.TextColor = Color.FromArgb(45, 51, 59);
-            PBarReadingFiles.Visible = false;
             // 
             // BTNInstallSPP
             // 
@@ -790,6 +772,7 @@
             ComboBoxSPPVersion.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             ComboBoxSPPVersion.ForeColor = Color.White;
             ComboBoxSPPVersion.IconColor = Color.FromArgb(0, 174, 219);
+            ComboBoxSPPVersion.Items.AddRange(new object[] { "World of Warcraft - Classic", "World of Warcraft - The Burning Crusade", "World of Warcraft - Wrath of the Lich King", "World of Warcraft - Cataclysm", "World of Warcraft - Mists of Pandaria" });
             ComboBoxSPPVersion.ListBackColor = Color.FromArgb(34, 34, 34);
             ComboBoxSPPVersion.ListTextColor = Color.FromArgb(0, 174, 219);
             ComboBoxSPPVersion.Location = new Point(5, 95);
@@ -919,444 +902,6 @@
             LBLClassicVersion.Size = new Size(87, 45);
             LBLClassicVersion.TabIndex = 32;
             LBLClassicVersion.Text = "Classic Version:\r\nLocal:\r\nOnline:";
-            // 
-            // TabPageCore
-            // 
-            TabPageCore.BackColor = Color.FromArgb(45, 51, 59);
-            TabPageCore.Controls.Add(metroPanel2);
-            TabPageCore.Controls.Add(PNLControl);
-            TabPageCore.Controls.Add(metroPanel1);
-            TabPageCore.Location = new Point(4, 44);
-            TabPageCore.Name = "TabPageCore";
-            TabPageCore.Size = new Size(837, 322);
-            TabPageCore.TabIndex = 1;
-            TabPageCore.Text = "Core";
-            TabPageCore.ToolTipText = "Here you can find the custom emulator settings.";
-            // 
-            // metroPanel2
-            // 
-            metroPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
-            metroPanel2.Border = true;
-            metroPanel2.BorderColor = Color.Black;
-            metroPanel2.BorderSize = 1;
-            metroPanel2.Controls.Add(label33);
-            metroPanel2.Controls.Add(TGLCustomInstalled);
-            metroPanel2.Controls.Add(metroPanel20);
-            metroPanel2.Controls.Add(ComboBoxCores);
-            metroPanel2.Controls.Add(label11);
-            metroPanel2.Controls.Add(label1);
-            metroPanel2.Controls.Add(TGLCustomNames);
-            metroPanel2.Controls.Add(TXTBoxWorldExecName);
-            metroPanel2.Controls.Add(label10);
-            metroPanel2.Controls.Add(label8);
-            metroPanel2.Controls.Add(TXTBoxMySQLExecName);
-            metroPanel2.Controls.Add(TXTBoxLoginExecName);
-            metroPanel2.Controls.Add(label9);
-            metroPanel2.CustomBackground = false;
-            metroPanel2.HorizontalScrollbar = true;
-            metroPanel2.HorizontalScrollbarBarColor = true;
-            metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel2.HorizontalScrollbarSize = 10;
-            metroPanel2.Location = new Point(221, 5);
-            metroPanel2.Name = "metroPanel2";
-            metroPanel2.Size = new Size(290, 310);
-            metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel2.StyleManager = null;
-            metroPanel2.TabIndex = 40;
-            metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel2.VerticalScrollbar = true;
-            metroPanel2.VerticalScrollbarBarColor = true;
-            metroPanel2.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel2.VerticalScrollbarSize = 10;
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.BackColor = Color.FromArgb(28, 33, 40);
-            label33.ForeColor = Color.White;
-            label33.Location = new Point(61, 252);
-            label33.Name = "label33";
-            label33.Size = new Size(111, 15);
-            label33.TabIndex = 57;
-            label33.Text = "Run Custom Server.";
-            // 
-            // TGLCustomInstalled
-            // 
-            TGLCustomInstalled.AutoSize = true;
-            TGLCustomInstalled.BackColor = Color.FromArgb(28, 33, 40);
-            TGLCustomInstalled.Location = new Point(16, 249);
-            TGLCustomInstalled.MinimumSize = new Size(45, 22);
-            TGLCustomInstalled.Name = "TGLCustomInstalled";
-            TGLCustomInstalled.OffBackColor = Color.FromArgb(0, 174, 219);
-            TGLCustomInstalled.OffToggleColor = Color.FromArgb(255, 87, 57);
-            TGLCustomInstalled.OnBackColor = Color.FromArgb(0, 174, 219);
-            TGLCustomInstalled.OnToggleColor = Color.FromArgb(105, 195, 59);
-            TGLCustomInstalled.Size = new Size(45, 22);
-            TGLCustomInstalled.SolidStyle = false;
-            TGLCustomInstalled.TabIndex = 56;
-            TGLCustomInstalled.UseVisualStyleBackColor = false;
-            // 
-            // metroPanel20
-            // 
-            metroPanel20.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel20.Border = true;
-            metroPanel20.BorderColor = Color.Black;
-            metroPanel20.BorderSize = 1;
-            metroPanel20.Controls.Add(label19);
-            metroPanel20.CustomBackground = true;
-            metroPanel20.Dock = DockStyle.Top;
-            metroPanel20.HorizontalScrollbar = true;
-            metroPanel20.HorizontalScrollbarBarColor = true;
-            metroPanel20.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel20.HorizontalScrollbarSize = 10;
-            metroPanel20.Location = new Point(0, 0);
-            metroPanel20.Name = "metroPanel20";
-            metroPanel20.Padding = new Padding(2);
-            metroPanel20.Size = new Size(290, 30);
-            metroPanel20.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel20.StyleManager = null;
-            metroPanel20.TabIndex = 55;
-            metroPanel20.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel20.VerticalScrollbar = true;
-            metroPanel20.VerticalScrollbarBarColor = true;
-            metroPanel20.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel20.VerticalScrollbarSize = 10;
-            // 
-            // label19
-            // 
-            label19.BackColor = Color.Transparent;
-            label19.Dock = DockStyle.Fill;
-            label19.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label19.ForeColor = Color.FromArgb(0, 174, 219);
-            label19.Location = new Point(2, 2);
-            label19.Name = "label19";
-            label19.Size = new Size(286, 26);
-            label19.TabIndex = 38;
-            label19.Text = "SERVER EMULATROS";
-            label19.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // ComboBoxCores
-            // 
-            ComboBoxCores.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            ComboBoxCores.BackColor = Color.FromArgb(34, 34, 34);
-            ComboBoxCores.BorderColor = Color.FromArgb(0, 174, 219);
-            ComboBoxCores.BorderSize = 1;
-            ComboBoxCores.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxCores.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            ComboBoxCores.ForeColor = Color.White;
-            ComboBoxCores.IconColor = Color.FromArgb(0, 174, 219);
-            ComboBoxCores.ListBackColor = Color.FromArgb(34, 34, 34);
-            ComboBoxCores.ListTextColor = Color.FromArgb(0, 174, 219);
-            ComboBoxCores.Location = new Point(16, 59);
-            ComboBoxCores.MinimumSize = new Size(200, 27);
-            ComboBoxCores.Name = "ComboBoxCores";
-            ComboBoxCores.Padding = new Padding(1);
-            ComboBoxCores.Size = new Size(255, 27);
-            ComboBoxCores.TabIndex = 28;
-            ComboBoxCores.Texts = "";
-            ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.BackColor = Color.FromArgb(28, 33, 40);
-            label11.ForeColor = Color.White;
-            label11.Location = new Point(61, 280);
-            label11.Name = "label11";
-            label11.Size = new Size(92, 15);
-            label11.TabIndex = 37;
-            label11.Text = "Custom Names.";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(16, 40);
-            label1.Name = "label1";
-            label1.Size = new Size(35, 15);
-            label1.TabIndex = 29;
-            label1.Text = "Core:";
-            // 
-            // TGLCustomNames
-            // 
-            TGLCustomNames.AutoSize = true;
-            TGLCustomNames.BackColor = Color.FromArgb(28, 33, 40);
-            TGLCustomNames.Location = new Point(16, 277);
-            TGLCustomNames.MinimumSize = new Size(45, 22);
-            TGLCustomNames.Name = "TGLCustomNames";
-            TGLCustomNames.OffBackColor = Color.FromArgb(0, 174, 219);
-            TGLCustomNames.OffToggleColor = Color.FromArgb(255, 87, 57);
-            TGLCustomNames.OnBackColor = Color.FromArgb(0, 174, 219);
-            TGLCustomNames.OnToggleColor = Color.FromArgb(105, 195, 59);
-            TGLCustomNames.Size = new Size(45, 22);
-            TGLCustomNames.SolidStyle = false;
-            TGLCustomNames.TabIndex = 36;
-            TGLCustomNames.UseVisualStyleBackColor = false;
-            TGLCustomNames.CheckedChanged += TGLCustomNames_CheckedChanged;
-            // 
-            // TXTBoxWorldExecName
-            // 
-            TXTBoxWorldExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxWorldExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxWorldExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxWorldExecName.Location = new Point(16, 120);
-            TXTBoxWorldExecName.Multiline = false;
-            TXTBoxWorldExecName.Name = "TXTBoxWorldExecName";
-            TXTBoxWorldExecName.PasswordChar = '\0';
-            TXTBoxWorldExecName.ReadOnly = true;
-            TXTBoxWorldExecName.SelectedText = "";
-            TXTBoxWorldExecName.Size = new Size(255, 25);
-            TXTBoxWorldExecName.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxWorldExecName.StyleManager = null;
-            TXTBoxWorldExecName.TabIndex = 30;
-            TXTBoxWorldExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxWorldExecName.UseStyleColors = true;
-            TXTBoxWorldExecName.TextChanged += TXTBox_TextChanged;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(18, 193);
-            label10.Name = "label10";
-            label10.Size = new Size(146, 15);
-            label10.TabIndex = 35;
-            label10.Text = "MySQLl Executable Name:";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(16, 101);
-            label8.Name = "label8";
-            label8.Size = new Size(134, 15);
-            label8.TabIndex = 31;
-            label8.Text = "World Executable Name";
-            // 
-            // TXTBoxMySQLExecName
-            // 
-            TXTBoxMySQLExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxMySQLExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxMySQLExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxMySQLExecName.Location = new Point(16, 212);
-            TXTBoxMySQLExecName.Multiline = false;
-            TXTBoxMySQLExecName.Name = "TXTBoxMySQLExecName";
-            TXTBoxMySQLExecName.PasswordChar = '\0';
-            TXTBoxMySQLExecName.ReadOnly = true;
-            TXTBoxMySQLExecName.SelectedText = "";
-            TXTBoxMySQLExecName.Size = new Size(255, 25);
-            TXTBoxMySQLExecName.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxMySQLExecName.StyleManager = null;
-            TXTBoxMySQLExecName.TabIndex = 34;
-            TXTBoxMySQLExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxMySQLExecName.UseStyleColors = true;
-            TXTBoxMySQLExecName.TextChanged += TXTBox_TextChanged;
-            // 
-            // TXTBoxLoginExecName
-            // 
-            TXTBoxLoginExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxLoginExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxLoginExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxLoginExecName.Location = new Point(16, 166);
-            TXTBoxLoginExecName.Multiline = false;
-            TXTBoxLoginExecName.Name = "TXTBoxLoginExecName";
-            TXTBoxLoginExecName.PasswordChar = '\0';
-            TXTBoxLoginExecName.ReadOnly = true;
-            TXTBoxLoginExecName.SelectedText = "";
-            TXTBoxLoginExecName.Size = new Size(255, 25);
-            TXTBoxLoginExecName.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxLoginExecName.StyleManager = null;
-            TXTBoxLoginExecName.TabIndex = 32;
-            TXTBoxLoginExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxLoginExecName.UseStyleColors = true;
-            TXTBoxLoginExecName.TextChanged += TXTBox_TextChanged;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(16, 147);
-            label9.Name = "label9";
-            label9.Size = new Size(132, 15);
-            label9.TabIndex = 33;
-            label9.Text = "Login Executable Name";
-            // 
-            // PNLControl
-            // 
-            PNLControl.BackColor = Color.FromArgb(34, 39, 46);
-            PNLControl.Border = true;
-            PNLControl.BorderColor = Color.Black;
-            PNLControl.BorderSize = 1;
-            PNLControl.Controls.Add(BTNDownlaodMySQL);
-            PNLControl.Controls.Add(BTNModsConfig);
-            PNLControl.Controls.Add(BTNAuthConfig);
-            PNLControl.Controls.Add(BTNWorldConfig);
-            PNLControl.Controls.Add(BTNDiscord);
-            PNLControl.CustomBackground = false;
-            PNLControl.HorizontalScrollbar = false;
-            PNLControl.HorizontalScrollbarBarColor = true;
-            PNLControl.HorizontalScrollbarHighlightOnWheel = false;
-            PNLControl.HorizontalScrollbarSize = 10;
-            PNLControl.Location = new Point(5, 5);
-            PNLControl.Name = "PNLControl";
-            PNLControl.Padding = new Padding(2);
-            PNLControl.Size = new Size(210, 310);
-            PNLControl.Style = MetroFramework.MetroColorStyle.Blue;
-            PNLControl.StyleManager = null;
-            PNLControl.TabIndex = 38;
-            PNLControl.Theme = MetroFramework.MetroThemeStyle.Dark;
-            PNLControl.VerticalScrollbar = false;
-            PNLControl.VerticalScrollbarBarColor = true;
-            PNLControl.VerticalScrollbarHighlightOnWheel = false;
-            PNLControl.VerticalScrollbarSize = 10;
-            // 
-            // BTNDownlaodMySQL
-            // 
-            BTNDownlaodMySQL.Anchor = AnchorStyles.Top;
-            BTNDownlaodMySQL.BackColor = Color.FromArgb(28, 33, 40);
-            BTNDownlaodMySQL.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNDownlaodMySQL.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNDownlaodMySQL.BorderRadius = 0;
-            BTNDownlaodMySQL.BorderSize = 1;
-            BTNDownlaodMySQL.Cursor = Cursors.Hand;
-            BTNDownlaodMySQL.FlatAppearance.BorderSize = 0;
-            BTNDownlaodMySQL.FlatStyle = FlatStyle.Flat;
-            BTNDownlaodMySQL.ForeColor = Color.White;
-            BTNDownlaodMySQL.Image = (Image)resources.GetObject("BTNDownlaodMySQL.Image");
-            BTNDownlaodMySQL.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNDownlaodMySQL.Location = new Point(12, 14);
-            BTNDownlaodMySQL.Name = "BTNDownlaodMySQL";
-            BTNDownlaodMySQL.NotificationCount = 0;
-            BTNDownlaodMySQL.RightToLeft = RightToLeft.No;
-            BTNDownlaodMySQL.Size = new Size(186, 25);
-            BTNDownlaodMySQL.TabIndex = 42;
-            BTNDownlaodMySQL.Text = "   Install MySQL";
-            BTNDownlaodMySQL.TextColor = Color.White;
-            BTNDownlaodMySQL.UseVisualStyleBackColor = false;
-            // 
-            // BTNModsConfig
-            // 
-            BTNModsConfig.Anchor = AnchorStyles.Top;
-            BTNModsConfig.BackColor = Color.FromArgb(28, 33, 40);
-            BTNModsConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNModsConfig.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNModsConfig.BorderRadius = 0;
-            BTNModsConfig.BorderSize = 1;
-            BTNModsConfig.Cursor = Cursors.Hand;
-            BTNModsConfig.FlatAppearance.BorderSize = 0;
-            BTNModsConfig.FlatStyle = FlatStyle.Flat;
-            BTNModsConfig.ForeColor = Color.White;
-            BTNModsConfig.Image = (Image)resources.GetObject("BTNModsConfig.Image");
-            BTNModsConfig.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNModsConfig.Location = new Point(12, 274);
-            BTNModsConfig.Name = "BTNModsConfig";
-            BTNModsConfig.NotificationCount = 0;
-            BTNModsConfig.RightToLeft = RightToLeft.No;
-            BTNModsConfig.Size = new Size(186, 25);
-            BTNModsConfig.TabIndex = 41;
-            BTNModsConfig.Text = "   Mod's Config";
-            BTNModsConfig.TextColor = Color.White;
-            BTNModsConfig.UseVisualStyleBackColor = false;
-            // 
-            // BTNAuthConfig
-            // 
-            BTNAuthConfig.Anchor = AnchorStyles.Top;
-            BTNAuthConfig.BackColor = Color.FromArgb(28, 33, 40);
-            BTNAuthConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNAuthConfig.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNAuthConfig.BorderRadius = 0;
-            BTNAuthConfig.BorderSize = 1;
-            BTNAuthConfig.Cursor = Cursors.Hand;
-            BTNAuthConfig.FlatAppearance.BorderSize = 0;
-            BTNAuthConfig.FlatStyle = FlatStyle.Flat;
-            BTNAuthConfig.ForeColor = Color.White;
-            BTNAuthConfig.Image = (Image)resources.GetObject("BTNAuthConfig.Image");
-            BTNAuthConfig.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNAuthConfig.Location = new Point(12, 212);
-            BTNAuthConfig.Name = "BTNAuthConfig";
-            BTNAuthConfig.NotificationCount = 0;
-            BTNAuthConfig.RightToLeft = RightToLeft.No;
-            BTNAuthConfig.Size = new Size(186, 25);
-            BTNAuthConfig.TabIndex = 38;
-            BTNAuthConfig.Text = "   Auth Server Config";
-            BTNAuthConfig.TextColor = Color.White;
-            BTNAuthConfig.UseVisualStyleBackColor = false;
-            // 
-            // BTNWorldConfig
-            // 
-            BTNWorldConfig.Anchor = AnchorStyles.Top;
-            BTNWorldConfig.BackColor = Color.FromArgb(28, 33, 40);
-            BTNWorldConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNWorldConfig.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNWorldConfig.BorderRadius = 0;
-            BTNWorldConfig.BorderSize = 1;
-            BTNWorldConfig.Cursor = Cursors.Hand;
-            BTNWorldConfig.FlatAppearance.BorderSize = 0;
-            BTNWorldConfig.FlatStyle = FlatStyle.Flat;
-            BTNWorldConfig.ForeColor = Color.White;
-            BTNWorldConfig.Image = (Image)resources.GetObject("BTNWorldConfig.Image");
-            BTNWorldConfig.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNWorldConfig.Location = new Point(12, 243);
-            BTNWorldConfig.Name = "BTNWorldConfig";
-            BTNWorldConfig.NotificationCount = 0;
-            BTNWorldConfig.RightToLeft = RightToLeft.No;
-            BTNWorldConfig.Size = new Size(186, 25);
-            BTNWorldConfig.TabIndex = 39;
-            BTNWorldConfig.Text = "   World Server Config";
-            BTNWorldConfig.TextColor = Color.White;
-            BTNWorldConfig.UseVisualStyleBackColor = false;
-            // 
-            // BTNDiscord
-            // 
-            BTNDiscord.Anchor = AnchorStyles.Top;
-            BTNDiscord.BackColor = Color.FromArgb(28, 33, 40);
-            BTNDiscord.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNDiscord.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNDiscord.BorderRadius = 0;
-            BTNDiscord.BorderSize = 1;
-            BTNDiscord.Cursor = Cursors.Hand;
-            BTNDiscord.FlatAppearance.BorderSize = 0;
-            BTNDiscord.FlatStyle = FlatStyle.Flat;
-            BTNDiscord.ForeColor = Color.White;
-            BTNDiscord.Image = (Image)resources.GetObject("BTNDiscord.Image");
-            BTNDiscord.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNDiscord.Location = new Point(12, 45);
-            BTNDiscord.Name = "BTNDiscord";
-            BTNDiscord.NotificationCount = 0;
-            BTNDiscord.RightToLeft = RightToLeft.No;
-            BTNDiscord.Size = new Size(186, 25);
-            BTNDiscord.TabIndex = 34;
-            BTNDiscord.Text = "   Discord";
-            BTNDiscord.TextColor = Color.White;
-            BTNDiscord.UseVisualStyleBackColor = false;
-            BTNDiscord.Click += BTNDiscord_Click;
-            // 
-            // metroPanel1
-            // 
-            metroPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
-            metroPanel1.Border = true;
-            metroPanel1.BorderColor = Color.Black;
-            metroPanel1.BorderSize = 1;
-            metroPanel1.CustomBackground = true;
-            metroPanel1.HorizontalScrollbar = false;
-            metroPanel1.HorizontalScrollbarBarColor = true;
-            metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel1.HorizontalScrollbarSize = 10;
-            metroPanel1.Location = new Point(517, 5);
-            metroPanel1.Name = "metroPanel1";
-            metroPanel1.Padding = new Padding(2);
-            metroPanel1.Size = new Size(313, 124);
-            metroPanel1.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel1.StyleManager = null;
-            metroPanel1.TabIndex = 39;
-            metroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel1.VerticalScrollbar = false;
-            metroPanel1.VerticalScrollbarBarColor = true;
-            metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel1.VerticalScrollbarSize = 10;
             // 
             // TabPageDDNS
             // 
@@ -1685,6 +1230,7 @@
             TXTDDNSDomain.Style = MetroFramework.MetroColorStyle.Blue;
             TXTDDNSDomain.StyleManager = null;
             TXTDDNSDomain.TabIndex = 52;
+            TXTDDNSDomain.Text = "test";
             TXTDDNSDomain.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTDDNSDomain.UseStyleColors = true;
             TXTDDNSDomain.TextChanged += TXTBox_TextChanged;
@@ -1719,6 +1265,7 @@
             ComboBoxDDNService.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             ComboBoxDDNService.ForeColor = Color.White;
             ComboBoxDDNService.IconColor = Color.FromArgb(0, 174, 219);
+            ComboBoxDDNService.Items.AddRange(new object[] { "freedns.afraid.org", "all-inkl.com", "cloudflare.com", "duckdns.org", "noip.com", "dynu.com", "dyn.com", "enom.com", "freemyip.com", "ovhcloud.com", "strato.de" });
             ComboBoxDDNService.ListBackColor = Color.FromArgb(34, 34, 34);
             ComboBoxDDNService.ListTextColor = Color.FromArgb(0, 174, 219);
             ComboBoxDDNService.Location = new Point(5, 74);
@@ -1739,6 +1286,445 @@
             label14.Size = new Size(82, 15);
             label14.TabIndex = 45;
             label14.Text = "DDNS services";
+            // 
+            // TabPageCore
+            // 
+            TabPageCore.BackColor = Color.FromArgb(45, 51, 59);
+            TabPageCore.Controls.Add(metroPanel2);
+            TabPageCore.Controls.Add(PNLControl);
+            TabPageCore.Controls.Add(metroPanel1);
+            TabPageCore.Location = new Point(4, 44);
+            TabPageCore.Name = "TabPageCore";
+            TabPageCore.Size = new Size(837, 322);
+            TabPageCore.TabIndex = 1;
+            TabPageCore.Text = "Core";
+            TabPageCore.ToolTipText = "Here you can find the custom emulator settings.";
+            // 
+            // metroPanel2
+            // 
+            metroPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel2.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel2.Border = true;
+            metroPanel2.BorderColor = Color.Black;
+            metroPanel2.BorderSize = 1;
+            metroPanel2.Controls.Add(label33);
+            metroPanel2.Controls.Add(TGLCustomInstalled);
+            metroPanel2.Controls.Add(metroPanel20);
+            metroPanel2.Controls.Add(ComboBoxCores);
+            metroPanel2.Controls.Add(label11);
+            metroPanel2.Controls.Add(label1);
+            metroPanel2.Controls.Add(TGLCustomNames);
+            metroPanel2.Controls.Add(TXTBoxWorldExecName);
+            metroPanel2.Controls.Add(label10);
+            metroPanel2.Controls.Add(label8);
+            metroPanel2.Controls.Add(TXTBoxMySQLExecName);
+            metroPanel2.Controls.Add(TXTBoxLoginExecName);
+            metroPanel2.Controls.Add(label9);
+            metroPanel2.CustomBackground = false;
+            metroPanel2.HorizontalScrollbar = true;
+            metroPanel2.HorizontalScrollbarBarColor = true;
+            metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel2.HorizontalScrollbarSize = 10;
+            metroPanel2.Location = new Point(221, 5);
+            metroPanel2.Name = "metroPanel2";
+            metroPanel2.Size = new Size(290, 310);
+            metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel2.StyleManager = null;
+            metroPanel2.TabIndex = 40;
+            metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel2.VerticalScrollbar = true;
+            metroPanel2.VerticalScrollbarBarColor = true;
+            metroPanel2.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel2.VerticalScrollbarSize = 10;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.BackColor = Color.FromArgb(28, 33, 40);
+            label33.ForeColor = Color.White;
+            label33.Location = new Point(61, 252);
+            label33.Name = "label33";
+            label33.Size = new Size(111, 15);
+            label33.TabIndex = 57;
+            label33.Text = "Run Custom Server.";
+            // 
+            // TGLCustomInstalled
+            // 
+            TGLCustomInstalled.AutoSize = true;
+            TGLCustomInstalled.BackColor = Color.FromArgb(28, 33, 40);
+            TGLCustomInstalled.Location = new Point(16, 249);
+            TGLCustomInstalled.MinimumSize = new Size(45, 22);
+            TGLCustomInstalled.Name = "TGLCustomInstalled";
+            TGLCustomInstalled.OffBackColor = Color.FromArgb(0, 174, 219);
+            TGLCustomInstalled.OffToggleColor = Color.FromArgb(255, 87, 57);
+            TGLCustomInstalled.OnBackColor = Color.FromArgb(0, 174, 219);
+            TGLCustomInstalled.OnToggleColor = Color.FromArgb(105, 195, 59);
+            TGLCustomInstalled.Size = new Size(45, 22);
+            TGLCustomInstalled.SolidStyle = false;
+            TGLCustomInstalled.TabIndex = 56;
+            TGLCustomInstalled.UseVisualStyleBackColor = false;
+            // 
+            // metroPanel20
+            // 
+            metroPanel20.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel20.Border = true;
+            metroPanel20.BorderColor = Color.Black;
+            metroPanel20.BorderSize = 1;
+            metroPanel20.Controls.Add(label19);
+            metroPanel20.CustomBackground = true;
+            metroPanel20.Dock = DockStyle.Top;
+            metroPanel20.HorizontalScrollbar = true;
+            metroPanel20.HorizontalScrollbarBarColor = true;
+            metroPanel20.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel20.HorizontalScrollbarSize = 10;
+            metroPanel20.Location = new Point(0, 0);
+            metroPanel20.Name = "metroPanel20";
+            metroPanel20.Padding = new Padding(2);
+            metroPanel20.Size = new Size(290, 30);
+            metroPanel20.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel20.StyleManager = null;
+            metroPanel20.TabIndex = 55;
+            metroPanel20.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel20.VerticalScrollbar = true;
+            metroPanel20.VerticalScrollbarBarColor = true;
+            metroPanel20.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel20.VerticalScrollbarSize = 10;
+            // 
+            // label19
+            // 
+            label19.BackColor = Color.Transparent;
+            label19.Dock = DockStyle.Fill;
+            label19.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label19.ForeColor = Color.FromArgb(0, 174, 219);
+            label19.Location = new Point(2, 2);
+            label19.Name = "label19";
+            label19.Size = new Size(286, 26);
+            label19.TabIndex = 38;
+            label19.Text = "SERVER EMULATROS";
+            label19.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // ComboBoxCores
+            // 
+            ComboBoxCores.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            ComboBoxCores.BackColor = Color.FromArgb(34, 34, 34);
+            ComboBoxCores.BorderColor = Color.FromArgb(0, 174, 219);
+            ComboBoxCores.BorderSize = 1;
+            ComboBoxCores.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxCores.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            ComboBoxCores.ForeColor = Color.White;
+            ComboBoxCores.IconColor = Color.FromArgb(0, 174, 219);
+            ComboBoxCores.Items.AddRange(new object[] { "AscEmu", "AzerothCore", "CMaNGOS", "CypherCore", "TrinityCore", "CypherCore", "TrinityCore Classic", "VMaNGOS" });
+            ComboBoxCores.ListBackColor = Color.FromArgb(34, 34, 34);
+            ComboBoxCores.ListTextColor = Color.FromArgb(0, 174, 219);
+            ComboBoxCores.Location = new Point(16, 59);
+            ComboBoxCores.MinimumSize = new Size(200, 27);
+            ComboBoxCores.Name = "ComboBoxCores";
+            ComboBoxCores.Padding = new Padding(1);
+            ComboBoxCores.Size = new Size(255, 27);
+            ComboBoxCores.TabIndex = 28;
+            ComboBoxCores.Texts = "";
+            ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.BackColor = Color.FromArgb(28, 33, 40);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(61, 280);
+            label11.Name = "label11";
+            label11.Size = new Size(92, 15);
+            label11.TabIndex = 37;
+            label11.Text = "Custom Names.";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(16, 40);
+            label1.Name = "label1";
+            label1.Size = new Size(35, 15);
+            label1.TabIndex = 29;
+            label1.Text = "Core:";
+            // 
+            // TGLCustomNames
+            // 
+            TGLCustomNames.AutoSize = true;
+            TGLCustomNames.BackColor = Color.FromArgb(28, 33, 40);
+            TGLCustomNames.Location = new Point(16, 277);
+            TGLCustomNames.MinimumSize = new Size(45, 22);
+            TGLCustomNames.Name = "TGLCustomNames";
+            TGLCustomNames.OffBackColor = Color.FromArgb(0, 174, 219);
+            TGLCustomNames.OffToggleColor = Color.FromArgb(255, 87, 57);
+            TGLCustomNames.OnBackColor = Color.FromArgb(0, 174, 219);
+            TGLCustomNames.OnToggleColor = Color.FromArgb(105, 195, 59);
+            TGLCustomNames.Size = new Size(45, 22);
+            TGLCustomNames.SolidStyle = false;
+            TGLCustomNames.TabIndex = 36;
+            TGLCustomNames.UseVisualStyleBackColor = false;
+            TGLCustomNames.CheckedChanged += TGLCustomNames_CheckedChanged;
+            // 
+            // TXTBoxWorldExecName
+            // 
+            TXTBoxWorldExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxWorldExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxWorldExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxWorldExecName.Location = new Point(16, 120);
+            TXTBoxWorldExecName.Multiline = false;
+            TXTBoxWorldExecName.Name = "TXTBoxWorldExecName";
+            TXTBoxWorldExecName.PasswordChar = '\0';
+            TXTBoxWorldExecName.ReadOnly = true;
+            TXTBoxWorldExecName.SelectedText = "";
+            TXTBoxWorldExecName.Size = new Size(255, 25);
+            TXTBoxWorldExecName.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxWorldExecName.StyleManager = null;
+            TXTBoxWorldExecName.TabIndex = 30;
+            TXTBoxWorldExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxWorldExecName.UseStyleColors = true;
+            TXTBoxWorldExecName.TextChanged += TXTBox_TextChanged;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(18, 193);
+            label10.Name = "label10";
+            label10.Size = new Size(146, 15);
+            label10.TabIndex = 35;
+            label10.Text = "MySQLl Executable Name:";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(16, 101);
+            label8.Name = "label8";
+            label8.Size = new Size(134, 15);
+            label8.TabIndex = 31;
+            label8.Text = "World Executable Name";
+            // 
+            // TXTBoxMySQLExecName
+            // 
+            TXTBoxMySQLExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxMySQLExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxMySQLExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxMySQLExecName.Location = new Point(16, 212);
+            TXTBoxMySQLExecName.Multiline = false;
+            TXTBoxMySQLExecName.Name = "TXTBoxMySQLExecName";
+            TXTBoxMySQLExecName.PasswordChar = '\0';
+            TXTBoxMySQLExecName.ReadOnly = true;
+            TXTBoxMySQLExecName.SelectedText = "";
+            TXTBoxMySQLExecName.Size = new Size(255, 25);
+            TXTBoxMySQLExecName.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxMySQLExecName.StyleManager = null;
+            TXTBoxMySQLExecName.TabIndex = 34;
+            TXTBoxMySQLExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxMySQLExecName.UseStyleColors = true;
+            TXTBoxMySQLExecName.TextChanged += TXTBox_TextChanged;
+            // 
+            // TXTBoxLoginExecName
+            // 
+            TXTBoxLoginExecName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxLoginExecName.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxLoginExecName.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxLoginExecName.Location = new Point(16, 166);
+            TXTBoxLoginExecName.Multiline = false;
+            TXTBoxLoginExecName.Name = "TXTBoxLoginExecName";
+            TXTBoxLoginExecName.PasswordChar = '\0';
+            TXTBoxLoginExecName.ReadOnly = true;
+            TXTBoxLoginExecName.SelectedText = "";
+            TXTBoxLoginExecName.Size = new Size(255, 25);
+            TXTBoxLoginExecName.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxLoginExecName.StyleManager = null;
+            TXTBoxLoginExecName.TabIndex = 32;
+            TXTBoxLoginExecName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxLoginExecName.UseStyleColors = true;
+            TXTBoxLoginExecName.TextChanged += TXTBox_TextChanged;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(16, 147);
+            label9.Name = "label9";
+            label9.Size = new Size(132, 15);
+            label9.TabIndex = 33;
+            label9.Text = "Login Executable Name";
+            // 
+            // PNLControl
+            // 
+            PNLControl.BackColor = Color.FromArgb(34, 39, 46);
+            PNLControl.Border = true;
+            PNLControl.BorderColor = Color.Black;
+            PNLControl.BorderSize = 1;
+            PNLControl.Controls.Add(BTNDownlaodMySQL);
+            PNLControl.Controls.Add(BTNModsConfig);
+            PNLControl.Controls.Add(BTNAuthConfig);
+            PNLControl.Controls.Add(BTNWorldConfig);
+            PNLControl.Controls.Add(BTNDiscord);
+            PNLControl.CustomBackground = false;
+            PNLControl.HorizontalScrollbar = false;
+            PNLControl.HorizontalScrollbarBarColor = true;
+            PNLControl.HorizontalScrollbarHighlightOnWheel = false;
+            PNLControl.HorizontalScrollbarSize = 10;
+            PNLControl.Location = new Point(5, 5);
+            PNLControl.Name = "PNLControl";
+            PNLControl.Padding = new Padding(2);
+            PNLControl.Size = new Size(210, 310);
+            PNLControl.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLControl.StyleManager = null;
+            PNLControl.TabIndex = 38;
+            PNLControl.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLControl.VerticalScrollbar = false;
+            PNLControl.VerticalScrollbarBarColor = true;
+            PNLControl.VerticalScrollbarHighlightOnWheel = false;
+            PNLControl.VerticalScrollbarSize = 10;
+            // 
+            // BTNDownlaodMySQL
+            // 
+            BTNDownlaodMySQL.Anchor = AnchorStyles.Top;
+            BTNDownlaodMySQL.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDownlaodMySQL.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDownlaodMySQL.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDownlaodMySQL.BorderRadius = 0;
+            BTNDownlaodMySQL.BorderSize = 1;
+            BTNDownlaodMySQL.Cursor = Cursors.Hand;
+            BTNDownlaodMySQL.FlatAppearance.BorderSize = 0;
+            BTNDownlaodMySQL.FlatStyle = FlatStyle.Flat;
+            BTNDownlaodMySQL.ForeColor = Color.White;
+            BTNDownlaodMySQL.Image = (Image)resources.GetObject("BTNDownlaodMySQL.Image");
+            BTNDownlaodMySQL.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNDownlaodMySQL.Location = new Point(12, 14);
+            BTNDownlaodMySQL.Name = "BTNDownlaodMySQL";
+            BTNDownlaodMySQL.NotificationCount = 0;
+            BTNDownlaodMySQL.RightToLeft = RightToLeft.No;
+            BTNDownlaodMySQL.Size = new Size(186, 25);
+            BTNDownlaodMySQL.TabIndex = 42;
+            BTNDownlaodMySQL.Text = "   Install MySQL";
+            BTNDownlaodMySQL.TextColor = Color.White;
+            BTNDownlaodMySQL.UseVisualStyleBackColor = false;
+            // 
+            // BTNModsConfig
+            // 
+            BTNModsConfig.Anchor = AnchorStyles.Top;
+            BTNModsConfig.BackColor = Color.FromArgb(28, 33, 40);
+            BTNModsConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNModsConfig.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNModsConfig.BorderRadius = 0;
+            BTNModsConfig.BorderSize = 1;
+            BTNModsConfig.Cursor = Cursors.Hand;
+            BTNModsConfig.FlatAppearance.BorderSize = 0;
+            BTNModsConfig.FlatStyle = FlatStyle.Flat;
+            BTNModsConfig.ForeColor = Color.White;
+            BTNModsConfig.Image = (Image)resources.GetObject("BTNModsConfig.Image");
+            BTNModsConfig.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNModsConfig.Location = new Point(12, 274);
+            BTNModsConfig.Name = "BTNModsConfig";
+            BTNModsConfig.NotificationCount = 0;
+            BTNModsConfig.RightToLeft = RightToLeft.No;
+            BTNModsConfig.Size = new Size(186, 25);
+            BTNModsConfig.TabIndex = 41;
+            BTNModsConfig.Text = "   Mod's Config";
+            BTNModsConfig.TextColor = Color.White;
+            BTNModsConfig.UseVisualStyleBackColor = false;
+            // 
+            // BTNAuthConfig
+            // 
+            BTNAuthConfig.Anchor = AnchorStyles.Top;
+            BTNAuthConfig.BackColor = Color.FromArgb(28, 33, 40);
+            BTNAuthConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNAuthConfig.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNAuthConfig.BorderRadius = 0;
+            BTNAuthConfig.BorderSize = 1;
+            BTNAuthConfig.Cursor = Cursors.Hand;
+            BTNAuthConfig.FlatAppearance.BorderSize = 0;
+            BTNAuthConfig.FlatStyle = FlatStyle.Flat;
+            BTNAuthConfig.ForeColor = Color.White;
+            BTNAuthConfig.Image = (Image)resources.GetObject("BTNAuthConfig.Image");
+            BTNAuthConfig.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNAuthConfig.Location = new Point(12, 212);
+            BTNAuthConfig.Name = "BTNAuthConfig";
+            BTNAuthConfig.NotificationCount = 0;
+            BTNAuthConfig.RightToLeft = RightToLeft.No;
+            BTNAuthConfig.Size = new Size(186, 25);
+            BTNAuthConfig.TabIndex = 38;
+            BTNAuthConfig.Text = "   Auth Server Config";
+            BTNAuthConfig.TextColor = Color.White;
+            BTNAuthConfig.UseVisualStyleBackColor = false;
+            // 
+            // BTNWorldConfig
+            // 
+            BTNWorldConfig.Anchor = AnchorStyles.Top;
+            BTNWorldConfig.BackColor = Color.FromArgb(28, 33, 40);
+            BTNWorldConfig.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNWorldConfig.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNWorldConfig.BorderRadius = 0;
+            BTNWorldConfig.BorderSize = 1;
+            BTNWorldConfig.Cursor = Cursors.Hand;
+            BTNWorldConfig.FlatAppearance.BorderSize = 0;
+            BTNWorldConfig.FlatStyle = FlatStyle.Flat;
+            BTNWorldConfig.ForeColor = Color.White;
+            BTNWorldConfig.Image = (Image)resources.GetObject("BTNWorldConfig.Image");
+            BTNWorldConfig.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNWorldConfig.Location = new Point(12, 243);
+            BTNWorldConfig.Name = "BTNWorldConfig";
+            BTNWorldConfig.NotificationCount = 0;
+            BTNWorldConfig.RightToLeft = RightToLeft.No;
+            BTNWorldConfig.Size = new Size(186, 25);
+            BTNWorldConfig.TabIndex = 39;
+            BTNWorldConfig.Text = "   World Server Config";
+            BTNWorldConfig.TextColor = Color.White;
+            BTNWorldConfig.UseVisualStyleBackColor = false;
+            // 
+            // BTNDiscord
+            // 
+            BTNDiscord.Anchor = AnchorStyles.Top;
+            BTNDiscord.BackColor = Color.FromArgb(28, 33, 40);
+            BTNDiscord.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNDiscord.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNDiscord.BorderRadius = 0;
+            BTNDiscord.BorderSize = 1;
+            BTNDiscord.Cursor = Cursors.Hand;
+            BTNDiscord.FlatAppearance.BorderSize = 0;
+            BTNDiscord.FlatStyle = FlatStyle.Flat;
+            BTNDiscord.ForeColor = Color.White;
+            BTNDiscord.Image = (Image)resources.GetObject("BTNDiscord.Image");
+            BTNDiscord.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNDiscord.Location = new Point(12, 45);
+            BTNDiscord.Name = "BTNDiscord";
+            BTNDiscord.NotificationCount = 0;
+            BTNDiscord.RightToLeft = RightToLeft.No;
+            BTNDiscord.Size = new Size(186, 25);
+            BTNDiscord.TabIndex = 34;
+            BTNDiscord.Text = "   Discord";
+            BTNDiscord.TextColor = Color.White;
+            BTNDiscord.UseVisualStyleBackColor = false;
+            BTNDiscord.Click += BTNDiscord_Click;
+            // 
+            // metroPanel1
+            // 
+            metroPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            metroPanel1.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel1.Border = true;
+            metroPanel1.BorderColor = Color.Black;
+            metroPanel1.BorderSize = 1;
+            metroPanel1.CustomBackground = true;
+            metroPanel1.HorizontalScrollbar = false;
+            metroPanel1.HorizontalScrollbarBarColor = true;
+            metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel1.HorizontalScrollbarSize = 10;
+            metroPanel1.Location = new Point(517, 5);
+            metroPanel1.Name = "metroPanel1";
+            metroPanel1.Padding = new Padding(2);
+            metroPanel1.Size = new Size(313, 124);
+            metroPanel1.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel1.StyleManager = null;
+            metroPanel1.TabIndex = 39;
+            metroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel1.VerticalScrollbar = false;
+            metroPanel1.VerticalScrollbarBarColor = true;
+            metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel1.VerticalScrollbarSize = 10;
             // 
             // TabPageTrion
             // 
@@ -2197,7 +2183,7 @@
             BTNMySQLExecLovation.Text = "   ...";
             BTNMySQLExecLovation.TextColor = Color.White;
             BTNMySQLExecLovation.UseVisualStyleBackColor = false;
-            BTNMySQLExecLovation.Click += BTNMySQLExecLovation_Click;
+            BTNMySQLExecLovation.Click += BTNMySQLExecLocation_Click;
             // 
             // BTNCoreExecLovation
             // 
@@ -2491,7 +2477,6 @@
             BTNFixMysql.Text = "Fix MySQL";
             BTNFixMysql.TextColor = Color.White;
             BTNFixMysql.UseVisualStyleBackColor = false;
-            BTNFixMysql.Click += BTNFixMysql_Click;
             // 
             // panel1
             // 
@@ -2979,6 +2964,7 @@
             ForeColor = Color.White;
             Name = "SettingsControl";
             Size = new Size(845, 370);
+            Load += SettingsControl_Load;
             TBControler.ResumeLayout(false);
             TabPageSPP.ResumeLayout(false);
             metroPanel10.ResumeLayout(false);
@@ -2999,11 +2985,6 @@
             metroPanel8.ResumeLayout(false);
             metroPanel8.PerformLayout();
             metroPanel19.ResumeLayout(false);
-            TabPageCore.ResumeLayout(false);
-            metroPanel2.ResumeLayout(false);
-            metroPanel2.PerformLayout();
-            metroPanel20.ResumeLayout(false);
-            PNLControl.ResumeLayout(false);
             TabPageDDNS.ResumeLayout(false);
             metroPanel7.ResumeLayout(false);
             metroPanel7.PerformLayout();
@@ -3011,6 +2992,11 @@
             metroPanel6.ResumeLayout(false);
             metroPanel6.PerformLayout();
             metroPanel21.ResumeLayout(false);
+            TabPageCore.ResumeLayout(false);
+            metroPanel2.ResumeLayout(false);
+            metroPanel2.PerformLayout();
+            metroPanel20.ResumeLayout(false);
+            PNLControl.ResumeLayout(false);
             TabPageTrion.ResumeLayout(false);
             TabPageTrion.PerformLayout();
             metroPanel11.ResumeLayout(false);
@@ -3181,7 +3167,6 @@
         private UI.Controls.CustomButton BTNInstallSPP;
         private Label label33;
         private TrionControlPanel.UI.CustomToggleButton TGLCustomInstalled;
-        private TrionControlPanel.UI.CustomProgressBar PBarReadingFiles;
         private Label LBLReadingFiles;
     }
 }

@@ -3,25 +3,25 @@ using System.Diagnostics;
 using static TrionLibrary.Models.Enums;
 using TrionLibrary.Setting;
 using TrionControlPanelDesktop.Data;
+using TrionControlPanelDesktop.Download;
 using TrionLibrary.Sys;
 using TrionLibrary.Database;
 using TrionLibrary.Network;
+using TrionControlPanelDesktop.Settings;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class SettingsControl : UserControl
     {
         bool readFiles = false;
+        public static bool RefreshData = false;
         static System.Threading.Timer TextTimer;
-        //
+        private SynchronizationContext _syncContext;
         public SettingsControl()
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
-            ComboBoxCores.Items.AddRange(Enum.GetNames(typeof(Cores)));
-            ComboBoxSPPVersion.Items.AddRange(Enum.GetNames(typeof(SPP)));
-            ComboBoxDDNService.Items.AddRange(Enum.GetNames(typeof(DDNSerivce)));
-            _ = LoadData();
+            _syncContext = SynchronizationContext.Current!;
         }
         private void EnableCustomNames()
         {
@@ -29,7 +29,91 @@ namespace TrionControlPanelDesktop.Controls
             TXTBoxWorldExecName.ReadOnly = !Setting.List.CustomNames;
             TXTBoxMySQLExecName.ReadOnly = !Setting.List.CustomNames;
         }
-        private async Task LoadData()
+        private void CBoxSelectItems()
+        {
+            switch (Setting.List.SelectedCore)
+            {
+                case Cores.AscEmu:
+                    ComboBoxCores.SelectedItem = "AscEmu";
+                    break;
+                case Cores.AzerothCore:
+                    ComboBoxCores.SelectedItem = "AzerothCore";
+                    break;
+                case Cores.CMaNGOS:
+                    ComboBoxCores.SelectedItem = "CMaNGOS";
+                    break;
+                case Cores.CypherCore:
+                    ComboBoxCores.SelectedItem = "CypherCore";
+                    break;
+                case Cores.TrinityCore:
+                    ComboBoxCores.SelectedItem = "TrinityCore";
+                    break;
+                case Cores.TrinityCore335:
+                    ComboBoxCores.SelectedItem = "CypherCore";
+                    break;
+                case Cores.TrinityCoreClassic:
+                    ComboBoxCores.SelectedItem = "TrinityCore Classic";
+                    break;
+                case Cores.VMaNGOS:
+                    ComboBoxCores.SelectedItem = "VMaNGOS";
+                    break;
+            }
+            switch (Setting.List.SelectedSPP)
+            {
+                case SPP.Classic:
+                    ComboBoxSPPVersion.SelectedItem = "World of Warcraft - Classic";
+                    break;
+                case SPP.TheBurningCrusade:
+                    ComboBoxSPPVersion.SelectedItem = "World of Warcraft - The Burning Crusade";
+                    break;
+                case SPP.WrathOfTheLichKing:
+                    ComboBoxSPPVersion.SelectedItem = "World of Warcraft - Wrath of the Lich King";
+                    break;
+                case SPP.Cataclysm:
+                    ComboBoxSPPVersion.SelectedItem = "World of Warcraft - Cataclysm";
+                    break;
+                case SPP.MistOfPandaria:
+                    ComboBoxSPPVersion.SelectedItem = "World of Warcraft - Mists of Pandaria";
+                    break;
+            }
+            switch (Setting.List.DDNSerivce)
+            {
+                case DDNSerivce.Afraid:
+                    ComboBoxDDNService.SelectedItem = "freedns.afraid.org";
+                    break;
+                case DDNSerivce.AllInkl:
+                    ComboBoxDDNService.SelectedItem = "all-inkl.com";
+                    break;
+                case DDNSerivce.Cloudflare:
+                    ComboBoxDDNService.SelectedItem = "cloudflare.com";
+                    break;
+                case DDNSerivce.DuckDNS:
+                    ComboBoxDDNService.SelectedItem = "duckdns.org";
+                    break;
+                case DDNSerivce.NoIP:
+                    ComboBoxDDNService.SelectedItem = "noip.com";
+                    break;
+                case DDNSerivce.Dynu:
+                    ComboBoxDDNService.SelectedItem = "dynu.com";
+                    break;
+                case DDNSerivce.dynDNS:
+                    ComboBoxDDNService.SelectedItem = "dyn.com";
+                    break;
+                case DDNSerivce.Enom:
+                    ComboBoxDDNService.SelectedItem = "enom.com";
+                    break;
+                case DDNSerivce.Freemyip:
+                    ComboBoxDDNService.SelectedItem = "freemyip.com";
+                    break;
+                case DDNSerivce.OVH:
+                    ComboBoxDDNService.SelectedItem = "ovhcloud.com";
+                    break;
+                case DDNSerivce.STRATO:
+                    ComboBoxDDNService.SelectedItem = "strato.de";
+                    break;
+            }
+        }
+        private async void LoadData()
         {
             //Load Installed Emulators
             TGLClassicInstalled.Checked = Setting.List.ClassicInstalled;
@@ -37,16 +121,6 @@ namespace TrionControlPanelDesktop.Controls
             TGLWotLKInstalled.Checked = Setting.List.WotLKInstalled;
             TGLCataInstalled.Checked = Setting.List.CataInstalled;
             TGLMoPInstalled.Checked = Setting.List.MOPInstalled;
-            //
-            ComboBoxCores.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxDDNService.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxSPPVersion.OnSelectedIndexChanged -= ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxCores.SelectedItem = Setting.List.SelectedCore.ToString();
-            ComboBoxDDNService.SelectedItem = Setting.List.DDNSerivce.ToString();
-            ComboBoxSPPVersion.SelectedItem = Setting.List.SelectedSPP.ToString();
-            ComboBoxCores.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxDDNService.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
-            ComboBoxSPPVersion.OnSelectedIndexChanged += ComboBoxCores_OnSelectedIndexChanged;
             //Load Names
             TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
@@ -77,7 +151,7 @@ namespace TrionControlPanelDesktop.Controls
             User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
             User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoca);
             User.UI.Version.OFF.Classic = Infos.Version.Local(Setting.List.ClassicWorldExeLoc);
-            User.UI.Version.OFF.TBC =  Infos.Version.Local(Setting.List.TBCDBExeLoca);
+            User.UI.Version.OFF.TBC = Infos.Version.Local(Setting.List.TBCDBExeLoca);
             User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKDBExeLoca);
             User.UI.Version.OFF.Cata = Infos.Version.Local(Setting.List.CataDBExeLoca);
             User.UI.Version.OFF.Mop = Infos.Version.Local(Setting.List.MopDBExeLoca);
@@ -102,13 +176,14 @@ namespace TrionControlPanelDesktop.Controls
             TXTDDNSPassword.Text = Setting.List.DDNSPassword;
             TXTDDNSInterval.Text = Setting.List.DDNSInterval.ToString();
             TGLDDNSRunOnStartup.Checked = Setting.List.DDNSRunOnStartup;
+            CBoxSelectItems();
             User.UI.Form.StartUpLoading++;
         }
-        private async void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ComboBoxCores.SelectedItem)
             {
-                case "Asc Emu":
+                case "AscEmu":
                     Setting.List.CustomWorldExeName = "world";
                     Setting.List.CustomLogonExeName = "logon";
                     Setting.List.SelectedCore = Cores.AscEmu;
@@ -158,7 +233,7 @@ namespace TrionControlPanelDesktop.Controls
                     Setting.List.DBServerUser = "trinity";
                     Setting.List.DBServerPassword = "trinity";
                     break;
-                case "TrinityCore335":
+                case "TrinityCore 3.3.5":
                     Setting.List.CustomLogonExeName = "authserver";
                     Setting.List.CustomWorldExeName = "worldserver";
                     Setting.List.SelectedCore = Cores.TrinityCore335;
@@ -168,7 +243,7 @@ namespace TrionControlPanelDesktop.Controls
                     Setting.List.DBServerUser = "trinity";
                     Setting.List.DBServerPassword = "trinity";
                     break;
-                case "TrinityCoreClassic":
+                case "TrinityCore Classic":
                     Setting.List.CustomLogonExeName = "bnetserver";
                     Setting.List.CustomWorldExeName = "worldserver";
                     Setting.List.SelectedCore = Cores.TrinityCoreClassic;
@@ -191,7 +266,6 @@ namespace TrionControlPanelDesktop.Controls
             }
             TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
-            await LoadData();
             Infos.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
@@ -227,9 +301,9 @@ namespace TrionControlPanelDesktop.Controls
         {
             Setting.List.RunServerWithWindows = TGLServerStartup.Checked;
         }
-        private async void BTNMySQLExecLovation_Click(object sender, EventArgs e)
+        private async void BTNMySQLExecLocation_Click(object sender, EventArgs e)
         {
-            string Folder = Settings.GetWorkingDirectory();
+            string Folder = SettingsData.GetWorkingDirectory();
             try
             {
                 if (Folder != string.Empty)
@@ -241,7 +315,7 @@ namespace TrionControlPanelDesktop.Controls
                         await Setting.Save();
                         Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                         await Setting.Save();
-                        await LoadData();
+                        LoadData();
                     }
                     else
                     {
@@ -260,7 +334,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNCoreExecLovation_Click(object sender, EventArgs e)
         {
-            string Folder = Settings.GetWorkingDirectory();
+            string Folder = SettingsData.GetWorkingDirectory();
             if (Folder != string.Empty)
             {
                 if (Infos.GetExecutableLocation(Folder, Setting.List.CustomWorldExeName) != string.Empty &&
@@ -270,7 +344,7 @@ namespace TrionControlPanelDesktop.Controls
                     Setting.List.CustomWorldExeLoc = Infos.GetExecutableLocation(Folder, Setting.List.CustomLogonExeName);
                     Setting.List.CustomWorkingDirectory = Path.GetFullPath(Folder);
                     await Setting.Save();
-                    await LoadData();
+                    LoadData();
                 }
             }
             else
@@ -280,26 +354,22 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-
-            if (User.UI.Form.LoadData == true)
-            {
-                User.UI.Form.LoadData = false;
-                _ = LoadData();
-            }
-            if (readFiles)
+            if (DownloadData.Infos.Install.Classic == true ||
+                DownloadData.Infos.Install.TBC == true ||
+                DownloadData.Infos.Install.WotLK == true ||
+                DownloadData.Infos.Install.Cata == true ||
+                DownloadData.Infos.Install.Mop == true)
             {
                 BTNInstallSPP.Enabled = false;
-                BTNRepairSPP.Enabled = false;
                 BTNUninstallSPP.Enabled = false;
-                PBarReadingFiles.Visible = true;
+                BTNRepairSPP.Enabled = false;
                 LBLReadingFiles.Visible = true;
             }
             else
             {
                 BTNInstallSPP.Enabled = true;
-                BTNRepairSPP.Enabled = true;
                 BTNUninstallSPP.Enabled = true;
-                PBarReadingFiles.Visible = false;
+                BTNRepairSPP.Enabled = true;
                 LBLReadingFiles.Visible = false;
             }
         }
@@ -337,8 +407,8 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
-            if (TGLRunTrionStartup.Checked == true) { Settings.AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Setting.List.RunWithWindows = true; }
-            if (TGLRunTrionStartup.Checked == false) { Settings.RemoveFromStartup("Trion Control Panel"); Setting.List.RunWithWindows = false; }
+            if (TGLRunTrionStartup.Checked == true) { SettingsData.AddToStartup("Trion Control Panel", Application.ExecutablePath.ToString()); Setting.List.RunWithWindows = true; }
+            if (TGLRunTrionStartup.Checked == false) { SettingsData.RemoveFromStartup("Trion Control Panel"); Setting.List.RunWithWindows = false; }
         }
         private async void BTNTestConnection_Click(object sender, EventArgs e)
         {
@@ -420,46 +490,42 @@ namespace TrionControlPanelDesktop.Controls
             BTNDeleteWorld.Text = "   Delete World Database";
             BTNDeleteWorld.ForeColor = Color.White;
         }
-        private void TimerEnDis_Tick(object sender, EventArgs e)
-        {
-        }
-        private void BTNFixMysql_Click(object sender, EventArgs e)
-        {
-
-        }
         private void ComboBoxDDNService_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ComboBoxDDNService.SelectedItem)
             {
-                case "DuckDNS":
-                    Setting.List.DDNSerivce = DDNSerivce.DuckDNS;
-                    break;
-                case "NoIP":
-                    Setting.List.DDNSerivce = DDNSerivce.NoIP;
-                    break;
-                case "Dynu":
-                    Setting.List.DDNSerivce = DDNSerivce.Dynu;
-                    break;
-                case "Enom":
-                    Setting.List.DDNSerivce = DDNSerivce.Enom;
-                    break;
-                case "AllInkl":
-                    Setting.List.DDNSerivce = DDNSerivce.AllInkl;
-                    break;
-                case "dynDNS":
-                    Setting.List.DDNSerivce = DDNSerivce.dynDNS;
-                    break;
-                case "STRATO":
-                    Setting.List.DDNSerivce = DDNSerivce.STRATO;
-                    break;
-                case "Freemyip":
-                    Setting.List.DDNSerivce = DDNSerivce.Freemyip;
-                    break;
-                case "Afraid":
+                case "freedns.afraid.org":
                     Setting.List.DDNSerivce = DDNSerivce.Afraid;
                     break;
-                case "OVH":
+                case "all-inkl.com":
+                    Setting.List.DDNSerivce = DDNSerivce.AllInkl;
+                    break;
+                case "cloudflare.com":
+                    Setting.List.DDNSerivce = DDNSerivce.Cloudflare;
+                    break;
+                case "duckdns.org":
+                    Setting.List.DDNSerivce = DDNSerivce.dynDNS;
+                    break;
+                case "noip.com":
+                    Setting.List.DDNSerivce = DDNSerivce.NoIP;
+                    break;
+                case "dynu.com":
+                    Setting.List.DDNSerivce = DDNSerivce.Dynu;
+                    break;
+                case "dyn.com":
+                    Setting.List.DDNSerivce = DDNSerivce.dynDNS;
+                    break;
+                case "enom.com":
+                    Setting.List.DDNSerivce = DDNSerivce.Enom;
+                    break;
+                case "freemyip.com":
+                    Setting.List.DDNSerivce = DDNSerivce.Freemyip;
+                    break;
+                case "ovhcloud.com":
                     Setting.List.DDNSerivce = DDNSerivce.OVH;
+                    break;
+                case "strato.de":
+                    Setting.List.DDNSerivce = DDNSerivce.STRATO;
                     break;
             }
         }
@@ -479,7 +545,7 @@ namespace TrionControlPanelDesktop.Controls
             if (!CurrentIP.Contains(Setting.List.IPAddress))
             {
                 Infos.Message = $"Updateing {URL} with {CurrentIP}";
-                Settings.UpdateDNSIP(URL, CurrentIP);
+                SettingsData.UpdateDNSIP(URL, CurrentIP);
             }
         }
         private void BTNSaveData_Click(object sender, EventArgs e)
@@ -490,74 +556,83 @@ namespace TrionControlPanelDesktop.Controls
         {
             Process.Start("explorer.exe", Links.DDNSWebsits());
         }
-
         private void ComboBoxSPPVersion_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ComboBoxSPPVersion.SelectedItem)
             {
-                case "Classic":
+                case "World of Warcraft - Classic":
                     Setting.List.SelectedSPP = SPP.Classic;
-
                     break;
-                case "TheBurningCrusade":
+                case "World of Warcraft - The Burning Crusade":
                     Setting.List.SelectedSPP = SPP.TheBurningCrusade;
                     break;
-                case "WrathOfTheLichKing":
+                case "World of Warcraft - Wrath of the Lich King":
                     Setting.List.SelectedSPP = SPP.WrathOfTheLichKing;
                     break;
-                case "Cataclysm":
+                case "World of Warcraft - Cataclysm":
                     Setting.List.SelectedSPP = SPP.Cataclysm;
                     break;
-                case "MistOfPandaria":
+                case "World of Warcraft - Mists of Pandaria":
                     Setting.List.SelectedSPP = SPP.MistOfPandaria;
                     break;
             }
         }
-
-        private void BTNInstallSPP_Click(object sender, EventArgs e)
+        private async void BTNInstallSPP_Click(object sender, EventArgs e)
         {
-            Thread DwonloadThread = new(async () =>
+            switch (Setting.List.SelectedSPP)
             {
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    Infos.Message = ex.Message;
-                }
-                switch (Setting.List.SelectedSPP)
-                    {
-                        case SPP.Classic:
-
-                            break;
-                        case SPP.TheBurningCrusade:
-
-                            break;
-                        case SPP.WrathOfTheLichKing:
-                            readFiles = true;
-                            if (!Directory.Exists(Links.Install.WotLK)) { Directory.CreateDirectory(Links.Install.WotLK); }
-                            DownloadControl.Title = "Install Single Player Project - Wrath of the Lich King";
-                            await Download.CompareAndExportChangesOnline(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
-                            break;
-                        case SPP.Cataclysm:
-
-                            break;
-                        case SPP.MistOfPandaria:
-
-                            break;
-                    }
-            });
-            DwonloadThread.Start();
+                case SPP.Classic:
+                    DownloadControl.Title = "Install World of Warcraft - Classic";
+                    DownloadData.Infos.Install.Classic = true;
+                    await StartInstallSPP(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}");
+                    break;
+                case SPP.TheBurningCrusade:
+                    DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
+                    DownloadData.Infos.Install.TBC = true;
+                    await StartInstallSPP(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}");
+                    break;
+                case SPP.WrathOfTheLichKing:
+                    DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
+                    DownloadData.Infos.Install.WotLK = true;
+                    await StartInstallSPP(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
+                    break;
+                case SPP.Cataclysm:
+                    DownloadControl.Title = "Install World of Warcraft - Cataclysm";
+                    DownloadData.Infos.Install.Cata = true;
+                    await StartInstallSPP(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}");
+                    break;
+                case SPP.MistOfPandaria:
+                    DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
+                    DownloadData.Infos.Install.Mop = true;
+                    await StartInstallSPP(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}");
+                    break;
+            }
         }
-
+        private async Task StartInstallSPP(string Directory, string WebLink)
+        {
+            var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
+            await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress));
+        }
         private void BTNRepairSPP_Click(object sender, EventArgs e)
         {
 
         }
-
         private void BTNUninstallSPP_Click(object sender, EventArgs e)
         {
 
+        }
+        private void SettingsControl_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void TimerEnDis_Tick(object sender, EventArgs e)
+        {
+            if (RefreshData)
+            {
+                RefreshData = false;
+                LoadData();
+            }
         }
     }
 }

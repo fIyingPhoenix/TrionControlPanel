@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
+using TrionControlPanelDesktop.Download;
 using TrionControlPanelDesktop.Data;
 using TrionLibrary.Setting;
 using static TrionLibrary.Models.Enums;
@@ -20,12 +21,12 @@ namespace TrionControlPanelDesktop
         readonly static DownloadControl downloadControl = new();
         readonly static NotificationsControl notificationsControl = new();
         //
-         static CurrentControl CurrentControl { get; set; }
+        static CurrentControl CurrentControl { get; set; }
         //
         //
-        public static bool LoadDownload { get; set; }
         async void LoadData()
         {
+            CheckForIllegalCrossThreadCalls = false;
             CurrentControl = CurrentControl.Load;
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
@@ -80,8 +81,8 @@ namespace TrionControlPanelDesktop
         private void ButtonsDesing()
         {
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;
-            BTNDownload.NotificationCount = User.UI.Download.CurrentDownloads;
-            BTNDownload.Visible = User.UI.Download.CurrentDownloads > 0;
+            BTNDownload.NotificationCount = DownloadControl.CurrentDownloadCount;
+            BTNDownload.Visible = DownloadControl.CurrentDownloadCount > 0;
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
@@ -103,20 +104,6 @@ namespace TrionControlPanelDesktop
 
                 }
 
-            }
-            if (LoadDownload == true)
-            {
-                LoadDownload = false;
-                if (CurrentControl == CurrentControl.Download)
-                {
-                    CurrentControl = CurrentControl.Home;
-                    ChangeControl();
-                }
-                else
-                {
-                    CurrentControl = CurrentControl.Download;
-                    ChangeControl();
-                }
             }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
@@ -158,6 +145,14 @@ namespace TrionControlPanelDesktop
         private void BTNStartWorld_Click(object sender, EventArgs e)
         {
             Main.StartWorld();
+        }
+        public static void LoadDownload()
+        {
+            if (CurrentControl != CurrentControl.Download)
+            {
+                CurrentControl = CurrentControl.Download;
+                ChangeControl();
+            }
         }
         public static void ChangeControl()
         {

@@ -19,7 +19,7 @@ namespace TrionLibrary.Crypto
             public string FileHash { get; set; }
         }
         // Function to calculate SHA-256 hash of a file
-        public static string CalculateSHA256(string filePath)
+        public static async Task<string> CalculateSHA256(string filePath)
         {
             using (var sha256 = SHA256.Create())
             {
@@ -32,6 +32,10 @@ namespace TrionLibrary.Crypto
         // Function to recursively get all files in a folder and its subfolders
         public static IEnumerable<string> GetAllFiles(string path)
         {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             var files = Directory.GetFiles(path);
             foreach (var file in files)
                 yield return file;
@@ -57,7 +61,7 @@ namespace TrionLibrary.Crypto
             xml.Save(xmlFilePath);
         }
         // Function to compare file hashes and export changes to XML Offline
-        public static void CompareAndExportChangesOffline(string folderPath, string previousXmlFilePath, string currentXmlFilePath)
+        public static async void CompareAndExportChangesOffline(string folderPath, string previousXmlFilePath, string currentXmlFilePath)
         {
             var previousFileInfos = new List<FileInfo>();
 
@@ -88,7 +92,7 @@ namespace TrionLibrary.Crypto
                 {
                     FileName = _fileName.Replace(@"\", "/"),
                     FileFullName = file,
-                    FileHash = CalculateSHA256(file)
+                    FileHash = await CalculateSHA256(file)
                 };
                 currentFileInfos.Add(fileInfo);
 
@@ -149,7 +153,7 @@ namespace TrionLibrary.Crypto
                 {
                     FileName = _fileName.Replace(@"\", "/"),
                     FileFullName = file,
-                    FileHash = CalculateSHA256(file)
+                    FileHash = await CalculateSHA256(file)
                 };
                 currentFileInfos.Add(fileInfo);
 
@@ -169,14 +173,14 @@ namespace TrionLibrary.Crypto
             var allChangedFiles = missingFiles.Concat(changedFiles);
 
             // Export all changes to List
-            foreach (var file in allChangedFiles) 
+            foreach (var file in allChangedFiles)
             {
-               
+
             }
 
         }
         // Function to export file hashes to XML
-        public static void ExportFileHashesToXML(string folderPath, string xmlFilePath)
+        public static async void ExportFileHashesToXML(string folderPath, string xmlFilePath)
         {
             var fileInfos = new List<FileInfo>();
             var allFiles = GetAllFiles(folderPath).ToList();
@@ -191,7 +195,7 @@ namespace TrionLibrary.Crypto
                 {
                     FileName = _fileName,
                     FileFullName = file.Replace(@"\", "/"),
-                    FileHash = CalculateSHA256(file)
+                    FileHash = await CalculateSHA256(file)
                 };
                 fileInfos.Add(fileInfo);
 

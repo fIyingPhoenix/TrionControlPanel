@@ -201,7 +201,8 @@
             // 
             // TimerDownloadStart
             // 
-            TimerDownloadStart.Interval = 1000;
+            TimerDownloadStart.Enabled = true;
+            TimerDownloadStart.Interval = 10;
             TimerDownloadStart.Tick += TimerDownloadStart_Tick;
             // 
             // LBLTitle

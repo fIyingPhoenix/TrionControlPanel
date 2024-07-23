@@ -5,7 +5,7 @@ namespace TrionControlPanelDesktop.Data
 {
     public class Links
     {
-        public static string MainHost { get => "http://localhost/"; }
+        public static string MainHost { get => "http://webserver.flying-phoenix.local/"; }
         public class Version
         {
             public static string Trion { get => "version/trion.ver"; }
