@@ -4,6 +4,7 @@ using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace TrionLibrary.Sys
 {
@@ -11,6 +12,7 @@ namespace TrionLibrary.Sys
     {
         //fix "lodctr /R"
         //static Process[] ProcessID;
+        private const int SampleCount = 5;
 
         private static readonly char[] separator = [' ', ':'];
 
@@ -131,7 +133,7 @@ namespace TrionLibrary.Sys
         {
             // Average out multiple samples
             float total = 0f;
-            int samples = 5;
+            int samples = 1;
             for (int i = 0; i < samples; i++)
             {
                 total += cpuCounter.NextValue();
@@ -139,21 +141,31 @@ namespace TrionLibrary.Sys
             }
             return total / samples;
         }
-        public static int MachineCpuUtilization()
+        public static int NewCPUUsageTest()
         {
-            // Create an instance of PerformanceCounter to monitor the total CPU usage
-            PerformanceCounter cpuCounter = new("Processor", "% Processor Time", "_Total");
-
-            // Give some time to initialize
-            cpuCounter.NextValue();
-            Thread.Sleep(1000);
-
-            // Continuous monitoring
-            while (true)
+            int test = 0;
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
+            foreach (ManagementObject obj in searcher.Get())
             {
-                float cpuUsage = GetCpuUsage(cpuCounter);
-                return (int)cpuUsage;
+                test = Convert.ToInt32(obj["LoadPercentage"]);
             }
+            return test;
+        }
+        public static async Task<int> MachineCpuUtilization()
+        {
+            // Initialize PerformanceCounters for each CPU core
+            int coreCount = Environment.ProcessorCount;
+            var cpuCounters = new PerformanceCounter();
+
+            // Create an instance of PerformanceCounter to monitor the total CPU usage
+            cpuCounters = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            // Discard the first value
+            cpuCounters.NextValue();
+            // Give some time to initialize
+            await Task.Delay(150);
+            //report
+            float totalCpuUsage = cpuCounters.NextValue();
+            return (int)totalCpuUsage;
         }
         public static int CurentPcRamUsage()
         {
@@ -196,7 +208,7 @@ namespace TrionLibrary.Sys
                 return false; // Process with the specified ID does not exist
             }
         }
-        public static int ApplicationStart(string Application, string WorkingDirectory, string Name, bool HideWindw, string Arguments)
+        public static async Task<int> ApplicationStart(string Application, string WorkingDirectory, string Name, bool HideWindw, string Arguments)
         {
             Infos.Message = $@"Starting {Name}!";
             Thread.Sleep(100);

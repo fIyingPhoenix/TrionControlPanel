@@ -101,7 +101,7 @@
             PNLDownloadStatus.Location = new Point(19, 104);
             PNLDownloadStatus.Name = "PNLDownloadStatus";
             PNLDownloadStatus.Padding = new Padding(2);
-            PNLDownloadStatus.Size = new Size(348, 186);
+            PNLDownloadStatus.Size = new Size(392, 185);
             PNLDownloadStatus.Style = MetroFramework.MetroColorStyle.Blue;
             PNLDownloadStatus.StyleManager = null;
             PNLDownloadStatus.TabIndex = 30;
@@ -260,10 +260,10 @@
             metroPanel2.HorizontalScrollbarBarColor = true;
             metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             metroPanel2.HorizontalScrollbarSize = 10;
-            metroPanel2.Location = new Point(469, 104);
+            metroPanel2.Location = new Point(427, 104);
             metroPanel2.Name = "metroPanel2";
             metroPanel2.Padding = new Padding(2);
-            metroPanel2.Size = new Size(348, 186);
+            metroPanel2.Size = new Size(392, 185);
             metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
             metroPanel2.StyleManager = null;
             metroPanel2.TabIndex = 39;

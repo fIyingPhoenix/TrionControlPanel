@@ -7,11 +7,8 @@ namespace TrionControlPanelDesktop.Controls
     {
         static double RamProcent;
         bool RamUsageHight;
-        private static void FirstLoad()
-        {
-
-        }
-
+        int CurrentWorldsOpen = 0;
+        int CurrentLogonsOpen = 0;
         public HomeControl()
         {
             Dock = DockStyle.Fill;
@@ -41,11 +38,11 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void ServerIconUI()
         {
-            if (ServerStatusWorld()) 
+            if (ServerStatusWorld())
             { PICWorldServerStatus.Image = Properties.Resources.cloud_online_50; }
             else { PICWorldServerStatus.Image = Properties.Resources.cloud_offline_50; }
             //
-            if (ServerStatusLogon()) 
+            if (ServerStatusLogon())
             { PICLogonServerStatus.Image = Properties.Resources.cloud_online_50; }
             else { PICLogonServerStatus.Image = Properties.Resources.cloud_offline_50; }
             //
@@ -54,13 +51,12 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void HomeControl_Load(object sender, EventArgs e)
         {
-            FirstLoad();
         }
         private void RamProcentage()
         {
             if (RamProcent > 80 && RamUsageHight == false)
             {
-                Infos.Message = "Your Ram is in a critical availability phase! More than 80% are used!!";
+                Infos.Message = "Your Ram is in a critical availability phase! More than 80% are used.";
                 RamUsageHight = true;
             }
             if (RamProcent < 80)
@@ -93,28 +89,27 @@ namespace TrionControlPanelDesktop.Controls
                 //
                 Thread ApplicationResourceUsage = new(() =>
                 {
-                    foreach (var WorldProcessid in User.System.WorldProcessesID)
+                    if (User.UI.Resource.CurrentWorldID > 0)
                     {
-                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(WorldProcessid.ID);
-                        User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(WorldProcessid.ID);
+                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(17880);
+                        User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(17880);
                     }
-                    foreach (var logonProcessesID in User.System.LogonProcessesID)
+                    if (User.UI.Resource.CurrentAuthID > 0)
                     {
-                        User.UI.Resource.AuthUsageRam = Watcher.ApplicationRamUsage(logonProcessesID.ID);
-                        User.UI.Resource.AuthCPUUsage = Watcher.ApplicationCpuUsage(logonProcessesID.ID);
+                        User.UI.Resource.AuthUsageRam = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentAuthID);
+                        User.UI.Resource.AuthCPUUsage = Watcher.ApplicationCpuUsage(User.UI.Resource.CurrentAuthID);
                     }
                 });
                 ApplicationResourceUsage.Start();
-
                 Thread MachineCpuUtilizationThread = new(() =>
                 {
-                    User.UI.Resource.MachineCPUUsage = Watcher.MachineCpuUtilization();
+                    User.UI.Resource.MachineCPUUsage = Watcher.NewCPUUsageTest();
                 });
                 MachineCpuUtilizationThread.Start();
                 //
-                LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID)}";
-                LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID)}";
-                LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID)}";
+                LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID.Select(p => p.ID))}";
+                LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID.Select(p => p.ID))}";
+                LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID.Select(p => p.ID))}";
 
                 PCResorcePbarRAM.Maximum = User.UI.Resource.MachineTotalRam;
                 PCResorcePbarRAM.Value = User.UI.Resource.MachineUsageRam;
@@ -126,8 +121,67 @@ namespace TrionControlPanelDesktop.Controls
                 LoginPbarRAM.Value = User.UI.Resource.AuthUsageRam;
                 LoginPbarCPU.Value = User.UI.Resource.AuthCPUUsage;
             }
-            catch
+            catch (Exception ex)
             {
+                Infos.Message = ex.Message;
+            }
+            if (User.System.WorldProcessesID.Count >= 1)
+            {
+                LBLWorldsOpen.Text = $"{CurrentWorldsOpen + 1}/{User.System.WorldProcessesID.Count}";
+                PNLWorldCount.Visible = true;
+                if (CurrentWorldsOpen == User.System.WorldProcessesID.Count)
+                {
+                    BTNWorldFW.Visible = false;
+                    BTNWorldBC.Visible = true;
+                }
+                else if (CurrentWorldsOpen == 0)
+                {
+                    BTNWorldFW.Visible = true;
+                    BTNWorldBC.Visible = false;
+                }
+                else
+                {
+                    BTNWorldFW.Visible = true;
+                    BTNWorldBC.Visible = true;
+                }
+
+            }
+            else
+            {
+                PNLWorldCount.Visible = false;
+                BTNWorldFW.Visible = false;
+                BTNWorldBC.Visible = false;
+            }
+            if (User.System.LogonProcessesID.Count >= 1)
+            {
+                LBLLogonOpen.Text = $"{CurrentLogonsOpen + 1}/{User.System.LogonProcessesID.Count}";
+                PNLLoginCount.Visible = true;
+                if (CurrentWorldsOpen == User.System.LogonProcessesID.Count && User.System.LogonProcessesID.Count > 2)
+                {
+                    BTNLoginFW.Visible = false;
+                    BTNLoginBC.Visible = true;
+                }
+                else if (CurrentWorldsOpen == 0 && User.System.LogonProcessesID.Count > 2)
+                {
+                    BTNLoginFW.Visible = true;
+                    BTNLoginBC.Visible = false;
+                }
+                else if (User.System.LogonProcessesID.Count == 1)
+                {
+                    BTNLoginFW.Visible = false;
+                    BTNLoginBC.Visible = false;
+                }
+                else
+                {
+                    BTNLoginFW.Visible = true;
+                    BTNLoginBC.Visible = true;
+                }
+            }
+            else
+            {
+                PNLLoginCount.Visible = false;
+                BTNLoginFW.Visible = false;
+                BTNLoginBC.Visible = false;
             }
         }
         private void TimerRam_Tick(object sender, EventArgs e)
@@ -150,6 +204,18 @@ namespace TrionControlPanelDesktop.Controls
             {
                 TimeSpan elapsedTime = DateTime.Now - User.System.LogonStartTime;
                 LBLUpTimeLogon.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
+        }
+        private void BTNWorldBC_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNWorldFW_Click(object sender, EventArgs e)
+        {
+            if (CurrentWorldsOpen == 0)
+            {
+                User.UI.Resource.CurrentWorldID = User.System.WorldProcessesID[CurrentWorldsOpen].ID;
             }
         }
     }

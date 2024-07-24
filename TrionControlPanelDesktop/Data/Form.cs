@@ -98,15 +98,18 @@ namespace TrionControlPanelDesktop.Data
             }
             public class Resource
             {
+
                 public static int MachineTotalRam { get; set; }
                 public static int MachineUsageRam { get; set; }
                 public static int MachineCPUUsage { get; set; }
                 public static int WorldTotalRam { get; set; }
                 public static int WorldUsageRam { get; set; }
                 public static int WorldCPUUsage { get; set; }
+                public static int CurrentWorldID { get; set; }
                 public static int AuthTotalRam { get; set; }
                 public static int AuthUsageRam { get; set; }
                 public static int AuthCPUUsage { get; set; }
+                public static int CurrentAuthID { get; set; }
             }
             public class Form
             {
@@ -154,6 +157,7 @@ namespace TrionControlPanelDesktop.Data
             public static DateTime DatabaseStartTime { get; set; }
             public static DateTime WorldStartTime { get; set; }
             public static DateTime LogonStartTime { get; set; }
+
             public static List<Lists.ProcessID> DatabaseProcessID = [];
             public static List<Lists.ProcessID> WorldProcessesID = [];
             public static List<Lists.ProcessID> LogonProcessesID = [];

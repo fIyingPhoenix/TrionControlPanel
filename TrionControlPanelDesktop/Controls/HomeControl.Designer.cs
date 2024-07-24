@@ -36,12 +36,12 @@ namespace TrionControlPanelDesktop.Controls
             TimerWacher = new System.Windows.Forms.Timer(components);
             PNLLayoutBot = new TableLayoutPanel();
             metroPanel1 = new MetroPanel();
-            metroPanel9 = new MetroPanel();
-            label10 = new Label();
-            customButton2 = new UI.Controls.CustomButton();
-            customButton3 = new UI.Controls.CustomButton();
             metroPanel7 = new MetroPanel();
+            PNLLoginCount = new MetroPanel();
+            LBLLogonOpen = new Label();
             label4 = new Label();
+            BTNLoginFW = new UI.Controls.CustomButton();
+            BTNLoginBC = new UI.Controls.CustomButton();
             LoginPbarCPU = new CustomProgressBar();
             LoginPbarRAM = new CustomProgressBar();
             label5 = new Label();
@@ -49,10 +49,10 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel2 = new MetroPanel();
             metroPanel8 = new MetroPanel();
             label7 = new Label();
-            metroPanel3 = new MetroPanel();
+            PNLWorldCount = new MetroPanel();
             LBLWorldsOpen = new Label();
-            customButton1 = new UI.Controls.CustomButton();
-            BTNMySQLOpenFolder = new UI.Controls.CustomButton();
+            BTNWorldFW = new UI.Controls.CustomButton();
+            BTNWorldBC = new UI.Controls.CustomButton();
             WorldPbarCPU = new CustomProgressBar();
             label9 = new Label();
             WorldPbarRAM = new CustomProgressBar();
@@ -85,11 +85,11 @@ namespace TrionControlPanelDesktop.Controls
             TimerStopWatch = new System.Windows.Forms.Timer(components);
             PNLLayoutBot.SuspendLayout();
             metroPanel1.SuspendLayout();
-            metroPanel9.SuspendLayout();
             metroPanel7.SuspendLayout();
+            PNLLoginCount.SuspendLayout();
             metroPanel2.SuspendLayout();
             metroPanel8.SuspendLayout();
-            metroPanel3.SuspendLayout();
+            PNLWorldCount.SuspendLayout();
             PNLLayoutTop.SuspendLayout();
             PNLServerStatus.SuspendLayout();
             metroPanel6.SuspendLayout();
@@ -131,9 +131,6 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel1.Border = true;
             metroPanel1.BorderColor = Color.Black;
             metroPanel1.BorderSize = 1;
-            metroPanel1.Controls.Add(metroPanel9);
-            metroPanel1.Controls.Add(customButton2);
-            metroPanel1.Controls.Add(customButton3);
             metroPanel1.Controls.Add(metroPanel7);
             metroPanel1.Controls.Add(LoginPbarCPU);
             metroPanel1.Controls.Add(LoginPbarRAM);
@@ -157,89 +154,6 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             metroPanel1.VerticalScrollbarSize = 10;
             // 
-            // metroPanel9
-            // 
-            metroPanel9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            metroPanel9.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel9.Border = true;
-            metroPanel9.BorderColor = Color.FromArgb(0, 174, 219);
-            metroPanel9.BorderSize = 1;
-            metroPanel9.Controls.Add(label10);
-            metroPanel9.CustomBackground = true;
-            metroPanel9.HorizontalScrollbar = false;
-            metroPanel9.HorizontalScrollbarBarColor = true;
-            metroPanel9.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel9.HorizontalScrollbarSize = 10;
-            metroPanel9.Location = new Point(348, 36);
-            metroPanel9.Name = "metroPanel9";
-            metroPanel9.Padding = new Padding(2);
-            metroPanel9.Size = new Size(36, 25);
-            metroPanel9.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel9.StyleManager = null;
-            metroPanel9.TabIndex = 60;
-            metroPanel9.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel9.VerticalScrollbar = false;
-            metroPanel9.VerticalScrollbarBarColor = true;
-            metroPanel9.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel9.VerticalScrollbarSize = 10;
-            // 
-            // label10
-            // 
-            label10.Dock = DockStyle.Fill;
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(2, 2);
-            label10.Name = "label10";
-            label10.Size = new Size(32, 21);
-            label10.TabIndex = 19;
-            label10.Text = "0/0";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // customButton2
-            // 
-            customButton2.Anchor = AnchorStyles.Right;
-            customButton2.BackColor = Color.FromArgb(28, 33, 40);
-            customButton2.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton2.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton2.BorderRadius = 0;
-            customButton2.BorderSize = 1;
-            customButton2.Cursor = Cursors.Hand;
-            customButton2.FlatAppearance.BorderSize = 0;
-            customButton2.FlatStyle = FlatStyle.Flat;
-            customButton2.ForeColor = Color.White;
-            customButton2.Image = (Image)resources.GetObject("customButton2.Image");
-            customButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton2.Location = new Point(383, 36);
-            customButton2.Name = "customButton2";
-            customButton2.NotificationCount = 0;
-            customButton2.RightToLeft = RightToLeft.No;
-            customButton2.Size = new Size(25, 25);
-            customButton2.TabIndex = 59;
-            customButton2.TextColor = Color.White;
-            customButton2.UseVisualStyleBackColor = false;
-            // 
-            // customButton3
-            // 
-            customButton3.Anchor = AnchorStyles.Right;
-            customButton3.BackColor = Color.FromArgb(28, 33, 40);
-            customButton3.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton3.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton3.BorderRadius = 0;
-            customButton3.BorderSize = 1;
-            customButton3.Cursor = Cursors.Hand;
-            customButton3.FlatAppearance.BorderSize = 0;
-            customButton3.FlatStyle = FlatStyle.Flat;
-            customButton3.ForeColor = Color.White;
-            customButton3.Image = (Image)resources.GetObject("customButton3.Image");
-            customButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton3.Location = new Point(324, 36);
-            customButton3.Name = "customButton3";
-            customButton3.NotificationCount = 0;
-            customButton3.RightToLeft = RightToLeft.No;
-            customButton3.Size = new Size(25, 25);
-            customButton3.TabIndex = 58;
-            customButton3.TextColor = Color.White;
-            customButton3.UseVisualStyleBackColor = false;
-            // 
             // metroPanel7
             // 
             metroPanel7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -247,7 +161,10 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel7.Border = true;
             metroPanel7.BorderColor = Color.Black;
             metroPanel7.BorderSize = 1;
+            metroPanel7.Controls.Add(PNLLoginCount);
             metroPanel7.Controls.Add(label4);
+            metroPanel7.Controls.Add(BTNLoginFW);
+            metroPanel7.Controls.Add(BTNLoginBC);
             metroPanel7.CustomBackground = true;
             metroPanel7.HorizontalScrollbar = true;
             metroPanel7.HorizontalScrollbarBarColor = true;
@@ -266,18 +183,101 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel7.VerticalScrollbarHighlightOnWheel = false;
             metroPanel7.VerticalScrollbarSize = 10;
             // 
+            // PNLLoginCount
+            // 
+            PNLLoginCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PNLLoginCount.BackColor = Color.FromArgb(28, 33, 40);
+            PNLLoginCount.Border = true;
+            PNLLoginCount.BorderColor = Color.FromArgb(0, 174, 219);
+            PNLLoginCount.BorderSize = 1;
+            PNLLoginCount.Controls.Add(LBLLogonOpen);
+            PNLLoginCount.CustomBackground = true;
+            PNLLoginCount.HorizontalScrollbar = false;
+            PNLLoginCount.HorizontalScrollbarBarColor = true;
+            PNLLoginCount.HorizontalScrollbarHighlightOnWheel = false;
+            PNLLoginCount.HorizontalScrollbarSize = 10;
+            PNLLoginCount.Location = new Point(352, 3);
+            PNLLoginCount.Name = "PNLLoginCount";
+            PNLLoginCount.Padding = new Padding(2);
+            PNLLoginCount.Size = new Size(36, 25);
+            PNLLoginCount.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLLoginCount.StyleManager = null;
+            PNLLoginCount.TabIndex = 60;
+            PNLLoginCount.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLLoginCount.VerticalScrollbar = false;
+            PNLLoginCount.VerticalScrollbarBarColor = true;
+            PNLLoginCount.VerticalScrollbarHighlightOnWheel = false;
+            PNLLoginCount.VerticalScrollbarSize = 10;
+            // 
+            // LBLLogonOpen
+            // 
+            LBLLogonOpen.Dock = DockStyle.Fill;
+            LBLLogonOpen.ForeColor = Color.White;
+            LBLLogonOpen.Location = new Point(2, 2);
+            LBLLogonOpen.Name = "LBLLogonOpen";
+            LBLLogonOpen.Size = new Size(32, 21);
+            LBLLogonOpen.TabIndex = 19;
+            LBLLogonOpen.Text = "0/0";
+            LBLLogonOpen.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // label4
             // 
             label4.BackColor = Color.Transparent;
-            label4.Dock = DockStyle.Fill;
+            label4.Dock = DockStyle.Left;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(0, 174, 219);
             label4.Location = new Point(2, 2);
             label4.Name = "label4";
-            label4.Size = new Size(411, 26);
+            label4.Size = new Size(215, 26);
             label4.TabIndex = 32;
             label4.Text = "LOGIN SERVER RESOURCE";
             label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // BTNLoginFW
+            // 
+            BTNLoginFW.Anchor = AnchorStyles.Right;
+            BTNLoginFW.BackColor = Color.FromArgb(28, 33, 40);
+            BTNLoginFW.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNLoginFW.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNLoginFW.BorderRadius = 0;
+            BTNLoginFW.BorderSize = 1;
+            BTNLoginFW.Cursor = Cursors.Hand;
+            BTNLoginFW.FlatAppearance.BorderSize = 0;
+            BTNLoginFW.FlatStyle = FlatStyle.Flat;
+            BTNLoginFW.ForeColor = Color.White;
+            BTNLoginFW.Image = (Image)resources.GetObject("BTNLoginFW.Image");
+            BTNLoginFW.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNLoginFW.Location = new Point(387, 3);
+            BTNLoginFW.Name = "BTNLoginFW";
+            BTNLoginFW.NotificationCount = 0;
+            BTNLoginFW.RightToLeft = RightToLeft.No;
+            BTNLoginFW.Size = new Size(25, 25);
+            BTNLoginFW.TabIndex = 59;
+            BTNLoginFW.TextColor = Color.White;
+            BTNLoginFW.UseVisualStyleBackColor = false;
+            // 
+            // BTNLoginBC
+            // 
+            BTNLoginBC.Anchor = AnchorStyles.Right;
+            BTNLoginBC.BackColor = Color.FromArgb(28, 33, 40);
+            BTNLoginBC.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNLoginBC.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNLoginBC.BorderRadius = 0;
+            BTNLoginBC.BorderSize = 1;
+            BTNLoginBC.Cursor = Cursors.Hand;
+            BTNLoginBC.FlatAppearance.BorderSize = 0;
+            BTNLoginBC.FlatStyle = FlatStyle.Flat;
+            BTNLoginBC.ForeColor = Color.White;
+            BTNLoginBC.Image = (Image)resources.GetObject("BTNLoginBC.Image");
+            BTNLoginBC.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNLoginBC.Location = new Point(328, 3);
+            BTNLoginBC.Name = "BTNLoginBC";
+            BTNLoginBC.NotificationCount = 0;
+            BTNLoginBC.RightToLeft = RightToLeft.No;
+            BTNLoginBC.Size = new Size(25, 25);
+            BTNLoginBC.TabIndex = 58;
+            BTNLoginBC.TextColor = Color.White;
+            BTNLoginBC.UseVisualStyleBackColor = false;
             // 
             // LoginPbarCPU
             // 
@@ -340,9 +340,6 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
             metroPanel2.Controls.Add(metroPanel8);
-            metroPanel2.Controls.Add(metroPanel3);
-            metroPanel2.Controls.Add(customButton1);
-            metroPanel2.Controls.Add(BTNMySQLOpenFolder);
             metroPanel2.Controls.Add(WorldPbarCPU);
             metroPanel2.Controls.Add(label9);
             metroPanel2.Controls.Add(WorldPbarRAM);
@@ -373,6 +370,9 @@ namespace TrionControlPanelDesktop.Controls
             metroPanel8.BorderColor = Color.Black;
             metroPanel8.BorderSize = 1;
             metroPanel8.Controls.Add(label7);
+            metroPanel8.Controls.Add(PNLWorldCount);
+            metroPanel8.Controls.Add(BTNWorldFW);
+            metroPanel8.Controls.Add(BTNWorldBC);
             metroPanel8.CustomBackground = true;
             metroPanel8.HorizontalScrollbar = true;
             metroPanel8.HorizontalScrollbarBarColor = true;
@@ -394,41 +394,41 @@ namespace TrionControlPanelDesktop.Controls
             // label7
             // 
             label7.BackColor = Color.Transparent;
-            label7.Dock = DockStyle.Fill;
+            label7.Dock = DockStyle.Left;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label7.ForeColor = Color.FromArgb(0, 174, 219);
             label7.Location = new Point(2, 2);
             label7.Name = "label7";
-            label7.Size = new Size(410, 26);
+            label7.Size = new Size(215, 26);
             label7.TabIndex = 37;
             label7.Text = "WORLD SERVER RESOURCE";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // metroPanel3
+            // PNLWorldCount
             // 
-            metroPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel3.Border = true;
-            metroPanel3.BorderColor = Color.FromArgb(0, 174, 219);
-            metroPanel3.BorderSize = 1;
-            metroPanel3.Controls.Add(LBLWorldsOpen);
-            metroPanel3.CustomBackground = true;
-            metroPanel3.HorizontalScrollbar = false;
-            metroPanel3.HorizontalScrollbarBarColor = true;
-            metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel3.HorizontalScrollbarSize = 10;
-            metroPanel3.Location = new Point(347, 36);
-            metroPanel3.Name = "metroPanel3";
-            metroPanel3.Padding = new Padding(2);
-            metroPanel3.Size = new Size(36, 25);
-            metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel3.StyleManager = null;
-            metroPanel3.TabIndex = 44;
-            metroPanel3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel3.VerticalScrollbar = false;
-            metroPanel3.VerticalScrollbarBarColor = true;
-            metroPanel3.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel3.VerticalScrollbarSize = 10;
+            PNLWorldCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PNLWorldCount.BackColor = Color.FromArgb(28, 33, 40);
+            PNLWorldCount.Border = true;
+            PNLWorldCount.BorderColor = Color.FromArgb(0, 174, 219);
+            PNLWorldCount.BorderSize = 1;
+            PNLWorldCount.Controls.Add(LBLWorldsOpen);
+            PNLWorldCount.CustomBackground = true;
+            PNLWorldCount.HorizontalScrollbar = false;
+            PNLWorldCount.HorizontalScrollbarBarColor = true;
+            PNLWorldCount.HorizontalScrollbarHighlightOnWheel = false;
+            PNLWorldCount.HorizontalScrollbarSize = 10;
+            PNLWorldCount.Location = new Point(351, 3);
+            PNLWorldCount.Name = "PNLWorldCount";
+            PNLWorldCount.Padding = new Padding(2);
+            PNLWorldCount.Size = new Size(36, 25);
+            PNLWorldCount.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLWorldCount.StyleManager = null;
+            PNLWorldCount.TabIndex = 44;
+            PNLWorldCount.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLWorldCount.VerticalScrollbar = false;
+            PNLWorldCount.VerticalScrollbarBarColor = true;
+            PNLWorldCount.VerticalScrollbarHighlightOnWheel = false;
+            PNLWorldCount.VerticalScrollbarSize = 10;
             // 
             // LBLWorldsOpen
             // 
@@ -441,51 +441,53 @@ namespace TrionControlPanelDesktop.Controls
             LBLWorldsOpen.Text = "0/0";
             LBLWorldsOpen.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // customButton1
+            // BTNWorldFW
             // 
-            customButton1.Anchor = AnchorStyles.Right;
-            customButton1.BackColor = Color.FromArgb(28, 33, 40);
-            customButton1.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton1.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton1.BorderRadius = 0;
-            customButton1.BorderSize = 1;
-            customButton1.Cursor = Cursors.Hand;
-            customButton1.FlatAppearance.BorderSize = 0;
-            customButton1.FlatStyle = FlatStyle.Flat;
-            customButton1.ForeColor = Color.White;
-            customButton1.Image = (Image)resources.GetObject("customButton1.Image");
-            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton1.Location = new Point(382, 36);
-            customButton1.Name = "customButton1";
-            customButton1.NotificationCount = 0;
-            customButton1.RightToLeft = RightToLeft.No;
-            customButton1.Size = new Size(25, 25);
-            customButton1.TabIndex = 43;
-            customButton1.TextColor = Color.White;
-            customButton1.UseVisualStyleBackColor = false;
+            BTNWorldFW.Anchor = AnchorStyles.Right;
+            BTNWorldFW.BackColor = Color.FromArgb(28, 33, 40);
+            BTNWorldFW.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNWorldFW.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNWorldFW.BorderRadius = 0;
+            BTNWorldFW.BorderSize = 1;
+            BTNWorldFW.Cursor = Cursors.Hand;
+            BTNWorldFW.FlatAppearance.BorderSize = 0;
+            BTNWorldFW.FlatStyle = FlatStyle.Flat;
+            BTNWorldFW.ForeColor = Color.White;
+            BTNWorldFW.Image = (Image)resources.GetObject("BTNWorldFW.Image");
+            BTNWorldFW.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNWorldFW.Location = new Point(386, 3);
+            BTNWorldFW.Name = "BTNWorldFW";
+            BTNWorldFW.NotificationCount = 0;
+            BTNWorldFW.RightToLeft = RightToLeft.No;
+            BTNWorldFW.Size = new Size(25, 25);
+            BTNWorldFW.TabIndex = 43;
+            BTNWorldFW.TextColor = Color.White;
+            BTNWorldFW.UseVisualStyleBackColor = false;
+            BTNWorldFW.Click += BTNWorldFW_Click;
             // 
-            // BTNMySQLOpenFolder
+            // BTNWorldBC
             // 
-            BTNMySQLOpenFolder.Anchor = AnchorStyles.Right;
-            BTNMySQLOpenFolder.BackColor = Color.FromArgb(28, 33, 40);
-            BTNMySQLOpenFolder.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNMySQLOpenFolder.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNMySQLOpenFolder.BorderRadius = 0;
-            BTNMySQLOpenFolder.BorderSize = 1;
-            BTNMySQLOpenFolder.Cursor = Cursors.Hand;
-            BTNMySQLOpenFolder.FlatAppearance.BorderSize = 0;
-            BTNMySQLOpenFolder.FlatStyle = FlatStyle.Flat;
-            BTNMySQLOpenFolder.ForeColor = Color.White;
-            BTNMySQLOpenFolder.Image = (Image)resources.GetObject("BTNMySQLOpenFolder.Image");
-            BTNMySQLOpenFolder.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNMySQLOpenFolder.Location = new Point(323, 36);
-            BTNMySQLOpenFolder.Name = "BTNMySQLOpenFolder";
-            BTNMySQLOpenFolder.NotificationCount = 0;
-            BTNMySQLOpenFolder.RightToLeft = RightToLeft.No;
-            BTNMySQLOpenFolder.Size = new Size(25, 25);
-            BTNMySQLOpenFolder.TabIndex = 42;
-            BTNMySQLOpenFolder.TextColor = Color.White;
-            BTNMySQLOpenFolder.UseVisualStyleBackColor = false;
+            BTNWorldBC.Anchor = AnchorStyles.Right;
+            BTNWorldBC.BackColor = Color.FromArgb(28, 33, 40);
+            BTNWorldBC.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNWorldBC.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNWorldBC.BorderRadius = 0;
+            BTNWorldBC.BorderSize = 1;
+            BTNWorldBC.Cursor = Cursors.Hand;
+            BTNWorldBC.FlatAppearance.BorderSize = 0;
+            BTNWorldBC.FlatStyle = FlatStyle.Flat;
+            BTNWorldBC.ForeColor = Color.White;
+            BTNWorldBC.Image = (Image)resources.GetObject("BTNWorldBC.Image");
+            BTNWorldBC.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNWorldBC.Location = new Point(327, 3);
+            BTNWorldBC.Name = "BTNWorldBC";
+            BTNWorldBC.NotificationCount = 0;
+            BTNWorldBC.RightToLeft = RightToLeft.No;
+            BTNWorldBC.Size = new Size(25, 25);
+            BTNWorldBC.TabIndex = 42;
+            BTNWorldBC.TextColor = Color.White;
+            BTNWorldBC.UseVisualStyleBackColor = false;
+            BTNWorldBC.Click += BTNWorldBC_Click;
             // 
             // WorldPbarCPU
             // 
@@ -953,12 +955,12 @@ namespace TrionControlPanelDesktop.Controls
             PNLLayoutBot.ResumeLayout(false);
             metroPanel1.ResumeLayout(false);
             metroPanel1.PerformLayout();
-            metroPanel9.ResumeLayout(false);
             metroPanel7.ResumeLayout(false);
+            PNLLoginCount.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
             metroPanel2.PerformLayout();
             metroPanel8.ResumeLayout(false);
-            metroPanel3.ResumeLayout(false);
+            PNLWorldCount.ResumeLayout(false);
             PNLLayoutTop.ResumeLayout(false);
             PNLServerStatus.ResumeLayout(false);
             metroPanel6.ResumeLayout(false);
@@ -1003,9 +1005,9 @@ namespace TrionControlPanelDesktop.Controls
         private Label label9;
         private CustomProgressBar WorldPbarRAM;
         private Label label8;
-        private UI.Controls.CustomButton BTNMySQLOpenFolder;
-        private UI.Controls.CustomButton customButton1;
-        private MetroPanel metroPanel3;
+        private UI.Controls.CustomButton BTNWorldBC;
+        private UI.Controls.CustomButton BTNWorldFW;
+        private MetroPanel PNLWorldCount;
         private Label LBLWorldsOpen;
         public PictureBox PICMySqlServerStatus;
         public PictureBox PICWorldServerStatus;
@@ -1024,9 +1026,9 @@ namespace TrionControlPanelDesktop.Controls
         private MetroPanel metroPanel20;
         private MetroPanel metroPanel7;
         private MetroPanel metroPanel8;
-        private MetroPanel metroPanel9;
-        private Label label10;
-        private UI.Controls.CustomButton customButton2;
-        private UI.Controls.CustomButton customButton3;
+        private MetroPanel PNLLoginCount;
+        private Label LBLLogonOpen;
+        private UI.Controls.CustomButton BTNLoginFW;
+        private UI.Controls.CustomButton BTNLoginBC;
     }
 }

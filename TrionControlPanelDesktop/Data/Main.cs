@@ -12,7 +12,7 @@ namespace TrionControlPanelDesktop.Data
         {
             if (Setting.List.DBExecutablePath != string.Empty)
             {
-                Watcher.ApplicationStart(
+              _=  Watcher.ApplicationStart(
                     Setting.List.DBExecutablePath,
                     Setting.List.DBLocation,
                     Setting.List.DBExecutableName,
@@ -35,11 +35,12 @@ namespace TrionControlPanelDesktop.Data
                 return false;
             }
         }
-        public static void StartWorld()
+        public static async void StartWorld()
         {
+            User.System.WorldProcessesID.Clear();
             if (Setting.List.CustomInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.CustomWorldExeLoc,
                     Setting.List.CustomWorkingDirectory,
                     Setting.List.CustomWorldExeName,
@@ -51,7 +52,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.ClassicInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.ClassicWorldExeLoc,
                     Setting.List.ClassicWorkingDirectory,
                     Setting.List.ClassicWorldExeName,
@@ -63,7 +64,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.TBCInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.TBCWorldExeLoc,
                     Setting.List.TBCWorkingDirectory,
                     Setting.List.TBCWorldExeName,
@@ -75,7 +76,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.WotLKInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                      Setting.List.WotLKWorldExeLoc,
                      Setting.List.WotLKWorkingDirectory,
                      Setting.List.WotLKWorldExeName,
@@ -87,7 +88,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.CataInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.CataWorldExeLoc,
                     Setting.List.CataWorkingDirectory,
                     Setting.List.CataWorldExeName,
@@ -99,7 +100,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.MOPInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.MopWorldExeLoc,
                     Setting.List.MopWorkingDirectory,
                     Setting.List.MopWorldExeName,
@@ -109,12 +110,18 @@ namespace TrionControlPanelDesktop.Data
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.MopWorldExeName });
             }
+
+            if (User.System.WorldProcessesID.Count > 0)
+            {
+                User.UI.Resource.CurrentWorldID = User.System.WorldProcessesID[0].ID;
+            }
         }
-        public static void StartLogon()
+        public static async void StartLogon()
         {
+            User.System.LogonProcessesID.Clear();
             if (Setting.List.CustomInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                 int ID = await Watcher.ApplicationStart(
                     Setting.List.CustomLogonExeLoc,
                     Setting.List.CustomWorkingDirectory,
                     Setting.List.CustomLogonExeName,
@@ -126,7 +133,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.ClassicInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.ClassicLogonExeLoc,
                     Setting.List.ClassicWorkingDirectory,
                     Setting.List.ClassicLogonExeName,
@@ -138,7 +145,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.TBCInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.TBCLogonExeLoc,
                     Setting.List.TBCWorkingDirectory,
                     Setting.List.TBCLogonExeName,
@@ -150,7 +157,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.WotLKInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                      Setting.List.WotLKLogonExeLoc,
                      Setting.List.WotLKWorkingDirectory,
                      Setting.List.WotLKLogonExeName,
@@ -162,7 +169,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.CataInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.CataLogonExeLoc,
                     Setting.List.CataWorkingDirectory,
                     Setting.List.CataLogonExeName,
@@ -174,7 +181,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (Setting.List.MOPInstalled)
             {
-                int ID = Watcher.ApplicationStart(
+                int ID = await Watcher.ApplicationStart(
                     Setting.List.MopLogonExeLoc,
                     Setting.List.MopWorkingDirectory,
                     Setting.List.MopLogonExeName,
@@ -184,6 +191,11 @@ namespace TrionControlPanelDesktop.Data
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.MopLogonExeName });
             }
+
+            if(User.System.LogonProcessesID.Count > 0)
+            {
+                User.UI.Resource.CurrentAuthID = User.System.LogonProcessesID[0].ID;
+            }  
         }
         public static void StopWorld()
         {

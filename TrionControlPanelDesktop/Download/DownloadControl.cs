@@ -240,6 +240,7 @@ namespace TrionControlPanelDesktop.Controls
                     }
                 }  
             }
+            
             InstallFinished();
             DownloadData.Infos.Install.Classic = false;
             DownloadData.Infos.Install.TBC = false;
