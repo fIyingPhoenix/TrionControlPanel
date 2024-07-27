@@ -14,25 +14,25 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
         }
-        private bool ServerStatusWorld()
+        private static bool ServerStatusWorld()
         {
-            if (User.UI.Form.CustWorldRunning ||
-                User.UI.Form.ClassicWorldRunning ||
-                User.UI.Form.TBCWorldRunning ||
-                User.UI.Form.WotLKWorldRunning ||
-                User.UI.Form.CataWorldRunning ||
-                User.UI.Form.MOPWorldRunning)
+            if (User.UI.Form.CustWorldStarted ||
+                User.UI.Form.ClassicWorldStarted ||
+                User.UI.Form.TBCWorldStarted ||
+                User.UI.Form.WotLKWorldStarted ||
+                User.UI.Form.CataWorldStarted ||
+                User.UI.Form.MOPWorldStarted)
             { return true; }
             else { return false; }
         }
-        private bool ServerStatusLogon()
+        private static bool ServerStatusLogon()
         {
-            if (User.UI.Form.CustLogonRunning ||
-                User.UI.Form.ClassicLogonRunning ||
-                User.UI.Form.TBCLogonRunning ||
-                User.UI.Form.WotLKLogonRunning ||
-                User.UI.Form.CataLogonRunning ||
-                User.UI.Form.MOPLogonRunning)
+            if (User.UI.Form.CustLogonStarted ||
+                User.UI.Form.ClassicLogonStarted ||
+                User.UI.Form.TBCLogonStarted ||
+                User.UI.Form.WotLKLogonStarted ||
+                User.UI.Form.CataLogonStarted ||
+                User.UI.Form.MOPLogonStarted)
             { return true; }
             else { return false; }
         }
@@ -208,13 +208,18 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void BTNWorldBC_Click(object sender, EventArgs e)
         {
-
+            if (CurrentWorldsOpen + 1 <= User.System.WorldProcessesID.Count && CurrentWorldsOpen != 0)
+            {
+                CurrentWorldsOpen++;
+                User.UI.Resource.CurrentWorldID = User.System.WorldProcessesID[CurrentWorldsOpen].ID;
+            }
         }
 
         private void BTNWorldFW_Click(object sender, EventArgs e)
         {
-            if (CurrentWorldsOpen == 0)
+            if (CurrentWorldsOpen + 1 < User.System.WorldProcessesID.Count && CurrentWorldsOpen + 1 != User.System.WorldProcessesID.Count)
             {
+                CurrentWorldsOpen++;
                 User.UI.Resource.CurrentWorldID = User.System.WorldProcessesID[CurrentWorldsOpen].ID;
             }
         }

@@ -124,7 +124,7 @@ namespace TrionControlPanelDesktop.Controls
             //Load Names
             TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
-            TXTBoxMySQLExecName.Text = Setting.List.DBExecutableName;
+            TXTBoxMySQLExecName.Text = Setting.List.DBExeName;
             //Working Directory
             TXTBoxCoreLocation.Text = Setting.List.CustomWorkingDirectory;
             TXTBoxMySQLLocation.Text = Setting.List.DBLocation;
@@ -308,9 +308,9 @@ namespace TrionControlPanelDesktop.Controls
             {
                 if (Folder != string.Empty)
                 {
-                    if (Infos.GetExecutableLocation(Folder, Setting.List.DBExecutableName) != string.Empty)
+                    if (Infos.GetExecutableLocation(Folder, Setting.List.DBExeleLoc) != string.Empty)
                     {
-                        Setting.List.DBExeLoca = Infos.GetExecutableLocation(Folder, Setting.List.DBExecutableName);
+                        Setting.List.DBExeLoca = Infos.GetExecutableLocation(Folder, Setting.List.DBExeleLoc);
                         Setting.List.DBLocation = Path.GetFullPath(Path.Combine(Setting.List.DBExeLoca, @"..\"));
                         await Setting.Save();
                         Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
@@ -380,7 +380,7 @@ namespace TrionControlPanelDesktop.Controls
         private void SaveDataTextbox(object state)
         {
             // Seve data
-            Setting.List.DBExecutableName = TXTBoxMySQLExecName.Text;
+            Setting.List.DBExeleLoc = TXTBoxMySQLExecName.Text;
             Setting.List.CustomWorldExeName = TXTBoxWorldExecName.Text;
             Setting.List.CustomLogonExeName = TXTBoxLoginExecName.Text;
             Setting.List.DBServerHost = TXTMysqlHost.Text;
@@ -584,35 +584,36 @@ namespace TrionControlPanelDesktop.Controls
                 case SPP.Classic:
                     DownloadControl.Title = "Install World of Warcraft - Classic";
                     DownloadData.Infos.Install.Classic = true;
-                    await StartInstallSPP(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}");
+                    await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}");
                     break;
                 case SPP.TheBurningCrusade:
                     DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
                     DownloadData.Infos.Install.TBC = true;
-                    await StartInstallSPP(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}");
+                    await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}");
                     break;
                 case SPP.WrathOfTheLichKing:
                     DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
                     DownloadData.Infos.Install.WotLK = true;
-                    await StartInstallSPP(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
+                    await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
                     break;
                 case SPP.Cataclysm:
                     DownloadControl.Title = "Install World of Warcraft - Cataclysm";
                     DownloadData.Infos.Install.Cata = true;
-                    await StartInstallSPP(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}");
+                    await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}");
                     break;
                 case SPP.MistOfPandaria:
                     DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
                     DownloadData.Infos.Install.Mop = true;
-                    await StartInstallSPP(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}");
+                    await StartInstall(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}");
                     break;
             }
         }
-        private async Task StartInstallSPP(string Directory, string WebLink)
+        private async Task StartInstall(string Directory, string WebLink)
         {
             var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
             await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress));
         }
+
         private void BTNRepairSPP_Click(object sender, EventArgs e)
         {
 
@@ -633,6 +634,11 @@ namespace TrionControlPanelDesktop.Controls
                 RefreshData = false;
                 LoadData();
             }
+        }
+
+        private void BTNDownlaodMySQL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

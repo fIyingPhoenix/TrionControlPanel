@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
-using TrionControlPanelDesktop.Download;
 using TrionControlPanelDesktop.Data;
 using TrionLibrary.Setting;
 using static TrionLibrary.Models.Enums;
@@ -136,7 +135,9 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
-
+            Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+            string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}my.ini --console";
+            Main.StartDatabase(arg);
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)
         {
@@ -223,5 +224,6 @@ namespace TrionControlPanelDesktop
                 }
             }
         }
+
     }
 }

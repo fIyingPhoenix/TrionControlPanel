@@ -210,7 +210,6 @@ namespace TrionLibrary.Sys
         }
         public static async Task<int> ApplicationStart(string Application, string WorkingDirectory, string Name, bool HideWindw, string Arguments)
         {
-            Infos.Message = $@"Starting {Name}!";
             Thread.Sleep(100);
             try
             {

@@ -8,6 +8,7 @@ using TrionLibrary.Models;
 using TrionControlPanelDesktop.Download;
 using TrionLibrary.Setting;
 
+
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class DownloadControl : UserControl
@@ -20,6 +21,7 @@ namespace TrionControlPanelDesktop.Controls
 
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
+        private bool InstallDatabase = false;
         //
         public static List<Lists.File> DownlaodList = [];
         public DownloadControl()
@@ -91,6 +93,11 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+            if (InstallDatabase == true)
+            {
+                InstallDatabase = false;
+                DownloadMysql(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}");
+            }
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {
@@ -239,15 +246,38 @@ namespace TrionControlPanelDesktop.Controls
                         }
                     }
                 }  
-            }
-            
+            } 
+            DownlaodList.Clear();
             InstallFinished();
+            if (Setting.List.DBInstalled != true)
+            {
+                InstallDatabase = true;
+            }
             DownloadData.Infos.Install.Classic = false;
             DownloadData.Infos.Install.TBC = false;
             DownloadData.Infos.Install.WotLK = false;
-            DownloadData.Infos.Install.Cata  = false;
+            DownloadData.Infos.Install.Cata = false;
             DownloadData.Infos.Install.Mop = false;
-            DownlaodList.Clear();
+            DownloadData.Infos.Install.Database = false;
+        }
+        private async void DownloadMysql(string directory, string WebLink)
+        {
+            if (!Directory.Exists(directory)) { Directory.CreateDirectory(directory);}
+                if (MessageBox.Show("It seems you need a database server. Would you like to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
+            {
+                Title = "Install Database";
+                DownloadData.Infos.Install.Database = true;
+                await StartInstallDatabase(directory, WebLink);
+            }
+            else
+            {
+                if (MessageBox.Show("The emulators require a database server. Are you sure you don't want to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.No)
+                {
+                    Title = "Install Database";
+                    DownloadData.Infos.Install.Database = true;
+                    await StartInstallDatabase(directory, WebLink);
+                }
+            } 
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
@@ -261,51 +291,71 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (DownloadData.Infos.Install.Classic)
             {
+                string classic = Links.Install.Classic.Replace("/", @"\");
                 Setting.List.ClassicInstalled = true;
-                Setting.List.ClassicWorkingDirectory = Links.Install.Classic;
-                Setting.List.ClassicLogonExeLoc = Infos.GetExecutableLocation(Links.Install.Classic, "realmd");
+                Setting.List.ClassicWorkingDirectory = classic;
+                Setting.List.ClassicLogonExeLoc = Infos.GetExecutableLocation(classic, "realmd");
                 Setting.List.ClassicLogonExeName = "realmd";
-                Setting.List.ClassicWorldExeLoc = Infos.GetExecutableLocation(Links.Install.Classic, "mangosd");
+                Setting.List.ClassicWorldExeLoc = Infos.GetExecutableLocation(classic, "mangosd");
                 Setting.List.ClassicWorldExeName = "mangosd";
             }
             if (DownloadData.Infos.Install.TBC)
             {
+                string TBC = Links.Install.TBC.Replace("/", @"\");
                 Setting.List.TBCInstalled = true;
-                Setting.List.TBCWorkingDirectory = Links.Install.TBC;
-                Setting.List.TBCLogonExeLoc = Infos.GetExecutableLocation(Links.Install.TBC, "realmd");
+                Setting.List.TBCWorkingDirectory = TBC;
+                Setting.List.TBCLogonExeLoc = Infos.GetExecutableLocation(TBC, "realmd");
                 Setting.List.TBCLogonExeName = "realmd";
-                Setting.List.TBCWorldExeLoc = Infos.GetExecutableLocation(Links.Install.TBC, "mangosd");
+                Setting.List.TBCWorldExeLoc = Infos.GetExecutableLocation(TBC, "mangosd");
                 Setting.List.TBCWorldExeName = "mangosd";
             }
             if (DownloadData.Infos.Install.WotLK)
             {
+                string WotLK = Links.Install.WotLK.Replace("/", @"\");
                 Setting.List.WotLKInstalled = true;
-                Setting.List.WotLKWorkingDirectory = Links.Install.WotLK;
-                Setting.List.WotLKLogonExeLoc = Infos.GetExecutableLocation(Links.Install.WotLK, "authserver");
+                Setting.List.WotLKWorkingDirectory = WotLK;
+                Setting.List.WotLKLogonExeLoc = Infos.GetExecutableLocation(WotLK, "authserver");
                 Setting.List.WotLKLogonExeName = "authserver";
-                Setting.List.WotLKWorldExeLoc = Infos.GetExecutableLocation(Links.Install.WotLK, "worldserver");
+                Setting.List.WotLKWorldExeLoc = Infos.GetExecutableLocation(WotLK, "worldserver");
                 Setting.List.WotLKWorldExeName = "worldserver";
             }
             if (DownloadData.Infos.Install.Cata)
             {
+                string cata = Links.Install.Cata.Replace("/", @"\");
                 Setting.List.CataInstalled = true;
-                Setting.List.CataWorkingDirectory = Links.Install.Cata;
-                Setting.List.CataLogonExeLoc = Infos.GetExecutableLocation(Links.Install.Cata, "authserver");
+                Setting.List.CataWorkingDirectory = cata;
+                Setting.List.CataLogonExeLoc = Infos.GetExecutableLocation(cata, "authserver");
                 Setting.List.CataLogonExeName = "authserver";
-                Setting.List.CataWorldExeLoc = Infos.GetExecutableLocation(Links.Install.Cata, "worldserver"); 
+                Setting.List.CataWorldExeLoc = Infos.GetExecutableLocation(cata, "worldserver"); 
                 Setting.List.CataWorldExeName = "worldserver";
             }
             if (DownloadData.Infos.Install.Mop)
             {
+                string Mop = Links.Install.Mop.Replace("/", @"\");
                 Setting.List.MOPInstalled = true;
-                Setting.List.MopWorkingDirectory = Links.Install.Mop;
-                Setting.List.MopLogonExeLoc = Infos.GetExecutableLocation(Links.Install.Mop, "authserver");
+                Setting.List.MopWorkingDirectory = Mop;
+                Setting.List.MopLogonExeLoc = Infos.GetExecutableLocation(Mop, "authserver");
                 Setting.List.MopLogonExeName = "authserver";
-                Setting.List.MopWorldExeLoc = Infos.GetExecutableLocation(Links.Install.Mop, "authserver");
+                Setting.List.MopWorldExeLoc = Infos.GetExecutableLocation(Mop, "authserver");
                 Setting.List.MopWorldExeName = "worldserver";
+            }
+            if (DownloadData.Infos.Install.Database == true)
+            {
+                string Database = Links.Install.Database.Replace("/", @"\");
+                Setting.List.DBInstalled = true;
+                Setting.List.DBLocation = Database;
+                Setting.List.DBExeleLoc = Infos.GetExecutableLocation(Database, "mysqld");
+                Setting.List.DBExeName = "mysqld";
+                string SQLLocation = $@"{Database}\database\extra\initDatabase.sql";
+               _ = Watcher.ApplicationStart(Setting.List.DBExeleLoc, Setting.List.DBLocation, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
             }
             Setting.Save();
             SettingsControl.RefreshData = true; 
+        }
+        private async Task StartInstallDatabase(string Directory, string WebLink)
+        {
+            var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
+            await Task.Run(async () => await CompareAndExportChangesOnline(Directory, WebLink, progress));
         }
     }
 }

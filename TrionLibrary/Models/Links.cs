@@ -30,7 +30,7 @@ namespace TrionControlPanelDesktop.Data
         public class Install
         {
             public static string Trion { get => $"{Directory.GetCurrentDirectory()}/"; }
-            public static string Database { get => $"{Directory.GetCurrentDirectory()}/databasaae"; }
+            public static string Database { get => $"{Directory.GetCurrentDirectory()}/database"; }
             public static string Classic { get => $"{Directory.GetCurrentDirectory()}/classic"; }
             public static string TBC { get => $"{Directory.GetCurrentDirectory()}/tbc"; }
             public static string WotLK { get => $"{Directory.GetCurrentDirectory()}/wotlk"; }

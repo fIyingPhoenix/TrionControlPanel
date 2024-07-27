@@ -8,16 +8,19 @@ namespace TrionControlPanelDesktop.Data
 {
     public class Main
     {
-        public static void StartDatabase(string argu)
+        public static async void StartDatabase(string argu)
         {
-            if (Setting.List.DBExecutablePath != string.Empty)
+            if (Setting.List.DBExeleLoc != string.Empty)
             {
-              _=  Watcher.ApplicationStart(
-                    Setting.List.DBExecutablePath,
+                int ID = await Watcher.ApplicationStart(
+                    Setting.List.DBExeleLoc,
                     Setting.List.DBLocation,
-                    Setting.List.DBExecutableName,
+                    Setting.List.DBExeName,
                     Setting.List.ConsolHide,
                     argu);
+                User.System.DatabaseProcessID.Add(new Lists.ProcessID()
+                { ID = ID, Name = Setting.List.DBExeName });
+                User.UI.Form.DBStarted = true;
             }
         }
         public static async Task<bool> IsPortOpen()
@@ -49,6 +52,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.CustomWorldExeName });
+                User.UI.Form.CustWorldStarted = true;   
             }
             if (Setting.List.ClassicInstalled)
             {
@@ -61,6 +65,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.ClassicWorldExeName });
+                User.UI.Form.ClassicWorldStarted = true;
             }
             if (Setting.List.TBCInstalled)
             {
@@ -73,6 +78,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.TBCWorldExeName });
+                User.UI.Form.TBCWorldStarted = true;
             }
             if (Setting.List.WotLKInstalled)
             {
@@ -85,6 +91,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.WotLKWorldExeName });
+                User.UI.Form.WotLKWorldStarted = true;
             }
             if (Setting.List.CataInstalled)
             {
@@ -97,6 +104,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.CataWorldExeName });
+                User.UI.Form.CataWorldStarted = true;
             }
             if (Setting.List.MOPInstalled)
             {
@@ -109,11 +117,13 @@ namespace TrionControlPanelDesktop.Data
                     );
                 User.System.WorldProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.MopWorldExeName });
+                User.UI.Form.MOPWorldStarted = true;
             }
 
             if (User.System.WorldProcessesID.Count > 0)
             {
                 User.UI.Resource.CurrentWorldID = User.System.WorldProcessesID[0].ID;
+                User.System.WorldStartTime = DateTime.Now;
             }
         }
         public static async void StartLogon()
@@ -130,6 +140,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.CustomLogonExeName });
+                User.UI.Form.CustLogonStarted = true;
             }
             if (Setting.List.ClassicInstalled)
             {
@@ -142,6 +153,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.ClassicLogonExeName });
+                User.UI.Form.ClassicLogonStarted = true;
             }
             if (Setting.List.TBCInstalled)
             {
@@ -154,6 +166,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.TBCLogonExeName });
+                User.UI.Form.TBCLogonStarted = true;   
             }
             if (Setting.List.WotLKInstalled)
             {
@@ -166,6 +179,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.WotLKLogonExeName });
+                User.UI.Form.WotLKLogonStarted = true;
             }
             if (Setting.List.CataInstalled)
             {
@@ -178,6 +192,7 @@ namespace TrionControlPanelDesktop.Data
                 );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.CataLogonExeName });
+                User.UI.Form.CataLogonStarted = true;
             }
             if (Setting.List.MOPInstalled)
             {
@@ -190,11 +205,13 @@ namespace TrionControlPanelDesktop.Data
                     );
                 User.System.LogonProcessesID.Add(new Lists.ProcessID()
                 { ID = ID, Name = Setting.List.MopLogonExeName });
+                User.UI.Form.MOPLogonStarted = true;
             }
 
             if(User.System.LogonProcessesID.Count > 0)
             {
                 User.UI.Resource.CurrentAuthID = User.System.LogonProcessesID[0].ID;
+                User.System.LogonStartTime = DateTime.Now;
             }  
         }
         public static void StopWorld()

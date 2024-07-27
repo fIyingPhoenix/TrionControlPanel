@@ -49,6 +49,7 @@
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox5 = new PictureBox();
+            LBLReadingFiles = new Label();
             PNLDownloadStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -309,11 +310,23 @@
             pictureBox5.TabIndex = 40;
             pictureBox5.TabStop = false;
             // 
+            // LBLReadingFiles
+            // 
+            LBLReadingFiles.Font = new Font("Segoe UI", 12F);
+            LBLReadingFiles.ForeColor = Color.White;
+            LBLReadingFiles.Location = new Point(19, 297);
+            LBLReadingFiles.Name = "LBLReadingFiles";
+            LBLReadingFiles.Size = new Size(798, 21);
+            LBLReadingFiles.TabIndex = 40;
+            LBLReadingFiles.Text = "Task:  FileName";
+            LBLReadingFiles.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // DownloadControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
+            Controls.Add(LBLReadingFiles);
             Controls.Add(metroPanel2);
             Controls.Add(metroPanel1);
             Controls.Add(PNLDownloadStatus);
@@ -357,5 +370,6 @@
         private PictureBox pictureBox7;
         private PictureBox pictureBox6;
         private PictureBox pictureBox5;
+        private Label LBLReadingFiles;
     }
 }

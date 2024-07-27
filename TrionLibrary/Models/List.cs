@@ -38,8 +38,8 @@ namespace TrionLibrary.Models
             public string DBServerUser;
             public string DBServerPassword;
             public string DBServerPort;
-            public string DBExecutableName;
-            public string DBExecutablePath;
+            public string DBExeName;
+            public string DBExeleLoc;
             public bool DBInstalled;
             //Custom Cores
             public string CustomWorkingDirectory;
