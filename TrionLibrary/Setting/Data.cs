@@ -29,13 +29,13 @@ namespace TrionLibrary.Setting
                 List.WorldDatabase = "acore_world";
                 List.AuthDatabase = "acore_auth";
                 List.CharactersDatabase = "acore_characters";
-                List.DBExeLoca = "N/A";
+                List.DBExeLoc = "N/A";
                 List.DBLocation = "N/A";
                 List.DBServerHost = "localhost";
                 List.DBServerUser = "acore";
                 List.DBServerPassword = "acore";
                 List.DBServerPort = "3306";
-                List.DBExeleLoc = "mysqld";
+                List.DBExeName = "mysqld";
                 List.CustomWorkingDirectory = "N/A";
                 List.CustomWorldExeLoc = "N/A";
                 List.CustomLogonExeLoc = "N/A";
@@ -121,7 +121,6 @@ namespace TrionLibrary.Setting
         {
             string ConfigFile = $@"{Location}\my.ini";
             string DirectoryMYSQL = List.DBLocation.Replace(@"\", "/");
-
             if (!File.Exists(ConfigFile))
             {
                 var createFile = File.Create(ConfigFile);
@@ -136,7 +135,7 @@ namespace TrionLibrary.Setting
                 lines.Add("");
                 lines.Add("# Set the base directory and data directory");
                 lines.Add($"basedir={DirectoryMYSQL}");
-                lines.Add($"datadir={DirectoryMYSQL}data");
+                lines.Add($"datadir={DirectoryMYSQL}/data");
                 lines.Add("");
                 lines.Add("# Network settings");
                 lines.Add("port=3306");
@@ -146,25 +145,23 @@ namespace TrionLibrary.Setting
                 lines.Add("max_connections=10000");
                 lines.Add("table_open_cache=20000");
                 lines.Add("innodb_buffer_pool_size=2G");
-                lines.Add("innodb_log_file_size=512M");
+                lines.Add("innodb_redo_log_capacity=512M");
                 lines.Add("max_allowed_packet=1G");
                 lines.Add("");
                 lines.Add("# General settings");
-                lines.Add("sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES");
                 lines.Add("default-storage-engine=INNODB");
                 lines.Add("character-set-server=utf8mb4");
                 lines.Add("collation-server=utf8mb4_unicode_ci");
                 lines.Add("");
                 lines.Add("# Log settings");
-                lines.Add($"basedir={DirectoryMYSQL}mysql_error.log");
+                lines.Add($@"log_error={DirectoryMYSQL}/logs/mysql_error.log");
                 lines.Add("slow_query_log=1");
-                lines.Add($"basedir={DirectoryMYSQL}mysql_slow.log");
+                lines.Add($@"slow_query_log_file={DirectoryMYSQL}/logs/mysql_slow.log");
                 lines.Add("long_query_time=2");
                 lines.Add("");
                 lines.Add("# Console output");
-                lines.Add("log_output=FILE");
                 lines.Add("general_log=1");
-                lines.Add($"$basedir={DirectoryMYSQL}mysql_slow.log");
+                lines.Add($@"general_log_file={DirectoryMYSQL}/logs/mysql_general.log");
                 lines.Add("");
                 lines.Add("[mysqld_safe]");
                 lines.Add("# Increase open files limit");

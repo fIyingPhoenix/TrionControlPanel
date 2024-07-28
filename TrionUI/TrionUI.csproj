@@ -44,9 +44,7 @@
     <Compile Update="Controls\MetroTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controls\MetroTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controls\MetroTextBox.cs" />
     <Compile Update="Controls\MetroTile.cs" />
     <Compile Update="Controls\MetroToggle.cs" />
     <Compile Update="Controls\MetroTrackBar.cs">

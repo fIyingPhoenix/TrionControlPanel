@@ -135,8 +135,9 @@ namespace TrionControlPanelDesktop
         }
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
+            User.System.DatabaseStartTime = DateTime.Now;
             Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-            string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}my.ini --console";
+            string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
             Main.StartDatabase(arg);
         }
         private void BTNStartLogin_Click(object sender, EventArgs e)

@@ -21,7 +21,6 @@ namespace TrionControlPanelDesktop.Controls
 
         private int TotalDownloads = 0;
         private int CurrentDownload = 0;
-        private bool InstallDatabase = false;
         //
         public static List<Lists.File> DownlaodList = [];
         public DownloadControl()
@@ -93,11 +92,6 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-            if (InstallDatabase == true)
-            {
-                InstallDatabase = false;
-                DownloadMysql(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}");
-            }
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {
@@ -107,7 +101,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             return input.Replace(WordlToReplace, WordlToReplaceWith);
         }
-        public static async Task CompareAndExportChangesOnline(string folderPath, string previousXmlUrl, IProgress<string> progress)
+        public static async Task CompareAndExportChangesOnline(string folderPath, string previousXmlUrl, IProgress<string> progress, bool startDownload)
         {
             string LogString;
             var previousFileInfos = new List<Lists.File>();
@@ -172,12 +166,12 @@ namespace TrionControlPanelDesktop.Controls
                   }
                   );         
             }
-            LogString = $"Finish! Added files {missingFiles.Count()}. Starting Download!";
+            LogString = $"Finish! Added files {DownlaodList.Count()}. Starting Download!";
             progress.Report(LogString);
             previousFileInfos.Clear();
             currentFileInfos.Clear();
             missingFiles = null;
-            StartDownload = true;
+            StartDownload = startDownload;
         }
         private async Task DownloadAsync(List<Lists.File> DownloadList)
         {
@@ -249,35 +243,12 @@ namespace TrionControlPanelDesktop.Controls
             } 
             DownlaodList.Clear();
             InstallFinished();
-            if (Setting.List.DBInstalled != true)
-            {
-                InstallDatabase = true;
-            }
             DownloadData.Infos.Install.Classic = false;
             DownloadData.Infos.Install.TBC = false;
             DownloadData.Infos.Install.WotLK = false;
             DownloadData.Infos.Install.Cata = false;
             DownloadData.Infos.Install.Mop = false;
             DownloadData.Infos.Install.Database = false;
-        }
-        private async void DownloadMysql(string directory, string WebLink)
-        {
-            if (!Directory.Exists(directory)) { Directory.CreateDirectory(directory);}
-                if (MessageBox.Show("It seems you need a database server. Would you like to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
-            {
-                Title = "Install Database";
-                DownloadData.Infos.Install.Database = true;
-                await StartInstallDatabase(directory, WebLink);
-            }
-            else
-            {
-                if (MessageBox.Show("The emulators require a database server. Are you sure you don't want to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.No)
-                {
-                    Title = "Install Database";
-                    DownloadData.Infos.Install.Database = true;
-                    await StartInstallDatabase(directory, WebLink);
-                }
-            } 
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
@@ -341,21 +312,18 @@ namespace TrionControlPanelDesktop.Controls
             }
             if (DownloadData.Infos.Install.Database == true)
             {
+                Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 string Database = Links.Install.Database.Replace("/", @"\");
                 Setting.List.DBInstalled = true;
-                Setting.List.DBLocation = Database;
-                Setting.List.DBExeleLoc = Infos.GetExecutableLocation(Database, "mysqld");
+                Setting.List.DBLocation = $@"{Database}";
+                Setting.List.DBWorkingDir = $@"{Database}\bin";
+                Setting.List.DBExeLoc = Infos.GetExecutableLocation(Database, "mysqld");
                 Setting.List.DBExeName = "mysqld";
-                string SQLLocation = $@"{Database}\database\extra\initDatabase.sql";
-               _ = Watcher.ApplicationStart(Setting.List.DBExeleLoc, Setting.List.DBLocation, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                string SQLLocation = $@"{Database}\extra\initDatabase.sql";
+               _ = Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
             }
             Setting.Save();
             SettingsControl.RefreshData = true; 
-        }
-        private async Task StartInstallDatabase(string Directory, string WebLink)
-        {
-            var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
-            await Task.Run(async () => await CompareAndExportChangesOnline(Directory, WebLink, progress));
         }
     }
 }

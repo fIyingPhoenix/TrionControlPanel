@@ -32,14 +32,14 @@ namespace TrionLibrary.Models
             public string CharactersDatabase;
             public string HotfixDatabase;
             //Dataabase Settings
-            public string DBExeLoca;
+            public string DBExeLoc;
+            public string DBWorkingDir;
             public string DBLocation;
             public string DBServerHost;
             public string DBServerUser;
             public string DBServerPassword;
             public string DBServerPort;
             public string DBExeName;
-            public string DBExeleLoc;
             public bool DBInstalled;
             //Custom Cores
             public string CustomWorkingDirectory;

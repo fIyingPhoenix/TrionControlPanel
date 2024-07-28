@@ -91,8 +91,8 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (User.UI.Resource.CurrentWorldID > 0)
                     {
-                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(17880);
-                        User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(17880);
+                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(User.UI.Resource.CurrentWorldID);
+                        User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);
                     }
                     if (User.UI.Resource.CurrentAuthID > 0)
                     {
@@ -195,7 +195,7 @@ namespace TrionControlPanelDesktop.Controls
                 TimeSpan elapsedTime = DateTime.Now - User.System.WorldStartTime;
                 LBLUpTimeWorld.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
             }
-            if (User.UI.Form.DBRunning == true && User.System.DatabaseProcessID.Count > 0)
+            if (User.UI.Form.DBStarted == true && User.System.DatabaseProcessID.Count > 0)
             {
                 TimeSpan elapsedTime = DateTime.Now - User.System.DatabaseStartTime;
                 LBLUpTimeDatabase.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";

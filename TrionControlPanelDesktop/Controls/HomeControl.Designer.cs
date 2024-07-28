@@ -452,7 +452,7 @@ namespace TrionControlPanelDesktop.Controls
             BTNWorldFW.FlatStyle = FlatStyle.Flat;
             BTNWorldFW.ForeColor = Color.White;
             BTNWorldFW.Image = (Image)resources.GetObject("BTNWorldFW.Image");
-            BTNWorldFW.Location = new Point(385, 0);
+            BTNWorldFW.Location = new Point(384, 0);
             BTNWorldFW.Name = "BTNWorldFW";
             BTNWorldFW.NotificationCount = 0;
             BTNWorldFW.RightToLeft = RightToLeft.No;
@@ -475,7 +475,7 @@ namespace TrionControlPanelDesktop.Controls
             BTNWorldBC.FlatStyle = FlatStyle.Flat;
             BTNWorldBC.ForeColor = Color.White;
             BTNWorldBC.Image = (Image)resources.GetObject("BTNWorldBC.Image");
-            BTNWorldBC.Location = new Point(322, 0);
+            BTNWorldBC.Location = new Point(321, 0);
             BTNWorldBC.Name = "BTNWorldBC";
             BTNWorldBC.NotificationCount = 0;
             BTNWorldBC.RightToLeft = RightToLeft.No;

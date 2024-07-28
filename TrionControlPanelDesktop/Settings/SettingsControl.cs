@@ -8,6 +8,7 @@ using TrionLibrary.Sys;
 using TrionLibrary.Database;
 using TrionLibrary.Network;
 using TrionControlPanelDesktop.Settings;
+using System.IO;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -149,7 +150,7 @@ namespace TrionControlPanelDesktop.Controls
             EnableCustomNames();
             //Version Load
             User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoca);
+            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoc);
             User.UI.Version.OFF.Classic = Infos.Version.Local(Setting.List.ClassicWorldExeLoc);
             User.UI.Version.OFF.TBC = Infos.Version.Local(Setting.List.TBCDBExeLoca);
             User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKDBExeLoca);
@@ -308,10 +309,11 @@ namespace TrionControlPanelDesktop.Controls
             {
                 if (Folder != string.Empty)
                 {
-                    if (Infos.GetExecutableLocation(Folder, Setting.List.DBExeleLoc) != string.Empty)
+                    if (Infos.GetExecutableLocation(Folder, Setting.List.DBExeLoc) != string.Empty)
                     {
-                        Setting.List.DBExeLoca = Infos.GetExecutableLocation(Folder, Setting.List.DBExeleLoc);
-                        Setting.List.DBLocation = Path.GetFullPath(Path.Combine(Setting.List.DBExeLoca, @"..\"));
+                        Setting.List.DBExeLoc = Infos.GetExecutableLocation(Folder, Setting.List.DBExeLoc);
+                        Setting.List.DBWorkingDir = Infos.GetExecutableLocation(Folder, Setting.List.DBExeLoc);
+                        Setting.List.DBLocation = Path.GetFullPath(Path.Combine(Setting.List.DBExeLoc, @"..\"));
                         await Setting.Save();
                         Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                         await Setting.Save();
@@ -380,7 +382,7 @@ namespace TrionControlPanelDesktop.Controls
         private void SaveDataTextbox(object state)
         {
             // Seve data
-            Setting.List.DBExeleLoc = TXTBoxMySQLExecName.Text;
+            Setting.List.DBExeName = TXTBoxMySQLExecName.Text;
             Setting.List.CustomWorldExeName = TXTBoxWorldExecName.Text;
             Setting.List.CustomLogonExeName = TXTBoxLoginExecName.Text;
             Setting.List.DBServerHost = TXTMysqlHost.Text;
@@ -584,34 +586,62 @@ namespace TrionControlPanelDesktop.Controls
                 case SPP.Classic:
                     DownloadControl.Title = "Install World of Warcraft - Classic";
                     DownloadData.Infos.Install.Classic = true;
-                    await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}");
+                    await DownlaodDatabase(false);
+                    await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true);
                     break;
                 case SPP.TheBurningCrusade:
                     DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
                     DownloadData.Infos.Install.TBC = true;
-                    await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}");
+                    await DownlaodDatabase(false);
+                    await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true);
                     break;
                 case SPP.WrathOfTheLichKing:
                     DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
                     DownloadData.Infos.Install.WotLK = true;
-                    await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}");
+                    await DownlaodDatabase(false);
+                    await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true);
                     break;
                 case SPP.Cataclysm:
                     DownloadControl.Title = "Install World of Warcraft - Cataclysm";
                     DownloadData.Infos.Install.Cata = true;
-                    await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}");
+                    await DownlaodDatabase(false);
+                    await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true);
                     break;
                 case SPP.MistOfPandaria:
                     DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
                     DownloadData.Infos.Install.Mop = true;
-                    await StartInstall(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}");
+                    await DownlaodDatabase(false);
+                    await StartInstall(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}", true);
                     break;
             }
         }
-        private async Task StartInstall(string Directory, string WebLink)
+        private async Task DownlaodDatabase(bool startDownload)
+        {
+            if (!Setting.List.DBInstalled)
+            {
+                if (!Directory.Exists(Links.Install.Database)) { Directory.CreateDirectory(Links.Install.Database); }
+                if (MessageBox.Show("It seems you need a database server. Would you like to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
+                {
+                  
+                    DownloadControl.Title = "Install Database";
+                    DownloadData.Infos.Install.Database = true;
+                    await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", startDownload);
+                }
+                else
+                {
+                    if (MessageBox.Show("The emulators require a database server. Are you sure you don't want to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.No)
+                    {
+                        DownloadControl.Title = "Install Database";
+                        DownloadData.Infos.Install.Database = true;
+                        await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", startDownload);
+                    }
+                }
+            }
+        }
+        private async Task StartInstall(string Directory, string WebLink, bool startDownload)
         {
             var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
-            await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress));
+            await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress, startDownload));
         }
 
         private void BTNRepairSPP_Click(object sender, EventArgs e)
@@ -636,9 +666,11 @@ namespace TrionControlPanelDesktop.Controls
             }
         }
 
-        private void BTNDownlaodMySQL_Click(object sender, EventArgs e)
+        private async void BTNDownlaodMySQL_Click(object sender, EventArgs e)
         {
-
+            DownloadControl.Title = "Install Database";
+            DownloadData.Infos.Install.Database = true;
+            await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", true);
         }
     }
 }

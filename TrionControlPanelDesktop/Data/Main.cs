@@ -7,14 +7,15 @@ using TrionLibrary.Sys;
 namespace TrionControlPanelDesktop.Data
 {
     public class Main
-    {
+    { 
         public static async void StartDatabase(string argu)
         {
-            if (Setting.List.DBExeleLoc != string.Empty)
+            User.System.DatabaseProcessID.Clear();
+            if (Setting.List.DBExeLoc != string.Empty)
             {
                 int ID = await Watcher.ApplicationStart(
-                    Setting.List.DBExeleLoc,
-                    Setting.List.DBLocation,
+                    Setting.List.DBExeLoc,
+                    Setting.List.DBWorkingDir,
                     Setting.List.DBExeName,
                     Setting.List.ConsolHide,
                     argu);
