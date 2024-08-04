@@ -9,11 +9,149 @@ using System.Threading;
 using System;
 using System.IO;
 using TrionLibrary.Sys;
+using System.Diagnostics;
 
 namespace TrionLibrary.Database
 {
     public class Access
     {
+        static void RestoreDatabase(string connectionString, string backupFile)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var reader = new StreamReader(backupFile))
+                        {
+                            string sql = reader.ReadToEnd();
+                            ExecuteSqlCommands(connection, transaction, sql);
+                        }
+
+                        transaction.Commit();
+                        Infos.Message = "Restore completed successfully.";
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Infos.Message = $"Error: {ex.Message}";
+                    }
+                }
+            }
+        }
+
+        static void ExecuteSqlCommands(MySqlConnection connection, MySqlTransaction transaction, string sql)
+        {
+            string[] sqlCommands = sql.Split(new string[] { ";\n", ";\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            using (var command = connection.CreateCommand())
+            {
+                command.Transaction = transaction;
+                foreach (string cmd in sqlCommands)
+                {
+                    if (!string.IsNullOrWhiteSpace(cmd.Trim()))
+                    {
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+        public static void BackupDatabase(string connectionString, string backupFile)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var writer = new StreamWriter(backupFile))
+                {
+                    // Export database schema
+                    ExportSchema(connection, writer);
+
+                    // Export database data
+                    ExportData(connection, writer);
+                }
+            }
+
+            Infos.Message = "Backup completed successfully.";
+        }
+        static void ExportSchema(MySqlConnection connection, StreamWriter writer)
+        {
+            var tables = new DataTable();
+            using (var command = new MySqlCommand("SHOW TABLES;", connection))
+            using (var adapter = new MySqlDataAdapter(command))
+            {
+                adapter.Fill(tables);
+            }
+
+            foreach (DataRow row in tables.Rows)
+            {
+                string tableName = row[0].ToString();
+                string createTableSql = "";
+
+                using (var command = new MySqlCommand($"SHOW CREATE TABLE `{tableName}`;", connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        createTableSql = reader.GetString(1);
+                    }
+                }
+
+                writer.WriteLine($"-- Table structure for table `{tableName}`");
+                writer.WriteLine($"DROP TABLE IF EXISTS `{tableName}`;");
+                writer.WriteLine($"{createTableSql};");
+                writer.WriteLine();
+            }
+        }
+        static void ExportData(MySqlConnection connection, StreamWriter writer)
+        {
+            var tables = new DataTable();
+            using (var command = new MySqlCommand("SHOW TABLES;", connection))
+            using (var adapter = new MySqlDataAdapter(command))
+            {
+                adapter.Fill(tables);
+            }
+
+            foreach (DataRow row in tables.Rows)
+            {
+                string tableName = row[0].ToString();
+                writer.WriteLine($"-- Dumping data for table `{tableName}`");
+
+                using (var command = new MySqlCommand($"SELECT * FROM `{tableName}`;", connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var values = new string[reader.FieldCount];
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            var value = reader.GetValue(i);
+                            if (value is DBNull)
+                            {
+                                values[i] = "NULL";
+                            }
+                            else if (value is string || value is DateTime)
+                            {
+                                values[i] = $"'{MySqlHelper.EscapeString(value.ToString())}'";
+                            }
+                            else
+                            {
+                                values[i] = value.ToString();
+                            }
+                        }
+
+                        string insertStatement = $"INSERT INTO `{tableName}` VALUES ({string.Join(", ", values)});";
+                        writer.WriteLine(insertStatement);
+                    }
+                }
+
+                writer.WriteLine();
+            }
+        }
         public static async Task<List<string>> GetTables(string connectionString)
         {
             List<string> tables = [];

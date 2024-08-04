@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Net;
-using TrionControlPanelDesktop.Data;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
 
@@ -8,87 +7,6 @@ namespace TrionControlPanelDesktop.Settings
 {
     public class SettingsData
     {
-        public static bool AddToListDone { get; set; }
-        private async void CheckForUpdate()
-        {
-            // Single Player Project Update
-            if (DateTime.TryParse(User.UI.Version.OFF.WotLK, out DateTime SPPLocal) && DateTime.TryParse(User.UI.Version.ON.WotLK, out DateTime SPPOnline))
-            {
-                if (SPPLocal < SPPOnline && SPPOnline != DateTime.MinValue)
-                {
-                    if (Setting.List.AutoUpdateCore)
-                    {
-                        //do auto update
-                    }
-                    else
-                    {
-
-                    }
-                    User.UI.Version.Update.WotLK = true;
-                }
-                else
-                {
-
-                    User.UI.Version.Update.WotLK = false;
-                }
-
-            }
-            Thread.Sleep(100);
-            // MySQL Update
-            if (!string.IsNullOrEmpty(User.UI.Version.OFF.Database) && !string.IsNullOrEmpty(User.UI.Version.ON.Database))
-            {
-                if (VersionCompare(User.UI.Version.OFF.Database, User.UI.Version.ON.Database) < 0)
-                {
-                    if (Setting.List.AutoUpdateMySQL)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
-                    User.UI.Version.Update.Database = true;
-                }
-            }
-            Thread.Sleep(100);
-            // Trion Update
-            if (!string.IsNullOrEmpty(User.UI.Version.OFF.Trion) && !string.IsNullOrEmpty(User.UI.Version.ON.Trion))
-            {
-                if (VersionCompare(User.UI.Version.OFF.Trion, User.UI.Version.ON.Trion) < 0)
-                {
-                    if (Setting.List.AutoUpdateTrion)
-                    {
-
-                    }
-                    else
-                    {
-
-
-                    }
-                }
-                User.UI.Version.Update.Trion = true;
-            }
-        }
-        private static int VersionCompare(string ver1, string ver2)
-        {
-            if (ver1 != "N/A" && ver2 != "N/A")
-            {
-                string[] vComps1 = ver1.Split('.');
-                string[] vComps2 = ver2.Split('.');
-                int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
-                int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
-
-                for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
-                {
-                    if (vNumb1[i] != vNumb2[i])
-                    {
-                        return vNumb1[i].CompareTo(vNumb2[i]);
-                    }
-                }
-                return vNumb1.Length.CompareTo(vNumb2.Length);
-            }
-            return 0;
-        }
         public static string GetWorkingDirectory()
         {
             using FolderBrowserDialog FolderDialog = new();
@@ -189,7 +107,6 @@ namespace TrionControlPanelDesktop.Settings
             {
                 Infos.Message = "Error adding Trion Control Panel to Windows startup: " + ex.Message;
             }
-        }
-
+        } 
     }
 }

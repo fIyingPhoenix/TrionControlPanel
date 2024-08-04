@@ -18,7 +18,7 @@ namespace TrionControlPanelDesktop.Data
         }
         public class Hashe
         {
-            public static string Trion { get => ""; }
+            public static string Trion { get => "data/trionHashes.xml"; }
             public static string Database { get => "data/databaseHashes.xml"; }
             public static string Classic { get => "data/classicHashes.xml"; }
             public static string TBC { get => "data/tbcHashes.xml"; }

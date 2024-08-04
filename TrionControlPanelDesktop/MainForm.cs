@@ -51,6 +51,7 @@ namespace TrionControlPanelDesktop
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
             await Setting.Load();
+            await Main.CheckForUpdate();
             LoadData();
         }
         private void SettingsBTN_Click(object sender, EventArgs e)

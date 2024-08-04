@@ -54,6 +54,8 @@ namespace TrionLibrary.Models
             public string ClassicLogonExeLoc;
             public string ClassicLogonExeName;
             public string ClassicWorldExeName;
+            public string ClassicWorldName;
+            public string ClassicLogonName;
             public bool ClassicInstalled;
             //TBC Core
             public string TBCWorkingDirectory;
@@ -62,14 +64,17 @@ namespace TrionLibrary.Models
             public string TBCLogonExeLoc;
             public string TBCLogonExeName;
             public string TBCWorldExeName;
+            public string TBCWorldName;
+            public string TBCLogonName;
             public bool TBCInstalled;
             //WotLK Core
             public string WotLKWorkingDirectory;
-            public string WotLKDBExeLoca;
             public string WotLKWorldExeLoc;
             public string WotLKLogonExeLoc;
             public string WotLKLogonExeName;
             public string WotLKWorldExeName;
+            public string WotLKWorldName;
+            public string WotLKLogonName;
             public bool WotLKInstalled;
             //Cata Core
             public string CataWorkingDirectory;
@@ -78,6 +83,8 @@ namespace TrionLibrary.Models
             public string CataLogonExeLoc;
             public string CataLogonExeName;
             public string CataWorldExeName;
+            public string CataWorldName;
+            public string CataLogonName;
             public bool CataInstalled;
             //Mop Core
             public string MopWorkingDirectory;
@@ -86,6 +93,8 @@ namespace TrionLibrary.Models
             public string MopLogonExeLoc;
             public string MopLogonExeName;
             public string MopWorldExeName;
+            public string MoPWorldName;
+            public string MoPLogonName;
             public bool MOPInstalled;
             //DDNS Settings
             public string DDNSDomain;

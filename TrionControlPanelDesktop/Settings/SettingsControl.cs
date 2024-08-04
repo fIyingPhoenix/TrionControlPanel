@@ -8,13 +8,11 @@ using TrionLibrary.Sys;
 using TrionLibrary.Database;
 using TrionLibrary.Network;
 using TrionControlPanelDesktop.Settings;
-using System.IO;
 
 namespace TrionControlPanelDesktop.Controls
 {
     public partial class SettingsControl : UserControl
     {
-        bool readFiles = false;
         public static bool RefreshData = false;
         static System.Threading.Timer TextTimer;
         private SynchronizationContext _syncContext;
@@ -153,7 +151,7 @@ namespace TrionControlPanelDesktop.Controls
             User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoc);
             User.UI.Version.OFF.Classic = Infos.Version.Local(Setting.List.ClassicWorldExeLoc);
             User.UI.Version.OFF.TBC = Infos.Version.Local(Setting.List.TBCDBExeLoca);
-            User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKDBExeLoca);
+            User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKWorldExeLoc);
             User.UI.Version.OFF.Cata = Infos.Version.Local(Setting.List.CataDBExeLoca);
             User.UI.Version.OFF.Mop = Infos.Version.Local(Setting.List.MopDBExeLoca);
             User.UI.Version.ON.Trion = await Infos.Version.Online(Links.Version.Trion);
@@ -166,11 +164,11 @@ namespace TrionControlPanelDesktop.Controls
             //Update Labels
             LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Version.OFF.Trion} / Online: {User.UI.Version.ON.Trion}";
             LBLDBVersion.Text = $"Database Version: \n •Local: {User.UI.Version.OFF.Database} \n •Online: {User.UI.Version.ON.Database} ";
-            LBLClassicVersion.Text = $"Classic Version: \n •Local: {User.UI.Version.OFF.Classic} \n •Online: {User.UI.Version.OFF.Classic} ";
-            LBLTBCVersion.Text = $"TBC Version: \n •Local: {User.UI.Version.OFF.TBC} \n •Online: {User.UI.Version.OFF.TBC} ";
-            LBLWotLKVersion.Text = $"WotLK Version: \n •Local: {User.UI.Version.OFF.WotLK} \n •Online: {User.UI.Version.OFF.WotLK} ";
-            LBLCataVersion.Text = $"Cata Version: \n •Local: {User.UI.Version.OFF.Cata} \n •Online: {User.UI.Version.OFF.Cata} ";
-            LBLMoPVersion.Text = $"MoP Version: \n •Local: {User.UI.Version.OFF.Mop} \n •Online: {User.UI.Version.OFF.Mop} ";
+            LBLClassicVersion.Text = $"Classic Version: \n •Local: {User.UI.Version.OFF.Classic} \n •Online: {User.UI.Version.ON.Classic} ";
+            LBLTBCVersion.Text = $"TBC Version: \n •Local: {User.UI.Version.OFF.TBC} \n •Online: {User.UI.Version.ON.TBC} ";
+            LBLWotLKVersion.Text = $"WotLK Version: \n •Local: {User.UI.Version.OFF.WotLK} \n •Online: {User.UI.Version.ON.WotLK} ";
+            LBLCataVersion.Text = $"Cata Version: \n •Local: {User.UI.Version.OFF.Cata} \n •Online: {User.UI.Version.ON.Cata} ";
+            LBLMoPVersion.Text = $"MoP Version: \n •Local: {User.UI.Version.OFF.Mop} \n •Online: {User.UI.Version.ON.Mop} ";
             //DDNS
             TXTDDNSDomain.Text = Setting.List.DDNSDomain;
             TXTDDNSUsername.Text = Setting.List.DDNSUsername;
@@ -404,8 +402,15 @@ namespace TrionControlPanelDesktop.Controls
             // Start a new timer
             TextTimer = new(SaveDataTextbox, null, 1000, Timeout.Infinite);
         }
-        private void BTNTrionUpdate_Click(object sender, EventArgs e)
+        private async void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
+            if (User.UI.Version.Update.Trion) { await Main.StartUpdate(Links.Install.Trion, $"{Links.MainHost}{Links.Hashe.Trion}", true); }
+            if (User.UI.Version.Update.Database) { await Main.StartUpdate(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", true); }
+            if (User.UI.Version.Update.Classic) { await Main.StartUpdate(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true); }
+            if (User.UI.Version.Update.TBC) { await Main.StartUpdate(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true); }
+            if (User.UI.Version.Update.WotLK) { await Main.StartUpdate(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true); }
+            if (User.UI.Version.Update.Cata) { await Main.StartUpdate(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true); }
+            if (User.UI.Version.Update.Mop) { await Main.StartUpdate(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}", true); }
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
@@ -584,28 +589,57 @@ namespace TrionControlPanelDesktop.Controls
             switch (Setting.List.SelectedSPP)
             {
                 case SPP.Classic:
-                    DownloadControl.Title = "Install World of Warcraft - Classic";
-                    DownloadData.Infos.Install.Classic = true;
-                    await DownlaodDatabase(false);
-                    await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true);
+                    if (!Setting.List.ClassicInstalled)
+                    {
+                        DownloadControl.Title = "Install World of Warcraft - Classic";
+                        DownloadData.Infos.Install.Classic = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true);
+                    }
+                    else
+                    {
+                        Infos.Message = "World of Warcraft - Classic already installed! To fix problems with the emulator, try the Repair button!";
+                    }
                     break;
                 case SPP.TheBurningCrusade:
-                    DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
-                    DownloadData.Infos.Install.TBC = true;
-                    await DownlaodDatabase(false);
-                    await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true);
+                    if (!Setting.List.TBCInstalled)
+                    {
+                        DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
+                        DownloadData.Infos.Install.TBC = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true);
+                    }
+                    else
+                    {
+                        Infos.Message = "World of Warcraft - The Burning Crusade already installed! To fix problems with the emulator, try the Repair button!";
+                    }
                     break;
                 case SPP.WrathOfTheLichKing:
-                    DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
-                    DownloadData.Infos.Install.WotLK = true;
-                    await DownlaodDatabase(false);
-                    await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true);
+                    if (!Setting.List.WotLKInstalled)
+                    {
+                        DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
+                        DownloadData.Infos.Install.WotLK = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true);
+                    }
+                    else
+                    {
+                        Infos.Message = "World of Warcraft - Wrath of the Lich King already installed! To fix problems with the emulator, try the Repair button!";
+                    }
                     break;
                 case SPP.Cataclysm:
-                    DownloadControl.Title = "Install World of Warcraft - Cataclysm";
-                    DownloadData.Infos.Install.Cata = true;
-                    await DownlaodDatabase(false);
-                    await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true);
+                    if (!Setting.List.CataInstalled)
+                    {
+                        DownloadControl.Title = "Install World of Warcraft - Cataclysm";
+                        DownloadData.Infos.Install.Cata = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true);
+                    }
+                    else
+                    {
+
+                    }
+
                     break;
                 case SPP.MistOfPandaria:
                     DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
@@ -622,7 +656,7 @@ namespace TrionControlPanelDesktop.Controls
                 if (!Directory.Exists(Links.Install.Database)) { Directory.CreateDirectory(Links.Install.Database); }
                 if (MessageBox.Show("It seems you need a database server. Would you like to download it?", "Question.", MessageBoxButtons.YesNo, MessageBoxIcon.None) == DialogResult.Yes)
                 {
-                  
+
                     DownloadControl.Title = "Install Database";
                     DownloadData.Infos.Install.Database = true;
                     await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", startDownload);
@@ -671,6 +705,29 @@ namespace TrionControlPanelDesktop.Controls
             DownloadControl.Title = "Install Database";
             DownloadData.Infos.Install.Database = true;
             await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", true);
+        }
+
+        private void BTNDatabaseBackup_Click(object sender, EventArgs e)
+        {
+            string BackupDirectory = $"{Directory.GetCurrentDirectory()}/backup";
+            if (!Directory.Exists(BackupDirectory)) { Directory.CreateDirectory(BackupDirectory); }
+            if (CBAuthBackup.Checked == true)
+            {
+                Access.BackupDatabase(Connect.String(Setting.List.AuthDatabase), $"{BackupDirectory}/authBackup.sql");
+            }
+            if (CBWorldBackup.Checked == true)
+            {
+                Access.BackupDatabase(Connect.String(Setting.List.WorldDatabase), $"{BackupDirectory}/WorldBackup.sql");
+            }
+        }
+
+        private async void BTNFixMysql_Click(object sender, EventArgs e)
+        {
+            
+            string Database = Links.Install.Database.Replace("/", @"\");
+            Directory.Delete(@$"{Database}\data", true);
+            string SQLLocation = $@"{Database}\extra\initDatabase.sql";
+            await Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
         }
     }
 }

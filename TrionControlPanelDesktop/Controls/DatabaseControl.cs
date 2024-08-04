@@ -1,9 +1,9 @@
-﻿using TrionLibrary;
-using TrionLibrary.Models;
+﻿using TrionLibrary.Models;
 using TrionLibrary.Network;
 using TrionLibrary.Setting;
 using TrionLibrary.Database;
 using TrionLibrary.Sys;
+using TrionControlPanelDesktop.Data;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -12,15 +12,20 @@ namespace TrionControlPanelDesktop.Controls
         List<Realmlist.Trinity> RealmlistTrinity;
         List<Realmlist.Ascemu> RealmlistAscemu;
         List<Realmlist.Mangos> RealmlistMangos;
+        
         public DatabaseControl()
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
+            TabControl1.TabPages.Remove(tPageAccount);
             _ = LoadData();
         }
         private async Task LoadData()
         {
-            await LoadRealmList();
+            if (User.UI.Form.DBRunning)
+            {
+                await LoadRealmList();
+            }
             TXTInternIP.Text = Helper.GetInternalIpAddress();
             TXTPublicIP.Text = await Helper.GetExternalIpAddress();
         }
@@ -68,14 +73,14 @@ namespace TrionControlPanelDesktop.Controls
             }
             catch (Exception ex)
             {
-               Infos.Message = "Error loding data: " + ex.Message;
+                Infos.Message = "Error loding data: " + ex.Message;
             }
 
         }
         private async Task SaveRealmList()
         {
-            //try
-            //{
+            try
+            {
                 if (Setting.List.SelectedCore == Enums.Cores.AzerothCore ||
                     Setting.List.SelectedCore == Enums.Cores.CypherCore ||
                     Setting.List.SelectedCore == Enums.Cores.TrinityCore ||
@@ -101,7 +106,7 @@ namespace TrionControlPanelDesktop.Controls
                 if (Setting.List.SelectedCore == Enums.Cores.CMaNGOS ||
                     Setting.List.SelectedCore == Enums.Cores.VMaNGOS)
                 {
-                RealmlistMangos?.Clear();
+                    RealmlistMangos?.Clear();
                     Access.SaveData(SQLQuery.SaveRealm(), new
                     {
                         Name = TXTRealmName.Text,
@@ -117,7 +122,7 @@ namespace TrionControlPanelDesktop.Controls
                 }
                 if (Setting.List.SelectedCore == Enums.Cores.AscEmu)
                 {
-                       RealmlistAscemu?.Clear();
+                    RealmlistAscemu?.Clear();
                     Access.SaveData(SQLQuery.SaveRealm(), new
                     {
                         Password = TXTRealmName.Text,
@@ -126,11 +131,11 @@ namespace TrionControlPanelDesktop.Controls
                     }, Connect.String(Setting.List.AuthDatabase));
                     await LoadRealmList();
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Data.Message = "Error saving data: " + ex.Message;
-            //}
+            }
+            catch (Exception ex)
+            {
+                Infos.Message = "Error saving data: " + ex.Message;
+            }
         }
         private void CBOXReamList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -169,6 +174,10 @@ namespace TrionControlPanelDesktop.Controls
         private async void BTNSaveData_ClickAsync(object sender, EventArgs e)
         {
             await SaveRealmList();
+        }
+        private void TimerWacher_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 

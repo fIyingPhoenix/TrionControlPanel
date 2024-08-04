@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseControl));
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
             tPageAccount = new TabPage();
@@ -99,6 +100,7 @@
             LBLRealmIcon = new Label();
             TXTRealmSubnetMask = new MetroFramework.Controls.MetroTextBox();
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
+            TimerWacher = new System.Windows.Forms.Timer(components);
             TabControl1.SuspendLayout();
             tPageAccount.SuspendLayout();
             metroPanel8.SuspendLayout();
@@ -1391,6 +1393,12 @@
             TXTRealmPort.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTRealmPort.UseStyleColors = true;
             // 
+            // TimerWacher
+            // 
+            TimerWacher.Enabled = true;
+            TimerWacher.Interval = 1000;
+            TimerWacher.Tick += TimerWacher_Tick;
+            // 
             // DatabaseControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1496,5 +1504,6 @@
         private Label label14;
         private Label label13;
         private UI.Controls.CustomButton customButton4;
+        private System.Windows.Forms.Timer TimerWacher;
     }
 }

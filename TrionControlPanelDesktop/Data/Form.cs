@@ -92,7 +92,7 @@ namespace TrionControlPanelDesktop.Data
                     public static bool Classic { get; set; }
                     public static bool TBC { get; set; }
                     public static bool WotLK { get; set; }
-                    public static bool Caataa { get; set; }
+                    public static bool Cata { get; set; }
                     public static bool Mop { get; set; }
                 }
             }

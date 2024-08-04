@@ -1,4 +1,6 @@
-﻿using TrionControlPanelDesktop.Data;
+﻿using System.Media;
+using TrionControlPanelDesktop.Data;
+using TrionLibrary.Setting;
 using TrionLibrary.Sys;
 
 namespace TrionControlPanelDesktop.Controls.Notification
@@ -28,8 +30,14 @@ namespace TrionControlPanelDesktop.Controls.Notification
         }
         private void TimerNotify_Tick(object sender, EventArgs e)
         {
+            // Create an instance of SoundPlayer
+            SoundPlayer player = new SoundPlayer(Properties.Resources.notySound);
             if (Infos.Message != string.Empty)
             {
+                if (Setting.List.NotificationSound)
+                {
+                    player.PlaySync();
+                }
                 AddItem(Infos.Message, DateTime.Now);
             }
         }

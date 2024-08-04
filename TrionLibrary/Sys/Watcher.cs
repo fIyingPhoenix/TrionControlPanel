@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static TrionLibrary.Models.Lists;
 
 namespace TrionLibrary.Sys
 {
@@ -129,43 +133,21 @@ namespace TrionLibrary.Sys
                 return 0;
             }
         }
-        static float GetCpuUsage(PerformanceCounter cpuCounter)
-        {
-            // Average out multiple samples
-            float total = 0f;
-            int samples = 1;
-            for (int i = 0; i < samples; i++)
-            {
-                total += cpuCounter.NextValue();
-                Thread.Sleep(200); // Adjust sleep time to balance responsiveness and accuracy
-            }
-            return total / samples;
-        }
-        public static int NewCPUUsageTest()
-        {
-            int test = 0;
-            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
-            foreach (ManagementObject obj in searcher.Get())
-            {
-                test = Convert.ToInt32(obj["LoadPercentage"]);
-            }
-            return test;
-        }
-        public static async Task<int> MachineCpuUtilization()
+        public static int MachineCpuUtilization()
         {
             // Initialize PerformanceCounters for each CPU core
-            int coreCount = Environment.ProcessorCount;
-            var cpuCounters = new PerformanceCounter();
-
+            // int coreCount = Environment.ProcessorCount;
             // Create an instance of PerformanceCounter to monitor the total CPU usage
-            cpuCounters = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
+
             // Discard the first value
-            cpuCounters.NextValue();
+            dynamic firstValue = cpuCounters.NextValue();
             // Give some time to initialize
-            await Task.Delay(150);
+            Thread.Sleep(500);
             //report
-            float totalCpuUsage = cpuCounters.NextValue();
-            return (int)totalCpuUsage;
+            dynamic SecValue = cpuCounters.NextValue();
+            if (SecValue > 100) { SecValue = 100; }
+            return (int)SecValue;
         }
         public static int CurentPcRamUsage()
         {
@@ -264,23 +246,23 @@ namespace TrionLibrary.Sys
                 return -1; // Return -1 if an error occurs
             }
         }
-        public static void ApplicationStop(int ApplicationID)
+        public static async Task ApplicationStop(int ApplicationID)
         {
-            Thread ApplicationStopThread = new(() =>
-            {
+            //Thread ApplicationStopThread = new(async () =>
+            //{
                 var process = Process.GetProcessById(ApplicationID);
 
-                SendCtrlC(process);
+                await SendCtrlC(process);
                 if (!process.WaitForExit(15000)) // wait for 15 seconds, save world!
                 {
                     // If the process did not exit, forcefully terminate it
                     Infos.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
                     process.Kill();
                 }
-            });
-            ApplicationStopThread.Start();
+            //});
+            //ApplicationStopThread.Start();
         }
-        private static void SendCtrlC(Process process)
+        private static async Task SendCtrlC(Process process)
         {
             // Attach to the process's console
             if (AttachConsole((uint)process.Id))
@@ -292,7 +274,7 @@ namespace TrionLibrary.Sys
                 GenerateConsoleCtrlEvent(ConsoleCtrlEvent.CTRL_C, 0);
 
                 // Allow some time for the event to be processed
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
 
                 // Detach from the console
                 FreeConsole();
@@ -322,41 +304,46 @@ namespace TrionLibrary.Sys
         {
             try
             {
+                var startTime = DateTime.UtcNow;
+                var startCpuUsage = Process.GetProcessById(ProcessID).TotalProcessorTime;
+                Thread.Sleep(500);
+                var endTime = DateTime.UtcNow;
+                var endCpuUsage = Process.GetProcessById(ProcessID).TotalProcessorTime;
+
+                var cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
+                var totalMsPassed = (endTime - startTime).TotalMilliseconds; var cpuUsageTotal = cpuUsedMs / (Environment.ProcessorCount * totalMsPassed);
+                return (int)cpuUsageTotal * 100;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public static int TestApplicationCPUUsage(int ProcessID)
+        {
+            try
+            {
                 Process process = Process.GetProcessById(ProcessID);
-                // Get the initial CPU time for all cores
-                TimeSpan[] initialCpuTimes = new TimeSpan[Environment.ProcessorCount];
-                for (int i = 0; i < Environment.ProcessorCount; i++)
+                if (process == null)
                 {
-                    initialCpuTimes[i] = process.TotalProcessorTime;
+                    Infos.Message = "Could not find process with PID " + ProcessID;
                 }
-                // Wait for some time
-                Thread.Sleep(3000); // Wait for 3 seconds (adjust as needed)
-                // Refresh the process object
-                process.Refresh();
-                // Get the CPU time after the delay for all cores
-                TimeSpan[] cpuTimesAfterDelay = new TimeSpan[Environment.ProcessorCount];
-                for (int i = 0; i < Environment.ProcessorCount; i++)
-                {
-                    cpuTimesAfterDelay[i] = process.TotalProcessorTime;
-                }
-                // Calculate the CPU usage percentage for all cores
-                double[] cpuUsagePercentages = new double[Environment.ProcessorCount];
-                for (int i = 0; i < Environment.ProcessorCount; i++)
-                {
-                    cpuUsagePercentages[i] = (cpuTimesAfterDelay[i] - initialCpuTimes[i]).TotalMilliseconds /
-                                               (DateTime.Now - process.StartTime).TotalMilliseconds * 100;
-                }
-                // Calculate the average CPU usage across all cores
-                double totalCpuUsagePercentage = 0;
-                foreach (double cpuUsagePercentage in cpuUsagePercentages)
-                {
-                    totalCpuUsagePercentage += cpuUsagePercentage;
-                }
-                double averageCpuUsagePercentage = totalCpuUsagePercentage / Environment.ProcessorCount;
-                // Limit CPU usage to 100%
-                averageCpuUsagePercentage = Math.Min(averageCpuUsagePercentage, 100);
-                // Convert the CPU usage percentage to an integer
-                return (int)Math.Round(averageCpuUsagePercentage);
+
+                TimeSpan startCpuUsage = process.TotalProcessorTime;
+                DateTime startTime = DateTime.UtcNow;
+
+                Thread.Sleep(500); // Wait a second to get a CPU usage sample
+
+                TimeSpan endCpuUsage = process.TotalProcessorTime;
+                DateTime endTime = DateTime.UtcNow;
+
+                double cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
+                double totalMsPassed = (endTime - startTime).TotalMilliseconds;
+
+                double cpuUsageTotal = (cpuUsedMs / totalMsPassed) * 100 / Environment.ProcessorCount;
+
+                if (cpuUsageTotal + 5  > 100) { cpuUsageTotal = 100; }
+                return (int)cpuUsageTotal;
             }
             catch
             {

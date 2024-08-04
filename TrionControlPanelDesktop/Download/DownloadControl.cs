@@ -92,6 +92,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {

@@ -13,7 +13,7 @@ namespace TrionLibrary.Network
             string externalIpAddress = string.Empty;
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new())
                 {
                     HttpResponseMessage response = await client.GetAsync("https://checkip.amazonaws.com/");
                     if (response.IsSuccessStatusCode)

@@ -16,23 +16,23 @@ namespace TrionControlPanelDesktop.Controls
         }
         private static bool ServerStatusWorld()
         {
-            if (User.UI.Form.CustWorldStarted ||
-                User.UI.Form.ClassicWorldStarted ||
-                User.UI.Form.TBCWorldStarted ||
-                User.UI.Form.WotLKWorldStarted ||
-                User.UI.Form.CataWorldStarted ||
-                User.UI.Form.MOPWorldStarted)
+            if (User.UI.Form.CustWorldRunning ||
+                User.UI.Form.ClassicWorldRunning ||
+                User.UI.Form.TBCWorldRunning ||
+                User.UI.Form.WotLKWorldRunning ||
+                User.UI.Form.CataWorldRunning ||
+                User.UI.Form.MOPWorldRunning)
             { return true; }
             else { return false; }
         }
         private static bool ServerStatusLogon()
         {
-            if (User.UI.Form.CustLogonStarted ||
-                User.UI.Form.ClassicLogonStarted ||
-                User.UI.Form.TBCLogonStarted ||
-                User.UI.Form.WotLKLogonStarted ||
-                User.UI.Form.CataLogonStarted ||
-                User.UI.Form.MOPLogonStarted)
+            if (User.UI.Form.CustLogonRunning ||
+                User.UI.Form.ClassicLogonRunning ||
+                User.UI.Form.TBCLogonRunning ||
+                User.UI.Form.WotLKLogonRunning ||
+                User.UI.Form.CataLogonRunning ||
+                User.UI.Form.MOPLogonRunning)
             { return true; }
             else { return false; }
         }
@@ -89,9 +89,9 @@ namespace TrionControlPanelDesktop.Controls
                 //
                 Thread ApplicationResourceUsage = new(() =>
                 {
-                    if (User.UI.Resource.CurrentWorldID > 0)
+                    if (User.UI.Resource.CurrentWorldID == 0)
                     {
-                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(User.UI.Resource.CurrentWorldID);
+                        User.UI.Resource.WorldCPUUsage = Watcher.TestApplicationCPUUsage(User.UI.Resource.CurrentWorldID);//Watcher.ApplicationCpuUsage(4172);
                         User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);
                     }
                     if (User.UI.Resource.CurrentAuthID > 0)
@@ -103,10 +103,17 @@ namespace TrionControlPanelDesktop.Controls
                 ApplicationResourceUsage.Start();
                 Thread MachineCpuUtilizationThread = new(() =>
                 {
-                    User.UI.Resource.MachineCPUUsage = Watcher.NewCPUUsageTest();
+                    User.UI.Resource.MachineCPUUsage =  Watcher.MachineCpuUtilization();
                 });
                 MachineCpuUtilizationThread.Start();
-                //
+                Thread ServerIsStillRunning = new(() =>
+                {
+                    if(User.System.LogonProcessesID.Count> 0){Main.IsLogonRunning(User.System.LogonProcessesID);}
+                    if(User.System.WorldProcessesID.Count > 0){ Main.IsWorldRunning(User.System.WorldProcessesID); }
+                    
+                });
+                ServerIsStillRunning.Start();
+
                 LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID.Select(p => p.ID))}";
                 LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID.Select(p => p.ID))}";
                 LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID.Select(p => p.ID))}";
