@@ -9,13 +9,12 @@ using System.Threading;
 using System;
 using System.IO;
 using TrionLibrary.Sys;
-using System.Diagnostics;
 
 namespace TrionLibrary.Database
 {
     public class Access
     {
-        static void RestoreDatabase(string connectionString, string backupFile)
+        public static void RestoreDatabase(string connectionString, string backupFile)
         {
             using (var connection = new MySqlConnection(connectionString))
             {
@@ -42,7 +41,6 @@ namespace TrionLibrary.Database
                 }
             }
         }
-
         static void ExecuteSqlCommands(MySqlConnection connection, MySqlTransaction transaction, string sql)
         {
             string[] sqlCommands = sql.Split(new string[] { ";\n", ";\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -101,9 +99,9 @@ namespace TrionLibrary.Database
                     }
                 }
 
-                writer.WriteLine($"-- Table structure for table `{tableName}`");
-                writer.WriteLine($"DROP TABLE IF EXISTS `{tableName}`;");
-                writer.WriteLine($"{createTableSql};");
+                Infos.Message = "Table structure for table `{tableName}`";
+                Infos.Message = $"DROP TABLE IF EXISTS `{tableName}`;";
+                Infos.Message = $"{createTableSql};";
                 writer.WriteLine();
             }
         }
@@ -118,8 +116,11 @@ namespace TrionLibrary.Database
 
             foreach (DataRow row in tables.Rows)
             {
+                string previsuTableName = "Null";
                 string tableName = row[0].ToString();
-                writer.WriteLine($"-- Dumping data for table `{tableName}`");
+                    
+                
+                Infos.Message = $"Dumping data for table `{tableName}`";
 
                 using (var command = new MySqlCommand($"SELECT * FROM `{tableName}`;", connection))
                 using (var reader = command.ExecuteReader())
@@ -143,9 +144,17 @@ namespace TrionLibrary.Database
                                 values[i] = value.ToString();
                             }
                         }
-
-                        string insertStatement = $"INSERT INTO `{tableName}` VALUES ({string.Join(", ", values)});";
-                        writer.WriteLine(insertStatement);
+                        if (previsuTableName != tableName)
+                        {
+                            previsuTableName = tableName;
+                            string insertRemove = $"DELETE FROM `{tableName}`;";
+                            writer.WriteLine(insertRemove);
+                        }
+                        if(tableName != "updates")
+                        {
+                            string insertStatement = $"INSERT INTO `{tableName}` VALUES ({string.Join(", ", values)});";
+                            writer.WriteLine(insertStatement);
+                        }
                     }
                 }
 

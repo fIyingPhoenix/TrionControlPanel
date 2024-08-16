@@ -64,5 +64,32 @@ namespace TrionLibrary.Network
                 return internalIpAddress;
             }
         }
+        public static async Task<bool> IsWebsiteOnlineAsync(string url)
+        {
+            try
+            {
+                using (HttpClient client = new())
+                {
+                    // Set a timeout to avoid hanging
+                    client.Timeout = TimeSpan.FromSeconds(10);
+
+                    // Send a GET request
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    // Check if the status code indicates success (200-299)
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (HttpRequestException)
+            {
+                // Handle web exceptions (e.g., network issues)
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                // Handle timeout exception
+                return false;
+            }
+        }
     }
 }

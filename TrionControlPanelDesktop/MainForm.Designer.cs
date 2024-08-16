@@ -59,6 +59,7 @@ namespace TrionControlPanelDesktop
             ExitTSMItem = new ToolStripMenuItem();
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
+            TimerCrashDetected = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             PnlButtonFront.SuspendLayout();
@@ -92,9 +93,10 @@ namespace TrionControlPanelDesktop
             // LblVersion
             // 
             LblVersion.Anchor = AnchorStyles.Bottom;
+            LblVersion.Font = new Font("Segoe UI Semibold", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblVersion.Location = new Point(0, 575);
             LblVersion.Name = "LblVersion";
-            LblVersion.Size = new Size(89, 15);
+            LblVersion.Size = new Size(89, 19);
             LblVersion.TabIndex = 4;
             LblVersion.Text = "Version: ";
             LblVersion.TextAlign = ContentAlignment.MiddleCenter;
@@ -472,6 +474,12 @@ namespace TrionControlPanelDesktop
             TLTHome.TitleColor = Color.FromArgb(0, 174, 219);
             TLTHome.ToolTipTitle = "Test Name";
             // 
+            // TimerCrashDetected
+            // 
+            TimerCrashDetected.Enabled = true;
+            TimerCrashDetected.Interval = 5000;
+            TimerCrashDetected.Tick += TimerCrashDetected_Tick;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -529,6 +537,7 @@ namespace TrionControlPanelDesktop
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
         private TrionUI.Controls.CustomToolTip TLTHome;
+        private System.Windows.Forms.Timer TimerCrashDetected;
         private static MetroPanel PNLControl;
     }
 }

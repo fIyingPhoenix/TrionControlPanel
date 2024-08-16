@@ -192,40 +192,44 @@ namespace TrionLibrary.Sys
         }
         public static async Task<int> ApplicationStart(string Application, string WorkingDirectory, string Name, bool HideWindw, string Arguments)
         {
-            Thread.Sleep(100);
-            try
-            {
-                using Process myProcess = new();
-                myProcess.StartInfo.UseShellExecute = false;
-                // You can start any process, HelloWorld is a do-nothing example.
-                myProcess.StartInfo.FileName = Application;
-                myProcess.StartInfo.WorkingDirectory = WorkingDirectory;
-                if (Arguments != null)
-                {
-                    myProcess.StartInfo.Arguments = Arguments;
+            int id = 0;
+            await Task.Run(() =>
+             {
+                 try
+                 {
+                     using Process myProcess = new();
+                     myProcess.StartInfo.UseShellExecute = false;
+                     // You can start any process, HelloWorld is a do-nothing example.
+                     myProcess.StartInfo.FileName = Application;
+                     myProcess.StartInfo.WorkingDirectory = WorkingDirectory;
+                     if (Arguments != null)
+                     {
+                         myProcess.StartInfo.Arguments = Arguments;
 
-                }
-                if (HideWindw == false)
-                {
-                    myProcess.StartInfo.CreateNoWindow = false;
-                    myProcess.Start();
+                     }
+                     if (HideWindw == false)
+                     {
+                         myProcess.StartInfo.CreateNoWindow = false;
+                         myProcess.Start();
 
-                }
-                if (HideWindw == true)
-                {
-                    myProcess.StartInfo.CreateNoWindow = true;
-                    myProcess.Start();
-                }
-                // complete the task
+                     }
+                     if (HideWindw == true)
+                     {
+                         myProcess.StartInfo.CreateNoWindow = true;
+                         myProcess.Start();
+                     }
+                     // complete the task
 
-                Infos.Message = $@"Successfully rune {Name}!";
-                return myProcess.Id;
-            }
-            catch (Exception ex)
-            {
-                Infos.Message = ex.Message;
-                return 0;
-            }
+                     Infos.Message = $@"Successfully rune {Name}!";
+                     id = myProcess.Id;
+                 }
+                 catch (Exception ex)
+                 {
+                     Infos.Message = ex.Message;
+                     id = 0;
+                 }
+             });
+            return id;
         }
         public static int GetProcessIdByName(string processName)
         {
@@ -250,6 +254,8 @@ namespace TrionLibrary.Sys
         {
             //Thread ApplicationStopThread = new(async () =>
             //{
+            try
+            {
                 var process = Process.GetProcessById(ApplicationID);
 
                 await SendCtrlC(process);
@@ -259,6 +265,13 @@ namespace TrionLibrary.Sys
                     Infos.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
                     process.Kill();
                 }
+            }
+            catch (Exception ex)
+            {
+                
+                 Infos.Message = $"Error: {ex.Message}";
+                
+            }
             //});
             //ApplicationStopThread.Start();
         }
@@ -304,25 +317,6 @@ namespace TrionLibrary.Sys
         {
             try
             {
-                var startTime = DateTime.UtcNow;
-                var startCpuUsage = Process.GetProcessById(ProcessID).TotalProcessorTime;
-                Thread.Sleep(500);
-                var endTime = DateTime.UtcNow;
-                var endCpuUsage = Process.GetProcessById(ProcessID).TotalProcessorTime;
-
-                var cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
-                var totalMsPassed = (endTime - startTime).TotalMilliseconds; var cpuUsageTotal = cpuUsedMs / (Environment.ProcessorCount * totalMsPassed);
-                return (int)cpuUsageTotal * 100;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-        public static int TestApplicationCPUUsage(int ProcessID)
-        {
-            try
-            {
                 Process process = Process.GetProcessById(ProcessID);
                 if (process == null)
                 {
@@ -342,7 +336,7 @@ namespace TrionLibrary.Sys
 
                 double cpuUsageTotal = (cpuUsedMs / totalMsPassed) * 100 / Environment.ProcessorCount;
 
-                if (cpuUsageTotal + 5  > 100) { cpuUsageTotal = 100; }
+                if (cpuUsageTotal + 5 > 100) { cpuUsageTotal = 100; }
                 return (int)cpuUsageTotal;
             }
             catch
@@ -350,5 +344,6 @@ namespace TrionLibrary.Sys
                 return 0;
             }
         }
+
     }
 }

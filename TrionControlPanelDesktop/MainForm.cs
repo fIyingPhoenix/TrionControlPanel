@@ -13,6 +13,9 @@ namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MetroForm
     {
+        bool worldStarted;
+        bool logonStarted;
+        bool databaseStarted;
         readonly static DatabaseControl databaseControl = new();
         readonly static HomeControl homeControl = new();
         readonly static LoadingControl loadingControl = new();
@@ -25,11 +28,10 @@ namespace TrionControlPanelDesktop
         //
         async void LoadData()
         {
-            CheckForIllegalCrossThreadCalls = false;
             CurrentControl = CurrentControl.Load;
             PNLControl.Controls.Clear();
             PNLControl.Controls.Add(loadingControl);
-            LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
+
             //if (Data.Settings.RunServerWithWindows) { await RunAll(); }
             await Setting.Save();
         }
@@ -45,6 +47,7 @@ namespace TrionControlPanelDesktop
                      ControlStyles.ResizeRedraw |
                      ControlStyles.UserPaint, true);
             InitializeComponent();
+            LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version!.ToString()}";
             TLTHome.BackColor = Color.Red;
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
@@ -52,6 +55,7 @@ namespace TrionControlPanelDesktop
         {
             await Setting.Load();
             await Main.CheckForUpdate();
+            User.UI.Form.StartUpLoading++;
             LoadData();
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
@@ -87,7 +91,7 @@ namespace TrionControlPanelDesktop
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             ButtonsDesing();
-            if (User.UI.Form.StartUpLoading == 2)
+            if (User.UI.Form.StartUpLoading == 3)
             {
                 BTNStartLogin.Visible = true;
                 BTNStartWorld.Visible = true;
@@ -99,11 +103,6 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
-                if (Setting.List.FirstRun == true)
-                {
-
-                }
-
             }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
@@ -134,20 +133,48 @@ namespace TrionControlPanelDesktop
         {
             BTNStartMySQL_Click(sender, e);
         }
-        private void BTNStartMySQL_Click(object sender, EventArgs e)
+        private async void BTNStartMySQL_Click(object sender, EventArgs e)
         {
-            User.System.DatabaseStartTime = DateTime.Now;
-            Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-            string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
-            Main.StartDatabase(arg);
+            if (!databaseStarted)
+            {
+                User.System.DatabaseStartTime = DateTime.Now;
+                Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
+                await  Main.StartDatabase(arg);
+                databaseStarted=true;   
+            }
+            else
+            {
+                await  Main.StopDatabase();
+                databaseStarted = false;
+            }
         }
-        private void BTNStartLogin_Click(object sender, EventArgs e)
+        private async void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            Main.StartLogon();
+            if (!logonStarted)
+            {
+                await Main.StartLogon();
+                worldStarted = true;
+            }
+            else
+            {
+                await Main.StopLogon();
+                worldStarted = false;
+            }
         }
-        private void BTNStartWorld_Click(object sender, EventArgs e)
+        private async void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            Main.StartWorld();
+            if (!worldStarted)
+            {
+                await Main.StartWorld();
+                worldStarted = true;
+            }
+            else
+            {
+                await Main.StopWorld();
+                worldStarted = false;
+            }
+            
         }
         public static void LoadDownload()
         {
@@ -226,6 +253,9 @@ namespace TrionControlPanelDesktop
                 }
             }
         }
-
+        private void TimerCrashDetected_Tick(object sender, EventArgs e)
+        {
+            Task.Run(async () => await Main.CrashDetector(5));
+        }
     }
 }

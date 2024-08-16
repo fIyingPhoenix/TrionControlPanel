@@ -91,7 +91,7 @@ namespace TrionControlPanelDesktop.Controls
                 {
                     if (User.UI.Resource.CurrentWorldID == 0)
                     {
-                        User.UI.Resource.WorldCPUUsage = Watcher.TestApplicationCPUUsage(User.UI.Resource.CurrentWorldID);//Watcher.ApplicationCpuUsage(4172);
+                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);//Watcher.ApplicationCpuUsage(4172);
                         User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);
                     }
                     if (User.UI.Resource.CurrentAuthID > 0)
@@ -106,14 +106,14 @@ namespace TrionControlPanelDesktop.Controls
                     User.UI.Resource.MachineCPUUsage =  Watcher.MachineCpuUtilization();
                 });
                 MachineCpuUtilizationThread.Start();
-                Thread ServerIsStillRunning = new(() =>
+                Thread IsServerRunning = new(() =>
                 {
-                    if(User.System.LogonProcessesID.Count> 0){Main.IsLogonRunning(User.System.LogonProcessesID);}
-                    if(User.System.WorldProcessesID.Count > 0){ Main.IsWorldRunning(User.System.WorldProcessesID); }
-                    
+                    if (User.System.LogonProcessesID.Count > 0)
+                    {
+                        Main.IsLogonRunning(User.System.LogonProcessesID);
+                    }
                 });
-                ServerIsStillRunning.Start();
-
+                IsServerRunning.Start();
                 LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID.Select(p => p.ID))}";
                 LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID.Select(p => p.ID))}";
                 LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID.Select(p => p.ID))}";

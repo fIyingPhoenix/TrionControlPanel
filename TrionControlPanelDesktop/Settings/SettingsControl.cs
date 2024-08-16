@@ -112,7 +112,7 @@ namespace TrionControlPanelDesktop.Controls
                     break;
             }
         }
-        private async void LoadData()
+        private void LoadData()
         {
             //Load Installed Emulators
             TGLClassicInstalled.Checked = Setting.List.ClassicInstalled;
@@ -146,21 +146,6 @@ namespace TrionControlPanelDesktop.Controls
             TGLRunTrionStartup.Checked = Setting.List.RunWithWindows;
             //Update Loader
             EnableCustomNames();
-            //Version Load
-            User.UI.Version.OFF.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            User.UI.Version.OFF.Database = Infos.Version.Local(Setting.List.DBExeLoc);
-            User.UI.Version.OFF.Classic = Infos.Version.Local(Setting.List.ClassicWorldExeLoc);
-            User.UI.Version.OFF.TBC = Infos.Version.Local(Setting.List.TBCDBExeLoca);
-            User.UI.Version.OFF.WotLK = Infos.Version.Local(Setting.List.WotLKWorldExeLoc);
-            User.UI.Version.OFF.Cata = Infos.Version.Local(Setting.List.CataDBExeLoca);
-            User.UI.Version.OFF.Mop = Infos.Version.Local(Setting.List.MopDBExeLoca);
-            User.UI.Version.ON.Trion = await Infos.Version.Online(Links.Version.Trion);
-            User.UI.Version.ON.Database = await Infos.Version.Online(Links.Version.Database);
-            User.UI.Version.ON.Classic = await Infos.Version.Online(Links.Version.Classic);
-            User.UI.Version.ON.TBC = await Infos.Version.Online(Links.Version.TBC);
-            User.UI.Version.ON.WotLK = await Infos.Version.Online(Links.Version.WotLK);
-            User.UI.Version.ON.Cata = await Infos.Version.Online(Links.Version.Cata);
-            User.UI.Version.ON.Mop = await Infos.Version.Online(Links.Version.Mop);
             //Update Labels
             LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Version.OFF.Trion} / Online: {User.UI.Version.ON.Trion}";
             LBLDBVersion.Text = $"Database Version: \n •Local: {User.UI.Version.OFF.Database} \n •Online: {User.UI.Version.ON.Database} ";
@@ -265,7 +250,6 @@ namespace TrionControlPanelDesktop.Controls
             }
             TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
-            Infos.Message = $"The core has been changed to {ComboBoxCores.SelectedItem}";
         }
         private void TGLStayInTrey_CheckedChanged(object sender, EventArgs e)
         {
@@ -404,13 +388,13 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (User.UI.Version.Update.Trion) { await Main.StartUpdate(Links.Install.Trion, $"{Links.MainHost}{Links.Hashe.Trion}", true); }
-            if (User.UI.Version.Update.Database) { await Main.StartUpdate(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", true); }
-            if (User.UI.Version.Update.Classic) { await Main.StartUpdate(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true); }
-            if (User.UI.Version.Update.TBC) { await Main.StartUpdate(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true); }
-            if (User.UI.Version.Update.WotLK) { await Main.StartUpdate(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true); }
-            if (User.UI.Version.Update.Cata) { await Main.StartUpdate(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true); }
-            if (User.UI.Version.Update.Mop) { await Main.StartUpdate(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}", true); }
+            if (User.UI.Version.Update.Trion) { await Main.StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true); }
+            if (User.UI.Version.Update.Database) { await Main.StartUpdate(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", true); }
+            if (User.UI.Version.Update.Classic) { await Main.StartUpdate(Links.Install.Classic, $"{Links.MainCDNHost}{Links.Hashe.Classic}", true); }
+            if (User.UI.Version.Update.TBC) { await Main.StartUpdate(Links.Install.TBC, $"{Links.MainCDNHost}{Links.Hashe.TBC}", true); }
+            if (User.UI.Version.Update.WotLK) { await Main.StartUpdate(Links.Install.WotLK, $"{Links.MainCDNHost}{Links.Hashe.WotLK}", true); }
+            if (User.UI.Version.Update.Cata) { await Main.StartUpdate(Links.Install.Cata, $"{Links.MainCDNHost}{Links.Hashe.Cata}", true); }
+            if (User.UI.Version.Update.Mop) { await Main.StartUpdate(Links.Install.Mop, $"{Links.MainCDNHost}{Links.Hashe.Mop}", true); }
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
@@ -589,63 +573,104 @@ namespace TrionControlPanelDesktop.Controls
             switch (Setting.List.SelectedSPP)
             {
                 case SPP.Classic:
+                    BTNInstallSPP.Enabled = false;
                     if (!Setting.List.ClassicInstalled)
                     {
+                        if (User.UI.Version.ON.Classic == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Classic is not available yet!";
+                            break;
+                        }
                         DownloadControl.Title = "Install World of Warcraft - Classic";
                         DownloadData.Infos.Install.Classic = true;
                         await DownlaodDatabase(false);
-                        await StartInstall(Links.Install.Classic, $"{Links.MainHost}{Links.Hashe.Classic}", true);
+                        await StartInstall(Links.Install.Classic, $"{Links.MainCDNHost}{Links.Hashe.Classic}", true);
                     }
                     else
                     {
                         Infos.Message = "World of Warcraft - Classic already installed! To fix problems with the emulator, try the Repair button!";
                     }
+                    BTNInstallSPP.Enabled = true;
                     break;
                 case SPP.TheBurningCrusade:
+                    BTNInstallSPP.Enabled = false;
                     if (!Setting.List.TBCInstalled)
                     {
+                        if (User.UI.Version.ON.TBC == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - The Burning Crusade is not available yet!";
+                            break;
+                        }
                         DownloadControl.Title = "Install World of Warcraft - The Burning Crusade";
                         DownloadData.Infos.Install.TBC = true;
                         await DownlaodDatabase(false);
-                        await StartInstall(Links.Install.TBC, $"{Links.MainHost}{Links.Hashe.TBC}", true);
+                        await StartInstall(Links.Install.TBC, $"{Links.MainCDNHost}{Links.Hashe.TBC}", true);
                     }
                     else
                     {
                         Infos.Message = "World of Warcraft - The Burning Crusade already installed! To fix problems with the emulator, try the Repair button!";
                     }
+                    BTNInstallSPP.Enabled = true;
                     break;
                 case SPP.WrathOfTheLichKing:
+                    BTNInstallSPP.Enabled = false;
                     if (!Setting.List.WotLKInstalled)
                     {
+                        if (User.UI.Version.ON.WotLK == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Wrath of the Lich King is not available yet!";
+                            break;
+                        }
                         DownloadControl.Title = "Install World of Warcraft - Wrath of the Lich King";
                         DownloadData.Infos.Install.WotLK = true;
                         await DownlaodDatabase(false);
-                        await StartInstall(Links.Install.WotLK, $"{Links.MainHost}{Links.Hashe.WotLK}", true);
+                        await StartInstall(Links.Install.WotLK, $"{Links.MainCDNHost}{Links.Hashe.WotLK}", true);
                     }
                     else
                     {
                         Infos.Message = "World of Warcraft - Wrath of the Lich King already installed! To fix problems with the emulator, try the Repair button!";
                     }
+                    BTNInstallSPP.Enabled = true;
                     break;
                 case SPP.Cataclysm:
+                    BTNInstallSPP.Enabled = false;
                     if (!Setting.List.CataInstalled)
                     {
+                        if (User.UI.Version.ON.Cata == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Cataclysm is not available yet!";
+                            break;
+                        }
                         DownloadControl.Title = "Install World of Warcraft - Cataclysm";
                         DownloadData.Infos.Install.Cata = true;
                         await DownlaodDatabase(false);
-                        await StartInstall(Links.Install.Cata, $"{Links.MainHost}{Links.Hashe.Cata}", true);
+                        await StartInstall(Links.Install.Cata, $"{Links.MainCDNHost}{Links.Hashe.Cata}", true);
                     }
                     else
                     {
-
+                        Infos.Message = "World of Warcraft - Cataclysm already installed! To fix problems with the emulator, try the Repair button!";
                     }
-
+                    BTNInstallSPP.Enabled = true;
                     break;
                 case SPP.MistOfPandaria:
-                    DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
-                    DownloadData.Infos.Install.Mop = true;
-                    await DownlaodDatabase(false);
-                    await StartInstall(Links.Install.Mop, $"{Links.MainHost}{Links.Hashe.Mop}", true);
+                    BTNInstallSPP.Enabled = false;
+                    if (!Setting.List.MOPInstalled)
+                    {
+                        if (User.UI.Version.ON.Mop == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Mists of Pandaria is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Install World of Warcraft - Mists of Pandaria";
+                        DownloadData.Infos.Install.Mop = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Mop, $"{Links.MainCDNHost}{Links.Hashe.Mop}", true);
+                    }
+                    else
+                    {
+                        Infos.Message = "World of Warcraft -  Mists of Pandaria already installed! To fix problems with the emulator, try the Repair button!";
+                    }
+                    BTNInstallSPP.Enabled = true;
                     break;
             }
         }
@@ -659,7 +684,7 @@ namespace TrionControlPanelDesktop.Controls
 
                     DownloadControl.Title = "Install Database";
                     DownloadData.Infos.Install.Database = true;
-                    await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", startDownload);
+                    await StartInstall(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", startDownload);
                 }
                 else
                 {
@@ -667,7 +692,7 @@ namespace TrionControlPanelDesktop.Controls
                     {
                         DownloadControl.Title = "Install Database";
                         DownloadData.Infos.Install.Database = true;
-                        await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", startDownload);
+                        await StartInstall(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", startDownload);
                     }
                 }
             }
@@ -677,20 +702,270 @@ namespace TrionControlPanelDesktop.Controls
             var progress = new Progress<string>(value => { LBLReadingFiles.Text = value; });
             await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress, startDownload));
         }
-
-        private void BTNRepairSPP_Click(object sender, EventArgs e)
+        private async static Task StartUninstall(string targetDirectory)
         {
+            try
+            {
+                // Delete all files
+                string[] files = Directory.GetFiles(targetDirectory);
+                foreach (string file in files)
+                {
+                    await Task.Run(() => File.Delete(file));
+                }
 
+                // Delete all directories
+                string[] directories = Directory.GetDirectories(targetDirectory);
+                foreach (string directory in directories)
+                {
+                    await Task.Run(() => Directory.Delete(directory, true));
+                }
+            }
+            catch (Exception ex)
+            {
+                Infos.Message = $"An error occurred: {ex.Message}";
+            }
         }
-        private void BTNUninstallSPP_Click(object sender, EventArgs e)
+        private async void BTNRepairSPP_Click(object sender, EventArgs e)
         {
-
+            switch (Setting.List.SelectedSPP)
+            {
+                case SPP.Classic:
+                    BTNRepairSPP.Enabled = false;
+                    if (Setting.List.ClassicInstalled && !User.UI.Form.ClassicWorldRunning && !User.UI.Form.ClassicLogonRunning)
+                    {
+                        if (User.UI.Version.ON.Classic == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Classic is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Repair World of Warcraft - Classic";
+                        DownloadData.Infos.Install.Classic = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Classic, $"{Links.MainCDNHost}{Links.Hashe.Classic}", true);
+                    }
+                    else
+                    {
+                        if (!Setting.List.ClassicInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Classic is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Classic is Running! To fix the repack pleas stop the server first!";
+                    }
+                    BTNRepairSPP.Enabled = true;
+                    break;
+                case SPP.TheBurningCrusade:
+                    BTNRepairSPP.Enabled = false;
+                    if (Setting.List.TBCInstalled && !User.UI.Form.TBCWorldRunning && !User.UI.Form.TBCLogonRunning)
+                    {
+                        if (User.UI.Version.ON.TBC == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - The Burning Crusade is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Repair World of Warcraft - The Burning Crusade";
+                        DownloadData.Infos.Install.TBC = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.TBC, $"{Links.MainCDNHost}{Links.Hashe.TBC}", true);
+                    }
+                    else
+                    {
+                        if (!Setting.List.TBCInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – The Burning Crusade is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - The Burning Crusade is Running! To fix the repack pleas stop the server first!";
+                    }
+                    BTNRepairSPP.Enabled = true;
+                    break;
+                case SPP.WrathOfTheLichKing:
+                    BTNRepairSPP.Enabled = false;
+                    if (Setting.List.WotLKInstalled && !User.UI.Form.WotLKWorldRunning && !User.UI.Form.WotLKLogonRunning)
+                    {
+                        if (User.UI.Version.ON.WotLK == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Wrath of the Lich King is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Repair World of Warcraft - Wrath of the Lich King";
+                        DownloadData.Infos.Install.WotLK = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.WotLK, $"{Links.MainCDNHost}{Links.Hashe.WotLK}", true);
+                    }
+                    else
+                    {
+                        if (!Setting.List.WotLKInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Wrath of the Lich King is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Wrath of the Lich King is Running! To fix the repack pleas stop the server first!";
+                    }
+                    BTNRepairSPP.Enabled = true;
+                    break;
+                case SPP.Cataclysm:
+                    BTNRepairSPP.Enabled = false;
+                    if (Setting.List.CataInstalled && !User.UI.Form.CataWorldRunning && !User.UI.Form.CataLogonRunning)
+                    {
+                        if (User.UI.Version.ON.Cata == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Cataclysm is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Repair World of Warcraft - Cataclysm";
+                        DownloadData.Infos.Install.Cata = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Cata, $"{Links.MainCDNHost}{Links.Hashe.Cata}", true);
+                    }
+                    else
+                    {
+                        if (!Setting.List.CataInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Cataclys is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Cataclysm is Running! To fix the repack pleas stop the server first!";
+                    }
+                    BTNRepairSPP.Enabled = true;
+                    break;
+                case SPP.MistOfPandaria:
+                    BTNRepairSPP.Enabled = false;
+                    if (Setting.List.MOPInstalled && !User.UI.Form.CataWorldRunning && !User.UI.Form.CataLogonRunning)
+                    {
+                        if (User.UI.Version.ON.Mop == $"N/A")
+                        {
+                            Infos.Message = "World of Warcraft - Mists of Pandaria is not available yet!";
+                            break;
+                        }
+                        DownloadControl.Title = "Repair World of Warcraft - Mists of Pandaria";
+                        DownloadData.Infos.Install.Mop = true;
+                        await DownlaodDatabase(false);
+                        await StartInstall(Links.Install.Mop, $"{Links.MainCDNHost}{Links.Hashe.Mop}", true);
+                    }
+                    else
+                    {
+                        if (!Setting.List.MOPInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Mists of Pandaria is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Mists of Pandaria is Running! To fix the repack pleas stop the server first!";
+                    }
+                    BTNRepairSPP.Enabled = true;
+                    break;
+            }
+        }
+        private async void BTNUninstallSPP_Click(object sender, EventArgs e)
+        {
+            switch (Setting.List.SelectedSPP)
+            {
+                case SPP.Classic:
+                    if (Setting.List.ClassicInstalled && !User.UI.Form.ClassicWorldRunning && !User.UI.Form.ClassicLogonRunning)
+                    {
+                        BTNUninstallSPP.Enabled = false;
+                        Infos.Message = "World of Warcraft – Classic will be uninstalled!";
+                        BTNUninstallSPP.Text = "Working!!";
+                        await StartUninstall(Links.Install.Classic);
+                        BTNUninstallSPP.Text = "Uninstall S.P.P.";
+                        BTNUninstallSPP.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!Setting.List.ClassicInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Classic is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Classic is Running! To uninstall the repack pleas stop the server first!";
+                    }
+                    break;
+                case SPP.TheBurningCrusade:
+                    if (Setting.List.TBCInstalled && !User.UI.Form.TBCWorldRunning && !User.UI.Form.TBCLogonRunning)
+                    {
+                        BTNUninstallSPP.Enabled = false;
+                        Infos.Message = "World of Warcraft – The Burning Crusade will be uninstalled!";
+                        BTNUninstallSPP.Text = "Working!!";
+                        await StartUninstall(Links.Install.TBC);
+                        BTNUninstallSPP.Text = "Uninstall S.P.P.";
+                        BTNUninstallSPP.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!Setting.List.TBCInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – The Burning Crusade is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - The Burning Crusade is Running! To uninstall the repack pleas stop the server first!";
+                    }
+                    break;
+                case SPP.WrathOfTheLichKing:
+                    if (Setting.List.WotLKInstalled && !User.UI.Form.WotLKWorldRunning && !User.UI.Form.WotLKLogonRunning)
+                    {
+                        BTNUninstallSPP.Enabled = false;
+                        Infos.Message = "World of Warcraft – Wrath of the Lich King will be uninstalled!";
+                        BTNUninstallSPP.Text = "Working!!";
+                        await StartUninstall(Links.Install.WotLK);
+                        BTNUninstallSPP.Text = "Uninstall S.P.P.";
+                        BTNUninstallSPP.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!Setting.List.WotLKInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Wrath of the Lich King is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Wrath of the Lich King is Running! To uninstall the repack pleas stop the server first!";
+                    }
+                    break;
+                case SPP.Cataclysm:
+                    if (Setting.List.CataInstalled && !User.UI.Form.CataWorldRunning && !User.UI.Form.CataLogonRunning)
+                    {
+                        BTNUninstallSPP.Enabled = false;
+                        Infos.Message = "World of Warcraft – Cataclys will be uninstalled!";
+                        BTNUninstallSPP.Text = "Working!!";
+                        await StartUninstall(Links.Install.Cata);
+                        BTNUninstallSPP.Text = "Uninstall S.P.P.";
+                        BTNUninstallSPP.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!Setting.List.CataInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Cataclys is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Cataclysm is Running! To uninstall the repack pleas stop the server first!";
+                    }
+                    break;
+                case SPP.MistOfPandaria:
+                    if (Setting.List.MOPInstalled && !User.UI.Form.CataWorldRunning && !User.UI.Form.CataLogonRunning)
+                    {
+                        BTNUninstallSPP.Enabled = false;
+                        Infos.Message = "World of Warcraft – Mists of Pandaria will be uninstalled!";
+                        BTNUninstallSPP.Text = "Working!!";
+                        await StartUninstall(Links.Install.Mop);
+                        BTNUninstallSPP.Text = "Uninstall S.P.P.";
+                        BTNUninstallSPP.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!Setting.List.MOPInstalled)
+                        {
+                            Infos.Message = "World of Warcraft – Mists of Pandaria is not installed! Install the Repack first!";
+                            break;
+                        }
+                        Infos.Message = "World of Warcraft - Mists of Pandaria is Running! To uninstall the repack pleas stop the server first!";
+                    }
+                    break;
+            }
         }
         private void SettingsControl_Load(object sender, EventArgs e)
         {
             LoadData();
         }
-
         private void TimerEnDis_Tick(object sender, EventArgs e)
         {
             if (RefreshData)
@@ -704,30 +979,77 @@ namespace TrionControlPanelDesktop.Controls
         {
             DownloadControl.Title = "Install Database";
             DownloadData.Infos.Install.Database = true;
-            await StartInstall(Links.Install.Database, $"{Links.MainHost}{Links.Hashe.Database}", true);
+            await StartInstall(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", true);
         }
 
-        private void BTNDatabaseBackup_Click(object sender, EventArgs e)
+        private async void BTNDatabaseBackup_Click(object sender, EventArgs e)
         {
             string BackupDirectory = $"{Directory.GetCurrentDirectory()}/backup";
             if (!Directory.Exists(BackupDirectory)) { Directory.CreateDirectory(BackupDirectory); }
             if (CBAuthBackup.Checked == true)
             {
-                Access.BackupDatabase(Connect.String(Setting.List.AuthDatabase), $"{BackupDirectory}/authBackup.sql");
+                await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.AuthDatabase), $"{BackupDirectory}/AuthBackup.sql"));
             }
             if (CBWorldBackup.Checked == true)
             {
-                Access.BackupDatabase(Connect.String(Setting.List.WorldDatabase), $"{BackupDirectory}/WorldBackup.sql");
+                await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.CharactersDatabase), $"{BackupDirectory}/CharBackup.sql"));
+            }
+            if (CBWorldBackup.Checked == true)
+            {
+                await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.WorldDatabase), $"{BackupDirectory}/WorldBackup.sql"));
             }
         }
 
         private async void BTNFixMysql_Click(object sender, EventArgs e)
         {
-            
             string Database = Links.Install.Database.Replace("/", @"\");
             Directory.Delete(@$"{Database}\data", true);
             string SQLLocation = $@"{Database}\extra\initDatabase.sql";
             await Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+        }
+
+        private async void LoadBackup_Click(object sender, EventArgs e)
+        {
+            LoadBackup.Enabled = false;
+            string BackupDirectory = $"{Directory.GetCurrentDirectory()}/backup";
+            if (!Directory.Exists(BackupDirectory)) { Directory.CreateDirectory(BackupDirectory); }
+            if (CBAuthBackup.Checked == true)
+            {
+                string file = $"{BackupDirectory}/AuthBackup.sql";
+                if (File.Exists(file))
+                {
+                    await Task.Run(() => Access.RestoreDatabase(Connect.String(Setting.List.AuthDatabase), file));
+                }
+                else
+                {
+                    Infos.Message = "Auth backup file does not exists!";
+                }
+            }
+            if (CBWorldBackup.Checked == true)
+            {
+                string file = $"{BackupDirectory}/CharBackup.sql";
+                if (File.Exists(file))
+                {
+                    await Task.Run(() => Access.RestoreDatabase(Connect.String(Setting.List.CharactersDatabase), file));
+                }
+                else
+                {
+                    Infos.Message = "Char backup file does not exists!";
+                }
+            }
+            if (CBWorldBackup.Checked == true)
+            {
+                string file = $"{BackupDirectory}/WorldBackup.sql";
+                if (File.Exists(file))
+                {
+                    await Task.Run(() => Access.RestoreDatabase(Connect.String(Setting.List.WorldDatabase), file));
+                }
+                else
+                {
+                    Infos.Message = "World backup file does not exists!";
+                }
+            }
+            LoadBackup.Enabled = true;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace TrionLibrary.Sys
                 }
                 catch (Exception ex)
                 {
-                    Message = ex.Message;
+                    Message = ex.Message + WebLink;
                     return $"N/A";
                 }
 
@@ -64,17 +64,13 @@ namespace TrionLibrary.Sys
                                 return match.Value;
                             }
                         }
-                        return "N/A";
-                    }
-                    else
-                    {
-                        var versionInfo = FileVersionInfo.GetVersionInfo(Location);
                         return versionInfo.FileVersion;
                     }
+                    return "N/A";
                 }
                 catch (Exception ex)
                 {
-                    Message = $@"Failed to get the application version! {ex.Message}";
+                    Message = $@"Failed to get the application version! {ex.Message} {Location}";
                     return "N/A";
                 }
             }

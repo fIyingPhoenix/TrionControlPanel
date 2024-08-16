@@ -7,6 +7,7 @@ using TrionLibrary.Sys;
 using TrionLibrary.Models;
 using TrionControlPanelDesktop.Download;
 using TrionLibrary.Setting;
+using TrionLibrary.Network;
 
 
 namespace TrionControlPanelDesktop.Controls
@@ -27,6 +28,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             Dock = DockStyle.Fill;
             InitializeComponent();
+            CheckServers();
         }
         private static readonly string[] separator = ["\n", "\r\n"];
         static List<string> ReadLinesFromString(string inputString)
@@ -92,7 +94,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
-
+            CheckServers();
         }
         private void DownloadControl_Load(object sender, EventArgs e)
         {
@@ -189,7 +191,7 @@ namespace TrionControlPanelDesktop.Controls
                         CurrentDownload++;
                         try
                         {
-                            string DownloadLinkg = @$"{Links.MainHost}{url.FileFullName}";
+                            string DownloadLinkg = @$"{Links.MainCDNHost}{url.FileFullName}";
                             // Send GET request to the server
                             using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
                             {
@@ -270,6 +272,8 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.ClassicLogonExeName = "realmd";
                 Setting.List.ClassicWorldExeLoc = Infos.GetExecutableLocation(classic, "mangosd");
                 Setting.List.ClassicWorldExeName = "mangosd";
+                Setting.List.ClassicLogonName = "WoW Classic Logon";
+                Setting.List.ClassicWorldName = "WoW Classic World";
             }
             if (DownloadData.Infos.Install.TBC)
             {
@@ -280,6 +284,8 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.TBCLogonExeName = "realmd";
                 Setting.List.TBCWorldExeLoc = Infos.GetExecutableLocation(TBC, "mangosd");
                 Setting.List.TBCWorldExeName = "mangosd";
+                Setting.List.TBCLogonName = "The Burning Crusade Logon";
+                Setting.List.TBCWorldName = "The Burning Crusade World";
             }
             if (DownloadData.Infos.Install.WotLK)
             {
@@ -289,7 +295,8 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.WotLKLogonExeLoc = Infos.GetExecutableLocation(WotLK, "authserver");
                 Setting.List.WotLKLogonExeName = "authserver";
                 Setting.List.WotLKWorldExeLoc = Infos.GetExecutableLocation(WotLK, "worldserver");
-                Setting.List.WotLKWorldExeName = "worldserver";
+                Setting.List.WotLKLogonName = "Wrath of the Lich King Logon";
+                Setting.List.WotLKWorldName = "Wrath of the Lich King World";
             }
             if (DownloadData.Infos.Install.Cata)
             {
@@ -300,6 +307,8 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.CataLogonExeName = "authserver";
                 Setting.List.CataWorldExeLoc = Infos.GetExecutableLocation(cata, "worldserver"); 
                 Setting.List.CataWorldExeName = "worldserver";
+                Setting.List.CataLogonName = "Cataclysm Logon";
+                Setting.List.CataWorldName = "Cataclysm World";
             }
             if (DownloadData.Infos.Install.Mop)
             {
@@ -310,6 +319,8 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.MopLogonExeName = "authserver";
                 Setting.List.MopWorldExeLoc = Infos.GetExecutableLocation(Mop, "authserver");
                 Setting.List.MopWorldExeName = "worldserver";
+                Setting.List.MoPLogonName = "Mists of Pandaria Logon";
+                Setting.List.MoPWorldName = "Mists of Pandaria World";
             }
             if (DownloadData.Infos.Install.Database == true)
             {
@@ -318,13 +329,48 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBInstalled = true;
                 Setting.List.DBLocation = $@"{Database}";
                 Setting.List.DBWorkingDir = $@"{Database}\bin";
-                Setting.List.DBExeLoc = Infos.GetExecutableLocation(Database, "mysqld");
+                Setting.List.DBExeLoc = Infos.GetExecutableLocation($@"{Database}\bin", "mysqld");
                 Setting.List.DBExeName = "mysqld";
                 string SQLLocation = $@"{Database}\extra\initDatabase.sql";
                _ = Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
             }
             Setting.Save();
             SettingsControl.RefreshData = true; 
+        }
+        private async void CheckServers()
+        {
+            if (await Helper.IsWebsiteOnlineAsync(Links.MainCDNHost))
+            {
+                PBoxMainCDN.Image = Properties.Resources.cloud_online_50;
+            }
+            else
+            {
+                PBoxMainCDN.Image = Properties.Resources.cloud_offline_50;
+            }
+            if (await Helper.IsWebsiteOnlineAsync(Links.BackupCDNHost))
+            {
+                PBoxBackupCDN.Image = Properties.Resources.cloud_online_50;
+            }
+            else
+            {
+                PBoxBackupCDN.Image = Properties.Resources.cloud_offline_50;
+            }
+            if (await Helper.IsWebsiteOnlineAsync(Links.WebServer))
+            {
+                PBoxWebServer.Image = Properties.Resources.cloud_online_50;
+            }
+            else
+            {
+                PBoxWebServer.Image = Properties.Resources.cloud_offline_50;
+            }
+            if (await Helper.IsWebsiteOnlineAsync(Links.APIServer))
+            {
+                PBoxAPIServer.Image = Properties.Resources.cloud_online_50;
+            }
+            else
+            {
+                PBoxAPIServer.Image = Properties.Resources.cloud_offline_50;
+            }
         }
     }
 }

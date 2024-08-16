@@ -13,8 +13,6 @@
                 public static bool Cata { get; set; }
                 public static bool Mop { get; set; }
             }
-
         }
-        // Function to compare file hashes and export changes to XML Online
     }
 }

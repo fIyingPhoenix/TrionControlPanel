@@ -45,10 +45,14 @@
             LBLTitle = new Label();
             metroPanel1 = new MetroFramework.Controls.MetroPanel();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
-            pictureBox8 = new PictureBox();
-            pictureBox7 = new PictureBox();
-            pictureBox6 = new PictureBox();
-            pictureBox5 = new PictureBox();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            PBoxWebServer = new PictureBox();
+            PBoxAPIServer = new PictureBox();
+            PBoxBackupCDN = new PictureBox();
+            PBoxMainCDN = new PictureBox();
             LBLReadingFiles = new Label();
             PNLDownloadStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -57,10 +61,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             metroPanel1.SuspendLayout();
             metroPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxWebServer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxAPIServer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxBackupCDN).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxMainCDN).BeginInit();
             SuspendLayout();
             // 
             // PBARDownload
@@ -197,7 +201,7 @@
             // TimerWacher
             // 
             TimerWacher.Enabled = true;
-            TimerWacher.Interval = 1000;
+            TimerWacher.Interval = 1800000;
             TimerWacher.Tick += TimerWacher_Tick;
             // 
             // TimerDownloadStart
@@ -252,10 +256,14 @@
             metroPanel2.Border = true;
             metroPanel2.BorderColor = Color.Black;
             metroPanel2.BorderSize = 1;
-            metroPanel2.Controls.Add(pictureBox8);
-            metroPanel2.Controls.Add(pictureBox7);
-            metroPanel2.Controls.Add(pictureBox6);
-            metroPanel2.Controls.Add(pictureBox5);
+            metroPanel2.Controls.Add(label4);
+            metroPanel2.Controls.Add(label3);
+            metroPanel2.Controls.Add(label2);
+            metroPanel2.Controls.Add(label1);
+            metroPanel2.Controls.Add(PBoxWebServer);
+            metroPanel2.Controls.Add(PBoxAPIServer);
+            metroPanel2.Controls.Add(PBoxBackupCDN);
+            metroPanel2.Controls.Add(PBoxMainCDN);
             metroPanel2.CustomBackground = true;
             metroPanel2.HorizontalScrollbar = true;
             metroPanel2.HorizontalScrollbarBarColor = true;
@@ -274,41 +282,92 @@
             metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             metroPanel2.VerticalScrollbarSize = 10;
             // 
-            // pictureBox8
+            // label4
             // 
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(15, 138);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(35, 35);
-            pictureBox8.TabIndex = 43;
-            pictureBox8.TabStop = false;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(56, 145);
+            label4.Name = "label4";
+            label4.Size = new Size(129, 21);
+            label4.TabIndex = 47;
+            label4.Text = "Main Web Server";
             // 
-            // pictureBox7
+            // label3
             // 
-            pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(15, 97);
-            pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(35, 35);
-            pictureBox7.TabIndex = 42;
-            pictureBox7.TabStop = false;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(56, 104);
+            label3.Name = "label3";
+            label3.Size = new Size(82, 21);
+            label3.TabIndex = 46;
+            label3.Text = "API Server";
             // 
-            // pictureBox6
+            // label2
             // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(15, 56);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(35, 35);
-            pictureBox6.TabIndex = 41;
-            pictureBox6.TabStop = false;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(56, 63);
+            label2.Name = "label2";
+            label2.Size = new Size(244, 21);
+            label2.TabIndex = 45;
+            label2.Text = "Backup Content Delivery Network";
             // 
-            // pictureBox5
+            // label1
             // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(15, 15);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(35, 35);
-            pictureBox5.TabIndex = 40;
-            pictureBox5.TabStop = false;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(56, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(229, 21);
+            label1.TabIndex = 44;
+            label1.Text = "Main Content Delivery Network";
+            // 
+            // PBoxWebServer
+            // 
+            PBoxWebServer.Image = Properties.Resources.cloud_offline_50;
+            PBoxWebServer.InitialImage = Properties.Resources.cloud_offline_50;
+            PBoxWebServer.Location = new Point(15, 138);
+            PBoxWebServer.Name = "PBoxWebServer";
+            PBoxWebServer.Size = new Size(35, 35);
+            PBoxWebServer.SizeMode = PictureBoxSizeMode.StretchImage;
+            PBoxWebServer.TabIndex = 43;
+            PBoxWebServer.TabStop = false;
+            // 
+            // PBoxAPIServer
+            // 
+            PBoxAPIServer.Image = Properties.Resources.cloud_offline_50;
+            PBoxAPIServer.InitialImage = Properties.Resources.cloud_offline_50;
+            PBoxAPIServer.Location = new Point(15, 97);
+            PBoxAPIServer.Name = "PBoxAPIServer";
+            PBoxAPIServer.Size = new Size(35, 35);
+            PBoxAPIServer.SizeMode = PictureBoxSizeMode.StretchImage;
+            PBoxAPIServer.TabIndex = 42;
+            PBoxAPIServer.TabStop = false;
+            // 
+            // PBoxBackupCDN
+            // 
+            PBoxBackupCDN.Image = Properties.Resources.cloud_offline_50;
+            PBoxBackupCDN.InitialImage = Properties.Resources.cloud_offline_50;
+            PBoxBackupCDN.Location = new Point(15, 56);
+            PBoxBackupCDN.Name = "PBoxBackupCDN";
+            PBoxBackupCDN.Size = new Size(35, 35);
+            PBoxBackupCDN.SizeMode = PictureBoxSizeMode.StretchImage;
+            PBoxBackupCDN.TabIndex = 41;
+            PBoxBackupCDN.TabStop = false;
+            // 
+            // PBoxMainCDN
+            // 
+            PBoxMainCDN.Image = Properties.Resources.cloud_offline_50;
+            PBoxMainCDN.Location = new Point(15, 15);
+            PBoxMainCDN.Name = "PBoxMainCDN";
+            PBoxMainCDN.Size = new Size(35, 35);
+            PBoxMainCDN.SizeMode = PictureBoxSizeMode.StretchImage;
+            PBoxMainCDN.TabIndex = 40;
+            PBoxMainCDN.TabStop = false;
             // 
             // LBLReadingFiles
             // 
@@ -320,6 +379,7 @@
             LBLReadingFiles.TabIndex = 40;
             LBLReadingFiles.Text = "Task:  FileName";
             LBLReadingFiles.TextAlign = ContentAlignment.MiddleCenter;
+            LBLReadingFiles.Visible = false;
             // 
             // DownloadControl
             // 
@@ -342,10 +402,11 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             metroPanel1.ResumeLayout(false);
             metroPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            metroPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PBoxWebServer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxAPIServer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxBackupCDN).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBoxMainCDN).EndInit();
             ResumeLayout(false);
         }
 
@@ -366,10 +427,14 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
-        private PictureBox pictureBox8;
-        private PictureBox pictureBox7;
-        private PictureBox pictureBox6;
-        private PictureBox pictureBox5;
+        private PictureBox PBoxWebServer;
+        private PictureBox PBoxAPIServer;
+        private PictureBox PBoxBackupCDN;
+        private PictureBox PBoxMainCDN;
         private Label LBLReadingFiles;
+        private Label label2;
+        private Label label1;
+        private Label label4;
+        private Label label3;
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TrionLibrary.Models
 {
     public class Lists
@@ -59,7 +54,6 @@ namespace TrionLibrary.Models
             public bool ClassicInstalled;
             //TBC Core
             public string TBCWorkingDirectory;
-            public string TBCDBExeLoca;
             public string TBCWorldExeLoc;
             public string TBCLogonExeLoc;
             public string TBCLogonExeName;
@@ -78,7 +72,6 @@ namespace TrionLibrary.Models
             public bool WotLKInstalled;
             //Cata Core
             public string CataWorkingDirectory;
-            public string CataDBExeLoca;
             public string CataWorldExeLoc;
             public string CataLogonExeLoc;
             public string CataLogonExeName;
@@ -88,7 +81,6 @@ namespace TrionLibrary.Models
             public bool CataInstalled;
             //Mop Core
             public string MopWorkingDirectory;
-            public string MopDBExeLoca;
             public string MopWorldExeLoc;
             public string MopLogonExeLoc;
             public string MopLogonExeName;
