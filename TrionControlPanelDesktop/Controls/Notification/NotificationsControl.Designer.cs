@@ -44,6 +44,7 @@
             ID = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
             Time = new DataGridViewTextBoxColumn();
+            TLTHome = new TrionUI.Controls.CustomToolTip();
             metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGVNotifications).BeginInit();
             SuspendLayout();
@@ -79,6 +80,7 @@
             BTNClean.Size = new Size(845, 31);
             BTNClean.TabIndex = 32;
             BTNClean.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNClean, "Clear notification history.");
             BTNClean.UseVisualStyleBackColor = false;
             BTNClean.Click += BTNClean_Click;
             // 
@@ -207,6 +209,25 @@
             Time.Name = "Time";
             Time.ReadOnly = true;
             // 
+            // TLTHome
+            // 
+            TLTHome.BackColor = Color.White;
+            TLTHome.BackgroundColor = Color.FromArgb(34, 39, 46);
+            TLTHome.BorderColor = Color.FromArgb(0, 174, 219);
+            TLTHome.BorderSize = 1;
+            TLTHome.ForeColor = Color.WhiteSmoke;
+            TLTHome.LinkColor = Color.DodgerBlue;
+            TLTHome.LinkEnabled = false;
+            TLTHome.LinkText = "";
+            TLTHome.OwnerDraw = true;
+            TLTHome.StripAmpersands = true;
+            TLTHome.TextColor = Color.White;
+            TLTHome.TextFont = new Font("Segoe UI Semibold", 10F);
+            TLTHome.TitleBackgroundColor = Color.FromArgb(28, 33, 40);
+            TLTHome.TitleColor = Color.FromArgb(0, 174, 219);
+            TLTHome.ToolTipIcon = ToolTipIcon.Info;
+            TLTHome.ToolTipTitle = "Information!";
+            // 
             // NotificationsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -230,5 +251,6 @@
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn Time;
+        private TrionUI.Controls.CustomToolTip TLTHome;
     }
 }

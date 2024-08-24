@@ -227,12 +227,10 @@ namespace MetroFramework.Controls
                     backColor = MetroPaint.GetStyleColor(Style);
                     foreColor = MetroPaint.ForeColor.Tile.Normal(Theme);
                 }
-
                 using (SolidBrush b = new(backColor))
                 {
                     e.Graphics.FillRectangle(b, new Rectangle(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height));
                 }
-
                 Rectangle textRect = new(0, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
                 TextRenderer.DrawText(e.Graphics, Items[e.Index].ToString(), MetroFonts.Link(metroLinkSize, metroLinkWeight), textRect, foreColor, backColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
             }

@@ -9,11 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.44" />
-    <PackageReference Include="DSharpPlus" Version="4.4.6" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.4.6" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.4.6" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.4.6" />
-    <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <PackageReference Include="DSharpPlus" Version="4.4.9" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.4.9" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.4.9" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.4.9" />
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

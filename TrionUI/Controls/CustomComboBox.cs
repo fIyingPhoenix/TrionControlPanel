@@ -243,7 +243,7 @@ namespace TrionControlPanel.UI
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedItem
         {
-            get => cmbList.SelectedItem;
+            get => cmbList.SelectedItem!;
             set => cmbList.SelectedItem = value;
         }
 

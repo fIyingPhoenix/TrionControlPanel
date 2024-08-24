@@ -1,27 +1,8 @@
-﻿/**
- * MetroFramework - Modern UI for WinForms
- * 
- * The MIT License (MIT)
- * Copyright (c) 2011 Sven Walter, http://github.com/viperneo
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of 
- * this software and associated documentation files (the "Software"), to deal in the 
- * Software without restriction, including without limitation the rights to use, copy, 
- * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
- * and to permit persons to whom the Software is furnished to do so, subject to the 
- * following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
 using MetroFramework.Components;
 using MetroFramework.Interfaces;
@@ -63,7 +44,7 @@ namespace MetroFramework.Controls
             set { metroTheme = value; }
         }
 
-        private MetroStyleManager metroStyleManager = null!;
+        private MetroStyleManager metroStyleManager;
         [Browsable(false)]
         public MetroStyleManager StyleManager
         {
@@ -75,37 +56,41 @@ namespace MetroFramework.Controls
 
         #region Fields
 
-        private MetroScrollBar verticalScrollbar = new(MetroScrollOrientation.Vertical);
-        private MetroScrollBar horizontalScrollbar = new(MetroScrollOrientation.Horizontal);
+        private MetroScrollBar verticalScrollbar;
+        private MetroScrollBar horizontalScrollbar;
 
-        [Category("Metro Appearance")]
         private bool showHorizontalScrollbar = false;
+        [Category("Metro Appearance")]
         public bool HorizontalScrollbar
         {
             get { return showHorizontalScrollbar; }
             set { showHorizontalScrollbar = value; }
         }
-        [Category("Metro Appearance")]
+
         private bool border = false;
+        [Category("Metro Appearance")]
         public bool Border
         {
             get { return border; }
             set { border = value; }
         }
-        [Category("Metro Appearance")]
+
         private Color borderColor = Color.Black;
+        [Category("Metro Appearance")]
         public Color BorderColor
         {
             get { return borderColor; }
             set { borderColor = value; }
         }
-        [Category("Metro Appearance")]
+
         private int borderSize = 0;
+        [Category("Metro Appearance")]
         public int BorderSize
         {
             get { return borderSize; }
             set { borderSize = value; }
         }
+
         [Category("Metro Appearance")]
         public int HorizontalScrollbarSize
         {
@@ -127,8 +112,8 @@ namespace MetroFramework.Controls
             set { horizontalScrollbar.HighlightOnWheel = value; }
         }
 
-        [Category("Metro Appearance")]
         private bool showVerticalScrollbar = false;
+        [Category("Metro Appearance")]
         public bool VerticalScrollbar
         {
             get { return showVerticalScrollbar; }
@@ -189,12 +174,14 @@ namespace MetroFramework.Controls
 
         public MetroPanel()
         {
-
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
                      ControlStyles.UserPaint |
                      ControlStyles.SupportsTransparentBackColor, true);
+
+            verticalScrollbar = new MetroScrollBar(MetroScrollOrientation.Vertical);
+            horizontalScrollbar = new MetroScrollBar(MetroScrollOrientation.Horizontal);
 
             Controls.Add(verticalScrollbar);
             Controls.Add(horizontalScrollbar);
@@ -204,11 +191,18 @@ namespace MetroFramework.Controls
 
             verticalScrollbar.Scroll += VerticalScrollbarScroll;
             horizontalScrollbar.Scroll += HorizontalScrollbarScroll;
+
+            Resize += MetroPanel_Resize;
         }
 
         #endregion
 
-        #region Scroll Events
+        #region Event Handlers
+
+        private void MetroPanel_Resize(object sender, EventArgs e)
+        {
+            UpdateScrollBarPositions();
+        }
 
         private void HorizontalScrollbarScroll(object sender, ScrollEventArgs e)
         {
@@ -326,7 +320,7 @@ namespace MetroFramework.Controls
                 if (VerticalScroll.Visible)
                 {
                     verticalScrollbar.Location = new Point(ClientRectangle.Width - verticalScrollbar.Width, ClientRectangle.Y);
-                    verticalScrollbar.Height = ClientRectangle.Height;
+                    verticalScrollbar.Height = ClientRectangle.Height - (HorizontalScroll.Visible ? horizontalScrollbar.Height : 0);
                 }
             }
             else
@@ -339,7 +333,7 @@ namespace MetroFramework.Controls
                 if (HorizontalScroll.Visible)
                 {
                     horizontalScrollbar.Location = new Point(ClientRectangle.X, ClientRectangle.Height - horizontalScrollbar.Height);
-                    horizontalScrollbar.Width = ClientRectangle.Width;
+                    horizontalScrollbar.Width = ClientRectangle.Width - (VerticalScroll.Visible ? verticalScrollbar.Width : 0);
                 }
             }
             else
