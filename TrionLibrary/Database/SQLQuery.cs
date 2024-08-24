@@ -39,7 +39,7 @@ namespace TrionLibrary.Database
             return Setting.Setting.List.SelectedCore switch
             {
                 Enums.Cores.AscEmu => $"",
-                Enums.Cores.AzerothCore => $"",
+                Enums.Cores.AzerothCore => $"INSERT INTO account(username, salt, verifier, email, reg_mail, joindate) VALUES(@Username, @Salt, @Verifier, @Email, @RegMail, @JoinDate)",
                 Enums.Cores.CMaNGOS => $"",
                 Enums.Cores.CypherCore => $"",
                 Enums.Cores.TrinityCore335 => $"",

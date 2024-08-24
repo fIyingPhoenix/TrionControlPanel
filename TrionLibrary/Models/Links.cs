@@ -9,6 +9,17 @@ namespace TrionControlPanelDesktop.Data
         public static string BackupCDNHost { get => ""; }
         public static string WebServer { get => ""; }
         public static string APIServer { get => ""; }
+        public class Emulators
+        {
+            public static string AscEmu { get => "https://github.com/AscEmu/"; }
+            public static string AzerothCore { get => "https://github.com/AzerothCore/"; }
+            public static string CMaNGOS  { get => "https://github.com/cmangos/"; }
+            public static string CypherCore { get => "https://github.com/CypherCore/"; }
+            public static string FirelandsCore{ get => "https://github.com/FirelandsProject"; }
+            public static string TrinityCore { get => "https://github.com/trinityCore/"; }
+            public static string VMaNGOS { get => "https://github.com/vmangos/"; }
+            public static string SkyFire { get => "https://codeberg.org/ProjectSkyfire/"; }
+        }
         public class Version
         {
             public static string Trion { get => "version/trion.ver"; }
@@ -29,7 +40,6 @@ namespace TrionControlPanelDesktop.Data
             public static string Cata { get => "data/cataHashes.xml"; }
             public static string Mop { get => "data/mopHashes.xml"; }
         }
-
         public class Install
         {
             public static string Trion { get => $"{Directory.GetCurrentDirectory()}/"; }

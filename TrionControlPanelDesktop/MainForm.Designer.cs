@@ -119,6 +119,7 @@ namespace TrionControlPanelDesktop
             BTNSettings.Size = new Size(70, 70);
             BTNSettings.TabIndex = 3;
             BTNSettings.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNSettings, "Configurations");
             BTNSettings.UseVisualStyleBackColor = false;
             BTNSettings.Visible = false;
             BTNSettings.Click += SettingsBTN_Click;
@@ -141,6 +142,7 @@ namespace TrionControlPanelDesktop
             BTNdatabase.Size = new Size(70, 70);
             BTNdatabase.TabIndex = 2;
             BTNdatabase.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNdatabase, "Database editor");
             BTNdatabase.UseVisualStyleBackColor = false;
             BTNdatabase.Visible = false;
             BTNdatabase.Click += TerminaBTN_Click;
@@ -163,7 +165,7 @@ namespace TrionControlPanelDesktop
             BTNHome.Size = new Size(70, 70);
             BTNHome.TabIndex = 1;
             BTNHome.TextColor = Color.White;
-            TLTHome.SetToolTip(BTNHome, "System Resorces");
+            TLTHome.SetToolTip(BTNHome, "Server Status & System Resources");
             BTNHome.UseVisualStyleBackColor = false;
             BTNHome.Visible = false;
             BTNHome.Click += HomeBTN_Click;
@@ -243,13 +245,14 @@ namespace TrionControlPanelDesktop
             BTNStartMySQL.ForeColor = Color.White;
             BTNStartMySQL.Image = (Image)resources.GetObject("BTNStartMySQL.Image");
             BTNStartMySQL.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartMySQL.Location = new Point(498, 8);
+            BTNStartMySQL.Location = new Point(206, 8);
             BTNStartMySQL.Name = "BTNStartMySQL";
             BTNStartMySQL.NotificationCount = 0;
             BTNStartMySQL.Size = new Size(140, 40);
             BTNStartMySQL.TabIndex = 8;
-            BTNStartMySQL.Text = "            Database  ";
+            BTNStartMySQL.Text = "    Database  ";
             BTNStartMySQL.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNStartMySQL, "Start / Stop Database");
             BTNStartMySQL.UseVisualStyleBackColor = false;
             BTNStartMySQL.Visible = false;
             BTNStartMySQL.Click += BTNStartMySQL_Click;
@@ -268,13 +271,14 @@ namespace TrionControlPanelDesktop
             BTNStartLogin.ForeColor = Color.White;
             BTNStartLogin.Image = (Image)resources.GetObject("BTNStartLogin.Image");
             BTNStartLogin.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNStartLogin.Location = new Point(206, 8);
+            BTNStartLogin.Location = new Point(498, 8);
             BTNStartLogin.Name = "BTNStartLogin";
             BTNStartLogin.NotificationCount = 0;
             BTNStartLogin.Size = new Size(140, 40);
             BTNStartLogin.TabIndex = 7;
-            BTNStartLogin.Text = "            Logon";
+            BTNStartLogin.Text = "    Logon";
             BTNStartLogin.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNStartLogin, "Start / Stop Logon Server\r\nIt will start the logon of every server selected at the configurations tab\r\n");
             BTNStartLogin.UseVisualStyleBackColor = false;
             BTNStartLogin.Visible = false;
             BTNStartLogin.Click += BTNStartLogin_Click;
@@ -298,8 +302,9 @@ namespace TrionControlPanelDesktop
             BTNStartWorld.NotificationCount = 0;
             BTNStartWorld.Size = new Size(140, 40);
             BTNStartWorld.TabIndex = 6;
-            BTNStartWorld.Text = "            World ";
+            BTNStartWorld.Text = "    World ";
             BTNStartWorld.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNStartWorld, "Start / Stop World Server\r\nIt will start the world of every server selected at the configurations tab");
             BTNStartWorld.UseVisualStyleBackColor = false;
             BTNStartWorld.Visible = false;
             BTNStartWorld.Click += BTNStartWorld_Click;
@@ -350,6 +355,7 @@ namespace TrionControlPanelDesktop
             BTNDownload.Size = new Size(41, 36);
             BTNDownload.TabIndex = 8;
             BTNDownload.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNDownload, "Download");
             BTNDownload.UseVisualStyleBackColor = true;
             BTNDownload.Visible = false;
             BTNDownload.Click += BTNDownload_Click;
@@ -373,6 +379,7 @@ namespace TrionControlPanelDesktop
             BTNNotification.Size = new Size(37, 36);
             BTNNotification.TabIndex = 7;
             BTNNotification.TextColor = Color.White;
+            TLTHome.SetToolTip(BTNNotification, "Notifications");
             BTNNotification.UseVisualStyleBackColor = true;
             BTNNotification.Visible = false;
             BTNNotification.Click += BTNNotification_Click;
@@ -465,14 +472,22 @@ namespace TrionControlPanelDesktop
             // 
             // TLTHome
             // 
-            TLTHome.BackColor = Color.FromArgb(34, 39, 46);
+            TLTHome.BackColor = Color.White;
             TLTHome.BackgroundColor = Color.FromArgb(34, 39, 46);
             TLTHome.BorderColor = Color.FromArgb(0, 174, 219);
+            TLTHome.BorderSize = 1;
             TLTHome.ForeColor = Color.WhiteSmoke;
+            TLTHome.LinkColor = Color.DodgerBlue;
+            TLTHome.LinkEnabled = false;
+            TLTHome.LinkText = "";
             TLTHome.OwnerDraw = true;
+            TLTHome.StripAmpersands = true;
             TLTHome.TextColor = Color.White;
+            TLTHome.TextFont = new Font("Segoe UI Semibold", 10F);
+            TLTHome.TitleBackgroundColor = Color.FromArgb(28, 33, 40);
             TLTHome.TitleColor = Color.FromArgb(0, 174, 219);
-            TLTHome.ToolTipTitle = "Test Name";
+            TLTHome.ToolTipIcon = ToolTipIcon.Info;
+            TLTHome.ToolTipTitle = "Information!";
             // 
             // TimerCrashDetected
             // 

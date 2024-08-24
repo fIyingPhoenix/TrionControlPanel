@@ -25,7 +25,7 @@ namespace TrionLibrary.Crypto
             {
                 using (var stream = File.OpenRead(filePath))
                 {
-                    return BitConverter.ToString(sha256.ComputeHash(stream)).Replace("-", String.Empty);
+                    return await Task.Run( () => BitConverter.ToString(sha256.ComputeHash(stream)).Replace("-", String.Empty));
                 }
             }
         }

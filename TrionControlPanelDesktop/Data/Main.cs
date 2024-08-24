@@ -1,4 +1,4 @@
-﻿using System.Net.Sockets;
+﻿using System.Diagnostics;
 using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionLibrary.Models;
@@ -26,6 +26,39 @@ namespace TrionControlPanelDesktop.Data
     }
     public class Main
     {
+        public static bool ServerStartedWorld()
+        {
+            if (User.UI.Form.CustWorldStarted ||
+                User.UI.Form.ClassicWorldStarted ||
+                User.UI.Form.TBCWorldStarted ||
+                User.UI.Form.WotLKWorldStarted ||
+                User.UI.Form.CataWorldStarted ||
+                User.UI.Form.MOPWorldStarted)
+            { return true; }
+            else { return false; }
+        }
+        public static bool ServerStatusWorld()
+        {
+            if (User.UI.Form.CustWorldRunning ||
+                User.UI.Form.ClassicWorldRunning ||
+                User.UI.Form.TBCWorldRunning ||
+                User.UI.Form.WotLKWorldRunning ||
+                User.UI.Form.CataWorldRunning ||
+                User.UI.Form.MOPWorldRunning)
+            { return true; }
+            else { return false; }
+        }
+        public static bool ServerStatusLogon()
+        {
+            if (User.UI.Form.CustLogonRunning ||
+                User.UI.Form.ClassicLogonRunning ||
+                User.UI.Form.TBCLogonRunning ||
+                User.UI.Form.WotLKLogonRunning ||
+                User.UI.Form.CataLogonRunning ||
+                User.UI.Form.MOPLogonRunning)
+            { return true; }
+            else { return false; }
+        }
         public static async Task LoadVersions()
         {
             //Version Load
@@ -280,29 +313,22 @@ namespace TrionControlPanelDesktop.Data
         }
         public static async Task StopDatabase()
         {
-            var processToRemove = User.System.DatabaseProcessID.Single(r => r.Name == Setting.List.DBExeName);
-            await Watcher.ApplicationStop(processToRemove.ID);
-            User.System.DatabaseProcessID.Remove(processToRemove);
-        }
-        public static async Task<bool> IsPortOpen()
-        {
-            string host = "localhost";
-            int port = int.Parse(Setting.List.DBServerPort);
             try
             {
-                using TcpClient tcpClient = new();
-                await tcpClient.ConnectAsync(host, port);
-                return true;
+                var processToRemove = User.System.DatabaseProcessID.Single(r => r.Name == Setting.List.DBExeName);
+                await Watcher.ApplicationStop(processToRemove.ID);
+                User.System.DatabaseProcessID.Clear();
+                User.UI.Form.DBStarted = false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                Infos.Message = ex.Message;
             }
         }
         public static async Task StartWorld()
         {
             User.System.WorldProcessesID.Clear();
-            if (Setting.List.CustomInstalled && !User.UI.Form.CustLogonRunning)
+            if (Setting.List.LaunchCustomCore && !User.UI.Form.CustWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.CustomWorldExeLoc,
@@ -315,7 +341,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.CustomWorldExeName });
                 User.UI.Form.CustWorldStarted = true;
             }
-            if (Setting.List.ClassicInstalled && !User.UI.Form.ClassicWorldRunning)
+            if (Setting.List.LaunchClassicCore && !User.UI.Form.ClassicWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.ClassicWorldExeLoc,
@@ -328,8 +354,8 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.ClassicWorldName });
                 User.UI.Form.ClassicWorldStarted = true;
             }
-            
-            if (Setting.List.TBCInstalled && !User.UI.Form.TBCWorldRunning)
+
+            if (Setting.List.LaunchTBCCore && !User.UI.Form.TBCWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.TBCWorldExeLoc,
@@ -342,7 +368,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.TBCWorldName });
                 User.UI.Form.TBCWorldStarted = true;
             }
-            if (Setting.List.WotLKInstalled && !User.UI.Form.WotLKWorldRunning)
+            if (Setting.List.LaunchWotLKCore && !User.UI.Form.WotLKWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                      Setting.List.WotLKWorldExeLoc,
@@ -355,7 +381,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.WotLKWorldName });
                 User.UI.Form.WotLKWorldStarted = true;
             }
-            if (Setting.List.CataInstalled && !User.UI.Form.CataWorldRunning)
+            if (Setting.List.LaunchCataCore && !User.UI.Form.CataWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.CataWorldExeLoc,
@@ -368,7 +394,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.CataWorldName });
                 User.UI.Form.CataWorldStarted = true;
             }
-            if (Setting.List.MOPInstalled && !User.UI.Form.MOPWorldRunning)
+            if (Setting.List.LaunchMoPCore && !User.UI.Form.MOPWorldRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.MopWorldExeLoc,
@@ -391,7 +417,7 @@ namespace TrionControlPanelDesktop.Data
         public static async Task StartLogon()
         {
             User.System.LogonProcessesID.Clear();
-            if (Setting.List.CustomInstalled)
+            if (Setting.List.LaunchCustomCore && !User.UI.Form.CustLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                    Setting.List.CustomLogonExeLoc,
@@ -404,7 +430,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.CustomWorldExeName });
                 User.UI.Form.CustLogonStarted = true;
             }
-            if (Setting.List.ClassicInstalled)
+            if (Setting.List.LaunchClassicCore && !User.UI.Form.ClassicLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.ClassicLogonExeLoc,
@@ -417,7 +443,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.ClassicLogonName });
                 User.UI.Form.ClassicLogonStarted = true;
             }
-            if (Setting.List.TBCInstalled)
+            if (Setting.List.LaunchTBCCore && !User.UI.Form.TBCLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.TBCLogonExeLoc,
@@ -430,7 +456,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.TBCLogonName });
                 User.UI.Form.TBCLogonStarted = true;
             }
-            if (Setting.List.WotLKInstalled)
+            if (Setting.List.LaunchWotLKCore && !User.UI.Form.WotLKLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                      Setting.List.WotLKLogonExeLoc,
@@ -443,7 +469,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.WotLKLogonName });
                 User.UI.Form.WotLKLogonStarted = true;
             }
-            if (Setting.List.CataInstalled)
+            if (Setting.List.LaunchCataCore && !User.UI.Form.CataLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.CataLogonExeLoc,
@@ -456,7 +482,7 @@ namespace TrionControlPanelDesktop.Data
                 { ID = ID, Name = Setting.List.CataLogonName });
                 User.UI.Form.CataLogonStarted = true;
             }
-            if (Setting.List.MOPInstalled)
+            if (Setting.List.LaunchMoPCore && !User.UI.Form.MOPLogonRunning)
             {
                 int ID = await Watcher.ApplicationStart(
                     Setting.List.MopLogonExeLoc,
@@ -485,342 +511,420 @@ namespace TrionControlPanelDesktop.Data
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.CustWorldStarted = false;
                 }
                 if (User.UI.Form.ClassicWorldStarted && User.UI.Form.ClassicWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.ClassicWorldStarted = false;
                 }
                 if (User.UI.Form.TBCWorldStarted && User.UI.Form.TBCWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.TBCWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.TBCWorldStarted = false;
                 }
                 if (User.UI.Form.WotLKWorldStarted && User.UI.Form.WotLKWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.WotLKWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.WotLKWorldStarted = false;
                 }
                 if (User.UI.Form.CataWorldStarted && User.UI.Form.CataWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CataWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.CataWorldStarted = false;
                 }
                 if (User.UI.Form.MOPWorldStarted && User.UI.Form.MOPWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.MoPWorldName);
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
+                    User.UI.Form.MOPWorldStarted = false;
                 }
             }
         }
         public static async Task StopLogon()
         {
-            if (User.UI.Form.CustLogonRunning)
+            if (User.UI.Form.CustLogonStarted && User.UI.Form.CustLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CustomLogonExeName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.CustLogonStarted = false;
             }
-            if (User.UI.Form.ClassicLogonRunning)
+            if (User.UI.Form.ClassicLogonStarted && User.UI.Form.ClassicLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.ClassicLogonName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.ClassicLogonStarted = false;
             }
-            if (User.UI.Form.TBCLogonRunning)
+            if (User.UI.Form.TBCLogonStarted && User.UI.Form.TBCLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.TBCLogonName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.TBCLogonStarted = false;
             }
-            if (User.UI.Form.WotLKLogonRunning)
+            if (User.UI.Form.WotLKLogonStarted && User.UI.Form.WotLKLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.WotLKLogonName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.WotLKLogonStarted = false;
             }
-            if (User.UI.Form.CataLogonRunning)
+            if (User.UI.Form.CataLogonStarted && User.UI.Form.CataLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CataLogonName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.CataLogonStarted = false;
             }
-            if (User.UI.Form.MOPLogonRunning)
+            if (User.UI.Form.MOPLogonStarted && User.UI.Form.MOPLogonRunning)
             {
                 var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.MoPLogonName);
                 await Watcher.ApplicationStop(processToRemove.ID);
-                User.System.WorldProcessesID.Remove(processToRemove);
+                User.System.LogonProcessesID.Remove(processToRemove);
+                User.UI.Form.MOPLogonStarted = false;
             }
         }
         public static void IsWorldRunning(List<Lists.ProcessID> PIDS)
         {
-            foreach (var process in PIDS)
+            if (ServerStartedWorld())
             {
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.CustomWorldExeName) { User.UI.Form.CustWorldRunning = true; }
-                else { User.UI.Form.CustWorldRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.ClassicWorldName) { User.UI.Form.ClassicWorldRunning = true; }
-                else { User.UI.Form.ClassicWorldRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.TBCWorldName) { User.UI.Form.TBCWorldRunning = true; }
-                else { User.UI.Form.TBCWorldRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.WotLKWorldName) { User.UI.Form.WotLKWorldRunning = true; }
-                else { User.UI.Form.WotLKWorldRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.CataWorldName) { User.UI.Form.CataWorldRunning = true; }
-                else { User.UI.Form.CataWorldRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.MoPWorldName) { User.UI.Form.MOPWorldRunning = true; }
-                else { User.UI.Form.MOPWorldRunning = false; }
+                foreach (var process in PIDS)
+                {
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.CustomWorldExeName) { User.UI.Form.CustWorldRunning = true; }
+                    else { User.UI.Form.CustWorldRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.ClassicWorldName) { User.UI.Form.ClassicWorldRunning = true; }
+                    else { User.UI.Form.ClassicWorldRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.TBCWorldName) { User.UI.Form.TBCWorldRunning = true; }
+                    else { User.UI.Form.TBCWorldRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.WotLKWorldName) { User.UI.Form.WotLKWorldRunning = true; }
+                    else { User.UI.Form.WotLKWorldRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.CataWorldName) { User.UI.Form.CataWorldRunning = true; }
+                    else { User.UI.Form.CataWorldRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.MoPWorldName) { User.UI.Form.MOPWorldRunning = true; }
+                    else { User.UI.Form.MOPWorldRunning = false; }
+                }
             }
+            else
+            {
+                User.UI.Form.CustWorldRunning = false;
+                User.UI.Form.ClassicWorldRunning = false;
+                User.UI.Form.TBCWorldRunning = false;
+                User.UI.Form.WotLKWorldRunning = false;
+                User.UI.Form.CataWorldRunning = false;
+                User.UI.Form.MOPWorldRunning = false;
+            }
+
         }
         public static void IsLogonRunning(List<Lists.ProcessID> PIDS)
         {
-            foreach (var process in PIDS)
+            if (ServerStatusLogon())
             {
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.CustomLogonExeName) { User.UI.Form.CustLogonRunning = true; }
-                else { User.UI.Form.CustLogonRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.ClassicLogonName) { User.UI.Form.ClassicLogonRunning = true; }
-                else { User.UI.Form.ClassicLogonRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.TBCLogonName) { User.UI.Form.TBCLogonRunning = true; }
-                else { User.UI.Form.TBCLogonRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.WotLKLogonName) { User.UI.Form.WotLKLogonRunning = true; }
-                else { User.UI.Form.WotLKLogonRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.CataLogonName) { User.UI.Form.CataLogonRunning = true; }
-                else { User.UI.Form.CataLogonRunning = false; }
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.MoPLogonName) { User.UI.Form.MOPLogonRunning = true; }
-                else { User.UI.Form.MOPLogonRunning = false; }
+                foreach (var process in PIDS)
+                {
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.CustomLogonExeName) { User.UI.Form.CustLogonRunning = true; }
+                    else { User.UI.Form.CustLogonRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.ClassicLogonName) { User.UI.Form.ClassicLogonRunning = true; }
+                    else { User.UI.Form.ClassicLogonRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.TBCLogonName) { User.UI.Form.TBCLogonRunning = true; }
+                    else { User.UI.Form.TBCLogonRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.WotLKLogonName) { User.UI.Form.WotLKLogonRunning = true; }
+                    else { User.UI.Form.WotLKLogonRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.CataLogonName) { User.UI.Form.CataLogonRunning = true; }
+                    else { User.UI.Form.CataLogonRunning = false; }
+                    if (Watcher.IsApplicationRuning(process.ID) && process.Name == Setting.List.MoPLogonName) { User.UI.Form.MOPLogonRunning = true; }
+                    else { User.UI.Form.MOPLogonRunning = false; }
+                }
+            }
+            else
+            {
+                User.UI.Form.CustLogonRunning = false;
+                User.UI.Form.ClassicLogonRunning = false;
+                User.UI.Form.TBCLogonRunning = false;
+                User.UI.Form.WotLKLogonRunning = false;
+                User.UI.Form.CataLogonRunning = false;
+                User.UI.Form.MOPLogonRunning = false;
+            }
+        }
+        public static async Task DatabaseRunIDCHeck(string ExecutableDirecotry, string ExecutableName)
+        {
+            await Task.Delay(1000);
+            Process[] process = Process.GetProcessesByName(ExecutableName);
+            foreach (Process proc in process)
+            {
+                if (Path.GetDirectoryName(proc.MainModule!.FileName) == ExecutableDirecotry && User.System.DatabaseProcessID.Count > 0)
+                {
+                    if (User.System.DatabaseProcessID.Any(current => current.ID != proc.Id))
+                    {
+                        var NewProcessID = new Lists.ProcessID
+                        {
+                            ID = proc.Id,
+                            Name = "DB2"
+                        };
+                        User.System.DatabaseProcessID.Add(NewProcessID);
+                    }
+                }
             }
         }
         public static void IsDatabaseRunning(List<Lists.ProcessID> PIDS)
         {
-            foreach (var process in PIDS)
+            var processID = User.System.DatabaseProcessID.Single(r => r.Name == Setting.List.DBExeName);
+            if (User.UI.Form.DBStarted && Watcher.IsApplicationRuning(processID.ID))
             {
-                if (Watcher.ApplicationRuning(process.ID) && process.Name == Setting.List.DBExeName)
-                {
-                    User.UI.Form.DBRunning = true;
-
-                }
-                else { User.UI.Form.CustWorldRunning = false; }
+                User.UI.Form.DBRunning = true;
             }
+           else { User.UI.Form.DBRunning = false; }
+            
         }
         public static async Task CrashDetector(int Attempts)
         {
             if (User.UI.Form.CustWorldStarted && !User.UI.Form.CustWorldRunning)
             {
-                for (int Attempt = 1; Attempt != Attempts; Attempt++)
+                while (Attempt.CustomWorld < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CustomWorldExeName);
+                    User.System.WorldProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CustomWorldExeName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.CustomLogonExeLoc,
-                            Setting.List.CustomWorkingDirectory,
-                            Setting.List.CustomWorldExeName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.CustomLogonExeName });
-                            User.UI.Form.CustLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            //Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.CustomWorldExeLoc,
+                        Setting.List.CustomWorkingDirectory,
+                        Setting.List.CustomWorldExeName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.WorldProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.CustomWorldExeName });
+                        User.UI.Form.CustWorldStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CustomWorld++;
+                        Infos.Message = $"{Setting.List.CustomWorldExeName} recover attempt:{Attempt.CustomWorld}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
+                        Infos.Message = $"Attempt {Attempt.CustomWorld} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CustomWorld++;
+                    }
+                    if (Attempt.CustomWorld == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CustomWorldExeName);
+                        User.System.WorldProcessesID.Remove(processToRemove2);
+                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CustomWorldExeName}!";
                         User.UI.Form.CustWorldStarted = false;
-                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CustomWorldExeName} ";
+                        break;
                     }
                 }
             }
             if (User.UI.Form.CustLogonStarted && !User.UI.Form.CustLogonRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.CustomLogon < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CustomLogonExeName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CustomWorldExeName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.CustomLogonExeLoc,
-                            Setting.List.CustomWorkingDirectory,
-                            Setting.List.CustomWorldExeName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.CustomLogonExeName });
-                            User.UI.Form.CustLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.CustomLogonExeLoc,
+                        Setting.List.CustomWorkingDirectory,
+                        Setting.List.CustomLogonExeName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.LogonProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.CustomLogonExeName });
+                        User.UI.Form.CustLogonStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CustomLogon++;
+                        Infos.Message = $"{Setting.List.CustomLogonExeName} recover attempt:{Attempt.CustomLogon}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
+                        Infos.Message = $"Attempt {Attempt.CustomLogon} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CustomLogon++;
+                    }
+                    if (Attempt.CustomLogon == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CustomLogonExeName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
+                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CustomLogonExeName}!";
                         User.UI.Form.CustLogonStarted = false;
-                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CustomWorldExeName} ";
+                        break;
                     }
                 }
             }
             if (User.UI.Form.ClassicWorldStarted && !User.UI.Form.ClassicWorldRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.ClassicWorld < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
+                    User.System.WorldProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.ClassicWorldExeLoc,
-                            Setting.List.ClassicWorkingDirectory,
-                            Setting.List.ClassicWorldName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.WorldProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.ClassicWorldExeName });
-                            User.UI.Form.ClassicWorldStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.ClassicLogonExeLoc,
+                        Setting.List.ClassicWorkingDirectory,
+                        Setting.List.ClassicWorldName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.WorldProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.ClassicWorldName });
+                        User.UI.Form.ClassicWorldStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.ClassicWorld++;
+                        Infos.Message = $"{Setting.List.ClassicWorldName} recover attempt:{Attempt.ClassicWorld}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.ClassicWorldStarted = false;
+                        Infos.Message = $"Attempt {Attempt.ClassicWorld} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.ClassicWorld++;
+                    }
+                    if (Attempt.ClassicWorld == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
+                        User.System.WorldProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.ClassicWorldName}!";
+                        User.UI.Form.ClassicWorldStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.ClassicLogonStarted && !User.UI.Form.ClassicLogonRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.ClassicLogon < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.ClassicLogonName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.ClassicLogonName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.ClassicLogonExeLoc,
-                            Setting.List.ClassicWorkingDirectory,
-                            Setting.List.ClassicLogonName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.ClassicLogonName });
-                            User.UI.Form.ClassicLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.ClassicLogonExeLoc,
+                        Setting.List.ClassicWorkingDirectory,
+                        Setting.List.ClassicLogonName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.LogonProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.ClassicLogonName });
+                        User.UI.Form.ClassicLogonStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.ClassicLogon++;
+                        Infos.Message = $"{Setting.List.ClassicLogonName} recover attempt:{Attempt.ClassicLogon}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.ClassicLogonName);
+                        Infos.Message = $"Attempt {Attempt.ClassicLogon} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.ClassicLogon++;
+                    }
+                    if (Attempt.ClassicLogon == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.ClassicLogonName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
+                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.ClassicLogonName}!";
                         User.UI.Form.ClassicLogonStarted = false;
-                        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.ClassicWorldName}!";
+                        break;
                     }
                 }
             }
             if (User.UI.Form.TBCWorldStarted && !User.UI.Form.TBCWorldRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.TBCWorld < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.TBCWorldName);
+                    User.System.WorldProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.TBCWorldName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.TBCWorldExeLoc,
-                            Setting.List.TBCWorkingDirectory,
-                            Setting.List.TBCWorldName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.WorldProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.TBCWorldName });
-                            User.UI.Form.TBCWorldStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000);//This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.TBCWorldExeLoc,
+                        Setting.List.TBCWorkingDirectory,
+                        Setting.List.TBCWorldName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.WorldProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.TBCWorldName });
+                        User.UI.Form.TBCWorldStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.TBCWorld++;
+                        Infos.Message = $"{Setting.List.TBCWorldName} recover attempt:{Attempt.TBCWorld}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.TBCWorldStarted = false;
+                        Infos.Message = $"Attempt {Attempt.TBCWorld} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.TBCWorld++;
+                    }
+                    if (Attempt.TBCWorld == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.TBCWorldName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.TBCWorldName}!";
+                        User.UI.Form.TBCWorldStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.TBCLogonStarted && !User.UI.Form.TBCLogonRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.TBCLogon < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.TBCLogonName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.TBCLogonName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.TBCLogonExeLoc,
-                            Setting.List.TBCWorkingDirectory,
-                            Setting.List.TBCLogonName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.TBCLogonName });
-                            User.UI.Form.TBCLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.TBCLogonExeLoc,
+                        Setting.List.TBCWorkingDirectory,
+                        Setting.List.TBCLogonName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.LogonProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.TBCLogonName });
+                        User.UI.Form.TBCLogonStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.TBCLogon++;
+                        Infos.Message = $"{Setting.List.TBCLogonName} recover attempt:{Attempt.TBCLogon}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.TBCLogonStarted = false;
+                        Infos.Message = $"Attempt {Attempt.TBCLogon} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.TBCLogon++;
+                    }
+                    if (Attempt.TBCLogon == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.TBCLogonName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.TBCLogonName}!";
+                        User.UI.Form.TBCLogonStarted = false;
+                        break;
                     }
                 }
             }
@@ -857,7 +961,7 @@ namespace TrionControlPanelDesktop.Data
                         await Task.Delay(3000); //This need tunning
                         Attempt.WotlkWorld++;
                     }
-                    if (Attempt.WotlkWorld == Attempts)
+                    if (Attempt.WotlkWorld == Attempts - 1)
                     {
                         User.UI.Form.WotLKWorldStarted = false;
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.WotLKWorldName}!";
@@ -868,7 +972,7 @@ namespace TrionControlPanelDesktop.Data
             }
             if (User.UI.Form.WotLKLogonStarted && !User.UI.Form.WotLKLogonRunning)
             {
-                
+
                 while (Attempt.WotlkLogon < Attempts)
                 {
                     var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.WotLKLogonName);
@@ -897,185 +1001,201 @@ namespace TrionControlPanelDesktop.Data
                         await Task.Delay(3000); //This need tunning
                         Attempt.WotlkLogon++;
                     }
-                    if (Attempt.WotlkLogon == Attempts)
+                    if (Attempt.WotlkLogon == Attempts - 1)
                     {
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.WotLKLogonName}!";
-                        User.UI.Form.WotLKLogonStarted = false;                        
+                        User.UI.Form.WotLKLogonStarted = false;
                         break;
                     }
                 }
             }
             if (User.UI.Form.CataWorldStarted && !User.UI.Form.CataWorldRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.CataWorld < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CataWorldName);
+                    User.System.WorldProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CataWorldName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.CataWorldExeLoc,
-                            Setting.List.CataWorkingDirectory,
-                            Setting.List.CataWorldName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.WorldProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.CataWorldName });
-                            User.UI.Form.CataWorldStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.CataWorldExeLoc,
+                        Setting.List.CataWorkingDirectory,
+                        Setting.List.CataWorldName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.WorldProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.CataWorldName });
+                        User.UI.Form.CataWorldStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CataWorld++;
+                        Infos.Message = $"{Setting.List.CataWorldName} recover attempt:{Attempt.CataWorld}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.CataWorldStarted = false;
+                        Infos.Message = $"Attempt {Attempt.CataWorld} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CataWorld++;
+                    }
+                    if (Attempt.CataWorld == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.CataWorldName);
+                        User.System.WorldProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CataWorldName}!";
+                        User.UI.Form.CataWorldStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.CataLogonStarted && !User.UI.Form.CataLogonRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.CataLogon < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CataLogonName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CataLogonName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.CataLogonExeLoc,
-                            Setting.List.CataWorkingDirectory,
-                            Setting.List.CataLogonName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.CataLogonName });
-                            User.UI.Form.CataLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.CataLogonExeLoc,
+                        Setting.List.CataWorkingDirectory,
+                        Setting.List.CataLogonName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.LogonProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.CataLogonName });
+                        User.UI.Form.CataLogonStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CataLogon++;
+                        Infos.Message = $"{Setting.List.CataLogonName} recover attempt:{Attempt.CataLogon}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.CataLogonStarted = false;
+                        Infos.Message = $"Attempt {Attempt.CataLogon} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.CataLogon++;
+                    }
+                    if (Attempt.CataLogon == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.CataLogonName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.CataLogonName}!";
+                        User.UI.Form.CataLogonStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.MOPWorldStarted && !User.UI.Form.MOPWorldRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.MopWorld < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.MoPWorldName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.MoPWorldName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.MopLogonExeLoc,
-                            Setting.List.MopWorkingDirectory,
-                            Setting.List.MoPWorldName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.MoPWorldName });
-                            User.UI.Form.MOPLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.MopWorldExeLoc,
+                        Setting.List.MopWorkingDirectory,
+                        Setting.List.MoPWorldName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.WorldProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.MoPWorldName });
+                        User.UI.Form.MOPWorldStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.MopWorld++;
+                        Infos.Message = $"{Setting.List.MoPWorldName} recover attempt:{Attempt.MopWorld}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.MOPWorldStarted = false;
+                        Infos.Message = $"Attempt {Attempt.MopWorld} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.MopWorld++;
+                    }
+                    if (Attempt.MopWorld == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.MoPWorldName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.MoPWorldName}!";
+                        User.UI.Form.MOPWorldStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.MOPLogonStarted && !User.UI.Form.MOPLogonRunning)
             {
-                for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                while (Attempt.MopLogon < Attempts)
                 {
-                    if (Attempt != Attempts - 1)
+                    var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.MoPLogonName);
+                    User.System.LogonProcessesID.Remove(processToRemove);
+                    try
                     {
-                        var processToRemove = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.MoPLogonName);
-                        User.System.LogonProcessesID.Remove(processToRemove);
-                        try
-                        {
-                            int ID = await Watcher.ApplicationStart(
-                            Setting.List.MopLogonExeLoc,
-                            Setting.List.MopWorkingDirectory,
-                            Setting.List.MoPLogonName,
-                            Setting.List.ConsolHide,
-                            null
-                            );
-                            User.System.LogonProcessesID.Add(new Lists.ProcessID()
-                            { ID = ID, Name = Setting.List.MoPLogonName });
-                            User.UI.Form.MOPLogonStarted = true;
-                            await Task.Delay(3000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                            // Optionally, wait before retrying
-                            await Task.Delay(3000); //This need tunning
-                        }
+                        int ID = await Watcher.ApplicationStart(
+                        Setting.List.MopLogonExeLoc,
+                        Setting.List.MopWorkingDirectory,
+                        Setting.List.MoPLogonName,
+                        Setting.List.ConsolHide,
+                        null
+                        );
+                        User.System.LogonProcessesID.Add(new Lists.ProcessID()
+                        { ID = ID, Name = Setting.List.MoPLogonName });
+                        User.UI.Form.MOPLogonStarted = true;
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.MopLogon++;
+                        Infos.Message = $"{Setting.List.MoPLogonName} recover attempt:{Attempt.MopLogon}";
+                        break;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        User.UI.Form.MOPLogonStarted = false;
+                        Infos.Message = $"Attempt {Attempt.MopLogon} failed: {ex.Message}";
+                        // Optionally, wait before retrying
+                        await Task.Delay(3000); //This need tunning
+                        Attempt.MopLogon++;
+                    }
+                    if (Attempt.MopLogon == Attempts - 1)
+                    {
+                        var processToRemove2 = User.System.LogonProcessesID.Single(r => r.Name == Setting.List.MoPLogonName);
+                        User.System.LogonProcessesID.Remove(processToRemove2);
                         Infos.Message = $"Max Attempts reached, Stopping {Setting.List.MoPLogonName}!";
+                        User.UI.Form.MOPLogonStarted = false;
+                        break;
                     }
                 }
             }
             if (User.UI.Form.DBStarted && !User.UI.Form.DBRunning)
             {
-                //for (int Attempt = 1; Attempt < Attempts; Attempt++)
+                //await Task.Delay(20000);
+                //while (Attempt.Database < Attempts)
                 //{
-                //    var processToRemove = User.System.DatabaseProcessID.Single(r => r.Name == Setting.List.DBExeName);
-                //    User.System.DatabaseProcessID.Remove(processToRemove);
-                //    if (Attempt != Attempts - 1)
+                //    User.System.DatabaseProcessID.Clear();
+                //    try
                 //    {
-                //        try
-                //        {
-                //            Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-                //            string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
-                //            StartDatabase(arg);
-                //            await Task.Delay(600000);
-                //            break;
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            Infos.Message = $"Attempt {Attempt} failed: {ex.Message}";
-                //            // Optionally, wait before retrying
-                //            await Task.Delay(3000); //This need tunning
-                //        }
+                //        Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                //        string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
+                //        await StartDatabase(arg);
+                //        await Task.Delay(20000);
+                //        break;
                 //    }
-                //    else
+                //    catch (Exception ex)
                 //    {
+                //        User.System.DatabaseProcessID.Clear();
+                //        Infos.Message = $"Attempt {Attempt.Database} failed: {ex.Message}";
+                //        // Optionally, wait before retrying
+                //        await Task.Delay(20000); //This need tunning
+                //    }
+                //    if (Attempt.Database == Attempts - 1)
+                //    {
+                //        User.System.DatabaseProcessID.Clear();
                 //        User.UI.Form.DBStarted = false;
                 //        Infos.Message = $"Max Attempts reached, Stopping {Setting.List.DBExeName}!";
+                //        break;
                 //    }
                 //}
             }

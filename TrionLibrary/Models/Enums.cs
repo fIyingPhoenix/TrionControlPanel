@@ -13,6 +13,7 @@
             DBInternalError,
             BadLink
         }
+
         public enum TcpTableClass
         {
             TCP_TABLE_BASIC_LISTENER,

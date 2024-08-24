@@ -98,7 +98,6 @@ namespace TrionControlPanelDesktop.Data
             }
             public class Resource
             {
-
                 public static int MachineTotalRam { get; set; }
                 public static int MachineUsageRam { get; set; }
                 public static int MachineCPUUsage { get; set; }

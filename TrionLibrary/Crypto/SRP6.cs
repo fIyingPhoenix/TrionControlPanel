@@ -3,8 +3,6 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using TrionLibrary.Extensions;
-using Org.BouncyCastle.Crypto;
-
 
 namespace TrionLibrary.Crypto
 {
@@ -27,7 +25,6 @@ namespace TrionLibrary.Crypto
             s = new byte[0].GenerateRandomKey(SaltLength);
             _used = true;
         }
-
         public SRP6(BigInteger i, byte[] salt, byte[] verifier, BigInteger N, BigInteger g, BigInteger k)
         {
             s = salt;
@@ -52,13 +49,13 @@ namespace TrionLibrary.Crypto
         BigInteger CalculatePrivateB(BigInteger N)
         {
             BigInteger b = new BigInteger(new byte[0].GenerateRandomKey((int)N.GetBitLength()), true);
-            b %= (N - 1);
+            b %= N - 1;
             return b;
         }
 
         BigInteger CalculatePublicB(BigInteger N, BigInteger g, BigInteger k)
         {
-            return (BigInteger.ModPow(g, b, N) + (v * k)) % N;
+            return (BigInteger.ModPow(g, b, N) + v * k) % N;
         }
 
         byte[] CalculateVerifier(string username, string password, byte[] salt)
@@ -89,7 +86,6 @@ namespace TrionLibrary.Crypto
 
         public abstract BigInteger? DoVerifyClientEvidence(BigInteger A, BigInteger clientM1);
     }
-
     public class GruntSRP6 : SRP6
     {
         static BigInteger N;// the modulus, an algorithm parameter; all operations are mod this

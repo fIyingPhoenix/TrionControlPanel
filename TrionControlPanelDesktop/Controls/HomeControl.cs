@@ -14,39 +14,18 @@ namespace TrionControlPanelDesktop.Controls
             Dock = DockStyle.Fill;
             InitializeComponent();
         }
-        private static bool ServerStatusWorld()
-        {
-            if (User.UI.Form.CustWorldRunning ||
-                User.UI.Form.ClassicWorldRunning ||
-                User.UI.Form.TBCWorldRunning ||
-                User.UI.Form.WotLKWorldRunning ||
-                User.UI.Form.CataWorldRunning ||
-                User.UI.Form.MOPWorldRunning)
-            { return true; }
-            else { return false; }
-        }
-        private static bool ServerStatusLogon()
-        {
-            if (User.UI.Form.CustLogonRunning ||
-                User.UI.Form.ClassicLogonRunning ||
-                User.UI.Form.TBCLogonRunning ||
-                User.UI.Form.WotLKLogonRunning ||
-                User.UI.Form.CataLogonRunning ||
-                User.UI.Form.MOPLogonRunning)
-            { return true; }
-            else { return false; }
-        }
+
         private void ServerIconUI()
         {
-            if (ServerStatusWorld())
+            if (Main.ServerStatusWorld())
             { PICWorldServerStatus.Image = Properties.Resources.cloud_online_50; }
             else { PICWorldServerStatus.Image = Properties.Resources.cloud_offline_50; }
             //
-            if (ServerStatusLogon())
+            if (Main.ServerStatusLogon())
             { PICLogonServerStatus.Image = Properties.Resources.cloud_online_50; }
             else { PICLogonServerStatus.Image = Properties.Resources.cloud_offline_50; }
             //
-            if (User.UI.Form.DBRunning) { PICMySqlServerStatus.Image = Properties.Resources.cloud_online_50; }
+            if (User.UI.Form.DBRunning && User.UI.Form.DBStarted ) { PICMySqlServerStatus.Image = Properties.Resources.cloud_online_50; }
             else { PICMySqlServerStatus.Image = Properties.Resources.cloud_offline_50; }
         }
         private void HomeControl_Load(object sender, EventArgs e)
@@ -89,10 +68,10 @@ namespace TrionControlPanelDesktop.Controls
                 //
                 Thread ApplicationResourceUsage = new(() =>
                 {
-                    if (User.UI.Resource.CurrentWorldID == 0)
+                    if (User.UI.Resource.CurrentWorldID > 0)
                     {
-                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);//Watcher.ApplicationCpuUsage(4172);
                         User.UI.Resource.WorldUsageRam = Watcher.ApplicationRamUsage(User.UI.Resource.CurrentWorldID);
+                        User.UI.Resource.WorldCPUUsage = Watcher.ApplicationCpuUsage(User.UI.Resource.CurrentWorldID);
                     }
                     if (User.UI.Resource.CurrentAuthID > 0)
                     {
@@ -112,11 +91,19 @@ namespace TrionControlPanelDesktop.Controls
                     {
                         Main.IsLogonRunning(User.System.LogonProcessesID);
                     }
+                    if(User.System.WorldProcessesID.Count > 0)
+                    {
+                        Main.IsWorldRunning(User.System.WorldProcessesID);
+                    }
+                    if(User.System.DatabaseProcessID.Count > 0)
+                    {
+                        Main.IsDatabaseRunning(User.System.DatabaseProcessID);
+                    }
                 });
                 IsServerRunning.Start();
-                LBLMysqlPort.Text = $"ProcessID: {string.Join(", ", User.System.DatabaseProcessID.Select(p => p.ID))}";
-                LBLLogonPort.Text = $"ProcessID: {string.Join(", ", User.System.LogonProcessesID.Select(p => p.ID))}";
-                LBLWordPort.Text = $"ProcessID: {string.Join(", ", User.System.WorldProcessesID.Select(p => p.ID))}";
+                LBLMysqlPort.Text = $"Process ID: {string.Join(", ", User.System.DatabaseProcessID.Select(p => p.ID))}";
+                LBLLogonPort.Text = $"Process ID: {string.Join(", ", User.System.LogonProcessesID.Select(p => p.ID))}";
+                LBLWordPort.Text = $"Process ID: {string.Join(", ", User.System.WorldProcessesID.Select(p => p.ID))}";
 
                 PCResorcePbarRAM.Maximum = User.UI.Resource.MachineTotalRam;
                 PCResorcePbarRAM.Value = User.UI.Resource.MachineUsageRam;
@@ -136,14 +123,19 @@ namespace TrionControlPanelDesktop.Controls
             {
                 LBLWorldsOpen.Text = $"{CurrentWorldsOpen + 1}/{User.System.WorldProcessesID.Count}";
                 PNLWorldCount.Visible = true;
-                if (CurrentWorldsOpen == User.System.WorldProcessesID.Count)
+                if (CurrentWorldsOpen == User.System.WorldProcessesID.Count && User.System.WorldProcessesID.Count > 2)
                 {
                     BTNWorldFW.Visible = false;
                     BTNWorldBC.Visible = true;
                 }
-                else if (CurrentWorldsOpen == 0)
+                else if (CurrentWorldsOpen == 0 && User.System.WorldProcessesID.Count > 2)
                 {
                     BTNWorldFW.Visible = true;
+                    BTNWorldBC.Visible = false;
+                }
+                else if(User.System.WorldProcessesID.Count == 1)
+                {
+                    BTNWorldFW.Visible = false;
                     BTNWorldBC.Visible = false;
                 }
                 else
@@ -151,7 +143,6 @@ namespace TrionControlPanelDesktop.Controls
                     BTNWorldFW.Visible = true;
                     BTNWorldBC.Visible = true;
                 }
-
             }
             else
             {
@@ -197,20 +188,32 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void TimerStopWatch_Tick(object sender, EventArgs e)
         {
-            if (ServerStatusWorld() == true && User.System.WorldProcessesID.Count > 0)
+            if (Main.ServerStatusWorld() == true && User.System.WorldProcessesID.Count > 0)
             {
                 TimeSpan elapsedTime = DateTime.Now - User.System.WorldStartTime;
-                LBLUpTimeWorld.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeWorld.Text = $"Uptime: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
+            else
+            {
+                LBLUpTimeWorld.Text = $"Uptime: 0D : 0H : 0M : 0S";
             }
             if (User.UI.Form.DBStarted == true && User.System.DatabaseProcessID.Count > 0)
             {
                 TimeSpan elapsedTime = DateTime.Now - User.System.DatabaseStartTime;
-                LBLUpTimeDatabase.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeDatabase.Text = $"Uptime: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
             }
-            if (ServerStatusLogon() == true && User.System.LogonProcessesID.Count > 0)
+            else
+            {
+                LBLUpTimeDatabase.Text = $"Uptime: 0D : 0H : 0M : 0S";
+            }
+            if (Main.ServerStatusLogon() == true && User.System.LogonProcessesID.Count > 0)
             {
                 TimeSpan elapsedTime = DateTime.Now - User.System.LogonStartTime;
-                LBLUpTimeLogon.Text = $"Up Time: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeLogon.Text = $"Uptime: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+            }
+            else
+            {
+                LBLUpTimeLogon.Text = $"Uptime: 0D : 0H : 0M : 0S";
             }
         }
         private void BTNWorldBC_Click(object sender, EventArgs e)

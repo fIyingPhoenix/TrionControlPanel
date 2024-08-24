@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using static TrionLibrary.Models.Enums;
 using TrionLibrary.Setting;
 using TrionControlPanelDesktop.Data;
@@ -115,11 +114,12 @@ namespace TrionControlPanelDesktop.Controls
         private void LoadData()
         {
             //Load Installed Emulators
-            TGLClassicInstalled.Checked = Setting.List.ClassicInstalled;
-            TGLTBCInstalled.Checked = Setting.List.TBCInstalled;
-            TGLWotLKInstalled.Checked = Setting.List.WotLKInstalled;
-            TGLCataInstalled.Checked = Setting.List.CataInstalled;
-            TGLMoPInstalled.Checked = Setting.List.MOPInstalled;
+            TGLClassicLaunch.Checked = Setting.List.LaunchClassicCore;
+            TGLTBCLaunch.Checked = Setting.List.LaunchTBCCore;
+            TGLWotLKLaunch.Checked = Setting.List.LaunchWotLKCore;
+            TGLCataLaunch.Checked = Setting.List.LaunchCataCore;
+            TGLMoPLaunch.Checked = Setting.List.LaunchMoPCore;
+            TGLCustomInstalled.Checked = Setting.List.LaunchCustomCore;
             //Load Names
             TXTBoxLoginExecName.Text = Setting.List.CustomLogonExeName;
             TXTBoxWorldExecName.Text = Setting.List.CustomWorldExeName;
@@ -144,11 +144,12 @@ namespace TrionControlPanelDesktop.Controls
             TGLStayInTrey.Checked = Setting.List.StayInTray;
             TGLCustomNames.Checked = Setting.List.CustomNames;
             TGLRunTrionStartup.Checked = Setting.List.RunWithWindows;
+            TGLServerCrashDetection.Checked = Setting.List.ServerCrashDetection;
             //Update Loader
             EnableCustomNames();
             //Update Labels
             LBLTrionVersion.Text = $"Trion Version: Local {User.UI.Version.OFF.Trion} / Online: {User.UI.Version.ON.Trion}";
-            LBLDBVersion.Text = $"Database Version: \n •Local: {User.UI.Version.OFF.Database} \n •Online: {User.UI.Version.ON.Database} ";
+            LBLDBVersion.Text = $"Database Version:  Local: {User.UI.Version.OFF.Database} / Online: {User.UI.Version.ON.Database} ";
             LBLClassicVersion.Text = $"Classic Version: \n •Local: {User.UI.Version.OFF.Classic} \n •Online: {User.UI.Version.ON.Classic} ";
             LBLTBCVersion.Text = $"TBC Version: \n •Local: {User.UI.Version.OFF.TBC} \n •Online: {User.UI.Version.ON.TBC} ";
             LBLWotLKVersion.Text = $"WotLK Version: \n •Local: {User.UI.Version.OFF.WotLK} \n •Online: {User.UI.Version.ON.WotLK} ";
@@ -1050,6 +1051,69 @@ namespace TrionControlPanelDesktop.Controls
                 }
             }
             LoadBackup.Enabled = true;
+        }
+
+        private void BTNAscEmuWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.AscEmu);
+        }
+
+        private void BTNACoreWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.AzerothCore);
+        }
+
+        private void BTNSkyFireWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.SkyFire);
+        }
+
+        private void BTNCMangosWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.CMaNGOS);
+        }
+
+        private void BTNCypherWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.CypherCore);
+        }
+
+        private void BTNFirelandsWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.FirelandsCore);
+        }
+        private void BTNTrinityCoreWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.TrinityCore);
+        }
+        private void BTNVMangosWebsite_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Emulators.VMaNGOS);
+        }
+        private void TGLClassicLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.LaunchClassicCore = TGLClassicLaunch.Checked;
+        }
+        private void TGLTBCLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.LaunchTBCCore = TGLTBCLaunch.Checked;
+        }
+        private void TGLWotLKLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.LaunchWotLKCore = TGLWotLKLaunch.Checked;
+        }
+        private void TGLCataLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.LaunchCataCore = TGLCataLaunch.Checked;
+        }
+        private void TGLMoPLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.LaunchMoPCore = TGLMoPLaunch.Checked;
+        }
+
+        private void TGLServerCrashDetection_CheckedChanged(object sender, EventArgs e)
+        {
+            Setting.List.ServerCrashDetection = TGLServerCrashDetection.Checked;
         }
     }
 }

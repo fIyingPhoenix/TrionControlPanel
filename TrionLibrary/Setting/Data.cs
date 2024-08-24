@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TrionLibrary.Models;
@@ -46,7 +45,7 @@ namespace TrionLibrary.Setting
                 List.DDNSUsername = "N/A";
                 List.DDNSPassword = "N/A";
                 List.IPAddress = "127.0.0.1";
-                List.ServerCrash = false;
+                List.ServerCrashDetection = false;
                 List.NotificationSound = true;
                 List.ConsolHide = false;
                 List.StayInTray = false;

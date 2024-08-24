@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -50,7 +51,8 @@ namespace TrionLibrary.Sys
             CTRL_LOGOFF_EVENT = 5,
             CTRL_SHUTDOWN_EVENT
         }
-        private static string OSRuinning()
+
+        public static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";
             else if (Environment.OSVersion.Platform == PlatformID.Win32NT) return "Widnows";
@@ -170,7 +172,7 @@ namespace TrionLibrary.Sys
             }
             return 0;
         }
-        public static bool IsApplicationRunning(string ProcessName)
+        public static bool IsApplicationRunningName(string ProcessName)
         {
             Process[] ProcessID = Process.GetProcessesByName(ProcessName);
             if (ProcessID.Length <= 0)
@@ -178,7 +180,7 @@ namespace TrionLibrary.Sys
             else
                 return true;
         }
-        public static bool ApplicationRuning(int ProcessId)
+        public static bool IsApplicationRuning(int ProcessId)
         {
             try
             {
@@ -220,7 +222,7 @@ namespace TrionLibrary.Sys
                      }
                      // complete the task
 
-                     Infos.Message = $@"Successfully rune {Name}!";
+                     Infos.Message = $@"Started: {Name}!";
                      id = myProcess.Id;
                  }
                  catch (Exception ex)
@@ -250,30 +252,29 @@ namespace TrionLibrary.Sys
                 return -1; // Return -1 if an error occurs
             }
         }
+        public static void ApplicationKill(int ApplicationID)
+        {
+            var process = Process.GetProcessById(ApplicationID);
+            process.Kill(true);// Ensures the process is killed immediately
+        }
         public static async Task ApplicationStop(int ApplicationID)
         {
-            //Thread ApplicationStopThread = new(async () =>
-            //{
             try
             {
+                Infos.Message = "Stopping Process:" + ApplicationID;
                 var process = Process.GetProcessById(ApplicationID);
-
                 await SendCtrlC(process);
                 if (!process.WaitForExit(15000)) // wait for 15 seconds, save world!
                 {
                     // If the process did not exit, forcefully terminate it
-                    Infos.Message = "The process did not exit for more then 15 Secoinds. Kill it!";
-                    process.Kill();
+                    Infos.Message = "The process did not exit for more then 15 seconds. Kill it!";
+                    process.Kill(true);
                 }
             }
             catch (Exception ex)
             {
-                
-                 Infos.Message = $"Error: {ex.Message}";
-                
+                 Infos.Message = $"Error: {ex.Message}"; 
             }
-            //});
-            //ApplicationStopThread.Start();
         }
         private static async Task SendCtrlC(Process process)
         {
@@ -344,6 +345,5 @@ namespace TrionLibrary.Sys
                 return 0;
             }
         }
-
     }
 }

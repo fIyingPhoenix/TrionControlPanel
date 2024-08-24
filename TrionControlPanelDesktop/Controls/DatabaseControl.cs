@@ -4,6 +4,7 @@ using TrionLibrary.Setting;
 using TrionLibrary.Database;
 using TrionLibrary.Sys;
 using TrionControlPanelDesktop.Data;
+using TrionDatabase;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -12,7 +13,7 @@ namespace TrionControlPanelDesktop.Controls
         List<Realmlist.Trinity> RealmlistTrinity;
         List<Realmlist.Ascemu> RealmlistAscemu;
         List<Realmlist.Mangos> RealmlistMangos;
-        
+
         public DatabaseControl()
         {
             Dock = DockStyle.Fill;
@@ -168,7 +169,14 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNOpenPublic_ClickAsync(object sender, EventArgs e)
         {
-            TXTRealmAddress.Text = TXTPublicIP.Text;
+            if (TXTDomainName.Text != string.Empty)
+            {
+                TXTRealmAddress.Text = TXTDomainName.Text;
+            }
+            else
+            {
+                TXTRealmAddress.Text = TXTPublicIP.Text;
+            }
             await SaveRealmList();
         }
         private async void BTNSaveData_ClickAsync(object sender, EventArgs e)
@@ -178,6 +186,11 @@ namespace TrionControlPanelDesktop.Controls
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private async void BTNCreateAccount_Click(object sender, EventArgs e)
+        {
+            await AccountCreate.CreateAuth(TXTBoxCreateUser.Text.ToUpper(),TXTBoxCreatePassword.Text.ToUpper(), TXTBoxCreateEmail.Text.ToUpper());
         }
     }
 

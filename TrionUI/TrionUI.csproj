@@ -53,7 +53,7 @@
     <Compile Update="Controls\MetroUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\Test\CustomNotificationsButton.cs" />
+    <Compile Update="Controls\CustomNotificationsButton.cs" />
     <Compile Update="Forms\MetroForm.cs" />
     <Compile Update="Forms\MetroTaskWindow.cs" />
     <Compile Update="MessageBox\MetroMessageBoxControl.cs" />

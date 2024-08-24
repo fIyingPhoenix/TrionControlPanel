@@ -3,6 +3,7 @@ namespace TrionLibrary.Models
 {
     public class Lists
     {
+
         public class File
         {
             public string FileName;
@@ -42,6 +43,7 @@ namespace TrionLibrary.Models
             public string CustomLogonExeLoc;
             public string CustomLogonExeName;
             public string CustomWorldExeName;
+            public bool LaunchCustomCore;
             public bool CustomInstalled;
             //Classic Core
             public string ClassicWorkingDirectory;
@@ -51,6 +53,7 @@ namespace TrionLibrary.Models
             public string ClassicWorldExeName;
             public string ClassicWorldName;
             public string ClassicLogonName;
+            public bool LaunchClassicCore;
             public bool ClassicInstalled;
             //TBC Core
             public string TBCWorkingDirectory;
@@ -60,6 +63,7 @@ namespace TrionLibrary.Models
             public string TBCWorldExeName;
             public string TBCWorldName;
             public string TBCLogonName;
+            public bool LaunchTBCCore;
             public bool TBCInstalled;
             //WotLK Core
             public string WotLKWorkingDirectory;
@@ -69,6 +73,7 @@ namespace TrionLibrary.Models
             public string WotLKWorldExeName;
             public string WotLKWorldName;
             public string WotLKLogonName;
+            public bool LaunchWotLKCore;
             public bool WotLKInstalled;
             //Cata Core
             public string CataWorkingDirectory;
@@ -78,6 +83,7 @@ namespace TrionLibrary.Models
             public string CataWorldExeName;
             public string CataWorldName;
             public string CataLogonName;
+            public bool LaunchCataCore;
             public bool CataInstalled;
             //Mop Core
             public string MopWorkingDirectory;
@@ -87,6 +93,7 @@ namespace TrionLibrary.Models
             public string MopWorldExeName;
             public string MoPWorldName;
             public string MoPLogonName;
+            public bool LaunchMoPCore;
             public bool MOPInstalled;
             //DDNS Settings
             public string DDNSDomain;
@@ -97,7 +104,6 @@ namespace TrionLibrary.Models
             public bool AutoUpdateCore;
             public bool AutoUpdateTrion;
             public bool AutoUpdateMySQL;
-            public bool ServerCrash;
             public bool NotificationSound;
             public bool ConsolHide;
             public bool StayInTray;
@@ -106,6 +112,7 @@ namespace TrionLibrary.Models
             public bool RunServerWithWindows;
             public bool FirstRun;
             public bool DDNSRunOnStartup;
+            public bool ServerCrashDetection;
             public int DDNSInterval;
             public Enums.Cores SelectedCore;
             public Enums.DDNSerivce DDNSerivce;

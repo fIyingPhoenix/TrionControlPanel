@@ -5,17 +5,18 @@ using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.Data;
+using TrionLibrary.Network;
 using TrionLibrary.Setting;
+using TrionLibrary.Sys;
 using static TrionLibrary.Models.Enums;
-
 
 namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MetroForm
     {
-        bool worldStarted;
-        bool logonStarted;
-        bool databaseStarted;
+        List<int> Ports = [3306, 8085, 3724];
+        List<int> OpenPorts = new();
+        string Result {  get; set; }
         readonly static DatabaseControl databaseControl = new();
         readonly static HomeControl homeControl = new();
         readonly static LoadingControl loadingControl = new();
@@ -37,6 +38,31 @@ namespace TrionControlPanelDesktop
         }
         static async Task ClosingToDo()
         {
+
+            if (User.System.DatabaseProcessID.Count != 0)
+            {
+                foreach (var PID in User.System.DatabaseProcessID)
+                {
+                    var processToRemove = User.System.DatabaseProcessID.Single(r => r.Name == Setting.List.DBExeName);
+                    await Watcher.ApplicationStop(processToRemove.ID);
+                }
+            }
+            if (User.System.LogonProcessesID.Count != 0)
+            {
+                foreach (var PID in User.System.LogonProcessesID)
+                {
+                    Watcher.ApplicationKill(PID.ID);
+                }
+            }
+
+            if (User.System.WorldProcessesID.Count != 0)
+            {
+                foreach (var PID in User.System.WorldProcessesID)
+                {
+                     Watcher.ApplicationKill(PID.ID);
+                }
+            }
+
             await Setting.Save();
         }
         public MainForm()
@@ -51,12 +77,28 @@ namespace TrionControlPanelDesktop
             TLTHome.BackColor = Color.Red;
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
-        private async void MainForm_LoadAsync(object sender, EventArgs e)
+        private async Task CheckPorts()
         {
+            foreach (var port in Ports)
+            {
+                if (await Helper.IsPortOpen(port, "127.0.0.1"))
+                {
+                    OpenPorts.Add(port); 
+                }
+            }
+            Result = String.Join(", ", OpenPorts);
+            if (!String.IsNullOrEmpty(Result)) 
+            {
+                MetroMessageBox.Show(this, $"The port: {Result} is used! \n You need the ports to start the servers!", "Warning!", Setting.List.NotificationSound, MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+        }
+        private async void MainForm_LoadAsync(object sender, EventArgs e)
+        { 
             await Setting.Load();
             await Main.CheckForUpdate();
             User.UI.Form.StartUpLoading++;
             LoadData();
+            await CheckPorts();
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -84,11 +126,23 @@ namespace TrionControlPanelDesktop
         }
         private void ButtonsDesing()
         {
+           
+            if (Main.ServerStatusWorld() && Main.ServerStartedWorld())
+            { BTNStartWorld.Image = Properties.Resources.power_on_30; }
+            else { BTNStartWorld.Image = Properties.Resources.power_off_30; }
+            //
+            if (Main.ServerStatusLogon())
+            { BTNStartLogin.Image = Properties.Resources.power_on_30; }
+            else { BTNStartLogin.Image = Properties.Resources.power_off_30; }
+            //
+            if (User.UI.Form.DBRunning && User.UI.Form.DBStarted) { BTNStartMySQL.Image = Properties.Resources.power_on_30; }
+            else { BTNStartMySQL.Image = Properties.Resources.power_off_30; }
+
             BTNNotification.NotificationCount = User.UI.Form.Notyfications;
             BTNDownload.NotificationCount = DownloadControl.CurrentDownloadCount;
             BTNDownload.Visible = DownloadControl.CurrentDownloadCount > 0;
         }
-        private void TimerWacher_Tick(object sender, EventArgs e)
+        private async void TimerWacher_Tick(object sender, EventArgs e)
         {
             ButtonsDesing();
             if (User.UI.Form.StartUpLoading == 3)
@@ -103,6 +157,16 @@ namespace TrionControlPanelDesktop
                 PNLControl.Controls.Clear();
                 PNLControl.Controls.Add(homeControl);
                 CurrentControl = CurrentControl.Home;
+            }
+            if (await Helper.IsPortOpen(3306, "127.0.0.1") && User.System.DatabaseProcessID.Count != 0)
+            {
+                BTNStartWorld.Enabled = true;
+                BTNStartLogin.Enabled = true;
+            }
+            else
+            {
+                BTNStartWorld.Enabled = false;
+                BTNStartLogin.Enabled = false;
             }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
@@ -135,46 +199,32 @@ namespace TrionControlPanelDesktop
         }
         private async void BTNStartMySQL_Click(object sender, EventArgs e)
         {
-            if (!databaseStarted)
+            if (!User.UI.Form.DBRunning && !User.UI.Form.DBStarted)
             {
                 User.System.DatabaseStartTime = DateTime.Now;
                 Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
-                await  Main.StartDatabase(arg);
-                databaseStarted=true;   
+                await Main.StartDatabase(arg);
+                await Main.DatabaseRunIDCHeck(Setting.List.DBWorkingDir, Setting.List.DBExeName);
             }
             else
             {
-                await  Main.StopDatabase();
-                databaseStarted = false;
+                await Main.StopDatabase();
             }
         }
-        private async void BTNStartLogin_Click(object sender, EventArgs e)
+        private void BTNStartLogin_Click(object sender, EventArgs e)
         {
-            if (!logonStarted)
-            {
-                await Main.StartLogon();
-                worldStarted = true;
-            }
+            if (!Main.ServerStatusLogon())
+            { Task.Run(async () => await Main.StartLogon()); }
             else
-            {
-                await Main.StopLogon();
-                worldStarted = false;
-            }
+            { Task.Run(async () => await Main.StopLogon()); }
         }
-        private async void BTNStartWorld_Click(object sender, EventArgs e)
+        private void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            if (!worldStarted)
-            {
-                await Main.StartWorld();
-                worldStarted = true;
-            }
+            if (!Main.ServerStatusWorld() && !Main.ServerStartedWorld())
+            { Task.Run(async () => await Main.StartWorld()); }
             else
-            {
-                await Main.StopWorld();
-                worldStarted = false;
-            }
-            
+            { Task.Run(async () => await Main.StopWorld()); }
         }
         public static void LoadDownload()
         {
@@ -255,7 +305,8 @@ namespace TrionControlPanelDesktop
         }
         private void TimerCrashDetected_Tick(object sender, EventArgs e)
         {
-            Task.Run(async () => await Main.CrashDetector(5));
+            if (Setting.List.ServerCrashDetection == true) { Task.Run(async () => await Main.CrashDetector(5)); }
+           
         }
     }
 }

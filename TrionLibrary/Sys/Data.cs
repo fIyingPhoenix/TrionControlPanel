@@ -49,6 +49,10 @@ namespace TrionLibrary.Sys
                 {
                     if (!string.IsNullOrEmpty(Location))
                     {
+                        if(Location == "N/A")
+                        {
+                            return "N/A";
+                        }
                         var versionInfo = FileVersionInfo.GetVersionInfo(Location);
                         // Define a regular expression pattern to match dates in yyyy-MM-dd or yyyy/MM/dd format
                         if (versionInfo.FileVersion.Contains("SPP"))

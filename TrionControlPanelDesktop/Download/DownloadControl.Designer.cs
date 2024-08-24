@@ -53,7 +53,6 @@
             PBoxAPIServer = new PictureBox();
             PBoxBackupCDN = new PictureBox();
             PBoxMainCDN = new PictureBox();
-            LBLReadingFiles = new Label();
             PNLDownloadStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -369,24 +368,11 @@
             PBoxMainCDN.TabIndex = 40;
             PBoxMainCDN.TabStop = false;
             // 
-            // LBLReadingFiles
-            // 
-            LBLReadingFiles.Font = new Font("Segoe UI", 12F);
-            LBLReadingFiles.ForeColor = Color.White;
-            LBLReadingFiles.Location = new Point(19, 297);
-            LBLReadingFiles.Name = "LBLReadingFiles";
-            LBLReadingFiles.Size = new Size(798, 21);
-            LBLReadingFiles.TabIndex = 40;
-            LBLReadingFiles.Text = "Task:  FileName";
-            LBLReadingFiles.TextAlign = ContentAlignment.MiddleCenter;
-            LBLReadingFiles.Visible = false;
-            // 
             // DownloadControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(45, 51, 59);
-            Controls.Add(LBLReadingFiles);
             Controls.Add(metroPanel2);
             Controls.Add(metroPanel1);
             Controls.Add(PNLDownloadStatus);
@@ -431,7 +417,6 @@
         private PictureBox PBoxAPIServer;
         private PictureBox PBoxBackupCDN;
         private PictureBox PBoxMainCDN;
-        private Label LBLReadingFiles;
         private Label label2;
         private Label label1;
         private Label label4;

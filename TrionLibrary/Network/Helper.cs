@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Management;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using TrionLibrary.Sys;
 
@@ -8,6 +12,104 @@ namespace TrionLibrary.Network
 {
     public class Helper
     {
+
+        public static async Task<(string, bool)> IsProcessUsingPort(int processId, int port)
+        {
+            string Message;
+            bool PortInUse;
+            if (Watcher.OSRuinning() == "Widnows")
+            {
+                try
+                {
+                    var tcpConnections = Ports.GetAllTcpConnections();
+                    foreach (var conn in tcpConnections)
+                    {
+                        if (conn.LocalPort == port && conn.ProcessId == processId)
+                        {
+                            PortInUse = true;
+                        }
+                    }
+                    PortInUse = false;
+                    Message = $"PortInUse: {port} by ProcsessID {processId}";
+                }
+                catch(Exception ex) { Message = ex.Message; PortInUse = false; }
+                await Task.Delay(10);
+                return (Message, PortInUse);
+            }
+            else if (Watcher.OSRuinning() == "Unix")
+            {
+                try
+                {
+                    string command;
+                    string args;
+
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        command = "netstat";
+                        args = $"-ano | findstr :{port}";
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    {
+                        command = "ss";
+                        args = $"-tuln | grep :{port}";
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    {
+                        command = "netstat";
+                        args = $"-an | grep .{port}";
+                    }
+                    else
+                    {
+                        throw new NotSupportedException("Unsupported operating system.");
+                    }
+
+                    Process process = new Process();
+                    process.StartInfo.FileName = "/bin/bash";
+                    process.StartInfo.Arguments = $"-c \"{command} {args}\"";
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
+
+                    process.Start();
+
+                    string output = process.StandardOutput.ReadToEnd();
+                    process.WaitForExit();
+
+                    if (!string.IsNullOrEmpty(output))
+                    {
+                        Message = $"Port {port} is in use: {output}";
+                        PortInUse = true;
+                    }
+                    else
+                    {
+                        Message = $"Port {port} is not in use.";
+                        PortInUse = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Message = $"Error: {ex.Message}";
+                    PortInUse = false;
+                }
+                await Task.Delay(10);
+                return (Message, PortInUse);
+            }
+            await Task.Delay(10); Message = ""; PortInUse = false;
+            return (Message, PortInUse);
+        }
+        public static async Task<bool> IsPortOpen(int Port, string Host)
+        {
+            try
+            {
+                using TcpClient tcpClient = new();
+                await tcpClient.ConnectAsync(Host, Port);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public static async Task<string> GetExternalIpAddress()
         {
             string externalIpAddress = string.Empty;

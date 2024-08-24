@@ -261,12 +261,13 @@ namespace TrionControlPanelDesktop.Controls
                 await DownloadAsync(DownlaodList);
             }
         }
-        private static void InstallFinished()
+        private static async void InstallFinished()
         {
             if (DownloadData.Infos.Install.Classic)
             {
                 string classic = Links.Install.Classic.Replace("/", @"\");
                 Setting.List.ClassicInstalled = true;
+                Setting.List.LaunchClassicCore = true;
                 Setting.List.ClassicWorkingDirectory = classic;
                 Setting.List.ClassicLogonExeLoc = Infos.GetExecutableLocation(classic, "realmd");
                 Setting.List.ClassicLogonExeName = "realmd";
@@ -279,6 +280,7 @@ namespace TrionControlPanelDesktop.Controls
             {
                 string TBC = Links.Install.TBC.Replace("/", @"\");
                 Setting.List.TBCInstalled = true;
+                Setting.List.LaunchTBCCore = true;
                 Setting.List.TBCWorkingDirectory = TBC;
                 Setting.List.TBCLogonExeLoc = Infos.GetExecutableLocation(TBC, "realmd");
                 Setting.List.TBCLogonExeName = "realmd";
@@ -291,6 +293,7 @@ namespace TrionControlPanelDesktop.Controls
             {
                 string WotLK = Links.Install.WotLK.Replace("/", @"\");
                 Setting.List.WotLKInstalled = true;
+                Setting.List.LaunchWotLKCore = true;
                 Setting.List.WotLKWorkingDirectory = WotLK;
                 Setting.List.WotLKLogonExeLoc = Infos.GetExecutableLocation(WotLK, "authserver");
                 Setting.List.WotLKLogonExeName = "authserver";
@@ -302,6 +305,7 @@ namespace TrionControlPanelDesktop.Controls
             {
                 string cata = Links.Install.Cata.Replace("/", @"\");
                 Setting.List.CataInstalled = true;
+                Setting.List.LaunchCataCore = true;
                 Setting.List.CataWorkingDirectory = cata;
                 Setting.List.CataLogonExeLoc = Infos.GetExecutableLocation(cata, "authserver");
                 Setting.List.CataLogonExeName = "authserver";
@@ -314,6 +318,7 @@ namespace TrionControlPanelDesktop.Controls
             {
                 string Mop = Links.Install.Mop.Replace("/", @"\");
                 Setting.List.MOPInstalled = true;
+                Setting.List.LaunchMoPCore = true;
                 Setting.List.MopWorkingDirectory = Mop;
                 Setting.List.MopLogonExeLoc = Infos.GetExecutableLocation(Mop, "authserver");
                 Setting.List.MopLogonExeName = "authserver";
@@ -324,17 +329,25 @@ namespace TrionControlPanelDesktop.Controls
             }
             if (DownloadData.Infos.Install.Database == true)
             {
-                Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
                 string Database = Links.Install.Database.Replace("/", @"\");
                 Setting.List.DBInstalled = true;
                 Setting.List.DBLocation = $@"{Database}";
                 Setting.List.DBWorkingDir = $@"{Database}\bin";
                 Setting.List.DBExeLoc = Infos.GetExecutableLocation($@"{Database}\bin", "mysqld");
                 Setting.List.DBExeName = "mysqld";
-                string SQLLocation = $@"{Database}\extra\initDatabase.sql";
-               _ = Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "Initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
+                if(DownloadData.Infos.Install.Mop || DownloadData.Infos.Install.Cata || DownloadData.Infos.Install.WotLK || DownloadData.Infos.Install.TBC || DownloadData.Infos.Install.Classic)
+                {
+                    string SQLLocation = $@"{Database}\extra\initDatabase.sql";
+                    await Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                }
+                else
+                {
+                    string SQLLocation = $@"{Database}\extra\initSTDDatabase.sql";
+                    await Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                }
             }
-            Setting.Save();
+            await Setting.Save();
             SettingsControl.RefreshData = true; 
         }
         private async void CheckServers()
