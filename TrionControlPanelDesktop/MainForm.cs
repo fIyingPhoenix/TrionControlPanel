@@ -5,6 +5,7 @@ using System.Reflection;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.Data;
+using TrionControlPanelDesktop.Download;
 using TrionLibrary.Network;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
@@ -99,6 +100,7 @@ namespace TrionControlPanelDesktop
             User.UI.Form.StartUpLoading++;
             LoadData();
             await CheckPorts();
+
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -131,7 +133,7 @@ namespace TrionControlPanelDesktop
             { BTNStartWorld.Image = Properties.Resources.power_on_30; }
             else { BTNStartWorld.Image = Properties.Resources.power_off_30; }
             //
-            if (Main.ServerStatusLogon())
+            if (Main.ServerStatusLogon() && Main.ServerStartedLogon())
             { BTNStartLogin.Image = Properties.Resources.power_on_30; }
             else { BTNStartLogin.Image = Properties.Resources.power_off_30; }
             //
@@ -203,7 +205,7 @@ namespace TrionControlPanelDesktop
             {
                 User.System.DatabaseStartTime = DateTime.Now;
                 Setting.CreateMySQLConfigFile(Directory.GetCurrentDirectory());
-                string arg = $@"--defaults-file={Directory.GetCurrentDirectory()}/my.ini --console";
+                string arg = $"--defaults-file=\"{Directory.GetCurrentDirectory()}/my.ini\" --console";
                 await Main.StartDatabase(arg);
                 await Main.DatabaseRunIDCHeck(Setting.List.DBWorkingDir, Setting.List.DBExeName);
             }

@@ -167,7 +167,7 @@ namespace TrionControlPanelDesktop.Controls
                       FileFullName = file.FileFullName,
                       FileHash = file.FileHash
                   }
-                  );         
+                );         
             }
             LogString = $"Finish! Added files {DownlaodList.Count()}. Starting Download!";
             progress.Report(LogString);
@@ -192,6 +192,7 @@ namespace TrionControlPanelDesktop.Controls
                         try
                         {
                             string DownloadLinkg = @$"{Links.MainCDNHost}{url.FileFullName}";
+                            Infos.Message = DownloadLinkg;
                             // Send GET request to the server
                             using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
                             {
@@ -252,6 +253,7 @@ namespace TrionControlPanelDesktop.Controls
             DownloadData.Infos.Install.Cata = false;
             DownloadData.Infos.Install.Mop = false;
             DownloadData.Infos.Install.Database = false;
+            DownloadData.Infos.Install.Trion = false;
         }
         private async void TimerDownloadStart_Tick(object sender, EventArgs e)
         {
@@ -346,6 +348,11 @@ namespace TrionControlPanelDesktop.Controls
                     string SQLLocation = $@"{Database}\extra\initSTDDatabase.sql";
                     await Watcher.ApplicationStart(Setting.List.DBExeLoc, Setting.List.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
                 }
+            }
+            if (DownloadData.Infos.Install.Trion == true)
+            {
+                Process.Start("setup.exe");
+                Environment.Exit(0);
             }
             await Setting.Save();
             SettingsControl.RefreshData = true; 

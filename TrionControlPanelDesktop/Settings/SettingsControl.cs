@@ -389,13 +389,20 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (User.UI.Version.Update.Trion) { await Main.StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true); }
+            BTNTrionUpdate.Enabled = false;
+            if (User.UI.Version.Update.Trion)
+            {
+                Infos.Message = "Updateing Trion!";
+                DownloadData.Infos.Install.Trion = true;
+                await Main.StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true);
+            }
             if (User.UI.Version.Update.Database) { await Main.StartUpdate(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", true); }
             if (User.UI.Version.Update.Classic) { await Main.StartUpdate(Links.Install.Classic, $"{Links.MainCDNHost}{Links.Hashe.Classic}", true); }
             if (User.UI.Version.Update.TBC) { await Main.StartUpdate(Links.Install.TBC, $"{Links.MainCDNHost}{Links.Hashe.TBC}", true); }
             if (User.UI.Version.Update.WotLK) { await Main.StartUpdate(Links.Install.WotLK, $"{Links.MainCDNHost}{Links.Hashe.WotLK}", true); }
             if (User.UI.Version.Update.Cata) { await Main.StartUpdate(Links.Install.Cata, $"{Links.MainCDNHost}{Links.Hashe.Cata}", true); }
             if (User.UI.Version.Update.Mop) { await Main.StartUpdate(Links.Install.Mop, $"{Links.MainCDNHost}{Links.Hashe.Mop}", true); }
+            BTNTrionUpdate.Enabled = true;
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {

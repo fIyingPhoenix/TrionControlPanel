@@ -6,6 +6,7 @@
         {
             public class Install
             {
+                public static bool Trion { get; set; }
                 public static bool Database { get; set; }
                 public static bool Classic { get; set; }
                 public static bool TBC { get; set; }

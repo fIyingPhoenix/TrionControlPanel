@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TrionLibrary.Crypto;
+using TrionLibrary.Crypto.SRP6;
 using TrionLibrary.Database;
 using TrionLibrary.Extensions;
 using TrionLibrary.Setting;
@@ -47,7 +47,8 @@ namespace TrionDatabase
             if (GetUser(username) != 0 || GetEmail(email) != 0)
                 return AccountOpResult.NameAlreadyExist;
 
-            (byte[] salt, byte[] verifier) = SRP6.MakeAccountRegistrationData<GruntSRP6>(username, password);
+            byte[] salt = AzerothCore.GenerateSalt();
+            byte[] verifier = AzerothCore.CreateVerifier(username, password, salt);
 
             await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
             {
