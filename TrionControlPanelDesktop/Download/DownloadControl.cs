@@ -192,7 +192,6 @@ namespace TrionControlPanelDesktop.Controls
                         try
                         {
                             string DownloadLinkg = @$"{Links.MainCDNHost}{url.FileFullName}";
-                            Infos.Message = DownloadLinkg;
                             // Send GET request to the server
                             using (HttpResponseMessage response = await client.GetAsync(DownloadLinkg, HttpCompletionOption.ResponseHeadersRead))
                             {

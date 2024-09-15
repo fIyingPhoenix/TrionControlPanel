@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TrionLibrary.Crypto.SRP6;
 using TrionLibrary.Database;
 using TrionLibrary.Extensions;
+using TrionLibrary.Models;
 using TrionLibrary.Setting;
 using static TrionLibrary.Models.Enums;
 
@@ -33,7 +34,7 @@ namespace TrionDatabase
             return AccountOpResult.Ok;
 
         }
-        public static async Task<AccountOpResult> CreateAuth(string username, string password, string email)
+        public static async Task<AccountOpResult> CreateAuth(string username, string password, string email, string datanase, Cores Core)
         {
             if (username.Length > MaxAccountLength)
                 return AccountOpResult.NameTooLong;
@@ -50,16 +51,27 @@ namespace TrionDatabase
             byte[] salt = AzerothCore.GenerateSalt();
             byte[] verifier = AzerothCore.CreateVerifier(username, password, salt);
 
-            await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
+            if(Core == Cores.AzerothCore)
             {
-                Username = username,
-                Salt = salt,
-                Verifier = verifier,
-                Email = email,
-                RegMail = email,
-                JoinDate = DateTime.Now,
-            }, Connect.String(Setting.List.AuthDatabase)));
+                try
+                {
+                    await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
+                    {
+                        Username = username,
+                        Salt = salt,
+                        Verifier = verifier,
+                        Email = email,
+                        RegMail = email,
+                        JoinDate = DateTime.Now,
+                    }, Connect.String(datanase)));
+                }
+                catch (Exception ex) 
+                {
+                
+                }
 
+            }
+           
             return AccountOpResult.Ok;
         }
         private static int GetUser(string username)

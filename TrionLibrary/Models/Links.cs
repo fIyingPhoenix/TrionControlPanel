@@ -5,10 +5,10 @@ namespace TrionControlPanelDesktop.Data
 {
     public class Links
     {
-        public static string MainCDNHost { get => ""; }
-        public static string BackupCDNHost { get => ""; }
-        public static string WebServer { get => ""; }
-        public static string APIServer { get => ""; }
+        public static string MainCDNHost { get => "https://cdn1.flying-phoenix.dev/"; }
+        public static string BackupCDNHost { get => "https://cdn1.flying-phoenix.dev/"; }
+        public static string WebServer { get => "https://cdn1.flying-phoenix.dev/"; }
+        public static string APIServer { get => "https://cdn1.flying-phoenix.dev/"; }
         public class Emulators
         {
             public static string AscEmu { get => "https://github.com/AscEmu/"; }

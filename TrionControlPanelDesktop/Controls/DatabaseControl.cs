@@ -190,7 +190,7 @@ namespace TrionControlPanelDesktop.Controls
 
         private async void BTNCreateAccount_Click(object sender, EventArgs e)
         {
-            await AccountCreate.CreateAuth(TXTBoxCreateUser.Text.ToUpper(),TXTBoxCreatePassword.Text.ToUpper(), TXTBoxCreateEmail.Text.ToUpper());
+            await AccountCreate.CreateAuth(TXTBoxCreateUser.Text.ToUpper(),TXTBoxCreatePassword.Text.ToUpper(), TXTBoxCreateEmail.Text.ToUpper(), Setting.List.AuthDatabase, Setting.List.SelectedCore);
         }
     }
 

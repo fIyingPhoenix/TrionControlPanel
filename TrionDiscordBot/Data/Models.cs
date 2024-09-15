@@ -10,8 +10,12 @@
             }
             public static string Prefix()
             {
-                return "!";
+                return "/";
             }
+            public const ulong ServerID = ;
+
+            public const ulong DiscordChannelID1 = ;
+
         }
     }
 

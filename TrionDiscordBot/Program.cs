@@ -35,7 +35,7 @@ namespace TrionDiscordBot
 
             var commandsConfig = new CommandsNextConfiguration()
             {
-                StringPrefixes = new string[] { Models.Discord.Prefix() },
+                StringPrefixes = [Models.Discord.Prefix()],
                 EnableMentionPrefix = true,
                 EnableDms = true,
                 EnableDefaultHelp = false
@@ -45,7 +45,7 @@ namespace TrionDiscordBot
            
             var SlashCommandsConfig = Config.DiscordClient.UseSlashCommands();
 
-            SlashCommandsConfig.RegisterCommands<Account>(1077224912462295160);
+            SlashCommandsConfig.RegisterCommands<Account>(Models.Discord.ServerID());
 
             //ERROR EVENT HANDLERS
             Config.Commands.CommandErrored += OnCommandError;

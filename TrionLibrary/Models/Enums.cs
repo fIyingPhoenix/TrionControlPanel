@@ -84,7 +84,16 @@
             TheBurningCrusade,
             WrathOfTheLichKing,
             Cataclysm,
-            MistOfPandaria,
+            MistOfPandaria
+        }
+        public enum Databases
+        {
+            Custom,
+            Classic,
+            TBC,
+            WotLK,
+            Cata,
+            MoP
         }
     }
 }

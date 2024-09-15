@@ -290,8 +290,15 @@ namespace TrionLibrary.Database
         }
         public static void SaveData<T>(string sql, T parameters, string connectionString)
         {
-            using IDbConnection con = new MySqlConnection(connectionString);
-            con.Execute(sql, parameters);
+            try
+            {
+                using IDbConnection con = new MySqlConnection(connectionString);
+                con.Execute(sql, parameters);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
