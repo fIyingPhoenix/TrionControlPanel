@@ -162,7 +162,42 @@ namespace TrionControlPanelDesktop.Controls
             TXTDDNSInterval.Text = Setting.List.DDNSInterval.ToString();
             TGLDDNSRunOnStartup.Checked = Setting.List.DDNSRunOnStartup;
             CBoxSelectItems();
+            GeteSelectedDatabase();
             User.UI.Form.StartUpLoading++;
+        }
+        private void GeteSelectedDatabase()
+        {
+            if(Setting.List.SelectedDatabases == Databases.Classic)
+            {
+                TGLClassicDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.TBC)
+            {
+                TGLTbcDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.WotLK)
+            {
+                TGLWotlkDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.Cata)
+            {
+                TGLCataDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.MoP)
+            {
+                TGLMopDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.Custom)
+            {
+                TGLCustomDB.Checked = true;
+                TXTAuthDatabase.ReadOnly = false;
+                TXTCharDatabase.ReadOnly = false;
+                TXTWorldDatabase.ReadOnly = false;
+                TXTMysqlHost.ReadOnly = false;
+                TXTMysqlPort.ReadOnly = false;
+                TXTMysqlUser.ReadOnly = false;
+                TXTMysqlPassword.ReadOnly = false;
+            }
         }
         private void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1140,6 +1175,7 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "phoenix";
                 Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.Classic;
                 LoadData();
             }
             else { TGLClassicDB.Checked = true; }
@@ -1161,6 +1197,7 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "phoenix";
                 Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.TBC;
                 LoadData();
 
             }
@@ -1183,6 +1220,7 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "phoenix";
                 Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.WotLK;
                 LoadData();
             }
             else { TGLWotlkDB.Checked = true; }
@@ -1204,6 +1242,7 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "phoenix";
                 Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.Cata;
                 LoadData();
             }
             else { TGLCataDB.Checked = true; }
@@ -1225,9 +1264,10 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "phoenix";
                 Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.MoP;
                 LoadData();
             }
-            else{ TGLMopDB.Checked = true; }
+            else { TGLMopDB.Checked = true; }
         }
 
         private void TGLCustomDB_Click(object sender, EventArgs e)
@@ -1244,7 +1284,7 @@ namespace TrionControlPanelDesktop.Controls
                 Setting.List.DBServerPort = "3306";
                 Setting.List.DBServerUser = "root";
                 Setting.List.DBServerPassword = "FlyingPhoenix";
-
+                Setting.List.SelectedDatabases = Databases.Custom;
                 LoadData();
             }
             else { TGLCustomDB.Checked = true; }

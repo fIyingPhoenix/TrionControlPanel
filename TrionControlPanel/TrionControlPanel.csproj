@@ -9,11 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\card.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ico1.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Pages\website\" />
+    <Folder Include="Pages\user\" />
+    <Folder Include="wwwroot\videos\" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@ using MetroFramework;
 using MetroFramework.Forms;
 using System.Diagnostics;
 using System.Reflection;
+using System.Security.Policy;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.Data;
@@ -100,6 +101,7 @@ namespace TrionControlPanelDesktop
             User.UI.Form.StartUpLoading++;
             LoadData();
             await CheckPorts();
+            await ApiRespound();
 
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
@@ -310,5 +312,6 @@ namespace TrionControlPanelDesktop
             if (Setting.List.ServerCrashDetection == true) { Task.Run(async () => await Main.CrashDetector(5)); }
            
         }
+       
     }
 }

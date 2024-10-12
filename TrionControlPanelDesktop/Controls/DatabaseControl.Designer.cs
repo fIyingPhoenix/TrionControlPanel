@@ -31,6 +31,36 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseControl));
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
+            tPageAccount = new TabPage();
+            metroPanel8 = new MetroFramework.Controls.MetroPanel();
+            customButton4 = new UI.Controls.CustomButton();
+            label15 = new Label();
+            label14 = new Label();
+            metroTextBox5 = new MetroFramework.Controls.MetroTextBox();
+            metroTextBox6 = new MetroFramework.Controls.MetroTextBox();
+            metroPanel10 = new MetroFramework.Controls.MetroPanel();
+            pictureBox6 = new PictureBox();
+            label7 = new Label();
+            metroPanel6 = new MetroFramework.Controls.MetroPanel();
+            label13 = new Label();
+            label11 = new Label();
+            metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
+            metroTextBox4 = new MetroFramework.Controls.MetroTextBox();
+            metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            pictureBox5 = new PictureBox();
+            label6 = new Label();
+            customButton1 = new UI.Controls.CustomButton();
+            metroPanel9 = new MetroFramework.Controls.MetroPanel();
+            label12 = new Label();
+            label10 = new Label();
+            label8 = new Label();
+            TXTBoxCreateEmail = new MetroFramework.Controls.MetroTextBox();
+            TXTBoxCreatePassword = new MetroFramework.Controls.MetroTextBox();
+            TXTBoxCreateUser = new MetroFramework.Controls.MetroTextBox();
+            BTNCreateAccount = new UI.Controls.CustomButton();
+            metroPanel17 = new MetroFramework.Controls.MetroPanel();
+            pictureBox4 = new PictureBox();
+            label30 = new Label();
             tPageRealmList = new TabPage();
             metroPanel2 = new MetroFramework.Controls.MetroPanel();
             metroPanel5 = new MetroFramework.Controls.MetroPanel();
@@ -74,49 +104,11 @@
             LBLRealmIcon = new Label();
             TXTRealmSubnetMask = new MetroFramework.Controls.MetroTextBox();
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
-            tPageAccount = new TabPage();
-            metroPanel8 = new MetroFramework.Controls.MetroPanel();
-            customButton4 = new UI.Controls.CustomButton();
-            label15 = new Label();
-            label14 = new Label();
-            metroTextBox5 = new MetroFramework.Controls.MetroTextBox();
-            metroTextBox6 = new MetroFramework.Controls.MetroTextBox();
-            metroPanel10 = new MetroFramework.Controls.MetroPanel();
-            pictureBox6 = new PictureBox();
-            label7 = new Label();
-            metroPanel6 = new MetroFramework.Controls.MetroPanel();
-            label13 = new Label();
-            label11 = new Label();
-            metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
-            metroTextBox4 = new MetroFramework.Controls.MetroTextBox();
-            metroPanel7 = new MetroFramework.Controls.MetroPanel();
-            pictureBox5 = new PictureBox();
-            label6 = new Label();
-            customButton1 = new UI.Controls.CustomButton();
-            metroPanel9 = new MetroFramework.Controls.MetroPanel();
-            label12 = new Label();
-            label10 = new Label();
-            label8 = new Label();
-            TXTBoxCreateEmail = new MetroFramework.Controls.MetroTextBox();
-            TXTBoxCreatePassword = new MetroFramework.Controls.MetroTextBox();
-            TXTBoxCreateUser = new MetroFramework.Controls.MetroTextBox();
-            BTNCreateAccount = new UI.Controls.CustomButton();
-            metroPanel17 = new MetroFramework.Controls.MetroPanel();
-            pictureBox4 = new PictureBox();
-            label30 = new Label();
             TimerWacher = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
+            LBLExpansion = new Label();
+            TXTExpansion = new MetroFramework.Controls.MetroTextBox();
             TabControl1.SuspendLayout();
-            tPageRealmList.SuspendLayout();
-            metroPanel2.SuspendLayout();
-            metroPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            metroPanel1.SuspendLayout();
-            metroPanel20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            metroPanel3.SuspendLayout();
-            metroPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tPageAccount.SuspendLayout();
             metroPanel8.SuspendLayout();
             metroPanel10.SuspendLayout();
@@ -127,6 +119,16 @@
             metroPanel9.SuspendLayout();
             metroPanel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            tPageRealmList.SuspendLayout();
+            metroPanel2.SuspendLayout();
+            metroPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            metroPanel1.SuspendLayout();
+            metroPanel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            metroPanel3.SuspendLayout();
+            metroPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // TabControl1
@@ -153,6 +155,551 @@
             TabControl1.TextAlign = ContentAlignment.MiddleLeft;
             TabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             TabControl1.UseStyleColors = true;
+            // 
+            // tPageAccount
+            // 
+            tPageAccount.BackColor = Color.FromArgb(45, 51, 59);
+            tPageAccount.Controls.Add(metroPanel8);
+            tPageAccount.Controls.Add(metroPanel6);
+            tPageAccount.Controls.Add(metroPanel9);
+            tPageAccount.Location = new Point(4, 44);
+            tPageAccount.Name = "tPageAccount";
+            tPageAccount.Size = new Size(837, 322);
+            tPageAccount.TabIndex = 1;
+            tPageAccount.Text = "Account";
+            // 
+            // metroPanel8
+            // 
+            metroPanel8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            metroPanel8.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel8.Border = true;
+            metroPanel8.BorderColor = Color.Black;
+            metroPanel8.BorderSize = 1;
+            metroPanel8.Controls.Add(customButton4);
+            metroPanel8.Controls.Add(label15);
+            metroPanel8.Controls.Add(label14);
+            metroPanel8.Controls.Add(metroTextBox5);
+            metroPanel8.Controls.Add(metroTextBox6);
+            metroPanel8.Controls.Add(metroPanel10);
+            metroPanel8.CustomBackground = true;
+            metroPanel8.HorizontalScrollbar = false;
+            metroPanel8.HorizontalScrollbarBarColor = true;
+            metroPanel8.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel8.HorizontalScrollbarSize = 10;
+            metroPanel8.Location = new Point(570, 5);
+            metroPanel8.Name = "metroPanel8";
+            metroPanel8.Size = new Size(260, 312);
+            metroPanel8.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel8.StyleManager = null;
+            metroPanel8.TabIndex = 45;
+            metroPanel8.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel8.VerticalScrollbar = false;
+            metroPanel8.VerticalScrollbarBarColor = true;
+            metroPanel8.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel8.VerticalScrollbarSize = 10;
+            // 
+            // customButton4
+            // 
+            customButton4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            customButton4.BackColor = Color.FromArgb(28, 33, 40);
+            customButton4.BackgroundColor = Color.FromArgb(28, 33, 40);
+            customButton4.BorderColor = Color.FromArgb(0, 174, 219);
+            customButton4.BorderRadius = 0;
+            customButton4.BorderSize = 1;
+            customButton4.Cursor = Cursors.Hand;
+            customButton4.FlatAppearance.BorderSize = 0;
+            customButton4.FlatStyle = FlatStyle.Flat;
+            customButton4.ForeColor = Color.White;
+            customButton4.Image = (Image)resources.GetObject("customButton4.Image");
+            customButton4.ImageAlign = ContentAlignment.MiddleLeft;
+            customButton4.Location = new Point(3, 277);
+            customButton4.Name = "customButton4";
+            customButton4.NotificationCount = 0;
+            customButton4.RightToLeft = RightToLeft.No;
+            customButton4.Size = new Size(254, 30);
+            customButton4.TabIndex = 62;
+            customButton4.Text = "Update";
+            customButton4.TextColor = Color.White;
+            customButton4.UseVisualStyleBackColor = false;
+            // 
+            // label15
+            // 
+            label15.Anchor = AnchorStyles.Top;
+            label15.AutoSize = true;
+            label15.ForeColor = Color.White;
+            label15.Location = new Point(5, 100);
+            label15.Name = "label15";
+            label15.Size = new Size(60, 15);
+            label15.TabIndex = 62;
+            label15.Text = "Password:";
+            // 
+            // label14
+            // 
+            label14.Anchor = AnchorStyles.Top;
+            label14.AutoSize = true;
+            label14.ForeColor = Color.White;
+            label14.Location = new Point(5, 50);
+            label14.Name = "label14";
+            label14.Size = new Size(63, 15);
+            label14.TabIndex = 61;
+            label14.Text = "Username:";
+            // 
+            // metroTextBox5
+            // 
+            metroTextBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox5.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox5.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox5.ForeColor = Color.White;
+            metroTextBox5.Location = new Point(3, 118);
+            metroTextBox5.Multiline = false;
+            metroTextBox5.Name = "metroTextBox5";
+            metroTextBox5.PasswordChar = '\0';
+            metroTextBox5.ReadOnly = false;
+            metroTextBox5.SelectedText = "";
+            metroTextBox5.Size = new Size(254, 25);
+            metroTextBox5.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox5.StyleManager = null;
+            metroTextBox5.TabIndex = 60;
+            metroTextBox5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox5.UseStyleColors = true;
+            // 
+            // metroTextBox6
+            // 
+            metroTextBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox6.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox6.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox6.ForeColor = Color.White;
+            metroTextBox6.Location = new Point(3, 68);
+            metroTextBox6.Multiline = false;
+            metroTextBox6.Name = "metroTextBox6";
+            metroTextBox6.PasswordChar = '\0';
+            metroTextBox6.ReadOnly = false;
+            metroTextBox6.SelectedText = "";
+            metroTextBox6.Size = new Size(254, 25);
+            metroTextBox6.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox6.StyleManager = null;
+            metroTextBox6.TabIndex = 59;
+            metroTextBox6.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox6.UseStyleColors = true;
+            // 
+            // metroPanel10
+            // 
+            metroPanel10.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel10.Border = true;
+            metroPanel10.BorderColor = Color.Black;
+            metroPanel10.BorderSize = 1;
+            metroPanel10.Controls.Add(pictureBox6);
+            metroPanel10.Controls.Add(label7);
+            metroPanel10.CustomBackground = true;
+            metroPanel10.Dock = DockStyle.Top;
+            metroPanel10.HorizontalScrollbar = true;
+            metroPanel10.HorizontalScrollbarBarColor = true;
+            metroPanel10.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel10.HorizontalScrollbarSize = 10;
+            metroPanel10.Location = new Point(0, 0);
+            metroPanel10.Name = "metroPanel10";
+            metroPanel10.Padding = new Padding(2);
+            metroPanel10.Size = new Size(260, 30);
+            metroPanel10.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel10.StyleManager = null;
+            metroPanel10.TabIndex = 54;
+            metroPanel10.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel10.VerticalScrollbar = true;
+            metroPanel10.VerticalScrollbarBarColor = true;
+            metroPanel10.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel10.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(233, 3);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(23, 23);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 63;
+            pictureBox6.TabStop = false;
+            TLTHome.SetToolTip(pictureBox6, "Edit Realmlist data in the Database");
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Dock = DockStyle.Fill;
+            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label7.ForeColor = Color.FromArgb(0, 174, 219);
+            label7.Location = new Point(2, 2);
+            label7.Name = "label7";
+            label7.Padding = new Padding(1);
+            label7.Size = new Size(256, 26);
+            label7.TabIndex = 43;
+            label7.Text = "RESET PASSWORD";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // metroPanel6
+            // 
+            metroPanel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            metroPanel6.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel6.Border = true;
+            metroPanel6.BorderColor = Color.Black;
+            metroPanel6.BorderSize = 1;
+            metroPanel6.Controls.Add(label13);
+            metroPanel6.Controls.Add(label11);
+            metroPanel6.Controls.Add(metroTextBox3);
+            metroPanel6.Controls.Add(metroTextBox4);
+            metroPanel6.Controls.Add(metroPanel7);
+            metroPanel6.Controls.Add(customButton1);
+            metroPanel6.CustomBackground = true;
+            metroPanel6.HorizontalScrollbar = false;
+            metroPanel6.HorizontalScrollbarBarColor = true;
+            metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel6.HorizontalScrollbarSize = 10;
+            metroPanel6.Location = new Point(290, 5);
+            metroPanel6.Name = "metroPanel6";
+            metroPanel6.Size = new Size(275, 312);
+            metroPanel6.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel6.StyleManager = null;
+            metroPanel6.TabIndex = 44;
+            metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel6.VerticalScrollbar = false;
+            metroPanel6.VerticalScrollbarBarColor = true;
+            metroPanel6.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel6.VerticalScrollbarSize = 10;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Top;
+            label13.AutoSize = true;
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(5, 100);
+            label13.Name = "label13";
+            label13.Size = new Size(61, 15);
+            label13.TabIndex = 60;
+            label13.Text = "GM-Level:";
+            // 
+            // label11
+            // 
+            label11.Anchor = AnchorStyles.Top;
+            label11.AutoSize = true;
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(5, 50);
+            label11.Name = "label11";
+            label11.Size = new Size(63, 15);
+            label11.TabIndex = 59;
+            label11.Text = "Username:";
+            // 
+            // metroTextBox3
+            // 
+            metroTextBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox3.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox3.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox3.ForeColor = Color.White;
+            metroTextBox3.Location = new Point(3, 118);
+            metroTextBox3.Multiline = false;
+            metroTextBox3.Name = "metroTextBox3";
+            metroTextBox3.PasswordChar = '\0';
+            metroTextBox3.ReadOnly = false;
+            metroTextBox3.SelectedText = "";
+            metroTextBox3.Size = new Size(269, 25);
+            metroTextBox3.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox3.StyleManager = null;
+            metroTextBox3.TabIndex = 58;
+            metroTextBox3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox3.UseStyleColors = true;
+            // 
+            // metroTextBox4
+            // 
+            metroTextBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox4.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox4.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox4.ForeColor = Color.White;
+            metroTextBox4.Location = new Point(3, 68);
+            metroTextBox4.Multiline = false;
+            metroTextBox4.Name = "metroTextBox4";
+            metroTextBox4.PasswordChar = '\0';
+            metroTextBox4.ReadOnly = false;
+            metroTextBox4.SelectedText = "";
+            metroTextBox4.Size = new Size(269, 25);
+            metroTextBox4.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox4.StyleManager = null;
+            metroTextBox4.TabIndex = 57;
+            metroTextBox4.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox4.UseStyleColors = true;
+            // 
+            // metroPanel7
+            // 
+            metroPanel7.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel7.Border = true;
+            metroPanel7.BorderColor = Color.Black;
+            metroPanel7.BorderSize = 1;
+            metroPanel7.Controls.Add(pictureBox5);
+            metroPanel7.Controls.Add(label6);
+            metroPanel7.CustomBackground = true;
+            metroPanel7.Dock = DockStyle.Top;
+            metroPanel7.HorizontalScrollbar = true;
+            metroPanel7.HorizontalScrollbarBarColor = true;
+            metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel7.HorizontalScrollbarSize = 10;
+            metroPanel7.Location = new Point(0, 0);
+            metroPanel7.Name = "metroPanel7";
+            metroPanel7.Padding = new Padding(2);
+            metroPanel7.Size = new Size(275, 30);
+            metroPanel7.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel7.StyleManager = null;
+            metroPanel7.TabIndex = 54;
+            metroPanel7.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel7.VerticalScrollbar = true;
+            metroPanel7.VerticalScrollbarBarColor = true;
+            metroPanel7.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel7.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(249, 3);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(23, 23);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 61;
+            pictureBox5.TabStop = false;
+            TLTHome.SetToolTip(pictureBox5, "Edit Realmlist data in the Database");
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.Transparent;
+            label6.Dock = DockStyle.Fill;
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label6.ForeColor = Color.FromArgb(0, 174, 219);
+            label6.Location = new Point(2, 2);
+            label6.Name = "label6";
+            label6.Padding = new Padding(1);
+            label6.Size = new Size(271, 26);
+            label6.TabIndex = 43;
+            label6.Text = "SET GM";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // customButton1
+            // 
+            customButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            customButton1.BackColor = Color.FromArgb(28, 33, 40);
+            customButton1.BackgroundColor = Color.FromArgb(28, 33, 40);
+            customButton1.BorderColor = Color.FromArgb(0, 174, 219);
+            customButton1.BorderRadius = 0;
+            customButton1.BorderSize = 1;
+            customButton1.Cursor = Cursors.Hand;
+            customButton1.FlatAppearance.BorderSize = 0;
+            customButton1.FlatStyle = FlatStyle.Flat;
+            customButton1.ForeColor = Color.White;
+            customButton1.Image = (Image)resources.GetObject("customButton1.Image");
+            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            customButton1.Location = new Point(3, 277);
+            customButton1.Name = "customButton1";
+            customButton1.NotificationCount = 0;
+            customButton1.RightToLeft = RightToLeft.No;
+            customButton1.Size = new Size(269, 30);
+            customButton1.TabIndex = 46;
+            customButton1.Text = "Update";
+            customButton1.TextColor = Color.White;
+            customButton1.UseVisualStyleBackColor = false;
+            // 
+            // metroPanel9
+            // 
+            metroPanel9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            metroPanel9.BackColor = Color.FromArgb(34, 39, 46);
+            metroPanel9.Border = true;
+            metroPanel9.BorderColor = Color.Black;
+            metroPanel9.BorderSize = 1;
+            metroPanel9.Controls.Add(LBLExpansion);
+            metroPanel9.Controls.Add(TXTExpansion);
+            metroPanel9.Controls.Add(label12);
+            metroPanel9.Controls.Add(label10);
+            metroPanel9.Controls.Add(label8);
+            metroPanel9.Controls.Add(TXTBoxCreateEmail);
+            metroPanel9.Controls.Add(TXTBoxCreatePassword);
+            metroPanel9.Controls.Add(TXTBoxCreateUser);
+            metroPanel9.Controls.Add(BTNCreateAccount);
+            metroPanel9.Controls.Add(metroPanel17);
+            metroPanel9.CustomBackground = true;
+            metroPanel9.HorizontalScrollbar = false;
+            metroPanel9.HorizontalScrollbarBarColor = true;
+            metroPanel9.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel9.HorizontalScrollbarSize = 10;
+            metroPanel9.Location = new Point(5, 5);
+            metroPanel9.Name = "metroPanel9";
+            metroPanel9.Size = new Size(280, 312);
+            metroPanel9.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel9.StyleManager = null;
+            metroPanel9.TabIndex = 43;
+            metroPanel9.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel9.VerticalScrollbar = false;
+            metroPanel9.VerticalScrollbarBarColor = true;
+            metroPanel9.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // label12
+            // 
+            label12.Anchor = AnchorStyles.Top;
+            label12.AutoSize = true;
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(5, 151);
+            label12.Name = "label12";
+            label12.Size = new Size(39, 15);
+            label12.TabIndex = 60;
+            label12.Text = "Email:";
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top;
+            label10.AutoSize = true;
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(4, 100);
+            label10.Name = "label10";
+            label10.Size = new Size(60, 15);
+            label10.TabIndex = 59;
+            label10.Text = "Password:";
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top;
+            label8.AutoSize = true;
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(5, 50);
+            label8.Name = "label8";
+            label8.Size = new Size(63, 15);
+            label8.TabIndex = 58;
+            label8.Text = "Username:";
+            // 
+            // TXTBoxCreateEmail
+            // 
+            TXTBoxCreateEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxCreateEmail.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxCreateEmail.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxCreateEmail.ForeColor = Color.White;
+            TXTBoxCreateEmail.Location = new Point(3, 168);
+            TXTBoxCreateEmail.Multiline = false;
+            TXTBoxCreateEmail.Name = "TXTBoxCreateEmail";
+            TXTBoxCreateEmail.PasswordChar = '\0';
+            TXTBoxCreateEmail.ReadOnly = false;
+            TXTBoxCreateEmail.SelectedText = "";
+            TXTBoxCreateEmail.Size = new Size(274, 25);
+            TXTBoxCreateEmail.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxCreateEmail.StyleManager = null;
+            TXTBoxCreateEmail.TabIndex = 57;
+            TXTBoxCreateEmail.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxCreateEmail.UseStyleColors = true;
+            // 
+            // TXTBoxCreatePassword
+            // 
+            TXTBoxCreatePassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxCreatePassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxCreatePassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxCreatePassword.ForeColor = Color.White;
+            TXTBoxCreatePassword.Location = new Point(3, 118);
+            TXTBoxCreatePassword.Multiline = false;
+            TXTBoxCreatePassword.Name = "TXTBoxCreatePassword";
+            TXTBoxCreatePassword.PasswordChar = '\0';
+            TXTBoxCreatePassword.ReadOnly = false;
+            TXTBoxCreatePassword.SelectedText = "";
+            TXTBoxCreatePassword.Size = new Size(274, 25);
+            TXTBoxCreatePassword.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxCreatePassword.StyleManager = null;
+            TXTBoxCreatePassword.TabIndex = 56;
+            TXTBoxCreatePassword.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxCreatePassword.UseStyleColors = true;
+            // 
+            // TXTBoxCreateUser
+            // 
+            TXTBoxCreateUser.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTBoxCreateUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTBoxCreateUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTBoxCreateUser.ForeColor = Color.White;
+            TXTBoxCreateUser.Location = new Point(3, 68);
+            TXTBoxCreateUser.Multiline = false;
+            TXTBoxCreateUser.Name = "TXTBoxCreateUser";
+            TXTBoxCreateUser.PasswordChar = '\0';
+            TXTBoxCreateUser.ReadOnly = false;
+            TXTBoxCreateUser.SelectedText = "";
+            TXTBoxCreateUser.Size = new Size(274, 25);
+            TXTBoxCreateUser.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTBoxCreateUser.StyleManager = null;
+            TXTBoxCreateUser.TabIndex = 55;
+            TXTBoxCreateUser.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTBoxCreateUser.UseStyleColors = true;
+            // 
+            // BTNCreateAccount
+            // 
+            BTNCreateAccount.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BTNCreateAccount.BackColor = Color.FromArgb(28, 33, 40);
+            BTNCreateAccount.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNCreateAccount.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNCreateAccount.BorderRadius = 0;
+            BTNCreateAccount.BorderSize = 1;
+            BTNCreateAccount.Cursor = Cursors.Hand;
+            BTNCreateAccount.FlatAppearance.BorderSize = 0;
+            BTNCreateAccount.FlatStyle = FlatStyle.Flat;
+            BTNCreateAccount.ForeColor = Color.White;
+            BTNCreateAccount.Image = (Image)resources.GetObject("BTNCreateAccount.Image");
+            BTNCreateAccount.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNCreateAccount.Location = new Point(3, 277);
+            BTNCreateAccount.Name = "BTNCreateAccount";
+            BTNCreateAccount.NotificationCount = 0;
+            BTNCreateAccount.RightToLeft = RightToLeft.No;
+            BTNCreateAccount.Size = new Size(274, 31);
+            BTNCreateAccount.TabIndex = 45;
+            BTNCreateAccount.Text = "Create";
+            BTNCreateAccount.TextColor = Color.White;
+            BTNCreateAccount.UseVisualStyleBackColor = false;
+            BTNCreateAccount.Click += BTNCreateAccount_Click;
+            // 
+            // metroPanel17
+            // 
+            metroPanel17.BackColor = Color.FromArgb(28, 33, 40);
+            metroPanel17.Border = true;
+            metroPanel17.BorderColor = Color.Black;
+            metroPanel17.BorderSize = 1;
+            metroPanel17.Controls.Add(pictureBox4);
+            metroPanel17.Controls.Add(label30);
+            metroPanel17.CustomBackground = true;
+            metroPanel17.Dock = DockStyle.Top;
+            metroPanel17.HorizontalScrollbar = true;
+            metroPanel17.HorizontalScrollbarBarColor = true;
+            metroPanel17.HorizontalScrollbarHighlightOnWheel = false;
+            metroPanel17.HorizontalScrollbarSize = 10;
+            metroPanel17.Location = new Point(0, 0);
+            metroPanel17.Name = "metroPanel17";
+            metroPanel17.Padding = new Padding(2);
+            metroPanel17.Size = new Size(280, 30);
+            metroPanel17.Style = MetroFramework.MetroColorStyle.Blue;
+            metroPanel17.StyleManager = null;
+            metroPanel17.TabIndex = 54;
+            metroPanel17.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroPanel17.VerticalScrollbar = true;
+            metroPanel17.VerticalScrollbarBarColor = true;
+            metroPanel17.VerticalScrollbarHighlightOnWheel = false;
+            metroPanel17.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(253, 4);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(23, 23);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 61;
+            pictureBox4.TabStop = false;
+            TLTHome.SetToolTip(pictureBox4, "Edit Realmlist data in the Database");
+            // 
+            // label30
+            // 
+            label30.BackColor = Color.Transparent;
+            label30.Dock = DockStyle.Fill;
+            label30.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label30.ForeColor = Color.FromArgb(0, 174, 219);
+            label30.Location = new Point(2, 2);
+            label30.Name = "label30";
+            label30.Padding = new Padding(1);
+            label30.Size = new Size(276, 26);
+            label30.TabIndex = 43;
+            label30.Text = "ACCOUNT CREATE";
+            label30.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tPageRealmList
             // 
@@ -905,549 +1452,6 @@
             TXTRealmPort.Theme = MetroFramework.MetroThemeStyle.Dark;
             TXTRealmPort.UseStyleColors = true;
             // 
-            // tPageAccount
-            // 
-            tPageAccount.BackColor = Color.FromArgb(45, 51, 59);
-            tPageAccount.Controls.Add(metroPanel8);
-            tPageAccount.Controls.Add(metroPanel6);
-            tPageAccount.Controls.Add(metroPanel9);
-            tPageAccount.Location = new Point(4, 44);
-            tPageAccount.Name = "tPageAccount";
-            tPageAccount.Size = new Size(837, 322);
-            tPageAccount.TabIndex = 1;
-            tPageAccount.Text = "Account";
-            // 
-            // metroPanel8
-            // 
-            metroPanel8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            metroPanel8.BackColor = Color.FromArgb(34, 39, 46);
-            metroPanel8.Border = true;
-            metroPanel8.BorderColor = Color.Black;
-            metroPanel8.BorderSize = 1;
-            metroPanel8.Controls.Add(customButton4);
-            metroPanel8.Controls.Add(label15);
-            metroPanel8.Controls.Add(label14);
-            metroPanel8.Controls.Add(metroTextBox5);
-            metroPanel8.Controls.Add(metroTextBox6);
-            metroPanel8.Controls.Add(metroPanel10);
-            metroPanel8.CustomBackground = true;
-            metroPanel8.HorizontalScrollbar = false;
-            metroPanel8.HorizontalScrollbarBarColor = true;
-            metroPanel8.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel8.HorizontalScrollbarSize = 10;
-            metroPanel8.Location = new Point(570, 5);
-            metroPanel8.Name = "metroPanel8";
-            metroPanel8.Size = new Size(260, 312);
-            metroPanel8.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel8.StyleManager = null;
-            metroPanel8.TabIndex = 45;
-            metroPanel8.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel8.VerticalScrollbar = false;
-            metroPanel8.VerticalScrollbarBarColor = true;
-            metroPanel8.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel8.VerticalScrollbarSize = 10;
-            // 
-            // customButton4
-            // 
-            customButton4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            customButton4.BackColor = Color.FromArgb(28, 33, 40);
-            customButton4.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton4.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton4.BorderRadius = 0;
-            customButton4.BorderSize = 1;
-            customButton4.Cursor = Cursors.Hand;
-            customButton4.FlatAppearance.BorderSize = 0;
-            customButton4.FlatStyle = FlatStyle.Flat;
-            customButton4.ForeColor = Color.White;
-            customButton4.Image = (Image)resources.GetObject("customButton4.Image");
-            customButton4.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton4.Location = new Point(3, 277);
-            customButton4.Name = "customButton4";
-            customButton4.NotificationCount = 0;
-            customButton4.RightToLeft = RightToLeft.No;
-            customButton4.Size = new Size(254, 30);
-            customButton4.TabIndex = 62;
-            customButton4.Text = "Set";
-            customButton4.TextColor = Color.White;
-            customButton4.UseVisualStyleBackColor = false;
-            // 
-            // label15
-            // 
-            label15.Anchor = AnchorStyles.Top;
-            label15.AutoSize = true;
-            label15.ForeColor = Color.White;
-            label15.Location = new Point(5, 100);
-            label15.Name = "label15";
-            label15.Size = new Size(60, 15);
-            label15.TabIndex = 62;
-            label15.Text = "Password:";
-            // 
-            // label14
-            // 
-            label14.Anchor = AnchorStyles.Top;
-            label14.AutoSize = true;
-            label14.ForeColor = Color.White;
-            label14.Location = new Point(5, 50);
-            label14.Name = "label14";
-            label14.Size = new Size(63, 15);
-            label14.TabIndex = 61;
-            label14.Text = "Username:";
-            // 
-            // metroTextBox5
-            // 
-            metroTextBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroTextBox5.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            metroTextBox5.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            metroTextBox5.ForeColor = Color.White;
-            metroTextBox5.Location = new Point(3, 118);
-            metroTextBox5.Multiline = false;
-            metroTextBox5.Name = "metroTextBox5";
-            metroTextBox5.PasswordChar = '\0';
-            metroTextBox5.ReadOnly = false;
-            metroTextBox5.SelectedText = "";
-            metroTextBox5.Size = new Size(254, 25);
-            metroTextBox5.Style = MetroFramework.MetroColorStyle.Blue;
-            metroTextBox5.StyleManager = null;
-            metroTextBox5.TabIndex = 60;
-            metroTextBox5.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroTextBox5.UseStyleColors = true;
-            // 
-            // metroTextBox6
-            // 
-            metroTextBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroTextBox6.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            metroTextBox6.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            metroTextBox6.ForeColor = Color.White;
-            metroTextBox6.Location = new Point(3, 68);
-            metroTextBox6.Multiline = false;
-            metroTextBox6.Name = "metroTextBox6";
-            metroTextBox6.PasswordChar = '\0';
-            metroTextBox6.ReadOnly = false;
-            metroTextBox6.SelectedText = "";
-            metroTextBox6.Size = new Size(254, 25);
-            metroTextBox6.Style = MetroFramework.MetroColorStyle.Blue;
-            metroTextBox6.StyleManager = null;
-            metroTextBox6.TabIndex = 59;
-            metroTextBox6.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroTextBox6.UseStyleColors = true;
-            // 
-            // metroPanel10
-            // 
-            metroPanel10.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel10.Border = true;
-            metroPanel10.BorderColor = Color.Black;
-            metroPanel10.BorderSize = 1;
-            metroPanel10.Controls.Add(pictureBox6);
-            metroPanel10.Controls.Add(label7);
-            metroPanel10.CustomBackground = true;
-            metroPanel10.Dock = DockStyle.Top;
-            metroPanel10.HorizontalScrollbar = true;
-            metroPanel10.HorizontalScrollbarBarColor = true;
-            metroPanel10.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel10.HorizontalScrollbarSize = 10;
-            metroPanel10.Location = new Point(0, 0);
-            metroPanel10.Name = "metroPanel10";
-            metroPanel10.Padding = new Padding(2);
-            metroPanel10.Size = new Size(260, 30);
-            metroPanel10.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel10.StyleManager = null;
-            metroPanel10.TabIndex = 54;
-            metroPanel10.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel10.VerticalScrollbar = true;
-            metroPanel10.VerticalScrollbarBarColor = true;
-            metroPanel10.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel10.VerticalScrollbarSize = 10;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(233, 3);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(23, 23);
-            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox6.TabIndex = 63;
-            pictureBox6.TabStop = false;
-            TLTHome.SetToolTip(pictureBox6, "Edit Realmlist data in the Database");
-            // 
-            // label7
-            // 
-            label7.BackColor = Color.Transparent;
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label7.ForeColor = Color.FromArgb(0, 174, 219);
-            label7.Location = new Point(2, 2);
-            label7.Name = "label7";
-            label7.Padding = new Padding(1);
-            label7.Size = new Size(256, 26);
-            label7.TabIndex = 43;
-            label7.Text = "RESET PASSWORD";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // metroPanel6
-            // 
-            metroPanel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            metroPanel6.BackColor = Color.FromArgb(34, 39, 46);
-            metroPanel6.Border = true;
-            metroPanel6.BorderColor = Color.Black;
-            metroPanel6.BorderSize = 1;
-            metroPanel6.Controls.Add(label13);
-            metroPanel6.Controls.Add(label11);
-            metroPanel6.Controls.Add(metroTextBox3);
-            metroPanel6.Controls.Add(metroTextBox4);
-            metroPanel6.Controls.Add(metroPanel7);
-            metroPanel6.Controls.Add(customButton1);
-            metroPanel6.CustomBackground = true;
-            metroPanel6.HorizontalScrollbar = false;
-            metroPanel6.HorizontalScrollbarBarColor = true;
-            metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel6.HorizontalScrollbarSize = 10;
-            metroPanel6.Location = new Point(290, 5);
-            metroPanel6.Name = "metroPanel6";
-            metroPanel6.Size = new Size(275, 312);
-            metroPanel6.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel6.StyleManager = null;
-            metroPanel6.TabIndex = 44;
-            metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel6.VerticalScrollbar = false;
-            metroPanel6.VerticalScrollbarBarColor = true;
-            metroPanel6.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel6.VerticalScrollbarSize = 10;
-            // 
-            // label13
-            // 
-            label13.Anchor = AnchorStyles.Top;
-            label13.AutoSize = true;
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(5, 100);
-            label13.Name = "label13";
-            label13.Size = new Size(61, 15);
-            label13.TabIndex = 60;
-            label13.Text = "GM-Level:";
-            // 
-            // label11
-            // 
-            label11.Anchor = AnchorStyles.Top;
-            label11.AutoSize = true;
-            label11.ForeColor = Color.White;
-            label11.Location = new Point(5, 50);
-            label11.Name = "label11";
-            label11.Size = new Size(63, 15);
-            label11.TabIndex = 59;
-            label11.Text = "Username:";
-            // 
-            // metroTextBox3
-            // 
-            metroTextBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroTextBox3.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            metroTextBox3.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            metroTextBox3.ForeColor = Color.White;
-            metroTextBox3.Location = new Point(3, 118);
-            metroTextBox3.Multiline = false;
-            metroTextBox3.Name = "metroTextBox3";
-            metroTextBox3.PasswordChar = '\0';
-            metroTextBox3.ReadOnly = false;
-            metroTextBox3.SelectedText = "";
-            metroTextBox3.Size = new Size(269, 25);
-            metroTextBox3.Style = MetroFramework.MetroColorStyle.Blue;
-            metroTextBox3.StyleManager = null;
-            metroTextBox3.TabIndex = 58;
-            metroTextBox3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroTextBox3.UseStyleColors = true;
-            // 
-            // metroTextBox4
-            // 
-            metroTextBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroTextBox4.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            metroTextBox4.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            metroTextBox4.ForeColor = Color.White;
-            metroTextBox4.Location = new Point(3, 68);
-            metroTextBox4.Multiline = false;
-            metroTextBox4.Name = "metroTextBox4";
-            metroTextBox4.PasswordChar = '\0';
-            metroTextBox4.ReadOnly = false;
-            metroTextBox4.SelectedText = "";
-            metroTextBox4.Size = new Size(269, 25);
-            metroTextBox4.Style = MetroFramework.MetroColorStyle.Blue;
-            metroTextBox4.StyleManager = null;
-            metroTextBox4.TabIndex = 57;
-            metroTextBox4.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroTextBox4.UseStyleColors = true;
-            // 
-            // metroPanel7
-            // 
-            metroPanel7.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel7.Border = true;
-            metroPanel7.BorderColor = Color.Black;
-            metroPanel7.BorderSize = 1;
-            metroPanel7.Controls.Add(pictureBox5);
-            metroPanel7.Controls.Add(label6);
-            metroPanel7.CustomBackground = true;
-            metroPanel7.Dock = DockStyle.Top;
-            metroPanel7.HorizontalScrollbar = true;
-            metroPanel7.HorizontalScrollbarBarColor = true;
-            metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel7.HorizontalScrollbarSize = 10;
-            metroPanel7.Location = new Point(0, 0);
-            metroPanel7.Name = "metroPanel7";
-            metroPanel7.Padding = new Padding(2);
-            metroPanel7.Size = new Size(275, 30);
-            metroPanel7.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel7.StyleManager = null;
-            metroPanel7.TabIndex = 54;
-            metroPanel7.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel7.VerticalScrollbar = true;
-            metroPanel7.VerticalScrollbarBarColor = true;
-            metroPanel7.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel7.VerticalScrollbarSize = 10;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(249, 3);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(23, 23);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 61;
-            pictureBox5.TabStop = false;
-            TLTHome.SetToolTip(pictureBox5, "Edit Realmlist data in the Database");
-            // 
-            // label6
-            // 
-            label6.BackColor = Color.Transparent;
-            label6.Dock = DockStyle.Fill;
-            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label6.ForeColor = Color.FromArgb(0, 174, 219);
-            label6.Location = new Point(2, 2);
-            label6.Name = "label6";
-            label6.Padding = new Padding(1);
-            label6.Size = new Size(271, 26);
-            label6.TabIndex = 43;
-            label6.Text = "SET GM";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // customButton1
-            // 
-            customButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            customButton1.BackColor = Color.FromArgb(28, 33, 40);
-            customButton1.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton1.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton1.BorderRadius = 0;
-            customButton1.BorderSize = 1;
-            customButton1.Cursor = Cursors.Hand;
-            customButton1.FlatAppearance.BorderSize = 0;
-            customButton1.FlatStyle = FlatStyle.Flat;
-            customButton1.ForeColor = Color.White;
-            customButton1.Image = (Image)resources.GetObject("customButton1.Image");
-            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton1.Location = new Point(3, 277);
-            customButton1.Name = "customButton1";
-            customButton1.NotificationCount = 0;
-            customButton1.RightToLeft = RightToLeft.No;
-            customButton1.Size = new Size(269, 30);
-            customButton1.TabIndex = 46;
-            customButton1.Text = "Set";
-            customButton1.TextColor = Color.White;
-            customButton1.UseVisualStyleBackColor = false;
-            // 
-            // metroPanel9
-            // 
-            metroPanel9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            metroPanel9.BackColor = Color.FromArgb(34, 39, 46);
-            metroPanel9.Border = true;
-            metroPanel9.BorderColor = Color.Black;
-            metroPanel9.BorderSize = 1;
-            metroPanel9.Controls.Add(label12);
-            metroPanel9.Controls.Add(label10);
-            metroPanel9.Controls.Add(label8);
-            metroPanel9.Controls.Add(TXTBoxCreateEmail);
-            metroPanel9.Controls.Add(TXTBoxCreatePassword);
-            metroPanel9.Controls.Add(TXTBoxCreateUser);
-            metroPanel9.Controls.Add(BTNCreateAccount);
-            metroPanel9.Controls.Add(metroPanel17);
-            metroPanel9.CustomBackground = true;
-            metroPanel9.HorizontalScrollbar = false;
-            metroPanel9.HorizontalScrollbarBarColor = true;
-            metroPanel9.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel9.HorizontalScrollbarSize = 10;
-            metroPanel9.Location = new Point(5, 5);
-            metroPanel9.Name = "metroPanel9";
-            metroPanel9.Size = new Size(280, 312);
-            metroPanel9.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel9.StyleManager = null;
-            metroPanel9.TabIndex = 43;
-            metroPanel9.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel9.VerticalScrollbar = false;
-            metroPanel9.VerticalScrollbarBarColor = true;
-            metroPanel9.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel9.VerticalScrollbarSize = 10;
-            // 
-            // label12
-            // 
-            label12.Anchor = AnchorStyles.Top;
-            label12.AutoSize = true;
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(5, 151);
-            label12.Name = "label12";
-            label12.Size = new Size(39, 15);
-            label12.TabIndex = 60;
-            label12.Text = "Email:";
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top;
-            label10.AutoSize = true;
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(4, 100);
-            label10.Name = "label10";
-            label10.Size = new Size(60, 15);
-            label10.TabIndex = 59;
-            label10.Text = "Password:";
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top;
-            label8.AutoSize = true;
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(5, 50);
-            label8.Name = "label8";
-            label8.Size = new Size(63, 15);
-            label8.TabIndex = 58;
-            label8.Text = "Username:";
-            // 
-            // TXTBoxCreateEmail
-            // 
-            TXTBoxCreateEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxCreateEmail.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxCreateEmail.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxCreateEmail.ForeColor = Color.White;
-            TXTBoxCreateEmail.Location = new Point(3, 168);
-            TXTBoxCreateEmail.Multiline = false;
-            TXTBoxCreateEmail.Name = "TXTBoxCreateEmail";
-            TXTBoxCreateEmail.PasswordChar = '\0';
-            TXTBoxCreateEmail.ReadOnly = false;
-            TXTBoxCreateEmail.SelectedText = "";
-            TXTBoxCreateEmail.Size = new Size(274, 25);
-            TXTBoxCreateEmail.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxCreateEmail.StyleManager = null;
-            TXTBoxCreateEmail.TabIndex = 57;
-            TXTBoxCreateEmail.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxCreateEmail.UseStyleColors = true;
-            // 
-            // TXTBoxCreatePassword
-            // 
-            TXTBoxCreatePassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxCreatePassword.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxCreatePassword.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxCreatePassword.ForeColor = Color.White;
-            TXTBoxCreatePassword.Location = new Point(3, 118);
-            TXTBoxCreatePassword.Multiline = false;
-            TXTBoxCreatePassword.Name = "TXTBoxCreatePassword";
-            TXTBoxCreatePassword.PasswordChar = '\0';
-            TXTBoxCreatePassword.ReadOnly = false;
-            TXTBoxCreatePassword.SelectedText = "";
-            TXTBoxCreatePassword.Size = new Size(274, 25);
-            TXTBoxCreatePassword.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxCreatePassword.StyleManager = null;
-            TXTBoxCreatePassword.TabIndex = 56;
-            TXTBoxCreatePassword.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxCreatePassword.UseStyleColors = true;
-            // 
-            // TXTBoxCreateUser
-            // 
-            TXTBoxCreateUser.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TXTBoxCreateUser.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTBoxCreateUser.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTBoxCreateUser.ForeColor = Color.White;
-            TXTBoxCreateUser.Location = new Point(3, 68);
-            TXTBoxCreateUser.Multiline = false;
-            TXTBoxCreateUser.Name = "TXTBoxCreateUser";
-            TXTBoxCreateUser.PasswordChar = '\0';
-            TXTBoxCreateUser.ReadOnly = false;
-            TXTBoxCreateUser.SelectedText = "";
-            TXTBoxCreateUser.Size = new Size(274, 25);
-            TXTBoxCreateUser.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTBoxCreateUser.StyleManager = null;
-            TXTBoxCreateUser.TabIndex = 55;
-            TXTBoxCreateUser.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTBoxCreateUser.UseStyleColors = true;
-            // 
-            // BTNCreateAccount
-            // 
-            BTNCreateAccount.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            BTNCreateAccount.BackColor = Color.FromArgb(28, 33, 40);
-            BTNCreateAccount.BackgroundColor = Color.FromArgb(28, 33, 40);
-            BTNCreateAccount.BorderColor = Color.FromArgb(0, 174, 219);
-            BTNCreateAccount.BorderRadius = 0;
-            BTNCreateAccount.BorderSize = 1;
-            BTNCreateAccount.Cursor = Cursors.Hand;
-            BTNCreateAccount.FlatAppearance.BorderSize = 0;
-            BTNCreateAccount.FlatStyle = FlatStyle.Flat;
-            BTNCreateAccount.ForeColor = Color.White;
-            BTNCreateAccount.Image = (Image)resources.GetObject("BTNCreateAccount.Image");
-            BTNCreateAccount.ImageAlign = ContentAlignment.MiddleLeft;
-            BTNCreateAccount.Location = new Point(3, 277);
-            BTNCreateAccount.Name = "BTNCreateAccount";
-            BTNCreateAccount.NotificationCount = 0;
-            BTNCreateAccount.RightToLeft = RightToLeft.No;
-            BTNCreateAccount.Size = new Size(274, 31);
-            BTNCreateAccount.TabIndex = 45;
-            BTNCreateAccount.Text = "Create";
-            BTNCreateAccount.TextColor = Color.White;
-            BTNCreateAccount.UseVisualStyleBackColor = false;
-            BTNCreateAccount.Click += BTNCreateAccount_Click;
-            // 
-            // metroPanel17
-            // 
-            metroPanel17.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel17.Border = true;
-            metroPanel17.BorderColor = Color.Black;
-            metroPanel17.BorderSize = 1;
-            metroPanel17.Controls.Add(pictureBox4);
-            metroPanel17.Controls.Add(label30);
-            metroPanel17.CustomBackground = true;
-            metroPanel17.Dock = DockStyle.Top;
-            metroPanel17.HorizontalScrollbar = true;
-            metroPanel17.HorizontalScrollbarBarColor = true;
-            metroPanel17.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel17.HorizontalScrollbarSize = 10;
-            metroPanel17.Location = new Point(0, 0);
-            metroPanel17.Name = "metroPanel17";
-            metroPanel17.Padding = new Padding(2);
-            metroPanel17.Size = new Size(280, 30);
-            metroPanel17.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel17.StyleManager = null;
-            metroPanel17.TabIndex = 54;
-            metroPanel17.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel17.VerticalScrollbar = true;
-            metroPanel17.VerticalScrollbarBarColor = true;
-            metroPanel17.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel17.VerticalScrollbarSize = 10;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(253, 4);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(23, 23);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 61;
-            pictureBox4.TabStop = false;
-            TLTHome.SetToolTip(pictureBox4, "Edit Realmlist data in the Database");
-            // 
-            // label30
-            // 
-            label30.BackColor = Color.Transparent;
-            label30.Dock = DockStyle.Fill;
-            label30.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label30.ForeColor = Color.FromArgb(0, 174, 219);
-            label30.Location = new Point(2, 2);
-            label30.Name = "label30";
-            label30.Padding = new Padding(1);
-            label30.Size = new Size(276, 26);
-            label30.TabIndex = 43;
-            label30.Text = "ACCOUNT CREATE";
-            label30.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // TimerWacher
             // 
             TimerWacher.Enabled = true;
@@ -1473,6 +1477,36 @@
             TLTHome.ToolTipIcon = ToolTipIcon.Info;
             TLTHome.ToolTipTitle = "Information!";
             // 
+            // LBLExpansion
+            // 
+            LBLExpansion.Anchor = AnchorStyles.Top;
+            LBLExpansion.AutoSize = true;
+            LBLExpansion.ForeColor = Color.White;
+            LBLExpansion.Location = new Point(4, 201);
+            LBLExpansion.Name = "LBLExpansion";
+            LBLExpansion.Size = new Size(64, 15);
+            LBLExpansion.TabIndex = 62;
+            LBLExpansion.Text = "Expansion:";
+            // 
+            // TXTExpansion
+            // 
+            TXTExpansion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTExpansion.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTExpansion.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTExpansion.ForeColor = Color.White;
+            TXTExpansion.Location = new Point(3, 219);
+            TXTExpansion.Multiline = false;
+            TXTExpansion.Name = "TXTExpansion";
+            TXTExpansion.PasswordChar = '\0';
+            TXTExpansion.ReadOnly = false;
+            TXTExpansion.SelectedText = "";
+            TXTExpansion.Size = new Size(274, 25);
+            TXTExpansion.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTExpansion.StyleManager = null;
+            TXTExpansion.TabIndex = 61;
+            TXTExpansion.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTExpansion.UseStyleColors = true;
+            // 
             // DatabaseControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1483,18 +1517,6 @@
             Size = new Size(845, 370);
             Load += DatabaseControl_LoadAsync;
             TabControl1.ResumeLayout(false);
-            tPageRealmList.ResumeLayout(false);
-            metroPanel2.ResumeLayout(false);
-            metroPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            metroPanel1.ResumeLayout(false);
-            metroPanel1.PerformLayout();
-            metroPanel20.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            metroPanel3.ResumeLayout(false);
-            metroPanel3.PerformLayout();
-            metroPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tPageAccount.ResumeLayout(false);
             metroPanel8.ResumeLayout(false);
             metroPanel8.PerformLayout();
@@ -1508,6 +1530,18 @@
             metroPanel9.PerformLayout();
             metroPanel17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            tPageRealmList.ResumeLayout(false);
+            metroPanel2.ResumeLayout(false);
+            metroPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            metroPanel1.ResumeLayout(false);
+            metroPanel1.PerformLayout();
+            metroPanel20.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            metroPanel3.ResumeLayout(false);
+            metroPanel3.PerformLayout();
+            metroPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1591,5 +1625,7 @@
         private PictureBox pictureBox5;
         private PictureBox pictureBox4;
         private PictureBox pictureBox6;
+        private Label LBLExpansion;
+        private MetroFramework.Controls.MetroTextBox TXTExpansion;
     }
 }

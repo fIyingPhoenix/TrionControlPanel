@@ -4,9 +4,9 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace TrionLibrary.Crypto.SRP6
+namespace TrionLibrary.Crypto
 {
-    internal class AzerothCore
+    internal class SRP6Hashing
     {
         private const int g = 7;
         private static readonly BigInteger N = new(Convert.FromHexString("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7"), true, true);

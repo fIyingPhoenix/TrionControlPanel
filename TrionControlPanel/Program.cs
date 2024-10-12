@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using TrionLibrary.Database;
+using TrionControlPanel.Classes;
+using TrionLibrary.Sys;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<Watcher>();
+// Register the SystemMonitorService as a singleton service
+builder.Services.AddSingleton<SystemMonitorService>();
 
 var app = builder.Build();
 

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Org.BouncyCastle.Crypto;
+using System;
 using System.Threading.Tasks;
-using TrionLibrary.Crypto.SRP6;
+using TrionLibrary.Crypto;
 using TrionLibrary.Database;
 using TrionLibrary.Extensions;
-using TrionLibrary.Models;
-using TrionLibrary.Setting;
+using TrionLibrary.Sys;
 using static TrionLibrary.Models.Enums;
 
 namespace TrionDatabase
@@ -19,10 +19,10 @@ namespace TrionDatabase
         public static string Message { get; set; }
         public AccountOpResult CreateBattlenet(string username, string email, string password, bool withGameAccount)
         {
-            if (email.IsEmpty() || email.Length > 320)
+            if (email.IsEmpty() || email.Length > MaxEmailLength)
                 return AccountOpResult.NameTooLong;
 
-            if (username.IsEmpty() || username.Length > MaxAccountLength)
+            if (username.IsEmpty() || username.Length > MaxBnetEmailLength)
                 return AccountOpResult.NameTooLong;
 
             if (password.IsEmpty() || password.Length > MaxPasswordLength)
@@ -42,17 +42,16 @@ namespace TrionDatabase
             if (password.Length > MaxPasswordLength)
                 return AccountOpResult.PassTooLong;
 
-            if (email.IsEmpty() || email.Length > 320)
+            if (email.IsEmpty() || email.Length > MaxEmailLength)
                 return AccountOpResult.NameTooLong;
 
             if (GetUser(username) != 0 || GetEmail(email) != 0)
                 return AccountOpResult.NameAlreadyExist;
 
-            byte[] salt = AzerothCore.GenerateSalt();
-            byte[] verifier = AzerothCore.CreateVerifier(username, password, salt);
-
-            if(Core == Cores.AzerothCore)
+            if (Core == Cores.AzerothCore)
             {
+                byte[] salt = SRP6Hashing.GenerateSalt();
+                byte[] verifier = SRP6Hashing.CreateVerifier(username, password, salt);
                 try
                 {
                     await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
@@ -64,15 +63,83 @@ namespace TrionDatabase
                         RegMail = email,
                         JoinDate = DateTime.Now,
                     }, Connect.String(datanase)));
+                    return AccountOpResult.Ok;
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
-                
+                    Infos.Message = ex.Message;
+                    return AccountOpResult.DBInternalError;
                 }
 
             }
-           
-            return AccountOpResult.Ok;
+            if (Core == Cores.AscEmu)
+            {
+                try
+                {
+                   var passhash = SHA1Hashing.AscEmuHashPassword(username, password);
+                    await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
+                    {
+                        Username = username,
+                        EncryptedPassword = passhash,
+                        Email = email,
+                        JoinDate = DateTime.Now,
+                    }, Connect.String(datanase)));
+                    return AccountOpResult.Ok;
+                }
+                catch (Exception ex)
+                {
+                    Infos.Message = ex.Message;
+                    return AccountOpResult.DBInternalError;
+                }
+            }
+            if (Core == Cores.TrinityCore335)
+            {
+                byte[] salt = SRP6Hashing.GenerateSalt();
+                byte[] verifier = SRP6Hashing.CreateVerifier(username, password, salt);
+                try
+                {
+                    await Task.Run(() => Access.SaveData(SQLQuery.AccountCreate(), new
+                    {
+                        Username = username,
+                        Salt = salt,
+                        Verifier = verifier,
+                        Email = email,
+                        RegMail = email,
+                        JoinDate = DateTime.Now,
+                    }, Connect.String(datanase)));
+                    return AccountOpResult.Ok;
+                }
+                catch (Exception ex)
+                {
+                    Infos.Message = ex.Message; 
+                    return AccountOpResult.DBInternalError;
+                }
+            }
+            if (Core == Cores.TrinityCore)
+            {
+                try
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    Infos.Message = ex.Message;
+                    return AccountOpResult.DBInternalError;
+                }
+            }
+            if (Core == Cores.CMaNGOS || Core == Cores.VMaNGOS)
+            {
+                try
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    Infos.Message = ex.Message;
+                    return AccountOpResult.DBInternalError;
+                }
+            }
+            return AccountOpResult.BadLink;
         }
         private static int GetUser(string username)
         {

@@ -12,9 +12,9 @@
             {
                 return "/";
             }
-            public const ulong ServerID = ;
+            public const ulong ServerID = 0;
 
-            public const ulong DiscordChannelID1 = ;
+            public const ulong DiscordChannelID1 = 0 ;
 
         }
     }

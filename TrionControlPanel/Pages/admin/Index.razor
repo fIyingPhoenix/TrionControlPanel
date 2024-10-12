@@ -1,26 +1,29 @@
 ﻿@page "/admin/"
+@inject SystemMonitorService SystemMonitor
+
+<link href="css/page/admin/index.css" rel="stylesheet" />
 <div class="card mb-4">
     <div class="card-body text-center">
-        <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
-        <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
-        <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
-        <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
-        <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPanel?style=for-the-badge" />
+        <img id="gitStats" src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img id="gitStats" src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img id="gitStats" src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img id="gitStats" src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" />
+        <img id="gitStats" src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPanel?style=for-the-badge" />
     </div>
 </div>
 @*
 This is the first row. For Server resorce and status
 *@
 <div class="row mb-4">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-header text-center">
+        <div class="col-sm-6">
+        <div class="card" style="min-height: 250px;">
+            <div class="card-header text-center" >
                 <text style="font-weight: bold;color:#346CB0;">Server Status</text>
             </div>
             <div class="card-body">
                 <div class="">
-                    <svg width="20" height="20">
-                        <circle cx="10" cy="10" r="8" fill= />
+                    <svg width="40" height="40">
+                        <circle cx="20" cy="20" r="16" fill= />
                     </svg>
                     <text>World Server</text>
                 </div>
@@ -40,49 +43,57 @@ This is the first row. For Server resorce and status
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card text-center">
+        <div class="card text-center" style="min-height: 250px;">
             <div class="card-header">
                 <text style="font-weight: bold;color:#346CB0;">Server Resource</text>
             </div>
             <div class="card-body mb-2 text-center">
-                <text>MySQL Server </text>
+                <text>Random-Access Memory  (RAM) </text>
+                <p></p>
+                @AvailableMemory and @ManagedMemory
+                <p></p>
+                <text>Central Processing Unit (CPU)</text>
                 <p></p>
                 <div class="progress" style="height: 20px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: " aria-valuenow= aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <p></p>
-                <text>MySQL Server</text>
-                <p></p>
-                <div class="progress" style="height: 20px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:@((int)CpuUsage)%" aria-valuenow="@((int)CpuUsage)%" aria-valuemax="100">
+                        @((int)CpuUsage)%
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-@*
- This is the second row. For World and logon/auth/bnet status. 
-*@
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card text-center">
-            <div class="card-header">
-                <text style="font-weight: bold;color:#346CB0;">World Resource</text>
-            </div>
-            <div class="card-body">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card text-center">
-            <div class="card-header">
-                <text style="font-weight: bold;color:#346CB0;">Bnet / Auth Resource</text>
-            </div>
-            <div class="card-body">
-            </div>
 
-        </div>
-    </div>
-</div>
+@code {
+    private float CpuUsage;
+    private float AvailableMemory;
+    private long ManagedMemory;
 
+    protected override void OnInitialized()
+    {
+        // Get the initial values for CPU, memory, and managed memory
+        CpuUsage = SystemMonitor.GetCpuUsage();
+        AvailableMemory = SystemMonitor.GetAvailableMemory();
+        ManagedMemory = SystemMonitor.GetTotalManagedMemory();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Regularly update system resource data every 5 seconds
+            while (true)
+            {
+                CpuUsage = SystemMonitor.GetCpuUsage();
+                AvailableMemory = SystemMonitor.GetAvailableMemory();
+                ManagedMemory = SystemMonitor.GetTotalManagedMemory();
+
+                StateHasChanged(); // Trigger re-render
+
+                await Task.Delay(1000); // Update every 1 seconds
+            }
+        }
+    }
+}

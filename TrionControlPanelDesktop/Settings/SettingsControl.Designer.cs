@@ -3788,11 +3788,11 @@
             // 
             // TBControler
             // 
-            TBControler.Controls.Add(TabPageDatabase);
             TBControler.Controls.Add(TabPageTrion);
             TBControler.Controls.Add(TabPageSPP);
             TBControler.Controls.Add(TabPageDDNS);
             TBControler.Controls.Add(TabPageCore);
+            TBControler.Controls.Add(TabPageDatabase);
             TBControler.CustomBackground = false;
             TBControler.Dock = DockStyle.Fill;
             TBControler.DrawMode = TabDrawMode.OwnerDrawFixed;

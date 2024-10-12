@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Management;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -151,7 +152,7 @@ namespace TrionLibrary.Network
                         IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
                         foreach (UnicastIPAddressInformation ipAddress in ipProperties.UnicastAddresses)
                         {
-                            if (ipAddress.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            if (ipAddress.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
                                 internalIpAddress = ipAddress.Address.ToString();
                             }
@@ -164,6 +165,30 @@ namespace TrionLibrary.Network
             {
                 Infos.Message = "Error getting IPv4 addresses: " + ex.Message;
                 return internalIpAddress;
+            }
+        }
+        public static string GetMacAddress()
+        {
+            string macAddress = string.Empty;
+            try
+            {
+                NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (NetworkInterface networkInterface in networkInterfaces)
+                {
+                    // Skip loopback and virtual network interfaces
+                    if (networkInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                        !networkInterface.Description.Contains("virtual", StringComparison.InvariantCultureIgnoreCase) && // Exclude virtual adapters
+                        networkInterface.OperationalStatus == OperationalStatus.Up)
+                    {
+                         macAddress = networkInterface.GetPhysicalAddress().ToString();
+                    }
+                }
+                return macAddress;
+            }
+            catch (Exception ex)
+            {
+                Infos.Message = "Error getting IPv4 addresses: " + ex.Message;
+                return macAddress;
             }
         }
         public static async Task<bool> IsWebsiteOnlineAsync(string url)

@@ -38,14 +38,14 @@ namespace TrionLibrary.Database
         {
             return Setting.Setting.List.SelectedCore switch
             {
-                Enums.Cores.AscEmu => $"",
+                Enums.Cores.AscEmu => $"INSERT INTO accounts(acc_name, encrypted_password, email, joindate) VALUES (@Username, #@EncryptedPassword, @Email, @JoinDate)",
                 Enums.Cores.AzerothCore => $"INSERT INTO account(username, salt, verifier, email, reg_mail, joindate) VALUES(@Username, @Salt, @Verifier, @Email, @RegMail, @JoinDate)",
-                Enums.Cores.CMaNGOS => $"",
+                Enums.Cores.CMaNGOS => $"INSERT INTO `account` (`username`, `gmlevel`, `v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @GMLevel, @Verifier, @Salt, #Email, @JoinDate, @Expansion)",
                 Enums.Cores.CypherCore => $"",
                 Enums.Cores.TrinityCore335 => $"",
                 Enums.Cores.TrinityCore => $"",
                 Enums.Cores.TrinityCoreClassic => $"",
-                Enums.Cores.VMaNGOS => $"",
+                Enums.Cores.VMaNGOS => $"INSERT INTO `account` (`username`, `gmlevel`, `v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @GMLevel, @Verifier, @Salt, #Email, @JoinDate, @Expansion)",
                 _ => ""
             };
         }

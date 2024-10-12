@@ -137,19 +137,46 @@ namespace TrionLibrary.Sys
         }
         public static int MachineCpuUtilization()
         {
-            // Initialize PerformanceCounters for each CPU core
-            // int coreCount = Environment.ProcessorCount;
-            // Create an instance of PerformanceCounter to monitor the total CPU usage
-            PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
+            if (OSRuinning() == "Widnows") {
+                // Initialize PerformanceCounters for each CPU core
+                // int coreCount = Environment.ProcessorCount;
+                // Create an instance of PerformanceCounter to monitor the total CPU usage
+                PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
 
-            // Discard the first value
-            dynamic firstValue = cpuCounters.NextValue();
-            // Give some time to initialize
-            Thread.Sleep(500);
-            //report
-            dynamic SecValue = cpuCounters.NextValue();
-            if (SecValue > 100) { SecValue = 100; }
-            return (int)SecValue;
+                // Discard the first value
+                dynamic firstValue = cpuCounters.NextValue();
+                // Give some time to initialize
+                Thread.Sleep(500);
+                //report
+                dynamic SecValue = cpuCounters.NextValue();
+                if (SecValue > 100) { SecValue = 100; }
+                return (int)SecValue;
+            }
+            else if (OSRuinning() == "Unix")
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "/bin/bash",
+                        Arguments = "-c \"top -bn1 | grep 'Cpu(s)'\"",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                    }
+                };
+
+                process.Start();
+                string result = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                // Parse the result to get CPU usage (e.g., extract idle and calculate usage)
+                string[] cpuStats = result.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                string idleString = cpuStats.First(stat => stat.Contains("id")).Trim();
+                float idle = float.Parse(idleString.Split(' ')[0]);
+                return 100 - (int)idle;
+            }
+            return 0;   
         }
         public static int CurentPcRamUsage()
         {

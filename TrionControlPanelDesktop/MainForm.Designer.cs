@@ -553,6 +553,6 @@ namespace TrionControlPanelDesktop
         private ToolStripSeparator toolStripSeparator2;
         private TrionUI.Controls.CustomToolTip TLTHome;
         private System.Windows.Forms.Timer TimerCrashDetected;
-        private static MetroPanel PNLControl;
+        private MetroPanel PNLControl;
     }
 }
