@@ -2,11 +2,9 @@ using MetroFramework;
 using MetroFramework.Forms;
 using System.Diagnostics;
 using System.Reflection;
-using System.Security.Policy;
 using TrionControlPanelDesktop.Controls;
 using TrionControlPanelDesktop.Controls.Notification;
 using TrionControlPanelDesktop.Data;
-using TrionControlPanelDesktop.Download;
 using TrionLibrary.Network;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
@@ -18,7 +16,10 @@ namespace TrionControlPanelDesktop
     {
         List<int> Ports = [3306, 8085, 3724];
         List<int> OpenPorts = new();
-        string Result {  get; set; }
+        int positionY = 0;
+        int direction = -1;
+         int speed = 7; // How fast the button moves
+        string Result { get; set; }
         readonly static DatabaseControl databaseControl = new();
         readonly static HomeControl homeControl = new();
         readonly static LoadingControl loadingControl = new();
@@ -61,7 +62,7 @@ namespace TrionControlPanelDesktop
             {
                 foreach (var PID in User.System.WorldProcessesID)
                 {
-                     Watcher.ApplicationKill(PID.ID);
+                    Watcher.ApplicationKill(PID.ID);
                 }
             }
 
@@ -85,24 +86,22 @@ namespace TrionControlPanelDesktop
             {
                 if (await Helper.IsPortOpen(port, "127.0.0.1"))
                 {
-                    OpenPorts.Add(port); 
+                    OpenPorts.Add(port);
                 }
             }
             Result = String.Join(", ", OpenPorts);
-            if (!String.IsNullOrEmpty(Result)) 
+            if (!String.IsNullOrEmpty(Result))
             {
                 MetroMessageBox.Show(this, $"The port: {Result} is used! \n You need the ports to start the servers!", "Warning!", Setting.List.NotificationSound, MessageBoxButtons.OK, MessageBoxIcon.None);
             }
         }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
-        { 
+        {
             await Setting.Load();
             await Main.CheckForUpdate();
             User.UI.Form.StartUpLoading++;
             LoadData();
             await CheckPorts();
-            await ApiRespound();
-
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -130,7 +129,7 @@ namespace TrionControlPanelDesktop
         }
         private void ButtonsDesing()
         {
-           
+
             if (Main.ServerStatusWorld() && Main.ServerStartedWorld())
             { BTNStartWorld.Image = Properties.Resources.power_on_30; }
             else { BTNStartWorld.Image = Properties.Resources.power_off_30; }
@@ -166,11 +165,22 @@ namespace TrionControlPanelDesktop
             {
                 BTNStartWorld.Enabled = true;
                 BTNStartLogin.Enabled = true;
+                TimerButtonSlide.Start();
+                direction = 1;
+                positionY = 162;
+                if (BTNSettings.Top == 162) { BTNdatabase.Visible = true; }
+                databaseControl.LoadDatabaseData = true;
             }
             else
             {
                 BTNStartWorld.Enabled = false;
                 BTNStartLogin.Enabled = false;
+                BTNdatabase.Visible = false;
+                TimerButtonSlide.Start();
+                direction = -1;
+                positionY = 86;
+                if (BTNSettings.Top == 86) { BTNdatabase.Visible = false; }
+                databaseControl.LoadDatabaseData = false;
             }
         }
         private void BTNDownload_Click(object sender, EventArgs e)
@@ -310,8 +320,40 @@ namespace TrionControlPanelDesktop
         private void TimerCrashDetected_Tick(object sender, EventArgs e)
         {
             if (Setting.List.ServerCrashDetection == true) { Task.Run(async () => await Main.CrashDetector(5)); }
-           
+
         }
        
+
+        private void BTNSupport_MouseEnter(object sender, EventArgs e)
+        {
+            BTNSupport.Image = Properties.Resources.gefällt_mir;
+        }
+        private void BTNSupport_MouseLeave(object sender, EventArgs e)
+        {
+            BTNSupport.Image = Properties.Resources.gefällt_mir_50;
+        }
+
+        private void BTNSupport_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Links.Support);
+        }
+        private void TimerButtonSlide_Tick(object sender, EventArgs e)
+        {
+            // Move the button smoothly upwards
+            if (direction == -1 && BTNSettings.Top > 86) // Slide up
+            {
+                BTNSettings.Top -= speed;
+            }
+            else if (direction == 1 && BTNSettings.Top < 162) // Slide down
+            {
+                BTNSettings.Top += speed;
+            }
+
+            // Stop the timer when the button reaches the target
+            if (BTNSettings.Top == 86  && direction == -1 || BTNSettings.Top == 162 && direction == -1)
+            {
+                TimerButtonSlide.Stop();
+            }
+        }
     }
 }

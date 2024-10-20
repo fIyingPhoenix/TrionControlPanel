@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -218,6 +218,25 @@
         hKSOTL1Pc57i+sZg3Ifb3T4PK64N+gxzHmL7txQFE1a6kXd4Eoe9dB3F8JTX5PzA/V7aHgrnrKXMF7yP
         V12NFavivC/bGYp17JVOnm65jd19g9Gg+3hO3T2iT5/eP/xoHke9T+uijVTvnnaChbTbp3ARVzFHMX1/
         TWLv/2UnWHwI9ejIv/dB/w/RaPwEnZwTgCyLAS4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BTNSupport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAwdJREFUaEPtmctr1FAUxuMTVBQV/A98IYqCgiutOwsdmtyEuCouZ6WoiNZdUQTd
+        VgYUihsfIPgf2NqND1QQSlEUNy59gSAOmGTE63fGU2Mzp9OkM5PcwXzwYzK55577nbm5mZsZq1SpUqVK
+        Ga3A93dESo2GSk3h9Q1e6yAEH8A0uAj2cviiCm17X+i6l7gv5aBcdc49Gbnu+cBxtnN454o87wAGfIjE
+        Og2IfYTXw9y9RQ3POwKjj5P9FgKxU5Hj7Ofu2aWr1VUwVQO/pAHaQX3ADe37azidRcdom0jGpoHzXdMD
+        Ays5XTrpoaFN+CSmpaRZwOBPKReK2Ix8z6SYLNDsaNveyDbbqzkTXShiDuR6QgVJbUuhWUyamcGgNSmB
+        ScDjONuVxQs785rIm6bHdjcABKS+OxUNLrFJtj1fgevulDqYjPg9g4YLycA+4Bzbj0VTJQQaDZbCA7Yf
+        C1uDd1Kw0Sj1lu3Hwox8F4MNhjyz/Vg4GUrBJoNLK2D7sXDyixRsMvD8ie3HQsNsMrAPmGH7sbBw7gmB
+        ZqPUXbYfCw1nWwJNR6nTbD8WFvtuMdhgaDfC9ucLFb6SOhjKLNtuFRpPJYLNRamTbLtVemRkHd3SxI4G
+        gWXwWQ8Pr2fbslDpGamzYZxguwuLHiMR+DLR0SRmUv8IEdr2HkxfXUhSKLS3orsr20wnPLS4WC/GPPaS
+        l9DzjrG9bEL1V6SkRQAvl9lWdmnfX4Ekd5JJc0epW3psbDnbWpooARLdFAfIh4mOi5gTJcI1el0YpKdg
+        zJq2rGVso3tC8iqSN5IDdhush5+4CkZ52N6o4bpHUcxXyUA3QBHfGo5T4eF6K+w6t6GYF5KRTkDO5z98
+        fysPk4+aO4A/f/xEkqks0OUKruIuuZrT56/I8w6ioE5+SnqPHIc4XbHSlcpafKLjgsn20PfDYrvYIoS1
+        46Cgj6Lpf6AYbIFs7mam6B8qfNK3pQKY+1gLWzjcfOEmcBz83UHTMZ3j5v5S4Pu7MDuvCTrm0/0pPTi4
+        geC3pf4TWdZvfGoEohlFJVwAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="BTNDownload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -751,6 +770,9 @@
   </metadata>
   <metadata name="TimerCrashDetected.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>572, 23</value>
+  </metadata>
+  <metadata name="TimerButtonSlide.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>733, 23</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>60</value>

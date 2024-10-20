@@ -167,7 +167,7 @@ namespace TrionControlPanelDesktop.Controls
         }
         private void GeteSelectedDatabase()
         {
-            if(Setting.List.SelectedDatabases == Databases.Classic)
+            if (Setting.List.SelectedDatabases == Databases.Classic)
             {
                 TGLClassicDB.Checked = true;
             }

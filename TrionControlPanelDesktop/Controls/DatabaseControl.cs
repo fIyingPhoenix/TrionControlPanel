@@ -5,6 +5,8 @@ using TrionLibrary.Database;
 using TrionLibrary.Sys;
 using TrionControlPanelDesktop.Data;
 using TrionDatabase;
+using System.ComponentModel;
+using System.Text;
 
 namespace TrionControlPanelDesktop.Controls
 {
@@ -13,6 +15,18 @@ namespace TrionControlPanelDesktop.Controls
         List<Realmlist.Trinity> RealmlistTrinity;
         List<Realmlist.Ascemu> RealmlistAscemu;
         List<Realmlist.Mangos> RealmlistMangos;
+        bool _loadDatabaseData = false;
+        //Properties
+        [Category("1 Advance")]
+        public bool LoadDatabaseData
+        {
+            get { return _loadDatabaseData; }
+            set
+            {
+                _loadDatabaseData = value;
+                Invalidate();
+            }
+        }
 
         public DatabaseControl()
         {
@@ -25,7 +39,7 @@ namespace TrionControlPanelDesktop.Controls
         {
             if (User.UI.Form.DBRunning)
             {
-                await LoadRealmList();
+
             }
             TXTInternIP.Text = Helper.GetInternalIpAddress();
             TXTPublicIP.Text = await Helper.GetExternalIpAddress();
@@ -160,7 +174,10 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void DatabaseControl_LoadAsync(object sender, EventArgs e)
         {
-            await LoadData();
+            if(LoadDatabaseData == true)
+            {
+                await LoadRealmList();
+            }
         }
         private async void BTNOpenIntern_Click(object sender, EventArgs e)
         {
@@ -187,10 +204,9 @@ namespace TrionControlPanelDesktop.Controls
         {
 
         }
-
         private async void BTNCreateAccount_Click(object sender, EventArgs e)
         {
-            await AccountCreate.CreateAuth(TXTBoxCreateUser.Text.ToUpper(),TXTBoxCreatePassword.Text.ToUpper(), TXTBoxCreateEmail.Text.ToUpper(), Setting.List.AuthDatabase, Setting.List.SelectedCore);
+            await AccountCreate.CreateAuth(TXTBoxCreateUser.Text.ToUpper(), TXTBoxCreatePassword.Text.ToUpper(), TXTBoxCreateEmail.Text.ToUpper(), Setting.List.AuthDatabase, Setting.List.SelectedCore);
         }
     }
 

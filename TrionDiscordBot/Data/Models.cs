@@ -14,7 +14,7 @@
             }
             public const ulong ServerID = 0;
 
-            public const ulong DiscordChannelID1 = 0 ;
+            public const ulong DiscordChannelID1 = 0;
 
         }
     }

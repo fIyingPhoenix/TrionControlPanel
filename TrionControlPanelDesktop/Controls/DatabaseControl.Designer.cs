@@ -51,6 +51,8 @@
             label6 = new Label();
             customButton1 = new UI.Controls.CustomButton();
             metroPanel9 = new MetroFramework.Controls.MetroPanel();
+            LBLExpansion = new Label();
+            TXTExpansion = new MetroFramework.Controls.MetroTextBox();
             label12 = new Label();
             label10 = new Label();
             label8 = new Label();
@@ -106,8 +108,7 @@
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
             TimerWacher = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
-            LBLExpansion = new Label();
-            TXTExpansion = new MetroFramework.Controls.MetroTextBox();
+            TimerRefreshData = new System.Windows.Forms.Timer(components);
             TabControl1.SuspendLayout();
             tPageAccount.SuspendLayout();
             metroPanel8.SuspendLayout();
@@ -533,6 +534,36 @@
             metroPanel9.VerticalScrollbarBarColor = true;
             metroPanel9.VerticalScrollbarHighlightOnWheel = false;
             metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // LBLExpansion
+            // 
+            LBLExpansion.Anchor = AnchorStyles.Top;
+            LBLExpansion.AutoSize = true;
+            LBLExpansion.ForeColor = Color.White;
+            LBLExpansion.Location = new Point(4, 201);
+            LBLExpansion.Name = "LBLExpansion";
+            LBLExpansion.Size = new Size(64, 15);
+            LBLExpansion.TabIndex = 62;
+            LBLExpansion.Text = "Expansion:";
+            // 
+            // TXTExpansion
+            // 
+            TXTExpansion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTExpansion.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTExpansion.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTExpansion.ForeColor = Color.White;
+            TXTExpansion.Location = new Point(3, 219);
+            TXTExpansion.Multiline = false;
+            TXTExpansion.Name = "TXTExpansion";
+            TXTExpansion.PasswordChar = '\0';
+            TXTExpansion.ReadOnly = false;
+            TXTExpansion.SelectedText = "";
+            TXTExpansion.Size = new Size(274, 25);
+            TXTExpansion.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTExpansion.StyleManager = null;
+            TXTExpansion.TabIndex = 61;
+            TXTExpansion.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTExpansion.UseStyleColors = true;
             // 
             // label12
             // 
@@ -1477,35 +1508,9 @@
             TLTHome.ToolTipIcon = ToolTipIcon.Info;
             TLTHome.ToolTipTitle = "Information!";
             // 
-            // LBLExpansion
+            // TimerRefreshData
             // 
-            LBLExpansion.Anchor = AnchorStyles.Top;
-            LBLExpansion.AutoSize = true;
-            LBLExpansion.ForeColor = Color.White;
-            LBLExpansion.Location = new Point(4, 201);
-            LBLExpansion.Name = "LBLExpansion";
-            LBLExpansion.Size = new Size(64, 15);
-            LBLExpansion.TabIndex = 62;
-            LBLExpansion.Text = "Expansion:";
-            // 
-            // TXTExpansion
-            // 
-            TXTExpansion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TXTExpansion.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            TXTExpansion.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            TXTExpansion.ForeColor = Color.White;
-            TXTExpansion.Location = new Point(3, 219);
-            TXTExpansion.Multiline = false;
-            TXTExpansion.Name = "TXTExpansion";
-            TXTExpansion.PasswordChar = '\0';
-            TXTExpansion.ReadOnly = false;
-            TXTExpansion.SelectedText = "";
-            TXTExpansion.Size = new Size(274, 25);
-            TXTExpansion.Style = MetroFramework.MetroColorStyle.Blue;
-            TXTExpansion.StyleManager = null;
-            TXTExpansion.TabIndex = 61;
-            TXTExpansion.Theme = MetroFramework.MetroThemeStyle.Dark;
-            TXTExpansion.UseStyleColors = true;
+            TimerRefreshData.Interval = 1000;
             // 
             // DatabaseControl
             // 
@@ -1627,5 +1632,6 @@
         private PictureBox pictureBox6;
         private Label LBLExpansion;
         private MetroFramework.Controls.MetroTextBox TXTExpansion;
+        private System.Windows.Forms.Timer TimerRefreshData;
     }
 }

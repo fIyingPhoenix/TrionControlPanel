@@ -45,7 +45,7 @@ namespace TrionDiscordBot
            
             var SlashCommandsConfig = Config.DiscordClient.UseSlashCommands();
 
-            SlashCommandsConfig.RegisterCommands<Account>(Models.Discord.ServerID());
+            SlashCommandsConfig.RegisterCommands<Account>(Models.Discord.ServerID);
 
             //ERROR EVENT HANDLERS
             Config.Commands.CommandErrored += OnCommandError;
