@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="customButton4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BTNResetPassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
+        EAAACxABrSO9dQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
         6vgeqTYZbEb8yUuY6l/dVdVN8R+VZXkOPWhG6DiR0IA5fMIGtjCO5XphNHkBa+hHbARu8nclmCawhG6E
         duLbSnYbHhSGE7iDV7iKsPEBfEArQnlheAzjO1jyBXTBdmZhywtDSn6BG7gHezfZmTTCWhULlj0Ek5+h
         Dfb7FbEp/E42CG+Q+vNkkz39Aa7hNOxVsZCuagUOzJ5vwZNNHoY1Lww+EntzQJfgwKzEh9MJW14YWmEc
@@ -129,6 +129,9 @@
         gpsRdoiFAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="TLTHome.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>134, 18</value>
+  </metadata>
   <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -141,9 +144,6 @@
         vq51HKDuK51OqfYx9rH6tTSBZJn/trRa32pAT5BWd5G2AAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="TLTHome.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>134, 18</value>
-  </metadata>
   <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -156,10 +156,10 @@
         vq51HKDuK51OqfYx9rH6tTSBZJn/trRa32pAT5BWd5G2AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="customButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BTNSetGM.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
+        EAAACxABrSO9dQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
         6vgeqTYZbEb8yUuY6l/dVdVN8R+VZXkOPWhG6DiR0IA5fMIGtjCO5XphNHkBa+hHbARu8nclmCawhG6E
         duLbSnYbHhSGE7iDV7iKsPEBfEArQnlheAzjO1jyBXTBdmZhywtDSn6BG7gHezfZmTTCWhULlj0Ek5+h
         Dfb7FbEp/E42CG+Q+vNkkz39Aa7hNOxVsZCuagUOzJ5vwZNNHoY1Lww+EntzQJfgwKzEh9MJW14YWmEc
@@ -170,7 +170,7 @@
   <data name="BTNCreateAccount.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
+        EAAACxABrSO9dQAAARxJREFUOE+Vk0FOAkEQRQcPYiLBvQs9AAmYqAmwcGkieANMTNzgBjgA95MFl4AF
         6vgeqTYZbEb8yUuY6l/dVdVN8R+VZXkOPWhG6DiR0IA5fMIGtjCO5XphNHkBa+hHbARu8nclmCawhG6E
         duLbSnYbHhSGE7iDV7iKsPEBfEArQnlheAzjO1jyBXTBdmZhywtDSn6BG7gHezfZmTTCWhULlj0Ek5+h
         Dfb7FbEp/E42CG+Q+vNkkz39Aa7hNOxVsZCuagUOzJ5vwZNNHoY1Lww+EntzQJfgwKzEh9MJW14YWmEc
@@ -272,6 +272,9 @@
   </data>
   <metadata name="TimerWacher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="TLTHome.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>134, 18</value>
   </metadata>
   <metadata name="TimerRefreshData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>238, 18</value>

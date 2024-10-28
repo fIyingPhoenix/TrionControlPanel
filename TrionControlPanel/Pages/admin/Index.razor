@@ -73,27 +73,6 @@ This is the first row. For Server resorce and status
 
     protected override void OnInitialized()
     {
-        // Get the initial values for CPU, memory, and managed memory
-        CpuUsage = SystemMonitor.GetCpuUsage();
-        AvailableMemory = SystemMonitor.GetAvailableMemory();
-        ManagedMemory = SystemMonitor.GetTotalManagedMemory();
-    }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Regularly update system resource data every 5 seconds
-            while (true)
-            {
-                CpuUsage = SystemMonitor.GetCpuUsage();
-                AvailableMemory = SystemMonitor.GetAvailableMemory();
-                ManagedMemory = SystemMonitor.GetTotalManagedMemory();
-
-                StateHasChanged(); // Trigger re-render
-
-                await Task.Delay(1000); // Update every 1 seconds
-            }
-        }
     }
 }

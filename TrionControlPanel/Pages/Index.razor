@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IUserModelWeb userData;
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +13,44 @@
 <body>
 
     <div class="card">
+        <div class="card-body">
+            @if (userData.IsLogediIn == true)
+            {
+                <div class="right-align">
+                    <text>  @userData.Name</text>
+                </div>
+            }
+            else
+            {
+                <div class="right-align">
+                    <text></text>
+                </div>
+            }
+
+        </div>
     </div>
     <div class="card">
         <video class="card-img-top" style="position:relative; height:50%;" autoplay loop muted>
             <source src="videos/dalaranTribute_4kLoop.mp4" type=video/mp4 />
         </video>
     </div>
+    <button type="button" class="btn btn-primary" @onclick=LogiIN>Click Me!</button>
 </body>
 </html>
 
 @code{
+
+    private void LogiIN()
+    {
+        if (userData.IsLogediIn == false)
+        {
+            userData.IsLogediIn = true;
+        }
+        else
+        {
+            userData.IsLogediIn = false;
+        }
+        InvokeAsync(StateHasChanged); 
+    }
 
 }

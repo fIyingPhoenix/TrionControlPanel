@@ -288,16 +288,16 @@ namespace TrionLibrary.Database
                 return rows.ToList();
             }
         }
-        public static void SaveData<T>(string sql, T parameters, string connectionString)
+        public static Task SaveData<T>(string sql, T parameters, string connectionString)
         {
             try
             {
                 using IDbConnection con = new MySqlConnection(connectionString);
-                con.Execute(sql, parameters);
+                return con.ExecuteAsync(sql, parameters);
             }
             catch
             {
-
+                return Task.CompletedTask;
             }
         }
     }

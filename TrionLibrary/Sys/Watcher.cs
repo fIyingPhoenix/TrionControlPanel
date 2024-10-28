@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Dynamic;
-using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using static TrionLibrary.Models.Lists;
+
 
 namespace TrionLibrary.Sys
 {

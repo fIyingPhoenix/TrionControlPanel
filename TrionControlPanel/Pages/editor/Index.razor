@@ -1,5 +1,5 @@
 ﻿@page "/editor/"
-@inject Watcher Watcher
+@inject UserLogin _UserLogin;
 @* <div class="card">
 
 </div> *@
@@ -77,7 +77,6 @@ This is the first row. For Server resorce and status
         totalRam = 0;
         ramUsageProcent = 0;
         StateHasChanged(); // Refresh the UI to update the progress bar
+        _UserLogin.LoadUserSession();
     }
-
-
 }

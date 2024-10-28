@@ -46,6 +46,7 @@ namespace TrionControlPanelDesktop
             BTNStartLogin = new UI.Controls.CustomButton();
             BTNStartWorld = new UI.Controls.CustomButton();
             ContributorsPNLFront = new MetroPanel();
+            flatAlertBox1 = new UI.Controls.FlatAlertBox();
             BTNSupport = new PictureBox();
             BTNDownload = new UI.Controls.CustomButton();
             BTNNotification = new UI.Controls.CustomButton();
@@ -319,6 +320,7 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront.Border = true;
             ContributorsPNLFront.BorderColor = Color.Black;
             ContributorsPNLFront.BorderSize = 1;
+            ContributorsPNLFront.Controls.Add(flatAlertBox1);
             ContributorsPNLFront.Controls.Add(BTNSupport);
             ContributorsPNLFront.Controls.Add(BTNDownload);
             ContributorsPNLFront.Controls.Add(BTNNotification);
@@ -339,6 +341,18 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront.VerticalScrollbarBarColor = true;
             ContributorsPNLFront.VerticalScrollbarHighlightOnWheel = false;
             ContributorsPNLFront.VerticalScrollbarSize = 10;
+            // 
+            // flatAlertBox1
+            // 
+            flatAlertBox1.BackColor = Color.FromArgb(60, 70, 73);
+            flatAlertBox1.Font = new Font("Segoe UI", 10F);
+            flatAlertBox1.kind = UI.Controls.FlatAlertBox._Kind.Success;
+            flatAlertBox1.Location = new Point(5, 6);
+            flatAlertBox1.Name = "flatAlertBox1";
+            flatAlertBox1.Size = new Size(835, 42);
+            flatAlertBox1.TabIndex = 10;
+            flatAlertBox1.Text = "flatAlertBox1";
+            flatAlertBox1.Visible = false;
             // 
             // BTNSupport
             // 
@@ -581,6 +595,7 @@ namespace TrionControlPanelDesktop
         private System.Windows.Forms.Timer TimerCrashDetected;
         private PictureBox BTNSupport;
         private System.Windows.Forms.Timer TimerButtonSlide;
+        private UI.Controls.FlatAlertBox flatAlertBox1;
         private static MetroPanel PNLControl;
     }
 }

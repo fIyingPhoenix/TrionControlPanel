@@ -15,7 +15,7 @@ namespace TrionControlPanelDesktop
     public partial class MainForm : MetroForm
     {
         List<int> Ports = [3306, 8085, 3724];
-        List<int> OpenPorts = new();
+        List<int> OpenPorts = [];
         int positionY = 0;
         int direction = -1;
          int speed = 7; // How fast the button moves
@@ -76,7 +76,7 @@ namespace TrionControlPanelDesktop
                      ControlStyles.ResizeRedraw |
                      ControlStyles.UserPaint, true);
             InitializeComponent();
-            LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version!.ToString()}";
+            LblVersion.Text = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
             TLTHome.BackColor = Color.Red;
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
@@ -102,6 +102,8 @@ namespace TrionControlPanelDesktop
             User.UI.Form.StartUpLoading++;
             LoadData();
             await CheckPorts();
+            await ApiRespound();
+
         }
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
@@ -322,7 +324,29 @@ namespace TrionControlPanelDesktop
             if (Setting.List.ServerCrashDetection == true) { Task.Run(async () => await Main.CrashDetector(5)); }
 
         }
-       
+        private async Task ApiRespound()
+        {
+            using (HttpClient client = new())
+            {
+                try
+                {
+                    // Make the GET request
+                    HttpResponseMessage response = await client.GetAsync(Links.APIServer);
+                    // Ensure the request was successful
+                    response.EnsureSuccessStatusCode();
+
+                    // Read the response content
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine("Response: " + responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Request error: " + e.Message);
+                }
+            }
+
+        }
 
         private void BTNSupport_MouseEnter(object sender, EventArgs e)
         {

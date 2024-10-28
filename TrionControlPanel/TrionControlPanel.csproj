@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>af1f0393-0a4c-4f66-b7ff-fc367d6f9ced</UserSecretsId>
     <ApplicationIcon>ico1.ico</ApplicationIcon>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,14 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Pages\website\" />
+    <Folder Include="wwwroot\videos\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Pages\website\" />
-    <Folder Include="Pages\user\" />
-    <Folder Include="wwwroot\videos\" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="MySql.Data" Version="9.1.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
 </Project>
