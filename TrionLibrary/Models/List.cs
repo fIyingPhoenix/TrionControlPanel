@@ -117,6 +117,7 @@ namespace TrionLibrary.Models
             public Enums.Cores SelectedCore;
             public Enums.DDNSerivce DDNSerivce;
             public Enums.SPP SelectedSPP;
+            public Enums.Databases SelectedDatabases;
         }
     }
 }

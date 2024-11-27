@@ -2,23 +2,19 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #F6F7F9;
+    background-color: #151b23;
 }
 
 h1:focus {
     outline: none;
 }
-
-a, .btn-link {
-    color: #0071c1;
+.right-align {
+    text-align: right;
 }
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+p{
+    outline: none;
+    color: snow !important;
 }
-
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -66,11 +62,4 @@ a, .btn-link {
 .blazor-error-boundary::after 
 {
         content: "An error has occurred."
-}
-.card {
-    box-shadow: 1px 1px 1px 1px #E3E4E7;
-}
-.card-header {
-    background-color: white;
-  
 }

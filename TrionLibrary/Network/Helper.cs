@@ -2,17 +2,21 @@
 using System.Diagnostics;
 using System.Management;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using TrionLibrary.Sys;
+using Newtonsoft.Json.Linq;
+using TrionLibrary.Crypto;
+using System.Security.Policy;
+using System.Net;
 
 namespace TrionLibrary.Network
 {
     public class Helper
     {
-
         public static async Task<(string, bool)> IsProcessUsingPort(int processId, int port)
         {
             string Message;
@@ -32,7 +36,7 @@ namespace TrionLibrary.Network
                     PortInUse = false;
                     Message = $"PortInUse: {port} by ProcsessID {processId}";
                 }
-                catch(Exception ex) { Message = ex.Message; PortInUse = false; }
+                catch (Exception ex) { Message = ex.Message; PortInUse = false; }
                 await Task.Delay(10);
                 return (Message, PortInUse);
             }
@@ -63,7 +67,7 @@ namespace TrionLibrary.Network
                         throw new NotSupportedException("Unsupported operating system.");
                     }
 
-                    Process process = new Process();
+                    Process process = new();
                     process.StartInfo.FileName = "/bin/bash";
                     process.StartInfo.Arguments = $"-c \"{command} {args}\"";
                     process.StartInfo.RedirectStandardOutput = true;
@@ -117,11 +121,13 @@ namespace TrionLibrary.Network
             {
                 using (HttpClient client = new())
                 {
-                    HttpResponseMessage response = await client.GetAsync("https://checkip.amazonaws.com/");
+                    HttpResponseMessage response = await client.GetAsync("https://flying-phoenix.dev/api/getip.php");
                     if (response.IsSuccessStatusCode)
                     {
-                        externalIpAddress = await response.Content.ReadAsStringAsync();
-                        externalIpAddress = externalIpAddress.Trim();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        // Parse the JSON response
+                        JObject json = JObject.Parse(responseBody);
+                        externalIpAddress = json["ip"].ToString();
                     }
                     else
                     {
@@ -151,7 +157,7 @@ namespace TrionLibrary.Network
                         IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
                         foreach (UnicastIPAddressInformation ipAddress in ipProperties.UnicastAddresses)
                         {
-                            if (ipAddress.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            if (ipAddress.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
                                 internalIpAddress = ipAddress.Address.ToString();
                             }
@@ -193,5 +199,6 @@ namespace TrionLibrary.Network
                 return false;
             }
         }
+
     }
 }

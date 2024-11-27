@@ -46,6 +46,8 @@ namespace TrionControlPanelDesktop
             BTNStartLogin = new UI.Controls.CustomButton();
             BTNStartWorld = new UI.Controls.CustomButton();
             ContributorsPNLFront = new MetroPanel();
+            flatAlertBox1 = new UI.Controls.FlatAlertBox();
+            BTNSupport = new PictureBox();
             BTNDownload = new UI.Controls.CustomButton();
             BTNNotification = new UI.Controls.CustomButton();
             NIcon = new NotifyIcon(components);
@@ -60,10 +62,12 @@ namespace TrionControlPanelDesktop
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
             TimerCrashDetected = new System.Windows.Forms.Timer(components);
+            TimerButtonSlide = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             PnlButtonFront.SuspendLayout();
             ContributorsPNLFront.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BTNSupport).BeginInit();
             CMSNotify.SuspendLayout();
             SuspendLayout();
             // 
@@ -316,6 +320,8 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront.Border = true;
             ContributorsPNLFront.BorderColor = Color.Black;
             ContributorsPNLFront.BorderSize = 1;
+            ContributorsPNLFront.Controls.Add(flatAlertBox1);
+            ContributorsPNLFront.Controls.Add(BTNSupport);
             ContributorsPNLFront.Controls.Add(BTNDownload);
             ContributorsPNLFront.Controls.Add(BTNNotification);
             ContributorsPNLFront.CustomBackground = true;
@@ -336,6 +342,33 @@ namespace TrionControlPanelDesktop
             ContributorsPNLFront.VerticalScrollbarHighlightOnWheel = false;
             ContributorsPNLFront.VerticalScrollbarSize = 10;
             // 
+            // flatAlertBox1
+            // 
+            flatAlertBox1.BackColor = Color.FromArgb(60, 70, 73);
+            flatAlertBox1.Font = new Font("Segoe UI", 10F);
+            flatAlertBox1.kind = UI.Controls.FlatAlertBox._Kind.Success;
+            flatAlertBox1.Location = new Point(5, 6);
+            flatAlertBox1.Name = "flatAlertBox1";
+            flatAlertBox1.Size = new Size(835, 42);
+            flatAlertBox1.TabIndex = 10;
+            flatAlertBox1.Text = "flatAlertBox1";
+            flatAlertBox1.Visible = false;
+            // 
+            // BTNSupport
+            // 
+            BTNSupport.Cursor = Cursors.Hand;
+            BTNSupport.Image = (Image)resources.GetObject("BTNSupport.Image");
+            BTNSupport.Location = new Point(5, 6);
+            BTNSupport.Name = "BTNSupport";
+            BTNSupport.Padding = new Padding(3);
+            BTNSupport.Size = new Size(35, 35);
+            BTNSupport.SizeMode = PictureBoxSizeMode.StretchImage;
+            BTNSupport.TabIndex = 9;
+            BTNSupport.TabStop = false;
+            BTNSupport.Click += BTNSupport_Click;
+            BTNSupport.MouseEnter += BTNSupport_MouseEnter;
+            BTNSupport.MouseLeave += BTNSupport_MouseLeave;
+            // 
             // BTNDownload
             // 
             BTNDownload.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -349,10 +382,10 @@ namespace TrionControlPanelDesktop
             BTNDownload.FlatStyle = FlatStyle.Flat;
             BTNDownload.ForeColor = Color.White;
             BTNDownload.Image = (Image)resources.GetObject("BTNDownload.Image");
-            BTNDownload.Location = new Point(758, 5);
+            BTNDownload.Location = new Point(754, 6);
             BTNDownload.Name = "BTNDownload";
             BTNDownload.NotificationCount = 0;
-            BTNDownload.Size = new Size(41, 36);
+            BTNDownload.Size = new Size(40, 35);
             BTNDownload.TabIndex = 8;
             BTNDownload.TextColor = Color.White;
             TLTHome.SetToolTip(BTNDownload, "Download");
@@ -373,10 +406,10 @@ namespace TrionControlPanelDesktop
             BTNNotification.FlatStyle = FlatStyle.Flat;
             BTNNotification.ForeColor = Color.White;
             BTNNotification.Image = (Image)resources.GetObject("BTNNotification.Image");
-            BTNNotification.Location = new Point(803, 5);
+            BTNNotification.Location = new Point(800, 5);
             BTNNotification.Name = "BTNNotification";
             BTNNotification.NotificationCount = 0;
-            BTNNotification.Size = new Size(37, 36);
+            BTNNotification.Size = new Size(40, 35);
             BTNNotification.TabIndex = 7;
             BTNNotification.TextColor = Color.White;
             TLTHome.SetToolTip(BTNNotification, "Notifications");
@@ -495,6 +528,12 @@ namespace TrionControlPanelDesktop
             TimerCrashDetected.Interval = 5000;
             TimerCrashDetected.Tick += TimerCrashDetected_Tick;
             // 
+            // TimerButtonSlide
+            // 
+            TimerButtonSlide.Enabled = true;
+            TimerButtonSlide.Interval = 16;
+            TimerButtonSlide.Tick += TimerButtonSlide_Tick;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -521,6 +560,7 @@ namespace TrionControlPanelDesktop
             panel2.ResumeLayout(false);
             PnlButtonFront.ResumeLayout(false);
             ContributorsPNLFront.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)BTNSupport).EndInit();
             CMSNotify.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -553,6 +593,9 @@ namespace TrionControlPanelDesktop
         private ToolStripSeparator toolStripSeparator2;
         private TrionUI.Controls.CustomToolTip TLTHome;
         private System.Windows.Forms.Timer TimerCrashDetected;
+        private PictureBox BTNSupport;
+        private System.Windows.Forms.Timer TimerButtonSlide;
+        private UI.Controls.FlatAlertBox flatAlertBox1;
         private static MetroPanel PNLControl;
     }
 }

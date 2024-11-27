@@ -33,7 +33,7 @@
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
             tPageAccount = new TabPage();
             metroPanel8 = new MetroFramework.Controls.MetroPanel();
-            customButton4 = new UI.Controls.CustomButton();
+            BTNResetPassword = new UI.Controls.CustomButton();
             label15 = new Label();
             label14 = new Label();
             metroTextBox5 = new MetroFramework.Controls.MetroTextBox();
@@ -49,8 +49,10 @@
             metroPanel7 = new MetroFramework.Controls.MetroPanel();
             pictureBox5 = new PictureBox();
             label6 = new Label();
-            customButton1 = new UI.Controls.CustomButton();
+            BTNSetGM = new UI.Controls.CustomButton();
             metroPanel9 = new MetroFramework.Controls.MetroPanel();
+            LBLExpansion = new Label();
+            TXTExpansion = new MetroFramework.Controls.MetroTextBox();
             label12 = new Label();
             label10 = new Label();
             label8 = new Label();
@@ -106,6 +108,9 @@
             TXTRealmPort = new MetroFramework.Controls.MetroTextBox();
             TimerWacher = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
+            TimerRefreshData = new System.Windows.Forms.Timer(components);
+            label1 = new Label();
+            metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             TabControl1.SuspendLayout();
             tPageAccount.SuspendLayout();
             metroPanel8.SuspendLayout();
@@ -132,8 +137,8 @@
             // TabControl1
             // 
             TabControl1.Appearance = TabAppearance.Buttons;
-            TabControl1.Controls.Add(tPageRealmList);
             TabControl1.Controls.Add(tPageAccount);
+            TabControl1.Controls.Add(tPageRealmList);
             TabControl1.CustomBackground = false;
             TabControl1.Dock = DockStyle.Fill;
             TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -173,7 +178,9 @@
             metroPanel8.Border = true;
             metroPanel8.BorderColor = Color.Black;
             metroPanel8.BorderSize = 1;
-            metroPanel8.Controls.Add(customButton4);
+            metroPanel8.Controls.Add(label1);
+            metroPanel8.Controls.Add(metroTextBox1);
+            metroPanel8.Controls.Add(BTNResetPassword);
             metroPanel8.Controls.Add(label15);
             metroPanel8.Controls.Add(label14);
             metroPanel8.Controls.Add(metroTextBox5);
@@ -196,29 +203,29 @@
             metroPanel8.VerticalScrollbarHighlightOnWheel = false;
             metroPanel8.VerticalScrollbarSize = 10;
             // 
-            // customButton4
+            // BTNResetPassword
             // 
-            customButton4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            customButton4.BackColor = Color.FromArgb(28, 33, 40);
-            customButton4.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton4.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton4.BorderRadius = 0;
-            customButton4.BorderSize = 1;
-            customButton4.Cursor = Cursors.Hand;
-            customButton4.FlatAppearance.BorderSize = 0;
-            customButton4.FlatStyle = FlatStyle.Flat;
-            customButton4.ForeColor = Color.White;
-            customButton4.Image = (Image)resources.GetObject("customButton4.Image");
-            customButton4.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton4.Location = new Point(3, 277);
-            customButton4.Name = "customButton4";
-            customButton4.NotificationCount = 0;
-            customButton4.RightToLeft = RightToLeft.No;
-            customButton4.Size = new Size(254, 30);
-            customButton4.TabIndex = 62;
-            customButton4.Text = "Set";
-            customButton4.TextColor = Color.White;
-            customButton4.UseVisualStyleBackColor = false;
+            BTNResetPassword.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BTNResetPassword.BackColor = Color.FromArgb(28, 33, 40);
+            BTNResetPassword.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNResetPassword.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNResetPassword.BorderRadius = 0;
+            BTNResetPassword.BorderSize = 1;
+            BTNResetPassword.Cursor = Cursors.Hand;
+            BTNResetPassword.FlatAppearance.BorderSize = 0;
+            BTNResetPassword.FlatStyle = FlatStyle.Flat;
+            BTNResetPassword.ForeColor = Color.White;
+            BTNResetPassword.Image = (Image)resources.GetObject("BTNResetPassword.Image");
+            BTNResetPassword.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNResetPassword.Location = new Point(3, 277);
+            BTNResetPassword.Name = "BTNResetPassword";
+            BTNResetPassword.NotificationCount = 0;
+            BTNResetPassword.RightToLeft = RightToLeft.No;
+            BTNResetPassword.Size = new Size(254, 30);
+            BTNResetPassword.TabIndex = 62;
+            BTNResetPassword.Text = "Update";
+            BTNResetPassword.TextColor = Color.White;
+            BTNResetPassword.UseVisualStyleBackColor = false;
             // 
             // label15
             // 
@@ -344,7 +351,7 @@
             metroPanel6.Controls.Add(metroTextBox3);
             metroPanel6.Controls.Add(metroTextBox4);
             metroPanel6.Controls.Add(metroPanel7);
-            metroPanel6.Controls.Add(customButton1);
+            metroPanel6.Controls.Add(BTNSetGM);
             metroPanel6.CustomBackground = true;
             metroPanel6.HorizontalScrollbar = false;
             metroPanel6.HorizontalScrollbarBarColor = true;
@@ -474,29 +481,29 @@
             label6.Text = "SET GM";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // customButton1
+            // BTNSetGM
             // 
-            customButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            customButton1.BackColor = Color.FromArgb(28, 33, 40);
-            customButton1.BackgroundColor = Color.FromArgb(28, 33, 40);
-            customButton1.BorderColor = Color.FromArgb(0, 174, 219);
-            customButton1.BorderRadius = 0;
-            customButton1.BorderSize = 1;
-            customButton1.Cursor = Cursors.Hand;
-            customButton1.FlatAppearance.BorderSize = 0;
-            customButton1.FlatStyle = FlatStyle.Flat;
-            customButton1.ForeColor = Color.White;
-            customButton1.Image = (Image)resources.GetObject("customButton1.Image");
-            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton1.Location = new Point(3, 277);
-            customButton1.Name = "customButton1";
-            customButton1.NotificationCount = 0;
-            customButton1.RightToLeft = RightToLeft.No;
-            customButton1.Size = new Size(269, 30);
-            customButton1.TabIndex = 46;
-            customButton1.Text = "Set";
-            customButton1.TextColor = Color.White;
-            customButton1.UseVisualStyleBackColor = false;
+            BTNSetGM.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BTNSetGM.BackColor = Color.FromArgb(28, 33, 40);
+            BTNSetGM.BackgroundColor = Color.FromArgb(28, 33, 40);
+            BTNSetGM.BorderColor = Color.FromArgb(0, 174, 219);
+            BTNSetGM.BorderRadius = 0;
+            BTNSetGM.BorderSize = 1;
+            BTNSetGM.Cursor = Cursors.Hand;
+            BTNSetGM.FlatAppearance.BorderSize = 0;
+            BTNSetGM.FlatStyle = FlatStyle.Flat;
+            BTNSetGM.ForeColor = Color.White;
+            BTNSetGM.Image = (Image)resources.GetObject("BTNSetGM.Image");
+            BTNSetGM.ImageAlign = ContentAlignment.MiddleLeft;
+            BTNSetGM.Location = new Point(3, 277);
+            BTNSetGM.Name = "BTNSetGM";
+            BTNSetGM.NotificationCount = 0;
+            BTNSetGM.RightToLeft = RightToLeft.No;
+            BTNSetGM.Size = new Size(269, 30);
+            BTNSetGM.TabIndex = 46;
+            BTNSetGM.Text = "Update";
+            BTNSetGM.TextColor = Color.White;
+            BTNSetGM.UseVisualStyleBackColor = false;
             // 
             // metroPanel9
             // 
@@ -505,6 +512,8 @@
             metroPanel9.Border = true;
             metroPanel9.BorderColor = Color.Black;
             metroPanel9.BorderSize = 1;
+            metroPanel9.Controls.Add(LBLExpansion);
+            metroPanel9.Controls.Add(TXTExpansion);
             metroPanel9.Controls.Add(label12);
             metroPanel9.Controls.Add(label10);
             metroPanel9.Controls.Add(label8);
@@ -529,6 +538,36 @@
             metroPanel9.VerticalScrollbarBarColor = true;
             metroPanel9.VerticalScrollbarHighlightOnWheel = false;
             metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // LBLExpansion
+            // 
+            LBLExpansion.Anchor = AnchorStyles.Top;
+            LBLExpansion.AutoSize = true;
+            LBLExpansion.ForeColor = Color.White;
+            LBLExpansion.Location = new Point(4, 201);
+            LBLExpansion.Name = "LBLExpansion";
+            LBLExpansion.Size = new Size(64, 15);
+            LBLExpansion.TabIndex = 62;
+            LBLExpansion.Text = "Expansion:";
+            // 
+            // TXTExpansion
+            // 
+            TXTExpansion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TXTExpansion.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            TXTExpansion.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            TXTExpansion.ForeColor = Color.White;
+            TXTExpansion.Location = new Point(3, 219);
+            TXTExpansion.Multiline = false;
+            TXTExpansion.Name = "TXTExpansion";
+            TXTExpansion.PasswordChar = '\0';
+            TXTExpansion.ReadOnly = false;
+            TXTExpansion.SelectedText = "";
+            TXTExpansion.Size = new Size(274, 25);
+            TXTExpansion.Style = MetroFramework.MetroColorStyle.Blue;
+            TXTExpansion.StyleManager = null;
+            TXTExpansion.TabIndex = 61;
+            TXTExpansion.Theme = MetroFramework.MetroThemeStyle.Dark;
+            TXTExpansion.UseStyleColors = true;
             // 
             // label12
             // 
@@ -1473,6 +1512,40 @@
             TLTHome.ToolTipIcon = ToolTipIcon.Info;
             TLTHome.ToolTipTitle = "Information!";
             // 
+            // TimerRefreshData
+            // 
+            TimerRefreshData.Interval = 1000;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.AutoSize = true;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(5, 151);
+            label1.Name = "label1";
+            label1.Size = new Size(79, 15);
+            label1.TabIndex = 64;
+            label1.Text = "Re. Password:";
+            // 
+            // metroTextBox1
+            // 
+            metroTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox1.ForeColor = Color.White;
+            metroTextBox1.Location = new Point(3, 169);
+            metroTextBox1.Multiline = false;
+            metroTextBox1.Name = "metroTextBox1";
+            metroTextBox1.PasswordChar = '\0';
+            metroTextBox1.ReadOnly = false;
+            metroTextBox1.SelectedText = "";
+            metroTextBox1.Size = new Size(254, 25);
+            metroTextBox1.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox1.StyleManager = null;
+            metroTextBox1.TabIndex = 63;
+            metroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox1.UseStyleColors = true;
+            // 
             // DatabaseControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1563,7 +1636,7 @@
         private MetroFramework.Controls.MetroPanel metroPanel6;
         private MetroFramework.Controls.MetroPanel metroPanel7;
         private Label label6;
-        private UI.Controls.CustomButton customButton1;
+        private UI.Controls.CustomButton BTNSetGM;
         private MetroFramework.Controls.MetroPanel metroPanel9;
         private MetroFramework.Controls.MetroTextBox TXTBoxCreateUser;
         private UI.Controls.CustomButton BTNCreateAccount;
@@ -1582,7 +1655,7 @@
         private Label label15;
         private Label label14;
         private Label label13;
-        private UI.Controls.CustomButton customButton4;
+        private UI.Controls.CustomButton BTNResetPassword;
         private System.Windows.Forms.Timer TimerWacher;
         private TrionUI.Controls.CustomToolTip TLTHome;
         private PictureBox pictureBox1;
@@ -1591,5 +1664,9 @@
         private PictureBox pictureBox5;
         private PictureBox pictureBox4;
         private PictureBox pictureBox6;
+        private Label LBLExpansion;
+        private MetroFramework.Controls.MetroTextBox TXTExpansion;
+        private System.Windows.Forms.Timer TimerRefreshData;
+        private MetroFramework.Controls.MetroTextBox metroTextBox1;
     }
 }

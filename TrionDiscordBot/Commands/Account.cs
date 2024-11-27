@@ -1,67 +1,65 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using TrionDiscordBot.Data;
-using TrionDiscordBot.Encrypting;
-using DSharpPlus.SlashCommands;
-using System.Formats.Asn1;
-using MySql.Data.MySqlClient;
-using System.Diagnostics.CodeAnalysis;
-using DSharpPlus;
+﻿using DSharpPlus;
 using DSharpPlus.Entities;
-using System.Drawing;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using DSharpPlus.SlashCommands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
+using TrionDatabase;
+using TrionLibrary.Setting;
+using TrionLibrary.Models;
+using TrionDiscordBot.Data;
 
 namespace TrionDiscordBot.Commands
 {
     public class Account : ApplicationCommandModule
     {
-        Database database = new();
-        List<Models.Database.AccountID> accountID;
-        uint id = 0;
-        [SlashCommand("create","Create a account!")]
+        private static System.Timers.Timer _checkUsernamesTimer;
+        public Account()
+        {
+            // Initialize the timer to trigger every 5 minutes (300,000 milliseconds)
+            _checkUsernamesTimer = new (300000);
+            _checkUsernamesTimer.Elapsed += async (sender, e) => await CheckUsernamesAutomatically();
+            _checkUsernamesTimer.AutoReset = true; // Repeat every 5 minutes
+            _checkUsernamesTimer.Enabled = true;   // Start the timer
+        }
+
+        private async Task CheckUsernamesAutomatically()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static List<string> predefinedUsernames = new List<string>();
+
+       [SlashCommand("create","Create a account!")]
         public async Task CreateAccount (InteractionContext ctx,
             [Option("Username","Your Username")]string username,
-            [Option("Password", "Your Username")] string password,
-            [Option("Email", "Your Username")] string email)
+            [Option("Password", "Your Password")] string password,
+            [Option("Email", "Your Email")] string email)
         {
             try
             {
-                string PasswordHash = Password.CalculatePassHashBnet(email.ToUpper(), password.ToUpper());
+                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+               new DiscordInteractionResponseBuilder()
+               .WithContent(AccountCreate.CreateAuth(username, password, email, "acore_auth" , Enums.Cores.AzerothCore).ToString()).AsEphemeral(true));
 
-                await BentAccountCreate(email, PasswordHash);
 
-                await GameAccountCreate(username, PasswordHash, email, id);
             }
             catch (Exception ex) 
             {
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                    new DiscordInteractionResponseBuilder().WithContent("Error, Faild to create account!"));
-                var EmbededMessage = new DiscordEmbedBuilder()
-                {
-                    Title = ex.Message ,
-                    Color = DiscordColor.Red
-                };
-                await ctx.Channel.SendMessageAsync(embed: EmbededMessage);
+                new DiscordInteractionResponseBuilder()
+                .WithContent("Error, Faild to create account! " + ex.Message).AsEphemeral(true));
+                //var EmbededMessage = new DiscordEmbedBuilder()
+                //{
+                //    Title = ex.Message ,
+                //    Color = DiscordColor.Red
+                //};
+                //await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder()
+                //.AddEmbed(EmbededMessage)
+                //.AsEphemeral(true));// Make the embed ephemeral as well
             }
-        }     
-        private async Task BentAccountCreate(string email, string passwordHash)
-        {
-            string sql = "INSERT INTO battlenet_accounts (`email`,`sha_pass_hash`) VALUES (@Email, @PasswordHash)";
-            await Database.SaveData(sql, new { Email = email, PasswordHash = passwordHash });
-
-            await GetBNetAccountID(email);
-        }
-
-        private async Task GameAccountCreate(string username, string passwordHash, string email, uint bnetAccountID)
-        {
-            string sql = "INSERT INTO account (`username`, `reg_mail`, `email`, `battlenet_account`) VALUES(@Username, @Reg_mail, @Email, @Battlenet_account)";
-            await Database.SaveData(sql, new {Username = username, Reg_mail = email, Email = email, Battlenet_account = bnetAccountID });
-        }
-        private async Task GetBNetAccountID(string email)
-        {
-            string sql = "SELECT id FROM battlenet_accounts WHERE `email` = @Email";
-            accountID = await database.LoadData<Models.Database.AccountID, dynamic>(sql, new {Email = email});
-            foreach (var _id in accountID) { id = _id.ID; }
         }
 
     }

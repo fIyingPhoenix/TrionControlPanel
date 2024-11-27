@@ -162,7 +162,42 @@ namespace TrionControlPanelDesktop.Controls
             TXTDDNSInterval.Text = Setting.List.DDNSInterval.ToString();
             TGLDDNSRunOnStartup.Checked = Setting.List.DDNSRunOnStartup;
             CBoxSelectItems();
+            GeteSelectedDatabase();
             User.UI.Form.StartUpLoading++;
+        }
+        private void GeteSelectedDatabase()
+        {
+            if (Setting.List.SelectedDatabases == Databases.Classic)
+            {
+                TGLClassicDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.TBC)
+            {
+                TGLTbcDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.WotLK)
+            {
+                TGLWotlkDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.Cata)
+            {
+                TGLCataDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.MoP)
+            {
+                TGLMopDB.Checked = true;
+            }
+            if (Setting.List.SelectedDatabases == Databases.Custom)
+            {
+                TGLCustomDB.Checked = true;
+                TXTAuthDatabase.ReadOnly = false;
+                TXTCharDatabase.ReadOnly = false;
+                TXTWorldDatabase.ReadOnly = false;
+                TXTMysqlHost.ReadOnly = false;
+                TXTMysqlPort.ReadOnly = false;
+                TXTMysqlUser.ReadOnly = false;
+                TXTMysqlPassword.ReadOnly = false;
+            }
         }
         private void ComboBoxCores_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -389,13 +424,20 @@ namespace TrionControlPanelDesktop.Controls
         }
         private async void BTNTrionUpdate_Click(object sender, EventArgs e)
         {
-            if (User.UI.Version.Update.Trion) { await Main.StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true); }
+            BTNTrionUpdate.Enabled = false;
+            if (User.UI.Version.Update.Trion)
+            {
+                Infos.Message = "Updateing Trion!";
+                DownloadData.Infos.Install.Trion = true;
+                await Main.StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true);
+            }
             if (User.UI.Version.Update.Database) { await Main.StartUpdate(Links.Install.Database, $"{Links.MainCDNHost}{Links.Hashe.Database}", true); }
             if (User.UI.Version.Update.Classic) { await Main.StartUpdate(Links.Install.Classic, $"{Links.MainCDNHost}{Links.Hashe.Classic}", true); }
             if (User.UI.Version.Update.TBC) { await Main.StartUpdate(Links.Install.TBC, $"{Links.MainCDNHost}{Links.Hashe.TBC}", true); }
             if (User.UI.Version.Update.WotLK) { await Main.StartUpdate(Links.Install.WotLK, $"{Links.MainCDNHost}{Links.Hashe.WotLK}", true); }
             if (User.UI.Version.Update.Cata) { await Main.StartUpdate(Links.Install.Cata, $"{Links.MainCDNHost}{Links.Hashe.Cata}", true); }
             if (User.UI.Version.Update.Mop) { await Main.StartUpdate(Links.Install.Mop, $"{Links.MainCDNHost}{Links.Hashe.Mop}", true); }
+            BTNTrionUpdate.Enabled = true;
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
@@ -987,15 +1029,15 @@ namespace TrionControlPanelDesktop.Controls
         {
             string BackupDirectory = $"{Directory.GetCurrentDirectory()}/backup";
             if (!Directory.Exists(BackupDirectory)) { Directory.CreateDirectory(BackupDirectory); }
-            if (CBAuthBackup.Checked == true)
+            if (TGLAuthBackup.Checked == true)
             {
                 await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.AuthDatabase), $"{BackupDirectory}/AuthBackup.sql"));
             }
-            if (CBWorldBackup.Checked == true)
+            if (TGLCharBackup.Checked == true)
             {
                 await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.CharactersDatabase), $"{BackupDirectory}/CharBackup.sql"));
             }
-            if (CBWorldBackup.Checked == true)
+            if (TGLWorldBackup.Checked == true)
             {
                 await Task.Run(() => Access.BackupDatabase(Connect.String(Setting.List.WorldDatabase), $"{BackupDirectory}/WorldBackup.sql"));
             }
@@ -1014,7 +1056,7 @@ namespace TrionControlPanelDesktop.Controls
             LoadBackup.Enabled = false;
             string BackupDirectory = $"{Directory.GetCurrentDirectory()}/backup";
             if (!Directory.Exists(BackupDirectory)) { Directory.CreateDirectory(BackupDirectory); }
-            if (CBAuthBackup.Checked == true)
+            if (TGLAuthBackup.Checked == true)
             {
                 string file = $"{BackupDirectory}/AuthBackup.sql";
                 if (File.Exists(file))
@@ -1026,7 +1068,7 @@ namespace TrionControlPanelDesktop.Controls
                     Infos.Message = "Auth backup file does not exists!";
                 }
             }
-            if (CBWorldBackup.Checked == true)
+            if (TGLCharBackup.Checked == true)
             {
                 string file = $"{BackupDirectory}/CharBackup.sql";
                 if (File.Exists(file))
@@ -1038,7 +1080,7 @@ namespace TrionControlPanelDesktop.Controls
                     Infos.Message = "Char backup file does not exists!";
                 }
             }
-            if (CBWorldBackup.Checked == true)
+            if (TGLWorldBackup.Checked == true)
             {
                 string file = $"{BackupDirectory}/WorldBackup.sql";
                 if (File.Exists(file))
@@ -1114,6 +1156,162 @@ namespace TrionControlPanelDesktop.Controls
         private void TGLServerCrashDetection_CheckedChanged(object sender, EventArgs e)
         {
             Setting.List.ServerCrashDetection = TGLServerCrashDetection.Checked;
+        }
+
+        private void TGLClassicDB_Click(object sender, EventArgs e)
+        {
+            if (TGLClassicDB.Checked == true)
+            {
+                TXTMysqlPassword.ReadOnly = true;
+                TGLTbcDB.Checked = false;
+                TGLWotlkDB.Checked = false;
+                TGLCataDB.Checked = false;
+                TGLMopDB.Checked = false;
+                TGLCustomDB.Checked = false;
+                Setting.List.AuthDatabase = "classic_auth";
+                Setting.List.CharactersDatabase = "classic_characters";
+                Setting.List.WorldDatabase = "classic_world";
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "phoenix";
+                Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.Classic;
+                LoadData();
+            }
+            else { TGLClassicDB.Checked = true; }
+        }
+
+        private void TGLTbcDB_Click(object sender, EventArgs e)
+        {
+            if (TGLTbcDB.Checked == true)
+            {
+                TGLClassicDB.Checked = false;
+                TGLWotlkDB.Checked = false;
+                TGLCataDB.Checked = false;
+                TGLMopDB.Checked = false;
+                TGLCustomDB.Checked = false;
+                Setting.List.AuthDatabase = "tbc_auth";
+                Setting.List.CharactersDatabase = "tbc_characters";
+                Setting.List.WorldDatabase = "tbc_world";
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "phoenix";
+                Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.TBC;
+                LoadData();
+
+            }
+            else { TGLTbcDB.Checked = true; }
+        }
+
+        private void TGLWotlkDB_Click(object sender, EventArgs e)
+        {
+            if (TGLWotlkDB.Checked == true)
+            {
+                TGLClassicDB.Checked = false;
+                TGLTbcDB.Checked = false;
+                TGLCataDB.Checked = false;
+                TGLMopDB.Checked = false;
+                TGLCustomDB.Checked = false;
+                Setting.List.AuthDatabase = "wotlk_auth";
+                Setting.List.CharactersDatabase = "wotlk_characters";
+                Setting.List.WorldDatabase = "wotlk_world";
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "phoenix";
+                Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.WotLK;
+                LoadData();
+            }
+            else { TGLWotlkDB.Checked = true; }
+        }
+
+        private void TGLCataDB_Click(object sender, EventArgs e)
+        {
+            if (TGLCataDB.Checked == true)
+            {
+                TGLClassicDB.Checked = false;
+                TGLTbcDB.Checked = false;
+                TGLWotlkDB.Checked = false;
+                TGLMopDB.Checked = false;
+                TGLCustomDB.Checked = false;
+                Setting.List.AuthDatabase = "cata_auth";
+                Setting.List.CharactersDatabase = "cata_characters";
+                Setting.List.WorldDatabase = "cata_world";
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "phoenix";
+                Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.Cata;
+                LoadData();
+            }
+            else { TGLCataDB.Checked = true; }
+        }
+
+        private void TGLMopDB_Click(object sender, EventArgs e)
+        {
+            if (TGLMopDB.Checked == true)
+            {
+                TGLClassicDB.Checked = false;
+                TGLTbcDB.Checked = false;
+                TGLWotlkDB.Checked = false;
+                TGLCataDB.Checked = false;
+                TGLCustomDB.Checked = false;
+                Setting.List.AuthDatabase = "mop_auth";
+                Setting.List.CharactersDatabase = "mop_characters";
+                Setting.List.WorldDatabase = "mop_world";
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "phoenix";
+                Setting.List.DBServerPassword = "phoenix";
+                Setting.List.SelectedDatabases = Databases.MoP;
+                LoadData();
+            }
+            else { TGLMopDB.Checked = true; }
+        }
+
+        private void TGLCustomDB_Click(object sender, EventArgs e)
+        {
+            if (TGLCustomDB.Checked == true)
+            {
+                TGLClassicDB.Checked = false;
+                TGLTbcDB.Checked = false;
+                TGLWotlkDB.Checked = false;
+                TGLCataDB.Checked = false;
+                TGLMopDB.Checked = false;
+                ComboBoxCores_OnSelectedIndexChanged(sender, e);
+                Setting.List.DBServerHost = "localhost";
+                Setting.List.DBServerPort = "3306";
+                Setting.List.DBServerUser = "root";
+                Setting.List.DBServerPassword = "FlyingPhoenix";
+                Setting.List.SelectedDatabases = Databases.Custom;
+                LoadData();
+            }
+            else { TGLCustomDB.Checked = true; }
+        }
+
+        private void TGLCustomDB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TGLCustomDB.Checked == true)
+            {
+                TXTAuthDatabase.ReadOnly = false;
+                TXTCharDatabase.ReadOnly = false;
+                TXTWorldDatabase.ReadOnly = false;
+                TXTMysqlHost.ReadOnly = false;
+                TXTMysqlPort.ReadOnly = false;
+                TXTMysqlUser.ReadOnly = false;
+                TXTMysqlPassword.ReadOnly = false;
+            }
+            else
+            {
+                TXTAuthDatabase.ReadOnly = true;
+                TXTCharDatabase.ReadOnly = true;
+                TXTWorldDatabase.ReadOnly = true;
+                TXTMysqlHost.ReadOnly = true;
+                TXTMysqlPort.ReadOnly = true;
+                TXTMysqlUser.ReadOnly = true;
+                TXTMysqlPassword.ReadOnly = true;
+            }
         }
     }
 }

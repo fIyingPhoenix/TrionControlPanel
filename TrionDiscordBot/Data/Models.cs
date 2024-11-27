@@ -6,19 +6,16 @@
         {
             public static string Token()
             {
-                return "MTE3MTg4NjQ3OTMwODQ5Mjg2Mw.G_pWmp.kiQk5XWFQIQQQSCivxhbEEEXnyTodc1yv415Es";
+                return "";
             }
             public static string Prefix()
             {
                 return "/";
             }
-        }
-        public class Database
-        {
-            public class AccountID
-            {
-                public uint ID;
-            }
+            public const ulong ServerID = 0;
+
+            public const ulong DiscordChannelID1 = 0;
+
         }
     }
 

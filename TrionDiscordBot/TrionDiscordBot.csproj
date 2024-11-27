@@ -16,4 +16,8 @@
     <PackageReference Include="MySql.Data" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

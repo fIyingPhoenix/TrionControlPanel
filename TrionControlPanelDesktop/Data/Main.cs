@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Xml.Linq;
 using TrionControlPanelDesktop.Controls;
+using TrionControlPanelDesktop.Download;
 using TrionLibrary.Models;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
@@ -34,6 +36,17 @@ namespace TrionControlPanelDesktop.Data
                 User.UI.Form.WotLKWorldStarted ||
                 User.UI.Form.CataWorldStarted ||
                 User.UI.Form.MOPWorldStarted)
+            { return true; }
+            else { return false; }
+        }
+        public static bool ServerStartedLogon()
+        {
+            if (User.UI.Form.CustLogonStarted ||
+                User.UI.Form.ClassicLogonStarted ||
+                User.UI.Form.TBCLogonStarted ||
+                User.UI.Form.WotLKLogonStarted ||
+                User.UI.Form.CataLogonStarted ||
+                User.UI.Form.MOPLogonStarted)
             { return true; }
             else { return false; }
         }
@@ -79,8 +92,26 @@ namespace TrionControlPanelDesktop.Data
         }
         public static async Task StartUpdate(string Directory, string WebLink, bool startDownload)
         {
+            if (WebLink.Contains("trionHashes.xml"))
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var xmlContent = await httpClient.GetStringAsync(WebLink);
+                    var previousXml = XDocument.Parse(xmlContent);
+                    DownloadControl.DownlaodList = (from file in previousXml.Root!.Elements("File")
+                                         select new Lists.File
+                                         {
+                                             FileName = file.Element("FileName")!.Value,
+                                             FileFullName = file.Element("FileFullName")!.Value,
+                                             FileHash = file.Element("FileHash")!.Value
+                                         }).ToList();
+                    DownloadControl.StartDownload = startDownload;
+                    return;
+                }
+            }
             var progress = new Progress<string>(value => { });
             await Task.Run(async () => await DownloadControl.CompareAndExportChangesOnline(Directory, WebLink, progress, startDownload));
+            
         }
         private static int VersionCompare(string ver1, string ver2)
         {
@@ -288,11 +319,17 @@ namespace TrionControlPanelDesktop.Data
                 {
                     if (Setting.List.AutoUpdateTrion)
                     {
+                        DownloadData.Infos.Install.Trion = true;
                         await StartUpdate(Links.Install.Trion, $"{Links.MainCDNHost}{Links.Hashe.Trion}", true);
+
                     }
                     User.UI.Version.Update.Trion = true;
+
                 }
-                User.UI.Version.Update.Trion = false;
+                else
+                {
+                    User.UI.Version.Update.Trion = false;
+                }
             }
         }
         public static async Task StartDatabase(string argu)
@@ -624,11 +661,10 @@ namespace TrionControlPanelDesktop.Data
                 User.UI.Form.CataWorldRunning = false;
                 User.UI.Form.MOPWorldRunning = false;
             }
-
         }
         public static void IsLogonRunning(List<Lists.ProcessID> PIDS)
         {
-            if (ServerStatusLogon())
+            if (ServerStartedLogon())
             {
                 foreach (var process in PIDS)
                 {
@@ -683,8 +719,8 @@ namespace TrionControlPanelDesktop.Data
             {
                 User.UI.Form.DBRunning = true;
             }
-           else { User.UI.Form.DBRunning = false; }
-            
+            else { User.UI.Form.DBRunning = false; }
+
         }
         public static async Task CrashDetector(int Attempts)
         {
