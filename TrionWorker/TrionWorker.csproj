@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.44" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
   </ItemGroup>
 

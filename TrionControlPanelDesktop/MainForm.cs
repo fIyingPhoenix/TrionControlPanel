@@ -311,7 +311,7 @@ namespace TrionControlPanelDesktop
             {
                 if (MetroMessageBox.Show(this, "It seems like you are stuck on the loading screen. Do you want to fix the problem?", "Question.", Setting.List.NotificationSound, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    Process.Start("TrionWorker.exe", "--FixLoading");
+                    Process.Start("TrionWorker.exe", "FixLoading");
                 }
                 else
                 {

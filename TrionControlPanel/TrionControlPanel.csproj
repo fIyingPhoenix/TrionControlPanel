@@ -24,9 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Dapper" Version="2.1.44" />
+    <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

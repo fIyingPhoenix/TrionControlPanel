@@ -9,11 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.44" />
-    <PackageReference Include="DSharpPlus" Version="4.4.9" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.4.9" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.4.9" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.4.9" />
-    <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="DSharpPlus" Version="4.5.0" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.5.0" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.5.0" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.5.0" />
+    <PackageReference Include="MySql.Data" Version="9.1.0" />
+    <PackageReference Include="System.Net.Security" Version="4.3.2" />
   </ItemGroup>
 
   <ItemGroup>

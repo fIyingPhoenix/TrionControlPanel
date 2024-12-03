@@ -3788,8 +3788,8 @@
             // 
             // TBControler
             // 
-            TBControler.Controls.Add(TabPageTrion);
             TBControler.Controls.Add(TabPageSPP);
+            TBControler.Controls.Add(TabPageTrion);
             TBControler.Controls.Add(TabPageDDNS);
             TBControler.Controls.Add(TabPageCore);
             TBControler.Controls.Add(TabPageDatabase);
