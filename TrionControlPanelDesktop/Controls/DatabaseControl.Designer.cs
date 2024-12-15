@@ -33,6 +33,8 @@
             TabControl1 = new MetroFramework.Controls.MetroTabControl();
             tPageAccount = new TabPage();
             metroPanel8 = new MetroFramework.Controls.MetroPanel();
+            label1 = new Label();
+            metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             BTNResetPassword = new UI.Controls.CustomButton();
             label15 = new Label();
             label14 = new Label();
@@ -109,8 +111,6 @@
             TimerWacher = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
             TimerRefreshData = new System.Windows.Forms.Timer(components);
-            label1 = new Label();
-            metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             TabControl1.SuspendLayout();
             tPageAccount.SuspendLayout();
             metroPanel8.SuspendLayout();
@@ -137,8 +137,8 @@
             // TabControl1
             // 
             TabControl1.Appearance = TabAppearance.Buttons;
-            TabControl1.Controls.Add(tPageAccount);
             TabControl1.Controls.Add(tPageRealmList);
+            TabControl1.Controls.Add(tPageAccount);
             TabControl1.CustomBackground = false;
             TabControl1.Dock = DockStyle.Fill;
             TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -202,6 +202,36 @@
             metroPanel8.VerticalScrollbarBarColor = true;
             metroPanel8.VerticalScrollbarHighlightOnWheel = false;
             metroPanel8.VerticalScrollbarSize = 10;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.AutoSize = true;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(5, 151);
+            label1.Name = "label1";
+            label1.Size = new Size(79, 15);
+            label1.TabIndex = 64;
+            label1.Text = "Re. Password:";
+            // 
+            // metroTextBox1
+            // 
+            metroTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            metroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Small;
+            metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
+            metroTextBox1.ForeColor = Color.White;
+            metroTextBox1.Location = new Point(3, 169);
+            metroTextBox1.Multiline = false;
+            metroTextBox1.Name = "metroTextBox1";
+            metroTextBox1.PasswordChar = '\0';
+            metroTextBox1.ReadOnly = false;
+            metroTextBox1.SelectedText = "";
+            metroTextBox1.Size = new Size(254, 25);
+            metroTextBox1.Style = MetroFramework.MetroColorStyle.Blue;
+            metroTextBox1.StyleManager = null;
+            metroTextBox1.TabIndex = 63;
+            metroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            metroTextBox1.UseStyleColors = true;
             // 
             // BTNResetPassword
             // 
@@ -1515,36 +1545,6 @@
             // TimerRefreshData
             // 
             TimerRefreshData.Interval = 1000;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(5, 151);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 15);
-            label1.TabIndex = 64;
-            label1.Text = "Re. Password:";
-            // 
-            // metroTextBox1
-            // 
-            metroTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            metroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Small;
-            metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
-            metroTextBox1.ForeColor = Color.White;
-            metroTextBox1.Location = new Point(3, 169);
-            metroTextBox1.Multiline = false;
-            metroTextBox1.Name = "metroTextBox1";
-            metroTextBox1.PasswordChar = '\0';
-            metroTextBox1.ReadOnly = false;
-            metroTextBox1.SelectedText = "";
-            metroTextBox1.Size = new Size(254, 25);
-            metroTextBox1.Style = MetroFramework.MetroColorStyle.Blue;
-            metroTextBox1.StyleManager = null;
-            metroTextBox1.TabIndex = 63;
-            metroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroTextBox1.UseStyleColors = true;
             // 
             // DatabaseControl
             // 
