@@ -11,7 +11,7 @@
 </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.22000.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>True</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -34,6 +34,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Title>Trion Control Panel</Title>
+    <AnalysisLevel>6.0-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -90,6 +91,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Languages\en.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,18 +105,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MaterialSkin\MaterialSkinCore.csproj" />
     <ProjectReference Include="..\TrionLibrary\TrionLibrary.csproj" />
     <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="MaterialSkin">
-      <HintPath>C:\Users\Andrei Caran\Documents\GitHub\MaterialSkin\MaterialSkin\bin\Release\net8.0-windows\win\publish\MaterialSkin.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

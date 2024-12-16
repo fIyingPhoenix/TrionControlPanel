@@ -18,7 +18,7 @@
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
-        private const int FAB_SIZE = 56;
+        private const int FAB_SIZE = 46;
         private const int FAB_MINI_SIZE = 40;
         private const int FAB_ICON_MARGIN = 16;
         private const int FAB_MINI_ICON_MARGIN = 8;

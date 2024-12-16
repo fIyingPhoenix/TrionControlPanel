@@ -12,34 +12,34 @@ namespace TrionControlPanelDesktop.Data
             //OneDriveAPI
             public static string DownloadOneDriveAPI(string url)
             {
-                // Get Download Url          
-                string base64Value = Convert.ToBase64String(Encoding.UTF8.GetBytes(url));
-                string encodedUrl = "u!" + base64Value.TrimEnd('=').Replace('/', '_').Replace('+', '-');
-                return string.Format("https://api.onedrive.com/v1.0/shares/{0}/root/content", encodedUrl);//
+                // Convert URL to Base64 and adjust it for OneDrive's API requirements
+                string encodedUrl = "u!" + Convert.ToBase64String(Encoding.UTF8.GetBytes(url))
+                    .TrimEnd('=')
+                    .Replace('/', '_')
+                    .Replace('+', '-');
+
+                // Return the OneDrive API direct download link
+                return $"https://api.onedrive.com/v1.0/shares/{encodedUrl}/root/content";
             }
             //Gogole Drive API need fixing
             public static string DownloadGoogleDriveAPi(string url)
             {
-                string startText = "https://drive.google.com/file/d/";
-                string endText = "/view?usp=drive_link";
-                string DirectURL = "https://drive.google.com/uc?export=download&&id=";
+                // The base URL segment indicating the start of the file ID in a Google Drive link
+                const string startText = "https://drive.google.com/file/d/";
+                // The segment indicating the end of the file ID in the link
+                const string endText = "/view?usp=drive_link";
+                // The template for generating a direct download link using the file ID
+                const string directURL = "https://drive.google.com/uc?export=download&id=";
 
-                int startIndex = url.IndexOf(startText);
-
-                if (startIndex == -1)
-                {
-                    // Start text not found
-                    return null!;
-                }
-                startIndex += startText.Length;
+                // Find the starting position of the file ID
+                int startIndex = url.IndexOf(startText) + startText.Length;
+                // Find the ending position of the file ID
                 int endIndex = url.IndexOf(endText, startIndex);
-                if (endIndex == -1)
-                {
-                    // End text not found
-                    return null!;
-                }
-                string downloadID = url[startIndex..endIndex];
-                return DirectURL + downloadID;
+
+                // If both start and end markers are found, extract and construct the direct URL
+                return startIndex > startText.Length - 1 && endIndex > startIndex
+                    ? directURL + url[startIndex..endIndex] // Extract file ID and append to the direct URL template
+                    : null!; // Return null if the format is incorrect
             }
             //DDNS links
             public static async Task<string> DDNSUpdateURL(string Domain, string Username, string Password)

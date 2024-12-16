@@ -946,7 +946,7 @@ namespace TrionControlPanelDesktop.Controls
             TLTHome.BorderColor = Color.FromArgb(0, 174, 219);
             TLTHome.BorderSize = 1;
             TLTHome.ForeColor = Color.WhiteSmoke;
-            TLTHome.LinkColor = Color.DodgerBlue;
+            TLTHome.LinkColor = Color.FromArgb(0, 139, 174);
             TLTHome.LinkEnabled = false;
             TLTHome.LinkText = "";
             TLTHome.OwnerDraw = true;

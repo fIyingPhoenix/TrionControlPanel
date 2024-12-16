@@ -225,7 +225,7 @@
 
         // Text
         private static readonly Color TEXT_HIGH_EMPHASIS_TRION = Color.FromArgb(222, 255, 255, 255); // Alpha 87%
-        private static readonly Brush TEXT_HIGH_EMPHASIS_TRION_BRUSH = new SolidBrush(TEXT_HIGH_EMPHASIS_DARK);
+        private static readonly Brush TEXT_HIGH_EMPHASIS_TRION_BRUSH = new SolidBrush(TEXT_HIGH_EMPHASIS_TRION);
 
         private static readonly Color TEXT_HIGH_EMPHASIS_TRION_NOALPHA = Color.FromArgb(255, 255, 255, 255); // Alpha 100%
         private static readonly Brush TEXT_HIGH_EMPHASIS_TRION_NOALPHA_BRUSH = new SolidBrush(TEXT_HIGH_EMPHASIS_TRION);
@@ -236,8 +236,24 @@
         private static readonly Color TEXT_DISABLED_OR_HINT_TRION = Color.FromArgb(97, 255, 255, 255); // Alpha 38%
         private static readonly Brush TEXT_DISABLED_OR_HINT_TRION_BRUSH = new SolidBrush(TEXT_DISABLED_OR_HINT_TRION);
 
+        // Dividers and thin lines
+        private static readonly Color DIVIDERS_ALTERNATIVE_TRION = Color.FromArgb(153, 0, 0, 0); // Alpha 60%
+        private static readonly Brush DIVIDERS_ALTERNATIVE_TRION_BRUSH = new SolidBrush(DIVIDERS_ALTERNATIVE_TRION);
+        private static readonly Color DIVIDERS_TRION = Color.FromArgb(30, 0, 0, 0); // Alpha 30%
+        private static readonly Brush DIVIDERS_TRION_BRUSH = new SolidBrush(DIVIDERS_TRION);
+       
+        // Checkbox / Radio / Switches
+        private static readonly Color CHECKBOX_OFF_TRION = Color.FromArgb(179, 255, 255, 255);
+        private static readonly Brush CHECKBOX_OFF_TRION_BRUSH = new SolidBrush(CHECKBOX_OFF_TRION);
+        private static readonly Color CHECKBOX_OFF_DISABLED_TRION = Color.FromArgb(77, 255, 255, 255);
+        private static readonly Brush CHECKBOX_OFF_DISABLED_TRION_BRUSH = new SolidBrush(CHECKBOX_OFF_DISABLED_TRION);
+        // Switch specific
+        private static readonly Color SWITCH_OFF_DISABLED_THUMB_TRION = Color.FromArgb(255, 150, 150, 150);
+        private static readonly Color SWITCH_OFF_TRACK_TRION = Color.FromArgb(100, 255, 255, 255);
+        private static readonly Color SWITCH_OFF_THUMB_TRION = Color.FromArgb(255, 190, 190, 190);
+
         // Generic back colors - for user controls
-        private static readonly Color BACKGROUND_TRION = Color.FromArgb(255, 28, 33, 40);
+        private static readonly Color BACKGROUND_TRION = Color.FromArgb(255, 34, 39, 46);
         private static readonly Brush BACKGROUND_TRION_BRUSH = new SolidBrush(BACKGROUND_TRION);
         private static readonly Color BACKGROUND_ALTERNATIVE_TRION = Color.FromArgb(10, 255, 255, 255);
         private static readonly Brush BACKGROUND_ALTERNATIVE_TRION_BRUSH = new SolidBrush(BACKGROUND_ALTERNATIVE_TRION);
@@ -247,9 +263,17 @@
         private static readonly Brush BACKGROUND_FOCUS_TRION_BRUSH = new SolidBrush(BACKGROUND_FOCUS_TRION);
         private static readonly Color BACKGROUND_DISABLED_TRION = Color.FromArgb(25, 255, 255, 255);
         private static readonly Brush BACKGROUND_DISABLED_TRION_BRUSH = new SolidBrush(BACKGROUND_DISABLED_TRION);
+        private static readonly Color BACKGROUND_HOVER_BLUE = Color.FromArgb(255, 0, 139, 174);
+        private static readonly Brush BACKGROUND_HOVER_BLUE_BRUSH = new SolidBrush(BACKGROUND_HOVER_BLUE);
+        private static readonly Color BACKGROUND_DOWN_BLUE = Color.FromArgb(255, 0, 174, 219);
+        private static readonly Brush BACKGROUND_DOWN_BLUE_BRUSH = new SolidBrush(BACKGROUND_DOWN_BLUE);
+
+        //Expansion Panel colors
+        private static readonly Color EXPANSIONPANEL_FOCUS_TRION = Color.FromArgb(255, 50, 50, 50);
+        private static readonly Brush EXPANSIONPANEL_FOCUS_TRION_BRUSH = new SolidBrush(EXPANSIONPANEL_FOCUS_TRION);
 
         // Backdrop colors - for containers, like forms or panels
-        private static readonly Color BACKDROP_TRION = Color.FromArgb(255, 50, 50, 50);
+        private static readonly Color BACKDROP_TRION = Color.FromArgb(255, 28, 33, 40);
         private static readonly Brush BACKDROP_TRION_BRUSH = new SolidBrush(BACKDROP_TRION);
 
         //Other colors
@@ -267,22 +291,22 @@
         public Brush TextDisabledOrHintBrush => Theme == Themes.LIGHT ? TEXT_DISABLED_OR_HINT_DARK_BRUSH : Theme == Themes.TRION ? TEXT_DISABLED_OR_HINT_TRION_BRUSH : TEXT_DISABLED_OR_HINT_LIGHT_BRUSH;
 
         // Divider
-        public Color DividersColor => Theme == Themes.LIGHT ? DIVIDERS_DARK : DIVIDERS_LIGHT;
-        public Brush DividersBrush => Theme == Themes.LIGHT ? DIVIDERS_DARK_BRUSH : DIVIDERS_LIGHT_BRUSH;
-        public Color DividersAlternativeColor => Theme == Themes.LIGHT ? DIVIDERS_ALTERNATIVE_DARK : DIVIDERS_ALTERNATIVE_LIGHT;
-        public Brush DividersAlternativeBrush => Theme == Themes.LIGHT ? DIVIDERS_ALTERNATIVE_DARK_BRUSH : DIVIDERS_ALTERNATIVE_LIGHT_BRUSH;
+        public Color DividersColor => Theme == Themes.LIGHT ? DIVIDERS_DARK : Theme == Themes.TRION ? DIVIDERS_TRION : DIVIDERS_LIGHT;
+        public Brush DividersBrush => Theme == Themes.LIGHT ? DIVIDERS_DARK_BRUSH : Theme == Themes.TRION ?DIVIDERS_TRION_BRUSH : DIVIDERS_LIGHT_BRUSH;
+        public Color DividersAlternativeColor => Theme == Themes.LIGHT ? DIVIDERS_ALTERNATIVE_DARK : Theme == Themes.TRION ? DIVIDERS_ALTERNATIVE_TRION : DIVIDERS_ALTERNATIVE_LIGHT;
+        public Brush DividersAlternativeBrush => Theme == Themes.LIGHT ? DIVIDERS_ALTERNATIVE_DARK_BRUSH : Theme == Themes.TRION ?DIVIDERS_ALTERNATIVE_TRION_BRUSH : DIVIDERS_ALTERNATIVE_LIGHT_BRUSH;
 
         // Checkbox / Radio / Switch
-        public Color CheckboxOffColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT : CHECKBOX_OFF_DARK;
-        public Brush CheckboxOffBrush => Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT_BRUSH : CHECKBOX_OFF_DARK_BRUSH;
-        public Color CheckBoxOffDisabledColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT : CHECKBOX_OFF_DISABLED_DARK;
-        public Brush CheckBoxOffDisabledBrush => Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT_BRUSH : CHECKBOX_OFF_DISABLED_DARK_BRUSH;
+        public Color CheckboxOffColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT : Theme == Themes.TRION ? CHECKBOX_OFF_TRION: CHECKBOX_OFF_DARK;
+        public Brush CheckboxOffBrush => Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT_BRUSH : Theme == Themes.TRION ? CHECKBOX_OFF_TRION_BRUSH : CHECKBOX_OFF_DARK_BRUSH;
+        public Color CheckBoxOffDisabledColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT : Theme == Themes.TRION ? CHECKBOX_OFF_DISABLED_TRION : CHECKBOX_OFF_DISABLED_DARK;
+        public Brush CheckBoxOffDisabledBrush => Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT_BRUSH : Theme == Themes.TRION ? CHECKBOX_OFF_DISABLED_TRION_BRUSH : CHECKBOX_OFF_DISABLED_DARK_BRUSH;
         
         // Switch
-        public Color SwitchOffColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_DARK : CHECKBOX_OFF_LIGHT; // yes, I re-use the checkbox color, sue me
-        public Color SwitchOffThumbColor => Theme == Themes.LIGHT ? SWITCH_OFF_THUMB_LIGHT : SWITCH_OFF_THUMB_DARK;
-        public Color SwitchOffTrackColor => Theme == Themes.LIGHT ? SWITCH_OFF_TRACK_LIGHT : SWITCH_OFF_TRACK_DARK;
-        public Color SwitchOffDisabledThumbColor => Theme == Themes.LIGHT ? SWITCH_OFF_DISABLED_THUMB_LIGHT : SWITCH_OFF_DISABLED_THUMB_DARK;
+        public Color SwitchOffColor => Theme == Themes.LIGHT ? CHECKBOX_OFF_DARK : Theme == Themes.TRION ? CHECKBOX_OFF_TRION : CHECKBOX_OFF_LIGHT; // yes, I re-use the checkbox color, sue me PHOENIX: NO! im lazy too.
+        public Color SwitchOffThumbColor => Theme == Themes.LIGHT ? SWITCH_OFF_THUMB_LIGHT : Theme == Themes.TRION ? SWITCH_OFF_THUMB_TRION : SWITCH_OFF_THUMB_DARK;
+        public Color SwitchOffTrackColor => Theme == Themes.LIGHT ? SWITCH_OFF_TRACK_LIGHT : Theme == Themes.TRION ? SWITCH_OFF_TRACK_TRION:  SWITCH_OFF_TRACK_DARK;
+        public Color SwitchOffDisabledThumbColor => Theme == Themes.LIGHT ? SWITCH_OFF_DISABLED_THUMB_LIGHT : Theme == Themes.TRION ? SWITCH_OFF_DISABLED_THUMB_TRION : SWITCH_OFF_DISABLED_THUMB_DARK;
 
         // Control Back colors
         public Color BackgroundColor => Theme == Themes.LIGHT ? BACKGROUND_LIGHT : Theme == Themes.TRION ? BACKGROUND_TRION : BACKGROUND_DARK;
@@ -293,9 +317,9 @@
         public Brush BackgroundDisabledBrush => Theme == Themes.LIGHT ? BACKGROUND_DISABLED_LIGHT_BRUSH : Theme == Themes.TRION ? BACKGROUND_DISABLED_TRION_BRUSH : BACKGROUND_DISABLED_DARK_BRUSH;
         public Color BackgroundHoverColor => Theme == Themes.LIGHT ? BACKGROUND_HOVER_LIGHT : Theme == Themes.TRION ? BACKGROUND_HOVER_TRION : BACKGROUND_HOVER_DARK;
         public Brush BackgroundHoverBrush => Theme == Themes.LIGHT ? BACKGROUND_HOVER_LIGHT_BRUSH : Theme == Themes.TRION ? BACKGROUND_HOVER_TRION_BRUSH : BACKGROUND_HOVER_DARK_BRUSH;
-        public Color BackgroundHoverRedColor => Theme == Themes.LIGHT ? BACKGROUND_HOVER_RED : BACKGROUND_HOVER_RED;
-        public Brush BackgroundHoverRedBrush => Theme == Themes.LIGHT ? BACKGROUND_HOVER_RED_BRUSH : BACKGROUND_HOVER_RED_BRUSH;
-        public Brush BackgroundDownRedBrush => Theme == Themes.LIGHT ? BACKGROUND_DOWN_RED_BRUSH : BACKGROUND_DOWN_RED_BRUSH;
+        public Color BackgroundHoverRedColor => Theme == Themes.LIGHT ? BACKGROUND_HOVER_RED : Theme == Themes.TRION ? BACKGROUND_HOVER_BLUE: BACKGROUND_HOVER_RED;
+        public Brush BackgroundHoverRedBrush => Theme == Themes.LIGHT ? BACKGROUND_HOVER_RED_BRUSH : Theme == Themes.TRION ? BACKGROUND_HOVER_BLUE_BRUSH : BACKGROUND_HOVER_RED_BRUSH;
+        public Brush BackgroundDownRedBrush => Theme == Themes.LIGHT ? BACKGROUND_DOWN_RED_BRUSH : Theme == Themes.TRION ? BACKGROUND_DOWN_BLUE_BRUSH : BACKGROUND_DOWN_RED_BRUSH;
         public Color BackgroundFocusColor => Theme == Themes.LIGHT ? BACKGROUND_FOCUS_LIGHT : Theme == Themes.TRION ? BACKGROUND_FOCUS_TRION : BACKGROUND_FOCUS_DARK;
         public Brush BackgroundFocusBrush => Theme == Themes.LIGHT ? BACKGROUND_FOCUS_LIGHT_BRUSH : Theme == Themes.TRION ? BACKGROUND_FOCUS_TRION_BRUSH : BACKGROUND_FOCUS_DARK_BRUSH;
 
@@ -304,11 +328,11 @@
         public Color CardsColor => Theme == Themes.LIGHT ? CARD_WHITE : Theme == Themes.TRION ? CARD_TRION : CARD_BLACK;
 
         // Expansion Panel color/brush
-        public Brush ExpansionPanelFocusBrush => Theme == Themes.LIGHT ? EXPANSIONPANEL_FOCUS_LIGHT_BRUSH : EXPANSIONPANEL_FOCUS_DARK_BRUSH;
+        public Brush ExpansionPanelFocusBrush => Theme == Themes.LIGHT ? EXPANSIONPANEL_FOCUS_LIGHT_BRUSH : Theme == Themes.TRION ? EXPANSIONPANEL_FOCUS_TRION_BRUSH : EXPANSIONPANEL_FOCUS_DARK_BRUSH;
 
         // SnackBar
-        public Color SnackBarTextHighEmphasisColor => Theme != Themes.LIGHT ? TEXT_HIGH_EMPHASIS_DARK : TEXT_HIGH_EMPHASIS_LIGHT;
-        public Color SnackBarBackgroundColor => Theme != Themes.LIGHT ? BACKGROUND_LIGHT : BACKGROUND_DARK;
+        public Color SnackBarTextHighEmphasisColor => Theme != Themes.LIGHT ? TEXT_HIGH_EMPHASIS_DARK : Theme == Themes.TRION ? TEXT_HIGH_EMPHASIS_TRION :  TEXT_HIGH_EMPHASIS_LIGHT;
+        public Color SnackBarBackgroundColor => Theme != Themes.LIGHT ? BACKGROUND_LIGHT : Theme == Themes.TRION ? BACKGROUND_TRION : BACKGROUND_DARK;
         public Color SnackBarTextButtonNoAccentTextColor => Theme != Themes.LIGHT ? ColorScheme.PrimaryColor : ColorScheme.LightPrimaryColor;
 
         // Backdrop color

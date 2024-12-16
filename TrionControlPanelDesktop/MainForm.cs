@@ -69,6 +69,7 @@ namespace TrionControlPanelDesktop
             // Set this to false to disable backcolor enforcing on non-materialSkin components
             // This HAS to be set before the AddFormToManage()
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager!.ColorScheme = new ColorScheme(Primary.TrionBlue600, Primary.TrionBlue700, Primary.TrionBlue200, Accent.TrionBlue700, TextShade.WHITE);
             //Check if an update has ben Dowloaded and Delete it!
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
 

@@ -116,9 +116,6 @@
       <Compile Remove="Controls\MaterialMenuStrip.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="MaterialSkin\.vs\MaterialSkin.csproj.dtbcache.json" />
-    </ItemGroup>
-    <ItemGroup>
       <None Include="..\nugetIcon.png">
         <Pack>True</Pack>
         <PackagePath></PackagePath>
@@ -127,25 +124,5 @@
         <Pack>True</Pack>
         <PackagePath></PackagePath>
       </None>
-      <None Include="MaterialSkin\MaterialSkinCore.csproj" />
-      <None Include="MaterialSkin\MaterialSkinCore.csproj.user" />
-      <None Include="MaterialSkin\Properties\PublishProfiles\FolderProfile.pubxml.user" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="MaterialSkin\bin\Debug\net461\win-x64\" />
-      <Folder Include="MaterialSkin\bin\Debug\net48\win-x64\" />
-      <Folder Include="MaterialSkin\bin\Debug\net5.0-windows\win-x64\" />
-      <Folder Include="MaterialSkin\bin\Debug\net8.0\win\" />
-      <Folder Include="MaterialSkin\bin\Debug\net9.0-windows10.0.22000.0\win\" />
-      <Folder Include="MaterialSkin\bin\Release\net481\win\" />
-      <Folder Include="MaterialSkin\bin\Release\net5.0-windows\win\" />
-      <Folder Include="MaterialSkin\obj\Debug\net5.0-windows\win-x64\refint\" />
-      <Folder Include="MaterialSkin\obj\Debug\net5.0-windows\win-x64\ref\" />
-      <Folder Include="MaterialSkin\obj\Debug\net8.0\win\refint\" />
-      <Folder Include="MaterialSkin\obj\Debug\net8.0\win\ref\" />
-      <Folder Include="MaterialSkin\obj\Debug\net9.0-windows10.0.22000.0\win\refint\" />
-      <Folder Include="MaterialSkin\obj\Debug\net9.0-windows10.0.22000.0\win\ref\" />
-      <Folder Include="MaterialSkin\obj\Release\net5.0-windows\win\refint\" />
-      <Folder Include="MaterialSkin\obj\Release\net5.0-windows\win\ref\" />
     </ItemGroup>
   </Project>

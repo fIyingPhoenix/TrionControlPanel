@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrionLibrary.Models
+﻿namespace TrionLibrary.Models
 {
     public class Account
     {
-        public class Auth
+        //Account model for Trinity Core / AzerothCore pre Bnet!
+        public class TrinityACore
         {
             public string Username;
             public byte[] Salt;
