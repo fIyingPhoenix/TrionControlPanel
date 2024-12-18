@@ -1,5 +1,4 @@
-﻿using MetroFramework.Controls;
-using TrionControlPanel.UI;
+﻿
 using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanelDesktop
@@ -30,10 +29,9 @@ namespace TrionControlPanelDesktop
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-         private Translator translator = new Translator();
+
         private void InitializeComponent()
         {
-            translator.LoadLanguage("en");
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             TimerWacher = new System.Windows.Forms.Timer(components);
@@ -48,9 +46,9 @@ namespace TrionControlPanelDesktop
             ExitTSMItem = new ToolStripMenuItem();
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
+            BTNStartDatabase = new MaterialSkin.Controls.MaterialFloatingActionButton();
             BTNStartWorld = new MaterialSkin.Controls.MaterialFloatingActionButton();
             BTNStartLogon = new MaterialSkin.Controls.MaterialFloatingActionButton();
-            BTNStartDatabase = new MaterialSkin.Controls.MaterialFloatingActionButton();
             TimerCrashDetected = new System.Windows.Forms.Timer(components);
             LayoutPanelMain = new TableLayoutPanel();
             materialCard1 = new MaterialSkin.Controls.MaterialCard();
@@ -60,10 +58,10 @@ namespace TrionControlPanelDesktop
             materialCard2 = new MaterialSkin.Controls.MaterialCard();
             CardMachineResoruces = new MaterialSkin.Controls.MaterialCard();
             LBLCardMachineResourcesTitle = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
-            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            materialProgressBar2 = new MaterialSkin.Controls.MaterialProgressBar();
+            LBLCPUTextMachineResources = new MaterialSkin.Controls.MaterialLabel();
+            PbarRAMMachineResources = new MaterialSkin.Controls.MaterialProgressBar();
+            LBLRAMTextMachineResources = new MaterialSkin.Controls.MaterialLabel();
+            PbarCPUMachineResources = new MaterialSkin.Controls.MaterialProgressBar();
             TabDatabaseEditor = new TabPage();
             TabSettings = new TabPage();
             IMGListTabControler = new ImageList(components);
@@ -94,10 +92,11 @@ namespace TrionControlPanelDesktop
             // CMSNotify
             // 
             CMSNotify.BackColor = Color.FromArgb(28, 33, 40);
+            CMSNotify.ImageScalingSize = new Size(20, 20);
             CMSNotify.Items.AddRange(new ToolStripItem[] { OpenTSMItem, toolStripSeparator1, StartLogonTSMItem, StartWorldTSMItem, StartDatabaseTSMItem, toolStripSeparator2, ExitTSMItem });
             CMSNotify.Name = "contextMenuStrip1";
             CMSNotify.RenderMode = ToolStripRenderMode.System;
-            CMSNotify.Size = new Size(138, 196);
+            CMSNotify.Size = new Size(156, 196);
             // 
             // OpenTSMItem
             // 
@@ -106,14 +105,14 @@ namespace TrionControlPanelDesktop
             OpenTSMItem.ForeColor = Color.White;
             OpenTSMItem.ImageAlign = ContentAlignment.MiddleLeft;
             OpenTSMItem.Name = "OpenTSMItem";
-            OpenTSMItem.Size = new Size(137, 36);
+            OpenTSMItem.Size = new Size(155, 36);
             OpenTSMItem.Text = "Open";
             OpenTSMItem.Click += OpenTSMItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(134, 6);
+            toolStripSeparator1.Size = new Size(152, 6);
             // 
             // StartLogonTSMItem
             // 
@@ -122,7 +121,7 @@ namespace TrionControlPanelDesktop
             StartLogonTSMItem.Image = (Image)resources.GetObject("StartLogonTSMItem.Image");
             StartLogonTSMItem.ImageScaling = ToolStripItemImageScaling.None;
             StartLogonTSMItem.Name = "StartLogonTSMItem";
-            StartLogonTSMItem.Size = new Size(137, 36);
+            StartLogonTSMItem.Size = new Size(155, 36);
             StartLogonTSMItem.Text = "Logon";
             StartLogonTSMItem.Click += StartLogonTSMItem_Click;
             // 
@@ -133,7 +132,7 @@ namespace TrionControlPanelDesktop
             StartWorldTSMItem.Image = Properties.Resources.power_on_30;
             StartWorldTSMItem.ImageScaling = ToolStripItemImageScaling.None;
             StartWorldTSMItem.Name = "StartWorldTSMItem";
-            StartWorldTSMItem.Size = new Size(137, 36);
+            StartWorldTSMItem.Size = new Size(155, 36);
             StartWorldTSMItem.Text = "World";
             StartWorldTSMItem.Click += StartWorldTSMItem_Click;
             // 
@@ -144,21 +143,21 @@ namespace TrionControlPanelDesktop
             StartDatabaseTSMItem.Image = (Image)resources.GetObject("StartDatabaseTSMItem.Image");
             StartDatabaseTSMItem.ImageScaling = ToolStripItemImageScaling.None;
             StartDatabaseTSMItem.Name = "StartDatabaseTSMItem";
-            StartDatabaseTSMItem.Size = new Size(137, 36);
+            StartDatabaseTSMItem.Size = new Size(155, 36);
             StartDatabaseTSMItem.Text = "Database";
             StartDatabaseTSMItem.Click += StartDatabaseTSMItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(134, 6);
+            toolStripSeparator2.Size = new Size(152, 6);
             // 
             // ExitTSMItem
             // 
             ExitTSMItem.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ExitTSMItem.ForeColor = Color.White;
             ExitTSMItem.Name = "ExitTSMItem";
-            ExitTSMItem.Size = new Size(137, 36);
+            ExitTSMItem.Size = new Size(155, 36);
             ExitTSMItem.Text = "Exit";
             ExitTSMItem.Click += ExitTSMItem_ClickAsync;
             // 
@@ -187,47 +186,49 @@ namespace TrionControlPanelDesktop
             TLTHome.ToolTipIcon = ToolTipIcon.Info;
             TLTHome.ToolTipTitle = "Information!";
             // 
-            // BTNStartWorld
-            // 
-            BTNStartWorld.Anchor = AnchorStyles.Bottom;
-            BTNStartWorld.Cursor = Cursors.Hand;
-            BTNStartWorld.Depth = 0;
-            BTNStartWorld.Icon = Properties.Resources.cloud_online_50;
-            BTNStartWorld.Location = new Point(474, 9);
-            BTNStartWorld.MouseState = MaterialSkin.MouseState.HOVER;
-            BTNStartWorld.Name = "BTNStartWorld";
-            BTNStartWorld.Size = new Size(46, 46);
-            BTNStartWorld.TabIndex = 5;
-            TLTHome.SetToolTip(BTNStartWorld, translator.Translate("BTNStartWorldToolTip"));
-            BTNStartWorld.UseVisualStyleBackColor = true;
-            // 
-            // BTNStartLogon
-            // 
-            BTNStartLogon.Anchor = AnchorStyles.Bottom;
-            BTNStartLogon.Cursor = Cursors.Hand;
-            BTNStartLogon.Depth = 0;
-            BTNStartLogon.Icon = Properties.Resources.cloud_online_50;
-            BTNStartLogon.Location = new Point(526, 9);
-            BTNStartLogon.MouseState = MaterialSkin.MouseState.HOVER;
-            BTNStartLogon.Name = "BTNStartLogon";
-            BTNStartLogon.Size = new Size(46, 46);
-            BTNStartLogon.TabIndex = 4;
-            TLTHome.SetToolTip(BTNStartLogon, translator.Translate("BTNStartLogonToolTip"));
-            BTNStartLogon.UseVisualStyleBackColor = true;
-            // 
             // BTNStartDatabase
             // 
-            BTNStartDatabase.Anchor = AnchorStyles.Bottom;
+            BTNStartDatabase.Anchor = AnchorStyles.Top;
+            BTNStartDatabase.AutoSize = true;
             BTNStartDatabase.Cursor = Cursors.Hand;
             BTNStartDatabase.Depth = 0;
             BTNStartDatabase.Icon = Properties.Resources.cloud_online_50;
-            BTNStartDatabase.Location = new Point(422, 9);
+            BTNStartDatabase.Location = new Point(423, 9);
             BTNStartDatabase.MouseState = MaterialSkin.MouseState.HOVER;
             BTNStartDatabase.Name = "BTNStartDatabase";
             BTNStartDatabase.Size = new Size(46, 46);
             BTNStartDatabase.TabIndex = 3;
             TLTHome.SetToolTip(BTNStartDatabase, "Start Database Server ");
             BTNStartDatabase.UseVisualStyleBackColor = true;
+            // 
+            // BTNStartWorld
+            // 
+            BTNStartWorld.Anchor = AnchorStyles.Top;
+            BTNStartWorld.AutoSize = true;
+            BTNStartWorld.Cursor = Cursors.Hand;
+            BTNStartWorld.Depth = 0;
+            BTNStartWorld.Icon = Properties.Resources.cloud_online_50;
+            BTNStartWorld.Location = new Point(475, 9);
+            BTNStartWorld.MouseState = MaterialSkin.MouseState.HOVER;
+            BTNStartWorld.Name = "BTNStartWorld";
+            BTNStartWorld.Size = new Size(46, 46);
+            BTNStartWorld.TabIndex = 5;
+            BTNStartWorld.Text = "g";
+            BTNStartWorld.UseVisualStyleBackColor = true;
+            // 
+            // BTNStartLogon
+            // 
+            BTNStartLogon.Anchor = AnchorStyles.Top;
+            BTNStartLogon.AutoSize = true;
+            BTNStartLogon.Cursor = Cursors.Hand;
+            BTNStartLogon.Depth = 0;
+            BTNStartLogon.Icon = Properties.Resources.cloud_online_50;
+            BTNStartLogon.Location = new Point(527, 9);
+            BTNStartLogon.MouseState = MaterialSkin.MouseState.HOVER;
+            BTNStartLogon.Name = "BTNStartLogon";
+            BTNStartLogon.Size = new Size(46, 46);
+            BTNStartLogon.TabIndex = 4;
+            BTNStartLogon.UseVisualStyleBackColor = true;
             // 
             // TimerCrashDetected
             // 
@@ -242,12 +243,12 @@ namespace TrionControlPanelDesktop
             LayoutPanelMain.Controls.Add(materialCard1, 0, 1);
             LayoutPanelMain.Controls.Add(MainFormTabControler, 0, 0);
             LayoutPanelMain.Dock = DockStyle.Fill;
-            LayoutPanelMain.Location = new Point(3, 64);
+            LayoutPanelMain.Location = new Point(0, 72);
             LayoutPanelMain.Name = "LayoutPanelMain";
             LayoutPanelMain.RowCount = 2;
             LayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             LayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
-            LayoutPanelMain.Size = new Size(994, 533);
+            LayoutPanelMain.Size = new Size(997, 525);
             LayoutPanelMain.TabIndex = 9;
             // 
             // materialCard1
@@ -259,12 +260,12 @@ namespace TrionControlPanelDesktop
             materialCard1.Depth = 0;
             materialCard1.Dock = DockStyle.Fill;
             materialCard1.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard1.Location = new Point(10, 457);
+            materialCard1.Location = new Point(10, 449);
             materialCard1.Margin = new Padding(10, 4, 10, 10);
             materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard1.Name = "materialCard1";
             materialCard1.Padding = new Padding(4);
-            materialCard1.Size = new Size(974, 66);
+            materialCard1.Size = new Size(977, 66);
             materialCard1.TabIndex = 0;
             // 
             // MainFormTabControler
@@ -281,7 +282,7 @@ namespace TrionControlPanelDesktop
             MainFormTabControler.Multiline = true;
             MainFormTabControler.Name = "MainFormTabControler";
             MainFormTabControler.SelectedIndex = 0;
-            MainFormTabControler.Size = new Size(988, 447);
+            MainFormTabControler.Size = new Size(991, 439);
             MainFormTabControler.TabIndex = 1;
             // 
             // TabHome
@@ -292,7 +293,7 @@ namespace TrionControlPanelDesktop
             TabHome.Location = new Point(39, 4);
             TabHome.Name = "TabHome";
             TabHome.Padding = new Padding(3);
-            TabHome.Size = new Size(945, 439);
+            TabHome.Size = new Size(948, 431);
             TabHome.TabIndex = 0;
             TabHome.Text = "Home";
             // 
@@ -312,7 +313,7 @@ namespace TrionControlPanelDesktop
             LayoutPanelHome.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelHome.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelHome.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            LayoutPanelHome.Size = new Size(939, 433);
+            LayoutPanelHome.Size = new Size(942, 425);
             LayoutPanelHome.TabIndex = 0;
             // 
             // materialCard2
@@ -326,26 +327,26 @@ namespace TrionControlPanelDesktop
             materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard2.Name = "materialCard2";
             materialCard2.Padding = new Padding(4);
-            materialCard2.Size = new Size(461, 208);
+            materialCard2.Size = new Size(463, 204);
             materialCard2.TabIndex = 5;
             // 
             // CardMachineResoruces
             // 
             CardMachineResoruces.BackColor = Color.FromArgb(255, 255, 255);
             CardMachineResoruces.Controls.Add(LBLCardMachineResourcesTitle);
-            CardMachineResoruces.Controls.Add(materialLabel2);
-            CardMachineResoruces.Controls.Add(materialProgressBar1);
-            CardMachineResoruces.Controls.Add(materialLabel1);
-            CardMachineResoruces.Controls.Add(materialProgressBar2);
+            CardMachineResoruces.Controls.Add(LBLCPUTextMachineResources);
+            CardMachineResoruces.Controls.Add(PbarRAMMachineResources);
+            CardMachineResoruces.Controls.Add(LBLRAMTextMachineResources);
+            CardMachineResoruces.Controls.Add(PbarCPUMachineResources);
             CardMachineResoruces.Depth = 0;
             CardMachineResoruces.Dock = DockStyle.Fill;
             CardMachineResoruces.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            CardMachineResoruces.Location = new Point(473, 4);
+            CardMachineResoruces.Location = new Point(475, 4);
             CardMachineResoruces.Margin = new Padding(4);
             CardMachineResoruces.MouseState = MaterialSkin.MouseState.HOVER;
             CardMachineResoruces.Name = "CardMachineResoruces";
             CardMachineResoruces.Padding = new Padding(4);
-            CardMachineResoruces.Size = new Size(462, 208);
+            CardMachineResoruces.Size = new Size(463, 204);
             CardMachineResoruces.TabIndex = 4;
             // 
             // LBLCardMachineResourcesTitle
@@ -362,58 +363,58 @@ namespace TrionControlPanelDesktop
             LBLCardMachineResourcesTitle.TabIndex = 1;
             LBLCardMachineResourcesTitle.Text = "MACHINE RESOURCES";
             // 
-            // materialLabel2
+            // LBLCPUTextMachineResources
             // 
-            materialLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            materialLabel2.Depth = 0;
-            materialLabel2.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            materialLabel2.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            materialLabel2.Location = new Point(29, 133);
-            materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel2.Name = "materialLabel2";
-            materialLabel2.Size = new Size(400, 17);
-            materialLabel2.TabIndex = 5;
-            materialLabel2.Text = "Central Processing Unit (CPU)";
-            materialLabel2.TextAlign = ContentAlignment.MiddleCenter;
+            LBLCPUTextMachineResources.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            LBLCPUTextMachineResources.Depth = 0;
+            LBLCPUTextMachineResources.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLCPUTextMachineResources.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLCPUTextMachineResources.Location = new Point(29, 133);
+            LBLCPUTextMachineResources.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLCPUTextMachineResources.Name = "LBLCPUTextMachineResources";
+            LBLCPUTextMachineResources.Size = new Size(401, 17);
+            LBLCPUTextMachineResources.TabIndex = 5;
+            LBLCPUTextMachineResources.Text = "Central Processing Unit (CPU)";
+            LBLCPUTextMachineResources.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // materialProgressBar1
+            // PbarRAMMachineResources
             // 
-            materialProgressBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            materialProgressBar1.Depth = 0;
-            materialProgressBar1.Location = new Point(30, 88);
-            materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialProgressBar1.Name = "materialProgressBar1";
-            materialProgressBar1.PbarHeight = 15;
-            materialProgressBar1.Size = new Size(400, 15);
-            materialProgressBar1.Style = ProgressBarStyle.Continuous;
-            materialProgressBar1.TabIndex = 1;
-            materialProgressBar1.Value = 10;
+            PbarRAMMachineResources.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PbarRAMMachineResources.Depth = 0;
+            PbarRAMMachineResources.Location = new Point(30, 88);
+            PbarRAMMachineResources.MouseState = MaterialSkin.MouseState.HOVER;
+            PbarRAMMachineResources.Name = "PbarRAMMachineResources";
+            PbarRAMMachineResources.PbarHeight = 15;
+            PbarRAMMachineResources.Size = new Size(401, 15);
+            PbarRAMMachineResources.Style = ProgressBarStyle.Continuous;
+            PbarRAMMachineResources.TabIndex = 1;
+            PbarRAMMachineResources.Value = 10;
             // 
-            // materialLabel1
+            // LBLRAMTextMachineResources
             // 
-            materialLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            materialLabel1.Depth = 0;
-            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            materialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            materialLabel1.Location = new Point(29, 68);
-            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel1.Name = "materialLabel1";
-            materialLabel1.Size = new Size(400, 17);
-            materialLabel1.TabIndex = 3;
-            materialLabel1.Text = "Random-Access Memory  (RAM)";
-            materialLabel1.TextAlign = ContentAlignment.MiddleCenter;
+            LBLRAMTextMachineResources.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            LBLRAMTextMachineResources.Depth = 0;
+            LBLRAMTextMachineResources.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLRAMTextMachineResources.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLRAMTextMachineResources.Location = new Point(29, 68);
+            LBLRAMTextMachineResources.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLRAMTextMachineResources.Name = "LBLRAMTextMachineResources";
+            LBLRAMTextMachineResources.Size = new Size(401, 17);
+            LBLRAMTextMachineResources.TabIndex = 3;
+            LBLRAMTextMachineResources.Text = "Random-Access Memory  (RAM)";
+            LBLRAMTextMachineResources.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // materialProgressBar2
+            // PbarCPUMachineResources
             // 
-            materialProgressBar2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            materialProgressBar2.Depth = 0;
-            materialProgressBar2.Location = new Point(30, 153);
-            materialProgressBar2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialProgressBar2.Name = "materialProgressBar2";
-            materialProgressBar2.PbarHeight = 15;
-            materialProgressBar2.Size = new Size(400, 15);
-            materialProgressBar2.TabIndex = 4;
-            materialProgressBar2.Value = 10;
+            PbarCPUMachineResources.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PbarCPUMachineResources.Depth = 0;
+            PbarCPUMachineResources.Location = new Point(30, 153);
+            PbarCPUMachineResources.MouseState = MaterialSkin.MouseState.HOVER;
+            PbarCPUMachineResources.Name = "PbarCPUMachineResources";
+            PbarCPUMachineResources.PbarHeight = 15;
+            PbarCPUMachineResources.Size = new Size(401, 15);
+            PbarCPUMachineResources.TabIndex = 4;
+            PbarCPUMachineResources.Value = 10;
             // 
             // TabDatabaseEditor
             // 
@@ -422,7 +423,7 @@ namespace TrionControlPanelDesktop
             TabDatabaseEditor.Location = new Point(39, 4);
             TabDatabaseEditor.Name = "TabDatabaseEditor";
             TabDatabaseEditor.Padding = new Padding(3);
-            TabDatabaseEditor.Size = new Size(945, 439);
+            TabDatabaseEditor.Size = new Size(948, 431);
             TabDatabaseEditor.TabIndex = 1;
             TabDatabaseEditor.Text = "Database Editor";
             // 
@@ -433,7 +434,7 @@ namespace TrionControlPanelDesktop
             TabSettings.Location = new Point(39, 4);
             TabSettings.Name = "TabSettings";
             TabSettings.Padding = new Padding(3);
-            TabSettings.Size = new Size(945, 439);
+            TabSettings.Size = new Size(948, 431);
             TabSettings.TabIndex = 2;
             TabSettings.Text = "Settings";
             // 
@@ -448,7 +449,7 @@ namespace TrionControlPanelDesktop
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1000, 600);
@@ -459,15 +460,18 @@ namespace TrionControlPanelDesktop
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = MainFormTabControler;
             Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            FormStyle = FormStyles.ActionBar_48;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1000, 600);
             Name = "MainForm";
+            Padding = new Padding(0, 72, 3, 3);
             Text = "Trion Control Panel";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_LoadAsync;
             CMSNotify.ResumeLayout(false);
             LayoutPanelMain.ResumeLayout(false);
             materialCard1.ResumeLayout(false);
+            materialCard1.PerformLayout();
             MainFormTabControler.ResumeLayout(false);
             TabHome.ResumeLayout(false);
             LayoutPanelHome.ResumeLayout(false);
@@ -499,10 +503,10 @@ namespace TrionControlPanelDesktop
         private TableLayoutPanel LayoutPanelHome;
         private MaterialSkin.Controls.MaterialCard materialCard1;
         private MaterialSkin.Controls.MaterialCard CardMachineResoruces;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar2;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
+        private MaterialSkin.Controls.MaterialLabel LBLCPUTextMachineResources;
+        private MaterialSkin.Controls.MaterialProgressBar PbarCPUMachineResources;
+        private MaterialSkin.Controls.MaterialLabel LBLRAMTextMachineResources;
+        private MaterialSkin.Controls.MaterialProgressBar PbarRAMMachineResources;
         private MaterialSkin.Controls.MaterialCard materialCard2;
         private MaterialSkin.Controls.MaterialLabel LBLCardMachineResourcesTitle;
         private MaterialSkin.Controls.MaterialFloatingActionButton BTNStartWorld;

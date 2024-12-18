@@ -2,6 +2,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using MetroFramework;
 using TrionControlPanelDesktop.Data;
+using TrionControlPanelDesktop.Extensions.Modules;
 using TrionLibrary.Network;
 using TrionLibrary.Setting;
 using TrionLibrary.Sys;
@@ -11,6 +12,34 @@ namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MaterialForm
     {
+        #region "Load Language"
+        private Translator _translator = new();
+
+        private void LoadLangauge()
+        {
+            _translator.LoadLanguage("en");
+            SetLanguage();
+        }
+        private void SetLanguage()
+        {
+            //Set ToolTips
+          
+            TLTHome.SetToolTip(BTNStartDatabase, _translator.Translate("BTNStartDatabaseToolTip"));
+            TLTHome.SetToolTip(BTNStartLogon, _translator.Translate("BTNStartLogonToolTip"));
+            TLTHome.SetToolTip(BTNStartWorld, _translator.Translate("BTNStartWorldToolTip"));
+            //Set the normal text
+            NIcon.BalloonTipText = _translator.Translate("NIconBalloonTipText");
+            NIcon.BalloonTipTitle = _translator.Translate("NIconBalloonTipTitle");
+            NIcon.Text = _translator.Translate("NIconBalloonTipTitle");
+            LBLCardMachineResourcesTitle.Text = _translator.Translate("LBLCardMachineResourcesTitle").ToUpper();
+            LBLRAMTextMachineResources.Text = _translator.Translate("LBLRAMTextMachineResources");
+            LBLCPUTextMachineResources.Text = _translator.Translate("LBLCPUTextMachineResources");
+            TabSettings.Text = _translator.Translate("TabSettingsTitle");
+            TabHome.Text = _translator.Translate("TabHomeTitle");
+            TabDatabaseEditor.Text = _translator.Translate("TabDatabaseEditorTitle");
+        }
+        #endregion
+
         private readonly MaterialSkinManager? materialSkinManager;
 
         List<int> Ports = [3306, 8085, 3724];
@@ -64,7 +93,9 @@ namespace TrionControlPanelDesktop
                      ControlStyles.ResizeRedraw |
                      ControlStyles.UserPaint, true);
             InitializeComponent();
+            //Initialize LoadLanguage 
             // Initialize MaterialSkinManager
+            LoadLangauge();
             materialSkinManager = MaterialSkinManager.Instance;
             // Set this to false to disable backcolor enforcing on non-materialSkin components
             // This HAS to be set before the AddFormToManage()
