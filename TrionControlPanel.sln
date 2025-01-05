@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionLibrary", "TrionLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionDiscordBot", "TrionDiscordBot\TrionDiscordBot.csproj", "{68FBCEFA-3B05-4CF2-851F-7797B0D508C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanelDesktop", "TrionControlPanelDesktop\TrionControlPanelDesktop.csproj", "{0B2EDB3E-28F2-4FE0-AB20-603217B1FE80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanel.Desktop", "TrionControlPanelDesktop\TrionControlPanel.Desktop.csproj", "{0B2EDB3E-28F2-4FE0-AB20-603217B1FE80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionUI", "TrionUI\TrionUI.csproj", "{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionWorker", "TrionWorker\TrionWorker.csproj", "{F8532926-479A-4016-9987-E854512180CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialSkinCore", "MaterialSkin\MaterialSkinCore.csproj", "{25F77BF0-280E-4FBF-936D-EE9DE3163C90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrionControlPanel.API", "TrionControlPanel.API\TrionControlPanel.API.csproj", "{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,14 @@ Global
 		{25F77BF0-280E-4FBF-936D-EE9DE3163C90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25F77BF0-280E-4FBF-936D-EE9DE3163C90}.Release|x64.ActiveCfg = Release|Any CPU
 		{25F77BF0-280E-4FBF-936D-EE9DE3163C90}.Release|x64.Build.0 = Release|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Debug|x64.Build.0 = Debug|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Release|x64.ActiveCfg = Release|Any CPU
+		{45ED2E5F-D32E-4254-92E1-F041E82C7ABE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

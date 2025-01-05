@@ -29,6 +29,9 @@
         [Category("Material Skin"), DefaultValue(false)]
         public bool Password { get; set; }
 
+        [Category("Material Skin"), DefaultValue(false)]
+        public bool NumberOnly { get; set; }
+
         private bool _UseTallSize;
 
         [Category("Material Skin"), DefaultValue(true), Description("Using a larger size enables the hint to always be visible")]
@@ -127,6 +130,19 @@
                     base.ContextMenuStrip = cms;
                 }
                 _lastContextMenuStrip = base.ContextMenuStrip;
+            }
+        }
+
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+            if (NumberOnly)
+            {
+                // Allow control characters like Backspace
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true; // Block non-numeric input
+                }
             }
         }
 
@@ -867,6 +883,7 @@
             }
         }
     }
+
 
     [ToolboxItem(false)]
     public class TextBoxContextMenuStrip : MaterialContextMenuStrip

@@ -1,7 +1,4 @@
-﻿using System.IO;
-using TrionLibrary.Models;
-using TrionLibrary.Setting;
-namespace TrionControlPanelDesktop.Extensions.Modules
+﻿namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
@@ -52,22 +49,22 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             public static string Mop { get => $"{Directory.GetCurrentDirectory()}/mop"; }
         }
         public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
-        public static string DDNSWebsits()
+        public static string DDNSWebsits( Enums.DDNSerivce DDNSerivce)
         {
-            return Setting.List.DDNSerivce switch
+            return DDNSerivce switch
             {
-                //Enums.DDNSerivce.DuckDNS => $"https://www.duckdns.org/",
-                //Enums.DDNSerivce.NoIP => $"https://www.noip.com/sign-up",
-                //Enums.DDNSerivce.Dynu => $"https://www.dynu.com",
-                //Enums.DDNSerivce.Enom => $"https://www.enom.com/",
-                //Enums.DDNSerivce.AllInkl => $"https://all-inkl.com/",
-                //Enums.DDNSerivce.dynDNS => $"https://account.dyn.com/",
-                //Enums.DDNSerivce.STRATO => $"https://www.strato.de/",
-                //Enums.DDNSerivce.Freemyip => $"https://freemyip.com/",
-                //Enums.DDNSerivce.Afraid => $"https://freedns.afraid.org/",
-                //Enums.DDNSerivce.OVH => $"https://www.ovhcloud.com/",
-                //Enums.DDNSerivce.Cloudflare => $"https://www.cloudflare.com/",
-                //_ => "",
+                Enums.DDNSerivce.DuckDNS => $"https://www.duckdns.org/",
+                Enums.DDNSerivce.NoIP => $"https://www.noip.com/sign-up",
+                Enums.DDNSerivce.Dynu => $"https://www.dynu.com",
+                Enums.DDNSerivce.Enom => $"https://www.enom.com/",
+                Enums.DDNSerivce.AllInkl => $"https://all-inkl.com/",
+                Enums.DDNSerivce.dynDNS => $"https://account.dyn.com/",
+                Enums.DDNSerivce.STRATO => $"https://www.strato.de/",
+                Enums.DDNSerivce.Freemyip => $"https://freemyip.com/",
+                Enums.DDNSerivce.Afraid => $"https://freedns.afraid.org/",
+                Enums.DDNSerivce.OVH => $"https://www.ovhcloud.com/",
+                Enums.DDNSerivce.Cloudflare => $"https://www.cloudflare.com/",
+                _ => "",
             };
         }
     }

@@ -1,15 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -67,7 +56,7 @@ public class MouseWheelRedirector : IMessageFilter
 
     private Control currentControl;
 
-    private void ControlMouseEnter(object sender, System.EventArgs e)
+    private void ControlMouseEnter(object sender, EventArgs e)
     {
         var control = (Control)sender;
         if (!control.Focused)
@@ -76,14 +65,14 @@ public class MouseWheelRedirector : IMessageFilter
             currentControl = null;
     }
 
-    private void ControlMouseLeaveOrDisposed(object sender, System.EventArgs e)
+    private void ControlMouseLeaveOrDisposed(object sender, EventArgs e)
     {
         if (currentControl == sender)
             currentControl = null;
     }
 
     private const int WM_MOUSEWHEEL = 0x20A;
-    public bool PreFilterMessage(ref System.Windows.Forms.Message m)
+    public bool PreFilterMessage(ref Message m)
     {
         if (currentControl != null && m.Msg == WM_MOUSEWHEEL)
         {

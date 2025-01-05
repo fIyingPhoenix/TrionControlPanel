@@ -159,7 +159,6 @@ namespace MaterialSkin.Controls
                 Invalidate();
             }
         }
-
         public enum PrefixSuffixTypes
         {
             None,
@@ -1288,6 +1287,7 @@ namespace MaterialSkin.Controls
 
         public MaterialTextBox2()
         {
+
             // Material Properties
             UseAccent = true;
             MouseState = MouseState.OUT;
@@ -1369,7 +1369,6 @@ namespace MaterialSkin.Controls
             cms.OnItemClickStart += ContextMenuStripOnItemClickStart;
             ContextMenuStrip = cms;
         }
-
         private void Redraw(object sencer, EventArgs e)
         {
             SuspendLayout();

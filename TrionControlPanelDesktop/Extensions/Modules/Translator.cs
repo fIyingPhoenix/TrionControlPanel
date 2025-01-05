@@ -1,5 +1,4 @@
 ﻿
-
 using Newtonsoft.Json;
 
 namespace TrionControlPanelDesktop.Extensions.Modules
@@ -27,6 +26,18 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             return Translations != null && Translations.ContainsKey(key)
                 ? Translations[key]
                 : key; // Fallback to key if not found
+        }
+        // Method to get all available languages
+        public static List<string> GetAvailableLanguages()
+        {
+            string languageDir = "Languages";
+            if (!Directory.Exists(languageDir))
+            {
+                throw new DirectoryNotFoundException($"Languages directory not found: {languageDir}");
+            }
+
+            var languageFiles = Directory.GetFiles(languageDir, "*.json");
+            return languageFiles.Select(Path.GetFileNameWithoutExtension).ToList()!;
         }
 
     }

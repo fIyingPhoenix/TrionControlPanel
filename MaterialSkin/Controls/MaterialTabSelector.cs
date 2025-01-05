@@ -203,7 +203,7 @@
                 if (_tabLabel != TabLabelStyle.Icon)
                 {
                     // Text
-                    using (NativeTextRenderer NativeText = new NativeTextRenderer(g))
+                    using (NativeTextRenderer NativeText = new(g))
                     {
                         Size textSize = TextRenderer.MeasureText(_baseTabControl.TabPages[currentTabIndex].Text, Font);
                         Rectangle textLocation = new Rectangle(_tabRects[currentTabIndex].X+ (TAB_HEADER_PADDING/2), _tabRects[currentTabIndex].Y, _tabRects[currentTabIndex].Width - (TAB_HEADER_PADDING), _tabRects[currentTabIndex].Height);
