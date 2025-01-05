@@ -121,19 +121,6 @@ namespace TrionControlPanelDesktop.Data
                 Version version2 = new(ver2);
                 int comparisonResult = version1.CompareTo(version2);
                 return comparisonResult;
-                //string[] vComps1 = ver1.Split('.');
-                //string[] vComps2 = ver2.Split('.');
-                //int[] vNumb1 = Array.ConvertAll(vComps1, int.Parse);
-                //int[] vNumb2 = Array.ConvertAll(vComps2, int.Parse);
-
-                //for (int i = 0; i < Math.Min(vNumb1.Length, vNumb2.Length); i++)
-                //{
-                //    if (vNumb1[i] != vNumb2[i])
-                //    {
-                //        return vNumb1[i].CompareTo(vNumb2[i]);
-                //    }
-                //}
-                //return vNumb1.Length.CompareTo(vNumb2.Length);
             }
             return 0;
         }
@@ -541,8 +528,6 @@ namespace TrionControlPanelDesktop.Data
         }
         public static async Task StopWorld()
         {
-            if (User.System.WorldProcessesID.Count > 0)
-            {
                 if (User.UI.Form.CustWorldStarted && User.UI.Form.ClassicWorldRunning)
                 {
                     var processToRemove = User.System.WorldProcessesID.Single(r => r.Name == Setting.List.ClassicWorldName);
@@ -570,6 +555,7 @@ namespace TrionControlPanelDesktop.Data
                     await Watcher.ApplicationStop(processToRemove.ID);
                     User.System.WorldProcessesID.Remove(processToRemove);
                     User.UI.Form.WotLKWorldStarted = false;
+                    return;
                 }
                 if (User.UI.Form.CataWorldStarted && User.UI.Form.CataWorldRunning)
                 {
@@ -585,7 +571,7 @@ namespace TrionControlPanelDesktop.Data
                     User.System.WorldProcessesID.Remove(processToRemove);
                     User.UI.Form.MOPWorldStarted = false;
                 }
-            }
+           
         }
         public static async Task StopLogon()
         {

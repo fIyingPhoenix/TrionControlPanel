@@ -228,19 +228,20 @@ namespace TrionControlPanelDesktop
                 await Main.StopDatabase();
             }
         }
-        private void BTNStartLogin_Click(object sender, EventArgs e)
+        private async void BTNStartLogin_Click(object sender, EventArgs e)
         {
             if (!Main.ServerStatusLogon())
-            { Task.Run(async () => await Main.StartLogon()); }
+            { await Main.StartLogon(); }
             else
-            { Task.Run(async () => await Main.StopLogon()); }
+            { await Main.StopLogon(); }
         }
-        private void BTNStartWorld_Click(object sender, EventArgs e)
+        private async void BTNStartWorld_Click(object sender, EventArgs e)
         {
-            if (!Main.ServerStatusWorld() && !Main.ServerStartedWorld())
-            { Task.Run(async () => await Main.StartWorld()); }
+            Infos.Message = Main.ServerStatusWorld().ToString();
+            if (Main.ServerStatusWorld())
+            { await Main.StopWorld(); User.UI.Form.WotLKWorldRunning = false; return; }
             else
-            { Task.Run(async () => await Main.StopWorld()); }
+            {  await Main.StartWorld(); Infos.Message = "Im Here starting"; }
         }
         public static void LoadDownload()
         {
