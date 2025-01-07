@@ -1,5 +1,4 @@
-﻿
-namespace TrionControlPanelDesktop.Extensions.Modules
+﻿namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
 {
     public class Realmlist
     {

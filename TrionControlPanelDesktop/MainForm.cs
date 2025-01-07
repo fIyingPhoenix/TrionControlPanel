@@ -2,6 +2,8 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Globalization;
 using TrionControlPanel.Desktop.Extensions.Classes;
+using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
+using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Classes;
 using TrionControlPanelDesktop.Extensions.Modules;
 using static TrionControlPanelDesktop.Extensions.Modules.Enums;
@@ -73,7 +75,7 @@ namespace TrionControlPanelDesktop
             #endregion
             #region "Home Page"
             LBLCardMachineResourcesTitle.Text = _translator.Translate("LBLCardMachineResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardWorldResourcesTitle.Text = _translator.Translate("LBLCardMachineResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardWorldResourcesTitle.Text = _translator.Translate("LBLCardWorldResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
             LBLCardLogonResourcesTitle.Text = _translator.Translate("LBLCardLogonResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
             LBLRAMTextMachineResources.Text = _translator.Translate("LBLRAMTextMachineResources");
             LBLCPUTextMachineResources.Text = _translator.Translate("LBLCPUTextMachineResources");
@@ -455,12 +457,18 @@ namespace TrionControlPanelDesktop
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
 
         }
-        private async void MainForm_LoadAsync(object sender, EventArgs e)
+        private void MainForm_LoadAsync(object sender, EventArgs e)
         {
             // Loading Skin
             Invalidate(); // Marks the entire form for repaint
-            Update();     // Forces the repaint immediately
-            LoadData();
+            Update();   // Forces the repaint immediately
+             //Set max ram to progressbar
+            PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
+        }
+
+        private void TimerWacher_Tick(object sender, EventArgs e)
+        {
+            ResurceUsage();
         }
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
@@ -482,25 +490,32 @@ namespace TrionControlPanelDesktop
 
         }
         #endregion
-
         #region "HomePage"
+        private async void ResurceUsage()
+        {
 
+            PbarCPUMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetCpuUtilizationPercentage());
+            PbarRAMMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetTotalRamInMB() - PerformanceMonitor.GetCurentPcRamUsage());
+            PbarRAMLogonResources.Maximum = PbarRAMMachineResources.Value;
+            PbarRAMWordResources.Maximum = PbarRAMMachineResources.Value;
+            if ( SystemData.GetTotalWorldProcessIDCount() > 0)
+            {
+     
+            }
+            if (SystemData.GetTotalLogonProcessIDCount() > 0)
+            {
+               
+            }
+
+        }
         #endregion
 
-        async void LoadData()
+        void LoadData()
         {
-            //Set max ram to progressbar
-            PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
+
         }
         //Closing running processes when trion die.
 
-        private async void TimerWacher_Tick(object sender, EventArgs e)
-        {
-            PbarCPUMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetCpuUtilizationPercentage());
-            PbarRAMMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetCurentPcRamUsage());
-            PbarRAMLogonResources.Maximum = PbarRAMMachineResources.Value;
-            PbarRAMWordResources.Maximum = PbarRAMMachineResources.Value;
-        }
         private void StartWorldTSMItem_Click(object sender, EventArgs e)
         {
         }
@@ -513,7 +528,7 @@ namespace TrionControlPanelDesktop
         private void BTNStartMySQL_Click(object sender, EventArgs e)
         {
         }
-        private async void ExitTSMItem_ClickAsync(object sender, EventArgs e)
+        private void ExitTSMItem_ClickAsync(object sender, EventArgs e)
         {
 
             NIcon.Dispose();

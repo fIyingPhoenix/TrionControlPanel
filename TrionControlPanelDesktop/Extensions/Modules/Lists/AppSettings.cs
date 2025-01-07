@@ -1,4 +1,6 @@
-﻿namespace TrionControlPanelDesktop.Extensions.Modules
+﻿using TrionControlPanelDesktop.Extensions.Modules;
+
+namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
 {
     public class AppSettings
     {
@@ -43,7 +45,7 @@
         public string TBCWorldExeName { get; set; } = "";
         public string TBCWorldName { get; set; } = "";
         public string TBCLogonName { get; set; } = "";
-        public bool LaunchTBCCore { get; set; } 
+        public bool LaunchTBCCore { get; set; }
         public bool TBCInstalled { get; set; }
         //WotLK Core
         public string WotLKWorkingDirectory { get; set; } = "";
@@ -63,7 +65,7 @@
         public string CataWorldExeName { get; set; } = "";
         public string CataWorldName { get; set; } = "";
         public string CataLogonName { get; set; } = "";
-        public bool LaunchCataCore { get; set; } 
+        public bool LaunchCataCore { get; set; }
         public bool CataInstalled { get; set; }
         //Mop Core
         public string MopWorkingDirectory { get; set; } = "";
