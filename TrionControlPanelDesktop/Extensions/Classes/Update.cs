@@ -1,12 +1,11 @@
 ﻿
-using Microsoft.VisualBasic.Devices;
 using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanelDesktop.Extensions.Classes
 {
     public class Update
     {
-        public static async Task<string> DDNSUpdateURL(Enums.DDNSerivce DnsService , string Domain, string Username, string Password)
+        public static string DDNSUpdateURL(Enums.DDNSerivce DnsService, string Domain, string Username, string Password)
         {
             return DnsService switch
             {

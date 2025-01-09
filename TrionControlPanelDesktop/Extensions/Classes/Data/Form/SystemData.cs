@@ -32,6 +32,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
                 return _databaseProcessID.Remove(processID);
             }
         }
+        public static void CleanDatabaseProcessID()
+        {
+            lock (_databaseLock) { _databaseProcessID.Clear(); }
+        }
         public static ReadOnlyCollection<ProcessID> GetDatabaseProcessID()
         {
             lock (_databaseLock)
@@ -98,6 +102,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
                 return _worldProcessesID.Count;
             }
         }
+        public static void CleanWolrdProcessID()
+        {
+            lock (_worldLock) { _worldProcessesID.Clear(); }
+        }
         #endregion
         #region "Logon Process ID CRUD"
         public static void AddToLogonProcessesID(ProcessID processID)
@@ -106,6 +114,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
             {
                 _logonProcessesID.Add(processID);
             }
+        }
+        public static void CleanLogonProcessID()
+        {
+            lock (_logonLock) { _logonProcessesID.Clear(); }
         }
         public static bool RemoveFromLogonProcessesID(ProcessID processID)
         {

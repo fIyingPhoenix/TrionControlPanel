@@ -3,9 +3,11 @@ using MaterialSkin.Controls;
 using System.Globalization;
 using TrionControlPanel.Desktop.Extensions.Classes;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Classes;
 using TrionControlPanelDesktop.Extensions.Modules;
+using Windows.ApplicationModel.Activation;
 using static TrionControlPanelDesktop.Extensions.Modules.Enums;
 
 
@@ -84,7 +86,7 @@ namespace TrionControlPanelDesktop
             LBLRAMTextLogonResources.Text = _translator.Translate("LBLRAMTextMachineResources");
             LBLCPUTextLogonResources.Text = _translator.Translate("LBLCPUTextMachineResources");
             LBLDatabaseProcessID.Text = _translator.Translate("LBLProcessID");
-            LBLWordProcessID.Text = _translator.Translate("LBLProcessID");
+            LBLWorldProcessID.Text = _translator.Translate("LBLProcessID");
             LBLLogonProcessID.Text = _translator.Translate("LBLProcessID");
             LBLUpTimeDatabase.Text = _translator.Translate("LBLUpTime");
             LBLUpTimeWorld.Text = _translator.Translate("LBLUpTime");
@@ -383,6 +385,7 @@ namespace TrionControlPanelDesktop
             TXTDDNSPassword.Text = _settings.DDNSPassword;
             TXTDDNSInterval.Text = _settings.DDNSInterval.ToString();
             TGLDDNSRunOnStartup.Checked = _settings.DDNSRunOnStartup;
+
         }
         private void LoadSkin()
         {
@@ -403,6 +406,8 @@ namespace TrionControlPanelDesktop
                         Primary.TrionBlue200,
                         Accent.TrionBlue900,
                         TextShade.WHITE);
+                    TLTHome.BorderColor = Settings.ConvertToColor(Primary.TrionBlue500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.TrionBlue500);
                     break;
                 case TrionTheme.Purple:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -411,6 +416,8 @@ namespace TrionControlPanelDesktop
                         Primary.DeepPurple200,
                         Accent.Purple700,
                         TextShade.WHITE);
+                    TLTHome.BorderColor = Settings.ConvertToColor(Primary.DeepPurple500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.DeepPurple500);
                     break;
                 case TrionTheme.Green:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -419,6 +426,8 @@ namespace TrionControlPanelDesktop
                         Primary.Green200,
                         Accent.Lime700,
                         TextShade.WHITE);
+                    TLTHome.BorderColor = Settings.ConvertToColor(Primary.Green500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.Green500);
                     break;
                 case TrionTheme.Orange:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -427,6 +436,8 @@ namespace TrionControlPanelDesktop
                         Primary.Orange200,
                         Accent.Orange700,
                         TextShade.WHITE);
+                    TLTHome.BorderColor = Settings.ConvertToColor(Primary.Orange500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.Orange500);
                     break;
                 default:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -435,18 +446,25 @@ namespace TrionControlPanelDesktop
                         Primary.TrionBlue200,
                         Accent.TrionBlue900,
                         TextShade.WHITE);
+                    TLTHome.BorderColor = Settings.ConvertToColor(Primary.TrionBlue500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.TrionBlue500);
                     break;
             }
+            Invalidate(); // Marks the entire form for repaint
+            Update();   // Forces the repaint immediately
+            Refresh();
         }
 
         #endregion
         private AppSettings _settings;
         private MaterialSkinManager? materialSkinManager;
+        private int _appPageSize { get; } = 1;
+        private int _worldCurrentPage = 1;
+        private int _logonCurrentPage = 1;
         #region"MainPage"
         //Loading...
         public MainForm()
         {
-
             InitializeComponent();
             LoadSettings();
             LoadSkin();
@@ -459,57 +477,126 @@ namespace TrionControlPanelDesktop
         }
         private void MainForm_LoadAsync(object sender, EventArgs e)
         {
-            // Loading Skin
-            Invalidate(); // Marks the entire form for repaint
-            Update();   // Forces the repaint immediately
-             //Set max ram to progressbar
+            //Set max ram to progressbar
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
         }
 
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             ResurceUsage();
+            RuntimeMonitoring();
         }
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
-            if(!FormData.UI.Form.DBRunning && !FormData.UI.Form.DBStarted)
+            Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), _settings.DBLocation);
+            SystemData.DatabaseStartTime = DateTime.Now;
+            if (!FormData.UI.Form.DBRunning && !FormData.UI.Form.DBStarted)
             {
                 string arg = $"--defaults-file=\"{Directory.GetCurrentDirectory()}/my.ini\" --console";
+                await AppExecuteMenager.StartDatabase(_settings, arg);
+            }
+            else
+            {
+                await AppExecuteMenager.StopDatabase();
             }
         }
-        private void BTNStartLogon_Click(object sender, EventArgs e)
+        private async void BTNStartLogon_Click(object sender, EventArgs e)
         {
-
+            if(!ServerMonitor.ServerStartedLogon() &&  !ServerMonitor.ServerRunningLogon())
+            { 
+                await AppExecuteMenager.StartLogon(_settings);
+            }
+            else
+            {
+                await AppExecuteMenager.StopLogon();
+            }
         }
-        private void BTNStartWorld_Click(object sender, EventArgs e)
+        private async void BTNStartWorld_Click(object sender, EventArgs e)
         {
-
+            if(!ServerMonitor.ServerStartedWorld() && !ServerMonitor.ServerRunningWorld())
+            {
+                await AppExecuteMenager.StartWorld(_settings);
+            }
+            else
+            {
+                await AppExecuteMenager.StopWorld();
+            }
         }
         private void TabDatabaseEditor_Click(object sender, EventArgs e)
         {
-
+            if(FormData.UI.Form.DBRunning)
+            {
+                //refresh data in database
+            }
+            else
+            {
+                MaterialMessageBox.Show(_translator.Translate("DatabaseNotRunningErrorMbox"), true, FlexibleMaterialForm.ButtonsPosition.Center, MessageBoxButtons.YesNo)
+            }
         }
         #endregion
         #region "HomePage"
+        private async void RuntimeMonitoring()
+        {
+            LBLDatabaseProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {string.Join(", ", SystemData.GetDatabaseProcessID().Select(p => p.ID))}";
+            LBLWorldProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {string.Join(", ", SystemData.GetWorldProcessesID().Select(p => p.ID))}";
+            LBLLogonProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {string.Join(", ", SystemData.GetLogonProcessesID().Select(p => p.ID))}";
+        }
         private async void ResurceUsage()
         {
-
             PbarCPUMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetCpuUtilizationPercentage());
             PbarRAMMachineResources.Value = await Task.Run(() => PerformanceMonitor.GetTotalRamInMB() - PerformanceMonitor.GetCurentPcRamUsage());
             PbarRAMLogonResources.Maximum = PbarRAMMachineResources.Value;
             PbarRAMWordResources.Maximum = PbarRAMMachineResources.Value;
-            if ( SystemData.GetTotalWorldProcessIDCount() > 0)
+            if (SystemData.GetTotalWorldProcessIDCount() > 0)
             {
-     
+                // Displaying the first page
+                var worldProcess = SystemData.GetWorldProcessesIDPage(_worldCurrentPage, _appPageSize);
+                //loger.WriteLine($"Page {currentPage}:");
+                foreach (var process in worldProcess)
+                {
+                    PbarRAMWordResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationRamUsage(process.ID));
+                    PbarCPUWordResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationRamUsage(process.ID));
+                }
             }
             if (SystemData.GetTotalLogonProcessIDCount() > 0)
             {
-               
+                //sameas up
+                var logonProcess = SystemData.GetLogonProcessesIDPage(_logonCurrentPage, _appPageSize);
+                //loget message here
+                foreach (var process in logonProcess)
+                {
+                    PbarRAMLogonResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationRamUsage(process.ID));
+                    PbarCPULogonResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationCpuUsage(process.ID));
+                }
+            }
+        }
+        #endregion
+        #region "Settings Page"
+
+        private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (CBOXColorSelect.SelectedItem) {
+                case "TrionBlue":
+                    _settings.TrionTheme = TrionTheme.TrionBlue;
+                    LoadSkin();
+                    break;
+                case "Purple":
+                    _settings.TrionTheme = TrionTheme.Purple;
+                    LoadSkin();
+                    break;
+                case "Orange":
+                    _settings.TrionTheme = TrionTheme.Orange;
+                    LoadSkin();
+                    break;
+                case "Green":
+                    _settings.TrionTheme = TrionTheme.Green;
+                    LoadSkin();
+                    break;
             }
 
         }
-        #endregion
 
+        #endregion
         void LoadData()
         {
 

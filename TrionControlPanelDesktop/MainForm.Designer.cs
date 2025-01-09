@@ -84,7 +84,7 @@ namespace TrionControlPanelDesktop
             PICLogonServerStatus = new PictureBox();
             LBLLogonServerStatus = new Label();
             PNLWorldServerStatus = new MetroFramework.Controls.MetroPanel();
-            LBLWordProcessID = new Label();
+            LBLWorldProcessID = new Label();
             LBLUpTimeWorld = new Label();
             PICWorldServerStatus = new PictureBox();
             LBLWorldServerStatus = new Label();
@@ -732,9 +732,9 @@ namespace TrionControlPanelDesktop
             LBLCardLogonResourcesTitle.Location = new Point(10, 10);
             LBLCardLogonResourcesTitle.MouseState = MaterialSkin.MouseState.HOVER;
             LBLCardLogonResourcesTitle.Name = "LBLCardLogonResourcesTitle";
-            LBLCardLogonResourcesTitle.Size = new Size(11, 24);
+            LBLCardLogonResourcesTitle.Size = new Size(133, 24);
             LBLCardLogonResourcesTitle.TabIndex = 1;
-            LBLCardLogonResourcesTitle.Text = "s";
+            LBLCardLogonResourcesTitle.Text = "logon resource";
             // 
             // LBLCPUTextLogonResources
             // 
@@ -1007,7 +1007,7 @@ namespace TrionControlPanelDesktop
             PNLWorldServerStatus.Border = true;
             PNLWorldServerStatus.BorderColor = Color.FromArgb(192, 0, 0);
             PNLWorldServerStatus.BorderSize = 1;
-            PNLWorldServerStatus.Controls.Add(LBLWordProcessID);
+            PNLWorldServerStatus.Controls.Add(LBLWorldProcessID);
             PNLWorldServerStatus.Controls.Add(LBLUpTimeWorld);
             PNLWorldServerStatus.Controls.Add(PICWorldServerStatus);
             PNLWorldServerStatus.Controls.Add(LBLWorldServerStatus);
@@ -1030,16 +1030,16 @@ namespace TrionControlPanelDesktop
             PNLWorldServerStatus.VerticalScrollbarHighlightOnWheel = false;
             PNLWorldServerStatus.VerticalScrollbarSize = 10;
             // 
-            // LBLWordProcessID
+            // LBLWorldProcessID
             // 
-            LBLWordProcessID.Anchor = AnchorStyles.Left;
-            LBLWordProcessID.AutoSize = true;
-            LBLWordProcessID.ForeColor = Color.White;
-            LBLWordProcessID.Location = new Point(166, 32);
-            LBLWordProcessID.Name = "LBLWordProcessID";
-            LBLWordProcessID.Size = new Size(66, 15);
-            LBLWordProcessID.TabIndex = 47;
-            LBLWordProcessID.Text = "Process ID:";
+            LBLWorldProcessID.Anchor = AnchorStyles.Left;
+            LBLWorldProcessID.AutoSize = true;
+            LBLWorldProcessID.ForeColor = Color.White;
+            LBLWorldProcessID.Location = new Point(166, 32);
+            LBLWorldProcessID.Name = "LBLWorldProcessID";
+            LBLWorldProcessID.Size = new Size(66, 15);
+            LBLWorldProcessID.TabIndex = 47;
+            LBLWorldProcessID.Text = "Process ID:";
             // 
             // LBLUpTimeWorld
             // 
@@ -3360,6 +3360,7 @@ namespace TrionControlPanelDesktop
             CBOXColorSelect.Size = new Size(243, 49);
             CBOXColorSelect.StartIndex = 0;
             CBOXColorSelect.TabIndex = 6;
+            CBOXColorSelect.SelectedIndexChanged += CBOXColorSelect_SelectedIndexChanged;
             // 
             // CBOXLanguageSelect
             // 
@@ -5232,6 +5233,7 @@ namespace TrionControlPanelDesktop
             dataGridViewCellStyle3.SelectionForeColor = Color.White;
             ID.DefaultCellStyle = dataGridViewCellStyle3;
             ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
             ID.Name = "ID";
             ID.ReadOnly = true;
             ID.Visible = false;
@@ -5239,7 +5241,8 @@ namespace TrionControlPanelDesktop
             // Message
             // 
             Message.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Message.HeaderText = "Message";
+            Message.HeaderText = "💬";
+            Message.MinimumWidth = 6;
             Message.Name = "Message";
             Message.ReadOnly = true;
             // 
@@ -5247,7 +5250,8 @@ namespace TrionControlPanelDesktop
             // 
             Time.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Time.FillWeight = 30F;
-            Time.HeaderText = "Time";
+            Time.HeaderText = "🕠";
+            Time.MinimumWidth = 6;
             Time.Name = "Time";
             Time.ReadOnly = true;
             // 
@@ -5266,8 +5270,7 @@ namespace TrionControlPanelDesktop
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.Inherit;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1000, 600);
             Controls.Add(LayoutPanelMain);
@@ -5464,7 +5467,7 @@ namespace TrionControlPanelDesktop
         private Label LBLUpTimeDatabase;
         public PictureBox PICMySqlServerStatus;
         private Label LBLDatabaseServerStatus;
-        private Label LBLWordProcessID;
+        private Label LBLWorldProcessID;
         private Label LBLUpTimeWorld;
         public PictureBox PICWorldServerStatus;
         private Label LBLWorldServerStatus;
@@ -5677,9 +5680,9 @@ namespace TrionControlPanelDesktop
         private TabPage TabNotification;
         private TableLayoutPanel tableLayoutPanel11;
         private DataGridView DGVNotifications;
+        private UI.Controls.CustomButton BTNClean;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn Time;
-        private UI.Controls.CustomButton BTNClean;
     }
 }

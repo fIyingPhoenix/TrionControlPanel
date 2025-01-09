@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Management;
-namespace TrionControlPanelDesktop.Extensions.Classes
+namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
     public class PerformanceMonitor
     {
@@ -73,7 +73,55 @@ namespace TrionControlPanelDesktop.Extensions.Classes
         }
         private static double CalculatePercentage(double TotalRam, double UsedRam)
         {
-            return (TotalRam / UsedRam) * 100;
+            return TotalRam / UsedRam * 100;
+        }
+        public static int ApplicationRamUsage(int ProcessId)
+        {
+            try
+            {
+                Process process = Process.GetProcessById(ProcessId);
+                PerformanceCounter ramCounter = new("Process", "Working Set", process.ProcessName);
+                while (true)
+                {
+                    double ram = ramCounter.NextValue();
+                    return Convert.ToInt32(ram / 1024d / 1024d);
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public static int ApplicationCpuUsage(int ProcessID)
+        {
+            try
+            {
+                Process process = Process.GetProcessById(ProcessID);
+                if (process == null)
+                {
+                    // Infos.Message = "Could not find process with PID " + ProcessID;
+                }
+
+                TimeSpan startCpuUsage = process.TotalProcessorTime;
+                DateTime startTime = DateTime.UtcNow;
+
+                Thread.Sleep(500); // Wait a second to get a CPU usage sample
+
+                TimeSpan endCpuUsage = process.TotalProcessorTime;
+                DateTime endTime = DateTime.UtcNow;
+
+                double cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
+                double totalMsPassed = (endTime - startTime).TotalMilliseconds;
+
+                double cpuUsageTotal = cpuUsedMs / totalMsPassed * 100 / Environment.ProcessorCount;
+
+                if (cpuUsageTotal + 5 > 100) { cpuUsageTotal = 100; }
+                return (int)cpuUsageTotal;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

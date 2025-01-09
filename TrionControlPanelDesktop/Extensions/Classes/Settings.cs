@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MaterialSkin;
+using Newtonsoft.Json;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
 
@@ -137,8 +138,8 @@ namespace TrionControlPanelDesktop.Extensions.Classes
 
             if (!File.Exists(configFile))
             {
-                var lines = new List<string>
-                {
+                List<string> list =
+                [
                     "[client]",
                     "port=3306",
                     "default-character-set = utf8mb4",
@@ -191,8 +192,21 @@ namespace TrionControlPanelDesktop.Extensions.Classes
                     "[mysqld_safe]",
                     "# Increase open files limit",
                     "open-files-limit=65535"
-                };
+                ];
             }
         }
+        public static Color ConvertToColor(Primary hexColor)
+        {
+            // Extract RGB components
+            int red = ((int)hexColor >> 16) & 0xFF; // Extract the red component
+            int green = ((int)hexColor >> 8) & 0xFF; // Extract the green component
+            int blue = (int)hexColor & 0xFF; // Extract the blue component
+
+            // Convert to hash color format
+            Color Color = ColorTranslator.FromHtml($"#{red:X2}{green:X2}{blue:X2}"); 
+
+            return Color;
+        }
+
     }
 }

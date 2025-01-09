@@ -2,6 +2,25 @@
 {
     public class Enums
     {
+        // Enum for control events that can be generated using GenerateConsoleCtrlEvent.
+        public enum ConsoleCtrlEvent
+        {
+            CTRLC = 0,      // Represents a CTRL+C signal.
+            CTRLBREAK = 1,  // Represents a CTRL+BREAK signal.
+            CTRLCLOSE = 2,  // Indicates the console is closing.
+            CTRLLOGOFF = 5, // Indicates the user is logging off.
+            CTRLSHUTDOWN = 6 // Indicates the system is shutting down.
+        }
+
+        // Enum for control event types handled by ConsoleCtrlDelegate.
+        public enum CtrlTypes
+        {
+            CTRLCEVENT = 0,      // CTRL+C event.
+            CTRLBREAKEVENT,      // CTRL+BREAK event.
+            CTRLCLOSEEVENT,      // Console window close event.
+            CTRLLOGOFFEVENT = 5, // User logoff event.
+            CTRLSHUTDOWNEVENT    // System shutdown event.
+        }
         public enum AccountOpResult
         {
             Ok,

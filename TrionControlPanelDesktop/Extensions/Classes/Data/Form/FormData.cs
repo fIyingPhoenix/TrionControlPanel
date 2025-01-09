@@ -1,5 +1,4 @@
-﻿
-namespace TrionControlPanel.Desktop.Extensions.Classes
+﻿namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
 {
     public class FormData
     {
