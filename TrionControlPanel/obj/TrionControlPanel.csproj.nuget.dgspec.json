@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Student\\Documents\\GitHub\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj": {}
+    "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Student\\Documents\\GitHub\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj": {
+    "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Student\\Documents\\GitHub\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
+        "projectUniqueName": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
         "projectName": "TrionControlPanel",
-        "projectPath": "C:\\Users\\Student\\Documents\\GitHub\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
-        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Student\\Documents\\GitHub\\TrionControlPanel\\TrionControlPanel\\obj\\",
+        "projectPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\TrionControlPanel.csproj",
+        "packagesPath": "C:\\Users\\Andrei Caran\\.nuget\\packages\\",
+        "outputPath": "D:\\Repos\\Git\\TrionControlPanel\\TrionControlPanel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Andrei Caran\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,8 +43,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -86,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

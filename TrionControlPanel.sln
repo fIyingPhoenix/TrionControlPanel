@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionLibrary", "TrionLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionDiscordBot", "TrionDiscordBot\TrionDiscordBot.csproj", "{68FBCEFA-3B05-4CF2-851F-7797B0D508C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanel.Desktop", "TrionControlPanelDesktop\TrionControlPanel.Desktop.csproj", "{0B2EDB3E-28F2-4FE0-AB20-603217B1FE80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionControlPanel.Desktop", "TrionControlPanel.Desktop\TrionControlPanel.Desktop.csproj", "{0B2EDB3E-28F2-4FE0-AB20-603217B1FE80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrionUI", "TrionUI\TrionUI.csproj", "{06A414F3-A1F7-4C36-B7AE-32F8F8A26588}"
 EndProject

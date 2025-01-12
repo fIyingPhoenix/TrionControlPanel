@@ -1,6 +1,4 @@
-﻿using TrionControlPanelDesktop.Extensions.Modules;
-
-namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
+﻿namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
 {
     public class AppSettings
     {

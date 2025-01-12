@@ -155,7 +155,6 @@ namespace MetroFramework.Controls
                 }
             }
         }
-
         private uint smallChange = 1;
         public uint SmallChange
         {

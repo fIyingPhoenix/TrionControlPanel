@@ -63,9 +63,9 @@ namespace TrionControlPanel.Desktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloud_offline_50 {
+        internal static System.Drawing.Bitmap cloud_offline_64 {
             get {
-                object obj = ResourceManager.GetObject("cloud-offline-50", resourceCulture);
+                object obj = ResourceManager.GetObject("cloud-offline-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,68 +73,9 @@ namespace TrionControlPanel.Desktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloud_online_50 {
+        internal static System.Drawing.Bitmap cloud_online_64 {
             get {
-                object obj = ResourceManager.GetObject("cloud-online-50", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap gefällt_mir {
-            get {
-                object obj = ResourceManager.GetObject("gefällt_mir", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap gefällt_mir_50 {
-            get {
-                object obj = ResourceManager.GetObject("gefällt_mir_50", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream notySound {
-            get {
-                return ResourceManager.GetStream("notySound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap power_30 {
-            get {
-                object obj = ResourceManager.GetObject("power-30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap power_off_30 {
-            get {
-                object obj = ResourceManager.GetObject("power-off-30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap power_on_30 {
-            get {
-                object obj = ResourceManager.GetObject("power-on-30", resourceCulture);
+                object obj = ResourceManager.GetObject("cloud-online-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

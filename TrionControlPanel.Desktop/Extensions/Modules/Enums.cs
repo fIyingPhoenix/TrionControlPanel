@@ -1,4 +1,4 @@
-﻿namespace TrionControlPanelDesktop.Extensions.Modules
+﻿namespace TrionControlPanel.Desktop.Extensions.Modules
 {
     public class Enums
     {

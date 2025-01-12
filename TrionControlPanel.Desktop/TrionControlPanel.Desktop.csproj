@@ -16,25 +16,30 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU</Platforms>
-    <PackageIcon>logo.png</PackageIcon>
+    <PackageIcon>favicon.png</PackageIcon>
     <Product>Trion Control Panel</Product>
     <PlatformTarget>x64</PlatformTarget>
-    <ApplicationIcon>Resorces\icons\logo\ico1.ico</ApplicationIcon>
+    <ApplicationIcon>ico1.ico</ApplicationIcon>
     <Version>0.2.2.35</Version>
     <Authors>FlyingPhoenix</Authors>
     <Company>FlyingPhoenix</Company>
     <Description>An awesome Contro Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu... </Description>
     <PackageProjectUrl>https://flying-phoenix.dev/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/fIyingPhoenix/TrionControlPanel</RepositoryUrl>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <SignAssembly>False</SignAssembly>
     <Copyright>FlyingPhoenix</Copyright>
     <RepositoryType>git</RepositoryType>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <Title>Trion Control Panel</Title>
     <AnalysisLevel>6.0-recommended</AnalysisLevel>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -47,8 +52,11 @@
 
   <ItemGroup>
     <Compile Remove="Classes\**" />
+    <Compile Remove="Resorces\**" />
     <EmbeddedResource Remove="Classes\**" />
+    <EmbeddedResource Remove="Resorces\**" />
     <None Remove="Classes\**" />
+    <None Remove="Resorces\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,9 +67,24 @@
     <None Remove="MainForm.resx~RF4f4aacf.TMP" />
     <None Remove="tpko3eo2.dp0~" />
   </ItemGroup>
-
+ 
   <ItemGroup>
-    <Content Include="Resorces\icons\logo\ico1.ico" />
+    <Content Include="ico1.ico" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\TrionControlPanel\wwwroot\favicon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +94,17 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Management" Version="9.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Languages\enUS.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MaterialSkin\MaterialSkinCore.csproj" />
+    <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,23 +118,9 @@
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Languages\en.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resorces\icons\logo\logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MaterialSkin\MaterialSkinCore.csproj" />
-    <ProjectReference Include="..\TrionUI\TrionUI.csproj" />
   </ItemGroup>
 
 </Project>

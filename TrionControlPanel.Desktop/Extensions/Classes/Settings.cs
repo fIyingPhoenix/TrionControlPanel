@@ -1,16 +1,16 @@
 ﻿using MaterialSkin;
 using Newtonsoft.Json;
+using TrionControlPanel.Desktop.Extensions.Modules;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
-using TrionControlPanelDesktop.Extensions.Modules;
 
-namespace TrionControlPanelDesktop.Extensions.Classes
+namespace TrionControlPanel.Desktop.Extensions.Classes
 {
     public class Settings
     {
-        public static void SaveSettings(AppSettings settings, string filePath)
+        public static async Task SaveSettings(AppSettings settings, string filePath)
         {
             string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
-            File.WriteAllText(filePath, json);
+           await File.WriteAllTextAsync(filePath, json);
         }
         public static AppSettings LoadSettings(string filePath)
         {
@@ -29,11 +29,11 @@ namespace TrionControlPanelDesktop.Extensions.Classes
                 WorldDatabase = "wotlk_world",
                 AuthDatabase = "wotlk_auth",
                 CharactersDatabase = "wotlk_characters",
-                HotfixDatabase = "N/A",
+                HotfixDatabase = "",
                 //Dataabase Settings
-                DBExeLoc = "N/A",
-                DBWorkingDir = "N/A",
-                DBLocation = "N/A",
+                DBExeLoc = "",
+                DBWorkingDir = "",
+                DBLocation = "",
                 DBServerHost = "localhost",
                 DBServerUser = "phoenix",
                 DBServerPassword = "phoenix",
@@ -99,14 +99,14 @@ namespace TrionControlPanelDesktop.Extensions.Classes
                 LaunchMoPCore = false,
                 MOPInstalled = false,
                 //DDNS Settings
-                DDNSDomain = "N/A",
-                DDNSUsername = "N/A",
-                DDNSPassword = "N/A",
+                DDNSDomain = "",
+                DDNSUsername = "",
+                DDNSPassword = "",
                 DDNSInterval = 1000,
                 IPAddress = "",
                 //Trion
                 TrionTheme = Enums.TrionTheme.TrionBlue,
-                TrionLanguage = "en",
+                TrionLanguage = "enUS",
                 AutoUpdateCore = true,
                 AutoUpdateTrion = true,
                 AutoUpdateDatabaseL = true,
@@ -198,12 +198,12 @@ namespace TrionControlPanelDesktop.Extensions.Classes
         public static Color ConvertToColor(Primary hexColor)
         {
             // Extract RGB components
-            int red = ((int)hexColor >> 16) & 0xFF; // Extract the red component
-            int green = ((int)hexColor >> 8) & 0xFF; // Extract the green component
+            int red = (int)hexColor >> 16 & 0xFF; // Extract the red component
+            int green = (int)hexColor >> 8 & 0xFF; // Extract the green component
             int blue = (int)hexColor & 0xFF; // Extract the blue component
 
             // Convert to hash color format
-            Color Color = ColorTranslator.FromHtml($"#{red:X2}{green:X2}{blue:X2}"); 
+            Color Color = ColorTranslator.FromHtml($"#{red:X2}{green:X2}{blue:X2}");
 
             return Color;
         }

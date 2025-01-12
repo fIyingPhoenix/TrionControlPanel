@@ -1,4 +1,6 @@
-﻿namespace TrionControlPanelDesktop.Extensions.Modules
+﻿using TrionControlPanel.Desktop.Extensions.Modules;
+
+namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {

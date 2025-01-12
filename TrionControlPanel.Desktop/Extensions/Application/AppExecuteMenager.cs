@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+using TrionControlPanel.Desktop.Extensions.Modules;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
-using TrionControlPanelDesktop.Extensions.Modules;
 using Windows.Storage;
 
-namespace TrionControlPanel.Desktop.Extensions.Classes
+namespace TrionControlPanel.Desktop.Extensions.Application
 {
     public class AppExecuteMenager
     {
@@ -106,7 +106,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             // Return the process ID (or 0 if the process failed to start).
             return id;
         }
-
         public static void ApplicationKill(int ApplicationID)
         {
             TrionLogger.Log($"Killing application {ApplicationID}");
@@ -130,7 +129,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             catch (Exception ex)
             {
                 TrionLogger.Log($"Failed: {ex.Message}");
-               // Infos.Message = $"Error: {ex.Message}";
+                // Infos.Message = $"Error: {ex.Message}";
             }
         }
         private static async Task SendCtrlC(Process process)
@@ -138,7 +137,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             // Attach to the process's console
             if (AttachConsole((uint)process.Id))
 
-            TrionLogger.Log($"Send ctrl-C to process {process.Id}");
+                TrionLogger.Log($"Send ctrl-C to process {process.Id}");
             // Set up a control-C event handler to ignore it in this process
             SetConsoleCtrlHandler(null!, true);
 
@@ -174,7 +173,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         {
             try
             {
-              foreach (var Process in SystemData.GetDatabaseProcessID())
+                foreach (var Process in SystemData.GetDatabaseProcessID())
                 {
                     await ApplicationStop(Process.ID);
 
@@ -199,7 +198,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     Settings.ConsolHide,
                     null!
                 );
-               SystemData.AddToWorldProcessesID(new ProcessID()
+                SystemData.AddToWorldProcessesID(new ProcessID()
                 { ID = ID, Name = Settings.CustomWorldExeName });
                 FormData.UI.Form.CustWorldStarted = true;
             }
@@ -376,52 +375,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             FormData.UI.Form.MOPWorldStarted = false;
             SystemData.CleanWolrdProcessID();
         }
-        public static async Task StopWorldByExpansion(AppSettings Settings)
-        {
-            if (FormData.UI.Form.CustWorldStarted && FormData.UI.Form.ClassicWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.ClassicWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.CustWorldStarted = false;
-            }
-            if (FormData.UI.Form.ClassicWorldStarted && FormData.UI.Form.ClassicWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.ClassicWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.ClassicWorldStarted = false;
-            }
-            if (FormData.UI.Form.TBCWorldStarted && FormData.UI.Form.TBCWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.TBCWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.TBCWorldStarted = false;
-            }
-            if (FormData.UI.Form.WotLKWorldStarted && FormData.UI.Form.WotLKWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.WotLKWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.WotLKWorldStarted = false;
-                return;
-            }
-            if (FormData.UI.Form.CataWorldStarted && FormData.UI.Form.CataWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.CataWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.CataWorldStarted = false;
-            }
-            if (FormData.UI.Form.MOPWorldStarted && FormData.UI.Form.MOPWorldRunning)
-            {
-                var processToRemove = SystemData.GetWorldProcessesID().Single(r => r.Name == Settings.MoPWorldName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromWorldProcessesID(processToRemove);
-                FormData.UI.Form.MOPWorldStarted = false;
-            }
-        }
         public static async Task StopLogon()
         {
             foreach (var Process in SystemData.GetLogonProcessesID())
@@ -436,50 +389,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             FormData.UI.Form.MOPLogonStarted = false;
             SystemData.CleanLogonProcessID();
         }
-        public static async Task StopLogonByName(AppSettings Settings)
+        public static async Task StartWorldSeparate()
         {
-            if (FormData.UI.Form.CustLogonStarted && FormData.UI.Form.CustLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.CustomLogonExeName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.CustLogonStarted = false;
-            }
-            if (FormData.UI.Form.ClassicLogonStarted && FormData.UI.Form.ClassicLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.ClassicLogonName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.ClassicLogonStarted = false;
-            }
-            if (FormData.UI.Form.TBCLogonStarted && FormData.UI.Form.TBCLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.TBCLogonName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.TBCLogonStarted = false;
-            }
-            if (FormData.UI.Form.WotLKLogonStarted && FormData.UI.Form.WotLKLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.WotLKLogonName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.WotLKLogonStarted = false;
-            }
-            if (FormData.UI.Form.CataLogonStarted && FormData.UI.Form.CataLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.CataLogonName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.CataLogonStarted = false;
-            }
-            if (FormData.UI.Form.MOPLogonStarted && FormData.UI.Form.MOPLogonRunning)
-            {
-                var processToRemove = SystemData.GetLogonProcessesID().Single(r => r.Name == Settings.MoPLogonName);
-                await ApplicationStop(processToRemove.ID);
-                SystemData.RemoveFromLogonProcessesID(processToRemove);
-                FormData.UI.Form.MOPLogonStarted = false;
-            }
+            await Task.CompletedTask;
+        }
+        public static async Task StartLogonSeparate()
+        {
+            await Task.CompletedTask;
         }
     }
 }
