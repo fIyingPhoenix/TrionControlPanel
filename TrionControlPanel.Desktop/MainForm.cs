@@ -400,6 +400,17 @@ namespace TrionControlPanelDesktop
             TGLCustomNames.Checked = _settings.CustomNames;
             TGLRunTrionStartup.Checked = _settings.RunWithWindows;
             TGLServerCrashDetection.Checked = _settings.ServerCrashDetection;
+            TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
+            TGLTBCLaunch.Checked = _settings.LaunchTBCCore;
+            TGLWotLKLaunch.Checked = _settings.LaunchWotLKCore;
+            TGLCataLaunch.Checked = _settings.LaunchCataCore;
+            TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
+            //CheckBoxes
+            ChecCLASSICInstalled.Checked = _settings.ClassicInstalled;
+            ChecTBCInstalled.Checked = _settings.TBCInstalled;
+            ChecWOTLKInstalled.Checked = _settings.WotLKInstalled;
+            ChecCATAInstalled.Checked = _settings.CataInstalled;
+            ChecMOPInstalled.Checked = _settings.MOPInstalled;
             //DDNS
             TXTDDNSDomain.Text = _settings.DDNSDomain;
             TXTDDNSUsername.Text = _settings.DDNSUsername;
@@ -475,19 +486,6 @@ namespace TrionControlPanelDesktop
             Update();   // Forces the repaint immediately
             Refresh();
         }
-        private void LoadToggles()
-        {
-            ChecCLASSICInstalled.Checked = _settings.ClassicInstalled;
-            ChecTBCInstalled.Checked = _settings.TBCInstalled;
-            ChecWOTLKInstalled.Checked = _settings.WotLKInstalled;
-            ChecCATAInstalled.Checked = _settings.CataInstalled;
-            ChecMOPInstalled.Checked = _settings.MOPInstalled;
-            TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
-            TGLTBCLaunch.Checked = _settings.LaunchTBCCore;
-            TGLWotLKLaunch.Checked = _settings.LaunchWotLKCore;
-            TGLCataLaunch.Checked = _settings.LaunchCataCore;
-            TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
-        }
         #endregion
         private AppSettings _settings;
         private MaterialSkinManager? materialSkinManager;
@@ -500,7 +498,6 @@ namespace TrionControlPanelDesktop
         {
             InitializeComponent();
             LoadSettings();
-            LoadToggles();
             GetAllLanguages();
             LoadSkin();
             //Initialize LoadLanguage 
@@ -591,7 +588,7 @@ namespace TrionControlPanelDesktop
             }
             else if (MainFormTabControler.SelectedTab == TabDatabaseEditor && !FormData.UI.Form.DBRunning)
             {
-                if (MaterialMessageBox.Show(this, _translator.Translate("DatabaseNotRunningErrorMbox"), _translator.Translate("MessageBoxTitleInfo"), MessageBoxButtons.OKCancel, MessageBoxIcon.Information, true, FlexibleMaterialForm.ButtonsPosition.Center) == DialogResult.OK)
+                if (MaterialMessageBox.Show(this, _translator.Translate("DatabaseNotRunningErrorMbox"), _translator.Translate("MessageBoxTitleInfo"), MessageBoxButtons.OKCancel, true, FlexibleMaterialForm.ButtonsPosition.Center) == DialogResult.OK)
                 {
                     BTNStartDatabase_Click(sender, e);
                 }
@@ -617,7 +614,7 @@ namespace TrionControlPanelDesktop
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.WorldStartTime;
                 LBLUpTimeWorld.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
-                PNLWorldServerStatus.BorderColor = Color.Green;
+                PNLWorldServerStatus.BorderColor = Color.LimeGreen;
                 PNLWorldServerStatus.Refresh();
                 PICWorldServerStatus.Image = Resources.cloud_online_64;
                 BTNStartWorld.Text = _translator.Translate("BTNStartWorldTextON");
@@ -625,7 +622,7 @@ namespace TrionControlPanelDesktop
             else
             {
                 LBLUpTimeWorld.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
-                PNLWorldServerStatus.BorderColor = Color.Red;
+                PNLWorldServerStatus.BorderColor = Color.DarkRed;
                 PNLWorldServerStatus.Refresh();
                 PICWorldServerStatus.Image = Resources.cloud_offline_64;
                 BTNStartWorld.Text = _translator.Translate("BTNStartWorldTextOFF");
@@ -634,7 +631,7 @@ namespace TrionControlPanelDesktop
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.LogonStartTime;
                 LBLUpTimeLogon.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
-                PNLLogonServerStatus.BorderColor = Color.Green;
+                PNLLogonServerStatus.BorderColor = Color.LimeGreen;
                 PNLLogonServerStatus.Refresh();
                 PICLogonServerStatus.Image = Resources.cloud_online_64;
                 BTNStartLogon.Text = _translator.Translate("BTNStartLogonTextON");
@@ -642,7 +639,7 @@ namespace TrionControlPanelDesktop
             else
             {
                 LBLUpTimeLogon.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
-                PNLLogonServerStatus.BorderColor = Color.Red;
+                PNLLogonServerStatus.BorderColor = Color.DarkRed;
                 PNLLogonServerStatus.Refresh();
                 PICLogonServerStatus.Image = Resources.cloud_offline_64;
                 BTNStartLogon.Text = _translator.Translate("BTNStartLogonTextOFF");
@@ -651,7 +648,7 @@ namespace TrionControlPanelDesktop
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.DatabaseStartTime;
                 LBLUpTimeDatabase.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
-                PNLDatanasServerStatus.BorderColor = Color.Green;
+                PNLDatanasServerStatus.BorderColor = Color.LimeGreen;
                 PNLDatanasServerStatus.Refresh();
                 PICDatabaseServerStatus.Image = Resources.cloud_online_64;
                 BTNStartDatabase.Text = _translator.Translate("BTNStartDatabaseTextON");
@@ -659,7 +656,7 @@ namespace TrionControlPanelDesktop
             else
             {
                 LBLUpTimeDatabase.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
-                PNLDatanasServerStatus.BorderColor = Color.Red;
+                PNLDatanasServerStatus.BorderColor = Color.DarkRed;
                 PNLDatanasServerStatus.Refresh();
                 PICDatabaseServerStatus.Image = Resources.cloud_offline_64;
                 BTNStartDatabase.Text = _translator.Translate("BTNStartDatabaseTextOFF");
@@ -771,6 +768,29 @@ namespace TrionControlPanelDesktop
         {
             await AppExecuteMenager.StartLogonSeparate();
         }
+        private void TGLClassicLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchClassicCore = TGLClassicLaunch.Checked;
+        }
+        private void TGLTBCLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchTBCCore = TGLTBCLaunch.Checked;
+        }
+
+        private void TGLWotLKLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchWotLKCore = TGLWotLKLaunch.Checked;
+        }
+
+        private void TGLCataLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchCataCore = TGLCataLaunch.Checked;
+        }
+
+        private void TGLMoPLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchMoPCore = TGLMoPLaunch.Checked;
+        }
         #endregion
         #region "Settings Page"
 
@@ -812,6 +832,5 @@ namespace TrionControlPanelDesktop
                 e.Handled = true; // Ignore the input if it's not a digit
             }
         }
-
     }
 }

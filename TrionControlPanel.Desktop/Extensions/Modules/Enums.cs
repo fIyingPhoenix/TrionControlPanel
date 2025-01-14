@@ -28,6 +28,7 @@
             PassTooLong,
             EmailTooLong,
             NameAlreadyExist,
+            EmailAlreadyExist,
             NameNotExist,
             DBInternalError,
             BadLink

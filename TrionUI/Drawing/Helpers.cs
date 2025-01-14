@@ -36,7 +36,7 @@ namespace TrionControlPanelDesktop.UI.Drawing
 		public static GraphicsPath RoundRect(float x, float y, float w, float h, double r = 0.3,
 			bool TL = true, bool TR = true, bool BR = true, bool BL = true)
 		{
-			GraphicsPath functionReturnValue = null;
+			GraphicsPath functionReturnValue = null!;
 			float d = Math.Min(w, h) * (float)r;
 			float xw = x + w;
 			float yh = y + h;

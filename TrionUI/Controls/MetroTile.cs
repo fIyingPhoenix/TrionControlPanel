@@ -139,7 +139,7 @@ namespace MetroFramework.Controls
             {
                 e.Graphics.Clear(MetroPaint.BackColor.Form.GetButtonColor(Theme, "Normal"));
 
-                using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
+                using (SolidBrush b = MetroPaint.GetStyleBrush(Style)!)
                 {
                     Point[] polyPoints = new Point[] { new Point(0, 0), new Point(Width - 1, 2), new Point(Width - 1, Height - 2), new Point(0, Height) };
                     e.Graphics.FillPolygon(b, polyPoints);
