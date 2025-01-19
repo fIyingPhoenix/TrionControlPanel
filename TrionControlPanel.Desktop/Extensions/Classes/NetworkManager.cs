@@ -1,4 +1,5 @@
-﻿using System.Net.NetworkInformation;
+﻿using Microsoft.VisualBasic.Logging;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 
@@ -25,18 +26,17 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 using (HttpClient client = new())
                 {
-                    string apiUrl = url; // Replace with your actual API URL
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    await TrionLogger.Log($"Getting Exter ipv4 address from{url}");
+                    HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
-                        await TrionLogger.Log($"Loaded Extern ipv4 address {result.IPv4Address}");
-                        return result.IPv4Address;
-
+                        await TrionLogger.Log($"Loaded Extern ipv4 address {result.iPv4Address}");
+                        return result.iPv4Address;
                     }
                     else
                     {
-                        await TrionLogger.Log($"Error fetching IP {response.StatusCode}", "ERROR");
+                        await TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
                         return "0.0.0.0";
                     }
 
@@ -44,7 +44,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Error fetching IP Message {ex.Message}", "ERROR");
+                await TrionLogger.Log($"Error fetching IP Message {ex.Message},Url {url}", "ERROR");
                 return "0.0.0.0";
             }
         }
@@ -68,7 +68,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             if (ipAddressInfo.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
-                                await TrionLogger.Log($"Loaded Intern ipv4 address{ipAddressInfo.Address}");
+                                await TrionLogger.Log($"Loaded Intern ipv4 address {ipAddressInfo.Address}");
                                 return ipAddressInfo.Address.ToString();
                             }
                         }
@@ -79,7 +79,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"No active physical IPv4 address found! {ex.Message} ", "ERROR");
+                await TrionLogger.Log($"No active physical IPv4 address found! {ex.Message}", "ERROR");
                 return "0.0.0.0";
             }
         }
@@ -94,7 +94,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                     // Send a GET request
                     HttpResponseMessage response = await client.GetAsync(url);
-
+                    await TrionLogger.Log($"Website: {url} status code: {response.StatusCode}");
                     // Check if the status code indicates success (200-299)
                     return response.IsSuccessStatusCode;
                 }
@@ -102,11 +102,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             catch (HttpRequestException)
             {
                 // Handle web exceptions (e.g., network issues)
+                await TrionLogger.Log($"Website: {url} Handle web exceptions");
                 return false;
             }
             catch (TaskCanceledException)
             {
                 // Handle timeout exception
+                await TrionLogger.Log($"Website: {url} Timeout");
                 return false;
             }
         }

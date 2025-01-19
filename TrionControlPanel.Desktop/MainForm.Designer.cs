@@ -2152,6 +2152,7 @@ namespace TrionControlPanelDesktop
             BTNEditRealmlistData.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNEditRealmlistData.UseAccentColor = false;
             BTNEditRealmlistData.UseVisualStyleBackColor = true;
+            BTNEditRealmlistData.Click += BTNEditRealmlistData_Click;
             // 
             // BTNOpenIntern
             // 
@@ -2451,7 +2452,7 @@ namespace TrionControlPanelDesktop
             TXTRealmGameBuild.Name = "TXTRealmGameBuild";
             TXTRealmGameBuild.PasswordChar = '\0';
             TXTRealmGameBuild.PrefixSuffixText = null;
-            TXTRealmGameBuild.ReadOnly = false;
+            TXTRealmGameBuild.ReadOnly = true;
             TXTRealmGameBuild.RightToLeft = RightToLeft.No;
             TXTRealmGameBuild.SelectedText = "";
             TXTRealmGameBuild.SelectionLength = 0;
@@ -2483,7 +2484,7 @@ namespace TrionControlPanelDesktop
             TXTRealmPort.Name = "TXTRealmPort";
             TXTRealmPort.PasswordChar = '\0';
             TXTRealmPort.PrefixSuffixText = null;
-            TXTRealmPort.ReadOnly = false;
+            TXTRealmPort.ReadOnly = true;
             TXTRealmPort.RightToLeft = RightToLeft.No;
             TXTRealmPort.SelectedText = "";
             TXTRealmPort.SelectionLength = 0;
@@ -2516,7 +2517,7 @@ namespace TrionControlPanelDesktop
             TXTRealmSubnetMask.Name = "TXTRealmSubnetMask";
             TXTRealmSubnetMask.PasswordChar = '\0';
             TXTRealmSubnetMask.PrefixSuffixText = null;
-            TXTRealmSubnetMask.ReadOnly = false;
+            TXTRealmSubnetMask.ReadOnly = true;
             TXTRealmSubnetMask.RightToLeft = RightToLeft.No;
             TXTRealmSubnetMask.SelectedText = "";
             TXTRealmSubnetMask.SelectionLength = 0;
@@ -2548,7 +2549,7 @@ namespace TrionControlPanelDesktop
             TXTRealmLocalAddress.Name = "TXTRealmLocalAddress";
             TXTRealmLocalAddress.PasswordChar = '\0';
             TXTRealmLocalAddress.PrefixSuffixText = null;
-            TXTRealmLocalAddress.ReadOnly = false;
+            TXTRealmLocalAddress.ReadOnly = true;
             TXTRealmLocalAddress.RightToLeft = RightToLeft.No;
             TXTRealmLocalAddress.SelectedText = "";
             TXTRealmLocalAddress.SelectionLength = 0;
@@ -2580,7 +2581,7 @@ namespace TrionControlPanelDesktop
             TXTRealmAddress.Name = "TXTRealmAddress";
             TXTRealmAddress.PasswordChar = '\0';
             TXTRealmAddress.PrefixSuffixText = null;
-            TXTRealmAddress.ReadOnly = false;
+            TXTRealmAddress.ReadOnly = true;
             TXTRealmAddress.RightToLeft = RightToLeft.No;
             TXTRealmAddress.SelectedText = "";
             TXTRealmAddress.SelectionLength = 0;
@@ -2612,7 +2613,7 @@ namespace TrionControlPanelDesktop
             TXTRealmName.Name = "TXTRealmName";
             TXTRealmName.PasswordChar = '\0';
             TXTRealmName.PrefixSuffixText = null;
-            TXTRealmName.ReadOnly = false;
+            TXTRealmName.ReadOnly = true;
             TXTRealmName.RightToLeft = RightToLeft.No;
             TXTRealmName.SelectedText = "";
             TXTRealmName.SelectionLength = 0;
@@ -2643,7 +2644,7 @@ namespace TrionControlPanelDesktop
             TXTRealmID.Name = "TXTRealmID";
             TXTRealmID.PasswordChar = '\0';
             TXTRealmID.PrefixSuffixText = null;
-            TXTRealmID.ReadOnly = false;
+            TXTRealmID.ReadOnly = true;
             TXTRealmID.RightToLeft = RightToLeft.No;
             TXTRealmID.SelectedText = "";
             TXTRealmID.SelectionLength = 0;

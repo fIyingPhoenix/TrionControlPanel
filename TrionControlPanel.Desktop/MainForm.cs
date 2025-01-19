@@ -493,6 +493,7 @@ namespace TrionControlPanelDesktop
         private int AppPageSize { get; } = 1;
         private int _worldCurrentPage = 1;
         private int _logonCurrentPage = 1;
+        private bool _editRealmList;
         #region"MainPage"
         //Loading...
         public MainForm()
@@ -592,6 +593,7 @@ namespace TrionControlPanelDesktop
                 if (MaterialMessageBox.Show(this, _translator.Translate("DatabaseNotRunningErrorMbox"), _translator.Translate("MessageBoxTitleInfo"), MessageBoxButtons.OKCancel, true, FlexibleMaterialForm.ButtonsPosition.Center) == DialogResult.OK)
                 {
                     BTNStartDatabase_Click(sender, e);
+                    LoadRealmList();
                 }
             }
         }
@@ -859,11 +861,11 @@ namespace TrionControlPanelDesktop
                 TXTRealmGameBuild.Text = "N/A";
                 TXTRealmAddress.Text = SearchList.Password;
                 TXTRealmAddress.Hint = _translator.Translate("TXTBoxCreateUserPassword");
-                TXTRealmName.ReadOnly = true;
-                TXTRealmLocalAddress.ReadOnly = true;
-                TXTRealmSubnetMask.ReadOnly = true;
-                TXTRealmPort.ReadOnly = true;
-                TXTRealmGameBuild.ReadOnly = true;
+                TXTRealmName.Enabled = false;
+                TXTRealmLocalAddress.Enabled = false;
+                TXTRealmSubnetMask.Enabled = false;
+                TXTRealmPort.Enabled = false;
+                TXTRealmGameBuild.Enabled = false;
             }
             if (_settings.SelectedCore == Cores.TrinityCore ||
                 _settings.SelectedCore == Cores.TrinityCore335 ||
@@ -882,11 +884,11 @@ namespace TrionControlPanelDesktop
                 TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
                 TXTRealmAddress.Text = SearchList!.Address;
                 TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
-                TXTRealmName.ReadOnly = false;
-                TXTRealmLocalAddress.ReadOnly = false;
-                TXTRealmSubnetMask.ReadOnly = false;
-                TXTRealmPort.ReadOnly = false;
-                TXTRealmGameBuild.ReadOnly = false;
+                TXTRealmName.Enabled = true;
+                TXTRealmLocalAddress.Enabled = true;
+                TXTRealmSubnetMask.Enabled = true;
+                TXTRealmPort.Enabled = true;
+                TXTRealmGameBuild.Enabled = true;
             }
             if (_settings.SelectedCore == Cores.CMaNGOS ||
                 _settings.SelectedCore == Cores.VMaNGOS)
@@ -901,17 +903,79 @@ namespace TrionControlPanelDesktop
                 TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
                 TXTRealmAddress.Text = SearchList!.Address;
                 TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
-                TXTRealmName.ReadOnly = false;
-                TXTRealmLocalAddress.ReadOnly = true;
-                TXTRealmSubnetMask.ReadOnly = true;
-                TXTRealmPort.ReadOnly = false;
-                TXTRealmGameBuild.ReadOnly = false;
+                TXTRealmName.Enabled = true;
+                TXTRealmLocalAddress.Enabled = false;
+                TXTRealmSubnetMask.Enabled = false;
+                TXTRealmPort.Enabled = true;
+                TXTRealmGameBuild.Enabled = true;
             }
         }
         private async void LoadIPAdress()
         {
+            var url = await Links.APIRequests.GetExternalIPv4();
             TXTInternIP.Text = await NetworkManager.GetInternalIpAddress();
-            TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(Links.APIServer);
+            TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(url);
+        }
+        private async Task SaveRealmListData()
+        {
+           
+            if (_settings.SelectedCore == Cores.TrinityCore ||
+                _settings.SelectedCore == Cores.TrinityCore335 ||
+                _settings.SelectedCore == Cores.TrinityCoreClassic ||
+                _settings.SelectedCore == Cores.AzerothCore ||
+                _settings.SelectedCore == Cores.CypherCore)
+            {
+                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(_settings.SelectedCore), new
+                {
+                    Name = TXTRealmName.Text,
+                    Address = TXTRealmAddress.Text,
+                    LocalAddress =TXTRealmLocalAddress.Text,
+                    LocalSubnetMask =TXTRealmSubnetMask.Text,
+                    Port = TXTRealmPort.Text,
+                    GameBuild = TXTRealmGameBuild.Text
+                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+            }
+            if (_settings.SelectedCore == Cores.CMaNGOS ||
+                _settings.SelectedCore == Cores.VMaNGOS)
+            {
+                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(_settings.SelectedCore), new
+                {
+                    Name = TXTRealmName.Text,
+                    Address = TXTRealmAddress.Text,
+                    Port = TXTRealmPort.Text,
+                    GameBuild = TXTRealmGameBuild.Text
+                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+            }
+            if (_settings.SelectedCore == Cores.AscEmu)
+            {
+                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(_settings.SelectedCore), new
+                {
+                    Password = TXTRealmAddress.Text,
+                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+            }
+
+        }
+        private async void BTNEditRealmlistData_Click(object sender, EventArgs e)
+        {
+            if (_editRealmList == true)
+            {
+                await SaveRealmListData();
+                BTNEditRealmlistData.Text = _translator.Translate("BTNEditRealmlistDataOFF");
+                TXTRealmName.ReadOnly = true;
+                TXTRealmLocalAddress.ReadOnly = true;
+                TXTRealmSubnetMask.ReadOnly = true;
+                TXTRealmPort.ReadOnly = true;
+                TXTRealmGameBuild.ReadOnly = true;
+                _editRealmList = false;
+            }else if(_editRealmList == false)
+            {
+                TXTRealmName.ReadOnly = false;
+                TXTRealmLocalAddress.ReadOnly = false;
+                TXTRealmSubnetMask.ReadOnly = false;
+                TXTRealmPort.ReadOnly = false;
+                TXTRealmGameBuild.ReadOnly = false;
+                _editRealmList = true;
+            }
         }
         #endregion
         #endregion

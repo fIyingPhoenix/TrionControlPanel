@@ -2,6 +2,7 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
@@ -55,16 +56,20 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             if (string.IsNullOrEmpty(connectionString))
             {
+                await TrionLogger.Log("Connection string cannot be null or empty.", "ERROR");
                 throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null or empty.");
+         
             }
 
             if (sql == null)
             {
+                await TrionLogger.Log("SQL query cannot be null", "ERROR");
                 throw new ArgumentNullException(nameof(sql), "SQL query cannot be null.");
             }
 
             if (parameters == null)
             {
+                await TrionLogger.Log("Parameters cannot be null.", "ERROR");
                 throw new ArgumentNullException(nameof(parameters), "Parameters cannot be null.");
             }
 
@@ -80,7 +85,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 catch (Exception ex)
                 {
                     // Handle any exception that occurs during connection or execution
-                    Console.WriteLine($"Error occurred: {ex.Message}");
+                    await TrionLogger.Log($"Error occurred: {ex.Message}", "ERROR");
                     throw;
                 }
                 finally

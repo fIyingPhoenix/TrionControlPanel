@@ -5,24 +5,33 @@ namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-
         public static string MainHost { get => "https://cdn1.flying-phoenix.dev/"; }
-        public static string BackupHost { get => "https://cdn.aclab.tech/"; }
-        public static async Task<string> WebServer ()
+        public static string BackupHost { get => "https://dev.aclab.tech/"; }
+        public static async Task<string> APIServer()
         {
-            if(await NetworkManager.IsWebsiteOnlineAsync(MainHost)) { return MainHost; }
+            if (!await NetworkManager.IsWebsiteOnlineAsync(MainHost)) { return MainHost; }
             if (await NetworkManager.IsWebsiteOnlineAsync(BackupHost)) { return BackupHost; }
-            return "localhost";
+            return "https://dev.aclab.tech/";
         }
-        public static string APIServer { get => "https://cdn1.flying-phoenix.dev/"; }
+        public static string WebServer { get => "https://flying-phoenix.dev/"; }
         public static string Support { get => "https://flying-phoenix.dev/support.php"; }
+        public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
+        public class APIRequests
+        {
+
+            public static async Task<string> GetExternalIPv4()
+            {
+                var url = await APIServer();
+                return $"{url}Trion/GetExternalIPv4";
+            }
+        }
         public class Emulators
         {
             public static string AscEmu { get => "https://github.com/AscEmu/"; }
             public static string AzerothCore { get => "https://github.com/AzerothCore/"; }
-            public static string CMaNGOS  { get => "https://github.com/cmangos/"; }
+            public static string CMaNGOS { get => "https://github.com/cmangos/"; }
             public static string CypherCore { get => "https://github.com/CypherCore/"; }
-            public static string FirelandsCore{ get => "https://github.com/FirelandsProject"; }
+            public static string FirelandsCore { get => "https://github.com/FirelandsProject"; }
             public static string TrinityCore { get => "https://github.com/trinityCore/"; }
             public static string VMaNGOS { get => "https://github.com/vmangos/"; }
             public static string SkyFire { get => "https://codeberg.org/ProjectSkyfire/"; }
@@ -37,8 +46,8 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             public static string Cata { get => $"{Directory.GetCurrentDirectory()}/cata"; }
             public static string Mop { get => $"{Directory.GetCurrentDirectory()}/mop"; }
         }
-        public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
-        public static string DDNSWebsits( Enums.DDNSerivce DDNSerivce)
+
+        public static string DDNSWebsits(Enums.DDNSerivce DDNSerivce)
         {
             return DDNSerivce switch
             {
@@ -57,5 +66,5 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             };
         }
     }
-    
+
 }

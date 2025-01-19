@@ -74,18 +74,11 @@
 <div align="center">
      <h4 align="center"> A Control Panel for WoW Emulator projects. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
 
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856004-ccd5e4e3-196d-4098-ac79-6dfa138d7937.jpg"> 
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856003-f24e775e-0d0d-4212-924f-2a96e4d5aaf5.jpg"> 
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856005-b3275017-17b2-4c0c-ae16-d1b8acc64fd8.jpg"> 
-</div>
-<br />
-<br />
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/81469821/175856004-ccd5e4e3-196d-4098-ac79-6dfa138d7937.jpg" alt="Image 1" width="400"/>
+  <img src="https://user-images.githubusercontent.com/81469821/175856003-f24e775e-0d0d-4212-924f-2a96e4d5aaf5.jpg" alt="Image 2" width="400"/>
+  <img src="https://user-images.githubusercontent.com/81469821/175856005-b3275017-17b2-4c0c-ae16-d1b8acc64fd8.jpg" alt="Image 3" width="400"/>
+</p>
 
 https://user-images.githubusercontent.com/81469821/175861632-4c8eefe7-a165-4ca5-a07e-08850f169263.MP4
 
