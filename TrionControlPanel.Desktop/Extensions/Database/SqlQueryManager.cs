@@ -1,6 +1,5 @@
 ﻿
 using TrionControlPanel.Desktop.Extensions.Modules;
-using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
 {
@@ -10,14 +9,14 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             return SelectedCore switch
             {
-                Enums.Cores.AscEmu => "UPDATE `realms` SET `password` = @Password, `status_change_time` = @StatusChangeTime WHERE `id` = @ID;",
-                Enums.Cores.AzerothCore => "UPDATE `realmlist` SET `name` = @Name, `address` = @Address, `localAddress` = @LocalAddress, `localSubnetMask` = @LocalSubnetMask, `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                Enums.Cores.CMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone, `allowedSecurityLevel` = @AllowedSecurityLevel WHERE `id` = @ID;",
-                Enums.Cores.CypherCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                Enums.Cores.TrinityCore335 => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                Enums.Cores.TrinityCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                Enums.Cores.TrinityCoreClassic => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `icon` = @Icon, `flag` = @Flag, `timezone` = @Timezone WHERE `id` = @ID;",
-                Enums.Cores.VMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `icon` = @Icon, `realmflags` = @Realmflags, `timezone` = @Timezone WHERE `id` = @ID;",
+                Enums.Cores.AscEmu => "UPDATE `realms` SET `password` = @Password WHERE `id` = @ID;",
+                Enums.Cores.AzerothCore => "UPDATE `realmlist` SET `name` = @Name, `address` = @Address, `localAddress` = @LocalAddress, `localSubnetMask` = @LocalSubnetMask, `port` = @Port, `gamebuild`= @GameBuild  WHERE `id` = @ID;",
+                Enums.Cores.CMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `realmbuilds` = @GameBuild WHERE `id` = @ID;",
+                Enums.Cores.CypherCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `gamebuild`= @GameBuild WHERE `id` = @ID;",
+                Enums.Cores.TrinityCore335 => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `gamebuild`= @GameBuild WHERE `id` = @ID;",
+                Enums.Cores.TrinityCore => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `gamebuild`= @GameBuild WHERE `id` = @ID;",
+                Enums.Cores.TrinityCoreClassic => $"UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `localAddress` = '@LocalAddress', `localSubnetMask` = '@LocalSubnetMask', `port` = @Port, `gamebuild`= @GameBuild WHERE `id` = @ID;",
+                Enums.Cores.VMaNGOS => "UPDATE `realmlist` SET `name` = '@Name', `address` = '@Address', `port` = @Port, `realmbuilds` = @GameBuild WHERE `id` = @ID;",
                 _ => ""
             };
         }
@@ -45,7 +44,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 case Enums.Cores.AzerothCore:
                     return "INSERT INTO account(username, salt, verifier, email, reg_mail, joindate) VALUES(@Username, @Salt, @Verifier, @Email, @RegMail, @JoinDate)";
                 case Enums.Cores.CMaNGOS:
-                    return "INSERT INTO `account` (`username`, `gmlevel`, `v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @GMLevel, @Verifier, @Salt, @Email, @JoinDate, @Expansion)";
+                    return "INSERT INTO `account` (`username`, `v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @Verifier, @Salt, @Email, @JoinDate, @Expansion)";
                 case Enums.Cores.CypherCore:
                     return "INSERT INTO account(username, salt, verifier, email, joindate) VALUES (@Username, @Salt, @Verifier, @Email, @JoinDate)";
                 case Enums.Cores.TrinityCore335:
@@ -55,7 +54,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 case Enums.Cores.TrinityCoreClassic:
                     return "INSERT INTO account(username, sha_pass_hash, email, joindate) VALUES (@Username, @ShaPassHash, @Email, @JoinDate)";
                 case Enums.Cores.VMaNGOS:
-                    return "INSERT INTO `account` (`username`, `gmlevel`, `v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @GMLevel, @Verifier, @Salt, @Email, @JoinDate, @Expansion)";
+                    return "INSERT INTO `account` (`username`,`v`, `s`, `email`, `joindate`, `expansion`) VALUES (@Username, @GMLevel, @Verifier, @Salt, @Email, @JoinDate, @Expansion)";
                 default:
                     return "";
             }

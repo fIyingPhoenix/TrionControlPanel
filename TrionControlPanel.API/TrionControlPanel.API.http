@@ -1,6 +1,0 @@
-@TrionControlPanel.API_HostAddress = http://localhost:5214
-
-GET {{TrionControlPanel.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

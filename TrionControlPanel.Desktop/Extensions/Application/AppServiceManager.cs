@@ -89,7 +89,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
-                TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                await TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
             }
         }
     }

@@ -1,12 +1,16 @@
-using TrionControlPanel.API.Components;
+using MudBlazor.Services;
+using TrionControlPanel.Web.Components;
 
-namespace TrionControlPanel.API
+namespace TrionControlPanel.Web
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add MudBlazor services
+            builder.Services.AddMudServices();
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
@@ -24,9 +28,9 @@ namespace TrionControlPanel.API
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
             app.UseAntiforgery();
 
+            app.MapStaticAssets();
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 

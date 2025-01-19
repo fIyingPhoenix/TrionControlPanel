@@ -33,6 +33,12 @@
             DBInternalError,
             BadLink
         }
+        public enum RealmListOpResult
+        {
+            Ok,
+            DBInternalError,
+            BadLink
+        }
         public enum TrionTheme
         {
             TrionBlue,

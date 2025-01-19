@@ -1,4 +1,4 @@
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Globalization;
 using TrionControlPanel.Desktop.Properties;
@@ -10,6 +10,7 @@ using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 using TrionControlPanel.Desktop.Extensions.Application;
+using TrionControlPanel.Desktop.Extensions.Database;
 
 
 namespace TrionControlPanelDesktop
@@ -581,10 +582,10 @@ namespace TrionControlPanelDesktop
         }
         private void MainFormTabControler_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LoadIPAdress();
             if (MainFormTabControler.SelectedTab == TabDatabaseEditor && FormData.UI.Form.DBRunning)
             {
-                //refresh data
-
+                LoadRealmList();
             }
             else if (MainFormTabControler.SelectedTab == TabDatabaseEditor && !FormData.UI.Form.DBRunning)
             {
@@ -792,6 +793,128 @@ namespace TrionControlPanelDesktop
             _settings.LaunchMoPCore = TGLMoPLaunch.Checked;
         }
         #endregion
+        #region"DatabaseEditor"
+        #region"Realmlist"
+
+        private void CBOXReamList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectRealmList();
+        }
+        private async void LoadRealmList()
+        {
+            if (_settings.SelectedCore == Cores.AscEmu)
+            {
+                var RealmLists = await RealmListMenager.GetRealmLists<Realmlist.AscemuBased>(_settings);
+                foreach (var RealmList in RealmLists)
+                {
+                    CBOXReamList.Items.Add(RealmList.ID);
+                    if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
+                    await TrionLogger.Log($"Realm List Loaded {RealmList.ID}");
+                }
+            }
+            if (_settings.SelectedCore == Cores.TrinityCore ||
+                _settings.SelectedCore == Cores.TrinityCore335 ||
+                _settings.SelectedCore == Cores.TrinityCoreClassic ||
+                _settings.SelectedCore == Cores.AzerothCore ||
+                _settings.SelectedCore == Cores.CypherCore)
+            {
+                var RealmLists = await RealmListMenager.GetRealmLists<Realmlist.TrinityBased>(_settings);
+                foreach (var RealmList in RealmLists)
+                {
+                    CBOXReamList.Items.Add(RealmList.Name);
+                    if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
+                    await TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
+
+                }
+            }
+            if (_settings.SelectedCore == Cores.CMaNGOS ||
+                _settings.SelectedCore == Cores.VMaNGOS)
+            {
+                var RealmLists = await RealmListMenager.GetRealmLists<Realmlist.MangosBased>(_settings);
+                foreach (var RealmList in RealmLists)
+                {
+                    CBOXReamList.Items.Add(RealmList.Name);
+                    if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
+                    await TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
+                }
+            }
+
+        }
+        private void BTNReviveIP_Click(object sender, EventArgs e)
+        {
+            TXTPublicIP.PasswordChar = TXTPublicIP.PasswordChar == '⛊' ? '\0' : '⛊';
+        }
+        private async void SelectRealmList()
+        {
+            if (_settings.SelectedCore == Cores.AscEmu)
+            {
+                var realmLists = await RealmListMenager.GetRealmLists<Realmlist.AscemuBased>(_settings);
+                var SearchList = realmLists.Find(obj =>
+                obj.ID.ToString(CultureInfo.InvariantCulture) == CBOXReamList.SelectedItem!.ToString());
+                TXTRealmID.Text = SearchList!.ID.ToString(CultureInfo.InvariantCulture);
+                TXTRealmName.Text = "N/A";
+                TXTRealmLocalAddress.Text = "N/A";
+                TXTRealmSubnetMask.Text = "N/A";
+                TXTRealmPort.Text = "N/A";
+                TXTRealmGameBuild.Text = "N/A";
+                TXTRealmAddress.Text = SearchList.Password;
+                TXTRealmAddress.Hint = _translator.Translate("TXTBoxCreateUserPassword");
+                TXTRealmName.ReadOnly = true;
+                TXTRealmLocalAddress.ReadOnly = true;
+                TXTRealmSubnetMask.ReadOnly = true;
+                TXTRealmPort.ReadOnly = true;
+                TXTRealmGameBuild.ReadOnly = true;
+            }
+            if (_settings.SelectedCore == Cores.TrinityCore ||
+                _settings.SelectedCore == Cores.TrinityCore335 ||
+                _settings.SelectedCore == Cores.TrinityCoreClassic ||
+                _settings.SelectedCore == Cores.AzerothCore ||
+                _settings.SelectedCore == Cores.CypherCore)
+            {
+                var realmLists = await RealmListMenager.GetRealmLists<Realmlist.TrinityBased>(_settings);
+                var SearchList = realmLists.Find(obj =>
+                obj.Name.ToString(CultureInfo.InvariantCulture) == CBOXReamList.SelectedItem!.ToString());
+                TXTRealmID.Text = SearchList!.ID.ToString(CultureInfo.InvariantCulture);
+                TXTRealmName.Text = SearchList!.Name;
+                TXTRealmLocalAddress.Text = SearchList!.LocalAddress;
+                TXTRealmSubnetMask.Text = SearchList!.LocalSubnetMask;
+                TXTRealmPort.Text = SearchList!.Port.ToString(CultureInfo.InvariantCulture);
+                TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
+                TXTRealmAddress.Text = SearchList!.Address;
+                TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
+                TXTRealmName.ReadOnly = false;
+                TXTRealmLocalAddress.ReadOnly = false;
+                TXTRealmSubnetMask.ReadOnly = false;
+                TXTRealmPort.ReadOnly = false;
+                TXTRealmGameBuild.ReadOnly = false;
+            }
+            if (_settings.SelectedCore == Cores.CMaNGOS ||
+                _settings.SelectedCore == Cores.VMaNGOS)
+            {
+                var realmLists = await RealmListMenager.GetRealmLists<Realmlist.MangosBased>(_settings);
+                var SearchList = realmLists.Find(obj =>
+                obj.Name.ToString(CultureInfo.InvariantCulture) == CBOXReamList.SelectedItem!.ToString());
+                TXTRealmName.Text = SearchList!.Name;
+                TXTRealmLocalAddress.Text = "N/A";
+                TXTRealmSubnetMask.Text = "N/A";
+                TXTRealmPort.Text = SearchList!.Port.ToString(CultureInfo.InvariantCulture);
+                TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
+                TXTRealmAddress.Text = SearchList!.Address;
+                TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
+                TXTRealmName.ReadOnly = false;
+                TXTRealmLocalAddress.ReadOnly = true;
+                TXTRealmSubnetMask.ReadOnly = true;
+                TXTRealmPort.ReadOnly = false;
+                TXTRealmGameBuild.ReadOnly = false;
+            }
+        }
+        private async void LoadIPAdress()
+        {
+            TXTInternIP.Text = await NetworkManager.GetInternalIpAddress();
+            TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(Links.APIServer);
+        }
+        #endregion
+        #endregion
         #region "Settings Page"
 
         private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -832,5 +955,6 @@ namespace TrionControlPanelDesktop
                 e.Handled = true; // Ignore the input if it's not a digit
             }
         }
+
     }
 }

@@ -1,12 +1,19 @@
-﻿using TrionControlPanel.Desktop.Extensions.Modules;
+﻿using TrionControlPanel.Desktop.Extensions.Classes;
+using TrionControlPanel.Desktop.Extensions.Modules;
 
 namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-        public static string MainCDNHost { get => "https://cdn1.flying-phoenix.dev/"; }
-        public static string BackupCDNHost { get => "https://cdn.aclab.tech/"; }
-        public static string WebServer { get => "https://flying-phoenix.dev/"; }
+
+        public static string MainHost { get => "https://cdn1.flying-phoenix.dev/"; }
+        public static string BackupHost { get => "https://cdn.aclab.tech/"; }
+        public static async Task<string> WebServer ()
+        {
+            if(await NetworkManager.IsWebsiteOnlineAsync(MainHost)) { return MainHost; }
+            if (await NetworkManager.IsWebsiteOnlineAsync(BackupHost)) { return BackupHost; }
+            return "localhost";
+        }
         public static string APIServer { get => "https://cdn1.flying-phoenix.dev/"; }
         public static string Support { get => "https://flying-phoenix.dev/support.php"; }
         public class Emulators
@@ -19,26 +26,6 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             public static string TrinityCore { get => "https://github.com/trinityCore/"; }
             public static string VMaNGOS { get => "https://github.com/vmangos/"; }
             public static string SkyFire { get => "https://codeberg.org/ProjectSkyfire/"; }
-        }
-        public class Version
-        {
-            public static string Trion { get => "version/trion.ver"; }
-            public static string Database { get => "version/database.ver"; }
-            public static string Classic { get => "version/classic.ver"; }
-            public static string TBC { get => "version/tbc.ver"; }
-            public static string WotLK { get => "version/wotlk.ver"; }
-            public static string Cata { get => "version/cata.ver"; }
-            public static string Mop { get => "version/mop.ver"; }
-        }
-        public class Hashe
-        {
-            public static string Trion { get => "data/trionHashes.xml"; }
-            public static string Database { get => "data/databaseHashes.xml"; }
-            public static string Classic { get => "data/classicHashes.xml"; }
-            public static string TBC { get => "data/tbcHashes.xml"; }
-            public static string WotLK { get => "data/wotlkHashes.xml"; }
-            public static string Cata { get => "data/cataHashes.xml"; }
-            public static string Mop { get => "data/mopHashes.xml"; }
         }
         public class Install
         {

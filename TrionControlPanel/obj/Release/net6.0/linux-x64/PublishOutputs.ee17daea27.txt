@@ -1,5 +1,0 @@
-D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Release\net6.0\linux-x64\PubTmp\Out\appsettings.Development.json
-D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Release\net6.0\linux-x64\PubTmp\Out\appsettings.json
-D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Release\net6.0\linux-x64\PubTmp\Out\TrionControlPanel.pdb
-D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Release\net6.0\linux-x64\PubTmp\Out\TrionLibrary.pdb
-D:\Repos\Git\Trion Control Panel\TrionControlPanel\TrionControlPanel\obj\Release\net6.0\linux-x64\PubTmp\Out\TrionControlPanel
