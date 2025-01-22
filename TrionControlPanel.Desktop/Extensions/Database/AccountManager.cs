@@ -1,4 +1,6 @@
-﻿using TrionControlPanel.Desktop.Extensions.Cryptography;
+﻿using System.Text;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+using TrionControlPanel.Desktop.Extensions.Cryptography;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 
@@ -24,9 +26,18 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             if (string.IsNullOrEmpty(password) || password.Length > MaxBnetPassLength)
                 return AccountOpResult.PassTooLong;
 
-            if (await GetUser(username, Settings) != 0 )
-                return AccountOpResult.NameAlreadyExist;
+            var srpUsername = SRP6.GetSrpUsername(email.ToUpper());
+            byte[] salt = SRP6.GenerateSalt();
+            byte[] verifier = SRP6.V2SHA256.CreateVerifier(srpUsername, password, salt);
 
+            try
+            {
+
+            }
+            catch (Exception ex) 
+            {
+                await TrionLogger.Log($"Error creating BnetAccount Messsage :{ex.Message}", "ERROR");
+            }
             return AccountOpResult.Ok;
 
         }
@@ -68,7 +79,6 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 {
                     return AccountOpResult.DBInternalError;
                 }
-
             }
             if (Settings.SelectedCore == Cores.AscEmu)
             {
@@ -127,5 +137,13 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 Email
             }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
         }
+        public static async Task<int> GetUserID(string Username, AppSettings Settings)
+        {
+            return await AccessManager.LoadDataType<int, dynamic>(SqlQueryManager.GetUserID(Settings.SelectedCore), new
+            {
+                Username
+            }, AccessManager.ConnectionString(Settings , Settings.AuthDatabase));
+        }
+
     }
 }

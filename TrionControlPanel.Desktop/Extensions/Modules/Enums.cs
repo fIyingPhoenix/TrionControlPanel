@@ -37,6 +37,7 @@
         {
             Ok,
             DBInternalError,
+            BadEmulator,
             BadLink
         }
         public enum TrionTheme

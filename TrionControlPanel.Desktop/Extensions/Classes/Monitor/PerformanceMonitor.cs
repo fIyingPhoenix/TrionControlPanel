@@ -102,7 +102,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                     // Infos.Message = "Could not find process with PID " + ProcessID;
                 }
 
-                TimeSpan startCpuUsage = process.TotalProcessorTime;
+                TimeSpan startCpuUsage = process!.TotalProcessorTime;
                 DateTime startTime = DateTime.UtcNow;
 
                 Thread.Sleep(500); // Wait a second to get a CPU usage sample

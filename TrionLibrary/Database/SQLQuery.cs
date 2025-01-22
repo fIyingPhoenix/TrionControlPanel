@@ -49,5 +49,6 @@ namespace TrionLibrary.Database
                 _ => ""
             };
         }
+        public static string UpdateRealmAddress() { }
     }
 }

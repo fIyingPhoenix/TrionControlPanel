@@ -152,7 +152,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     $@"datadir=""{DatabaseDirectory}\data""",
                     "bind-address=0.0.0.0",
                     "port=3306",
-                    "skip_name_resolve=1",
                     "",
                     "# Memory Allocation",
                     "innodb_buffer_pool_size=3G",

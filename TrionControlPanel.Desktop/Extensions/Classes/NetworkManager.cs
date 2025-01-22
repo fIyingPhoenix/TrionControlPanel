@@ -1,12 +1,24 @@
 ﻿using Microsoft.VisualBasic.Logging;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes
 {
     public class NetworkManager
     {
+        public static bool IsDomainName(string input)
+        {
+            // Regular expression pattern to match a domain name
+            string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.[A-Za-z]{2,6}(\.[A-Za-z]{2,6})?$";
+            Regex regex = new(pattern, RegexOptions.Compiled);
+
+            return regex.IsMatch(input);
+        }
         public static async Task<bool> IsPortOpen(int Port, string Host)
         {
             try
@@ -50,7 +62,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         }
         public static async Task<string> GetInternalIpAddress()
         {
-           
+
             try
             {
                 foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
@@ -112,6 +124,55 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return false;
             }
         }
+        public static async Task<bool> UpdateDNSIP(AppSettings Settings)
+        {
+            if (!string.IsNullOrEmpty(Settings.DDNSDomain) && !string.IsNullOrEmpty(Settings.IPAddress))
+            {
+                try
+                {
+                    // Create a request for the URL
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Links.DDNSWebsits(Settings.DDNSerivce));
+                    request.Method = "GET";
 
+                    // Get the response
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        // Check the status code
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            // Request succeeded
+                            await TrionLogger.Log($"DNS update request succeeded! IP{Settings.IPAddress}, Domain: {Settings.DDNSDomain}");
+                            return true;
+                        }
+                        else
+                        {
+                            // Request failed
+                            await TrionLogger.Log($"Response status code: {response.StatusCode}", "ERROR");
+                            return false;
+                        }
+                    }
+                }
+                catch (WebException webEx)
+                {
+                    // Handle web exceptions, e.g., 404, 500, etc.
+                    if (webEx.Response is HttpWebResponse errorResponse)
+                    {
+                        await TrionLogger.Log($"Request failed with status code: {errorResponse.StatusCode}", "ERROR");
+                    }
+                    else
+                    {
+                        await TrionLogger.Log($"Request failed: {webEx.Message}", "ERROR");
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    // Handle other exceptions
+                    await TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                    return false;
+                }
+            }
+            return false;
+        }
     }
 }

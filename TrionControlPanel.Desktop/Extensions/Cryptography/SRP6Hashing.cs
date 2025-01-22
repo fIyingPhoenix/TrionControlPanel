@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TrionControlPanel.Desktop.Extensions.Cryptography
 {
-    public class SRP6
+    public static class SRP6
     {
         public class V2SHA256
         {
@@ -33,6 +33,7 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
             {
                 return verifier.SequenceEqual(CreateVerifier(username, password, salt));
             }
+
         }
         public class LegecySHA1
         {
@@ -61,11 +62,21 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
                 return verifier.SequenceEqual(CreateVerifier(username, password, salt));
             }
         }
+        public static string GetSrpUsername(string name, bool reverse = false)
+        {
+            return ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(name)), reverse);
+        }
+        public static string ToHexString(this byte[] byteArray, bool reverse = false)
+        {
+            if (reverse)
+                return byteArray.Reverse().Aggregate("", (current, b) => current + b.ToString("X2"));
+            else
+                return byteArray.Aggregate("", (current, b) => current + b.ToString("X2"));
+        }
         public static byte[] GenerateSalt()
         {
             return RandomNumberGenerator.GetBytes(32);
         }
 
-    
     }
 }

@@ -100,5 +100,7 @@
         public Enums.DDNSerivce DDNSerivce { get; set; } = Enums.DDNSerivce.DuckDNS;
         public Enums.SPP SelectedSPP { get; set; } = Enums.SPP.WrathOfTheLichKing;
         public Enums.Databases SelectedDatabases { get; set; } = Enums.Databases.WotLK;
+        //Account
+        public bool CreateBnetAccount { get; set; }
     }
 }

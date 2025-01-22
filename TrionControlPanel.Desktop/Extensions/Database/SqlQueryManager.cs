@@ -5,7 +5,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
 {
     public class SqlQueryManager
     {
-        public static string SaveRealmList(Enums.Cores SelectedCore)
+        public static string UpdateRealmList(Enums.Cores SelectedCore)
         {
             return SelectedCore switch
             {
@@ -33,6 +33,30 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 Enums.Cores.TrinityCoreClassic => $"SELECT * FROM `realmlist` LIMIT 10;",
                 Enums.Cores.VMaNGOS => $"SELECT * FROM `realmlist` LIMIT 10;",
                 _ => ""
+            };
+        }
+        public static string GetUserID(Enums.Cores SelectedCore)
+        {
+            switch (SelectedCore)
+            {
+                case Enums.Cores.AscEmu:
+                    return "SELECT id FROM accounts WHERE username = @Username";
+                case Enums.Cores.AzerothCore:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.CMaNGOS:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.CypherCore:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.TrinityCore335:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.TrinityCore:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.TrinityCoreClassic:
+                    return "SELECT id FROM account WHERE username = @Username";
+                case Enums.Cores.VMaNGOS:
+                    return "SELECT id FROM account WHERE username = @Username";
+                default:
+                    return "";
             };
         }
         public static string CreateAccount(Enums.Cores SelectedCore)
@@ -103,6 +127,28 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "SELECT email FROM account WHERE email = @Email";
                 case Enums.Cores.VMaNGOS:
                     return "SELECT email FROM account WHERE email = @Email";
+                default:
+                    return "";
+            };
+        }
+        public static string UpdateRealmListAddress(Enums.Cores SelectedCore) 
+        {
+            switch (SelectedCore)
+            {
+                case Enums.Cores.AzerothCore:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.CMaNGOS:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.CypherCore:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.TrinityCore335:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.TrinityCore:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.TrinityCoreClassic:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
+                case Enums.Cores.VMaNGOS:
+                    return "UPDATE `realmlist` SET `address` = @Address WHERE `id` = @ID";
                 default:
                     return "";
             };

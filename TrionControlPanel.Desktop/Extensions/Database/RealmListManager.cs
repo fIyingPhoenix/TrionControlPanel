@@ -1,4 +1,5 @@
 ﻿
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 
@@ -14,60 +15,29 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 AccessManager.ConnectionString(Settings, Settings.AuthDatabase)
             );
         }
-
-        public static async Task<RealmListOpResult> SaveRealmList(
-        int ID, 
-        string? Name, 
-        string? Address,
-        string? LocalAddress, 
-        string? LocalSubnetMask, 
-        int? Port, 
-        int? GameBuild,
-        AppSettings Settings
-        )
+        public static async Task<RealmListOpResult> UpdateTealmListAddress(int ID, string Address, AppSettings Settings)
         {
-            if(Settings.SelectedCore == Cores.AscEmu)
+            if (Settings.SelectedCore == Cores.AscEmu)
             {
-                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(Cores.AscEmu), new
-                {
-                    ID = ID,
-                    Password = Address
-
-                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                return RealmListOpResult.Ok;
+                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                return RealmListOpResult.BadEmulator;
             }
-            if (Settings.SelectedCore == Cores.VMaNGOS || Settings.SelectedCore == Cores.CMaNGOS)
+            try
             {
-                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(Cores.AscEmu), new
+                await AccessManager.SaveData(SqlQueryManager.UpdateRealmListAddress(Settings.SelectedCore), new
                 {
                     ID,
-                    Name,
                     Address,
-                    Port,
-                    GameBuild,
-
                 }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
+                await TrionLogger.Log($"Address update for ID: {ID} Emulatro: {Settings.SelectedCore} Address:{Address}");
                 return RealmListOpResult.Ok;
-            }
-            if (Settings.SelectedCore == Cores.TrinityCore || Settings.SelectedCore == Cores.TrinityCore335 ||
-                Settings.SelectedCore == Cores.TrinityCoreClassic || Settings.SelectedCore == Cores.CypherCore ||
-                Settings.SelectedCore == Cores.AzerothCore
-                )
+                
+
+            } catch (Exception ex)
             {
-                await AccessManager.SaveData(SqlQueryManager.SaveRealmList(Cores.AscEmu), new
-                {
-                    ID,
-                    Name,
-                    Address,
-                    LocalAddress,
-                    LocalSubnetMask,
-                    Port,
-                    GameBuild,
-
-                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                return RealmListOpResult.Ok;
+               await TrionLogger.Log(ex.Message, "ERROR");
+                return RealmListOpResult.DBInternalError;
             }
-            return RealmListOpResult.BadLink;
         }
     }
 }

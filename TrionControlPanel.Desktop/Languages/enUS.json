@@ -25,6 +25,7 @@
   "MessageBoxTitleInfo": "Information",
   "MessageBoxTitleError": "Error",
   "MessageBoxTitleSuccess": "Success",
+  "TrionFormText": "Trion Control Panel",
   //-----------------------------Home Page-----------------------
   "LBLCardMachineResourcesTitle": "machine resources",
   "LBLCardWorldResourcesTitle": "WORLD SERVER RESOURCES",
