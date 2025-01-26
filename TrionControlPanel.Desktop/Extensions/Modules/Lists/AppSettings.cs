@@ -84,6 +84,7 @@
         //Trion
         public Enums.TrionTheme TrionTheme { get; set; } = Enums.TrionTheme.TrionBlue;
         public string TrionLanguage { get; set; } = "en";
+        public string SupporterKey { get; set; } = "null";
         public bool AutoUpdateCore { get; set; } = true;
         public bool AutoUpdateTrion { get; set; } = true;
         public bool AutoUpdateDatabaseL { get; set; } = true;

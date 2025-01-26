@@ -13,6 +13,7 @@ using TrionControlPanel.Desktop.Extensions.Application;
 using TrionControlPanel.Desktop.Extensions.Database;
 using NotificationSystem;
 using System.Diagnostics;
+using TrionControlPanel.Desktop;
 
 
 namespace TrionControlPanelDesktop
@@ -181,6 +182,7 @@ namespace TrionControlPanelDesktop
             LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLWotLKVersion"), "1", "1");
             LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), "1", "1");
             LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), "1", "1");
+            TXTSupporterKey.Hint = _translator.Translate("TXTSupporterKeyHint");
             #endregion
             #region"Custom Emulators"
             TXTCustomDatabaseLocation.Hint = _translator.Translate("TXTCustomDatabaseLocation");
@@ -409,6 +411,8 @@ namespace TrionControlPanelDesktop
             TGLWotLKLaunch.Checked = _settings.LaunchWotLKCore;
             TGLCataLaunch.Checked = _settings.LaunchCataCore;
             TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
+            TGLServerStartup.Checked = _settings.RunServerWithWindows;
+            TGLAutoUpdateDatabase.Checked = _settings.AutoUpdateDatabaseL;
             //CheckBoxes
             ChecCLASSICInstalled.Checked = _settings.ClassicInstalled;
             ChecTBCInstalled.Checked = _settings.TBCInstalled;
@@ -423,6 +427,8 @@ namespace TrionControlPanelDesktop
             TGLDDNSRunOnStartup.Checked = _settings.DDNSRunOnStartup;
             TimerDinamicDNS.Enabled = _settings.DDNSRunOnStartup;
             TimerDinamicDNS.Interval = _settings.DDNSInterval;
+            //SupporterKet
+            TXTSupporterKey.Text = _settings.SupporterKey;
         }
         private void LoadSkin()
         {
@@ -497,25 +503,24 @@ namespace TrionControlPanelDesktop
         private int AppPageSize { get; } = 1;
         private int _worldCurrentPage { get; set; } = 1;
         private int _logonCurrentPage { get; set; } = 1;
-        private bool _editRealmList { get; set; } 
+        private bool _editRealmList { get; set; }
         static System.Threading.Timer TimerKeyPress { get; set; }
         #region"MainPage"
         //Loading...
         public MainForm()
         {
             InitializeComponent();
-            LoadSettings();
-            GetAllLanguages();
-            LoadSkin();
-            //Initialize LoadLanguage 
-            LoadLangauge();
-
             //Initialize MaterialSkinManager
             //Check if an update has ben Dowloaded and Delete it!
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
         private void MainForm_LoadAsync(object sender, EventArgs e)
         {
+            LoadSettings();
+            GetAllLanguages();
+            LoadSkin();
+            //Initialize LoadLanguage 
+            LoadLangauge();
             //Set max ram to progressbar
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
         }
@@ -1049,7 +1054,20 @@ namespace TrionControlPanelDesktop
         }
         #endregion
         #region "Settings Page"
-
+        #region"CustomRepack"
+        private void TGLUseCustomServer_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.LaunchCustomCore = TGLUseCustomServer.Checked;
+        }
+        private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.CustomNames = TGLCustomNames.Checked;
+            TXTCustomWorldName.ReadOnly = !_settings.CustomNames;
+            TXTCustomDatabaseName.ReadOnly = !_settings.CustomNames;
+            TXTCustomAuthName.ReadOnly = !_settings.CustomNames;
+        }
+        #endregion
+        #region"Trion"
         private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (CBOXColorSelect.SelectedItem)
@@ -1079,6 +1097,51 @@ namespace TrionControlPanelDesktop
             LoadLangauge();
             Refresh();
         }
+        private void TGLServerCrashDetection_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.ServerCrashDetection = TGLServerCrashDetection.Checked;
+        }
+
+        private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.RunServerWithWindows = TGLServerStartup.Checked;
+        }
+
+        private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.RunWithWindows = TGLRunTrionStartup.Checked;
+        }
+
+        private void TGLHideConsole_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.ConsolHide = TGLHideConsole.Checked;
+        }
+
+        private void TGLNotificationSound_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.NotificationSound = TGLNotificationSound.Checked;
+        }
+
+        private void TGLStayInTray_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.StayInTray = TGLStayInTray.Checked;
+        }
+
+        private void TGLAutoUpdateTrion_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
+        }
+
+        private void TGLAutoUpdateCore_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
+        }
+
+        private void TGLAutoUpdateDatabase_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.AutoUpdateDatabaseL = TGLAutoUpdateDatabase.Checked;
+        }
+        #endregion
         #endregion
         private void TXTOnlyNumbers(object sender, KeyPressEventArgs e)
         {
@@ -1101,7 +1164,17 @@ namespace TrionControlPanelDesktop
             _settings.DDNSPassword = TXTDDNSPassword.Text;
             _settings.DDNSInterval = int.Parse(TXTDDNSInterval.Text, CultureInfo.InvariantCulture);
             _settings.DDNSUsername = TXTDDNSUsername.Text;
+            _settings.SupporterKey = TXTSupporterKey.Text;
+            _settings.AuthDatabase = TXTAuthDatabase.Text;
+            _settings.CharactersDatabase = TXTCharDatabase.Text;
+            _settings.WorldDatabase = TXTWorldDatabase.Text;
+            _settings.DBServerHost = TXTDatabaseHost.Text;
+            _settings.DBServerPassword = TXTDatabasePassword.Text;
+            _settings.DBServerPort = TXTDatabasePort.Text;
+            _settings.DBServerUser = TXTDatabaseUser.Text;
+            _settings.CustomWorldExeName = TXTCustomWorldName.Text;
+            _settings.CustomLogonExeName = TXTCustomAuthName.Text;
+            _settings.DBExeName = TXTCustomDatabaseName.Text;
         }
-
     }
 }
