@@ -1,31 +1,53 @@
 ﻿
+using System.Diagnostics;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using TrionControlPanel.Desktop.Extensions.Classes;
+using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Application
 {
     public class AppServiceManager
     {
-        public async static Task InstallSPP(AppSettings appSettings)
+        public static async Task GetAPIServer()
+        {
+            if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.MainHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.MainHost; }
+            if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
+            else { Links.APIServer = Links.MainHost; }
+        }
+        public async static Task<bool> InstallSPP(AppSettings appSettings)
         {
             switch (appSettings.SelectedSPP)
             {
                 case Modules.Enums.SPP.Classic:
-                    await Task.Delay(1000); 
-                    break;
-                case Modules.Enums.SPP.TheBurningCrusade:
+                    await Task.Delay(100);
                     //
-                    break;
+                    return false;
+
+                case Modules.Enums.SPP.TheBurningCrusade:
+                    return false;
+                   
                 case Modules.Enums.SPP.WrathOfTheLichKing:
                     //
-                    break;
+                    return false;
+                    
                 case Modules.Enums.SPP.Cataclysm:
                     //
-                    break;
+                    return false;
+                    
                 case Modules.Enums.SPP.MistOfPandaria:
                     //
-                    break;
+                    return false;
             }
+            return false;
+        }
+
+        public static async Task<List<FileList>> GetEmulatorInstallationList(AppSettings appSettings)
+        {
+            return [];
         }
         public async static Task RepairSPP(AppSettings appSettings)
         {

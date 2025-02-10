@@ -1,28 +1,34 @@
-﻿using TrionControlPanel.Desktop.Extensions.Classes;
+﻿using System.Collections.Generic;
+using TrionControlPanel.Desktop.Extensions.Classes;
 using TrionControlPanel.Desktop.Extensions.Modules;
+using Windows.ApplicationModel.AppService;
 
 namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-        public static string MainHost { get => "https://cdn1.flying-phoenix.dev/"; }
-        public static string BackupHost { get => "https://dev.aclab.tech/"; }
-        public static async Task<string> APIServer()
-        {
-            if (!await NetworkManager.IsWebsiteOnlineAsync(MainHost)) { return MainHost; }
-            if (await NetworkManager.IsWebsiteOnlineAsync(BackupHost)) { return BackupHost; }
-            return "https://dev.aclab.tech/";
-        }
+        public static string MainHost { get => "http://localhost:5000"; }
+        public static string BackupHost { get => "http://localhost:5000"; }
+        public static string APIServer { get; set; }
         public static string WebServer { get => "https://flying-phoenix.dev/"; }
         public static string Support { get => "https://flying-phoenix.dev/support.php"; }
         public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
         public class APIRequests
         {
-
-            public static async Task<string> GetExternalIPv4()
+            public static string GetServerFiles(string Emulator, string key)
             {
-                var url = await APIServer();
-                return $"{url}Trion/GetExternalIPv4";
+                var url = APIServer;
+                return $"{url}/Trion/GetServerFiles?Emulator={Emulator}&Key={key}";
+            }
+            public static string GetSPPVersion(string key)
+            {
+                var url = APIServer;
+                return $"{url}/Trion/GetFileVersion?Key={key}";
+            }
+            public static string GetExternalIPv4()
+            {
+                var url = APIServer;
+                return $"{url}/Trion/GetExternalIPv4";
             }
         }
         public class Emulators
@@ -46,7 +52,6 @@ namespace TrionControlPanelDesktop.Extensions.Modules
             public static string Cata { get => $"{Directory.GetCurrentDirectory()}/cata"; }
             public static string Mop { get => $"{Directory.GetCurrentDirectory()}/mop"; }
         }
-
         public static string DDNSWebsits(Enums.DDNSerivce DDNSerivce)
         {
             return DDNSerivce switch

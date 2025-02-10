@@ -87,7 +87,7 @@
         public string SupporterKey { get; set; } = "null";
         public bool AutoUpdateCore { get; set; } = true;
         public bool AutoUpdateTrion { get; set; } = true;
-        public bool AutoUpdateDatabaseL { get; set; } = true;
+        public bool AutoUpdateDatabase { get; set; } = true;
         public bool NotificationSound { get; set; }
         public bool ConsolHide { get; set; }
         public bool StayInTray { get; set; }

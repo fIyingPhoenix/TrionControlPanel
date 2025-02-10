@@ -42,28 +42,33 @@ namespace TrionControlPanel.API.Classes
                 return "N/A";
             }
         }
-        public static async Task<List<FileList>> GetFilesAsync(string filePath)
+        public static async Task<ConcurrentBag<FileList>> GetFilesAsync(string filePath)
         {
-            // Get all file paths from the directory
             var filePaths = Directory.GetFiles(filePath, "*", SearchOption.AllDirectories);
-            var FileList = new ConcurrentBag<FileList>();
+            var fileList = new ConcurrentBag<FileList>();
+            var batchSize = 1000; // Adjust based on your system's capabilities
 
-
-            Parallel.ForEach(filePaths, (file) =>
+            for (int i = 0; i < filePaths.Length; i += batchSize)
             {
-                var fileData = new FileList
+                var batch = filePaths.Skip(i).Take(batchSize).ToArray();
+                await Task.Run(() =>
                 {
-                    Name = Path.GetFileName(file),
-                    Size = file.Length / 1_000.0, // Size in KB
-                    Hash = EncryptManager.GetMd5HashFromFile(file),
-                    Path = filePath.Replace(@"\", "/")
-                };
-         
-                    FileList.Add(fileData);
-                
-            });
+                    Parallel.ForEach(batch, file =>
+                    {
+                        var fileInfo = new FileInfo(file);
+                        var fileData = new FileList
+                        {
+                            Name = fileInfo.Name,
+                            Size = fileInfo.Length / 1_000.0, // Size in KB
+                            Hash = EncryptManager.GetMd5HashFromFile(file).ToUpper(),
+                            Path = fileInfo.DirectoryName?.Replace(@"\", "/") // Optional: Normalize path
+                        };
+                        fileList.Add(fileData);
+                    });
+                });
+            }
 
-            return FileList.ToList();
+            return fileList;
         }
        
     }

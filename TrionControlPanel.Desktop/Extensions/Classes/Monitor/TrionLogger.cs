@@ -8,7 +8,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
             string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {message}";
             try
             {
-                using (StreamWriter writer = new("logs.tcp", append: true))
+                
+                using (StreamWriter writer = new("Trion.logs", append: true))
                 {
                    await writer.WriteLineAsync(logEntry);
                 }

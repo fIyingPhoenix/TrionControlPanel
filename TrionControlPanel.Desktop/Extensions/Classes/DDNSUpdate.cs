@@ -5,7 +5,7 @@ using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
 namespace TrionControlPanelDesktop.Extensions.Classes
 {
-    public class Update
+    public class DDNSUpdate
     {
         public static string DDNSUpdateURL(AppSettings Settings)
         {

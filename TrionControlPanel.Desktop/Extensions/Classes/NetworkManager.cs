@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.Logging;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
@@ -38,12 +39,12 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 using (HttpClient client = new())
                 {
-                    await TrionLogger.Log($"Getting Exter ipv4 address from{url}");
+                    await TrionLogger.Log($"Getting Exter ipv4 address from {url}");
                     HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
-                        await TrionLogger.Log($"Loaded Extern ipv4 address {result.iPv4Address}");
+                        await TrionLogger.Log($"Loaded Extern ipv4 address: {result.iPv4Address}");
                         return result.iPv4Address;
                     }
                     else
@@ -97,19 +98,16 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         }
         public static async Task<bool> IsWebsiteOnlineAsync(string url)
         {
+            await TrionLogger.Log($"Website: {url} Ckecking");
             try
             {
-                using (HttpClient client = new())
+                using HttpClient httpClient = new();
+                var response = await httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
                 {
-                    // Set a timeout to avoid hanging
-                    client.Timeout = TimeSpan.FromSeconds(10);
-
-                    // Send a GET request
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    await TrionLogger.Log($"Website: {url} status code: {response.StatusCode}");
-                    // Check if the status code indicates success (200-299)
-                    return response.IsSuccessStatusCode;
+                    return true;
                 }
+                return false;
             }
             catch (HttpRequestException)
             {

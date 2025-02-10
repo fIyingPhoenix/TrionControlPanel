@@ -34,12 +34,12 @@ namespace TrionControlPanelDesktop
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DataGridViewCellStyle dataGridViewCellStyle49 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle50 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle52 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle53 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle54 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle51 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             TimerWacher = new System.Windows.Forms.Timer(components);
             NIcon = new NotifyIcon(components);
             CMSNotify = new ContextMenuStrip(components);
@@ -218,6 +218,7 @@ namespace TrionControlPanelDesktop
             TabTrion = new TabPage();
             tableLayoutPanel4 = new TableLayoutPanel();
             materialCard6 = new MaterialSkin.Controls.MaterialCard();
+            BTNDownloadUpdates = new MaterialSkin.Controls.MaterialButton();
             TXTSupporterKey = new MaterialSkin.Controls.MaterialTextBox2();
             LBLCardCustomPreferencesInfo = new PictureBox();
             LBLCardCustomPreferencesTitle = new MaterialSkin.Controls.MaterialLabel();
@@ -225,19 +226,19 @@ namespace TrionControlPanelDesktop
             CBOXLanguageSelect = new MaterialSkin.Controls.MaterialComboBox();
             materialCard7 = new MaterialSkin.Controls.MaterialCard();
             tableLayoutPanel10 = new TableLayoutPanel();
-            metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateMopSPP = new MetroFramework.Controls.MetroPanel();
             LBLMoPVersion = new Label();
-            metroPanel6 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateCataSPP = new MetroFramework.Controls.MetroPanel();
             LBLCataVersion = new Label();
-            metroPanel5 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateWotlkSpp = new MetroFramework.Controls.MetroPanel();
             LBLWotLKVersion = new Label();
-            metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateTbcSPP = new MetroFramework.Controls.MetroPanel();
             LBLTBCVersion = new Label();
-            metroPanel3 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateClassicSPP = new MetroFramework.Controls.MetroPanel();
             LBLClassicVersion = new Label();
-            metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateDatabase = new MetroFramework.Controls.MetroPanel();
             LBLDBVersion = new Label();
-            metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            PNLUpdateTrion = new MetroFramework.Controls.MetroPanel();
             LBLTrionVersion = new Label();
             LBLCardUpdateDashboardInfo = new PictureBox();
             LBLCardUpdateDashboardTitle = new MaterialSkin.Controls.MaterialLabel();
@@ -323,6 +324,8 @@ namespace TrionControlPanelDesktop
             IMGListTabControler = new ImageList(components);
             TimerDinamicDNS = new System.Windows.Forms.Timer(components);
             TimerLoading = new System.Windows.Forms.Timer(components);
+            TimerUpdate = new System.Windows.Forms.Timer(components);
+            TimerPanelAnimation = new System.Windows.Forms.Timer(components);
             CMSNotify.SuspendLayout();
             LayoutPanelMain.SuspendLayout();
             HomeMenuCard.SuspendLayout();
@@ -389,13 +392,13 @@ namespace TrionControlPanelDesktop
             ((System.ComponentModel.ISupportInitialize)LBLCardCustomPreferencesInfo).BeginInit();
             materialCard7.SuspendLayout();
             tableLayoutPanel10.SuspendLayout();
-            metroPanel7.SuspendLayout();
-            metroPanel6.SuspendLayout();
-            metroPanel5.SuspendLayout();
-            metroPanel4.SuspendLayout();
-            metroPanel3.SuspendLayout();
-            metroPanel2.SuspendLayout();
-            metroPanel1.SuspendLayout();
+            PNLUpdateMopSPP.SuspendLayout();
+            PNLUpdateCataSPP.SuspendLayout();
+            PNLUpdateWotlkSpp.SuspendLayout();
+            PNLUpdateTbcSPP.SuspendLayout();
+            PNLUpdateClassicSPP.SuspendLayout();
+            PNLUpdateDatabase.SuspendLayout();
+            PNLUpdateTrion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LBLCardUpdateDashboardInfo).BeginInit();
             materialCard8.SuspendLayout();
             TabCustom.SuspendLayout();
@@ -555,7 +558,6 @@ namespace TrionControlPanelDesktop
             // 
             // TimerCrashDetected
             // 
-            TimerCrashDetected.Enabled = true;
             TimerCrashDetected.Interval = 5000;
             // 
             // LayoutPanelMain
@@ -3640,6 +3642,7 @@ namespace TrionControlPanelDesktop
             // materialCard6
             // 
             materialCard6.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard6.Controls.Add(BTNDownloadUpdates);
             materialCard6.Controls.Add(TXTSupporterKey);
             materialCard6.Controls.Add(LBLCardCustomPreferencesInfo);
             materialCard6.Controls.Add(LBLCardCustomPreferencesTitle);
@@ -3655,6 +3658,27 @@ namespace TrionControlPanelDesktop
             materialCard6.Padding = new Padding(4);
             materialCard6.Size = new Size(291, 347);
             materialCard6.TabIndex = 5;
+            // 
+            // BTNDownloadUpdates
+            // 
+            BTNDownloadUpdates.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            BTNDownloadUpdates.AutoSize = false;
+            BTNDownloadUpdates.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BTNDownloadUpdates.Cursor = Cursors.Hand;
+            BTNDownloadUpdates.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            BTNDownloadUpdates.Depth = 0;
+            BTNDownloadUpdates.HighEmphasis = true;
+            BTNDownloadUpdates.Icon = (Image)resources.GetObject("BTNDownloadUpdates.Icon");
+            BTNDownloadUpdates.Location = new Point(6, 237);
+            BTNDownloadUpdates.Margin = new Padding(4, 6, 4, 6);
+            BTNDownloadUpdates.MouseState = MaterialSkin.MouseState.HOVER;
+            BTNDownloadUpdates.Name = "BTNDownloadUpdates";
+            BTNDownloadUpdates.NoAccentTextColor = Color.Empty;
+            BTNDownloadUpdates.Size = new Size(277, 36);
+            BTNDownloadUpdates.TabIndex = 18;
+            BTNDownloadUpdates.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            BTNDownloadUpdates.UseAccentColor = false;
+            BTNDownloadUpdates.UseVisualStyleBackColor = true;
             // 
             // TXTSupporterKey
             // 
@@ -3783,15 +3807,16 @@ namespace TrionControlPanelDesktop
             // 
             // tableLayoutPanel10
             // 
+            tableLayoutPanel10.BackColor = Color.Transparent;
             tableLayoutPanel10.ColumnCount = 1;
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel10.Controls.Add(metroPanel7, 0, 6);
-            tableLayoutPanel10.Controls.Add(metroPanel6, 0, 5);
-            tableLayoutPanel10.Controls.Add(metroPanel5, 0, 4);
-            tableLayoutPanel10.Controls.Add(metroPanel4, 0, 3);
-            tableLayoutPanel10.Controls.Add(metroPanel3, 0, 2);
-            tableLayoutPanel10.Controls.Add(metroPanel2, 0, 1);
-            tableLayoutPanel10.Controls.Add(metroPanel1, 0, 0);
+            tableLayoutPanel10.Controls.Add(PNLUpdateMopSPP, 0, 6);
+            tableLayoutPanel10.Controls.Add(PNLUpdateCataSPP, 0, 5);
+            tableLayoutPanel10.Controls.Add(PNLUpdateWotlkSpp, 0, 4);
+            tableLayoutPanel10.Controls.Add(PNLUpdateTbcSPP, 0, 3);
+            tableLayoutPanel10.Controls.Add(PNLUpdateClassicSPP, 0, 2);
+            tableLayoutPanel10.Controls.Add(PNLUpdateDatabase, 0, 1);
+            tableLayoutPanel10.Controls.Add(PNLUpdateTrion, 0, 0);
             tableLayoutPanel10.Dock = DockStyle.Bottom;
             tableLayoutPanel10.Location = new Point(4, 66);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
@@ -3806,261 +3831,268 @@ namespace TrionControlPanelDesktop
             tableLayoutPanel10.Size = new Size(385, 277);
             tableLayoutPanel10.TabIndex = 10;
             // 
-            // metroPanel7
+            // PNLUpdateMopSPP
             // 
-            metroPanel7.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel7.Border = false;
-            metroPanel7.BorderColor = Color.LimeGreen;
-            metroPanel7.BorderSize = 0;
-            metroPanel7.Controls.Add(LBLMoPVersion);
-            metroPanel7.CustomBackground = false;
-            metroPanel7.Dock = DockStyle.Fill;
-            metroPanel7.HorizontalScrollbar = false;
-            metroPanel7.HorizontalScrollbarBarColor = true;
-            metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel7.HorizontalScrollbarSize = 10;
-            metroPanel7.Location = new Point(3, 237);
-            metroPanel7.Name = "metroPanel7";
-            metroPanel7.Size = new Size(379, 37);
-            metroPanel7.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel7.StyleManager = null;
-            metroPanel7.TabIndex = 6;
-            metroPanel7.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel7.VerticalScrollbar = false;
-            metroPanel7.VerticalScrollbarBarColor = true;
-            metroPanel7.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel7.VerticalScrollbarSize = 10;
+            PNLUpdateMopSPP.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateMopSPP.Border = true;
+            PNLUpdateMopSPP.BorderColor = Color.Black;
+            PNLUpdateMopSPP.BorderSize = 1;
+            PNLUpdateMopSPP.Controls.Add(LBLMoPVersion);
+            PNLUpdateMopSPP.CustomBackground = false;
+            PNLUpdateMopSPP.Dock = DockStyle.Fill;
+            PNLUpdateMopSPP.HorizontalScrollbar = false;
+            PNLUpdateMopSPP.HorizontalScrollbarBarColor = true;
+            PNLUpdateMopSPP.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateMopSPP.HorizontalScrollbarSize = 10;
+            PNLUpdateMopSPP.Location = new Point(3, 237);
+            PNLUpdateMopSPP.Name = "PNLUpdateMopSPP";
+            PNLUpdateMopSPP.Padding = new Padding(2);
+            PNLUpdateMopSPP.Size = new Size(379, 37);
+            PNLUpdateMopSPP.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateMopSPP.StyleManager = null;
+            PNLUpdateMopSPP.TabIndex = 6;
+            PNLUpdateMopSPP.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateMopSPP.VerticalScrollbar = false;
+            PNLUpdateMopSPP.VerticalScrollbarBarColor = true;
+            PNLUpdateMopSPP.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateMopSPP.VerticalScrollbarSize = 10;
             // 
             // LBLMoPVersion
             // 
             LBLMoPVersion.BackColor = Color.Transparent;
             LBLMoPVersion.Dock = DockStyle.Fill;
             LBLMoPVersion.ForeColor = Color.White;
-            LBLMoPVersion.Location = new Point(0, 0);
+            LBLMoPVersion.Location = new Point(2, 2);
             LBLMoPVersion.Name = "LBLMoPVersion";
-            LBLMoPVersion.Size = new Size(379, 37);
+            LBLMoPVersion.Size = new Size(375, 33);
             LBLMoPVersion.TabIndex = 47;
             LBLMoPVersion.Text = "Uptime";
             LBLMoPVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel6
+            // PNLUpdateCataSPP
             // 
-            metroPanel6.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel6.Border = false;
-            metroPanel6.BorderColor = Color.LimeGreen;
-            metroPanel6.BorderSize = 0;
-            metroPanel6.Controls.Add(LBLCataVersion);
-            metroPanel6.CustomBackground = false;
-            metroPanel6.Dock = DockStyle.Fill;
-            metroPanel6.HorizontalScrollbar = false;
-            metroPanel6.HorizontalScrollbarBarColor = true;
-            metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel6.HorizontalScrollbarSize = 10;
-            metroPanel6.Location = new Point(3, 198);
-            metroPanel6.Name = "metroPanel6";
-            metroPanel6.Size = new Size(379, 33);
-            metroPanel6.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel6.StyleManager = null;
-            metroPanel6.TabIndex = 5;
-            metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel6.VerticalScrollbar = false;
-            metroPanel6.VerticalScrollbarBarColor = true;
-            metroPanel6.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel6.VerticalScrollbarSize = 10;
+            PNLUpdateCataSPP.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateCataSPP.Border = true;
+            PNLUpdateCataSPP.BorderColor = Color.Black;
+            PNLUpdateCataSPP.BorderSize = 1;
+            PNLUpdateCataSPP.Controls.Add(LBLCataVersion);
+            PNLUpdateCataSPP.CustomBackground = false;
+            PNLUpdateCataSPP.Dock = DockStyle.Fill;
+            PNLUpdateCataSPP.HorizontalScrollbar = false;
+            PNLUpdateCataSPP.HorizontalScrollbarBarColor = true;
+            PNLUpdateCataSPP.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateCataSPP.HorizontalScrollbarSize = 10;
+            PNLUpdateCataSPP.Location = new Point(3, 198);
+            PNLUpdateCataSPP.Name = "PNLUpdateCataSPP";
+            PNLUpdateCataSPP.Padding = new Padding(2);
+            PNLUpdateCataSPP.Size = new Size(379, 33);
+            PNLUpdateCataSPP.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateCataSPP.StyleManager = null;
+            PNLUpdateCataSPP.TabIndex = 5;
+            PNLUpdateCataSPP.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateCataSPP.VerticalScrollbar = false;
+            PNLUpdateCataSPP.VerticalScrollbarBarColor = true;
+            PNLUpdateCataSPP.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateCataSPP.VerticalScrollbarSize = 10;
             // 
             // LBLCataVersion
             // 
             LBLCataVersion.BackColor = Color.Transparent;
             LBLCataVersion.Dock = DockStyle.Fill;
             LBLCataVersion.ForeColor = Color.White;
-            LBLCataVersion.Location = new Point(0, 0);
+            LBLCataVersion.Location = new Point(2, 2);
             LBLCataVersion.Name = "LBLCataVersion";
-            LBLCataVersion.Size = new Size(379, 33);
+            LBLCataVersion.Size = new Size(375, 29);
             LBLCataVersion.TabIndex = 47;
             LBLCataVersion.Text = "Uptime";
             LBLCataVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel5
+            // PNLUpdateWotlkSpp
             // 
-            metroPanel5.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel5.Border = false;
-            metroPanel5.BorderColor = Color.LimeGreen;
-            metroPanel5.BorderSize = 0;
-            metroPanel5.Controls.Add(LBLWotLKVersion);
-            metroPanel5.CustomBackground = false;
-            metroPanel5.Dock = DockStyle.Fill;
-            metroPanel5.HorizontalScrollbar = false;
-            metroPanel5.HorizontalScrollbarBarColor = true;
-            metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel5.HorizontalScrollbarSize = 10;
-            metroPanel5.Location = new Point(3, 159);
-            metroPanel5.Name = "metroPanel5";
-            metroPanel5.Size = new Size(379, 33);
-            metroPanel5.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel5.StyleManager = null;
-            metroPanel5.TabIndex = 4;
-            metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel5.VerticalScrollbar = false;
-            metroPanel5.VerticalScrollbarBarColor = true;
-            metroPanel5.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel5.VerticalScrollbarSize = 10;
+            PNLUpdateWotlkSpp.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateWotlkSpp.Border = true;
+            PNLUpdateWotlkSpp.BorderColor = Color.Black;
+            PNLUpdateWotlkSpp.BorderSize = 1;
+            PNLUpdateWotlkSpp.Controls.Add(LBLWotLKVersion);
+            PNLUpdateWotlkSpp.CustomBackground = false;
+            PNLUpdateWotlkSpp.Dock = DockStyle.Fill;
+            PNLUpdateWotlkSpp.HorizontalScrollbar = false;
+            PNLUpdateWotlkSpp.HorizontalScrollbarBarColor = true;
+            PNLUpdateWotlkSpp.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateWotlkSpp.HorizontalScrollbarSize = 10;
+            PNLUpdateWotlkSpp.Location = new Point(3, 159);
+            PNLUpdateWotlkSpp.Name = "PNLUpdateWotlkSpp";
+            PNLUpdateWotlkSpp.Padding = new Padding(2);
+            PNLUpdateWotlkSpp.Size = new Size(379, 33);
+            PNLUpdateWotlkSpp.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateWotlkSpp.StyleManager = null;
+            PNLUpdateWotlkSpp.TabIndex = 4;
+            PNLUpdateWotlkSpp.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateWotlkSpp.VerticalScrollbar = false;
+            PNLUpdateWotlkSpp.VerticalScrollbarBarColor = true;
+            PNLUpdateWotlkSpp.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateWotlkSpp.VerticalScrollbarSize = 10;
             // 
             // LBLWotLKVersion
             // 
             LBLWotLKVersion.BackColor = Color.Transparent;
             LBLWotLKVersion.Dock = DockStyle.Fill;
             LBLWotLKVersion.ForeColor = Color.White;
-            LBLWotLKVersion.Location = new Point(0, 0);
+            LBLWotLKVersion.Location = new Point(2, 2);
             LBLWotLKVersion.Name = "LBLWotLKVersion";
-            LBLWotLKVersion.Size = new Size(379, 33);
+            LBLWotLKVersion.Size = new Size(375, 29);
             LBLWotLKVersion.TabIndex = 47;
             LBLWotLKVersion.Text = "Uptime";
             LBLWotLKVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel4
+            // PNLUpdateTbcSPP
             // 
-            metroPanel4.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel4.Border = false;
-            metroPanel4.BorderColor = Color.LimeGreen;
-            metroPanel4.BorderSize = 0;
-            metroPanel4.Controls.Add(LBLTBCVersion);
-            metroPanel4.CustomBackground = false;
-            metroPanel4.Dock = DockStyle.Fill;
-            metroPanel4.HorizontalScrollbar = false;
-            metroPanel4.HorizontalScrollbarBarColor = true;
-            metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel4.HorizontalScrollbarSize = 10;
-            metroPanel4.Location = new Point(3, 120);
-            metroPanel4.Name = "metroPanel4";
-            metroPanel4.Size = new Size(379, 33);
-            metroPanel4.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel4.StyleManager = null;
-            metroPanel4.TabIndex = 3;
-            metroPanel4.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel4.VerticalScrollbar = false;
-            metroPanel4.VerticalScrollbarBarColor = true;
-            metroPanel4.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel4.VerticalScrollbarSize = 10;
+            PNLUpdateTbcSPP.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateTbcSPP.Border = true;
+            PNLUpdateTbcSPP.BorderColor = Color.Black;
+            PNLUpdateTbcSPP.BorderSize = 1;
+            PNLUpdateTbcSPP.Controls.Add(LBLTBCVersion);
+            PNLUpdateTbcSPP.CustomBackground = false;
+            PNLUpdateTbcSPP.Dock = DockStyle.Fill;
+            PNLUpdateTbcSPP.HorizontalScrollbar = false;
+            PNLUpdateTbcSPP.HorizontalScrollbarBarColor = true;
+            PNLUpdateTbcSPP.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateTbcSPP.HorizontalScrollbarSize = 10;
+            PNLUpdateTbcSPP.Location = new Point(3, 120);
+            PNLUpdateTbcSPP.Name = "PNLUpdateTbcSPP";
+            PNLUpdateTbcSPP.Padding = new Padding(2);
+            PNLUpdateTbcSPP.Size = new Size(379, 33);
+            PNLUpdateTbcSPP.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateTbcSPP.StyleManager = null;
+            PNLUpdateTbcSPP.TabIndex = 3;
+            PNLUpdateTbcSPP.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateTbcSPP.VerticalScrollbar = false;
+            PNLUpdateTbcSPP.VerticalScrollbarBarColor = true;
+            PNLUpdateTbcSPP.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateTbcSPP.VerticalScrollbarSize = 10;
             // 
             // LBLTBCVersion
             // 
             LBLTBCVersion.BackColor = Color.Transparent;
             LBLTBCVersion.Dock = DockStyle.Fill;
             LBLTBCVersion.ForeColor = Color.White;
-            LBLTBCVersion.Location = new Point(0, 0);
+            LBLTBCVersion.Location = new Point(2, 2);
             LBLTBCVersion.Name = "LBLTBCVersion";
-            LBLTBCVersion.Size = new Size(379, 33);
+            LBLTBCVersion.Size = new Size(375, 29);
             LBLTBCVersion.TabIndex = 47;
             LBLTBCVersion.Text = "Uptime";
             LBLTBCVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel3
+            // PNLUpdateClassicSPP
             // 
-            metroPanel3.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel3.Border = false;
-            metroPanel3.BorderColor = Color.LimeGreen;
-            metroPanel3.BorderSize = 0;
-            metroPanel3.Controls.Add(LBLClassicVersion);
-            metroPanel3.CustomBackground = false;
-            metroPanel3.Dock = DockStyle.Fill;
-            metroPanel3.HorizontalScrollbar = false;
-            metroPanel3.HorizontalScrollbarBarColor = true;
-            metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel3.HorizontalScrollbarSize = 10;
-            metroPanel3.Location = new Point(3, 81);
-            metroPanel3.Name = "metroPanel3";
-            metroPanel3.Size = new Size(379, 33);
-            metroPanel3.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel3.StyleManager = null;
-            metroPanel3.TabIndex = 2;
-            metroPanel3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel3.VerticalScrollbar = false;
-            metroPanel3.VerticalScrollbarBarColor = true;
-            metroPanel3.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel3.VerticalScrollbarSize = 10;
+            PNLUpdateClassicSPP.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateClassicSPP.Border = true;
+            PNLUpdateClassicSPP.BorderColor = Color.Black;
+            PNLUpdateClassicSPP.BorderSize = 1;
+            PNLUpdateClassicSPP.Controls.Add(LBLClassicVersion);
+            PNLUpdateClassicSPP.CustomBackground = false;
+            PNLUpdateClassicSPP.Dock = DockStyle.Fill;
+            PNLUpdateClassicSPP.HorizontalScrollbar = false;
+            PNLUpdateClassicSPP.HorizontalScrollbarBarColor = true;
+            PNLUpdateClassicSPP.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateClassicSPP.HorizontalScrollbarSize = 10;
+            PNLUpdateClassicSPP.Location = new Point(3, 81);
+            PNLUpdateClassicSPP.Name = "PNLUpdateClassicSPP";
+            PNLUpdateClassicSPP.Padding = new Padding(2);
+            PNLUpdateClassicSPP.Size = new Size(379, 33);
+            PNLUpdateClassicSPP.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateClassicSPP.StyleManager = null;
+            PNLUpdateClassicSPP.TabIndex = 2;
+            PNLUpdateClassicSPP.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateClassicSPP.VerticalScrollbar = false;
+            PNLUpdateClassicSPP.VerticalScrollbarBarColor = true;
+            PNLUpdateClassicSPP.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateClassicSPP.VerticalScrollbarSize = 10;
             // 
             // LBLClassicVersion
             // 
             LBLClassicVersion.BackColor = Color.FromArgb(28, 33, 40);
             LBLClassicVersion.Dock = DockStyle.Fill;
             LBLClassicVersion.ForeColor = Color.White;
-            LBLClassicVersion.Location = new Point(0, 0);
+            LBLClassicVersion.Location = new Point(2, 2);
             LBLClassicVersion.Name = "LBLClassicVersion";
-            LBLClassicVersion.Size = new Size(379, 33);
+            LBLClassicVersion.Size = new Size(375, 29);
             LBLClassicVersion.TabIndex = 47;
             LBLClassicVersion.Text = "Uptime";
             LBLClassicVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel2
+            // PNLUpdateDatabase
             // 
-            metroPanel2.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel2.Border = false;
-            metroPanel2.BorderColor = Color.LimeGreen;
-            metroPanel2.BorderSize = 0;
-            metroPanel2.Controls.Add(LBLDBVersion);
-            metroPanel2.CustomBackground = false;
-            metroPanel2.Dock = DockStyle.Fill;
-            metroPanel2.HorizontalScrollbar = false;
-            metroPanel2.HorizontalScrollbarBarColor = true;
-            metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel2.HorizontalScrollbarSize = 10;
-            metroPanel2.Location = new Point(3, 42);
-            metroPanel2.Name = "metroPanel2";
-            metroPanel2.Size = new Size(379, 33);
-            metroPanel2.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel2.StyleManager = null;
-            metroPanel2.TabIndex = 1;
-            metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel2.VerticalScrollbar = false;
-            metroPanel2.VerticalScrollbarBarColor = true;
-            metroPanel2.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel2.VerticalScrollbarSize = 10;
+            PNLUpdateDatabase.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateDatabase.Border = true;
+            PNLUpdateDatabase.BorderColor = Color.Black;
+            PNLUpdateDatabase.BorderSize = 1;
+            PNLUpdateDatabase.Controls.Add(LBLDBVersion);
+            PNLUpdateDatabase.CustomBackground = false;
+            PNLUpdateDatabase.Dock = DockStyle.Fill;
+            PNLUpdateDatabase.HorizontalScrollbar = false;
+            PNLUpdateDatabase.HorizontalScrollbarBarColor = true;
+            PNLUpdateDatabase.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateDatabase.HorizontalScrollbarSize = 10;
+            PNLUpdateDatabase.Location = new Point(3, 42);
+            PNLUpdateDatabase.Name = "PNLUpdateDatabase";
+            PNLUpdateDatabase.Padding = new Padding(2);
+            PNLUpdateDatabase.Size = new Size(379, 33);
+            PNLUpdateDatabase.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateDatabase.StyleManager = null;
+            PNLUpdateDatabase.TabIndex = 1;
+            PNLUpdateDatabase.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateDatabase.VerticalScrollbar = false;
+            PNLUpdateDatabase.VerticalScrollbarBarColor = true;
+            PNLUpdateDatabase.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateDatabase.VerticalScrollbarSize = 10;
             // 
             // LBLDBVersion
             // 
-            LBLDBVersion.BackColor = Color.FromArgb(28, 33, 40);
+            LBLDBVersion.BackColor = Color.Transparent;
             LBLDBVersion.Dock = DockStyle.Fill;
             LBLDBVersion.ForeColor = Color.White;
-            LBLDBVersion.Location = new Point(0, 0);
+            LBLDBVersion.Location = new Point(2, 2);
             LBLDBVersion.Name = "LBLDBVersion";
-            LBLDBVersion.Size = new Size(379, 33);
+            LBLDBVersion.Size = new Size(375, 29);
             LBLDBVersion.TabIndex = 47;
             LBLDBVersion.Text = "Uptime";
             LBLDBVersion.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // metroPanel1
+            // PNLUpdateTrion
             // 
-            metroPanel1.BackColor = Color.FromArgb(28, 33, 40);
-            metroPanel1.Border = false;
-            metroPanel1.BorderColor = Color.LimeGreen;
-            metroPanel1.BorderSize = 0;
-            metroPanel1.Controls.Add(LBLTrionVersion);
-            metroPanel1.CustomBackground = false;
-            metroPanel1.Dock = DockStyle.Fill;
-            metroPanel1.HorizontalScrollbar = false;
-            metroPanel1.HorizontalScrollbarBarColor = true;
-            metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            metroPanel1.HorizontalScrollbarSize = 10;
-            metroPanel1.Location = new Point(3, 3);
-            metroPanel1.Name = "metroPanel1";
-            metroPanel1.Size = new Size(379, 33);
-            metroPanel1.Style = MetroFramework.MetroColorStyle.Blue;
-            metroPanel1.StyleManager = null;
-            metroPanel1.TabIndex = 0;
-            metroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroPanel1.VerticalScrollbar = false;
-            metroPanel1.VerticalScrollbarBarColor = true;
-            metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            metroPanel1.VerticalScrollbarSize = 10;
+            PNLUpdateTrion.BackColor = Color.FromArgb(28, 33, 40);
+            PNLUpdateTrion.Border = true;
+            PNLUpdateTrion.BorderColor = Color.Black;
+            PNLUpdateTrion.BorderSize = 1;
+            PNLUpdateTrion.Controls.Add(LBLTrionVersion);
+            PNLUpdateTrion.CustomBackground = true;
+            PNLUpdateTrion.Dock = DockStyle.Fill;
+            PNLUpdateTrion.HorizontalScrollbar = false;
+            PNLUpdateTrion.HorizontalScrollbarBarColor = true;
+            PNLUpdateTrion.HorizontalScrollbarHighlightOnWheel = false;
+            PNLUpdateTrion.HorizontalScrollbarSize = 10;
+            PNLUpdateTrion.Location = new Point(3, 3);
+            PNLUpdateTrion.Name = "PNLUpdateTrion";
+            PNLUpdateTrion.Padding = new Padding(2);
+            PNLUpdateTrion.Size = new Size(379, 33);
+            PNLUpdateTrion.Style = MetroFramework.MetroColorStyle.Blue;
+            PNLUpdateTrion.StyleManager = null;
+            PNLUpdateTrion.TabIndex = 0;
+            PNLUpdateTrion.Theme = MetroFramework.MetroThemeStyle.Dark;
+            PNLUpdateTrion.VerticalScrollbar = false;
+            PNLUpdateTrion.VerticalScrollbarBarColor = true;
+            PNLUpdateTrion.VerticalScrollbarHighlightOnWheel = false;
+            PNLUpdateTrion.VerticalScrollbarSize = 10;
             // 
             // LBLTrionVersion
             // 
-            LBLTrionVersion.BackColor = Color.FromArgb(28, 33, 40);
+            LBLTrionVersion.BackColor = Color.Transparent;
             LBLTrionVersion.Dock = DockStyle.Fill;
             LBLTrionVersion.ForeColor = Color.White;
-            LBLTrionVersion.Location = new Point(0, 0);
+            LBLTrionVersion.Location = new Point(2, 2);
             LBLTrionVersion.Name = "LBLTrionVersion";
-            LBLTrionVersion.Size = new Size(379, 33);
+            LBLTrionVersion.Size = new Size(375, 29);
             LBLTrionVersion.TabIndex = 47;
             LBLTrionVersion.Text = "Uptime";
             LBLTrionVersion.TextAlign = ContentAlignment.MiddleLeft;
@@ -4863,7 +4895,7 @@ namespace TrionControlPanelDesktop
             BTNFixDatabase.Depth = 0;
             BTNFixDatabase.HighEmphasis = true;
             BTNFixDatabase.Icon = (Image)resources.GetObject("BTNFixDatabase.Icon");
-            BTNFixDatabase.Location = new Point(7, 271);
+            BTNFixDatabase.Location = new Point(6, 316);
             BTNFixDatabase.Margin = new Padding(4, 6, 4, 6);
             BTNFixDatabase.MouseState = MaterialSkin.MouseState.HOVER;
             BTNFixDatabase.Name = "BTNFixDatabase";
@@ -4884,7 +4916,7 @@ namespace TrionControlPanelDesktop
             BTNLoadBackup.Depth = 0;
             BTNLoadBackup.HighEmphasis = true;
             BTNLoadBackup.Icon = (Image)resources.GetObject("BTNLoadBackup.Icon");
-            BTNLoadBackup.Location = new Point(7, 229);
+            BTNLoadBackup.Location = new Point(6, 274);
             BTNLoadBackup.Margin = new Padding(4, 6, 4, 6);
             BTNLoadBackup.MouseState = MaterialSkin.MouseState.HOVER;
             BTNLoadBackup.Name = "BTNLoadBackup";
@@ -4905,7 +4937,7 @@ namespace TrionControlPanelDesktop
             BTNDatabaseBackup.Depth = 0;
             BTNDatabaseBackup.HighEmphasis = true;
             BTNDatabaseBackup.Icon = (Image)resources.GetObject("BTNDatabaseBackup.Icon");
-            BTNDatabaseBackup.Location = new Point(7, 187);
+            BTNDatabaseBackup.Location = new Point(6, 232);
             BTNDatabaseBackup.Margin = new Padding(4, 6, 4, 6);
             BTNDatabaseBackup.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDatabaseBackup.Name = "BTNDatabaseBackup";
@@ -5375,7 +5407,7 @@ namespace TrionControlPanelDesktop
             BTNTestConnection.Depth = 0;
             BTNTestConnection.HighEmphasis = true;
             BTNTestConnection.Icon = (Image)resources.GetObject("BTNTestConnection.Icon");
-            BTNTestConnection.Location = new Point(6, 289);
+            BTNTestConnection.Location = new Point(6, 316);
             BTNTestConnection.Margin = new Padding(4, 6, 4, 6);
             BTNTestConnection.MouseState = MaterialSkin.MouseState.HOVER;
             BTNTestConnection.Name = "BTNTestConnection";
@@ -5564,35 +5596,34 @@ namespace TrionControlPanelDesktop
             DGVNotifications.AllowUserToDeleteRows = false;
             DGVNotifications.AllowUserToResizeColumns = false;
             DGVNotifications.AllowUserToResizeRows = false;
-            dataGridViewCellStyle49.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle49.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle49.ForeColor = Color.White;
-            dataGridViewCellStyle49.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle49.SelectionForeColor = Color.White;
-            DGVNotifications.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle49;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            DGVNotifications.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DGVNotifications.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVNotifications.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVNotifications.BackgroundColor = Color.FromArgb(34, 39, 46);
-            DGVNotifications.BorderStyle = BorderStyle.None;
             DGVNotifications.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle50.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle50.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle50.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle50.ForeColor = Color.White;
-            dataGridViewCellStyle50.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle50.SelectionForeColor = Color.White;
-            dataGridViewCellStyle50.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle50;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DGVNotifications.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVNotifications.Columns.AddRange(new DataGridViewColumn[] { ID, Message, Time });
-            dataGridViewCellStyle52.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle52.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle52.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle52.ForeColor = Color.White;
-            dataGridViewCellStyle52.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle52.SelectionForeColor = Color.White;
-            dataGridViewCellStyle52.WrapMode = DataGridViewTriState.False;
-            DGVNotifications.DefaultCellStyle = dataGridViewCellStyle52;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            DGVNotifications.DefaultCellStyle = dataGridViewCellStyle4;
             DGVNotifications.Dock = DockStyle.Fill;
             DGVNotifications.EnableHeadersVisualStyles = false;
             DGVNotifications.GridColor = Color.Black;
@@ -5601,24 +5632,24 @@ namespace TrionControlPanelDesktop
             DGVNotifications.ReadOnly = true;
             DGVNotifications.RightToLeft = RightToLeft.No;
             DGVNotifications.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle53.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle53.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle53.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle53.ForeColor = Color.White;
-            dataGridViewCellStyle53.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle53.SelectionForeColor = Color.White;
-            dataGridViewCellStyle53.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.RowHeadersDefaultCellStyle = dataGridViewCellStyle53;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             DGVNotifications.RowHeadersVisible = false;
             DGVNotifications.RowHeadersWidth = 50;
-            dataGridViewCellStyle54.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle54.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle54.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle54.ForeColor = Color.White;
-            dataGridViewCellStyle54.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle54.SelectionForeColor = Color.White;
-            dataGridViewCellStyle54.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle54;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle6;
             DGVNotifications.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             DGVNotifications.RowTemplate.ReadOnly = true;
             DGVNotifications.RowTemplate.Resizable = DataGridViewTriState.True;
@@ -5631,13 +5662,13 @@ namespace TrionControlPanelDesktop
             // 
             // ID
             // 
-            dataGridViewCellStyle51.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle51.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle51.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle51.ForeColor = Color.White;
-            dataGridViewCellStyle51.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle51.SelectionForeColor = Color.White;
-            ID.DefaultCellStyle = dataGridViewCellStyle51;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            ID.DefaultCellStyle = dataGridViewCellStyle3;
             ID.HeaderText = "ID";
             ID.MinimumWidth = 6;
             ID.Name = "ID";
@@ -5673,6 +5704,18 @@ namespace TrionControlPanelDesktop
             IMGListTabControler.Images.SetKeyName(4, "dns-32.png");
             IMGListTabControler.Images.SetKeyName(5, "notification-32.png");
             IMGListTabControler.Images.SetKeyName(6, "notification-32-ring.png");
+            // 
+            // TimerUpdate
+            // 
+            TimerUpdate.Enabled = true;
+            TimerUpdate.Interval = 600000;
+            TimerUpdate.Tick += TimerUpdate_Tick;
+            // 
+            // TimerPanelAnimation
+            // 
+            TimerPanelAnimation.Enabled = true;
+            TimerPanelAnimation.Interval = 1000;
+            TimerPanelAnimation.Tick += TimerPanelAnimation_Tick;
             // 
             // MainForm
             // 
@@ -5784,13 +5827,13 @@ namespace TrionControlPanelDesktop
             materialCard7.ResumeLayout(false);
             materialCard7.PerformLayout();
             tableLayoutPanel10.ResumeLayout(false);
-            metroPanel7.ResumeLayout(false);
-            metroPanel6.ResumeLayout(false);
-            metroPanel5.ResumeLayout(false);
-            metroPanel4.ResumeLayout(false);
-            metroPanel3.ResumeLayout(false);
-            metroPanel2.ResumeLayout(false);
-            metroPanel1.ResumeLayout(false);
+            PNLUpdateMopSPP.ResumeLayout(false);
+            PNLUpdateCataSPP.ResumeLayout(false);
+            PNLUpdateWotlkSpp.ResumeLayout(false);
+            PNLUpdateTbcSPP.ResumeLayout(false);
+            PNLUpdateClassicSPP.ResumeLayout(false);
+            PNLUpdateDatabase.ResumeLayout(false);
+            PNLUpdateTrion.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)LBLCardUpdateDashboardInfo).EndInit();
             materialCard8.ResumeLayout(false);
             materialCard8.PerformLayout();
@@ -6060,13 +6103,13 @@ namespace TrionControlPanelDesktop
         private MaterialSkin.Controls.MaterialButton BTNDDNSTimerStart;
         private MaterialSkin.Controls.MaterialButton BTNDDNSServiceWebiste;
         private TableLayoutPanel tableLayoutPanel10;
-        private MetroFramework.Controls.MetroPanel metroPanel7;
-        private MetroFramework.Controls.MetroPanel metroPanel6;
-        private MetroFramework.Controls.MetroPanel metroPanel5;
-        private MetroFramework.Controls.MetroPanel metroPanel4;
-        private MetroFramework.Controls.MetroPanel metroPanel3;
-        private MetroFramework.Controls.MetroPanel metroPanel2;
-        private MetroFramework.Controls.MetroPanel metroPanel1;
+        private MetroFramework.Controls.MetroPanel PNLUpdateMopSPP;
+        private MetroFramework.Controls.MetroPanel PNLUpdateCataSPP;
+        private MetroFramework.Controls.MetroPanel PNLUpdateWotlkSpp;
+        private MetroFramework.Controls.MetroPanel PNLUpdateTbcSPP;
+        private MetroFramework.Controls.MetroPanel PNLUpdateClassicSPP;
+        private MetroFramework.Controls.MetroPanel PNLUpdateDatabase;
+        private MetroFramework.Controls.MetroPanel PNLUpdateTrion;
         private Label LBLMoPVersion;
         private Label LBLCataVersion;
         private Label LBLWotLKVersion;
@@ -6108,5 +6151,8 @@ namespace TrionControlPanelDesktop
         private System.Windows.Forms.Timer TimerDinamicDNS;
         private System.Windows.Forms.Timer TimerLoading;
         private MaterialSkin.Controls.MaterialTextBox2 TXTSupporterKey;
+        private MaterialSkin.Controls.MaterialButton BTNDownloadUpdates;
+        private System.Windows.Forms.Timer TimerUpdate;
+        private System.Windows.Forms.Timer TimerPanelAnimation;
     }
 }

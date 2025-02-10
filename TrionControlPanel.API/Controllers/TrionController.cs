@@ -3,6 +3,9 @@ using TrionControlPanel.API.Classes;
 using TrionControlPanel.API.Classes.Database;
 using TrionControlPanel.API.Classes.Lists;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
+using System.Collections.Concurrent;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace TrionControlPanel.API.api
 {
@@ -54,11 +57,10 @@ namespace TrionControlPanel.API.api
                     RepackLocation = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key)
                     ? _configuration["classicSPP:EarlyAccessKey"]
                     : _configuration["classicSPP:Default"];
-                    List<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
+                    ConcurrentBag<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
                     // Create a response with the total count and file details
                     var response = new
                     {
-                        files.Count,
                         Files = files
                     };
 
@@ -69,11 +71,10 @@ namespace TrionControlPanel.API.api
                     RepackLocation = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key)
                     ? _configuration["tbcSPP:EarlyAccessKey"]
                     : _configuration["tbcSPP:Default"];
-                    List<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
+                    ConcurrentBag<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
                     // Create a response with the total count and file details
                     var response = new
                     {
-                        files.Count,
                         Files = files
                     };
 
@@ -84,14 +85,13 @@ namespace TrionControlPanel.API.api
                     RepackLocation = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key)
                     ? _configuration["wotlkSPP:EarlyAccessKey"]
                     : _configuration["wotlkSPP:Default"];
-                    List<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
+                    ConcurrentBag<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
                     // Create a response with the total count and file details
                     var response = new
                     {
-                        files.Count,
+
                         Files = files
                     };
-
                     return Ok(response);
                 }
                 if (Emulator == "cata")
@@ -99,12 +99,11 @@ namespace TrionControlPanel.API.api
                     RepackLocation = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key)
                     ? _configuration["cataSPP:EarlyAccessKey"]
                     : _configuration["cataSPP:Default"];
-                    List<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
+                    ConcurrentBag<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
                     // Create a response with the total count and file details
                     var response = new
                     {
-                        files.Count,
-                        Files = files
+                        Files = files.ToList()
                     };
 
                     return Ok(response);
@@ -114,11 +113,11 @@ namespace TrionControlPanel.API.api
                     RepackLocation = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key)
                     ? _configuration["mopSPP:EarlyAccessKey"]
                     : _configuration["mopSPP:Default"];
-                    List<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
+                    ConcurrentBag<FileList> files = await FileManager.GetFilesAsync(RepackLocation!);
                     // Create a response with the total count and file details
                     var response = new
                     {
-                        files.Count,
+
                         Files = files
                     };
 
@@ -167,26 +166,29 @@ namespace TrionControlPanel.API.api
         }
 
         [HttpGet("GetFileVersion")]
-        public IActionResult GetRepackVersion()
+        public IActionResult GetRepackVersion([FromQuery] string Key)
         {
             try
             {
-                var Trion = FileManager.GetVersion("Files/TrionControlPanel/Latest/setup.exe");
-                var Database = FileManager.GetVersion("Files/Database/Latest/Database/bin/mysqld.exe");
-                var ClassicSPP = FileManager.GetVersion("Files/SPP/Classic/worldserver.exe");
-                var TbcSPP = FileManager.GetVersion("Files/SPP/BurningCrusade/worldserver.exe");
-                var WotlkSPP = FileManager.GetVersion("Files/SPP/WrathOfTheLichKing/mangosd.exe");
-                var CataSPP = FileManager.GetVersion("Files/SPP/Cataclysm/worldserver.exe");
-                var MopSPP = FileManager.GetVersion("Files/SPP/MistsOfPandaria/worldserver.exe");
-                return Ok(new {
-                    ClassicSPP,
-                    TbcSPP, 
-                    WotlkSPP, 
-                    CataSPP, 
-                    MopSPP,
+                bool isEarlyAccess = !string.IsNullOrEmpty(Key) && DatabaseManager.GetKeyVerified(Key);
 
-                });
+                string GetVersion(string keyBase) =>
+                    FileManager.GetVersion(_configuration[$"{keyBase}:Version:{(isEarlyAccess ? "EarlyAccess" : "Default")}"]!);
+
+                var versions = new
+                {
+                    Trion = GetVersion("trion"),
+                    Database = GetVersion("database"),
+                    ClassicSPP = GetVersion("classicSPP"),
+                    TbcSPP = GetVersion("tbcSPP"),
+                    WotlkSPP = GetVersion("wotlkSPP"),
+                    CataSPP = GetVersion("cataSPP"),
+                    MopSPP = GetVersion("mopSPP"),
+                };
+
+                return Ok(versions);
             }
+ 
             catch (UnauthorizedAccessException ex)
             {
                 return StatusCode(403, $"Access denied: {ex.Message}");
@@ -195,8 +197,13 @@ namespace TrionControlPanel.API.api
             {
                 return StatusCode(500, $"Error: {ex.Message}");
             }
-           
+
         }
 
+        [HttpGet("GetWebsitePing")]
+        public IActionResult GetWebsitePing()
+        {
+            return Ok();
+        }
     }
 }

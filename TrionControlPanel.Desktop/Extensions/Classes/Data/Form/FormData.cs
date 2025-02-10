@@ -22,25 +22,25 @@
         {
             public class Version
             {
-                public class Current
+                public class Online
                 {
-                    public static string Trion { get; set; }
-                    public static string Database { get; set; }
-                    public static string Classic { get; set; }
-                    public static string TBC { get; set; }
-                    public static string WotLK { get; set; }
-                    public static string Cata { get; set; }
-                    public static string Mop { get; set; }
+                    public static string Trion { get; set; } = "N/A";
+                    public static string Database { get; set; } = "N/A";
+                    public static string Classic { get; set; } = "N/A";
+                    public static string TBC { get; set; } = "N/A";
+                    public static string WotLK { get; set; } = "N/A";
+                    public static string Cata { get; set; } = "N/A";
+                    public static string Mop { get; set; } = "N/A";
                 }
-                public class Installed
+                public class Local
                 {
-                    public static string Trion { get; set; }
-                    public static string Database { get; set; }
-                    public static string Classic { get; set; }
-                    public static string TBC { get; set; }
-                    public static string WotLK { get; set; }
-                    public static string Cata { get; set; }
-                    public static string Mop { get; set; }
+                    public static string Trion { get; set; } = "N/A";
+                    public static string Database { get; set; } = "N/A";
+                    public static string Classic { get; set; } = "N/A";
+                    public static string TBC { get; set; } = "N/A";
+                    public static string WotLK { get; set; } = "N/A";
+                    public static string Cata { get; set; } = "N/A";
+                    public static string Mop { get; set; } = "N/A";
                 }
                 public class Update
                 {

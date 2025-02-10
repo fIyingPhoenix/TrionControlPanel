@@ -13,7 +13,7 @@ using TrionControlPanel.Desktop.Extensions.Application;
 using TrionControlPanel.Desktop.Extensions.Database;
 using NotificationSystem;
 using System.Diagnostics;
-using TrionControlPanel.Desktop;
+
 
 
 namespace TrionControlPanelDesktop
@@ -25,32 +25,9 @@ namespace TrionControlPanelDesktop
         private void PopulateComboBoxes()
         {
             CBOXSPPVersion.Items.Clear();
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver1"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver2"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver3"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver4"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver5"));
+            string[] sppVersions = { "SPPver1", "SPPver2", "SPPver3", "SPPver4", "SPPver5" };
+            CBOXSPPVersion.Items.AddRange(sppVersions.Select(_translator.Translate).ToArray());
             CBOXSPPVersion.SelectedIndex = (int)_settings.SelectedSPP;
-            CBOXAccountExpansion.Items.Clear();
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion0"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion1"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion2"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion3"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion4"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion5"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion6"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion7"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion8"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion9"));
-            CBOXAccountExpansion.SelectedIndex = 2;
-            CBOXAccountSecurityAccess.Items.Clear();
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL0"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL1"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL2"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL3"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL4"));
-            CBOXAccountSecurityAccess.SelectedIndex = 0;
-            CBoxSelectItems();
         }
         private void LoadLangauge()
         {
@@ -66,6 +43,11 @@ namespace TrionControlPanelDesktop
         }
         private void SetLanguage()
         {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(SetLanguage));
+                return;
+            }
             PopulateComboBoxes();
             #region "MainForm"  
             TLTHome.SetToolTip(BTNStartDatabase, _translator.Translate("BTNStartDatabaseToolTip"));
@@ -160,6 +142,7 @@ namespace TrionControlPanelDesktop
             TabCustom.Text = _translator.Translate("TabCustom");
             TabTrion.Text = _translator.Translate("TabTrion");
             #region "Trion"
+            BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             TGLServerCrashDetection.Text = _translator.Translate("TGLServerCrashDetection");
             TGLServerStartup.Text = _translator.Translate("TGLServerStartup");
             TGLRunTrionStartup.Text = _translator.Translate("TGLRunTrionStartup");
@@ -175,13 +158,6 @@ namespace TrionControlPanelDesktop
             CBOXLanguageSelect.Hint = _translator.Translate("CBOXLanguageSelect");
             TLTHome.SetToolTip(LBLCardCustomPreferencesInfo, _translator.Translate("LBLCardCustomPreferencesInfo"));
             TLTHome.SetToolTip(LBLCardUpdateDashboardInfo, _translator.Translate("LBLCardUpdateDashboardInfo"));
-            LBLTrionVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTrionVersion"), "1", "1");
-            LBLDBVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDBVersion"), "1", "1");
-            LBLClassicVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLClassicVersion"), "1", "1");
-            LBLTBCVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTBCVersion"), "1", "1");
-            LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLWotLKVersion"), "1", "1");
-            LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), "1", "1");
-            LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), "1", "1");
             TXTSupporterKey.Hint = _translator.Translate("TXTSupporterKeyHint");
             #endregion
             #region"Custom Emulators"
@@ -371,8 +347,18 @@ namespace TrionControlPanelDesktop
         }
         private void LoadSettings()
         {
+            if (!File.Exists("Trion.logs")) { File.Create("Trion.logs").Close(); }
+            else
+            {
+                File.Delete("Trion.logs"); File.Create("Trion.logs").Close();
+            }
+
             if (!File.Exists("Settings.json")) { Settings.CreatSettings("Settings.json"); }
             _settings = Settings.LoadSettings("Settings.json");
+        }
+        private void LoadSettingsUI()
+        {
+
 
             //Load Installed Emulators
             TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
@@ -412,7 +398,7 @@ namespace TrionControlPanelDesktop
             TGLCataLaunch.Checked = _settings.LaunchCataCore;
             TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
             TGLServerStartup.Checked = _settings.RunServerWithWindows;
-            TGLAutoUpdateDatabase.Checked = _settings.AutoUpdateDatabaseL;
+            TGLAutoUpdateDatabase.Checked = _settings.AutoUpdateDatabase;
             //CheckBoxes
             ChecCLASSICInstalled.Checked = _settings.ClassicInstalled;
             ChecTBCInstalled.Checked = _settings.TBCInstalled;
@@ -509,30 +495,71 @@ namespace TrionControlPanelDesktop
         //Loading...
         public MainForm()
         {
+            LoadSettings();
             InitializeComponent();
             //Initialize MaterialSkinManager
             //Check if an update has ben Dowloaded and Delete it!
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
-        private void MainForm_LoadAsync(object sender, EventArgs e)
+        private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
-            LoadSettings();
+            this.SuspendLayout();  // Stops rendering UI updates
+            LoadSettingsUI();
             GetAllLanguages();
             LoadSkin();
-            //Initialize LoadLanguage 
             LoadLangauge();
-            //Set max ram to progressbar
+            this.ResumeLayout();
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
+            await AppServiceManager.GetAPIServer();
+            await TrionLogger.Log("Loading update");
+            await UpdateSppVersion();
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await Settings.SaveSettings(_settings, "Settings.json");
+        }
+        private void TimerPanelAnimation_Tick(object sender, EventArgs e)
+        {
+            if (FormData.UI.Version.Update.Trion == false)
+            {
+                PNLUpdateTrion.BorderColor = PNLUpdateTrion.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateTrion.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+            }
+            else
+            {
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                PNLUpdateTrion.BorderColor = Color.Black;
+                PNLUpdateTrion.Refresh();
+            }
+            if (FormData.UI.Version.Update.Database == true)
+            {
+            }
+            if (FormData.UI.Version.Update.Classic == true)
+            {
+            }
+            if (FormData.UI.Version.Update.TBC == true)
+            {
+            }
+            if (FormData.UI.Version.Update.WotLK == true)
+            {
+            }
+            if (FormData.UI.Version.Update.Cata == true)
+            {
+            }
+            if (FormData.UI.Version.Update.Mop == true)
+            {
+            }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
             ResurceUsage();
             ProcessesIDUpdate();
             RunServerUpdate();
+        }
+        private async void TimerUpdate_Tick(object sender, EventArgs e)
+        {
+            await UpdateSppVersion();
         }
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
@@ -594,19 +621,25 @@ namespace TrionControlPanelDesktop
         }
         private void MainFormTabControler_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadIPAdress();
+
             if (MainFormTabControler.SelectedTab == TabDatabaseEditor && FormData.UI.Form.DBRunning)
             {
+                LoadIPAdress();
                 LoadRealmList();
             }
             else if (MainFormTabControler.SelectedTab == TabDatabaseEditor && !FormData.UI.Form.DBRunning)
             {
+                LoadIPAdress();
                 AlertBox.ShowAlert("prc", NotificationType.Info);
                 if (MaterialMessageBox.Show(this, _translator.Translate("DatabaseNotRunningErrorMbox"), _translator.Translate("MessageBoxTitleInfo"), MessageBoxButtons.OKCancel, true, FlexibleMaterialForm.ButtonsPosition.Center) == DialogResult.OK)
                 {
                     BTNStartDatabase_Click(sender, e);
                     LoadRealmList();
                 }
+            }
+            if (MainFormTabControler.SelectedTab == TabSettings)
+            {
+
             }
         }
         #endregion
@@ -963,9 +996,8 @@ namespace TrionControlPanelDesktop
         }
         private async void LoadIPAdress()
         {
-            var url = await Links.APIRequests.GetExternalIPv4();
             TXTInternIP.Text = await NetworkManager.GetInternalIpAddress();
-            TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(url);
+            TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(Links.APIRequests.GetExternalIPv4());
         }
         private async Task SaveRealmListData()
         {
@@ -1068,6 +1100,99 @@ namespace TrionControlPanelDesktop
         }
         #endregion
         #region"Trion"
+        private async Task UpdateSppVersion()
+        {
+            await AppUpdateManager.GetSPPVersionOnline(_settings);
+            await AppUpdateManager.GetSPPVersionOffline(_settings);
+            LBLTrionVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTrionVersion"), FormData.UI.Version.Local.Trion, FormData.UI.Version.Online.Trion);
+            LBLDBVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDBVersion"), FormData.UI.Version.Local.Database, FormData.UI.Version.Online.Database);
+            LBLClassicVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLClassicVersion"), FormData.UI.Version.Local.Classic, FormData.UI.Version.Online.Classic);
+            LBLTBCVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTBCVersion"), FormData.UI.Version.Local.TBC, FormData.UI.Version.Online.TBC);
+            LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLWotLKVersion"), FormData.UI.Version.Local.WotLK, FormData.UI.Version.Online.WotLK);
+            LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
+            LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
+
+        }
+        private async Task StartUpdate(AppSettings Settings)
+        {
+            if (FormData.UI.Version.Update.Trion == true)
+            {
+                if (_settings.AutoUpdateTrion == true)
+                {
+                    //Autoudapte 
+                }
+                else
+                {
+                    //animatepanel
+                }
+            }
+            if (FormData.UI.Version.Update.Database == true)
+            {
+                if (_settings.AutoUpdateDatabase == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (FormData.UI.Version.Update.Classic == true)
+            {
+                if (_settings.AutoUpdateCore == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (FormData.UI.Version.Update.TBC == true)
+            {
+                if (_settings.AutoUpdateCore == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (FormData.UI.Version.Update.WotLK == true)
+            {
+                if (_settings.AutoUpdateCore == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (FormData.UI.Version.Update.Cata == true)
+            {
+                if (_settings.AutoUpdateCore == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (FormData.UI.Version.Update.Mop == true)
+            {
+                if (_settings.AutoUpdateCore == true)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
         private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (CBOXColorSelect.SelectedItem)
@@ -1101,45 +1226,37 @@ namespace TrionControlPanelDesktop
         {
             _settings.ServerCrashDetection = TGLServerCrashDetection.Checked;
         }
-
         private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
         {
             _settings.RunServerWithWindows = TGLServerStartup.Checked;
         }
-
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
             _settings.RunWithWindows = TGLRunTrionStartup.Checked;
         }
-
         private void TGLHideConsole_CheckedChanged(object sender, EventArgs e)
         {
             _settings.ConsolHide = TGLHideConsole.Checked;
         }
-
         private void TGLNotificationSound_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationSound = TGLNotificationSound.Checked;
         }
-
         private void TGLStayInTray_CheckedChanged(object sender, EventArgs e)
         {
             _settings.StayInTray = TGLStayInTray.Checked;
         }
-
         private void TGLAutoUpdateTrion_CheckedChanged(object sender, EventArgs e)
         {
             _settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
         }
-
         private void TGLAutoUpdateCore_CheckedChanged(object sender, EventArgs e)
         {
             _settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
         }
-
         private void TGLAutoUpdateDatabase_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.AutoUpdateDatabaseL = TGLAutoUpdateDatabase.Checked;
+            _settings.AutoUpdateDatabase = TGLAutoUpdateDatabase.Checked;
         }
         #endregion
         #endregion
@@ -1176,5 +1293,6 @@ namespace TrionControlPanelDesktop
             _settings.CustomLogonExeName = TXTCustomAuthName.Text;
             _settings.DBExeName = TXTCustomDatabaseName.Text;
         }
+
     }
 }
