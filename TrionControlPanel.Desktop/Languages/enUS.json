@@ -154,7 +154,7 @@
   "LBLCardSPPInstaledInfo": "Currently installed emulators.",
   "BTNWorldSeparateStart": "World",
   "BTNLogonSeparateStart": "Logon",
-  //-----------------------------SPP-----------------------
+  //--------------------------CustomReack-----------------------
   "TXTCustomDatabaseLocation": "Custom Database Location",
   "TXTCustomRepackLocation": "Custom Emulator Location",
   "LBLCardCustomEmulatorTitle": "SERVER EMULATORS",
@@ -175,14 +175,15 @@
   "BTNCypherWebsite": "CypherCore",
   "BTNTrinityCoreWebsite": "TrinityCore",
   "BTNSkyFireWebsite": "Project SkyFire",
+  //--------------------------CustomDatabase-----------------------
   "LBLCardDatabaseCredencialsTitle": "CONN. DETAILS",
-  "LBLCardDatabaseCredencialsInfo": "",
+  "LBLCardDatabaseCredencialsInfo": "The database credentials currently in use for retrieving the data. \nThe root credentials are as follows: \n Username: root \n Password: FlyingPhoenix",
   "LBLCardTableNameTitle": "DATABASE DETAILS",
-  "LBLCardTableNameInfo": "",
+  "LBLCardTableNameInfo": "The database table names for World, Auth, and Character.",
   "LBLCardPreconfiguredDBTitle": "SELECT DATABASE",
-  "LBLCardPreconfiguredDBInfo": "",
+  "LBLCardPreconfiguredDBInfo": "Select the prebuilt database for the Single Player Project repacks. \nThe 'Custom' option allows you to edit the database credentials and table names as needed.",
   "LBLCardDatabaseBCTitle": "DATABASE BACKUP",
-  "LBLCardDatabaseBCInfo": "",
+  "LBLCardDatabaseBCInfo": "Create and restore database backups easily to ensure data security and recovery.",
   "TXTDatabaseHost": "Host",
   "TXTDatabasePorta": "Port",
   "TXTDatabaseUser": "Username",

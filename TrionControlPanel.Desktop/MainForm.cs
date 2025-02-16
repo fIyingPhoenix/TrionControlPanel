@@ -14,8 +14,6 @@ using TrionControlPanel.Desktop.Extensions.Database;
 using NotificationSystem;
 using System.Diagnostics;
 
-
-
 namespace TrionControlPanelDesktop
 {
     public partial class MainForm : MaterialForm
@@ -25,9 +23,32 @@ namespace TrionControlPanelDesktop
         private void PopulateComboBoxes()
         {
             CBOXSPPVersion.Items.Clear();
-            string[] sppVersions = { "SPPver1", "SPPver2", "SPPver3", "SPPver4", "SPPver5" };
-            CBOXSPPVersion.Items.AddRange(sppVersions.Select(_translator.Translate).ToArray());
+            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver1"));
+            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver2"));
+            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver3"));
+            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver4"));
+            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver5"));
             CBOXSPPVersion.SelectedIndex = (int)_settings.SelectedSPP;
+            CBOXAccountExpansion.Items.Clear();
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion0"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion1"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion2"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion3"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion4"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion5"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion6"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion7"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion8"));
+            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion9"));
+            CBOXAccountExpansion.SelectedIndex = 2;
+            CBOXAccountSecurityAccess.Items.Clear();
+            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL0"));
+            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL1"));
+            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL2"));
+            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL3"));
+            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL4"));
+            CBOXAccountSecurityAccess.SelectedIndex = 0;
+            CBoxSelectItems();
         }
         private void LoadLangauge()
         {
@@ -179,6 +200,8 @@ namespace TrionControlPanelDesktop
             BTNCypherWebsite.Text = _translator.Translate("BTNCypherWebsite");
             BTNTrinityCoreWebsite.Text = _translator.Translate("BTNTrinityCoreWebsite");
             BTNSkyFireWebsite.Text = _translator.Translate("BTNSkyFireWebsite");
+            TLTHome.SetToolTip(LBLCardCustomEmulatorInfo, _translator.Translate("LBLCardCustomEmulatorInfo"));
+            TLTHome.SetToolTip(LBLCardCustomNamesInfo, _translator.Translate("LBLCardCustomNamesInfo"));
             #endregion
             #region"Database"
             LBLCardDatabaseCredencialsTitle.Text = _translator.Translate("LBLCardDatabaseCredencialsTitle").ToUpper(CultureInfo.InvariantCulture);
@@ -281,7 +304,7 @@ namespace TrionControlPanelDesktop
                     CBOXSelectedEmulators.SelectedItem = "TrinityCore";
                     break;
                 case Cores.TrinityCore335:
-                    CBOXSelectedEmulators.SelectedItem = "CypherCore";
+                    CBOXSelectedEmulators.SelectedItem = "TrinityCore 3.3.5";
                     break;
                 case Cores.TrinityCoreClassic:
                     CBOXSelectedEmulators.SelectedItem = "TrinityCore Classic";
@@ -359,7 +382,7 @@ namespace TrionControlPanelDesktop
         private void LoadSettingsUI()
         {
 
-
+            CBoxSelectItems();
             //Load Installed Emulators
             TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
             TGLTBCLaunch.Checked = _settings.LaunchTBCCore;
@@ -456,7 +479,7 @@ namespace TrionControlPanelDesktop
                         Accent.Lime700,
                         TextShade.WHITE);
                     TLTHome.BorderColor = Settings.ConvertToColor(Primary.Green500);
-                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.Green500);
+                    TLTHome.TitleColor = Settings.ConvertToColor(Primary.Lime700);
                     break;
                 case TrionTheme.Orange:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -520,7 +543,7 @@ namespace TrionControlPanelDesktop
         }
         private void TimerPanelAnimation_Tick(object sender, EventArgs e)
         {
-            if (FormData.UI.Version.Update.Trion == false)
+            if (FormData.UI.Version.Update.Trion)
             {
                 PNLUpdateTrion.BorderColor = PNLUpdateTrion.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateTrion.Refresh();
@@ -532,23 +555,77 @@ namespace TrionControlPanelDesktop
                 PNLUpdateTrion.BorderColor = Color.Black;
                 PNLUpdateTrion.Refresh();
             }
-            if (FormData.UI.Version.Update.Database == true)
+            if (FormData.UI.Version.Update.Database)
             {
+                PNLUpdateDatabase.BorderColor = PNLUpdateDatabase.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateDatabase.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
             }
-            if (FormData.UI.Version.Update.Classic == true)
+            else
             {
+                PNLUpdateDatabase.BorderColor= Color.Black;
+                PNLUpdateDatabase.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
-            if (FormData.UI.Version.Update.TBC == true)
+            if (FormData.UI.Version.Update.Classic)
             {
+                PNLUpdateClassicSPP.BorderColor = PNLUpdateClassicSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateClassicSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
             }
-            if (FormData.UI.Version.Update.WotLK == true)
+            else
             {
+                PNLUpdateClassicSPP.BorderColor= Color.Black;
+                PNLUpdateClassicSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
-            if (FormData.UI.Version.Update.Cata == true)
+            if (FormData.UI.Version.Update.TBC)
             {
+                PNLUpdateTbcSPP.BorderColor = PNLUpdateTbcSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateTbcSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
             }
-            if (FormData.UI.Version.Update.Mop == true)
+            else
             {
+                PNLUpdateTbcSPP.BorderColor= Color.Black;
+                PNLUpdateTbcSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+            }
+            if (FormData.UI.Version.Update.WotLK)
+            {
+                PNLUpdateWotlkSpp.BorderColor = PNLUpdateWotlkSpp.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateWotlkSpp.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+            }
+            else
+            {
+               PNLUpdateWotlkSpp.BorderColor = Color.Black;
+               PNLUpdateWotlkSpp.Refresh();
+               BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+            }
+            if (FormData.UI.Version.Update.Cata)
+            {
+                PNLUpdateWotlkSpp.BorderColor = PNLUpdateCataSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateCataSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+            }
+            else
+            {
+                PNLUpdateCataSPP.BorderColor = Color.Black;
+                PNLUpdateCataSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+            }
+            if (FormData.UI.Version.Update.Mop)
+            {
+                PNLUpdateMopSPP.BorderColor = PNLUpdateMopSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
+                PNLUpdateMopSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");     
+            }
+            else
+            {
+                PNLUpdateMopSPP.BorderColor = Color.Black;
+                PNLUpdateMopSPP.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
@@ -621,7 +698,6 @@ namespace TrionControlPanelDesktop
         }
         private void MainFormTabControler_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (MainFormTabControler.SelectedTab == TabDatabaseEditor && FormData.UI.Form.DBRunning)
             {
                 LoadIPAdress();
@@ -1113,84 +1189,35 @@ namespace TrionControlPanelDesktop
             LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
 
         }
-        private async Task StartUpdate(AppSettings Settings)
+        private async Task StartAutoUpdate(AppSettings Settings)
         {
-            if (FormData.UI.Version.Update.Trion == true)
+            if (FormData.UI.Version.Update.Trion && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateTrion == true)
-                {
-                    //Autoudapte 
-                }
-                else
-                {
-                    //animatepanel
-                }
+
             }
-            if (FormData.UI.Version.Update.Database == true)
+            if (FormData.UI.Version.Update.Database && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateDatabase == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
-            if (FormData.UI.Version.Update.Classic == true)
+            if (FormData.UI.Version.Update.Classic && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateCore == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
-            if (FormData.UI.Version.Update.TBC == true)
+            if (FormData.UI.Version.Update.TBC && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateCore == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
-            if (FormData.UI.Version.Update.WotLK == true)
+            if (FormData.UI.Version.Update.WotLK && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateCore == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
-            if (FormData.UI.Version.Update.Cata == true)
+            if (FormData.UI.Version.Update.Cata && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateCore == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
-            if (FormData.UI.Version.Update.Mop == true)
+            if (FormData.UI.Version.Update.Mop && _settings.AutoUpdateTrion)
             {
-                if (_settings.AutoUpdateCore == true)
-                {
 
-                }
-                else
-                {
-
-                }
             }
         }
         private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)

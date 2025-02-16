@@ -2686,7 +2686,7 @@ namespace TrionControlPanelDesktop
             TabAccount.Location = new Point(27, 4);
             TabAccount.Name = "TabAccount";
             TabAccount.Padding = new Padding(3);
-            TabAccount.Size = new Size(1005, 361);
+            TabAccount.Size = new Size(970, 361);
             TabAccount.TabIndex = 1;
             TabAccount.Text = "Account";
             // 
@@ -2705,7 +2705,7 @@ namespace TrionControlPanelDesktop
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(999, 355);
+            tableLayoutPanel2.Size = new Size(964, 355);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // materialCard3
@@ -2721,12 +2721,12 @@ namespace TrionControlPanelDesktop
             materialCard3.Depth = 0;
             materialCard3.Dock = DockStyle.Fill;
             materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard3.Location = new Point(668, 4);
+            materialCard3.Location = new Point(646, 4);
             materialCard3.Margin = new Padding(4);
             materialCard3.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard3.Name = "materialCard3";
             materialCard3.Padding = new Padding(4);
-            materialCard3.Size = new Size(327, 347);
+            materialCard3.Size = new Size(314, 347);
             materialCard3.TabIndex = 2;
             // 
             // TGLAccountShowPassword
@@ -2769,7 +2769,7 @@ namespace TrionControlPanelDesktop
             TXTBoxPassRePassword.SelectionLength = 0;
             TXTBoxPassRePassword.SelectionStart = 0;
             TXTBoxPassRePassword.ShortcutsEnabled = true;
-            TXTBoxPassRePassword.Size = new Size(308, 48);
+            TXTBoxPassRePassword.Size = new Size(295, 48);
             TXTBoxPassRePassword.TabIndex = 22;
             TXTBoxPassRePassword.TabStop = false;
             TXTBoxPassRePassword.TextAlign = HorizontalAlignment.Left;
@@ -2801,7 +2801,7 @@ namespace TrionControlPanelDesktop
             TXTBoxPassPassword.SelectionLength = 0;
             TXTBoxPassPassword.SelectionStart = 0;
             TXTBoxPassPassword.ShortcutsEnabled = true;
-            TXTBoxPassPassword.Size = new Size(308, 48);
+            TXTBoxPassPassword.Size = new Size(295, 48);
             TXTBoxPassPassword.TabIndex = 21;
             TXTBoxPassPassword.TabStop = false;
             TXTBoxPassPassword.TextAlign = HorizontalAlignment.Left;
@@ -2833,7 +2833,7 @@ namespace TrionControlPanelDesktop
             TXTBoxPassUsername.SelectionLength = 0;
             TXTBoxPassUsername.SelectionStart = 0;
             TXTBoxPassUsername.ShortcutsEnabled = true;
-            TXTBoxPassUsername.Size = new Size(308, 48);
+            TXTBoxPassUsername.Size = new Size(295, 48);
             TXTBoxPassUsername.TabIndex = 20;
             TXTBoxPassUsername.TabStop = false;
             TXTBoxPassUsername.TextAlign = HorizontalAlignment.Left;
@@ -2855,7 +2855,7 @@ namespace TrionControlPanelDesktop
             BTNTBoxPassResset.MouseState = MaterialSkin.MouseState.HOVER;
             BTNTBoxPassResset.Name = "BTNTBoxPassResset";
             BTNTBoxPassResset.NoAccentTextColor = Color.Empty;
-            BTNTBoxPassResset.Size = new Size(305, 36);
+            BTNTBoxPassResset.Size = new Size(292, 36);
             BTNTBoxPassResset.TabIndex = 19;
             BTNTBoxPassResset.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNTBoxPassResset.UseAccentColor = false;
@@ -2866,7 +2866,7 @@ namespace TrionControlPanelDesktop
             LBLCardPasswordResetInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardPasswordResetInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardPasswordResetInfo.Image = (Image)resources.GetObject("LBLCardPasswordResetInfo.Image");
-            LBLCardPasswordResetInfo.Location = new Point(299, 10);
+            LBLCardPasswordResetInfo.Location = new Point(286, 10);
             LBLCardPasswordResetInfo.Name = "LBLCardPasswordResetInfo";
             LBLCardPasswordResetInfo.Size = new Size(16, 16);
             LBLCardPasswordResetInfo.TabIndex = 14;
@@ -2899,12 +2899,12 @@ namespace TrionControlPanelDesktop
             materialCard4.Depth = 0;
             materialCard4.Dock = DockStyle.Fill;
             materialCard4.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard4.Location = new Point(336, 4);
+            materialCard4.Location = new Point(325, 4);
             materialCard4.Margin = new Padding(4);
             materialCard4.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard4.Name = "materialCard4";
             materialCard4.Padding = new Padding(4);
-            materialCard4.Size = new Size(324, 347);
+            materialCard4.Size = new Size(313, 347);
             materialCard4.TabIndex = 1;
             // 
             // CBoxGMRealmSelect
@@ -2927,7 +2927,7 @@ namespace TrionControlPanelDesktop
             CBoxGMRealmSelect.MaxDropDownItems = 4;
             CBoxGMRealmSelect.MouseState = MaterialSkin.MouseState.OUT;
             CBoxGMRealmSelect.Name = "CBoxGMRealmSelect";
-            CBoxGMRealmSelect.Size = new Size(307, 49);
+            CBoxGMRealmSelect.Size = new Size(296, 49);
             CBoxGMRealmSelect.StartIndex = 0;
             CBoxGMRealmSelect.TabIndex = 20;
             // 
@@ -2951,7 +2951,7 @@ namespace TrionControlPanelDesktop
             CBOXAccountSecurityAccess.MaxDropDownItems = 4;
             CBOXAccountSecurityAccess.MouseState = MaterialSkin.MouseState.OUT;
             CBOXAccountSecurityAccess.Name = "CBOXAccountSecurityAccess";
-            CBOXAccountSecurityAccess.Size = new Size(307, 49);
+            CBOXAccountSecurityAccess.Size = new Size(296, 49);
             CBOXAccountSecurityAccess.StartIndex = 0;
             CBOXAccountSecurityAccess.TabIndex = 19;
             // 
@@ -2970,7 +2970,7 @@ namespace TrionControlPanelDesktop
             BTNGMCreate.MouseState = MaterialSkin.MouseState.HOVER;
             BTNGMCreate.Name = "BTNGMCreate";
             BTNGMCreate.NoAccentTextColor = Color.Empty;
-            BTNGMCreate.Size = new Size(304, 36);
+            BTNGMCreate.Size = new Size(293, 36);
             BTNGMCreate.TabIndex = 18;
             BTNGMCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNGMCreate.UseAccentColor = false;
@@ -3001,7 +3001,7 @@ namespace TrionControlPanelDesktop
             TXTBoxGMUsername.SelectionLength = 0;
             TXTBoxGMUsername.SelectionStart = 0;
             TXTBoxGMUsername.ShortcutsEnabled = true;
-            TXTBoxGMUsername.Size = new Size(307, 48);
+            TXTBoxGMUsername.Size = new Size(296, 48);
             TXTBoxGMUsername.TabIndex = 14;
             TXTBoxGMUsername.TabStop = false;
             TXTBoxGMUsername.TextAlign = HorizontalAlignment.Left;
@@ -3013,7 +3013,7 @@ namespace TrionControlPanelDesktop
             LBLCardAccountAccessInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardAccountAccessInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardAccountAccessInfo.Image = (Image)resources.GetObject("LBLCardAccountAccessInfo.Image");
-            LBLCardAccountAccessInfo.Location = new Point(298, 10);
+            LBLCardAccountAccessInfo.Location = new Point(287, 10);
             LBLCardAccountAccessInfo.Name = "LBLCardAccountAccessInfo";
             LBLCardAccountAccessInfo.Size = new Size(16, 16);
             LBLCardAccountAccessInfo.TabIndex = 12;
@@ -3051,7 +3051,7 @@ namespace TrionControlPanelDesktop
             materialCard5.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard5.Name = "materialCard5";
             materialCard5.Padding = new Padding(4);
-            materialCard5.Size = new Size(324, 347);
+            materialCard5.Size = new Size(313, 347);
             materialCard5.TabIndex = 0;
             // 
             // CBOXAccountExpansion
@@ -3074,7 +3074,7 @@ namespace TrionControlPanelDesktop
             CBOXAccountExpansion.MaxDropDownItems = 4;
             CBOXAccountExpansion.MouseState = MaterialSkin.MouseState.OUT;
             CBOXAccountExpansion.Name = "CBOXAccountExpansion";
-            CBOXAccountExpansion.Size = new Size(307, 49);
+            CBOXAccountExpansion.Size = new Size(296, 49);
             CBOXAccountExpansion.StartIndex = 0;
             CBOXAccountExpansion.TabIndex = 20;
             // 
@@ -3093,7 +3093,7 @@ namespace TrionControlPanelDesktop
             BTNAccountCreate.MouseState = MaterialSkin.MouseState.HOVER;
             BTNAccountCreate.Name = "BTNAccountCreate";
             BTNAccountCreate.NoAccentTextColor = Color.Empty;
-            BTNAccountCreate.Size = new Size(304, 36);
+            BTNAccountCreate.Size = new Size(293, 36);
             BTNAccountCreate.TabIndex = 17;
             BTNAccountCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNAccountCreate.UseAccentColor = false;
@@ -3124,7 +3124,7 @@ namespace TrionControlPanelDesktop
             TXTBoxCreateUserEmail.SelectionLength = 0;
             TXTBoxCreateUserEmail.SelectionStart = 0;
             TXTBoxCreateUserEmail.ShortcutsEnabled = true;
-            TXTBoxCreateUserEmail.Size = new Size(307, 48);
+            TXTBoxCreateUserEmail.Size = new Size(296, 48);
             TXTBoxCreateUserEmail.TabIndex = 15;
             TXTBoxCreateUserEmail.TabStop = false;
             TXTBoxCreateUserEmail.TextAlign = HorizontalAlignment.Left;
@@ -3156,7 +3156,7 @@ namespace TrionControlPanelDesktop
             TXTBoxCreateUserPassword.SelectionLength = 0;
             TXTBoxCreateUserPassword.SelectionStart = 0;
             TXTBoxCreateUserPassword.ShortcutsEnabled = true;
-            TXTBoxCreateUserPassword.Size = new Size(307, 48);
+            TXTBoxCreateUserPassword.Size = new Size(296, 48);
             TXTBoxCreateUserPassword.TabIndex = 14;
             TXTBoxCreateUserPassword.TabStop = false;
             TXTBoxCreateUserPassword.TextAlign = HorizontalAlignment.Left;
@@ -3188,7 +3188,7 @@ namespace TrionControlPanelDesktop
             TXTBoxCreateUserUsername.SelectionLength = 0;
             TXTBoxCreateUserUsername.SelectionStart = 0;
             TXTBoxCreateUserUsername.ShortcutsEnabled = true;
-            TXTBoxCreateUserUsername.Size = new Size(307, 48);
+            TXTBoxCreateUserUsername.Size = new Size(296, 48);
             TXTBoxCreateUserUsername.TabIndex = 13;
             TXTBoxCreateUserUsername.TabStop = false;
             TXTBoxCreateUserUsername.TextAlign = HorizontalAlignment.Left;
@@ -3200,7 +3200,7 @@ namespace TrionControlPanelDesktop
             LBLCardAccountCreateInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardAccountCreateInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardAccountCreateInfo.Image = (Image)resources.GetObject("LBLCardAccountCreateInfo.Image");
-            LBLCardAccountCreateInfo.Location = new Point(298, 10);
+            LBLCardAccountCreateInfo.Location = new Point(287, 10);
             LBLCardAccountCreateInfo.Name = "LBLCardAccountCreateInfo";
             LBLCardAccountCreateInfo.Size = new Size(16, 16);
             LBLCardAccountCreateInfo.TabIndex = 12;
@@ -3779,11 +3779,11 @@ namespace TrionControlPanelDesktop
             CBOXLanguageSelect.Hint = "ID";
             CBOXLanguageSelect.IntegralHeight = false;
             CBOXLanguageSelect.ItemHeight = 43;
-            CBOXLanguageSelect.Location = new Point(7, 69);
+            CBOXLanguageSelect.Location = new Point(10, 69);
             CBOXLanguageSelect.MaxDropDownItems = 4;
             CBOXLanguageSelect.MouseState = MaterialSkin.MouseState.OUT;
             CBOXLanguageSelect.Name = "CBOXLanguageSelect";
-            CBOXLanguageSelect.Size = new Size(277, 49);
+            CBOXLanguageSelect.Size = new Size(273, 49);
             CBOXLanguageSelect.StartIndex = 0;
             CBOXLanguageSelect.TabIndex = 5;
             CBOXLanguageSelect.SelectedIndexChanged += CBOXLanguageSelect_SelectedIndexChanged;
@@ -4295,7 +4295,7 @@ namespace TrionControlPanelDesktop
             TabCustom.Controls.Add(tableLayoutPanel5);
             TabCustom.Location = new Point(27, 4);
             TabCustom.Name = "TabCustom";
-            TabCustom.Size = new Size(1005, 361);
+            TabCustom.Size = new Size(970, 361);
             TabCustom.TabIndex = 3;
             TabCustom.Text = "Custom";
             // 
@@ -4313,7 +4313,7 @@ namespace TrionControlPanelDesktop
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(1005, 361);
+            tableLayoutPanel5.Size = new Size(970, 361);
             tableLayoutPanel5.TabIndex = 8;
             // 
             // TXTCustomDatabaseLocation
@@ -4341,7 +4341,7 @@ namespace TrionControlPanelDesktop
             TXTCustomDatabaseLocation.SelectionLength = 0;
             TXTCustomDatabaseLocation.SelectionStart = 0;
             TXTCustomDatabaseLocation.ShortcutsEnabled = true;
-            TXTCustomDatabaseLocation.Size = new Size(999, 48);
+            TXTCustomDatabaseLocation.Size = new Size(964, 48);
             TXTCustomDatabaseLocation.TabIndex = 9;
             TXTCustomDatabaseLocation.TabStop = false;
             TXTCustomDatabaseLocation.TextAlign = HorizontalAlignment.Left;
@@ -4373,7 +4373,7 @@ namespace TrionControlPanelDesktop
             TXTCustomRepackLocation.SelectionLength = 0;
             TXTCustomRepackLocation.SelectionStart = 0;
             TXTCustomRepackLocation.ShortcutsEnabled = true;
-            TXTCustomRepackLocation.Size = new Size(999, 48);
+            TXTCustomRepackLocation.Size = new Size(964, 48);
             TXTCustomRepackLocation.TabIndex = 8;
             TXTCustomRepackLocation.TabStop = false;
             TXTCustomRepackLocation.TextAlign = HorizontalAlignment.Left;
@@ -4394,7 +4394,7 @@ namespace TrionControlPanelDesktop
             tableLayoutPanel7.Name = "tableLayoutPanel7";
             tableLayoutPanel7.RowCount = 1;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel7.Size = new Size(999, 255);
+            tableLayoutPanel7.Size = new Size(964, 255);
             tableLayoutPanel7.TabIndex = 10;
             // 
             // materialCard11
@@ -4409,12 +4409,12 @@ namespace TrionControlPanelDesktop
             materialCard11.Depth = 0;
             materialCard11.Dock = DockStyle.Fill;
             materialCard11.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard11.Location = new Point(668, 4);
+            materialCard11.Location = new Point(646, 4);
             materialCard11.Margin = new Padding(4);
             materialCard11.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard11.Name = "materialCard11";
             materialCard11.Padding = new Padding(14);
-            materialCard11.Size = new Size(327, 247);
+            materialCard11.Size = new Size(314, 247);
             materialCard11.TabIndex = 2;
             // 
             // BTNAscEmuWebsite
@@ -4427,12 +4427,12 @@ namespace TrionControlPanelDesktop
             BTNAscEmuWebsite.Depth = 0;
             BTNAscEmuWebsite.HighEmphasis = true;
             BTNAscEmuWebsite.Icon = (Image)resources.GetObject("BTNAscEmuWebsite.Icon");
-            BTNAscEmuWebsite.Location = new Point(8, 6);
+            BTNAscEmuWebsite.Location = new Point(18, 10);
             BTNAscEmuWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNAscEmuWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNAscEmuWebsite.Name = "BTNAscEmuWebsite";
             BTNAscEmuWebsite.NoAccentTextColor = Color.Empty;
-            BTNAscEmuWebsite.Size = new Size(312, 36);
+            BTNAscEmuWebsite.Size = new Size(278, 36);
             BTNAscEmuWebsite.TabIndex = 15;
             BTNAscEmuWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNAscEmuWebsite.UseAccentColor = false;
@@ -4448,12 +4448,12 @@ namespace TrionControlPanelDesktop
             BTNSkyFireWebsite.Depth = 0;
             BTNSkyFireWebsite.HighEmphasis = true;
             BTNSkyFireWebsite.Icon = (Image)resources.GetObject("BTNSkyFireWebsite.Icon");
-            BTNSkyFireWebsite.Location = new Point(8, 209);
+            BTNSkyFireWebsite.Location = new Point(18, 213);
             BTNSkyFireWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNSkyFireWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNSkyFireWebsite.Name = "BTNSkyFireWebsite";
             BTNSkyFireWebsite.NoAccentTextColor = Color.Empty;
-            BTNSkyFireWebsite.Size = new Size(312, 36);
+            BTNSkyFireWebsite.Size = new Size(278, 36);
             BTNSkyFireWebsite.TabIndex = 14;
             BTNSkyFireWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNSkyFireWebsite.UseAccentColor = false;
@@ -4469,12 +4469,12 @@ namespace TrionControlPanelDesktop
             BTNTrinityCoreWebsite.Depth = 0;
             BTNTrinityCoreWebsite.HighEmphasis = true;
             BTNTrinityCoreWebsite.Icon = (Image)resources.GetObject("BTNTrinityCoreWebsite.Icon");
-            BTNTrinityCoreWebsite.Location = new Point(8, 168);
+            BTNTrinityCoreWebsite.Location = new Point(18, 172);
             BTNTrinityCoreWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNTrinityCoreWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNTrinityCoreWebsite.Name = "BTNTrinityCoreWebsite";
             BTNTrinityCoreWebsite.NoAccentTextColor = Color.Empty;
-            BTNTrinityCoreWebsite.Size = new Size(312, 36);
+            BTNTrinityCoreWebsite.Size = new Size(278, 36);
             BTNTrinityCoreWebsite.TabIndex = 13;
             BTNTrinityCoreWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNTrinityCoreWebsite.UseAccentColor = false;
@@ -4490,12 +4490,12 @@ namespace TrionControlPanelDesktop
             BTNCypherWebsite.Depth = 0;
             BTNCypherWebsite.HighEmphasis = true;
             BTNCypherWebsite.Icon = (Image)resources.GetObject("BTNCypherWebsite.Icon");
-            BTNCypherWebsite.Location = new Point(8, 127);
+            BTNCypherWebsite.Location = new Point(18, 131);
             BTNCypherWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNCypherWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNCypherWebsite.Name = "BTNCypherWebsite";
             BTNCypherWebsite.NoAccentTextColor = Color.Empty;
-            BTNCypherWebsite.Size = new Size(312, 36);
+            BTNCypherWebsite.Size = new Size(278, 36);
             BTNCypherWebsite.TabIndex = 12;
             BTNCypherWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNCypherWebsite.UseAccentColor = false;
@@ -4511,12 +4511,12 @@ namespace TrionControlPanelDesktop
             BTNCMangosWebsite.Depth = 0;
             BTNCMangosWebsite.HighEmphasis = true;
             BTNCMangosWebsite.Icon = (Image)resources.GetObject("BTNCMangosWebsite.Icon");
-            BTNCMangosWebsite.Location = new Point(8, 86);
+            BTNCMangosWebsite.Location = new Point(18, 90);
             BTNCMangosWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNCMangosWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNCMangosWebsite.Name = "BTNCMangosWebsite";
             BTNCMangosWebsite.NoAccentTextColor = Color.Empty;
-            BTNCMangosWebsite.Size = new Size(312, 36);
+            BTNCMangosWebsite.Size = new Size(278, 36);
             BTNCMangosWebsite.TabIndex = 11;
             BTNCMangosWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNCMangosWebsite.UseAccentColor = false;
@@ -4532,12 +4532,12 @@ namespace TrionControlPanelDesktop
             BTNACoreWebsite.Depth = 0;
             BTNACoreWebsite.HighEmphasis = true;
             BTNACoreWebsite.Icon = (Image)resources.GetObject("BTNACoreWebsite.Icon");
-            BTNACoreWebsite.Location = new Point(8, 46);
+            BTNACoreWebsite.Location = new Point(18, 50);
             BTNACoreWebsite.Margin = new Padding(4, 6, 4, 6);
             BTNACoreWebsite.MouseState = MaterialSkin.MouseState.HOVER;
             BTNACoreWebsite.Name = "BTNACoreWebsite";
             BTNACoreWebsite.NoAccentTextColor = Color.Empty;
-            BTNACoreWebsite.Size = new Size(312, 36);
+            BTNACoreWebsite.Size = new Size(278, 36);
             BTNACoreWebsite.TabIndex = 10;
             BTNACoreWebsite.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNACoreWebsite.UseAccentColor = false;
@@ -4555,12 +4555,12 @@ namespace TrionControlPanelDesktop
             materialCard10.Depth = 0;
             materialCard10.Dock = DockStyle.Fill;
             materialCard10.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard10.Location = new Point(336, 4);
+            materialCard10.Location = new Point(325, 4);
             materialCard10.Margin = new Padding(4);
             materialCard10.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard10.Name = "materialCard10";
             materialCard10.Padding = new Padding(14);
-            materialCard10.Size = new Size(324, 247);
+            materialCard10.Size = new Size(313, 247);
             materialCard10.TabIndex = 1;
             // 
             // TGLCustomNames
@@ -4584,7 +4584,7 @@ namespace TrionControlPanelDesktop
             LBLCardCustomNamesInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardCustomNamesInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardCustomNamesInfo.Image = (Image)resources.GetObject("LBLCardCustomNamesInfo.Image");
-            LBLCardCustomNamesInfo.Location = new Point(298, 10);
+            LBLCardCustomNamesInfo.Location = new Point(280, 10);
             LBLCardCustomNamesInfo.Name = "LBLCardCustomNamesInfo";
             LBLCardCustomNamesInfo.Size = new Size(16, 16);
             LBLCardCustomNamesInfo.TabIndex = 13;
@@ -4603,7 +4603,7 @@ namespace TrionControlPanelDesktop
             TXTCustomDatabaseName.HideSelection = true;
             TXTCustomDatabaseName.Hint = "ID";
             TXTCustomDatabaseName.LeadingIcon = null;
-            TXTCustomDatabaseName.Location = new Point(10, 163);
+            TXTCustomDatabaseName.Location = new Point(17, 163);
             TXTCustomDatabaseName.MaxLength = 32767;
             TXTCustomDatabaseName.MouseState = MaterialSkin.MouseState.OUT;
             TXTCustomDatabaseName.Name = "TXTCustomDatabaseName";
@@ -4615,7 +4615,7 @@ namespace TrionControlPanelDesktop
             TXTCustomDatabaseName.SelectionLength = 0;
             TXTCustomDatabaseName.SelectionStart = 0;
             TXTCustomDatabaseName.ShortcutsEnabled = true;
-            TXTCustomDatabaseName.Size = new Size(307, 48);
+            TXTCustomDatabaseName.Size = new Size(279, 48);
             TXTCustomDatabaseName.TabIndex = 12;
             TXTCustomDatabaseName.TabStop = false;
             TXTCustomDatabaseName.TextAlign = HorizontalAlignment.Left;
@@ -4636,7 +4636,7 @@ namespace TrionControlPanelDesktop
             TXTCustomWorldName.HideSelection = true;
             TXTCustomWorldName.Hint = "ID";
             TXTCustomWorldName.LeadingIcon = null;
-            TXTCustomWorldName.Location = new Point(10, 109);
+            TXTCustomWorldName.Location = new Point(17, 109);
             TXTCustomWorldName.MaxLength = 32767;
             TXTCustomWorldName.MouseState = MaterialSkin.MouseState.OUT;
             TXTCustomWorldName.Name = "TXTCustomWorldName";
@@ -4648,7 +4648,7 @@ namespace TrionControlPanelDesktop
             TXTCustomWorldName.SelectionLength = 0;
             TXTCustomWorldName.SelectionStart = 0;
             TXTCustomWorldName.ShortcutsEnabled = true;
-            TXTCustomWorldName.Size = new Size(307, 48);
+            TXTCustomWorldName.Size = new Size(279, 48);
             TXTCustomWorldName.TabIndex = 11;
             TXTCustomWorldName.TabStop = false;
             TXTCustomWorldName.TextAlign = HorizontalAlignment.Left;
@@ -4669,7 +4669,7 @@ namespace TrionControlPanelDesktop
             TXTCustomAuthName.HideSelection = true;
             TXTCustomAuthName.Hint = "ID";
             TXTCustomAuthName.LeadingIcon = null;
-            TXTCustomAuthName.Location = new Point(10, 55);
+            TXTCustomAuthName.Location = new Point(17, 55);
             TXTCustomAuthName.MaxLength = 32767;
             TXTCustomAuthName.MouseState = MaterialSkin.MouseState.OUT;
             TXTCustomAuthName.Name = "TXTCustomAuthName";
@@ -4681,7 +4681,7 @@ namespace TrionControlPanelDesktop
             TXTCustomAuthName.SelectionLength = 0;
             TXTCustomAuthName.SelectionStart = 0;
             TXTCustomAuthName.ShortcutsEnabled = true;
-            TXTCustomAuthName.Size = new Size(307, 48);
+            TXTCustomAuthName.Size = new Size(279, 48);
             TXTCustomAuthName.TabIndex = 10;
             TXTCustomAuthName.TabStop = false;
             TXTCustomAuthName.TextAlign = HorizontalAlignment.Left;
@@ -4720,7 +4720,7 @@ namespace TrionControlPanelDesktop
             materialCard9.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard9.Name = "materialCard9";
             materialCard9.Padding = new Padding(14);
-            materialCard9.Size = new Size(324, 247);
+            materialCard9.Size = new Size(313, 247);
             materialCard9.TabIndex = 0;
             // 
             // TGLUseCustomServer
@@ -4744,7 +4744,7 @@ namespace TrionControlPanelDesktop
             LBLCardCustomEmulatorInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardCustomEmulatorInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardCustomEmulatorInfo.Image = (Image)resources.GetObject("LBLCardCustomEmulatorInfo.Image");
-            LBLCardCustomEmulatorInfo.Location = new Point(298, 10);
+            LBLCardCustomEmulatorInfo.Location = new Point(280, 10);
             LBLCardCustomEmulatorInfo.Name = "LBLCardCustomEmulatorInfo";
             LBLCardCustomEmulatorInfo.Size = new Size(16, 16);
             LBLCardCustomEmulatorInfo.TabIndex = 18;
@@ -4760,12 +4760,12 @@ namespace TrionControlPanelDesktop
             BTNEmulatorLocation.Depth = 0;
             BTNEmulatorLocation.HighEmphasis = true;
             BTNEmulatorLocation.Icon = (Image)resources.GetObject("BTNEmulatorLocation.Icon");
-            BTNEmulatorLocation.Location = new Point(6, 109);
+            BTNEmulatorLocation.Location = new Point(18, 109);
             BTNEmulatorLocation.Margin = new Padding(4, 6, 4, 6);
             BTNEmulatorLocation.MouseState = MaterialSkin.MouseState.HOVER;
             BTNEmulatorLocation.Name = "BTNEmulatorLocation";
             BTNEmulatorLocation.NoAccentTextColor = Color.Empty;
-            BTNEmulatorLocation.Size = new Size(308, 36);
+            BTNEmulatorLocation.Size = new Size(277, 36);
             BTNEmulatorLocation.TabIndex = 17;
             BTNEmulatorLocation.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNEmulatorLocation.UseAccentColor = false;
@@ -4781,12 +4781,12 @@ namespace TrionControlPanelDesktop
             BTNDatabaseLocation.Depth = 0;
             BTNDatabaseLocation.HighEmphasis = true;
             BTNDatabaseLocation.Icon = (Image)resources.GetObject("BTNDatabaseLocation.Icon");
-            BTNDatabaseLocation.Location = new Point(6, 149);
+            BTNDatabaseLocation.Location = new Point(18, 149);
             BTNDatabaseLocation.Margin = new Padding(4, 6, 4, 6);
             BTNDatabaseLocation.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDatabaseLocation.Name = "BTNDatabaseLocation";
             BTNDatabaseLocation.NoAccentTextColor = Color.Empty;
-            BTNDatabaseLocation.Size = new Size(308, 36);
+            BTNDatabaseLocation.Size = new Size(277, 36);
             BTNDatabaseLocation.TabIndex = 16;
             BTNDatabaseLocation.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDatabaseLocation.UseAccentColor = false;
@@ -4809,11 +4809,11 @@ namespace TrionControlPanelDesktop
             CBOXSelectedEmulators.IntegralHeight = false;
             CBOXSelectedEmulators.ItemHeight = 43;
             CBOXSelectedEmulators.Items.AddRange(new object[] { "AscEmu", "AzerothCore", "CMaNGOS", "CypherCore", "TrinityCore", "CypherCore", "TrinityCore Classic", "VMaNGOS" });
-            CBOXSelectedEmulators.Location = new Point(6, 55);
+            CBOXSelectedEmulators.Location = new Point(17, 55);
             CBOXSelectedEmulators.MaxDropDownItems = 4;
             CBOXSelectedEmulators.MouseState = MaterialSkin.MouseState.OUT;
             CBOXSelectedEmulators.Name = "CBOXSelectedEmulators";
-            CBOXSelectedEmulators.Size = new Size(308, 49);
+            CBOXSelectedEmulators.Size = new Size(279, 49);
             CBOXSelectedEmulators.StartIndex = 0;
             CBOXSelectedEmulators.TabIndex = 9;
             // 
@@ -4895,12 +4895,12 @@ namespace TrionControlPanelDesktop
             BTNFixDatabase.Depth = 0;
             BTNFixDatabase.HighEmphasis = true;
             BTNFixDatabase.Icon = (Image)resources.GetObject("BTNFixDatabase.Icon");
-            BTNFixDatabase.Location = new Point(6, 316);
+            BTNFixDatabase.Location = new Point(18, 316);
             BTNFixDatabase.Margin = new Padding(4, 6, 4, 6);
             BTNFixDatabase.MouseState = MaterialSkin.MouseState.HOVER;
             BTNFixDatabase.Name = "BTNFixDatabase";
             BTNFixDatabase.NoAccentTextColor = Color.Empty;
-            BTNFixDatabase.Size = new Size(230, 36);
+            BTNFixDatabase.Size = new Size(208, 36);
             BTNFixDatabase.TabIndex = 22;
             BTNFixDatabase.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNFixDatabase.UseAccentColor = false;
@@ -4916,12 +4916,12 @@ namespace TrionControlPanelDesktop
             BTNLoadBackup.Depth = 0;
             BTNLoadBackup.HighEmphasis = true;
             BTNLoadBackup.Icon = (Image)resources.GetObject("BTNLoadBackup.Icon");
-            BTNLoadBackup.Location = new Point(6, 274);
+            BTNLoadBackup.Location = new Point(18, 274);
             BTNLoadBackup.Margin = new Padding(4, 6, 4, 6);
             BTNLoadBackup.MouseState = MaterialSkin.MouseState.HOVER;
             BTNLoadBackup.Name = "BTNLoadBackup";
             BTNLoadBackup.NoAccentTextColor = Color.Empty;
-            BTNLoadBackup.Size = new Size(230, 36);
+            BTNLoadBackup.Size = new Size(208, 36);
             BTNLoadBackup.TabIndex = 21;
             BTNLoadBackup.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNLoadBackup.UseAccentColor = false;
@@ -4937,12 +4937,12 @@ namespace TrionControlPanelDesktop
             BTNDatabaseBackup.Depth = 0;
             BTNDatabaseBackup.HighEmphasis = true;
             BTNDatabaseBackup.Icon = (Image)resources.GetObject("BTNDatabaseBackup.Icon");
-            BTNDatabaseBackup.Location = new Point(6, 232);
+            BTNDatabaseBackup.Location = new Point(18, 232);
             BTNDatabaseBackup.Margin = new Padding(4, 6, 4, 6);
             BTNDatabaseBackup.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDatabaseBackup.Name = "BTNDatabaseBackup";
             BTNDatabaseBackup.NoAccentTextColor = Color.Empty;
-            BTNDatabaseBackup.Size = new Size(230, 36);
+            BTNDatabaseBackup.Size = new Size(208, 36);
             BTNDatabaseBackup.TabIndex = 20;
             BTNDatabaseBackup.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDatabaseBackup.UseAccentColor = false;
@@ -4998,7 +4998,7 @@ namespace TrionControlPanelDesktop
             LBLCardDatabaseBCInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardDatabaseBCInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardDatabaseBCInfo.Image = (Image)resources.GetObject("LBLCardDatabaseBCInfo.Image");
-            LBLCardDatabaseBCInfo.Location = new Point(220, 10);
+            LBLCardDatabaseBCInfo.Location = new Point(212, 10);
             LBLCardDatabaseBCInfo.Name = "LBLCardDatabaseBCInfo";
             LBLCardDatabaseBCInfo.Size = new Size(16, 16);
             LBLCardDatabaseBCInfo.TabIndex = 11;
@@ -5136,7 +5136,7 @@ namespace TrionControlPanelDesktop
             LBLCardPreconfiguredDBInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardPreconfiguredDBInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardPreconfiguredDBInfo.Image = (Image)resources.GetObject("LBLCardPreconfiguredDBInfo.Image");
-            LBLCardPreconfiguredDBInfo.Location = new Point(220, 10);
+            LBLCardPreconfiguredDBInfo.Location = new Point(213, 10);
             LBLCardPreconfiguredDBInfo.Name = "LBLCardPreconfiguredDBInfo";
             LBLCardPreconfiguredDBInfo.Size = new Size(16, 16);
             LBLCardPreconfiguredDBInfo.TabIndex = 11;
@@ -5188,12 +5188,12 @@ namespace TrionControlPanelDesktop
             BTNDeleteWorld.Depth = 0;
             BTNDeleteWorld.HighEmphasis = true;
             BTNDeleteWorld.Icon = (Image)resources.GetObject("BTNDeleteWorld.Icon");
-            BTNDeleteWorld.Location = new Point(6, 316);
+            BTNDeleteWorld.Location = new Point(10, 316);
             BTNDeleteWorld.Margin = new Padding(4, 6, 4, 6);
             BTNDeleteWorld.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDeleteWorld.Name = "BTNDeleteWorld";
             BTNDeleteWorld.NoAccentTextColor = Color.Empty;
-            BTNDeleteWorld.Size = new Size(230, 36);
+            BTNDeleteWorld.Size = new Size(219, 36);
             BTNDeleteWorld.TabIndex = 19;
             BTNDeleteWorld.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDeleteWorld.UseAccentColor = false;
@@ -5209,12 +5209,12 @@ namespace TrionControlPanelDesktop
             BTNDeleteChar.Depth = 0;
             BTNDeleteChar.HighEmphasis = true;
             BTNDeleteChar.Icon = (Image)resources.GetObject("BTNDeleteChar.Icon");
-            BTNDeleteChar.Location = new Point(6, 274);
+            BTNDeleteChar.Location = new Point(10, 274);
             BTNDeleteChar.Margin = new Padding(4, 6, 4, 6);
             BTNDeleteChar.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDeleteChar.Name = "BTNDeleteChar";
             BTNDeleteChar.NoAccentTextColor = Color.Empty;
-            BTNDeleteChar.Size = new Size(230, 36);
+            BTNDeleteChar.Size = new Size(219, 36);
             BTNDeleteChar.TabIndex = 18;
             BTNDeleteChar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDeleteChar.UseAccentColor = false;
@@ -5230,12 +5230,12 @@ namespace TrionControlPanelDesktop
             BTNDeleteAuth.Depth = 0;
             BTNDeleteAuth.HighEmphasis = true;
             BTNDeleteAuth.Icon = (Image)resources.GetObject("BTNDeleteAuth.Icon");
-            BTNDeleteAuth.Location = new Point(6, 232);
+            BTNDeleteAuth.Location = new Point(10, 232);
             BTNDeleteAuth.Margin = new Padding(4, 6, 4, 6);
             BTNDeleteAuth.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDeleteAuth.Name = "BTNDeleteAuth";
             BTNDeleteAuth.NoAccentTextColor = Color.Empty;
-            BTNDeleteAuth.Size = new Size(230, 36);
+            BTNDeleteAuth.Size = new Size(219, 36);
             BTNDeleteAuth.TabIndex = 17;
             BTNDeleteAuth.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDeleteAuth.UseAccentColor = false;
@@ -5254,7 +5254,7 @@ namespace TrionControlPanelDesktop
             TXTWorldDatabase.HideSelection = true;
             TXTWorldDatabase.Hint = "ID";
             TXTWorldDatabase.LeadingIcon = null;
-            TXTWorldDatabase.Location = new Point(6, 178);
+            TXTWorldDatabase.Location = new Point(10, 178);
             TXTWorldDatabase.MaxLength = 32767;
             TXTWorldDatabase.MouseState = MaterialSkin.MouseState.OUT;
             TXTWorldDatabase.Name = "TXTWorldDatabase";
@@ -5266,7 +5266,7 @@ namespace TrionControlPanelDesktop
             TXTWorldDatabase.SelectionLength = 0;
             TXTWorldDatabase.SelectionStart = 0;
             TXTWorldDatabase.ShortcutsEnabled = true;
-            TXTWorldDatabase.Size = new Size(230, 48);
+            TXTWorldDatabase.Size = new Size(220, 48);
             TXTWorldDatabase.TabIndex = 16;
             TXTWorldDatabase.TabStop = false;
             TXTWorldDatabase.TextAlign = HorizontalAlignment.Left;
@@ -5287,7 +5287,7 @@ namespace TrionControlPanelDesktop
             TXTCharDatabase.HideSelection = true;
             TXTCharDatabase.Hint = "ID";
             TXTCharDatabase.LeadingIcon = null;
-            TXTCharDatabase.Location = new Point(6, 124);
+            TXTCharDatabase.Location = new Point(10, 124);
             TXTCharDatabase.MaxLength = 32767;
             TXTCharDatabase.MouseState = MaterialSkin.MouseState.OUT;
             TXTCharDatabase.Name = "TXTCharDatabase";
@@ -5299,7 +5299,7 @@ namespace TrionControlPanelDesktop
             TXTCharDatabase.SelectionLength = 0;
             TXTCharDatabase.SelectionStart = 0;
             TXTCharDatabase.ShortcutsEnabled = true;
-            TXTCharDatabase.Size = new Size(230, 48);
+            TXTCharDatabase.Size = new Size(219, 48);
             TXTCharDatabase.TabIndex = 15;
             TXTCharDatabase.TabStop = false;
             TXTCharDatabase.TextAlign = HorizontalAlignment.Left;
@@ -5320,7 +5320,7 @@ namespace TrionControlPanelDesktop
             TXTAuthDatabase.HideSelection = true;
             TXTAuthDatabase.Hint = "ID";
             TXTAuthDatabase.LeadingIcon = null;
-            TXTAuthDatabase.Location = new Point(6, 70);
+            TXTAuthDatabase.Location = new Point(10, 70);
             TXTAuthDatabase.MaxLength = 32767;
             TXTAuthDatabase.MouseState = MaterialSkin.MouseState.OUT;
             TXTAuthDatabase.Name = "TXTAuthDatabase";
@@ -5332,7 +5332,7 @@ namespace TrionControlPanelDesktop
             TXTAuthDatabase.SelectionLength = 0;
             TXTAuthDatabase.SelectionStart = 0;
             TXTAuthDatabase.ShortcutsEnabled = true;
-            TXTAuthDatabase.Size = new Size(230, 48);
+            TXTAuthDatabase.Size = new Size(219, 48);
             TXTAuthDatabase.TabIndex = 14;
             TXTAuthDatabase.TabStop = false;
             TXTAuthDatabase.TextAlign = HorizontalAlignment.Left;
@@ -5345,7 +5345,7 @@ namespace TrionControlPanelDesktop
             LBLCardTableNameInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardTableNameInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardTableNameInfo.Image = (Image)resources.GetObject("LBLCardTableNameInfo.Image");
-            LBLCardTableNameInfo.Location = new Point(220, 10);
+            LBLCardTableNameInfo.Location = new Point(213, 10);
             LBLCardTableNameInfo.Name = "LBLCardTableNameInfo";
             LBLCardTableNameInfo.Size = new Size(16, 16);
             LBLCardTableNameInfo.TabIndex = 11;
@@ -5391,7 +5391,7 @@ namespace TrionControlPanelDesktop
             LBLCardDatabaseCredencialsInfo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LBLCardDatabaseCredencialsInfo.BackgroundImageLayout = ImageLayout.Stretch;
             LBLCardDatabaseCredencialsInfo.Image = (Image)resources.GetObject("LBLCardDatabaseCredencialsInfo.Image");
-            LBLCardDatabaseCredencialsInfo.Location = new Point(220, 10);
+            LBLCardDatabaseCredencialsInfo.Location = new Point(212, 10);
             LBLCardDatabaseCredencialsInfo.Name = "LBLCardDatabaseCredencialsInfo";
             LBLCardDatabaseCredencialsInfo.Size = new Size(16, 16);
             LBLCardDatabaseCredencialsInfo.TabIndex = 11;
@@ -5407,12 +5407,12 @@ namespace TrionControlPanelDesktop
             BTNTestConnection.Depth = 0;
             BTNTestConnection.HighEmphasis = true;
             BTNTestConnection.Icon = (Image)resources.GetObject("BTNTestConnection.Icon");
-            BTNTestConnection.Location = new Point(6, 316);
+            BTNTestConnection.Location = new Point(18, 317);
             BTNTestConnection.Margin = new Padding(4, 6, 4, 6);
             BTNTestConnection.MouseState = MaterialSkin.MouseState.HOVER;
             BTNTestConnection.Name = "BTNTestConnection";
             BTNTestConnection.NoAccentTextColor = Color.Empty;
-            BTNTestConnection.Size = new Size(230, 36);
+            BTNTestConnection.Size = new Size(207, 36);
             BTNTestConnection.TabIndex = 15;
             BTNTestConnection.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNTestConnection.UseAccentColor = false;
@@ -5431,7 +5431,7 @@ namespace TrionControlPanelDesktop
             TXTDatabasePassword.HideSelection = true;
             TXTDatabasePassword.Hint = "ID";
             TXTDatabasePassword.LeadingIcon = null;
-            TXTDatabasePassword.Location = new Point(6, 232);
+            TXTDatabasePassword.Location = new Point(11, 232);
             TXTDatabasePassword.MaxLength = 32767;
             TXTDatabasePassword.MouseState = MaterialSkin.MouseState.OUT;
             TXTDatabasePassword.Name = "TXTDatabasePassword";
@@ -5443,7 +5443,7 @@ namespace TrionControlPanelDesktop
             TXTDatabasePassword.SelectionLength = 0;
             TXTDatabasePassword.SelectionStart = 0;
             TXTDatabasePassword.ShortcutsEnabled = true;
-            TXTDatabasePassword.Size = new Size(230, 48);
+            TXTDatabasePassword.Size = new Size(217, 48);
             TXTDatabasePassword.TabIndex = 14;
             TXTDatabasePassword.TabStop = false;
             TXTDatabasePassword.TextAlign = HorizontalAlignment.Left;
@@ -5464,7 +5464,7 @@ namespace TrionControlPanelDesktop
             TXTDatabaseUser.HideSelection = true;
             TXTDatabaseUser.Hint = "ID";
             TXTDatabaseUser.LeadingIcon = null;
-            TXTDatabaseUser.Location = new Point(6, 178);
+            TXTDatabaseUser.Location = new Point(11, 178);
             TXTDatabaseUser.MaxLength = 32767;
             TXTDatabaseUser.MouseState = MaterialSkin.MouseState.OUT;
             TXTDatabaseUser.Name = "TXTDatabaseUser";
@@ -5476,7 +5476,7 @@ namespace TrionControlPanelDesktop
             TXTDatabaseUser.SelectionLength = 0;
             TXTDatabaseUser.SelectionStart = 0;
             TXTDatabaseUser.ShortcutsEnabled = true;
-            TXTDatabaseUser.Size = new Size(230, 48);
+            TXTDatabaseUser.Size = new Size(217, 48);
             TXTDatabaseUser.TabIndex = 13;
             TXTDatabaseUser.TabStop = false;
             TXTDatabaseUser.TextAlign = HorizontalAlignment.Left;
@@ -5497,7 +5497,7 @@ namespace TrionControlPanelDesktop
             TXTDatabasePort.HideSelection = true;
             TXTDatabasePort.Hint = "ID";
             TXTDatabasePort.LeadingIcon = null;
-            TXTDatabasePort.Location = new Point(6, 124);
+            TXTDatabasePort.Location = new Point(11, 124);
             TXTDatabasePort.MaxLength = 32767;
             TXTDatabasePort.MouseState = MaterialSkin.MouseState.OUT;
             TXTDatabasePort.Name = "TXTDatabasePort";
@@ -5509,7 +5509,7 @@ namespace TrionControlPanelDesktop
             TXTDatabasePort.SelectionLength = 0;
             TXTDatabasePort.SelectionStart = 0;
             TXTDatabasePort.ShortcutsEnabled = true;
-            TXTDatabasePort.Size = new Size(230, 48);
+            TXTDatabasePort.Size = new Size(217, 48);
             TXTDatabasePort.TabIndex = 12;
             TXTDatabasePort.TabStop = false;
             TXTDatabasePort.TextAlign = HorizontalAlignment.Left;
@@ -5530,7 +5530,7 @@ namespace TrionControlPanelDesktop
             TXTDatabaseHost.HideSelection = true;
             TXTDatabaseHost.Hint = "ID";
             TXTDatabaseHost.LeadingIcon = null;
-            TXTDatabaseHost.Location = new Point(6, 70);
+            TXTDatabaseHost.Location = new Point(11, 70);
             TXTDatabaseHost.MaxLength = 32767;
             TXTDatabaseHost.MouseState = MaterialSkin.MouseState.OUT;
             TXTDatabaseHost.Name = "TXTDatabaseHost";
@@ -5542,7 +5542,7 @@ namespace TrionControlPanelDesktop
             TXTDatabaseHost.SelectionLength = 0;
             TXTDatabaseHost.SelectionStart = 0;
             TXTDatabaseHost.ShortcutsEnabled = true;
-            TXTDatabaseHost.Size = new Size(230, 48);
+            TXTDatabaseHost.Size = new Size(217, 48);
             TXTDatabaseHost.TabIndex = 11;
             TXTDatabaseHost.TabStop = false;
             TXTDatabaseHost.TextAlign = HorizontalAlignment.Left;
