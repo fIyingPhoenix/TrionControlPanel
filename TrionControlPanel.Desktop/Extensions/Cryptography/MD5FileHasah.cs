@@ -1,8 +1,9 @@
-﻿using System.Runtime.Intrinsics.Arm;
+﻿
 using System.Security.Cryptography;
-namespace TrionControlPanel.API.Classes.Cryptography
+
+namespace TrionControlPanel.Desktop.Extensions.Cryptography
 {
-    public class EncryptManager
+    public class MD5FileHasah
     {
         public static string GetMd5HashFromFile(string filePath)
         {
@@ -19,8 +20,8 @@ namespace TrionControlPanel.API.Classes.Cryptography
             var hashBytes = md5.ComputeHash(stream); // Compute the hash of the stream
             return BitConverter.ToString(hashBytes).Replace("-", "").ToUpperInvariant(); // Convert to hex string
         }
-    
-    public static async Task<string> GetMd5HashFromFileAsync(string filePath)
+
+        public static async Task<string> GetMd5HashFromFileAsync(string filePath)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
             {

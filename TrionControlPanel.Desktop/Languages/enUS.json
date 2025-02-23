@@ -12,6 +12,7 @@
   "BTNStartDatabaseToolTip": "Start Database Server",
   "BTNStartWebsiteTextON": "Stop Web Server",
   "BTNStartWebsiteTextOFF": "Start Web Server",
+  "TabDownloader": "Downloader",
   "TabHomeTitle": "Home",
   "TabDatabaseEditorTitle": "Database Editor",
   "TabSettingsTitle": "Settings",
@@ -22,9 +23,6 @@
   "NIconBalloonTipTitle": "Trion Control Panel",
   "NIconText": "Trion Control Panel",
   "DatabaseNotRunningErrorMbox": "The database server is not running, do you want to start it?",
-  "MessageBoxTitleInfo": "Information",
-  "MessageBoxTitleError": "Error",
-  "MessageBoxTitleSuccess": "Success",
   "TrionFormText": "Trion Control Panel",
   //-----------------------------Home Page-----------------------
   "LBLCardMachineResourcesTitle": "machine resources",
@@ -56,6 +54,8 @@
   "BTNOpenIntern": "Open Local Gates",
   "BTNOpenPublicHINT": "Opens the server to allow players from the internet to join.",
   "BTNOpenInternHINT": "Allow nearby players to join the server through your LAN.",
+  "BTNCreateRealmList": "Create RealmList",
+  "BTNDeleteRealmList": "Delete RealmList",
   "BTNEditRealmlistDataON": "Edit Realmlis",
   "BTNEditRealmlistDataOFF": "Save Realm",
   "BTNForceRefresh": "Manual Refresh",
@@ -220,8 +220,17 @@
   "BTNDDNSServiceWebiste": "Dynamic DNS Host Webiste",
   "BTNDDNSTimerStart": "Dynamic DNS Timer Start",
   "TXTDDNSPassword": "Password",
-  "": "",
-  "": "",
-  "": "",
-  "": ""
+  //MessageBoxText
+  "SPPInstalation": "Installation Started",
+  "SPPRepair": "Repair Started",
+  "SPPUninstall": "Uninstall Started",
+  "MessageBoxTitleInfo": "Information!",
+  "MessageBoxTitleError": "Error!",
+  "MessageBoxTitleSuccess": "Success!",
+  //AlertBox
+  "AlertBoxSuccess": "Success!",
+  "AlertBoxError": "Error!",
+  "AlertBoxInfo": "Info!",
+  "AlertBoxWarning": "Warning!",
+  "AlerBoxFaildGettingEmulatro": "There was a problem selecting the Emulator! please try again later!"
 }

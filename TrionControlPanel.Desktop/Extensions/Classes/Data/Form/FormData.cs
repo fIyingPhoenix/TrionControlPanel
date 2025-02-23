@@ -89,6 +89,7 @@
                 public static bool MOPWorldStarted { get; set; }
                 public static bool MOPLogonStarted { get; set; }
                 //
+                public static bool InstallingEmulator { get; set; } 
                 public static bool LoadData { get; set; }
                 public static int Notyfications { get; set; }
                 public static int StartUpLoading { get; set; }

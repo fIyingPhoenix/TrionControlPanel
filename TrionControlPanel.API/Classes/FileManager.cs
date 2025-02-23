@@ -44,32 +44,52 @@ namespace TrionControlPanel.API.Classes
         }
         public static async Task<ConcurrentBag<FileList>> GetFilesAsync(string filePath)
         {
+            Console.WriteLine($"Loading all files form {filePath}");
             var filePaths = Directory.GetFiles(filePath, "*", SearchOption.AllDirectories);
             var fileList = new ConcurrentBag<FileList>();
             var batchSize = 1000; // Adjust based on your system's capabilities
 
+            // Semaphore to limit the number of concurrent operations
+            var semaphore = new SemaphoreSlim(10); // Limit to 10 concurrent tasks, adjust as needed
+
+            var tasks = new List<Task>();
+
             for (int i = 0; i < filePaths.Length; i += batchSize)
             {
                 var batch = filePaths.Skip(i).Take(batchSize).ToArray();
-                await Task.Run(() =>
+
+                var task = Task.Run(async () =>
                 {
-                    Parallel.ForEach(batch, file =>
+                    await semaphore.WaitAsync(); // Limit concurrency
+                    try
                     {
-                        var fileInfo = new FileInfo(file);
-                        var fileData = new FileList
+                        foreach (var file in batch)
                         {
-                            Name = fileInfo.Name,
-                            Size = fileInfo.Length / 1_000.0, // Size in KB
-                            Hash = EncryptManager.GetMd5HashFromFile(file).ToUpper(),
-                            Path = fileInfo.DirectoryName?.Replace(@"\", "/") // Optional: Normalize path
-                        };
-                        fileList.Add(fileData);
-                    });
+                            var fileInfo = new FileInfo(file);
+                            var fileData = new FileList
+                            {
+                                Name = fileInfo.Name,
+                                Size = fileInfo.Length / 1_000.0, // Size in KB
+                                Hash = await EncryptManager.GetMd5HashFromFileAsync(file), // Async hash calculation
+                                Path = fileInfo.DirectoryName?.Replace(@"\", "/") // Optional: Normalize path
+                            };
+                            fileList.Add(fileData);
+                        }
+                    }
+                    finally
+                    {
+                        semaphore.Release(); // Release the semaphore after processing
+                    }
                 });
+
+                tasks.Add(task);
             }
 
+            // Wait for all tasks to complete
+            await Task.WhenAll(tasks);
+
+            Console.WriteLine("Done");
             return fileList;
         }
-       
     }
 }

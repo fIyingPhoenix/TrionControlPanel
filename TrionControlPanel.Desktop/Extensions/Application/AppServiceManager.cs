@@ -1,9 +1,4 @@
-﻿
-using System.Diagnostics;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using TrionControlPanel.Desktop.Extensions.Classes;
-using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
+﻿using TrionControlPanel.Desktop.Extensions.Classes;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
@@ -18,32 +13,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
             else { Links.APIServer = Links.MainHost; }
         }
-        public async static Task<bool> InstallSPP(AppSettings appSettings)
-        {
-            switch (appSettings.SelectedSPP)
-            {
-                case Modules.Enums.SPP.Classic:
-                    await Task.Delay(100);
-                    //
-                    return false;
 
-                case Modules.Enums.SPP.TheBurningCrusade:
-                    return false;
-                   
-                case Modules.Enums.SPP.WrathOfTheLichKing:
-                    //
-                    return false;
-                    
-                case Modules.Enums.SPP.Cataclysm:
-                    //
-                    return false;
-                    
-                case Modules.Enums.SPP.MistOfPandaria:
-                    //
-                    return false;
-            }
-            return false;
-        }
 
         public static async Task<List<FileList>> GetEmulatorInstallationList(AppSettings appSettings)
         {

@@ -39,5 +39,55 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 return RealmListOpResult.DBInternalError;
             }
         }
+
+        public static async Task<RealmListOpResult> CreateRealmList(AppSettings Settings, string Name, string Address, string LocalAddress, string SubnetMask, int Port, int Gamebuild)
+        {
+            if (Settings.SelectedCore == Cores.AscEmu)
+            {
+                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                return RealmListOpResult.BadEmulator;
+            }
+            try
+            {
+                await AccessManager.SaveData(SqlQueryManager.CreateRealmList(Settings.SelectedCore), new
+                {
+                   Name,
+                   Address,
+                   LocalAddress,
+                   SubnetMask,
+                   Port,
+                   Gamebuild
+                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
+                await TrionLogger.Log($"Realmilst Created: {Name} Emulatro: {Settings.SelectedCore} Address:{Address}");
+                return RealmListOpResult.Ok;
+            }
+            catch (Exception ex)
+            {
+                await TrionLogger.Log(ex.Message, "ERROR");
+                return RealmListOpResult.DBInternalError;
+            }
+        }
+        public static async Task<RealmListOpResult> DeleteRealmList(AppSettings Settings, int ID)
+        {
+            if (Settings.SelectedCore == Cores.AscEmu)
+            {
+                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                return RealmListOpResult.BadEmulator;
+            }
+            try
+            {
+                await AccessManager.SaveData(SqlQueryManager.DeleteRealmList(Settings.SelectedCore), new
+                {
+                    ID
+                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
+                await TrionLogger.Log($"Realmilst Deleted: {ID} Emulatro: {Settings.SelectedCore}");
+                return RealmListOpResult.Ok;
+            }
+            catch (Exception ex)
+            {
+                await TrionLogger.Log(ex.Message, "ERROR");
+                return RealmListOpResult.DBInternalError;
+            }
+        }
     }
 }

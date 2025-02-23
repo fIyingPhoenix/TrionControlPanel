@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using TrionControlPanel.Desktop.Extensions.Classes;
-using TrionControlPanel.Desktop.Extensions.Modules;
-using Windows.ApplicationModel.AppService;
+﻿using TrionControlPanel.Desktop.Extensions.Modules;
 
 namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-        public static string MainHost { get => "http://localhost:5000"; }
+        public static string MainHost { get => "https://api.localhost"; }
         public static string BackupHost { get => "http://localhost:5000"; }
         public static string APIServer { get; set; }
         public static string WebServer { get => "https://flying-phoenix.dev/"; }
@@ -25,6 +22,7 @@ namespace TrionControlPanelDesktop.Extensions.Modules
                 var url = APIServer;
                 return $"{url}/Trion/GetFileVersion?Key={key}";
             }
+
             public static string GetExternalIPv4()
             {
                 var url = APIServer;

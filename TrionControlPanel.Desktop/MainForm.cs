@@ -11,8 +11,10 @@ using TrionControlPanelDesktop.Extensions.Modules;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 using TrionControlPanel.Desktop.Extensions.Application;
 using TrionControlPanel.Desktop.Extensions.Database;
-using NotificationSystem;
 using System.Diagnostics;
+using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
+using TrionControlPanel.Desktop.Extensions.Notification;
+using Org.BouncyCastle.Asn1.Cmp;
 
 namespace TrionControlPanelDesktop
 {
@@ -90,6 +92,7 @@ namespace TrionControlPanelDesktop
             TabSPP.Text = _translator.Translate("TabSPPTitle");
             TabNotification.Text = _translator.Translate("TabNotification");
             TabDDNS.Text = _translator.Translate("TabDDNS");
+            TabDownloader.Text = _translator.Translate("TabDownloader");
             Text = _translator.Translate("TrionFormText");
             #endregion
             #region "Home Page"
@@ -125,6 +128,8 @@ namespace TrionControlPanelDesktop
             BTNOpenPublic.Text = _translator.Translate("BTNOpenPublic");
             BTNOpenIntern.Text = _translator.Translate("BTNOpenIntern");
             BTNEditRealmlistData.Text = _translator.Translate("BTNEditRealmlistDataON");
+            BTNCreateRealmList.Text = _translator.Translate("BTNCreateRealmList");
+            BTNDeleteRealmList.Text = _translator.Translate("BTNDeleteRealmList");
             BTNForceRefresh.Text = _translator.Translate("BTNForceRefresh");
             LBLCardRealmDataTitle.Text = _translator.Translate("LBLCardRealmDataTitle").ToUpper(CultureInfo.InvariantCulture);
             LBLCardRealmOptionTitle.Text = _translator.Translate("LBLCardRealmOptionTitle").ToUpper(CultureInfo.InvariantCulture);
@@ -524,6 +529,12 @@ namespace TrionControlPanelDesktop
             //Check if an update has ben Dowloaded and Delete it!
             if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
         }
+        private void ToogleButtons()
+        {
+            BTNInstallSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
+            BTNUninstallSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
+            BTNRepairSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
+        }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
             this.SuspendLayout();  // Stops rendering UI updates
@@ -563,7 +574,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                PNLUpdateDatabase.BorderColor= Color.Black;
+                PNLUpdateDatabase.BorderColor = Color.Black;
                 PNLUpdateDatabase.Refresh();
                 BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
@@ -575,7 +586,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                PNLUpdateClassicSPP.BorderColor= Color.Black;
+                PNLUpdateClassicSPP.BorderColor = Color.Black;
                 PNLUpdateClassicSPP.Refresh();
                 BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
@@ -587,7 +598,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                PNLUpdateTbcSPP.BorderColor= Color.Black;
+                PNLUpdateTbcSPP.BorderColor = Color.Black;
                 PNLUpdateTbcSPP.Refresh();
                 BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
@@ -599,9 +610,9 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-               PNLUpdateWotlkSpp.BorderColor = Color.Black;
-               PNLUpdateWotlkSpp.Refresh();
-               BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                PNLUpdateWotlkSpp.BorderColor = Color.Black;
+                PNLUpdateWotlkSpp.Refresh();
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.Cata)
             {
@@ -619,7 +630,7 @@ namespace TrionControlPanelDesktop
             {
                 PNLUpdateMopSPP.BorderColor = PNLUpdateMopSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateMopSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");     
+                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
@@ -630,6 +641,7 @@ namespace TrionControlPanelDesktop
         }
         private void TimerWacher_Tick(object sender, EventArgs e)
         {
+            ToogleButtons();
             ResurceUsage();
             ProcessesIDUpdate();
             RunServerUpdate();
@@ -696,26 +708,37 @@ namespace TrionControlPanelDesktop
             NIcon.Visible = false;
             Show();
         }
-        private void MainFormTabControler_SelectedIndexChanged(object sender, EventArgs e)
+        private async void MainFormTabControler_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (MainFormTabControler.SelectedTab == TabDatabaseEditor && FormData.UI.Form.DBRunning)
+            if (e.TabPage == TabDatabaseEditor && !FormData.UI.Form.DBRunning)
             {
-                LoadIPAdress();
-                LoadRealmList();
-            }
-            else if (MainFormTabControler.SelectedTab == TabDatabaseEditor && !FormData.UI.Form.DBRunning)
-            {
-                LoadIPAdress();
-                AlertBox.ShowAlert("prc", NotificationType.Info);
-                if (MaterialMessageBox.Show(this, _translator.Translate("DatabaseNotRunningErrorMbox"), _translator.Translate("MessageBoxTitleInfo"), MessageBoxButtons.OKCancel, true, FlexibleMaterialForm.ButtonsPosition.Center) == DialogResult.OK)
+                var result = MaterialMessageBox.Show(
+                    this,
+                    _translator.Translate("DatabaseNotRunningErrorMbox"),
+                    _translator.Translate("MessageBoxTitleInfo"),
+                    MessageBoxButtons.OKCancel,
+                    true,
+                    FlexibleMaterialForm.ButtonsPosition.Center
+                );
+
+                if (result == DialogResult.OK)
                 {
                     BTNStartDatabase_Click(sender, e);
-                    LoadRealmList();
+                    await LoadRealmList(); await LoadIPAdress();
+                }
+                else
+                {
+                    e.Cancel = true; // Prevent tab change
                 }
             }
-            if (MainFormTabControler.SelectedTab == TabSettings)
+            if (e.TabPage == TabDownloader && !FormData.UI.Form.InstallingEmulator)
             {
+                e.Cancel = true; // Prevent tab change
 
+            }
+            if (e.TabPage == TabSettings)
+            {
+                // Do something if needed
             }
         }
         #endregion
@@ -819,14 +842,49 @@ namespace TrionControlPanelDesktop
         #region "S.P.P.Page"
         private async void BTNInstallSPP_Click(object sender, EventArgs e)
         {
-            await AppServiceManager.InstallSPP(_settings);
+            FormData.UI.Form.InstallingEmulator = true;
+            MainFormTabControler.SelectedTab = TabDownloader;
+            var ServerFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Server Files:{message}");
+            var LocalFileFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Local Files:{message}");
+            switch (_settings.SelectedSPP)
+            {
+                case SPP.Classic:
+                    
+                    var ServerFilesClassic = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("classic",_settings.SupporterKey), ServerFilesProgress);
+                    var LocalFilesClassic = await FileManager.GetFilesAsync(Links.Install.Classic, LocalFileFilesProgress);
+                    break;
+                case SPP.TheBurningCrusade:
+
+                    break;
+                case SPP.WrathOfTheLichKing:
+                    //
+                    var ServerFilesWotlk  = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress);
+                    var LocalFilesWotlk = await FileManager.GetFilesAsync(Links.Install.WotLK, LocalFileFilesProgress);
+                    await TrionLogger.Log($"Files form server: {ServerFilesWotlk.Count}");
+                    break;
+                case SPP.Cataclysm:
+                    //
+
+                    break;
+                case SPP.MistOfPandaria:
+                    break;
+
+                default:
+                    AlertBox.Show(_translator.Translate("AlerBoxFaildGettingEmulatro"), NotificationType.Info, _settings);
+                    break;
+            }
+
+            AlertBox.Show(_translator.Translate("SPPInstalation"), NotificationType.Info, _settings);
+            
         }
         private async void BTNRepairSPP_Click(object sender, EventArgs e)
         {
+            AlertBox.Show(_translator.Translate("SPPRepair"), NotificationType.Info, _settings);
             await AppServiceManager.RepairSPP(_settings);
         }
         private async void BTNUninstallSPP_Click(object sender, EventArgs e)
         {
+            AlertBox.Show(_translator.Translate("SPPUninstall"), NotificationType.Info, _settings);
             await AppServiceManager.UninstallSPP(_settings);
         }
         private void CBOXSPPVersion_SelectedIndexChanged(object sender, EventArgs e)
@@ -854,43 +912,93 @@ namespace TrionControlPanelDesktop
         }
         private async void BTNWorldClassicStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate();
+            await AppExecuteMenager.StartWorldSeparate(
+                _settings.ClassicWorldExeLoc,
+                _settings.ClassicWorkingDirectory,
+                _settings.ClassicWorldExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNLogonClassicStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate();
+            await AppExecuteMenager.StartLogonSeparate(
+                _settings.ClassicLogonExeLoc,
+                _settings.ClassicWorkingDirectory,
+                _settings.ClassicLogonExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNWorldTBCStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate();
+            await AppExecuteMenager.StartWorldSeparate(
+                _settings.TBCWorldExeLoc,
+                _settings.TBCWorkingDirectory,
+                _settings.TBCWorldExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNLogonTBCStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate();
+            await AppExecuteMenager.StartLogonSeparate(
+                _settings.TBCLogonExeLoc,
+                _settings.TBCWorkingDirectory,
+                _settings.TBCLogonExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNWorldWotLKStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate();
+            await AppExecuteMenager.StartWorldSeparate(
+                _settings.WotLKWorldExeLoc,
+                _settings.WotLKWorkingDirectory,
+                _settings.WotLKWorldExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNLogonWotLKStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate();
+            await AppExecuteMenager.StartLogonSeparate(
+                _settings.WotLKLogonExeLoc,
+                _settings.WotLKWorkingDirectory,
+                _settings.WotLKLogonExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNWorldCataStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate();
+            await AppExecuteMenager.StartWorldSeparate(
+                _settings.CataWorldExeLoc,
+                _settings.CataWorkingDirectory,
+                _settings.CataWorldExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNLogonCataStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate();
+            await AppExecuteMenager.StartLogonSeparate(
+                _settings.CataLogonExeLoc,
+                _settings.CataWorkingDirectory,
+                _settings.CataLogonExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNWorldMoPStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate();
+            await AppExecuteMenager.StartWorldSeparate(
+                _settings.MopWorldExeLoc,
+                _settings.MopWorkingDirectory,
+                _settings.MopWorldExeName,
+                _settings.ConsolHide
+                );
         }
         private async void BTNLogonMoPStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate();
+            await AppExecuteMenager.StartLogonSeparate(
+                _settings.MopLogonExeLoc,
+                _settings.MopWorkingDirectory,
+                _settings.MopLogonExeName,
+                _settings.ConsolHide
+                );
         }
         private void TGLClassicLaunch_CheckedChanged(object sender, EventArgs e)
         {
@@ -922,9 +1030,10 @@ namespace TrionControlPanelDesktop
         {
             SelectRealmList();
         }
-        private async void LoadRealmList()
+        private async Task LoadRealmList()
         {
             CBoxGMRealmSelect.Items.Add("All");
+            CBoxGMRealmSelect.SelectedIndex = 0;
             try
             {
                 if (_settings.SelectedCore == Cores.AscEmu)
@@ -974,6 +1083,15 @@ namespace TrionControlPanelDesktop
                 await TrionLogger.Log(ex.Message, "ERROR");
             }
         }
+        private void BTNCreateRealmList_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNDeleteRealmList_Click(object sender, EventArgs e)
+        {
+
+        }
         private async void BTNOpenPublic_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_settings.DDNSDomain) && !string.IsNullOrEmpty(TXTPublicIP.Text) || TXTPublicIP.Text != "0.0.0.0")
@@ -995,9 +1113,9 @@ namespace TrionControlPanelDesktop
                 MaterialMessageBox.Show("");
             }
         }
-        private void BTNForceRefresh_Click(object sender, EventArgs e)
+        private async void BTNForceRefresh_Click(object sender, EventArgs e)
         {
-            LoadRealmList();
+            await LoadRealmList();
         }
         private void BTNReviveIP_Click(object sender, EventArgs e)
         {
@@ -1070,7 +1188,7 @@ namespace TrionControlPanelDesktop
                 TXTRealmAddress.Enabled = true;
             }
         }
-        private async void LoadIPAdress()
+        private async Task LoadIPAdress()
         {
             TXTInternIP.Text = await NetworkManager.GetInternalIpAddress();
             TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(Links.APIRequests.GetExternalIPv4());
@@ -1188,6 +1306,10 @@ namespace TrionControlPanelDesktop
             LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
             LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
 
+        }
+        private void BTNReviveSupporterKey_Click(object sender, EventArgs e)
+        {
+            TXTSupporterKey.PasswordChar = TXTSupporterKey.PasswordChar == '⛊' ? '\0' : '⛊';
         }
         private async Task StartAutoUpdate(AppSettings Settings)
         {
@@ -1320,6 +1442,12 @@ namespace TrionControlPanelDesktop
             _settings.CustomLogonExeName = TXTCustomAuthName.Text;
             _settings.DBExeName = TXTCustomDatabaseName.Text;
         }
+
+        private void materialFloatingActionButton1_Click(object sender, EventArgs e)
+        {
+            NetworkManager.DownlaodSeppd();
+        }
+
 
     }
 }

@@ -1,0 +1,13 @@
+[Unit]
+Description=Trion Control PAnel API
+After=network.target
+
+[Service]
+WorkingDirectory=/path/to/trionApi/
+ExecStart=/path/to/trionApi/TrionControlPanel.API
+Restart=always
+User=phoenix
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

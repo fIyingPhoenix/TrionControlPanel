@@ -1,5 +1,8 @@
 
 using Microsoft.AspNetCore.HttpOverrides;
+using System.Text.Json;
+using TrionControlPanel.API.Classes;
+using TrionControlPanel.API.Classes.Database;
 
 namespace TrionControlPanel.API
 {
@@ -8,13 +11,16 @@ namespace TrionControlPanel.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            // Add memory cache service
+            builder.Services.AddMemoryCache();
             // Add services to the container.
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddSingleton<DatabaseManager>();
+            builder.Services.AddSingleton<AccessManager>();
+            builder.Services.AddSingleton<SqlQueryManager>(); 
+            builder.Services.AddSingleton<Network>();
             var app = builder.Build();
 
             // Proxy setup
@@ -24,7 +30,7 @@ namespace TrionControlPanel.API
             });
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsProduction() || app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

@@ -152,6 +152,51 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 default:
                     return "";
             };
+
+        }
+        public static string CreateRealmList(Enums.Cores SelectedCore)
+        {
+            switch (SelectedCore)
+            {
+                case Enums.Cores.AzerothCore:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `localAddress`, `localSubnetMask`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port, @Gamebuild)";
+                case Enums.Cores.CMaNGOS:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port ,@Gamebuild)";
+                case Enums.Cores.CypherCore:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `localAddress`, `localSubnetMask`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port, @Gamebuild)";
+                case Enums.Cores.TrinityCore335:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `localAddress`, `localSubnetMask`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port, @Gamebuild )";
+                case Enums.Cores.TrinityCore:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `localAddress`, `localSubnetMask`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port, @Gamebuild )";
+                case Enums.Cores.TrinityCoreClassic:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `localAddress`, `localSubnetMask`, `port`, `gamebuild`) VALUES (@Name,@Address,@LocalAddress, @LocalSubnetMask, @Port, @Gamebuild )";
+                case Enums.Cores.VMaNGOS:
+                    return "INSERT INTO `realmlist` ( `name`, `address`, `port`, `gamebuild`) VALUES (@Name,@Address ,@Port, @Gamebuild)";
+                default:
+                    return "";
+            };
+        }
+        public static string DeleteRealmList(Enums.Cores SelectedCore)
+        {
+            switch (SelectedCore)
+            {
+                case Enums.Cores.AzerothCore:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.CMaNGOS:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.CypherCore:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.TrinityCore335:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.TrinityCore:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.TrinityCoreClassic:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                case Enums.Cores.VMaNGOS:
+                    return "DELETE FROM `realmlist` WHERE `ID`= @ID";
+                default:
+                    return "";
+            };
         }
     }
 }

@@ -8,4 +8,9 @@ namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
         public string Hash { get; set; }
         public string Path { get; set; }
     }
+    public class FileResponse
+    {
+        public int Count { get; set; }
+        public List<FileList> Files { get; set; } = new();
+    }
 }

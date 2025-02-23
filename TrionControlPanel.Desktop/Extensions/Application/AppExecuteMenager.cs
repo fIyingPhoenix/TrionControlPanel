@@ -387,13 +387,47 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             FormData.UI.Form.MOPLogonStarted = false;
             SystemData.CleanLogonProcessID();
         }
-        public static async Task StartWorldSeparate()
+        public static async Task<bool> StartWorldSeparate(string WorldExecutabel, string WorldWorkingDirectory, string WorldExecutabeName, bool HideConsole)
         {
-            await Task.CompletedTask;
+            try
+            {
+                int ID = await ApplicationStart(
+                    WorldExecutabel,
+                    WorldWorkingDirectory,
+                    WorldExecutabeName,
+                    HideConsole,
+                    null
+                    );
+                SystemData.AddToWorldProcessesID(new ProcessID()
+                { ID = ID, Name = WorldExecutabeName });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
-        public static async Task StartLogonSeparate()
+        public static async Task<bool> StartLogonSeparate(string LogonExecutabel, string LogonWorkingDirectory, string LogonExecutabeName, bool HideConsol)
         {
-            await Task.CompletedTask;
+            try
+            {
+                int ID = await ApplicationStart(
+                    LogonExecutabel,
+                    LogonWorkingDirectory,
+                    LogonExecutabeName,
+                    HideConsol,
+                    null
+                    );
+                SystemData.AddToLogonProcessesID(new ProcessID()
+                { ID = ID, Name = LogonExecutabeName });
+                FormData.UI.Form.MOPLogonStarted = true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
