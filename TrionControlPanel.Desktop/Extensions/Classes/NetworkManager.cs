@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
@@ -13,7 +15,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
     public class NetworkManager
     {
-
         public static bool IsDomainName(string input)
         {
             // Regular expression pattern to match a domain name
@@ -221,85 +222,51 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         {
             try
             {
-                HttpClient _httpClient = new();
-                _httpClient.Timeout = TimeSpan.FromMinutes(5); // Set a longer timeout for larger responses
-
-                progress?.Report("Requesting Server Files...");
-                await TrionLogger.Log($"Get List from: {URL}");
-
-                // Retry mechanism
-                int retryCount = 0;
-                int maxRetries = 5; // Number of retries before failing
-                TimeSpan delayBetweenRetries = TimeSpan.FromSeconds(15); // Delay between retries
-
-                while (retryCount < maxRetries)
+                using HttpClient httpClient = new();
+                HttpResponseMessage response = await httpClient.GetAsync(URL);
+                await TrionLogger.Log($"Getting data from {URL}, Response code : {response.StatusCode}");
+                progress?.Report($"Getting data from");
+                if (response.IsSuccessStatusCode)
                 {
-                    using (var response = await _httpClient.GetAsync(URL, HttpCompletionOption.ResponseHeadersRead))
+                    // Deserialize the response content to a dynamic object first
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var filesObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    List<FileList> fileList = new List<FileList>();
+
+                    foreach (var file in filesObject.files)
                     {
-                        if (response.IsSuccessStatusCode)
+                        progress?.Report($"Files loaded into list {fileList.Count}");
+                        FileList fileItem = new()
                         {
-                            progress?.Report("Downloading file list...");
-                            await TrionLogger.Log($"Received response. Status: {response.StatusCode}");
-
-                            // Ensure the entire response stream is consumed
-                            await using var stream = await response.Content.ReadAsStreamAsync();
-
-                            progress?.Report("Processing data...");
-                            await TrionLogger.Log("Deserializing response...");
-
-                            var result = await JsonSerializer.DeserializeAsync<FileResponse>(stream);
-
-                            if (result == null || result.Files == null || result.Files.Count == 0)
-                            {
-                                progress?.Report("No files found.");
-                                await TrionLogger.Log("No files found in response.");
-                            }
-                            else
-                            {
-                                progress?.Report("File list successfully retrieved.");
-                                await TrionLogger.Log($"Retrieved {result.Files.Count} files.");
-                            }
-
-                            return result?.Files ?? new List<FileList>();
-                        }
-                        else
-                        {
-                            // If the response status is not OK, retry after a delay
-                            progress?.Report($"Error: Received {response.StatusCode} from the server. Retrying...");
-                            await TrionLogger.Log($"Error: Received {response.StatusCode} from the server. Retrying...");
-                            retryCount++;
-
-                            if (retryCount < maxRetries)
-                            {
-                                await Task.Delay(delayBetweenRetries); // Wait before retrying
-                            }
-                            else
-                            {
-                                progress?.Report($"Max retries reached. Unable to fetch files.");
-                                await TrionLogger.Log($"Max retries reached. Unable to fetch files.");
-                                return new List<FileList>();
-                            }
-                        }
+                            Name = file.name,
+                            Size = file.size,
+                            Hash = file.hash,
+                            Path = file.path
+                        };
+                        fileList.Add(fileItem);
                     }
+                    progress?.Report($"Done! Files:{fileList.Count}");
+                    return fileList;
                 }
-
-                // If all retries fail
-                progress?.Report("Unable to retrieve files after retries.");
-                return new List<FileList>();
+                else
+                {
+                    string error = await response.Content.ReadAsStringAsync();
+                    await TrionLogger.Log($"GetServerFiles API Error: {response.StatusCode} - {error}", "ERROR");
+                    return null;
+                }
             }
-            catch (TimeoutException ex)
+            catch (HttpRequestException ex)
             {
-                await TrionLogger.Log($"Request timed out: {ex.Message}");
-                progress?.Report($"Error: Request timed out.");
-                return new List<FileList>();
+                // Log or rethrow the exception
+                await TrionLogger.Log($"GetServerFiles Network error: {ex.Message}", "ERROR");
+                return null ;
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Error fetching files: {ex.Message}");
-                progress?.Report($"Error: {ex.Message}");
-                return new List<FileList>();
+                // Log or rethrow the exception
+                await TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
+                return null;
             }
-
         }
     }
 

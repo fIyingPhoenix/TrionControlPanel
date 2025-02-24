@@ -15,6 +15,7 @@ using System.Diagnostics;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 using TrionControlPanel.Desktop.Extensions.Notification;
 using Org.BouncyCastle.Asn1.Cmp;
+using Windows.ApplicationModel.Background;
 
 namespace TrionControlPanelDesktop
 {
@@ -848,10 +849,10 @@ namespace TrionControlPanelDesktop
             var LocalFileFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Local Files:{message}");
             switch (_settings.SelectedSPP)
             {
-                case SPP.Classic:
-                    
+                case SPP.Classic:        
                     var ServerFilesClassic = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("classic",_settings.SupporterKey), ServerFilesProgress);
                     var LocalFilesClassic = await FileManager.GetFilesAsync(Links.Install.Classic, LocalFileFilesProgress);
+                    
                     break;
                 case SPP.TheBurningCrusade:
 
@@ -860,7 +861,7 @@ namespace TrionControlPanelDesktop
                     //
                     var ServerFilesWotlk  = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress);
                     var LocalFilesWotlk = await FileManager.GetFilesAsync(Links.Install.WotLK, LocalFileFilesProgress);
-                    await TrionLogger.Log($"Files form server: {ServerFilesWotlk.Count}");
+                    //await TrionLogger.Log($"Files form server: {ServerFilesWotlk.Count}");
                     break;
                 case SPP.Cataclysm:
                     //
@@ -1408,6 +1409,100 @@ namespace TrionControlPanelDesktop
             _settings.AutoUpdateDatabase = TGLAutoUpdateDatabase.Checked;
         }
         #endregion
+        #endregion
+        #region"Downloader"
+        private async void InstallFinished()
+        {
+            if (FormData.Infos.Install.Classic)
+            {
+                string classic = Links.Install.Classic.Replace("/", @"\");
+                _settings.ClassicInstalled = true;
+                _settings.LaunchClassicCore = true;
+                _settings.ClassicWorkingDirectory = classic;
+                _settings.ClassicLogonExeLoc = FileManager.GetExecutableLocation(classic, "realmd");
+                _settings.ClassicLogonExeName = "realmd";
+                _settings.ClassicWorldExeLoc = FileManager.GetExecutableLocation(classic, "mangosd");
+                _settings.ClassicWorldExeName = "mangosd";
+                _settings.ClassicLogonName = "WoW Classic Logon";
+                _settings.ClassicWorldName = "WoW Classic World";
+            }
+            if (FormData.Infos.Install.TBC)
+            {
+                string TBC = Links.Install.TBC.Replace("/", @"\");
+                _settings.TBCInstalled = true;
+                _settings.LaunchTBCCore = true;
+                _settings.TBCWorkingDirectory = TBC;
+                _settings.TBCLogonExeLoc = FileManager.GetExecutableLocation(TBC, "realmd");
+                _settings.TBCLogonExeName = "realmd";
+                _settings.TBCWorldExeLoc = FileManager.GetExecutableLocation(TBC, "mangosd");
+                _settings.TBCWorldExeName = "mangosd";
+                _settings.TBCLogonName = "The Burning Crusade Logon";
+                _settings.TBCWorldName = "The Burning Crusade World";
+            }
+            if (FormData.Infos.Install.WotLK)
+            {
+                string WotLK = Links.Install.WotLK.Replace("/", @"\");
+                _settings.WotLKInstalled = true;
+                _settings.LaunchWotLKCore = true;
+                _settings.WotLKWorkingDirectory = WotLK;
+                _settings.WotLKLogonExeLoc = FileManager.GetExecutableLocation(WotLK, "authserver");
+                _settings.WotLKLogonExeName = "authserver";
+                _settings.WotLKWorldExeLoc = FileManager.GetExecutableLocation(WotLK, "worldserver");
+                _settings.WotLKLogonName = "Wrath of the Lich King Logon";
+                _settings.WotLKWorldName = "Wrath of the Lich King World";
+            }
+            if (FormData.Infos.Install.Cata)
+            {
+                string cata = Links.Install.Cata.Replace("/", @"\");
+                _settings.CataInstalled = true;
+                _settings.LaunchCataCore = true;
+                _settings.CataWorkingDirectory = cata;
+                _settings.CataLogonExeLoc = FileManager.GetExecutableLocation(cata, "authserver");
+                _settings.CataLogonExeName = "authserver";
+                _settings.CataWorldExeLoc = FileManager.GetExecutableLocation(cata, "worldserver");
+                _settings.CataWorldExeName = "worldserver";
+                _settings.CataLogonName = "Cataclysm Logon";
+                _settings.CataWorldName = "Cataclysm World";
+            }
+            if (FormData.Infos.Install.Mop)
+            {
+                string Mop = Links.Install.Mop.Replace("/", @"\");
+                _settings.MOPInstalled = true;
+                _settings.LaunchMoPCore = true;
+                _settings.MopWorkingDirectory = Mop;
+                _settings.MopLogonExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
+                _settings.MopLogonExeName = "authserver";
+                _settings.MopWorldExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
+                _settings.MopWorldExeName = "worldserver";
+                _settings.MoPLogonName = "Mists of Pandaria Logon";
+                _settings.MoPWorldName = "Mists of Pandaria World";
+            }
+            if (FormData.Infos.Install.Database == true)
+            {
+                string Database = Links.Install.Database.Replace("/", @"\");
+                _settings.DBInstalled = true;
+                _settings.DBLocation = $@"{Database}";
+                _settings.DBWorkingDir = $@"{Database}\bin";
+                _settings.DBExeLoc = FileManager.GetExecutableLocation($@"{Database}\bin", "mysqld");
+                _settings.DBExeName = "mysqld";
+                Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), Database);
+                if (FormData.Infos.Install.Mop || FormData.Infos.Install.Cata || FormData.Infos.Install.WotLK || FormData.Infos.Install.TBC || FormData.Infos.Install.Classic)
+                {
+                    string SQLLocation = $@"{Database}\extra\initDatabase.sql";
+                    await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                }
+                else
+                {
+                    string SQLLocation = $@"{Database}\extra\initSTDDatabase.sql";
+                    await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                }
+            }
+            if (FormData.Infos.Install.Trion == true)
+            {
+                Process.Start("setup.exe");
+                Environment.Exit(0);
+            }
+        }
         #endregion
         private void TXTOnlyNumbers(object sender, KeyPressEventArgs e)
         {

@@ -59,5 +59,18 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
             return fileList;
         }
+
+        public static string GetExecutableLocation(string location, string Executable)
+        {
+            //Search for files in a directory and all subdirectories
+            if (Executable != null)
+            {
+                foreach (string f in Directory.EnumerateFiles(location, $"{Executable}.exe", SearchOption.AllDirectories))
+                {
+                    return f;
+                }
+            }
+            return string.Empty;
+        }
     }
 }

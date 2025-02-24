@@ -4,7 +4,7 @@ namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-        public static string MainHost { get => "https://api.localhost"; }
+        public static string MainHost { get => "https://api.local.tech"; }
         public static string BackupHost { get => "http://localhost:5000"; }
         public static string APIServer { get; set; }
         public static string WebServer { get => "https://flying-phoenix.dev/"; }
