@@ -328,6 +328,11 @@ namespace TrionControlPanelDesktop
             materialCard22 = new MaterialSkin.Controls.MaterialCard();
             LBLInstallEmulatorTitle = new MaterialSkin.Controls.MaterialLabel();
             materialCard21 = new MaterialSkin.Controls.MaterialCard();
+            materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
+            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            PBarCurrentDownlaod = new MaterialSkin.Controls.MaterialProgressBar();
+            materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             LBLLocalFiles = new MaterialSkin.Controls.MaterialLabel();
             LBLServerFiles = new MaterialSkin.Controls.MaterialLabel();
             materialCard12 = new MaterialSkin.Controls.MaterialCard();
@@ -336,11 +341,6 @@ namespace TrionControlPanelDesktop
             TimerLoading = new System.Windows.Forms.Timer(components);
             TimerUpdate = new System.Windows.Forms.Timer(components);
             TimerPanelAnimation = new System.Windows.Forms.Timer(components);
-            materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            PBarCurrentDownlaod = new MaterialSkin.Controls.MaterialProgressBar();
-            materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             CMSNotify.SuspendLayout();
             LayoutPanelMain.SuspendLayout();
             HomeMenuCard.SuspendLayout();
@@ -991,7 +991,7 @@ namespace TrionControlPanelDesktop
             // 
             // PNLLogonServerStatus
             // 
-            PNLLogonServerStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLLogonServerStatus.BackColor = SystemColors.Control;
             PNLLogonServerStatus.Border = true;
             PNLLogonServerStatus.BorderColor = Color.FromArgb(192, 0, 0);
             PNLLogonServerStatus.BorderSize = 1;
@@ -1022,7 +1022,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLLogonProcessID.Anchor = AnchorStyles.Left;
             LBLLogonProcessID.AutoSize = true;
-            LBLLogonProcessID.ForeColor = Color.White;
+            LBLLogonProcessID.ForeColor = SystemColors.ActiveBorder;
             LBLLogonProcessID.Location = new Point(166, 31);
             LBLLogonProcessID.Name = "LBLLogonProcessID";
             LBLLogonProcessID.Size = new Size(83, 20);
@@ -1033,7 +1033,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLUpTimeLogon.Anchor = AnchorStyles.Left;
             LBLUpTimeLogon.AutoSize = true;
-            LBLUpTimeLogon.ForeColor = Color.White;
+            LBLUpTimeLogon.ForeColor = SystemColors.ActiveBorder;
             LBLUpTimeLogon.Location = new Point(166, 11);
             LBLUpTimeLogon.Name = "LBLUpTimeLogon";
             LBLUpTimeLogon.Size = new Size(59, 20);
@@ -1056,7 +1056,7 @@ namespace TrionControlPanelDesktop
             LBLLogonServerStatus.Anchor = AnchorStyles.Left;
             LBLLogonServerStatus.AutoSize = true;
             LBLLogonServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLLogonServerStatus.ForeColor = Color.White;
+            LBLLogonServerStatus.ForeColor = SystemColors.ActiveBorder;
             LBLLogonServerStatus.Location = new Point(50, 20);
             LBLLogonServerStatus.Name = "LBLLogonServerStatus";
             LBLLogonServerStatus.Size = new Size(68, 28);
@@ -1065,7 +1065,7 @@ namespace TrionControlPanelDesktop
             // 
             // PNLWorldServerStatus
             // 
-            PNLWorldServerStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLWorldServerStatus.BackColor = SystemColors.Control;
             PNLWorldServerStatus.Border = true;
             PNLWorldServerStatus.BorderColor = Color.FromArgb(192, 0, 0);
             PNLWorldServerStatus.BorderSize = 1;
@@ -1096,7 +1096,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLWorldProcessID.Anchor = AnchorStyles.Left;
             LBLWorldProcessID.AutoSize = true;
-            LBLWorldProcessID.ForeColor = Color.White;
+            LBLWorldProcessID.ForeColor = SystemColors.ActiveBorder;
             LBLWorldProcessID.Location = new Point(166, 32);
             LBLWorldProcessID.Name = "LBLWorldProcessID";
             LBLWorldProcessID.Size = new Size(83, 20);
@@ -1107,7 +1107,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLUpTimeWorld.Anchor = AnchorStyles.Left;
             LBLUpTimeWorld.AutoSize = true;
-            LBLUpTimeWorld.ForeColor = Color.White;
+            LBLUpTimeWorld.ForeColor = SystemColors.ActiveBorder;
             LBLUpTimeWorld.Location = new Point(166, 12);
             LBLUpTimeWorld.Name = "LBLUpTimeWorld";
             LBLUpTimeWorld.Size = new Size(59, 20);
@@ -1130,7 +1130,7 @@ namespace TrionControlPanelDesktop
             LBLWorldServerStatus.Anchor = AnchorStyles.Left;
             LBLWorldServerStatus.AutoSize = true;
             LBLWorldServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLWorldServerStatus.ForeColor = Color.White;
+            LBLWorldServerStatus.ForeColor = SystemColors.ActiveBorder;
             LBLWorldServerStatus.Location = new Point(50, 20);
             LBLWorldServerStatus.Name = "LBLWorldServerStatus";
             LBLWorldServerStatus.Size = new Size(71, 28);
@@ -1139,7 +1139,7 @@ namespace TrionControlPanelDesktop
             // 
             // PNLDatanasServerStatus
             // 
-            PNLDatanasServerStatus.BackColor = Color.FromArgb(28, 33, 40);
+            PNLDatanasServerStatus.BackColor = SystemColors.Control;
             PNLDatanasServerStatus.Border = true;
             PNLDatanasServerStatus.BorderColor = Color.FromArgb(192, 0, 0);
             PNLDatanasServerStatus.BorderSize = 1;
@@ -1170,7 +1170,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLDatabaseProcessID.Anchor = AnchorStyles.Left;
             LBLDatabaseProcessID.AutoSize = true;
-            LBLDatabaseProcessID.ForeColor = Color.White;
+            LBLDatabaseProcessID.ForeColor = SystemColors.ActiveBorder;
             LBLDatabaseProcessID.Location = new Point(166, 30);
             LBLDatabaseProcessID.Name = "LBLDatabaseProcessID";
             LBLDatabaseProcessID.Size = new Size(83, 20);
@@ -1181,7 +1181,7 @@ namespace TrionControlPanelDesktop
             // 
             LBLUpTimeDatabase.Anchor = AnchorStyles.Left;
             LBLUpTimeDatabase.AutoSize = true;
-            LBLUpTimeDatabase.ForeColor = Color.White;
+            LBLUpTimeDatabase.ForeColor = SystemColors.ActiveBorder;
             LBLUpTimeDatabase.Location = new Point(166, 10);
             LBLUpTimeDatabase.Name = "LBLUpTimeDatabase";
             LBLUpTimeDatabase.Size = new Size(59, 20);
@@ -1204,7 +1204,7 @@ namespace TrionControlPanelDesktop
             LBLDatabaseServerStatus.Anchor = AnchorStyles.Left;
             LBLDatabaseServerStatus.AutoSize = true;
             LBLDatabaseServerStatus.Font = new Font("Segoe UI", 12F);
-            LBLDatabaseServerStatus.ForeColor = Color.White;
+            LBLDatabaseServerStatus.ForeColor = SystemColors.ActiveBorder;
             LBLDatabaseServerStatus.Location = new Point(50, 20);
             LBLDatabaseServerStatus.Name = "LBLDatabaseServerStatus";
             LBLDatabaseServerStatus.Size = new Size(93, 28);
@@ -5844,72 +5844,6 @@ namespace TrionControlPanelDesktop
             materialCard21.Size = new Size(758, 327);
             materialCard21.TabIndex = 1;
             // 
-            // LBLLocalFiles
-            // 
-            LBLLocalFiles.AutoSize = true;
-            LBLLocalFiles.Depth = 0;
-            LBLLocalFiles.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            LBLLocalFiles.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            LBLLocalFiles.Location = new Point(26, 32);
-            LBLLocalFiles.MouseState = MaterialSkin.MouseState.HOVER;
-            LBLLocalFiles.Name = "LBLLocalFiles";
-            LBLLocalFiles.Size = new Size(74, 17);
-            LBLLocalFiles.TabIndex = 1;
-            LBLLocalFiles.Text = "Local Files:";
-            // 
-            // LBLServerFiles
-            // 
-            LBLServerFiles.AutoSize = true;
-            LBLServerFiles.Depth = 0;
-            LBLServerFiles.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            LBLServerFiles.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            LBLServerFiles.Location = new Point(26, 49);
-            LBLServerFiles.MouseState = MaterialSkin.MouseState.HOVER;
-            LBLServerFiles.Name = "LBLServerFiles";
-            LBLServerFiles.Size = new Size(80, 17);
-            LBLServerFiles.TabIndex = 0;
-            LBLServerFiles.Text = "Server Files:";
-            // 
-            // materialCard12
-            // 
-            materialCard12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            materialCard12.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard12.Depth = 0;
-            materialCard12.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard12.Location = new Point(803, 17);
-            materialCard12.Margin = new Padding(14);
-            materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
-            materialCard12.Name = "materialCard12";
-            materialCard12.Padding = new Padding(14);
-            materialCard12.Size = new Size(231, 397);
-            materialCard12.TabIndex = 0;
-            // 
-            // IMGListTabControler
-            // 
-            IMGListTabControler.ColorDepth = ColorDepth.Depth32Bit;
-            IMGListTabControler.ImageStream = (ImageListStreamer)resources.GetObject("IMGListTabControler.ImageStream");
-            IMGListTabControler.TransparentColor = Color.Transparent;
-            IMGListTabControler.Images.SetKeyName(0, "menu-35.png");
-            IMGListTabControler.Images.SetKeyName(1, "settings-35.png");
-            IMGListTabControler.Images.SetKeyName(2, "ds3-tool-30.png");
-            IMGListTabControler.Images.SetKeyName(3, "database-administrator-64.png");
-            IMGListTabControler.Images.SetKeyName(4, "dns-32.png");
-            IMGListTabControler.Images.SetKeyName(5, "notification-32.png");
-            IMGListTabControler.Images.SetKeyName(6, "notification-32-ring.png");
-            IMGListTabControler.Images.SetKeyName(7, "cloud-download-53.png");
-            // 
-            // TimerUpdate
-            // 
-            TimerUpdate.Enabled = true;
-            TimerUpdate.Interval = 600000;
-            TimerUpdate.Tick += TimerUpdate_Tick;
-            // 
-            // TimerPanelAnimation
-            // 
-            TimerPanelAnimation.Enabled = true;
-            TimerPanelAnimation.Interval = 1000;
-            TimerPanelAnimation.Tick += TimerPanelAnimation_Tick;
-            // 
             // materialLabel3
             // 
             materialLabel3.AutoSize = true;
@@ -5976,6 +5910,72 @@ namespace TrionControlPanelDesktop
             materialProgressBar1.TabIndex = 8;
             materialProgressBar1.TextColor = Color.White;
             materialProgressBar1.UsaeProcentage = true;
+            // 
+            // LBLLocalFiles
+            // 
+            LBLLocalFiles.AutoSize = true;
+            LBLLocalFiles.Depth = 0;
+            LBLLocalFiles.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLLocalFiles.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLLocalFiles.Location = new Point(26, 32);
+            LBLLocalFiles.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLLocalFiles.Name = "LBLLocalFiles";
+            LBLLocalFiles.Size = new Size(74, 17);
+            LBLLocalFiles.TabIndex = 1;
+            LBLLocalFiles.Text = "Local Files:";
+            // 
+            // LBLServerFiles
+            // 
+            LBLServerFiles.AutoSize = true;
+            LBLServerFiles.Depth = 0;
+            LBLServerFiles.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLServerFiles.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLServerFiles.Location = new Point(26, 49);
+            LBLServerFiles.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLServerFiles.Name = "LBLServerFiles";
+            LBLServerFiles.Size = new Size(80, 17);
+            LBLServerFiles.TabIndex = 0;
+            LBLServerFiles.Text = "Server Files:";
+            // 
+            // materialCard12
+            // 
+            materialCard12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard12.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard12.Depth = 0;
+            materialCard12.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard12.Location = new Point(803, 17);
+            materialCard12.Margin = new Padding(14);
+            materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard12.Name = "materialCard12";
+            materialCard12.Padding = new Padding(14);
+            materialCard12.Size = new Size(231, 397);
+            materialCard12.TabIndex = 0;
+            // 
+            // IMGListTabControler
+            // 
+            IMGListTabControler.ColorDepth = ColorDepth.Depth32Bit;
+            IMGListTabControler.ImageStream = (ImageListStreamer)resources.GetObject("IMGListTabControler.ImageStream");
+            IMGListTabControler.TransparentColor = Color.Transparent;
+            IMGListTabControler.Images.SetKeyName(0, "menu-35.png");
+            IMGListTabControler.Images.SetKeyName(1, "settings-35.png");
+            IMGListTabControler.Images.SetKeyName(2, "ds3-tool-30.png");
+            IMGListTabControler.Images.SetKeyName(3, "database-administrator-64.png");
+            IMGListTabControler.Images.SetKeyName(4, "dns-32.png");
+            IMGListTabControler.Images.SetKeyName(5, "notification-32.png");
+            IMGListTabControler.Images.SetKeyName(6, "notification-32-ring.png");
+            IMGListTabControler.Images.SetKeyName(7, "cloud-download-53.png");
+            // 
+            // TimerUpdate
+            // 
+            TimerUpdate.Enabled = true;
+            TimerUpdate.Interval = 600000;
+            TimerUpdate.Tick += TimerUpdate_Tick;
+            // 
+            // TimerPanelAnimation
+            // 
+            TimerPanelAnimation.Enabled = true;
+            TimerPanelAnimation.Interval = 1000;
+            TimerPanelAnimation.Tick += TimerPanelAnimation_Tick;
             // 
             // MainForm
             // 

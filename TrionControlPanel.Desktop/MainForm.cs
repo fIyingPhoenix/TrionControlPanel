@@ -852,6 +852,7 @@ namespace TrionControlPanelDesktop
                 case SPP.Classic:        
                     var ServerFilesClassic = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("classic",_settings.SupporterKey), ServerFilesProgress);
                     var LocalFilesClassic = await FileManager.GetFilesAsync(Links.Install.Classic, LocalFileFilesProgress);
+                    var (missingFiles, filesToDelete) = await FileManager.CompareFiles(ServerFilesClassic, LocalFilesClassic.ToList());
                     
                     break;
                 case SPP.TheBurningCrusade:

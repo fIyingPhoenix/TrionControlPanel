@@ -1,10 +1,11 @@
 ﻿using TrionControlPanel.Desktop.Extensions.Modules;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
 
 namespace TrionControlPanelDesktop.Extensions.Modules
 {
     public class Links
     {
-        public static string MainHost { get => "https://api.local.tech"; }
+        public static string MainHost { get => "https://api.aclab.tech"; }
         public static string BackupHost { get => "http://localhost:5000"; }
         public static string APIServer { get; set; }
         public static string WebServer { get => "https://flying-phoenix.dev/"; }
@@ -12,6 +13,11 @@ namespace TrionControlPanelDesktop.Extensions.Modules
         public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
         public class APIRequests
         {
+            public static string DownlaodFiles()
+            {
+                var url = APIServer;
+                return $"{url}/Trion/DownloadFile";
+            }
             public static string GetServerFiles(string Emulator, string key)
             {
                 var url = APIServer;

@@ -119,10 +119,8 @@ namespace TrionControlPanel.API.api
             }
         }
 
-
-
         [HttpGet("DownloadFile")]
-        public IActionResult DownloadFile([FromQuery] string filePath)
+        public IActionResult DownloadFile([FromBody] string filePath)
         {
             try
             {
@@ -131,7 +129,6 @@ namespace TrionControlPanel.API.api
                 {
                     return BadRequest("Invalid or missing file path.");
                 }
-
                 // Get file name for the download
                 string fileName = Path.GetFileName(filePath);
 
