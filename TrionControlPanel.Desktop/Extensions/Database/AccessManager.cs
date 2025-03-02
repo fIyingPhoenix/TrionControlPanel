@@ -56,20 +56,20 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                await TrionLogger.Log("Connection string cannot be null or empty.", "ERROR");
+                TrionLogger.Log("Connection string cannot be null or empty.", "ERROR");
                 throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null or empty.");
          
             }
 
             if (sql == null)
             {
-                await TrionLogger.Log("SQL query cannot be null", "ERROR");
+                TrionLogger.Log("SQL query cannot be null", "ERROR");
                 throw new ArgumentNullException(nameof(sql), "SQL query cannot be null.");
             }
 
             if (parameters == null)
             {
-                await TrionLogger.Log("Parameters cannot be null.", "ERROR");
+                TrionLogger.Log("Parameters cannot be null.", "ERROR");
                 throw new ArgumentNullException(nameof(parameters), "Parameters cannot be null.");
             }
 
@@ -85,7 +85,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 catch (Exception ex)
                 {
                     // Handle any exception that occurs during connection or execution
-                    await TrionLogger.Log($"Error occurred: {ex.Message}", "ERROR");
+                    TrionLogger.Log($"Error occurred: {ex.Message}", "ERROR");
                     throw;
                 }
                 finally

@@ -3,7 +3,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
     public class TrionLogger
     {
-        public static async Task Log(string message, string logLevel = "INFO")
+        public static void Log(string message, string logLevel = "INFO")
         {
             string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {message}";
             try
@@ -11,7 +11,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 
                 using (StreamWriter writer = new("Trion.logs", append: true))
                 {
-                   await writer.WriteLineAsync(logEntry);
+                    writer.WriteLine(logEntry);
                 }
             }
             catch (Exception ex)

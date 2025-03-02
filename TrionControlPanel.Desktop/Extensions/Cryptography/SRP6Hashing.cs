@@ -60,7 +60,7 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
             public static bool VerifyPassword(string username, string password, byte[] salt, byte[] verifier)
             {
                 return verifier.SequenceEqual(CreateVerifier(username, password, salt));
-            }
+            }          
         }
         public static string GetSrpUsername(string name, bool reverse = false)
         {

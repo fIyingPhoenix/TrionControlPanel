@@ -1,73 +1,102 @@
 ﻿using System.Collections.Concurrent;
+using System.Text;
+using System.Text.Json;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Cryptography;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes
 {
     internal class FileManager
     {
-        public async Task DownloadFileAsync(FileList file)
+        public static string StringBuilder(string input, string? marker)
+        {
+            int index = input.IndexOf(marker);
+
+            if (index >= 0)
+            {
+                // Start the substring from the marker's position (i.e., from index + marker.Length)
+                return input.Substring(index);
+            }
+            else
+            {
+                return input;
+            }
+        }
+
+        public static async Task DownloadFileAsync(FileList file,string marker, CancellationToken cancellationToken,
+            IProgress<double>? progress = null,
+            IProgress<double>? elapsedTime = null,
+            IProgress<double>? speed = null)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new())
                 {
-                    string url = $"http://yourapiurl.com/DownloadFile?filePath={Uri.EscapeDataString(file.Path)}";
+                    string url = Links.APIRequests.DownlaodFiles(); // API base URL
+                    TrionLogger.Log($"Requesting: {url}", "INFO");
 
-                    HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+                    // Prepare the JSON request body
+                    var requestObj = new { filePath = $"{file.Path}/{file.Name}" };
+                    string jsonContent = JsonSerializer.Serialize(requestObj);
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                    if (response.IsSuccessStatusCode)
+                    TrionLogger.Log($"Payload: {jsonContent}", "INFO");
+
+                    // Send POST request with the JSON body
+                    using (HttpResponseMessage response = await client.PostAsync(url, content, cancellationToken))
                     {
-                        long fileSize = response.Content.Headers.ContentLength ?? 0;
-                        string fileName = file.Name;
-
-                        // Display file name and size
-                        MessageBox.Show($"File: {fileName}, Size: {fileSize / 1024} KB");
-
-                        using (var stream = await response.Content.ReadAsStreamAsync())
+                        if (response.IsSuccessStatusCode)
                         {
-                            using (var fileStream = new FileStream(file.Path, FileMode.Create, FileAccess.Write, FileShare.None))
+                            // Get file size (if available)
+                            long fileSize = response.Content.Headers.ContentLength ?? 0;
+                            string fileName = file.Name;
+                            string DownloadPath = $"{Directory.GetCurrentDirectory()}{StringBuilder(file.Path, marker)}";
+                            if (!Directory.Exists(DownloadPath)) { Directory.CreateDirectory(DownloadPath); }
+                            string FileDownload = $"{DownloadPath}/{file.Name}";
+                            // Save the file to disk
+                            using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                            using (var fileStream = new FileStream(FileDownload, FileMode.Create, FileAccess.Write, FileShare.None))
                             {
                                 byte[] buffer = new byte[8192];
-                                int bytesRead;
                                 long totalBytesRead = 0;
                                 DateTime startTime = DateTime.Now;
 
-                                progressBar.Maximum = (int)fileSize;
-                                progressBar.Value = 0;
-
-                                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                                int bytesRead;
+                                while ((bytesRead = await stream.ReadAsync(buffer, cancellationToken)) > 0)
                                 {
-                                    await fileStream.WriteAsync(buffer, 0, bytesRead);
+                                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                                     totalBytesRead += bytesRead;
 
-                                    double progress = (double)totalBytesRead / fileSize * 100;
-                                    double elapsedTime = (DateTime.Now - startTime).TotalSeconds;
+                                    // Calculate progress, elapsed time, and speed
+                                    double progressValue = (double)totalBytesRead / fileSize * 100;
+                                    double elapsedTimeValue = (DateTime.Now - startTime).TotalSeconds;
+                                    double speedValue = totalBytesRead / 1024.0 / 1024.0 / elapsedTimeValue;  // in MB/s
 
-                                    double speed = totalBytesRead / 1024 / elapsedTime;
-
-                                    // Update ProgressBar
-                                    progressBar.Value = (int)totalBytesRead;
-
-                                    // Optionally, you can update a label to show the progress and speed
-                                    Console.WriteLine($"Progress: {progress:0.00}% | " +
-                                                      $"Downloaded: {totalBytesRead / 1024} KB | " +
-                                                      $"Speed: {speed:0.00} KB/s");
+                                    progress?.Report(progressValue);
+                                    elapsedTime?.Report(elapsedTimeValue);
+                                    speed?.Report(speedValue);
                                 }
+
+                                TrionLogger.Log("File downloaded successfully!", "SUCCESS");
                             }
                         }
-
-                        MessageBox.Show("File downloaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Error: {response.ReasonPhrase}", "Download Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                        {
+                            string errorMessage = await response.Content.ReadAsStringAsync(cancellationToken);
+                            TrionLogger.Log($"Download Failed: {response.ReasonPhrase}\nDetails: {errorMessage}", "ERROR");
+                        }
                     }
                 }
             }
+            catch (OperationCanceledException)
+            {
+                TrionLogger.Log("Download was canceled.", "CANCELED");
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
             }
         }
         // Asynchronous method to delete a file for cheap 
@@ -79,7 +108,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 await Task.Run( () => File.Delete(file.Path));
             }
         }
-        public static async Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)> CompareFiles(List<FileList> ServerFiles, List<FileList> LocalFiles)
+        public async static Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)> CompareFiles(List<FileList> ServerFiles, List<FileList> LocalFiles, string marker)
         {
             // Create lists to track missing files (from Local) and files to delete (from Local)
             List<FileList> MissingFiles = new();
@@ -89,7 +118,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             foreach (var serverFile in ServerFiles)
             {
                 // Look for the same file in the LocalFiles list using Hash, Name, and Path for comparison
-                var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && file.Path == serverFile.Path);
+                var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && StringBuilder(file.Path, marker) == StringBuilder(serverFile.Path, marker));
 
                 // If no match is found, mark this file as missing
                 if (localFile == null)
@@ -101,7 +130,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             // Now check the LocalFiles list for files that don't exist on the server
             foreach (var localFile in LocalFiles)
             {
-                var serverFile = ServerFiles.FirstOrDefault(file => file.Hash == localFile.Hash && file.Name == localFile.Name && file.Path == localFile.Path);
+                
+                var serverFile = ServerFiles.FirstOrDefault(file => file.Hash == localFile.Hash && file.Name == localFile.Name && StringBuilder(file.Path, marker) == StringBuilder(localFile.Path, marker));
 
                 // If no match is found, mark this file as something to be deleted
                 if (serverFile == null)
@@ -149,7 +179,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         // Process each file in the batch
                         foreach (var file in batch)
                         {
+                            
                             var fileInfo = new FileInfo(file);
+                           
                             var fileData = new FileList
                             {
                                 Name = fileInfo.Name, // File name
@@ -157,7 +189,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                                 Hash = await MD5FileHasah.GetMd5HashFromFileAsync(file), // Calculate file hash asynchronously
                                 Path = fileInfo.DirectoryName?.Replace(@"\", "/")! // Normalize file path (replace backslashes with forward slashes)
                             };
-
+                            
                             // Add the file's information to the collection
                             fileList.Add(fileData);
 

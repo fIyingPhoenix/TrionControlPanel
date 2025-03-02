@@ -13,12 +13,6 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
             else { Links.APIServer = Links.MainHost; }
         }
-
-
-        public static async Task<List<FileList>> GetEmulatorInstallationList(AppSettings appSettings)
-        {
-            return [];
-        }
         public async static Task RepairSPP(AppSettings appSettings)
         {
             switch (appSettings.SelectedSPP)
@@ -81,7 +75,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
             }
         }
     }

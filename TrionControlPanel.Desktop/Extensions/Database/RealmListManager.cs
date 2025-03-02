@@ -19,7 +19,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             if (Settings.SelectedCore == Cores.AscEmu)
             {
-                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
                 return RealmListOpResult.BadEmulator;
             }
             try
@@ -29,13 +29,13 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     ID,
                     Address,
                 }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                await TrionLogger.Log($"Address update for ID: {ID} Emulatro: {Settings.SelectedCore} Address:{Address}");
+                TrionLogger.Log($"Address update for ID: {ID} Emulatro: {Settings.SelectedCore} Address:{Address}");
                 return RealmListOpResult.Ok;
                 
 
             } catch (Exception ex)
             {
-               await TrionLogger.Log(ex.Message, "ERROR");
+               TrionLogger.Log(ex.Message, "ERROR");
                 return RealmListOpResult.DBInternalError;
             }
         }
@@ -44,7 +44,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             if (Settings.SelectedCore == Cores.AscEmu)
             {
-                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
                 return RealmListOpResult.BadEmulator;
             }
             try
@@ -58,12 +58,12 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                    Port,
                    Gamebuild
                 }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                await TrionLogger.Log($"Realmilst Created: {Name} Emulatro: {Settings.SelectedCore} Address:{Address}");
+                TrionLogger.Log($"Realmilst Created: {Name} Emulatro: {Settings.SelectedCore} Address:{Address}");
                 return RealmListOpResult.Ok;
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log(ex.Message, "ERROR");
+                TrionLogger.Log(ex.Message, "ERROR");
                 return RealmListOpResult.DBInternalError;
             }
         }
@@ -71,7 +71,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
         {
             if (Settings.SelectedCore == Cores.AscEmu)
             {
-                await TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
+                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
                 return RealmListOpResult.BadEmulator;
             }
             try
@@ -80,12 +80,12 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 {
                     ID
                 }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                await TrionLogger.Log($"Realmilst Deleted: {ID} Emulatro: {Settings.SelectedCore}");
+                TrionLogger.Log($"Realmilst Deleted: {ID} Emulatro: {Settings.SelectedCore}");
                 return RealmListOpResult.Ok;
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log(ex.Message, "ERROR");
+                TrionLogger.Log(ex.Message, "ERROR");
                 return RealmListOpResult.DBInternalError;
             }
         }

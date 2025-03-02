@@ -67,7 +67,7 @@ namespace TrionControlPanel.API.api
                 // Log cache lookup attempt
                 await TrionLogger.Log($"Checking cache for key: {fileCacheKey}");
 
-                if (_cache.TryGetValue(fileCacheKey, out ConcurrentBag<FileList> files))
+                if (_cache.TryGetValue(fileCacheKey, out ConcurrentBag<FileList>? files))
                 {
                     await TrionLogger.Log("Cache hit - Returning files from cache.");
                     return Ok(new { Files = files });
@@ -119,21 +119,21 @@ namespace TrionControlPanel.API.api
             }
         }
 
-        [HttpGet("DownloadFile")]
-        public IActionResult DownloadFile([FromBody] string filePath)
+        [HttpPost("DownloadFile")]
+        public IActionResult DownloadFile([FromBody] FileRequest request)
         {
             try
             {
-                // Validate the file path
-                if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
+                if (request == null || string.IsNullOrEmpty(request.FilePath) || !System.IO.File.Exists(request.FilePath))
                 {
                     return BadRequest("Invalid or missing file path.");
                 }
-                // Get file name for the download
-                string fileName = Path.GetFileName(filePath);
+
+                // Get the file name from the path
+                string fileName = Path.GetFileName(request.FilePath);
 
                 // Read the file content
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(request.FilePath);
 
                 // Return the file as a downloadable response
                 return File(fileBytes, "application/octet-stream", fileName);
@@ -147,6 +147,7 @@ namespace TrionControlPanel.API.api
                 return StatusCode(500, $"Error: {ex.Message}");
             }
         }
+
 
         [HttpGet("GetFileVersion")]
         public async Task<IActionResult> GetRepackVersion([FromQuery] string Key)

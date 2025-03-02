@@ -14,8 +14,6 @@ using TrionControlPanel.Desktop.Extensions.Database;
 using System.Diagnostics;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 using TrionControlPanel.Desktop.Extensions.Notification;
-using Org.BouncyCastle.Asn1.Cmp;
-using Windows.ApplicationModel.Background;
 
 namespace TrionControlPanelDesktop
 {
@@ -520,6 +518,10 @@ namespace TrionControlPanelDesktop
         private int _logonCurrentPage { get; set; } = 1;
         private bool _editRealmList { get; set; }
         static System.Threading.Timer TimerKeyPress { get; set; }
+
+        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationToken _cancellationToken;
+
         #region"MainPage"
         //Loading...
         public MainForm()
@@ -546,7 +548,7 @@ namespace TrionControlPanelDesktop
             this.ResumeLayout();
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
             await AppServiceManager.GetAPIServer();
-            await TrionLogger.Log("Loading update");
+            TrionLogger.Log("Loading update");
             await UpdateSppVersion();
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -843,42 +845,82 @@ namespace TrionControlPanelDesktop
         #region "S.P.P.Page"
         private async void BTNInstallSPP_Click(object sender, EventArgs e)
         {
+            // Initialize the CancellationTokenSource and token
+            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationToken = _cancellationTokenSource.Token;
+
+            // Set UI state for the installation process
             FormData.UI.Form.InstallingEmulator = true;
             MainFormTabControler.SelectedTab = TabDownloader;
-            var ServerFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Server Files:{message}");
-            var LocalFileFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Local Files:{message}");
-            switch (_settings.SelectedSPP)
+            await Task.Delay(1000);
+
+            // Create progress reporting for UI updates
+            var ServerFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Server Files: {message}");
+            var LocalFileFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Local Files: {message}");
+            var DownloadSpeed = new Progress<double>(message => LBLDownloadSpeed.Text = $"Speed: {message} MB/s");
+            var DownloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
+
+            try
             {
-                case SPP.Classic:        
-                    var ServerFilesClassic = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("classic",_settings.SupporterKey), ServerFilesProgress);
-                    var LocalFilesClassic = await FileManager.GetFilesAsync(Links.Install.Classic, LocalFileFilesProgress);
-                    var (missingFiles, filesToDelete) = await FileManager.CompareFiles(ServerFilesClassic, LocalFilesClassic.ToList());
-                    
-                    break;
-                case SPP.TheBurningCrusade:
+                switch (_settings.SelectedSPP)
+                {
 
-                    break;
-                case SPP.WrathOfTheLichKing:
-                    //
-                    var ServerFilesWotlk  = await NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress);
-                    var LocalFilesWotlk = await FileManager.GetFilesAsync(Links.Install.WotLK, LocalFileFilesProgress);
-                    //await TrionLogger.Log($"Files form server: {ServerFilesWotlk.Count}");
-                    break;
-                case SPP.Cataclysm:
-                    //
+                    case SPP.WrathOfTheLichKing:
+                        // Run file and server tasks concurrently on background threads
+                        var serverFilesTask = Task.Run(() =>
+                            NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress)
+                        );
+                        var localFilesTask = Task.Run(() =>
+                            FileManager.GetFilesAsync(Links.Install.WotLK, LocalFileFilesProgress)
+                        );
 
-                    break;
-                case SPP.MistOfPandaria:
-                    break;
+                        // Wait for both tasks to complete
+                        var ServerFilesWotlk = await serverFilesTask;
+                        var LocalFilesWotlk = await localFilesTask;
 
-                default:
-                    AlertBox.Show(_translator.Translate("AlerBoxFaildGettingEmulatro"), NotificationType.Info, _settings);
-                    break;
+                        // Compare files and get missing ones
+                        var (missingFilesWotlk, filesToDeleteWotlk) = await FileManager.CompareFiles(ServerFilesWotlk, LocalFilesWotlk.ToList(), "/wotlk");
+
+                        // **Download missing files one-by-one**
+                        foreach (var file in missingFilesWotlk)
+                        {
+                            BeginInvoke(new Action(() =>
+                            {
+                                LBLFileName.Text = $"File Name: {file.Name}";
+                                LBLFileSize.Text = $"File Size: {file.Size}";
+                            }));
+
+                            // **Directly await the download (no Task.Run)**
+                            await FileManager.DownloadFileAsync(
+                                file, "/wotlk", _cancellationToken, DownloadProgress, null, DownloadSpeed
+                            );
+                        }
+                        break;
+
+                    default:
+                        BeginInvoke(new Action(() =>
+                        {
+                            AlertBox.Show(_translator.Translate("AlerBoxFaildGettingEmulatro"), NotificationType.Info, _settings);
+                        }));
+                        break;
+                }
+
+                // Once installation completes, show alert
+                BeginInvoke(new Action(() =>
+                {
+                    AlertBox.Show(_translator.Translate("SPPInstalation"), NotificationType.Info, _settings);
+                }));
             }
-
-            AlertBox.Show(_translator.Translate("SPPInstalation"), NotificationType.Info, _settings);
-            
+            catch (Exception ex)
+            {
+                // Handle any exceptions and ensure UI is updated correctly
+                BeginInvoke(new Action(() =>
+                {
+                    AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, _settings);
+                }));
+            }
         }
+
         private async void BTNRepairSPP_Click(object sender, EventArgs e)
         {
             AlertBox.Show(_translator.Translate("SPPRepair"), NotificationType.Info, _settings);
@@ -1047,7 +1089,7 @@ namespace TrionControlPanelDesktop
                         CBoxGMRealmSelect.Items.Add(RealmList.ID);
                         if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
                         if (CBoxGMRealmSelect.Items.Count > 0) { CBoxGMRealmSelect.SelectedIndex = 0; }
-                        await TrionLogger.Log($"Realm List Loaded {RealmList.ID}");
+                        TrionLogger.Log($"Realm List Loaded {RealmList.ID}");
                     }
                 }
                 if (_settings.SelectedCore == Cores.TrinityCore ||
@@ -1063,7 +1105,7 @@ namespace TrionControlPanelDesktop
                         CBOXReamList.Items.Add(RealmList.Name);
                         if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
                         if (CBoxGMRealmSelect.Items.Count > 0) { CBoxGMRealmSelect.SelectedIndex = 0; }
-                        await TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
+                        TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
                     }
                 }
                 if (_settings.SelectedCore == Cores.CMaNGOS ||
@@ -1076,13 +1118,13 @@ namespace TrionControlPanelDesktop
                         CBOXReamList.Items.Add(RealmList.Name);
                         if (CBoxGMRealmSelect.Items.Count > 0) { CBoxGMRealmSelect.SelectedIndex = 0; }
                         if (CBOXReamList.Items.Count > 0) { CBOXReamList.SelectedIndex = 0; }
-                        await TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
+                        TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log(ex.Message, "ERROR");
+                TrionLogger.Log(ex.Message, "ERROR");
             }
         }
         private void BTNCreateRealmList_Click(object sender, EventArgs e)

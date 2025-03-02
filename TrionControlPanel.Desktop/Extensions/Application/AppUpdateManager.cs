@@ -17,12 +17,12 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             {
                 using HttpClient httpClient = new();
                 HttpResponseMessage response = await httpClient.GetAsync(Links.APIRequests.GetSPPVersion(Settings.SupporterKey));
-                await TrionLogger.Log($"Getting data from {Links.APIRequests.GetSPPVersion(Settings.SupporterKey)}, Response code : {response.StatusCode}");
+                TrionLogger.Log($"Getting data from {Links.APIRequests.GetSPPVersion(Settings.SupporterKey)}, Response code : {response.StatusCode}");
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<dynamic>();
 
-                    await TrionLogger.Log($"Repack Versions updated!", "SUCCESS");
+                    TrionLogger.Log($"Repack Versions updated!", "SUCCESS");
                     FormData.UI.Version.Online.Trion = result.trion;
                     FormData.UI.Version.Online.Database = result.database;
                     FormData.UI.Version.Online.Classic = result.classicSPP;
@@ -30,25 +30,25 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                     FormData.UI.Version.Online.WotLK = result.wotlkSPP;
                     FormData.UI.Version.Online.Cata = result.cataSPP;
                     FormData.UI.Version.Online.Mop = result.mopSPP;
-                    await TrionLogger.Log(
+                    TrionLogger.Log(
                         $"Classic:{result.classicSPP} ,TBC: {result.tbcSPP}, WOTLK:{result.wotlkSPP}, CATA:{result.cataSPP}, MOP: {result.mopSPP}", "SUCCESS");
                 }
                 else
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    await TrionLogger.Log($"GetSPPVersionOnline API Error: {response.StatusCode} - {error}", "ERROR");
+                    TrionLogger.Log($"GetSPPVersionOnline API Error: {response.StatusCode} - {error}", "ERROR");
                 }
             }
             catch (HttpRequestException ex)
             {
                 // Log or rethrow the exception
-                await TrionLogger.Log($"GetSPPVersionOnline Network error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"GetSPPVersionOnline Network error: {ex.Message}", "ERROR");
 
             }
             catch (Exception ex)
             {
                 // Log or rethrow the exception
-                await TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
 
             }
         }
@@ -83,7 +83,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($@"Failed to get the application version! {ex.Message} {Location}");
+                TrionLogger.Log($@"Failed to get the application version! {ex.Message} {Location}");
                 return "N/A";
             }
         }
@@ -102,7 +102,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             catch (Exception ex)
             {
                 // Log or rethrow the exception
-                await TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
 
             }
         }

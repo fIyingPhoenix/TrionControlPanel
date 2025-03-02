@@ -85,7 +85,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                     }
 
                     // Log a message indicating the application has started successfully.
-                    await TrionLogger.Log($"Started: {Name} with process ID: {myProcess.Id}");
+                    TrionLogger.Log($"Started: {Name} with process ID: {myProcess.Id}");
                     //Infos.Message = $@"Started: {Name}!"; 
 
                     // Retrieve the process ID of the started application.
@@ -95,7 +95,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 {
                     // Log the exception message for debugging or error reporting.
                     // Infos.Message = ex.Message;
-                    await TrionLogger.Log($"Started failed {Name} Error Message {ex.Message}", "ERROR");
+                    TrionLogger.Log($"Started failed {Name} Error Message {ex.Message}", "ERROR");
                     // Set the process ID to 0 to indicate failure.
                     id = 0;
                 }
@@ -104,15 +104,15 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             // Return the process ID (or 0 if the process failed to start).
             return id;
         }
-        public static async void ApplicationKill(int ApplicationID)
+        public static void ApplicationKill(int ApplicationID)
         {
-            await TrionLogger.Log($"Killing application {ApplicationID}");
+            TrionLogger.Log($"Killing application {ApplicationID}");
             var process = Process.GetProcessById(ApplicationID);
             process.Kill(true);// Ensures the process is killed immediately
         }
         public static async Task ApplicationStop(int ApplicationID)
         {
-            await TrionLogger.Log($"Stopping Process: {ApplicationID}");
+            TrionLogger.Log($"Stopping Process: {ApplicationID}");
             try
             {
                 var process = Process.GetProcessById(ApplicationID);
@@ -126,7 +126,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Failed: {ex.Message}");
+                TrionLogger.Log($"Failed: {ex.Message}");
                 // Infos.Message = $"Error: {ex.Message}";
             }
         }
@@ -135,7 +135,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             // Attach to the process's console
             if (AttachConsole((uint)process.Id))
 
-                await TrionLogger.Log($"Send ctrl-C to process {process.Id}");
+                TrionLogger.Log($"Send ctrl-C to process {process.Id}");
             // Set up a control-C event handler to ignore it in this process
             SetConsoleCtrlHandler(null!, true);
 
@@ -144,7 +144,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
 
             // Allow some time for the event to be processed
             await Task.Delay(1000);
-            await TrionLogger.Log($"Free console process {process.Id}");
+            TrionLogger.Log($"Free console process {process.Id}");
             // Detach from the console
             FreeConsole();
 

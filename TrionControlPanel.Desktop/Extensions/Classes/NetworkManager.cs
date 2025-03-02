@@ -42,17 +42,17 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 using (HttpClient client = new())
                 {
-                    await TrionLogger.Log($"Getting Exter ipv4 address from {url}");
+                    TrionLogger.Log($"Getting Exter ipv4 address from {url}");
                     HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
-                        await TrionLogger.Log($"Loaded Extern ipv4 address: {result.iPv4Address}");
+                        TrionLogger.Log($"Loaded Extern ipv4 address: {result.iPv4Address}");
                         return result.iPv4Address;
                     }
                     else
                     {
-                        await TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
+                        TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
                         return "0.0.0.0";
                     }
 
@@ -60,7 +60,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Error fetching IP Message {ex.Message},Url {url}", "ERROR");
+                TrionLogger.Log($"Error fetching IP Message {ex.Message},Url {url}", "ERROR");
                 return "0.0.0.0";
             }
         }
@@ -84,24 +84,24 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             if (ipAddressInfo.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
-                                await TrionLogger.Log($"Loaded Intern ipv4 address {ipAddressInfo.Address}");
+                                TrionLogger.Log($"Loaded Intern ipv4 address {ipAddressInfo.Address}");
                                 return ipAddressInfo.Address.ToString();
                             }
                         }
                     }
                 }
-                await TrionLogger.Log($"No active physical IPv4 address found!", "ERROR");
+                TrionLogger.Log($"No active physical IPv4 address found!", "ERROR");
                 return "0.0.0.0";
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"No active physical IPv4 address found! {ex.Message}", "ERROR");
+                TrionLogger.Log($"No active physical IPv4 address found! {ex.Message}", "ERROR");
                 return "0.0.0.0";
             }
         }
         public static async Task<bool> IsWebsiteOnlineAsync(string url)
         {
-            await TrionLogger.Log($"Website: {url} Ckecking");
+            TrionLogger.Log($"Website: {url} Ckecking");
             try
             {
                 using HttpClient httpClient = new();
@@ -115,13 +115,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             catch (HttpRequestException)
             {
                 // Handle web exceptions (e.g., network issues)
-                await TrionLogger.Log($"Website: {url} Handle web exceptions");
+                TrionLogger.Log($"Website: {url} Handle web exceptions");
                 return false;
             }
             catch (TaskCanceledException)
             {
                 // Handle timeout exception
-                await TrionLogger.Log($"Website: {url} Timeout");
+                TrionLogger.Log($"Website: {url} Timeout");
                 return false;
             }
         }
@@ -142,13 +142,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             // Request succeeded
-                            await TrionLogger.Log($"DNS update request succeeded! IP{Settings.IPAddress}, Domain: {Settings.DDNSDomain}");
+                            TrionLogger.Log($"DNS update request succeeded! IP{Settings.IPAddress}, Domain: {Settings.DDNSDomain}");
                             return true;
                         }
                         else
                         {
                             // Request failed
-                            await TrionLogger.Log($"Response status code: {response.StatusCode}", "ERROR");
+                            TrionLogger.Log($"Response status code: {response.StatusCode}", "ERROR");
                             return false;
                         }
                     }
@@ -158,18 +158,18 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     // Handle web exceptions, e.g., 404, 500, etc.
                     if (webEx.Response is HttpWebResponse errorResponse)
                     {
-                        await TrionLogger.Log($"Request failed with status code: {errorResponse.StatusCode}", "ERROR");
+                        TrionLogger.Log($"Request failed with status code: {errorResponse.StatusCode}", "ERROR");
                     }
                     else
                     {
-                        await TrionLogger.Log($"Request failed: {webEx.Message}", "ERROR");
+                        TrionLogger.Log($"Request failed: {webEx.Message}", "ERROR");
                     }
                     return false;
                 }
                 catch (Exception ex)
                 {
                     // Handle other exceptions
-                    await TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                    TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
                     return false;
                 }
             }
@@ -206,16 +206,16 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
                 double speedMbps = (totalBytesRead * 8) / (elapsedSeconds * 1_000_000); // Convert to Mbps
 
-                await TrionLogger.Log($"Downloaded {totalBytesRead / (1024.0 * 1024.0):F2} MB in {elapsedSeconds:F2} seconds.");
-                await TrionLogger.Log($"Estimated Download Speed: {speedMbps:F2} Mbps");
+                TrionLogger.Log($"Downloaded {totalBytesRead / (1024.0 * 1024.0):F2} MB in {elapsedSeconds:F2} seconds.");
+                TrionLogger.Log($"Estimated Download Speed: {speedMbps:F2} Mbps");
             }
             catch (OperationCanceledException)
             {
-                await TrionLogger.Log("Speed test stopped after 4 seconds.");
+                TrionLogger.Log("Speed test stopped after 4 seconds.");
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"Error: {ex.Message}", "ERROR");
             }
         }
         public static async Task<List<FileList>> GetServerFiles(string URL, IProgress<string>? progress = null)
@@ -224,7 +224,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 using HttpClient httpClient = new();
                 HttpResponseMessage response = await httpClient.GetAsync(URL);
-                await TrionLogger.Log($"Getting data from {URL}, Response code : {response.StatusCode}");
+                TrionLogger.Log($"Getting data from {URL}, Response code : {response.StatusCode}");
                 progress?.Report($"Getting data from");
                 if (response.IsSuccessStatusCode)
                 {
@@ -251,20 +251,20 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 else
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    await TrionLogger.Log($"GetServerFiles API Error: {response.StatusCode} - {error}", "ERROR");
+                    TrionLogger.Log($"GetServerFiles API Error: {response.StatusCode} - {error}", "ERROR");
                     return null;
                 }
             }
             catch (HttpRequestException ex)
             {
                 // Log or rethrow the exception
-                await TrionLogger.Log($"GetServerFiles Network error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"GetServerFiles Network error: {ex.Message}", "ERROR");
                 return null ;
             }
             catch (Exception ex)
             {
                 // Log or rethrow the exception
-                await TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
+                TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
                 return null;
             }
         }

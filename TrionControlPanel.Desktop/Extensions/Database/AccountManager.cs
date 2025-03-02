@@ -36,7 +36,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             }
             catch (Exception ex) 
             {
-                await TrionLogger.Log($"Error creating BnetAccount Messsage :{ex.Message}", "ERROR");
+                TrionLogger.Log($"Error creating BnetAccount Messsage :{ex.Message}", "ERROR");
             }
             return AccountOpResult.Ok;
 
