@@ -50,7 +50,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             int id = 0; // Initialize the process ID to 0.
 
             // Run the process start logic in a separate thread to avoid blocking the calling thread.
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 try
                 {

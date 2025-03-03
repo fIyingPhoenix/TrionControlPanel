@@ -52,7 +52,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
 
             }
         }
-        public static async Task<string> GetLocalVersion(string Location)
+        public static string GetLocalVersion(string Location)
         {
             try
             {
@@ -87,17 +87,17 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 return "N/A";
             }
         }
-        public static async Task GetSPPVersionOffline(AppSettings Settings)
+        public static void GetSPPVersionOffline(AppSettings Settings)
         {
             try
             {
                 FormData.UI.Version.Local.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-                FormData.UI.Version.Local.Database = await GetLocalVersion(Settings.DBExeLoc);
-                FormData.UI.Version.Local.Classic = await GetLocalVersion(Settings.ClassicWorldExeLoc);
-                FormData.UI.Version.Local.TBC = await GetLocalVersion(Settings.TBCWorldExeLoc);
-                FormData.UI.Version.Local.WotLK = await GetLocalVersion(Settings.WotLKWorldExeLoc);
-                FormData.UI.Version.Local.Cata = await GetLocalVersion(Settings.CataWorldExeLoc);
-                FormData.UI.Version.Local.Mop = await GetLocalVersion(Settings.MopWorldExeLoc);
+                FormData.UI.Version.Local.Database = GetLocalVersion(Settings.DBExeLoc);
+                FormData.UI.Version.Local.Classic = GetLocalVersion(Settings.ClassicWorldExeLoc);
+                FormData.UI.Version.Local.TBC =  GetLocalVersion(Settings.TBCWorldExeLoc);
+                FormData.UI.Version.Local.WotLK = GetLocalVersion(Settings.WotLKWorldExeLoc);
+                FormData.UI.Version.Local.Cata = GetLocalVersion(Settings.CataWorldExeLoc);
+                FormData.UI.Version.Local.Mop = GetLocalVersion(Settings.MopWorldExeLoc);
             }
             catch (Exception ex)
             {

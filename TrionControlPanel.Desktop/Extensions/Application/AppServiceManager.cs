@@ -1,18 +1,11 @@
-﻿using TrionControlPanel.Desktop.Extensions.Classes;
-using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+﻿using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
-using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Application
 {
     public class AppServiceManager
     {
-        public static async Task GetAPIServer()
-        {
-            if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.MainHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.MainHost; }
-            if (await NetworkManager.IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
-            else { Links.APIServer = Links.MainHost; }
-        }
+
         public async static Task RepairSPP(AppSettings appSettings)
         {
             switch (appSettings.SelectedSPP)
@@ -34,6 +27,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                     break;
             }
         }
+
         public async static Task UninstallSPP(AppSettings appSettings)
         {
             switch (appSettings.SelectedSPP)

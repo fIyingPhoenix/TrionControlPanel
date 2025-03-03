@@ -24,7 +24,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return input;
             }
         }
-
         public static async Task DownloadFileAsync(FileList file,string marker, CancellationToken cancellationToken,
             IProgress<double>? progress = null,
             IProgress<double>? elapsedTime = null,
@@ -41,9 +40,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     var requestObj = new { filePath = $"{file.Path}/{file.Name}" };
                     string jsonContent = JsonSerializer.Serialize(requestObj);
                     var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                    TrionLogger.Log($"Payload: {jsonContent}", "INFO");
-
                     // Send POST request with the JSON body
                     using (HttpResponseMessage response = await client.PostAsync(url, content, cancellationToken))
                     {
@@ -105,114 +101,112 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             foreach (var file in files)
             {
                 // Run the delete operation in a separate task to avoid blocking the calling thread
-                await Task.Run( () => File.Delete(file.Path));
+                await Task.Run( () => File.Delete($"{file.Path}/{file.Name}"));
             }
         }
-        public async static Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)> CompareFiles(List<FileList> ServerFiles, List<FileList> LocalFiles, string marker)
+        public async static Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)> 
+            CompareFiles(List<FileList> ServerFiles, List<FileList> LocalFiles, string marker,
+            IProgress<string>FileToDelete, IProgress<string>FileToDownload)
         {
             // Create lists to track missing files (from Local) and files to delete (from Local)
             List<FileList> MissingFiles = new();
             List<FileList> FilesToDelete = new();
 
-            // Check each file in the ServerFiles list
-            foreach (var serverFile in ServerFiles)
-            {
-                // Look for the same file in the LocalFiles list using Hash, Name, and Path for comparison
-                var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && StringBuilder(file.Path, marker) == StringBuilder(serverFile.Path, marker));
+          // Check each file in the ServerFiles list
+           await Task.Run( () =>
+           {
+               foreach (var serverFile in ServerFiles)
+               {
+                   // Look for the same file in the LocalFiles list using Hash, Name, and Path for comparison
+                   var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && StringBuilder(file.Path.Replace(@"\", "/"), marker) == StringBuilder(serverFile.Path, marker));
 
-                // If no match is found, mark this file as missing
-                if (localFile == null)
-                {
-                    MissingFiles.Add(serverFile);
-                }
-            }
+                   // If no match is found, mark this file as missing
+                   if (localFile == null)
+                   {
+                       MissingFiles.Add(serverFile);
+                   }
+                   FileToDownload?.Report($"{MissingFiles.Count}");
+               }
+           });
 
             // Now check the LocalFiles list for files that don't exist on the server
-            foreach (var localFile in LocalFiles)
+            await Task.Run(() =>
             {
-                
-                var serverFile = ServerFiles.FirstOrDefault(file => file.Hash == localFile.Hash && file.Name == localFile.Name && StringBuilder(file.Path, marker) == StringBuilder(localFile.Path, marker));
-
-                // If no match is found, mark this file as something to be deleted
-                if (serverFile == null)
+                foreach (var localFile in LocalFiles)
                 {
-                    FilesToDelete.Add(localFile);
+                    var serverFile = ServerFiles.FirstOrDefault(file => file.Hash == localFile.Hash && file.Name == localFile.Name && StringBuilder(file.Path.Replace(@"\", "/"), marker) == StringBuilder(localFile.Path, marker));
+                    // If no match is found, mark this file as something to be deleted
+                    if (serverFile == null)
+                    {
+                        FilesToDelete.Add(localFile);
+                    }
+                    FileToDelete?.Report($"{FilesToDelete.Count}");
                 }
-            }
+            });
+
 
             // Return the lists as a tuple
             return (MissingFiles, FilesToDelete);
         }
-        public static async Task<ConcurrentBag<FileList>> GetFilesAsync(string filePath, IProgress<string>? progress = null)
+        public static async Task<List<FileList>> ProcessFilesAsync(string filePath, IProgress<string>? progress)
         {
-            // Ensure the target directory exists
             if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
-            // Get all the file paths in the given directory and its subdirectories
-            var filePaths = Directory.GetFiles(filePath, "*", SearchOption.AllDirectories);
-
-            // Create a collection to store file details
-            var fileList = new ConcurrentBag<FileList>();
-
-            // Define the size of file batches to process at a time (helps with performance)
-            var batchSize = 100; // This can be adjusted based on system capabilities, 
-
-            // Use a semaphore to limit the number of concurrent tasks running at once
-            var semaphore = new SemaphoreSlim(10);
-
-            // A list to hold all the tasks that will process files asynchronously
+            var fileList = new List<FileList>();
+            var semaphore = new SemaphoreSlim(1000); // Limit concurrent tasks
             var tasks = new List<Task>();
 
-            int totalFiles = filePaths.Length;
             int processedFiles = 0;
 
-            // Process files in batches to avoid overwhelming the system with too many simultaneous tasks
-            for (int i = 0; i < totalFiles; i += batchSize)
+            foreach (var file in Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories))
             {
-                var batch = filePaths.Skip(i).Take(batchSize).ToArray();
-
+                await semaphore.WaitAsync(); // Control concurrency
                 var task = Task.Run(async () =>
                 {
-                    await semaphore.WaitAsync(); // Wait for permission to start a task
                     try
                     {
-                        // Process each file in the batch
-                        foreach (var file in batch)
+                        var fileInfo = new FileInfo(file);
+                        var fileData = new FileList
                         {
-                            
-                            var fileInfo = new FileInfo(file);
-                           
-                            var fileData = new FileList
-                            {
-                                Name = fileInfo.Name, // File name
-                                Size = fileInfo.Length / 1_000.0, // Convert size to KB
-                                Hash = await MD5FileHasah.GetMd5HashFromFileAsync(file), // Calculate file hash asynchronously
-                                Path = fileInfo.DirectoryName?.Replace(@"\", "/")! // Normalize file path (replace backslashes with forward slashes)
-                            };
-                            
-                            // Add the file's information to the collection
-                            fileList.Add(fileData);
+                            Name = fileInfo.Name,
+                            Size = fileInfo.Length / 1_000.0,
+                            Hash = await MD5FileHasah.GetMd5HashFromFileAsync(file),
+                            Path = fileInfo.DirectoryName?.Replace(@"\", "/")!
+                        };
 
-                            // Update progress for the user
-                            Interlocked.Increment(ref processedFiles);
-                            progress?.Report($"Processing: {processedFiles}/{totalFiles} files");
+                        lock (fileList)
+                        {
+                            fileList.Add(fileData);
+                        }
+
+                        if (Interlocked.Increment(ref processedFiles) % 10 == 0)
+                        {
+                            progress?.Report($"Processing: {processedFiles} files");
                         }
                     }
                     finally
                     {
-                        semaphore.Release(); // Release the semaphore to allow another task to run
+                        semaphore.Release();
                     }
                 });
 
-                tasks.Add(task); // Add this task to the list
+                tasks.Add(task);
+
+                // Avoid too many pending tasks in memory
+                if (tasks.Count >= 100)
+                {
+                    await Task.WhenAny(tasks);
+                    tasks.RemoveAll(t => t.IsCompleted);
+                }
             }
 
-            // Wait for all tasks to complete
             await Task.WhenAll(tasks);
             progress?.Report("Processing complete.");
 
-            return fileList; // Return the list of files that were processed
+            return fileList;
         }
+
+
         public static string GetExecutableLocation(string location, string Executable)
         {
             // Search for a specific executable file within a directory and its subdirectories

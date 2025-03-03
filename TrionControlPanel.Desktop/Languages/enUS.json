@@ -221,7 +221,8 @@
   "BTNDDNSTimerStart": "Dynamic DNS Timer Start",
   "TXTDDNSPassword": "Password",
   //MessageBoxText
-  "SPPInstalation": "Installation Started",
+  "SPPInstalationStarted": "Installation Started!",
+  "SPPInstalationSucces": "Installation finished!",
   "SPPRepair": "Repair Started",
   "SPPUninstall": "Uninstall Started",
   "MessageBoxTitleInfo": "Information!",
@@ -232,5 +233,24 @@
   "AlertBoxError": "Error!",
   "AlertBoxInfo": "Info!",
   "AlertBoxWarning": "Warning!",
-  "AlerBoxFaildGettingEmulatro": "There was a problem selecting the Emulator! please try again later!"
+  "AlerBoxFaildGettingEmulatro": "There was a problem selecting the Emulator! please try again later!",
+  "AlerBoxEmulatroInstalled": "The {0} already installed! To fix problems with the emulator, try the Repair button!",
+  //Downloader
+  "LBLLocalFilesIDLE": "Local Files: Waiting...",
+  "LBLLocalFiles": "Local Files: {0}",
+  "LBLServerFilesIDLE": "Server Files: Waiting... ",
+  "LBLServerFiles": "Server Files: {0}",
+  "LBLFilesToBeDownloadedIDLE": "Files to Download: Waiting...",
+  "LBLFilesToBeDownloaded": "Files to Download: {0}",
+  "LBLFilesToBeRemovedIDLE": "Files to Remove: Waiting...",
+  "LBLFilesToBeRemoved": "Files to Remove: {0}",
+  "LBLFileNameIDLE": "File Name: Waiting...",
+  "LBLFileName": "File Name: {0}",
+  "LBLFileSizeIDLE": "File Size: Waiting...",
+  "LBLFileSize": "File Size: {0}",
+  "LBLDownloadSpeedIDLE": "Download Speed: Waiting...",
+  "LBLDownloadSpeed": "Download Speed: {0}",
+  "LBLInstallEmulatorTitle": "Installing {0}",
+  "LBLTotalDownload": "Total Download Progress",
+  "LBLCurrentDownload": "Current Download Progress"
 }

@@ -285,6 +285,18 @@ namespace TrionControlPanelDesktop
             TLTHome.SetToolTip(LBLCardSPPversionInfo, _translator.Translate("LBLCardSPPversionInfo"));
             TLTHome.SetToolTip(LBLCardElulatorsInfo, _translator.Translate("LBLCardElulatorsInfo"));
             #endregion
+            #region"Downloader"
+            LBLDownloadSpeed.Text = _translator.Translate("LBLDownloadSpeedIDLE");
+            LBLInstallEmulatorTitle.Text = _translator.Translate("LBLInstallEmulatorTitle");
+            LBLServerFiles.Text = _translator.Translate("LBLServerFilesIDLE");
+            LBLLocalFiles.Text = _translator.Translate("LBLLocalFilesIDLE");
+            LBLFilesToBeDownloaded.Text = _translator.Translate("LBLFilesToBeDownloadedIDLE");
+            LBLFilesToBeRemoved.Text = _translator.Translate("LBLFilesToBeRemovedIDLE");
+            LBLFileName.Text = _translator.Translate("LBLFileNameIDLE");
+            LBLFileSize.Text = _translator.Translate("LBLFileSizeIDLE");
+            LBLCurrentDownload.Text = _translator.Translate("LBLCurrentDownload");
+            LBLTotalDownload.Text = _translator.Translate("LBLTotalDownload");
+            #endregion
         }
         #endregion
         #region "Load Settings"
@@ -528,9 +540,7 @@ namespace TrionControlPanelDesktop
         {
             LoadSettings();
             InitializeComponent();
-            //Initialize MaterialSkinManager
-            //Check if an update has ben Dowloaded and Delete it!
-            if (File.Exists("setup.exe")) { File.Delete("setup.exe"); }
+            if (File.Exists("update.exe")) { File.Delete("update.exe"); }
         }
         private void ToogleButtons()
         {
@@ -538,18 +548,71 @@ namespace TrionControlPanelDesktop
             BTNUninstallSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
             BTNRepairSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
         }
+        private async void SetupDatabaseIfMissing()
+        {
+            if (!_settings.DBInstalled && !FormData.UI.Form.InstallingEmulator)
+            {
+                // Initialize the CancellationTokenSource and token
+                _cancellationTokenSource = new CancellationTokenSource();
+                _cancellationToken = _cancellationTokenSource.Token;
+                // Set UI state for the installation process
+                FormData.UI.Form.InstallingEmulator = true;
+                // Create progress reporting for UI updates
+                var ServerFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Online Files: {message}");
+                var LocalFileFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Local Files: {message}");
+                var DownloadSpeed = new Progress<double>(message => LBLDownloadSpeed.Text = $"Speed: {message:0.##} MB/s");
+                var DownloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
+                var FilesToBeDeleted = new Progress<string>(message => LBLFilesToBeRemoved.Text = $"Files to be removed: {message}");
+                var FilesToBeDownlaoded = new Progress<string>(message => LBLFilesToBeDownloaded.Text = $"Files to be downlaoded: {message}");
+
+                MainFormTabControler.SelectedTab = TabDownloader;
+                await Task.Delay(1000);
+                FormData.Infos.Install.Database = true;
+                // Run file and server tasks concurrently on background threads
+                var serverFilesDatabaseTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("database", _settings.SupporterKey), ServerFilesProgress));
+                var localFilesDatabaseTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.Database, LocalFileFilesProgress));
+                // Wait for both tasks to complete before continuing
+                await Task.WhenAll(serverFilesDatabaseTask, localFilesDatabaseTask);
+                // Now both tasks are complete, retrieve their results
+                var ServerFilesDatabase = await serverFilesDatabaseTask;
+                var LocalFilesDatabase = await localFilesDatabaseTask;
+                // Compare files and get missing ones
+                var (missingFilesDatabase, filesToDeleteDatabase) = await FileManager.CompareFiles(ServerFilesDatabase, LocalFilesDatabase, "/database", FilesToBeDeleted, FilesToBeDownlaoded);
+                PBARTotalDownload.Maximum = missingFilesDatabase.Count;
+                // **Download missing files one-by-one**
+                foreach (var file in missingFilesDatabase)
+                {
+                    BeginInvoke(new Action(() =>
+                    {
+                        LBLFileName.Text = $"File Name: {file.Name}";
+                        LBLFileSize.Text = $"File Size: {file.Size} Kb";
+                    }));
+
+                    // **Directly await the download (no Task.Run)**
+                    await FileManager.DownloadFileAsync(
+                        file, "/database", _cancellationToken, DownloadProgress, null, DownloadSpeed
+                    );
+                    PBARTotalDownload.Value++;
+                }
+                // await FileManager.DeleteFiles(filesToDeleteDatabase);
+                // Installation Finished!
+                InstallFinished();
+                FormData.UI.Form.InstallingEmulator = false;
+                FormData.Infos.Install.Database = false;
+
+            }
+        }
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
-            this.SuspendLayout();  // Stops rendering UI updates
             LoadSettingsUI();
             GetAllLanguages();
             LoadSkin();
             LoadLangauge();
-            this.ResumeLayout();
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
-            await AppServiceManager.GetAPIServer();
-            TrionLogger.Log("Loading update");
+
+            await NetworkManager.GetAPIServer();
             await UpdateSppVersion();
+            SetupDatabaseIfMissing();
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -851,52 +914,74 @@ namespace TrionControlPanelDesktop
 
             // Set UI state for the installation process
             FormData.UI.Form.InstallingEmulator = true;
-            MainFormTabControler.SelectedTab = TabDownloader;
-            await Task.Delay(1000);
+
 
             // Create progress reporting for UI updates
-            var ServerFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Server Files: {message}");
-            var LocalFileFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Local Files: {message}");
-            var DownloadSpeed = new Progress<double>(message => LBLDownloadSpeed.Text = $"Speed: {message} MB/s");
+            var ServerFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Online Files: {message}");
+            var LocalFileFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Local Files: {message}");
+            var DownloadSpeed = new Progress<double>(message => LBLDownloadSpeed.Text = $"Speed: {message:0.##} MB/s");
             var DownloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
-
+            var FilesToBeDeleted = new Progress<string>(message => LBLFilesToBeRemoved.Text = $"Files to be removed: {message}");
+            var FilesToBeDownlaoded = new Progress<string>(message => LBLFilesToBeDownloaded.Text = $"Files to be downlaoded: {message}");
             try
             {
                 switch (_settings.SelectedSPP)
                 {
+                    case SPP.Classic:
+                        LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), "Classic Emulator");
+                        break;
+                    case SPP.TheBurningCrusade:
 
+                        break;
                     case SPP.WrathOfTheLichKing:
+                        LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), "WotLK Emulator");
+                        if (_settings.WotLKInstalled == false)
+                        {
+                            AlertBox.Show(string.Format(CultureInfo.InvariantCulture, _translator.Translate("AlerBoxEmulatroInstalled"), "WotLK Emulator"), NotificationType.Info, _settings);
+                            FormData.UI.Form.InstallingEmulator = false;
+                            break;
+                        }
+                        MainFormTabControler.SelectedTab = TabDownloader;
+                        await Task.Delay(1000);
+                        FormData.Infos.Install.WotLK = true;
                         // Run file and server tasks concurrently on background threads
-                        var serverFilesTask = Task.Run(() =>
-                            NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress)
-                        );
-                        var localFilesTask = Task.Run(() =>
-                            FileManager.GetFilesAsync(Links.Install.WotLK, LocalFileFilesProgress)
-                        );
-
-                        // Wait for both tasks to complete
-                        var ServerFilesWotlk = await serverFilesTask;
-                        var LocalFilesWotlk = await localFilesTask;
-
+                        var serverFilesWotlkTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("wotlk", _settings.SupporterKey), ServerFilesProgress));
+                        var localFilesWotlkTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.WotLK, LocalFileFilesProgress));
+                        // Wait for both tasks to complete before continuing
+                        await Task.WhenAll(serverFilesWotlkTask, localFilesWotlkTask);
+                        // Now both tasks are complete, retrieve their results
+                        var ServerFilesWotlk = await serverFilesWotlkTask;
+                        var LocalFilesWotlk = await localFilesWotlkTask;
                         // Compare files and get missing ones
-                        var (missingFilesWotlk, filesToDeleteWotlk) = await FileManager.CompareFiles(ServerFilesWotlk, LocalFilesWotlk.ToList(), "/wotlk");
-
+                        var (missingFilesWotlk, filesToDeleteWotlk) = await FileManager.CompareFiles(ServerFilesWotlk, LocalFilesWotlk, "/wotlk", FilesToBeDeleted, FilesToBeDownlaoded);
+                        PBARTotalDownload.Maximum = missingFilesWotlk.Count;
                         // **Download missing files one-by-one**
                         foreach (var file in missingFilesWotlk)
                         {
                             BeginInvoke(new Action(() =>
                             {
                                 LBLFileName.Text = $"File Name: {file.Name}";
-                                LBLFileSize.Text = $"File Size: {file.Size}";
+                                LBLFileSize.Text = $"File Size: {file.Size} Kb";
                             }));
 
                             // **Directly await the download (no Task.Run)**
                             await FileManager.DownloadFileAsync(
                                 file, "/wotlk", _cancellationToken, DownloadProgress, null, DownloadSpeed
                             );
+                            PBARTotalDownload.Value++;
                         }
+                        await FileManager.DeleteFiles(filesToDeleteWotlk);
+                        // Installation Finished!
+                        InstallFinished();
+                        FormData.UI.Form.InstallingEmulator = false;
+                        FormData.Infos.Install.WotLK = false;
                         break;
+                    case SPP.Cataclysm:
 
+                        break;
+                    case SPP.MistOfPandaria:
+
+                        break;
                     default:
                         BeginInvoke(new Action(() =>
                         {
@@ -905,11 +990,8 @@ namespace TrionControlPanelDesktop
                         break;
                 }
 
-                // Once installation completes, show alert
-                BeginInvoke(new Action(() =>
-                {
-                    AlertBox.Show(_translator.Translate("SPPInstalation"), NotificationType.Info, _settings);
-                }));
+                AlertBox.Show(_translator.Translate("SPPInstalationSucces"), NotificationType.Info, _settings);
+
             }
             catch (Exception ex)
             {
@@ -920,7 +1002,6 @@ namespace TrionControlPanelDesktop
                 }));
             }
         }
-
         private async void BTNRepairSPP_Click(object sender, EventArgs e)
         {
             AlertBox.Show(_translator.Translate("SPPRepair"), NotificationType.Info, _settings);
@@ -1234,7 +1315,7 @@ namespace TrionControlPanelDesktop
         }
         private async Task LoadIPAdress()
         {
-            TXTInternIP.Text = await NetworkManager.GetInternalIpAddress();
+            TXTInternIP.Text = NetworkManager.GetInternalIpAddress();
             TXTPublicIP.Text = await NetworkManager.GetExternalIpAddress(Links.APIRequests.GetExternalIPv4());
         }
         private async Task SaveRealmListData()
@@ -1310,12 +1391,12 @@ namespace TrionControlPanelDesktop
         {
             TimerWacher.Enabled = true;
         }
-        private async void TImerDinamicDNS_Tick(object sender, EventArgs e)
+        private void TImerDinamicDNS_Tick(object sender, EventArgs e)
         {
             if (_settings.IPAddress != TXTPublicIP.Text)
             {
                 _settings.IPAddress = TXTPublicIP.Text;
-                await NetworkManager.UpdateDNSIP(_settings);
+                NetworkManager.UpdateDNSIP(_settings);
             }
         }
         private void BTNDDNSServiceWebiste_Click(object sender, EventArgs e)
@@ -1340,8 +1421,8 @@ namespace TrionControlPanelDesktop
         #region"Trion"
         private async Task UpdateSppVersion()
         {
+            AppUpdateManager.GetSPPVersionOffline(_settings);
             await AppUpdateManager.GetSPPVersionOnline(_settings);
-            await AppUpdateManager.GetSPPVersionOffline(_settings);
             LBLTrionVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTrionVersion"), FormData.UI.Version.Local.Trion, FormData.UI.Version.Online.Trion);
             LBLDBVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDBVersion"), FormData.UI.Version.Local.Database, FormData.UI.Version.Online.Database);
             LBLClassicVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLClassicVersion"), FormData.UI.Version.Local.Classic, FormData.UI.Version.Online.Classic);
@@ -1349,7 +1430,6 @@ namespace TrionControlPanelDesktop
             LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLWotLKVersion"), FormData.UI.Version.Local.WotLK, FormData.UI.Version.Online.WotLK);
             LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
             LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
-
         }
         private void BTNReviveSupporterKey_Click(object sender, EventArgs e)
         {
@@ -1580,12 +1660,5 @@ namespace TrionControlPanelDesktop
             _settings.CustomLogonExeName = TXTCustomAuthName.Text;
             _settings.DBExeName = TXTCustomDatabaseName.Text;
         }
-
-        private void materialFloatingActionButton1_Click(object sender, EventArgs e)
-        {
-            NetworkManager.DownlaodSeppd();
-        }
-
-
     }
 }

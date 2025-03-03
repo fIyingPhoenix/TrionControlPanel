@@ -3,9 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text.Json;
 using System.Text.RegularExpressions;
-using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
@@ -15,6 +13,12 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
     public class NetworkManager
     {
+        public static async Task GetAPIServer()
+        {
+            if (await IsWebsiteOnlineAsync($"{Links.MainHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.MainHost; }
+            if (await IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
+            else { Links.APIServer = Links.MainHost; }
+        }
         public static bool IsDomainName(string input)
         {
             // Regular expression pattern to match a domain name
@@ -64,7 +68,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return "0.0.0.0";
             }
         }
-        public static async Task<string> GetInternalIpAddress()
+        public static string GetInternalIpAddress()
         {
 
             try
@@ -125,7 +129,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return false;
             }
         }
-        public static async Task<bool> UpdateDNSIP(AppSettings Settings)
+        public static bool UpdateDNSIP(AppSettings Settings)
         {
             if (!string.IsNullOrEmpty(Settings.DDNSDomain) && !string.IsNullOrEmpty(Settings.IPAddress))
             {
@@ -218,56 +222,69 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 TrionLogger.Log($"Error: {ex.Message}", "ERROR");
             }
         }
-        public static async Task<List<FileList>> GetServerFiles(string URL, IProgress<string>? progress = null)
+        public static async Task<List<FileList>> GetServerFiles(string URL, IProgress<string>? Count = null)
         {
             try
             {
-                using HttpClient httpClient = new();
-                HttpResponseMessage response = await httpClient.GetAsync(URL);
-                TrionLogger.Log($"Getting data from {URL}, Response code : {response.StatusCode}");
-                progress?.Report($"Getting data from");
-                if (response.IsSuccessStatusCode)
+                // Use Task.Run to offload work to a background thread
+                var task = Task.Run(async () =>
                 {
-                    // Deserialize the response content to a dynamic object first
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var filesObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-                    List<FileList> fileList = new List<FileList>();
+                    using HttpClient httpClient = new();
+                    HttpResponseMessage response = await httpClient.GetAsync(URL).ConfigureAwait(false); // Don't capture the UI context here
+                    TrionLogger.Log($"Getting data from {URL}, Response code: {response.StatusCode}");
 
-                    foreach (var file in filesObject.files)
+                    if (response.IsSuccessStatusCode)
                     {
-                        progress?.Report($"Files loaded into list {fileList.Count}");
-                        FileList fileItem = new()
+                        var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false); // Don't capture UI context
+                        var filesObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                        List<FileList> fileList = new List<FileList>();
+                        // Offload the file processing to a background thread using Task.Run
+                        await Task.Run(() =>
                         {
-                            Name = file.name,
-                            Size = file.size,
-                            Hash = file.hash,
-                            Path = file.path
-                        };
-                        fileList.Add(fileItem);
+                            foreach (var file in filesObject!.files)
+                            {
+                                FileList fileItem = new()
+                                {
+                                    Name = file.name,
+                                    Size = file.size,
+                                    Hash = file.hash,
+                                    Path = file.path
+                                };
+
+                                // Add the file to the list (no UI interaction here, so it's thread-safe)
+                                lock (fileList)
+                                {
+                                    fileList.Add(fileItem);
+                                }
+
+                                // Report progress to the UI thread safely
+                                Count?.Report($"{fileList.Count} / {filesObject!.files.Count}");
+                            }
+                        });
+
+                        return fileList;
                     }
-                    progress?.Report($"Done! Files:{fileList.Count}");
-                    return fileList;
-                }
-                else
-                {
-                    string error = await response.Content.ReadAsStringAsync();
-                    TrionLogger.Log($"GetServerFiles API Error: {response.StatusCode} - {error}", "ERROR");
-                    return null;
-                }
+                    else
+                    {
+                        string error = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        TrionLogger.Log($"GetServerFiles API Error: {response.StatusCode} - {error}", "ERROR");
+                        return null!;
+                    }
+                });
+
+                // Await the task and return the result
+                return await task.ConfigureAwait(false);
             }
             catch (HttpRequestException ex)
             {
-                // Log or rethrow the exception
                 TrionLogger.Log($"GetServerFiles Network error: {ex.Message}", "ERROR");
-                return null ;
+                return null!;
             }
             catch (Exception ex)
             {
-                // Log or rethrow the exception
                 TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
-                return null;
+                return null!;
             }
         }
     }
-
 }

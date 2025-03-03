@@ -80,6 +80,8 @@ namespace TrionControlPanel.API.api
                     "wotlk" => isEarlyAccess ? _configuration["wotlkSPP:EarlyAccessKey"] : _configuration["wotlkSPP:Default"],
                     "cata" => isEarlyAccess ? _configuration["cataSPP:EarlyAccessKey"] : _configuration["cataSPP:Default"],
                     "mop" => isEarlyAccess ? _configuration["mopSPP:EarlyAccessKey"] : _configuration["mopSPP:Default"],
+                    "trion" => isEarlyAccess ? _configuration["trion:EarlyAccessKey"] : _configuration["trion:Default"],
+                    "database" => isEarlyAccess ? _configuration["database:EarlyAccessKey"] : _configuration["database:Default"],
                     _ => null
                 };
 
