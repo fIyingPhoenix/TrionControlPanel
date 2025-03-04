@@ -24,7 +24,7 @@ namespace TrionControlPanelDesktop.Extensions.Modules
         public string Translate(string key)
         {
             return Translations != null && Translations.ContainsKey(key)
-                ? Translations[key]
+                ? Translations[key] 
                 : key; // Fallback to key if not found
         }
         // Method to get all available languages

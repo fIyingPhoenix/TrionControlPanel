@@ -98,7 +98,7 @@
         public bool DDNSRunOnStartup { get; set; }
         public bool ServerCrashDetection { get; set; }
         public Enums.Cores SelectedCore { get; set; } = Enums.Cores.AzerothCore;
-        public Enums.DDNSerivce DDNSerivce { get; set; } = Enums.DDNSerivce.DuckDNS;
+        public Enums.DDNSService DDNSerivce { get; set; } = Enums.DDNSService.DuckDNS;
         public Enums.SPP SelectedSPP { get; set; } = Enums.SPP.WrathOfTheLichKing;
         public Enums.Databases SelectedDatabases { get; set; } = Enums.Databases.WotLK;
         //Account

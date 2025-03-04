@@ -7,30 +7,35 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 {
     public class Settings
     {
+        // Serializes the AppSettings object to a JSON file asynchronously
         public static async Task SaveSettings(AppSettings settings, string filePath)
         {
-            string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
-           await File.WriteAllTextAsync(filePath, json);
+            string json = JsonConvert.SerializeObject(settings, Formatting.Indented); // Serialize settings to JSON
+            await File.WriteAllTextAsync(filePath, json); // Write JSON to file asynchronously
         }
+
+        // Loads the AppSettings object from a JSON file. Returns default settings if file doesn't exist
         public static AppSettings LoadSettings(string filePath)
         {
             if (!File.Exists(filePath))
-                return new AppSettings(); // Return default settings if the file doesn't exist
+                return new AppSettings(); // Return default settings if file doesn't exist
 
-            string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<AppSettings>(json)!;
+            string json = File.ReadAllText(filePath); // Read file contents
+            return JsonConvert.DeserializeObject<AppSettings>(json)!; // Deserialize JSON into AppSettings object
         }
+
+        // Creates a new settings file with predefined values for application settings
         public static void CreatSettings(string filePath)
         {
-            // Create custom settings with desired initial values
+            // Create custom settings with default values
             var customSettings = new AppSettings
             {
-                //Database Names
+                // Database Names
                 WorldDatabase = "wotlk_world",
                 AuthDatabase = "wotlk_auth",
                 CharactersDatabase = "wotlk_characters",
                 HotfixDatabase = "",
-                //Dataabase Settings
+                // Database Settings
                 DBExeLoc = "",
                 DBWorkingDir = "",
                 DBLocation = "",
@@ -40,7 +45,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 DBServerPort = "3306",
                 DBExeName = "mysqld",
                 DBInstalled = false,
-                //Custom Cores
+                // Custom Cores
                 CustomWorkingDirectory = "",
                 CustomWorldExeLoc = "",
                 CustomLogonExeLoc = "",
@@ -48,7 +53,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 CustomWorldExeName = "authserver",
                 LaunchCustomCore = false,
                 CustomInstalled = false,
-                //Classic Core
+                // Classic Core
                 ClassicWorkingDirectory = "",
                 ClassicWorldExeLoc = "",
                 ClassicLogonExeLoc = "",
@@ -58,7 +63,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 ClassicLogonName = "",
                 LaunchClassicCore = false,
                 ClassicInstalled = false,
-                //TBC Core
+                // TBC Core
                 TBCWorkingDirectory = "",
                 TBCWorldExeLoc = "",
                 TBCLogonExeLoc = "",
@@ -68,7 +73,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 TBCLogonName = "",
                 LaunchTBCCore = false,
                 TBCInstalled = false,
-                //WotLK Core
+                // WotLK Core
                 WotLKWorkingDirectory = "",
                 WotLKWorldExeLoc = "",
                 WotLKLogonExeLoc = "",
@@ -78,7 +83,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 WotLKLogonName = "",
                 LaunchWotLKCore = false,
                 WotLKInstalled = false,
-                //Cata Core
+                // Cata Core
                 CataWorkingDirectory = "",
                 CataWorldExeLoc = "",
                 CataLogonExeLoc = "",
@@ -88,7 +93,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 CataLogonName = "",
                 LaunchCataCore = false,
                 CataInstalled = false,
-                //Mop Core
+                // Mop Core
                 MopWorkingDirectory = "",
                 MopWorldExeLoc = "",
                 MopLogonExeLoc = "",
@@ -98,13 +103,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 MoPLogonName = "",
                 LaunchMoPCore = false,
                 MOPInstalled = false,
-                //DDNS Settings
+                // DDNS Settings
                 DDNSDomain = "",
                 DDNSUsername = "",
                 DDNSPassword = "",
                 DDNSInterval = 1000,
                 IPAddress = "",
-                //Trion
+                // Trion Settings
                 TrionTheme = Enums.TrionTheme.TrionBlue,
                 TrionLanguage = "enUS",
                 AutoUpdateCore = true,
@@ -120,26 +125,30 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 DDNSRunOnStartup = false,
                 ServerCrashDetection = false,
                 SelectedCore = Enums.Cores.AzerothCore,
-                DDNSerivce = Enums.DDNSerivce.DuckDNS,
+                DDNSerivce = Enums.DDNSService.DuckDNS,
                 SelectedSPP = Enums.SPP.WrathOfTheLichKing,
                 SelectedDatabases = Enums.Databases.WotLK,
             };
 
+            // Serialize custom settings to JSON
             var json = JsonConvert.SerializeObject(customSettings, Formatting.Indented);
-            // Using statement ensures that the file is closed properly after writing
+            // Write settings to the file
             using (var writer = new StreamWriter(filePath, false))
             {
-                writer.Write(json);
+                writer.Write(json); // Write JSON data to file
             }
         }
+
+        // Creates a MySQL configuration file with predefined settings
         public static void CreateMySQLConfigFile(string Location, string DatabaseDirectory)
         {
-            string configFile = $@"{Location}\my.ini";
+            string configFile = $@"{Location}\my.ini"; // Path to the MySQL configuration file
 
+            // Check if the configuration file already exists
             if (!File.Exists(configFile))
             {
-                List<string> list =
-                [
+                List<string> list = new()
+                {
                     "[client]",
                     "port=3306",
                     "default-character-set = utf8mb4",
@@ -157,7 +166,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     "innodb_buffer_pool_size=3G",
                     "innodb_log_file_size=1G",
                     "innodb_log_buffer_size=64M",
-                     "",
+                    "",
                     "# Threading",
                     "innodb_thread_concurrency=4",
                     "innodb_read_io_threads=2",
@@ -191,21 +200,25 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     "[mysqld_safe]",
                     "# Increase open files limit",
                     "open-files-limit=65535"
-                ];
+                };
+
+                // Write the configuration list to the file (this part is missing in the original code, added it for completeness)
+                File.WriteAllLines(configFile, list);
             }
         }
+
+        // Converts a MaterialSkin Primary color to a System.Drawing.Color object
         public static Color ConvertToColor(Primary hexColor)
         {
-            // Extract RGB components
-            int red = (int)hexColor >> 16 & 0xFF; // Extract the red component
-            int green = (int)hexColor >> 8 & 0xFF; // Extract the green component
-            int blue = (int)hexColor & 0xFF; // Extract the blue component
+            // Extract RGB components from the hex color
+            int red = (int)hexColor >> 16 & 0xFF;  // Red component
+            int green = (int)hexColor >> 8 & 0xFF; // Green component
+            int blue = (int)hexColor & 0xFF;       // Blue component
 
-            // Convert to hash color format
-            Color Color = ColorTranslator.FromHtml($"#{red:X2}{green:X2}{blue:X2}");
+            // Convert the RGB components to a Color object using ColorTranslator
+            Color color = ColorTranslator.FromHtml($"#{red:X2}{green:X2}{blue:X2}");
 
-            return Color;
+            return color; // Return the Color object
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MaterialSkin.Controls;
+using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
 
@@ -97,7 +98,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
         public static void Show(string message, NotificationType alertType, AppSettings Settings)
         {
             var alert = new AlertBox(message, alertType, Settings);
-
+            NotificationData.Message = message;
             // Calculate position for the new alert
             var startX = Screen.PrimaryScreen!.WorkingArea.Width - AlertWidth - AlertSpacing;
             var startY = Screen.PrimaryScreen.WorkingArea.Height - (AlertHeight + AlertSpacing) * (ActiveAlerts.Count + 1);

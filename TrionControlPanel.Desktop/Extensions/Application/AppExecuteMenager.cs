@@ -167,6 +167,16 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 FormData.UI.Form.DBStarted = true;
             }
         }
+
+        // Helper method to start world and logon executables
+        public static async Task StartWorldOrLogonExecutable(string exeLocation, string workingDirectory, string exeName, bool hideConsole, bool isWorldExecutable)
+        {
+            if (isWorldExecutable)
+                await StartWorldSeparate(exeLocation, workingDirectory, exeName, hideConsole);
+            else
+                await StartLogonSeparate(exeLocation, workingDirectory, exeName, hideConsole);
+        }
+
         public static async Task StopDatabase()
         {
             try
@@ -186,7 +196,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         }
         public static async Task StartWorld(AppSettings Settings)
         {
-            SystemData.CleanWolrdProcessID();
+            SystemData.CleanWorldProcessID();
             if (Settings.LaunchCustomCore && !FormData.UI.Form.CustWorldRunning)
             {
                 int ID = await ApplicationStart(
@@ -371,7 +381,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             FormData.UI.Form.WotLKWorldStarted = false;
             FormData.UI.Form.CataWorldStarted = false;
             FormData.UI.Form.MOPWorldStarted = false;
-            SystemData.CleanWolrdProcessID();
+            SystemData.CleanWorldProcessID();
         }
         public static async Task StopLogon()
         {

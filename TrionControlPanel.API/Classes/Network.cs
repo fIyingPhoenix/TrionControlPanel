@@ -2,7 +2,7 @@
 {
     public class Network
     {
-        private const int BufferSize = 1024 * 1024; // 1 MB chunks
+        private const int BufferSize = 1_048_576; // 1 MB chunks
         public static Stream GenerateRandomStream()
         {
             var stream = new MemoryStream();

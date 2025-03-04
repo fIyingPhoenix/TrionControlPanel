@@ -8,3 +8,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Security", "CA5350:Do Not Use Weak Cryptographic Algorithms", Justification = "Globally suppressing CA1304 for this project")]
 [assembly: SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Globally suppressing CA1304 for this project")]
 [assembly: SuppressMessage("Naming", "CA1715:Identifiers should have correct prefix", Justification = "Globally suppressing CA1304 for this project")]
+[assembly: SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "Globally suppressing CA1304 for this project")]

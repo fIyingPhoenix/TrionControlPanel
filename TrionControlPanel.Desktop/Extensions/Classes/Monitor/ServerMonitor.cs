@@ -1,80 +1,98 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
     public class ServerMonitor
     {
+        // Check if any logon process has started
         public static bool ServerStartedLogon()
         {
-            if (FormData.UI.Form.CustLogonStarted ||
-                FormData.UI.Form.ClassicLogonStarted ||
-                FormData.UI.Form.TBCLogonStarted ||
-                FormData.UI.Form.WotLKLogonStarted ||
-                FormData.UI.Form.CataLogonStarted ||
-                FormData.UI.Form.MOPLogonStarted)
-            { return true; }
-            else { return false; }
+            bool isStarted = FormData.UI.Form.CustLogonStarted ||
+                             FormData.UI.Form.ClassicLogonStarted ||
+                             FormData.UI.Form.TBCLogonStarted ||
+                             FormData.UI.Form.WotLKLogonStarted ||
+                             FormData.UI.Form.CataLogonStarted ||
+                             FormData.UI.Form.MOPLogonStarted;
+
+            TrionLogger.Log($"ServerStartedLogon: {isStarted}", "INFO");
+            return isStarted;
         }
+
+        // Check if any logon process is running
         public static bool ServerRunningLogon()
         {
-            if (FormData.UI.Form.CustLogonStarted ||
-                FormData.UI.Form.ClassicLogonStarted ||
-                FormData.UI.Form.TBCLogonStarted ||
-                FormData.UI.Form.WotLKLogonStarted ||
-                FormData.UI.Form.CataLogonStarted ||
-                FormData.UI.Form.MOPLogonStarted)
-            { return true; }
-            else { return false; }
+            bool isRunning = FormData.UI.Form.CustLogonStarted ||
+                             FormData.UI.Form.ClassicLogonStarted ||
+                             FormData.UI.Form.TBCLogonStarted ||
+                             FormData.UI.Form.WotLKLogonStarted ||
+                             FormData.UI.Form.CataLogonStarted ||
+                             FormData.UI.Form.MOPLogonStarted;
+
+            TrionLogger.Log($"ServerRunningLogon: {isRunning}", "INFO");
+            return isRunning;
         }
+
+        // Check if any world process has started
         public static bool ServerStartedWorld()
         {
-            if (FormData.UI.Form.CustWorldStarted ||
-                FormData.UI.Form.ClassicWorldStarted ||
-                FormData.UI.Form.TBCWorldStarted ||
-                FormData.UI.Form.WotLKWorldStarted ||
-                FormData.UI.Form.CataWorldStarted ||
-                FormData.UI.Form.MOPWorldStarted)
-            { return true; }
-            else { return false; }
+            bool isStarted = FormData.UI.Form.CustWorldStarted ||
+                             FormData.UI.Form.ClassicWorldStarted ||
+                             FormData.UI.Form.TBCWorldStarted ||
+                             FormData.UI.Form.WotLKWorldStarted ||
+                             FormData.UI.Form.CataWorldStarted ||
+                             FormData.UI.Form.MOPWorldStarted;
+
+            TrionLogger.Log($"ServerStartedWorld: {isStarted}", "INFO");
+            return isStarted;
         }
+
+        // Check if any world process is running
         public static bool ServerRunningWorld()
         {
-            if (FormData.UI.Form.CustWorldRunning||
-                FormData.UI.Form.ClassicWorldRunning ||
-                FormData.UI.Form.TBCWorldRunning ||
-                FormData.UI.Form.WotLKWorldRunning ||
-                FormData.UI.Form.CataWorldRunning ||
-                FormData.UI.Form.MOPWorldRunning)
-            { return true; }
-            else { return false; }
+            bool isRunning = FormData.UI.Form.CustWorldRunning ||
+                             FormData.UI.Form.ClassicWorldRunning ||
+                             FormData.UI.Form.TBCWorldRunning ||
+                             FormData.UI.Form.WotLKWorldRunning ||
+                             FormData.UI.Form.CataWorldRunning ||
+                             FormData.UI.Form.MOPWorldRunning;
+
+            TrionLogger.Log($"ServerRunningWorld: {isRunning}", "INFO");
+            return isRunning;
         }
-        public static bool IsApplicationRuning(int ProcessId)
+
+        // Check if an application with the specified ProcessId is running
+        public static bool IsApplicationRunningById(int ProcessId)
         {
             try
             {
-                // This checks if a process is still running.
-                // If the process is running, HasExited will return false.
-                // To indicate that the process is running, you need to invert the result and return true.
                 Process process = Process.GetProcessById(ProcessId);
-                return !process.HasExited;
+                bool isRunning = !process.HasExited;
+                TrionLogger.Log($"IsApplicationRunningById (PID: {ProcessId}): {isRunning}", "INFO");
+                return isRunning;
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                return false; // Process with the specified ID does not exist
+                TrionLogger.Log($"Error in IsApplicationRunningById: {ex.Message}", "ERROR");
+                return false; // Process does not exist
             }
         }
-        // The same shit as Abow, just by names
-        public static bool IsApplicationRunningName(string ProcessName)
+
+        // Check if an application with the specified name is running
+        public static bool IsApplicationRunningByName(string ProcessName)
         {
-           // If the process is running and hve the same name as ProcessName
-           // it wil a Lenght of 1 or more depends on the procees
-            Process[] ProcessID = Process.GetProcessesByName(ProcessName);
-            if (ProcessID.Length <= 0) // it can't be less then 0 but i just want to be sure
-                return false;
-            else
-                return true;
+            try
+            {
+                Process[] processes = Process.GetProcessesByName(ProcessName);
+                bool isRunning = processes.Length > 0;
+                TrionLogger.Log($"IsApplicationRunningByName (ProcessName: {ProcessName}): {isRunning}", "INFO");
+                return isRunning;
+            }
+            catch (Exception ex)
+            {
+                TrionLogger.Log($"Error in IsApplicationRunningByName: {ex.Message}", "ERROR");
+                return false; // Handle any potential exceptions
+            }
         }
     }
 }

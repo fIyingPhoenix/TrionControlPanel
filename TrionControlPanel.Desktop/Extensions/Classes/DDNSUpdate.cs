@@ -1,29 +1,59 @@
-﻿
-using System.DirectoryServices.ActiveDirectory;
-using TrionControlPanel.Desktop.Extensions.Modules;
+﻿using TrionControlPanel.Desktop.Extensions.Modules;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+using System.Collections.Generic;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 
 namespace TrionControlPanelDesktop.Extensions.Classes
 {
     public class DDNSUpdate
     {
+        // Dictionary to hold the DDNS service URL patterns
+        private static readonly Dictionary<Enums.DDNSService, string> DdnsServiceUrls = new()
+        {
+            { Enums.DDNSService.DuckDNS, "http://www.duckdns.org/update?domains={0}&token={1}&ip={2}" },
+            { Enums.DDNSService.NoIP, "http://{0}:{1}@dynupdate.no-ip.com/nic/update?hostname={2}&myip={3}" },
+            { Enums.DDNSService.Dynu, "http://{0}:{1}@members.dyndns.org/v3/update?hostname={2}&myip={3}" },
+            { Enums.DDNSService.Enom, "http://dynamic.name-services.com/interface.asp?command=SetDnsHost&HostName={2}&Zone={0}&DomainPassword={1}&Address={3}" },
+            { Enums.DDNSService.AllInkl, "http://{0}:{1}@dyndns.kasserver.com/?myip={2}" },
+            { Enums.DDNSService.DynDNS, "http://{0}:{1}@update.dyndns.it/nic/update?hostname={2}" },
+            { Enums.DDNSService.STRATO, "http://{0}:{1}@dyndns.strato.com/nic/update?hostname={2}&myip={3}" },
+            { Enums.DDNSService.Freemyip, "http://freemyip.com/update?domain={2}&token={0}&myip={3}" },
+            { Enums.DDNSService.Afraid, "http://sync.afraid.org/u/{0}/" },
+            { Enums.DDNSService.OVH, "http://{0}:{1}@www.ovh.com/nic/update?system=dyndns&hostname={2}&myip={3}" },
+            { Enums.DDNSService.Cloudflare, "https://api.cloudflare.com/client/v4/zones/{0}/dns_records/{1}" }
+        };
+
+        // Generate DDNS update URL based on the settings
         public static string DDNSUpdateURL(AppSettings Settings)
         {
-            return Settings.DDNSerivce switch
+            try
             {
-                Enums.DDNSerivce.DuckDNS => $"http://www.duckdns.org/update?domains={Settings.DDNSDomain}&token={Settings.DDNSPassword}&ip={Settings.IPAddress}",
-                Enums.DDNSerivce.NoIP => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@dynupdate.no-ip.com/nic/update?hostname={Settings.DDNSDomain}&myip={""}",
-                Enums.DDNSerivce.Dynu => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@members.dyndns.org/v3/update?hostname={Settings.DDNSDomain}&myip={""}",
-                Enums.DDNSerivce.Enom => $"http://dynamic.name-services.com/interface.asp?command=SetDnsHost&HostName={Settings.DDNSDomain}&Zone={Settings.DDNSUsername}&DomainPassword={Settings.DDNSPassword}&Address={""}",
-                Enums.DDNSerivce.AllInkl => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@dyndns.kasserver.com/?myip={""}",
-                Enums.DDNSerivce.dynDNS => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@update.dyndns.it/nic/update?hostname={Settings.DDNSDomain}",
-                Enums.DDNSerivce.STRATO => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@dyndns.strato.com/nic/update?hostname={Settings.DDNSDomain}&myip={""}",
-                Enums.DDNSerivce.Freemyip => $"http://freemyip.com/update?domain={Settings.DDNSDomain}&token={Settings.DDNSUsername}&myip={""}",
-                Enums.DDNSerivce.Afraid => $"http://sync.afraid.org/u/{Settings.DDNSUsername}/",
-                Enums.DDNSerivce.OVH => $"http://{Settings.DDNSUsername}:{Settings.DDNSPassword}@www.ovh.com/nic/update?system=dyndns&hostname={Settings.DDNSDomain}&myip={""}",
-                Enums.DDNSerivce.Cloudflare => $"https://api.cloudflare.com/client/v4/zones/{Settings.DDNSUsername}/dns_records/{Settings.DDNSPassword}",
-                _ => "",
-            };
+                // Log the incoming settings for DDNS service
+                TrionLogger.Log($"DDNSUpdateURL invoked with DDNSService: {Settings.DDNSerivce}", "INFO");
+
+                // Try to find the URL pattern from the dictionary
+                if (DdnsServiceUrls.TryGetValue(Settings.DDNSerivce, out string urlPattern))
+                {
+                    // If the URL pattern is found, format it with the appropriate settings
+                    string url = string.Format(urlPattern, Settings.DDNSUsername, Settings.DDNSPassword, Settings.DDNSDomain, Settings.IPAddress ?? string.Empty);
+
+                    // Log the final URL generated
+                    TrionLogger.Log($"DDNSUpdateURL generated: {url}", "INFO");
+                    return url;
+                }
+                else
+                {
+                    // If the service is not found, log the issue and return empty
+                    TrionLogger.Log($"DDNSUpdateURL: No matching service found for {Settings.DDNSerivce}", "ERROR");
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any errors that occur during URL generation
+                TrionLogger.Log($"Error in DDNSUpdateURL: {ex.Message}", "ERROR");
+                return string.Empty; // Return empty string in case of error
+            }
         }
     }
 }
