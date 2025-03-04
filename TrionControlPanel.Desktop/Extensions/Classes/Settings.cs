@@ -142,8 +142,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         // Creates a MySQL configuration file with predefined settings
         public static void CreateMySQLConfigFile(string Location, string DatabaseDirectory)
         {
-            string configFile = $@"{Location}\my.ini"; // Path to the MySQL configuration file
-
+            var NewDatabaseDirectory = DatabaseDirectory.Replace(@"\", "/");
+            string configFile = $@"{Location.Replace(@"\", "/")}/my.ini"; // Path to the MySQL configuration file
+            if (File.Exists(configFile))File.Delete(configFile);
             // Check if the configuration file already exists
             if (!File.Exists(configFile))
             {
@@ -152,13 +153,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     "[client]",
                     "port=3306",
                     "default-character-set = utf8mb4",
-                    @"socket=""\tmp\mysql.sock""",
+                    $@"socket={NewDatabaseDirectory}/tmp/mysql.sock",
                     "",
                     "[mysqld]",
                     "",
                     "# Basic Settings",
-                    $@"basedir=""{DatabaseDirectory}""",
-                    $@"datadir=""{DatabaseDirectory}\data""",
+                    $@"basedir=""{NewDatabaseDirectory}",
+                    $@"datadir=""{NewDatabaseDirectory}/data""",
                     "bind-address=0.0.0.0",
                     "port=3306",
                     "",
@@ -182,8 +183,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     "default-storage-engine=INNODB",
                     "",
                     "# Log settings",
-                    $@"log_error=""{DatabaseDirectory}\logs\mysql_error.log""",
-                    $@"slow_query_log_file=""{DatabaseDirectory}\logs\mysql_slow.log""",
+                    $@"log_error=""{NewDatabaseDirectory}/logs/mysql_error.log""",
+                    $@"slow_query_log_file=""{NewDatabaseDirectory}/logs/mysql_slow.log""",
                     "slow_query_log=1",
                     "long_query_time=2",
                     "",
@@ -195,7 +196,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     "",
                     "# Console output",
                     "general_log=1",
-                    $@"general_log_file=""{DatabaseDirectory}\logs\mysql_general.log""",
+                    $@"general_log_file=""{NewDatabaseDirectory}/logs/mysql_general.log""",
                     "",
                     "[mysqld_safe]",
                     "# Increase open files limit",

@@ -718,6 +718,7 @@ namespace TrionControlPanelDesktop
         // Start or stop the database based on current status
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
+
             Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), _settings.DBLocation);
             SystemData.DatabaseStartTime = DateTime.Now;
 
