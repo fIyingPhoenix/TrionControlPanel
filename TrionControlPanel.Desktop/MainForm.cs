@@ -15,8 +15,6 @@ using System.Diagnostics;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 using TrionControlPanel.Desktop.Extensions.Notification;
 using static TrionControlPanel.Desktop.Extensions.Classes.Data.Form.FormData;
-using System.Windows.Forms;
-using K4os.Compression.LZ4.Internal;
 using MetroFramework.Controls;
 
 namespace TrionControlPanelDesktop
@@ -718,7 +716,6 @@ namespace TrionControlPanelDesktop
         // Start or stop the database based on current status
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
-
             Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), _settings.DBLocation);
             SystemData.DatabaseStartTime = DateTime.Now;
 
@@ -993,7 +990,7 @@ namespace TrionControlPanelDesktop
 
                     case SPP.WrathOfTheLichKing:
                         LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), "WotLK Emulator");
-                        if (_settings.WotLKInstalled == false)
+                        if (_settings.WotLKInstalled == true)
                         {
                             AlertBox.Show(string.Format(CultureInfo.InvariantCulture, _translator.Translate("AlerBoxEmulatroInstalled"), "WotLK Emulator"), NotificationType.Info, _settings);
                             FormData.UI.Form.InstallingEmulator = false;
