@@ -4,8 +4,10 @@ using TrionControlPanel.API.Classes.Lists;
 
 namespace TrionControlPanel.API.Classes
 {
+    // FileManager class for handling file-related operations.
     public static class FileManager
     {
+        // Gets the version from the specified file location.
         public static string GetVersion(string Location)
         {
             try
@@ -16,18 +18,21 @@ namespace TrionControlPanel.API.Classes
                     {
                         return "N/A";
                     }
-                File.ReadAllText(Location);
-            }                
+                    return File.ReadAllText(Location);
+                }
                 return "N/A";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error getting version from {Location}: {ex.Message}");
                 return "N/A";
             }
         }
+
+        // Asynchronously gets a list of files from the specified file path.
         public static async Task<ConcurrentBag<FileList>> GetFilesAsync(string filePath)
         {
-            Console.WriteLine($"Loading all files form {filePath}");
+            Console.WriteLine($"Loading all files from {filePath}");
             var filePaths = Directory.GetFiles(filePath, "*", SearchOption.AllDirectories);
             var fileList = new ConcurrentBag<FileList>();
             var batchSize = 1000; // Adjust based on your system's capabilities
@@ -58,6 +63,10 @@ namespace TrionControlPanel.API.Classes
                             };
                             fileList.Add(fileData);
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error processing file batch: {ex.Message}");
                     }
                     finally
                     {

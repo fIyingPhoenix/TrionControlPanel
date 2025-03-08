@@ -2,9 +2,12 @@
 using System.Management;
 namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
+    // Monitors system performance metrics such as CPU and RAM usage.
     public class PerformanceMonitor
     {
-        private static bool RamUsageHight { get; set; }
+        private static bool RamUsageHight { get; set; } // Indicates if RAM usage is high.
+
+        // Gets the total RAM in megabytes.
         public static int GetTotalRamInMB()
         {
             try
@@ -18,7 +21,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 {
                     totalRam += (ulong)obj["TotalPhysicalMemory"];
                 }
-                // Convert bytes to gigabytes
+                // Convert bytes to megabytes
                 double totalRamInMB = totalRam / (1024 * 1024);
                 // Return the total RAM
                 return Convert.ToInt32(totalRamInMB);
@@ -28,22 +31,23 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 return 0;
             }
         }
+
+        // Gets the CPU utilization percentage.
         public static int GetCpuUtilizationPercentage()
         {
-            // Initialize PerformanceCounters for each CPU core
-            // int coreCount = Environment.ProcessorCount;
             // Create an instance of PerformanceCounter to monitor the total CPU usage
             PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
             // Discard the first value
             dynamic firstValue = cpuCounters.NextValue();
             // Give some time to initialize
             Thread.Sleep(500);
-            //report
+            // Get the second value
             dynamic SecValue = cpuCounters.NextValue();
             if (SecValue > 100) { SecValue = 100; }
             return (int)SecValue;
-
         }
+
+        // Gets the current PC RAM usage in megabytes.
         public static int GetCurentPcRamUsage()
         {
             // Specify the category and counter for memory usage
@@ -56,14 +60,15 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
             // Get the memory usage in megabytes
             float memoryUsageMB = performanceCounter.NextValue();
             return Convert.ToInt32(memoryUsageMB);
-
         }
+
+        // Monitors RAM usage percentage and triggers an alert if it exceeds 80%.
         public static void RamProcentage(int TotalRam, int UsedRam)
         {
             var RamProcent = CalculatePercentage(TotalRam, UsedRam);
             if (RamProcent > 80 && RamUsageHight == false)
             {
-                // alert here
+                // Alert here
                 RamUsageHight = true;
             }
             if (RamProcent < 80)
@@ -71,10 +76,14 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 RamUsageHight = false;
             }
         }
+
+        // Calculates the percentage of used RAM.
         private static double CalculatePercentage(double TotalRam, double UsedRam)
         {
             return TotalRam / UsedRam * 100;
         }
+
+        // Gets the RAM usage of a specific application in megabytes.
         public static int ApplicationRamUsage(int ProcessId)
         {
             try
@@ -92,6 +101,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 return 0;
             }
         }
+
+        // Gets the CPU usage of a specific application as a percentage.
         public static int ApplicationCpuUsage(int ProcessID)
         {
             try

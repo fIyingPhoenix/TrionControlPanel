@@ -9,8 +9,10 @@ using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Application
 {
+    // Manages updates for the application, including checking for online and offline versions.
     public class AppUpdateManager
     {
+        // Retrieves the SPP version from an online source based on the provided settings.
         public static async Task GetSPPVersionOnline(AppSettings Settings)
         {
             try
@@ -43,15 +45,15 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             {
                 // Log or rethrow the exception
                 TrionLogger.Log($"GetSPPVersionOnline Network error: {ex.Message}", "ERROR");
-
             }
             catch (Exception ex)
             {
                 // Log or rethrow the exception
                 TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
-
             }
         }
+
+        // Retrieves the local version of the application from the specified location.
         public static string GetLocalVersion(string Location)
         {
             try
@@ -87,6 +89,8 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 return "N/A";
             }
         }
+
+        // Retrieves the SPP version from local sources based on the provided settings.
         public static void GetSPPVersionOffline(AppSettings Settings)
         {
             try
@@ -94,7 +98,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 FormData.UI.Version.Local.Trion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
                 FormData.UI.Version.Local.Database = GetLocalVersion(Settings.DBExeLoc);
                 FormData.UI.Version.Local.Classic = GetLocalVersion(Settings.ClassicWorldExeLoc);
-                FormData.UI.Version.Local.TBC =  GetLocalVersion(Settings.TBCWorldExeLoc);
+                FormData.UI.Version.Local.TBC = GetLocalVersion(Settings.TBCWorldExeLoc);
                 FormData.UI.Version.Local.WotLK = GetLocalVersion(Settings.WotLKWorldExeLoc);
                 FormData.UI.Version.Local.Cata = GetLocalVersion(Settings.CataWorldExeLoc);
                 FormData.UI.Version.Local.Mop = GetLocalVersion(Settings.MopWorldExeLoc);
@@ -103,9 +107,10 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             {
                 // Log or rethrow the exception
                 TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
-
             }
         }
+
+        // Compares two version strings and returns an integer indicating their relative order.
         private static int VersionCompare(string ver1, string ver2)
         {
             if (ver1 != "N/A" && ver2 != "N/A")
@@ -118,6 +123,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             return 0;
         }
 
+        // Checks if an update is available by comparing local and online versions.
         static bool CheckForUpdate(string localVersion, string onlineVersion)
         {
             return !string.IsNullOrEmpty(localVersion) &&
@@ -125,12 +131,15 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                    VersionCompare(localVersion, onlineVersion) < 0;
         }
 
+        // Checks if a date update is available by comparing local and online dates.
         static bool CheckForDateUpdate(string localDate, string onlineDate)
         {
             return DateTime.TryParse(localDate, out DateTime local) &&
                    DateTime.TryParse(onlineDate, out DateTime online) &&
                    local < online && online != DateTime.MinValue;
         }
+
+        // Checks for updates for the application based on the provided settings.
         public static void CheckForUpdate(AppSettings Settings)
         {
             // Trion and Database Updates
@@ -142,7 +151,6 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             FormData.UI.Version.Update.WotLK = CheckForDateUpdate(FormData.UI.Version.Local.WotLK, FormData.UI.Version.Online.WotLK);
             FormData.UI.Version.Update.Cata = CheckForDateUpdate(FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
             FormData.UI.Version.Update.Mop = CheckForDateUpdate(FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
-        
         }
     }
 }

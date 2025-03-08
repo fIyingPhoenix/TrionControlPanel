@@ -7,35 +7,38 @@ using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
 {
+    // AccessManager class for handling database operations.
     public class AccessManager
     {
+        // Constructs a connection string for the specified database using the provided settings.
         public static string ConnectionString(AppSettings Settings, string Database)
         {
             return new($"Server={Settings.DBServerHost};Port={Settings.DBServerPort};User Id={Settings.DBServerUser};Password={Settings.DBServerPassword};Database={Database}");
         }
+
+        // Tests the connection to the specified database using the provided settings.
         public static async Task<bool> ConnectionTest(AppSettings Settings, string Database)
         {
-            MySqlConnection conn = new(ConnectionString(Settings, Database));
-            bool status = false;
-            await Task.Run(() =>
+            using (MySqlConnection conn = new(ConnectionString(Settings, Database)))
             {
                 try
                 {
                     if (conn.State == ConnectionState.Closed)
                     {
-                        conn.Open();
-                        status = true;
-                        conn.Close();
+                        await conn.OpenAsync();
+                        return true;
                     }
                 }
                 catch (Exception ex)
                 {
-                    status = false;
+                    TrionLogger.Log($"Connection test failed: {ex.Message}", "ERROR");
+                    return false;
                 }
-                return status;
-            });
-            return status;
+            }
+            return false;
         }
+
+        // Loads a list of data from the database using the specified SQL query and parameters.
         public static async Task<List<T>> LodaDataList<T, U>(string sql, U parameters, string connectionString)
         {
             using (IDbConnection con = new MySqlConnection(connectionString))
@@ -44,6 +47,8 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 return rows.ToList();
             }
         }
+
+        // Loads a single data item from the database using the specified SQL query and parameters.
         public static async Task<T> LoadDataType<T, U>(string sql, U parameters, string connectionString)
         {
             using (IDbConnection connectionNoList = new MySqlConnection(connectionString))
@@ -52,13 +57,14 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 return rows;
             }
         }
+
+        // Saves data to the database using the specified SQL query and parameters.
         public static async Task SaveData<T>(string sql, T parameters, string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
                 TrionLogger.Log("Connection string cannot be null or empty.", "ERROR");
                 throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null or empty.");
-         
             }
 
             if (sql == null)
@@ -73,24 +79,16 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 throw new ArgumentNullException(nameof(parameters), "Parameters cannot be null.");
             }
 
-            // Create the connection
             using (IDbConnection connectionSave = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    // Execute the query asynchronously using Dapper
                     await connectionSave.ExecuteAsync(sql, parameters);
-
                 }
                 catch (Exception ex)
                 {
-                    // Handle any exception that occurs during connection or execution
                     TrionLogger.Log($"Error occurred: {ex.Message}", "ERROR");
                     throw;
-                }
-                finally
-                {
-
                 }
             }
         }

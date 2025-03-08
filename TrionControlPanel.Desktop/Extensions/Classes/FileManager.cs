@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Cryptography;
@@ -8,26 +7,19 @@ using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes
 {
+    // FileManager class for handling file operations such as downloading, deleting, and processing files.
     internal class FileManager
     {
+        // Builds a substring from the input string starting from the marker's position.
         public static string StringBuilder(string input, string? marker)
         {
             int index = input.IndexOf(marker);
-
-            if (index >= 0)
-            {
-                // Start the substring from the marker's position (i.e., from index + marker.Length)
-                return input.Substring(index);
-            }
-            else
-            {
-                return input;
-            }
+            return index >= 0 ? input.Substring(index) : input;
         }
-        public static async Task DownloadFileAsync(FileList file,string marker, CancellationToken cancellationToken,
-            IProgress<double>? progress = null,
-            IProgress<double>? elapsedTime = null,
-            IProgress<double>? speed = null)
+
+        // Asynchronously downloads a file from the server.
+        public static async Task DownloadFileAsync(FileList file, string marker, CancellationToken cancellationToken,
+            IProgress<double>? progress = null, IProgress<double>? elapsedTime = null, IProgress<double>? speed = null)
         {
             try
             {
@@ -40,6 +32,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     var requestObj = new { filePath = $"{file.Path}/{file.Name}" };
                     string jsonContent = JsonSerializer.Serialize(requestObj);
                     var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
                     // Send POST request with the JSON body
                     using (HttpResponseMessage response = await client.PostAsync(url, content, cancellationToken))
                     {
@@ -47,10 +40,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             // Get file size (if available)
                             long fileSize = response.Content.Headers.ContentLength ?? 0;
-                            string fileName = file.Name;
                             string DownloadPath = $"{Directory.GetCurrentDirectory()}{StringBuilder(file.Path, marker)}";
-                            if (!Directory.Exists(DownloadPath)) { Directory.CreateDirectory(DownloadPath); }
+                            if (!Directory.Exists(DownloadPath)) Directory.CreateDirectory(DownloadPath);
                             string FileDownload = $"{DownloadPath}/{file.Name}";
+
                             // Save the file to disk
                             using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
                             using (var fileStream = new FileStream(FileDownload, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -90,44 +83,52 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 TrionLogger.Log("Download was canceled.", "CANCELED");
             }
+            catch (HttpRequestException ex)
+            {
+                TrionLogger.Log($"HTTP request error: {ex.Message}", "ERROR");
+            }
+            catch (IOException ex)
+            {
+                TrionLogger.Log($"File I/O error: {ex.Message}", "ERROR");
+            }
             catch (Exception ex)
             {
-                TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                TrionLogger.Log($"An unexpected error occurred: {ex.Message}", "ERROR");
             }
         }
-        // Asynchronous method to delete a file for cheap 
+
+        // Asynchronously deletes a list of files.
         public static async Task DeleteFiles(List<FileList> files)
         {
             foreach (var file in files)
             {
                 // Run the delete operation in a separate task to avoid blocking the calling thread
-                await Task.Run( () => File.Delete($"{file.Path}/{file.Name}"));
+                await Task.Run(() => File.Delete($"{file.Path}/{file.Name}"));
             }
         }
-        public async static Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)> 
+
+        // Compares server files with local files and returns lists of missing files and files to delete.
+        public async static Task<(List<FileList> MissingFiles, List<FileList> FilesToDelete)>
             CompareFiles(List<FileList> ServerFiles, List<FileList> LocalFiles, string marker,
-            IProgress<string>FileToDelete, IProgress<string>FileToDownload)
+            IProgress<string> FileToDelete, IProgress<string> FileToDownload)
         {
-            // Create lists to track missing files (from Local) and files to delete (from Local)
             List<FileList> MissingFiles = new();
             List<FileList> FilesToDelete = new();
 
-          // Check each file in the ServerFiles list
-           await Task.Run( () =>
-           {
-               foreach (var serverFile in ServerFiles)
-               {
-                   // Look for the same file in the LocalFiles list using Hash, Name, and Path for comparison
-                   var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && StringBuilder(file.Path.Replace(@"\", "/"), marker) == StringBuilder(serverFile.Path, marker));
-
-                   // If no match is found, mark this file as missing
-                   if (localFile == null)
-                   {
-                       MissingFiles.Add(serverFile);
-                   }
-                   FileToDownload?.Report($"{MissingFiles.Count}");
-               }
-           });
+            // Check each file in the ServerFiles list
+            await Task.Run(() =>
+            {
+                foreach (var serverFile in ServerFiles)
+                {
+                    // Look for the same file in the LocalFiles list using Hash, Name, and Path for comparison
+                    var localFile = LocalFiles.FirstOrDefault(file => file.Hash == serverFile.Hash && file.Name == serverFile.Name && StringBuilder(file.Path.Replace(@"\", "/"), marker) == StringBuilder(serverFile.Path, marker));
+                    if (localFile == null)
+                    {
+                        MissingFiles.Add(serverFile);
+                    }
+                    FileToDownload?.Report($"{MissingFiles.Count}");
+                }
+            });
 
             // Now check the LocalFiles list for files that don't exist on the server
             await Task.Run(() =>
@@ -135,7 +136,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 foreach (var localFile in LocalFiles)
                 {
                     var serverFile = ServerFiles.FirstOrDefault(file => file.Hash == localFile.Hash && file.Name == localFile.Name && StringBuilder(file.Path.Replace(@"\", "/"), marker) == StringBuilder(localFile.Path, marker));
-                    // If no match is found, mark this file as something to be deleted
                     if (serverFile == null)
                     {
                         FilesToDelete.Add(localFile);
@@ -144,23 +144,22 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 }
             });
 
-
-            // Return the lists as a tuple
             return (MissingFiles, FilesToDelete);
         }
-        public static async Task<List<FileList>> ProcessFilesAsync(string filePath, IProgress<string>? progress)
+
+        // Asynchronously processes files in a directory and returns a list of file information.
+        public static async Task<List<FileList>> ProcessFilesAsync(string filePath, IProgress<string>? progress, CancellationToken cancellationToken = default)
         {
             if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
             var fileList = new List<FileList>();
             var semaphore = new SemaphoreSlim(1000); // Limit concurrent tasks
             var tasks = new List<Task>();
-
             int processedFiles = 0;
 
             foreach (var file in Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories))
             {
-                await semaphore.WaitAsync(); // Control concurrency
+                await semaphore.WaitAsync(cancellationToken); // Control concurrency
                 var task = Task.Run(async () =>
                 {
                     try
@@ -188,7 +187,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     {
                         semaphore.Release();
                     }
-                });
+                }, cancellationToken);
 
                 tasks.Add(task);
 
@@ -206,10 +205,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             return fileList;
         }
 
-
+        // Searches for a specific executable file within a directory and its subdirectories.
         public static string GetExecutableLocation(string location, string Executable)
         {
-            // Search for a specific executable file within a directory and its subdirectories
             if (Executable != null)
             {
                 foreach (string f in Directory.EnumerateFiles(location, $"{Executable}.exe", SearchOption.AllDirectories))

@@ -5,6 +5,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
 {
     public class SqlQueryManager
     {
+        // Returns an SQL query to update the realm list based on the selected core
         public static string UpdateRealmList(Enums.Cores SelectedCore)
         {
             return SelectedCore switch
@@ -20,6 +21,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 _ => ""
             };
         }
+        // Returns an SQL query to get the realm list based on the selected core
         public static string GetRealmList(Enums.Cores SelectedCore)
         {
             return SelectedCore switch
@@ -35,6 +37,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 _ => ""
             };
         }
+        // Returns an SQL query to get a user ID based on the selected core
         public static string GetUserID(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)
@@ -59,6 +62,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "";
             };
         }
+        // Returns an SQL query to create a user account based on the selected core
         public static string CreateAccount(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)
@@ -83,6 +87,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "";
             }
         }
+        // Returns an SQL query to fetch a user by username
         public static string GetUserByUsername(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)
@@ -107,6 +112,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "";
             };
         }
+        // Returns an SQL query to fetch an email by email
         public static string GetEmailByEmail(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)
@@ -131,6 +137,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "";
             };
         }
+        // Returns an SQL query to update a realm list's address based on the selected core
         public static string UpdateRealmListAddress(Enums.Cores SelectedCore) 
         {
             switch (SelectedCore)
@@ -154,6 +161,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             };
 
         }
+        // Returns an SQL query to create a realm list entry
         public static string CreateRealmList(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)
@@ -176,6 +184,7 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     return "";
             };
         }
+        // Returns an SQL query to delete a realm list entry
         public static string DeleteRealmList(Enums.Cores SelectedCore)
         {
             switch (SelectedCore)

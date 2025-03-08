@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace TrionControlPanel.API.api
 {
+    // TrionController class for handling API requests.
     [Route("[controller]")]
     [ApiController]
     public class TrionController : ControllerBase
@@ -14,6 +15,8 @@ namespace TrionControlPanel.API.api
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
         private readonly DatabaseManager _databaseManager;
+
+        // Constructor to initialize dependencies.
         public TrionController(IMemoryCache cache, IConfiguration configuration, DatabaseManager databaseManager)
         {
             _cache = cache;
@@ -21,6 +24,7 @@ namespace TrionControlPanel.API.api
             _databaseManager = databaseManager;
         }
 
+        // Endpoint to get the external IPv4 address of the client.
         [HttpGet("GetExternalIPv4")]
         public IActionResult GetExternalIPv4()
         {
@@ -32,7 +36,6 @@ namespace TrionControlPanel.API.api
             }
             else
             {
-                // If X-Forwarded-For contains multiple IPs, take the first one (the original client IP)
                 clientIp = clientIp.Split(',')[0];
             }
 
@@ -44,6 +47,7 @@ namespace TrionControlPanel.API.api
             return Ok(new { IPv4Address = clientIp });
         }
 
+        // Endpoint to get the list of server files based on the emulator type and key.
         [HttpGet("GetServerFiles")]
         public async Task<IActionResult> GetFiles([FromQuery] string Emulator, [FromQuery] string Key)
         {
@@ -55,21 +59,19 @@ namespace TrionControlPanel.API.api
                 }
 
                 Console.WriteLine($"Emulator: {Emulator}");
-                await TrionLogger.Log($"Request received for Emulator: {Emulator} with Key: {Key}");
+                TrionLogger.Log($"Request received for Emulator: {Emulator} with Key: {Key}");
 
                 bool isEarlyAccess = !string.IsNullOrEmpty(Key) && await _databaseManager.GetKeyVerified(Key);
 
-                // Log early access status
-                await TrionLogger.Log($"Early Access: {isEarlyAccess}");
+                TrionLogger.Log($"Early Access: {isEarlyAccess}");
 
                 var fileCacheKey = $"Files_{Emulator}_{isEarlyAccess}";
 
-                // Log cache lookup attempt
-                await TrionLogger.Log($"Checking cache for key: {fileCacheKey}");
+                TrionLogger.Log($"Checking cache for key: {fileCacheKey}");
 
                 if (_cache.TryGetValue(fileCacheKey, out ConcurrentBag<FileList>? files))
                 {
-                    await TrionLogger.Log("Cache hit - Returning files from cache.");
+                    TrionLogger.Log("Cache hit - Returning files from cache.");
                     return Ok(new { Files = files });
                 }
 
@@ -85,23 +87,19 @@ namespace TrionControlPanel.API.api
                     _ => null
                 };
 
-                // Log repack location
-                await TrionLogger.Log($"Repack Location for Emulator '{Emulator}': {RepackLocation}");
+                TrionLogger.Log($"Repack Location for Emulator '{Emulator}': {RepackLocation}");
 
                 if (string.IsNullOrEmpty(RepackLocation))
                 {
                     return BadRequest("Invalid emulator type.");
                 }
 
-                // Fetch file list from the specified location
-                await TrionLogger.Log($"Fetching files from location: {RepackLocation}");
+                TrionLogger.Log($"Fetching files from location: {RepackLocation}");
 
                 files = await FileManager.GetFilesAsync(RepackLocation!);
 
-                // Log file count
-                await TrionLogger.Log($"Fetched {files.Count} files.");
+                TrionLogger.Log($"Fetched {files.Count} files.");
 
-                // Cache the file list for 1 hour
                 var fileCacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromHours(1));
 
@@ -111,16 +109,17 @@ namespace TrionControlPanel.API.api
             }
             catch (UnauthorizedAccessException ex)
             {
-                await TrionLogger.Log($"Access denied: {ex.Message}");
+                TrionLogger.Log($"Access denied: {ex.Message}");
                 return StatusCode(403, $"Access denied: {ex.Message}");
             }
             catch (Exception ex)
             {
-                await TrionLogger.Log($"Error: {ex.Message}");
+                TrionLogger.Log($"Error: {ex.Message}");
                 return StatusCode(500, $"Error: {ex.Message}");
             }
         }
 
+        // Endpoint to download a file based on the provided file request.
         [HttpPost("DownloadFile")]
         public IActionResult DownloadFile([FromBody] FileRequest request)
         {
@@ -131,26 +130,24 @@ namespace TrionControlPanel.API.api
                     return BadRequest("Invalid or missing file path.");
                 }
 
-                // Get the file name from the path
                 string fileName = Path.GetFileName(request.FilePath);
-
-                // Read the file content
                 byte[] fileBytes = System.IO.File.ReadAllBytes(request.FilePath);
 
-                // Return the file as a downloadable response
                 return File(fileBytes, "application/octet-stream", fileName);
             }
             catch (UnauthorizedAccessException ex)
             {
+                TrionLogger.Log($"Access denied: {ex.Message}");
                 return StatusCode(403, $"Access denied: {ex.Message}");
             }
             catch (Exception ex)
             {
+                TrionLogger.Log($"Error: {ex.Message}");
                 return StatusCode(500, $"Error: {ex.Message}");
             }
         }
 
-
+        // Endpoint to get the version of various repacks based on the provided key.
         [HttpGet("GetFileVersion")]
         public async Task<IActionResult> GetRepackVersion([FromQuery] string Key)
         {
@@ -174,23 +171,26 @@ namespace TrionControlPanel.API.api
 
                 return Ok(versions);
             }
- 
             catch (UnauthorizedAccessException ex)
             {
+                TrionLogger.Log($"Access denied: {ex.Message}");
                 return StatusCode(403, $"Access denied: {ex.Message}");
             }
             catch (Exception ex)
             {
+                TrionLogger.Log($"Error: {ex.Message}");
                 return StatusCode(500, $"Error: {ex.Message}");
             }
-
         }
 
+        // Endpoint to check the website ping.
         [HttpGet("GetWebsitePing")]
         public IActionResult GetWebsitePing()
         {
             return Ok();
         }
+
+        // Endpoint to test download speed by generating a random file stream.
         [HttpGet("DownloadSpeed")]
         public IActionResult DownloadSpeedTest()
         {
@@ -199,6 +199,5 @@ namespace TrionControlPanel.API.api
                 FileDownloadName = "speedtest.bin"
             };
         }
-
     }
 }
