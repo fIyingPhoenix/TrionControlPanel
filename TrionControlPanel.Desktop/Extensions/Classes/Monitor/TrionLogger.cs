@@ -3,7 +3,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
     public class TrionLogger
     {
-        private static readonly object _lock = new object();  // Lock for thread-safety
+        private static readonly object _lock = new();  // Lock for thread-safety
         private static readonly string _logFilePath = "logs/Trion.logs"; // Log file path
         private static readonly int _maxFileSize = 10 * 1024 * 1024; // 10 MB max log file size before rotation
         private static readonly string _configuredLogLevel = "INFO"; // Default log level to filter logs (can be config-driven)
@@ -16,7 +16,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
             {
                 return;
             }
-
 
             string logEntry = FormatLogEntry(message, logLevel);  // Prepare the log entry with timestamp and level
 
@@ -73,7 +72,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         private static bool ShouldLog(string logLevel)
         {
             // Log if the level matches the configured level or if it's an ERROR level log
-            return logLevel == _configuredLogLevel || logLevel == "ERROR";
+            return logLevel == _configuredLogLevel || logLevel == "ERROR" || logLevel == "WARNING";
         }
 
         // Helper method to format the log entry
@@ -104,7 +103,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                         RotateLogFileIfNecessary();  // Check if log rotation is needed
 
                         // Append the log entry to the log file asynchronously
-                        using (StreamWriter writer = new StreamWriter(_logFilePath, append: true))
+                        using (StreamWriter writer = new(_logFilePath, append: true))
                         {
                             writer.WriteLine(logEntry);
                         }
@@ -119,3 +118,4 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         }
     }
 }
+

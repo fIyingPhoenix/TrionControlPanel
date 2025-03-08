@@ -22,7 +22,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 }
 
                 double totalRamInMB = totalRam / (1024 * 1024);
-                TrionLogger.Log($"Total RAM: {totalRamInMB} MB", "INFO");
+                //TrionLogger.Log($"Total RAM: {totalRamInMB} MB", "INFO");
                 return Convert.ToInt32(totalRamInMB);
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 PerformanceCounter performanceCounter = new(categoryName, counterName);
                 float memoryUsageMB = performanceCounter.NextValue();
 
-                TrionLogger.Log($"Available RAM: {memoryUsageMB} MB", "INFO");
+                //TrionLogger.Log($"Available RAM: {memoryUsageMB} MB", "INFO");
                 return Convert.ToInt32(memoryUsageMB);
             }
             catch (Exception ex)

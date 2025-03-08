@@ -15,8 +15,6 @@ using System.Diagnostics;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 using TrionControlPanel.Desktop.Extensions.Notification;
 using static TrionControlPanel.Desktop.Extensions.Classes.Data.Form.FormData;
-using System.Windows.Forms;
-using K4os.Compression.LZ4.Internal;
 using MetroFramework.Controls;
 
 namespace TrionControlPanelDesktop
