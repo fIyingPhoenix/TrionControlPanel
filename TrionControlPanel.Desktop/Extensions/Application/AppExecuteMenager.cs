@@ -78,19 +78,22 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         public static async Task ApplicationStop(int ApplicationID)
         {
             TrionLogger.Log($"Stopping Process: {ApplicationID}");
-            try
+            await Task.Run(async () =>
             {
-                var process = Process.GetProcessById(ApplicationID);
-                await SendCtrlC(process);
-                if (!process.WaitForExit(15000))
+                try
                 {
-                    process.Kill(true);
+                    var process = Process.GetProcessById(ApplicationID);
+                    await SendCtrlC(process);
+                    if (!process.WaitForExit(15000))
+                    {
+                        process.Kill(true);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Failed: {ex.Message}");
-            }
+                catch (Exception ex)
+                {
+                    TrionLogger.Log($"Failed: {ex.Message}");
+                }
+            });
         }
 
         // Sends a Ctrl+C signal to the specified process.
@@ -104,6 +107,13 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             TrionLogger.Log($"Free console process {process.Id}");
             FreeConsole();
             SetConsoleCtrlHandler(null!, false);
+        }
+
+        // Stops multiple applications concurrently.
+        public static async Task StopMultipleApplications(IEnumerable<int> applicationIds)
+        {
+            var stopTasks = applicationIds.Select(ApplicationStop);
+            await Task.WhenAll(stopTasks);
         }
 
         // Starts the database application with the specified settings and arguments.
@@ -123,15 +133,14 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         {
             try
             {
-                foreach (var Process in SystemData.GetDatabaseProcessID())
-                {
-                    await ApplicationStop(Process.ID);
-                }
+                var processIds = SystemData.GetDatabaseProcessID().Select(p => p.ID);
+                await StopMultipleApplications(processIds);
                 SystemData.CleanDatabaseProcessID();
                 FormData.UI.Form.DBStarted = false;
             }
             catch (Exception ex)
             {
+                TrionLogger.Log($"Failed to stop database: {ex.Message}");
             }
         }
 
@@ -230,10 +239,8 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         // Stops all world applications.
         public static async Task StopWorld()
         {
-            foreach (var Process in SystemData.GetWorldProcessesID())
-            {
-                await ApplicationStop(Process.ID);
-            }
+            var processIds = SystemData.GetWorldProcessesID().Select(p => p.ID);
+            await StopMultipleApplications(processIds);
             FormData.UI.Form.CustWorldStarted = false;
             FormData.UI.Form.ClassicWorldStarted = false;
             FormData.UI.Form.TBCWorldStarted = false;
@@ -246,10 +253,8 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         // Stops all logon applications.
         public static async Task StopLogon()
         {
-            foreach (var Process in SystemData.GetLogonProcessesID())
-            {
-                await ApplicationStop(Process.ID);
-            }
+            var processIds = SystemData.GetLogonProcessesID().Select(p => p.ID);
+            await StopMultipleApplications(processIds);
             FormData.UI.Form.CustLogonStarted = false;
             FormData.UI.Form.ClassicLogonStarted = false;
             FormData.UI.Form.TBCLogonStarted = false;
@@ -270,6 +275,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
+                TrionLogger.Log($"Failed to start world application: {ex.Message}");
                 return false;
             }
         }
@@ -286,6 +292,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             }
             catch (Exception ex)
             {
+                TrionLogger.Log($"Failed to start logon application: {ex.Message}");
                 return false;
             }
         }

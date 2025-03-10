@@ -23,6 +23,8 @@
         public string CustomLogonExeLoc { get; set; } = "";
         public string CustomLogonExeName { get; set; } = "worldserver";
         public string CustomWorldExeName { get; set; } = "authserver";
+        public string CustomLogonName { get; set; } = "Custom Core";
+        public string CustomWorldName { get; set; } = "Custom Core";
         public bool LaunchCustomCore { get; set; }
         public bool CustomInstalled { get; set; }
         //Classic Core

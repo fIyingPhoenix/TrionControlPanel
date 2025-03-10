@@ -235,6 +235,7 @@
   "AlertBoxWarning": "Warning!",
   "AlerBoxFaildGettingEmulatro": "There was a problem selecting the Emulator! please try again later!",
   "AlerBoxEmulatroInstalled": "The {0} already installed! To fix problems with the emulator, try the Repair button!",
+  "AlerBoxEmulatroNotInstalled": "The {0} is not installed! Pleas install the emulatro first!",
   //Downloader
   "LBLLocalFilesIDLE": "Local Files: Waiting...",
   "LBLLocalFiles": "Local Files: {0}",

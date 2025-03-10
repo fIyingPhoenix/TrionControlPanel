@@ -46,14 +46,14 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                             // Save the file to disk
                             using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-                            using (var fileStream = new FileStream(FileDownload, FileMode.Create, FileAccess.Write, FileShare.None))
+                            using (var fileStream = new FileStream(FileDownload, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 8192, useAsync: true))
                             {
-                                byte[] buffer = new byte[8192];
+                                byte[] buffer = new byte[8192]; // Use a smaller buffer size
                                 long totalBytesRead = 0;
                                 DateTime startTime = DateTime.Now;
 
                                 int bytesRead;
-                                while ((bytesRead = await stream.ReadAsync(buffer, cancellationToken)) > 0)
+                                while ((bytesRead = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)) > 0)
                                 {
                                     await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                                     totalBytesRead += bytesRead;

@@ -4,19 +4,23 @@ using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanel.Desktop.Extensions.Notification
 {
+    // AlertBox class for displaying notifications.
     public partial class AlertBox : MaterialForm
     {
+        // Enum for notification types.
         public enum NotificationType { Success, Error, Info, Warning }
+
         private const int AlertWidth = 400;
         private const int AlertHeight = 150;
         private const int AlertSpacing = 10;
         private Translator _translator = new();
 
         private static readonly List<AlertBox> ActiveAlerts = new(); // Tracks active alerts
+
+        // Constructor to initialize the alert box.
         public AlertBox(string message, NotificationType alertType, AppSettings appSettings)
         {
             InitializeComponent();
-            // Configure form properties
             Width = AlertWidth;
             Height = AlertHeight;
             StartPosition = FormStartPosition.Manual;
@@ -30,6 +34,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             Refresh();
         }
 
+        // Timer tick event for animation.
         private void TimerAnimation_Tick(object sender, EventArgs e)
         {
             if (Opacity < 1.0)
@@ -44,6 +49,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             }
         }
 
+        // Starts the fade-out animation.
         private void StartFadeOut(object sender, EventArgs e)
         {
             TimerAnimation.Tick -= StartFadeOut; // Remove current handler
@@ -54,6 +60,8 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             };
             TimerAnimation.Interval = 50; // Fade-out interval
         }
+
+        // Gets the icon based on the notification type.
         private Image GetIconByType(NotificationType type)
         {
             return type switch
@@ -66,6 +74,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             };
         }
 
+        // Gets the title based on the notification type.
         private string GetTITLeByType(NotificationType type)
         {
             return type switch
@@ -77,6 +86,8 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
                 _ => "TRION CONTROL PANEL!"
             };
         }
+
+        // Closes the alert and repositions remaining alerts.
         private void CloseAlert()
         {
             TimerAnimation.Stop();
@@ -84,6 +95,8 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             Close();
             RepositionAlerts();
         }
+
+        // Repositions active alerts to ensure they are properly displayed.
         private static void RepositionAlerts()
         {
             for (int i = 0; i < ActiveAlerts.Count; i++)
@@ -94,13 +107,17 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
                 alert.Location = new Point(startX, startY);
             }
         }
+
+        // Shows the alert box with DPI scaling awareness.
         public static void Show(string message, NotificationType alertType, AppSettings Settings)
         {
             var alert = new AlertBox(message, alertType, Settings);
 
-            // Calculate position for the new alert
-            var startX = Screen.PrimaryScreen!.WorkingArea.Width - AlertWidth - AlertSpacing;
-            var startY = Screen.PrimaryScreen.WorkingArea.Height - (AlertHeight + AlertSpacing) * (ActiveAlerts.Count + 1);
+            // Calculate position for the new alert with DPI scaling awareness
+            var screen = Screen.PrimaryScreen!;
+            var scaleFactor = screen.Bounds.Width / (float)screen.WorkingArea.Width;
+            var startX = (int)(screen.WorkingArea.Width - AlertWidth * scaleFactor - AlertSpacing);
+            var startY = (int)(screen.WorkingArea.Height - (AlertHeight * scaleFactor + AlertSpacing) * (ActiveAlerts.Count + 1));
 
             alert.Location = new Point(startX, startY);
             ActiveAlerts.Add(alert);

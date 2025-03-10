@@ -1,5 +1,4 @@
-﻿using MySqlX.XDevAPI.Common;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;

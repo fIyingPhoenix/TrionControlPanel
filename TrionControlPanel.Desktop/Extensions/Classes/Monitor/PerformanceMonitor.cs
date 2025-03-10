@@ -12,18 +12,14 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         {
             try
             {
-                // Create a new instance of the ManagementClass
                 ManagementClass managementClass = new("Win32_ComputerSystem");
-                // Get the total physical memory (RAM)
                 ManagementObjectCollection managementObjects = managementClass.GetInstances();
                 ulong totalRam = 0;
                 foreach (ManagementObject obj in managementObjects.Cast<ManagementObject>())
                 {
                     totalRam += (ulong)obj["TotalPhysicalMemory"];
                 }
-                // Convert bytes to megabytes
                 double totalRamInMB = totalRam / (1024 * 1024);
-                // Return the total RAM
                 return Convert.ToInt32(totalRamInMB);
             }
             catch
@@ -35,13 +31,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         // Gets the CPU utilization percentage.
         public static int GetCpuUtilizationPercentage()
         {
-            // Create an instance of PerformanceCounter to monitor the total CPU usage
             PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
-            // Discard the first value
             dynamic firstValue = cpuCounters.NextValue();
-            // Give some time to initialize
             Thread.Sleep(500);
-            // Get the second value
             dynamic SecValue = cpuCounters.NextValue();
             if (SecValue > 100) { SecValue = 100; }
             return (int)SecValue;
@@ -50,14 +42,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         // Gets the current PC RAM usage in megabytes.
         public static int GetCurentPcRamUsage()
         {
-            // Specify the category and counter for memory usage
             string categoryName = "Memory";
-            string counterName = "Available MBytes"; // You can also use "Available MBytes" for available memory
-
-            // Create a PerformanceCounter instance
+            string counterName = "Available MBytes";
             PerformanceCounter performanceCounter = new(categoryName, counterName);
-
-            // Get the memory usage in megabytes
             float memoryUsageMB = performanceCounter.NextValue();
             return Convert.ToInt32(memoryUsageMB);
         }
@@ -68,7 +55,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
             var RamProcent = CalculatePercentage(TotalRam, UsedRam);
             if (RamProcent > 80 && RamUsageHight == false)
             {
-                // Alert here
                 RamUsageHight = true;
             }
             if (RamProcent < 80)
@@ -110,24 +96,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 Process process = Process.GetProcessById(ProcessID);
                 if (process == null)
                 {
-                    // Infos.Message = "Could not find process with PID " + ProcessID;
+                    return 0;
                 }
 
-                TimeSpan startCpuUsage = process!.TotalProcessorTime;
-                DateTime startTime = DateTime.UtcNow;
-
-                Thread.Sleep(500); // Wait a second to get a CPU usage sample
-
-                TimeSpan endCpuUsage = process.TotalProcessorTime;
-                DateTime endTime = DateTime.UtcNow;
-
-                double cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
-                double totalMsPassed = (endTime - startTime).TotalMilliseconds;
-
-                double cpuUsageTotal = cpuUsedMs / totalMsPassed * 100 / Environment.ProcessorCount;
-
-                if (cpuUsageTotal + 5 > 100) { cpuUsageTotal = 100; }
-                return (int)cpuUsageTotal;
+                using PerformanceCounter cpuCounter = new("Process", "% Processor Time", process.ProcessName, true);
+                cpuCounter.NextValue(); // Discard the first value
+                Thread.Sleep(500); // Wait a bit to get a more accurate reading
+                return (int)(cpuCounter.NextValue() / Environment.ProcessorCount);
             }
             catch
             {
