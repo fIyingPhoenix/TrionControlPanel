@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Management;
-
 namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
+    // Monitors system performance metrics such as CPU and RAM usage.
     public class PerformanceMonitor
     {
-        private static bool RamUsageHight { get; set; }
+        private static bool RamUsageHight { get; set; } // Indicates if RAM usage is high.
 
-        // Get the total RAM in MB
+        // Gets the total RAM in megabytes.
         public static int GetTotalRamInMB()
         {
             try
@@ -15,143 +15,97 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                 ManagementClass managementClass = new("Win32_ComputerSystem");
                 ManagementObjectCollection managementObjects = managementClass.GetInstances();
                 ulong totalRam = 0;
-
                 foreach (ManagementObject obj in managementObjects.Cast<ManagementObject>())
                 {
                     totalRam += (ulong)obj["TotalPhysicalMemory"];
                 }
-
                 double totalRamInMB = totalRam / (1024 * 1024);
-                //TrionLogger.Log($"Total RAM: {totalRamInMB} MB", "INFO");
                 return Convert.ToInt32(totalRamInMB);
             }
-            catch (Exception ex)
+            catch
             {
-                TrionLogger.Log($"Error in GetTotalRamInMB: {ex.Message}", "ERROR");
                 return 0;
             }
         }
 
-        // Get the CPU utilization percentage
+        // Gets the CPU utilization percentage.
         public static int GetCpuUtilizationPercentage()
         {
-            try
-            {
-                PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
-                dynamic firstValue = cpuCounters.NextValue();
-                Thread.Sleep(500);
-                dynamic secondValue = cpuCounters.NextValue();
-
-                if (secondValue > 100) { secondValue = 100; }
-
-                //TrionLogger.Log($"CPU Utilization: {secondValue}%", "INFO");
-                return (int)secondValue;
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error in GetCpuUtilizationPercentage: {ex.Message}", "ERROR");
-                return 0;
-            }
+            PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
+            dynamic firstValue = cpuCounters.NextValue();
+            Thread.Sleep(500);
+            dynamic SecValue = cpuCounters.NextValue();
+            if (SecValue > 100) { SecValue = 100; }
+            return (int)SecValue;
         }
 
-        // Get the current PC's available RAM
+        // Gets the current PC RAM usage in megabytes.
         public static int GetCurentPcRamUsage()
         {
-            try
-            {
-                string categoryName = "Memory";
-                string counterName = "Available MBytes"; // Available memory
-
-                PerformanceCounter performanceCounter = new(categoryName, counterName);
-                float memoryUsageMB = performanceCounter.NextValue();
-
-                //TrionLogger.Log($"Available RAM: {memoryUsageMB} MB", "INFO");
-                return Convert.ToInt32(memoryUsageMB);
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error in GetCurentPcRamUsage: {ex.Message}", "ERROR");
-                return 0;
-            }
+            string categoryName = "Memory";
+            string counterName = "Available MBytes";
+            PerformanceCounter performanceCounter = new(categoryName, counterName);
+            float memoryUsageMB = performanceCounter.NextValue();
+            return Convert.ToInt32(memoryUsageMB);
         }
 
-        // Monitor RAM percentage usage
+        // Monitors RAM usage percentage and triggers an alert if it exceeds 80%.
         public static void RamProcentage(int TotalRam, int UsedRam)
         {
-            try
+            var RamProcent = CalculatePercentage(TotalRam, UsedRam);
+            if (RamProcent > 80 && RamUsageHight == false)
             {
-                var RamProcent = CalculatePercentage(TotalRam, UsedRam);
-                if (RamProcent > 80 && RamUsageHight == false)
-                {
-                    // Alert about high RAM usage
-                    TrionLogger.Log("High RAM usage detected! Over 80%.", "WARNING");
-                    RamUsageHight = true;
-                }
-
-                if (RamProcent < 80 || RamProcent > 80 && RamUsageHight == true)
-                {
-                    RamUsageHight = false;
-                }
+                RamUsageHight = true;
             }
-            catch (Exception ex)
+            if (RamProcent < 80)
             {
-                TrionLogger.Log($"Error in RamProcentage: {ex.Message}", "ERROR");
+                RamUsageHight = false;
             }
         }
 
-        // Calculate the percentage of used RAM
+        // Calculates the percentage of used RAM.
         private static double CalculatePercentage(double TotalRam, double UsedRam)
         {
-            return (UsedRam / TotalRam) * 100;
+            return TotalRam / UsedRam * 100;
         }
 
-        // Get RAM usage for a specific application by its Process ID
+        // Gets the RAM usage of a specific application in megabytes.
         public static int ApplicationRamUsage(int ProcessId)
         {
             try
             {
                 Process process = Process.GetProcessById(ProcessId);
                 PerformanceCounter ramCounter = new("Process", "Working Set", process.ProcessName);
-                double ram = ramCounter.NextValue();
-                int ramUsageMB = Convert.ToInt32(ram / 1024d / 1024d);
-
-                //TrionLogger.Log($"Application {process.ProcessName} (PID {ProcessId}) RAM usage: {ramUsageMB} MB", "INFO");
-                return ramUsageMB;
+                while (true)
+                {
+                    double ram = ramCounter.NextValue();
+                    return Convert.ToInt32(ram / 1024d / 1024d);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                TrionLogger.Log($"Error in ApplicationRamUsage for PID {ProcessId}: {ex.Message}", "ERROR");
                 return 0;
             }
         }
 
-        // Get CPU usage for a specific application by its Process ID
+        // Gets the CPU usage of a specific application as a percentage.
         public static int ApplicationCpuUsage(int ProcessID)
         {
             try
             {
                 Process process = Process.GetProcessById(ProcessID);
-                TimeSpan startCpuUsage = process.TotalProcessorTime;
-                DateTime startTime = DateTime.UtcNow;
+                if (process == null)
+                {
+                    return 0;
+                }
 
-                Thread.Sleep(500); // Wait a second to get a CPU usage sample
-
-                TimeSpan endCpuUsage = process.TotalProcessorTime;
-                DateTime endTime = DateTime.UtcNow;
-
-                double cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
-                double totalMsPassed = (endTime - startTime).TotalMilliseconds;
-
-                double cpuUsageTotal = (cpuUsedMs / totalMsPassed) * 100 / Environment.ProcessorCount;
-
-                if (cpuUsageTotal + 5 > 100) { cpuUsageTotal = 100; }
-
-                //TrionLogger.Log($"Application {process.ProcessName} (PID {ProcessID}) CPU usage: {cpuUsageTotal}%", "INFO");
-                return (int)cpuUsageTotal;
+                using PerformanceCounter cpuCounter = new("Process", "% Processor Time", process.ProcessName, true);
+                cpuCounter.NextValue(); // Discard the first value
+                Thread.Sleep(500); // Wait a bit to get a more accurate reading
+                return (int)(cpuCounter.NextValue() / Environment.ProcessorCount);
             }
-            catch (Exception ex)
+            catch
             {
-                TrionLogger.Log($"Error in ApplicationCpuUsage for PID {ProcessID}: {ex.Message}", "ERROR");
                 return 0;
             }
         }

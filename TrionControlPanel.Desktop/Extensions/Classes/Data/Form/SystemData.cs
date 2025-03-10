@@ -1,364 +1,189 @@
-﻿using System.Collections.ObjectModel;
-using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+﻿
+using System.Collections.ObjectModel;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
-
 namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
 {
+    // Manages system data related to process IDs for database, world, and logon processes.
     public class SystemData
     {
-        // Locks to ensure thread-safe access to process IDs
-        private static readonly object _databaseLock = new();
-        private static readonly object _worldLock = new();
-        private static readonly object _logonLock = new();
+        private static readonly object _databaseLock = new(); // Lock object for database process ID operations.
+        private static readonly object _worldLock = new(); // Lock object for world process ID operations.
+        private static readonly object _logonLock = new(); // Lock object for logon process ID operations.
 
-        // Start time for different components (Database, World, Logon)
-        public static DateTime DatabaseStartTime { get; set; }
-        public static DateTime WorldStartTime { get; set; }
-        public static DateTime LogonStartTime { get; set; }
+        public static DateTime DatabaseStartTime { get; set; } // Stores the start time of the database process.
+        public static DateTime WorldStartTime { get; set; } // Stores the start time of the world process.
+        public static DateTime LogonStartTime { get; set; } // Stores the start time of the logon process.
 
-        // Process ID lists for each component
-        private static List<ProcessID> _databaseProcessID = new();
-        private static List<ProcessID> _worldProcessesID = new();
-        private static List<ProcessID> _logonProcessesID = new();
-
+        private static List<ProcessID> _databaseProcessID = new(); // List to store database process IDs.
+        private static List<ProcessID> _worldProcessesID = new(); // List to store world process IDs.
+        private static List<ProcessID> _logonProcessesID = new(); // List to store logon process IDs.
 
         #region "Database Process ID CRUD"
-
+        // Adds a process ID to the database process ID list.
         public static void AddToDatabaseProcessID(ProcessID processID)
         {
-            try
+            lock (_databaseLock)
             {
-                lock (_databaseLock)
-                {
-                    _databaseProcessID.Add(processID);
-                    TrionLogger.Log($"Added ProcessID {processID} to Database Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while adding ProcessID to Database Process list: {ex.Message}", "ERROR");
+                _databaseProcessID.Add(processID);
             }
         }
 
+        // Removes a process ID from the database process ID list.
         public static bool RemoveFromDatabaseProcessID(ProcessID processID)
         {
-            try
+            lock (_databaseLock)
             {
-                lock (_databaseLock)
-                {
-                    bool result = _databaseProcessID.Remove(processID);
-                    if (result)
-                        TrionLogger.Log($"Removed ProcessID {processID} from Database Process list.", "INFO");
-                    else
-                        TrionLogger.Log($"ProcessID {processID} not found in Database Process list.", "WARNING");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while removing ProcessID from Database Process list: {ex.Message}", "ERROR");
-                return false;
+                return _databaseProcessID.Remove(processID);
             }
         }
 
+        // Clears all process IDs from the database process ID list.
         public static void CleanDatabaseProcessID()
         {
-            try
-            {
-                lock (_databaseLock)
-                {
-                    _databaseProcessID.Clear();
-                    TrionLogger.Log("Cleared all ProcessIDs from Database Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while clearing the Database Process list: {ex.Message}", "ERROR");
-            }
+            lock (_databaseLock) { _databaseProcessID.Clear(); }
         }
 
+        // Retrieves a read-only collection of database process IDs.
         public static ReadOnlyCollection<ProcessID> GetDatabaseProcessID()
         {
-            try
+            lock (_databaseLock)
             {
-                lock (_databaseLock)
-                {
-                    TrionLogger.Log("Fetched Database Process list.", "INFO");
-                    return _databaseProcessID.AsReadOnly();
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching Database Process list: {ex.Message}", "ERROR");
-                return new ReadOnlyCollection<ProcessID>(new List<ProcessID>());
+                return _databaseProcessID.AsReadOnly();
             }
         }
 
+        // Retrieves a paginated list of database process IDs.
         public static List<ProcessID> GetDatabaseProcessIDPage(int pageNumber, int pageSize)
         {
-            try
+            lock (_databaseLock)
             {
-                lock (_databaseLock)
-                {
-                    var result = _databaseProcessID
-                        .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                        .Take(pageSize)                    // Take the number of items per page
-                        .ToList();
-                    TrionLogger.Log($"Fetched page {pageNumber} of Database Process list with {result.Count} entries.", "INFO");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching a page of Database Process list: {ex.Message}", "ERROR");
-                return new List<ProcessID>();
+                return _databaseProcessID
+                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
+                    .Take(pageSize)                   // Take the desired number of items
+                    .ToList();
             }
         }
 
+        // Retrieves the total count of database process IDs.
         public static int GetTotalDatabaseProcessIDCount()
         {
-            try
+            lock (_databaseLock)
             {
-                lock (_databaseLock)
-                {
-                    int count = _databaseProcessID.Count;
-                    TrionLogger.Log($"Total ProcessID count in Database Process list: {count}", "INFO");
-                    return count;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while counting Database Process IDs: {ex.Message}", "ERROR");
-                return 0;
+                return _databaseProcessID.Count;
             }
         }
-
         #endregion
 
         #region "World Process ID CRUD"
-
+        // Adds a process ID to the world process ID list.
         public static void AddToWorldProcessesID(ProcessID processID)
         {
-            try
+            lock (_worldLock)
             {
-                lock (_worldLock)
-                {
-                    _worldProcessesID.Add(processID);
-                    TrionLogger.Log($"Added ProcessID {processID} to World Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while adding ProcessID to World Process list: {ex.Message}", "ERROR");
+                _worldProcessesID.Add(processID);
             }
         }
 
+        // Removes a process ID from the world process ID list.
         public static bool RemoveFromWorldProcessesID(ProcessID processID)
         {
-            try
+            lock (_worldLock)
             {
-                lock (_worldLock)
-                {
-                    bool result = _worldProcessesID.Remove(processID);
-                    if (result)
-                        TrionLogger.Log($"Removed ProcessID {processID} from World Process list.", "INFO");
-                    else
-                        TrionLogger.Log($"ProcessID {processID} not found in World Process list.", "WARNING");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while removing ProcessID from World Process list: {ex.Message}", "ERROR");
-                return false;
+                return _worldProcessesID.Remove(processID);
             }
         }
 
+        // Retrieves a read-only collection of world process IDs.
         public static ReadOnlyCollection<ProcessID> GetWorldProcessesID()
         {
-            try
+            lock (_worldLock)
             {
-                lock (_worldLock)
-                {
-                    TrionLogger.Log("Fetched World Process list.", "INFO");
-                    return _worldProcessesID.AsReadOnly();
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching World Process list: {ex.Message}", "ERROR");
-                return new ReadOnlyCollection<ProcessID>(new List<ProcessID>());
+                return _worldProcessesID.AsReadOnly();
             }
         }
 
+        // Retrieves a paginated list of world process IDs.
         public static List<ProcessID> GetWorldProcessesIDPage(int pageNumber, int pageSize)
         {
-            try
+            lock (_worldLock)
             {
-                lock (_worldLock)
-                {
-                    var result = _worldProcessesID
-                        .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                        .Take(pageSize)                    // Take the number of items per page
-                        .ToList();
-                    TrionLogger.Log($"Fetched page {pageNumber} of World Process list with {result.Count} entries.", "INFO");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching a page of World Process list: {ex.Message}", "ERROR");
-                return new List<ProcessID>();
+                return _worldProcessesID
+                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
+                    .Take(pageSize)                   // Take the desired number of items
+                    .ToList();
             }
         }
 
+        // Retrieves the total count of world process IDs.
         public static int GetTotalWorldProcessIDCount()
         {
-            try
+            lock (_worldLock)
             {
-                lock (_worldLock)
-                {
-                    int count = _worldProcessesID.Count;
-                    TrionLogger.Log($"Total ProcessID count in World Process list: {count}", "INFO");
-                    return count;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while counting World Process IDs: {ex.Message}", "ERROR");
-                return 0;
+                return _worldProcessesID.Count;
             }
         }
 
-        public static void CleanWorldProcessID()
+        // Clears all process IDs from the world process ID list.
+        public static void CleanWolrdProcessID()
         {
-            try
-            {
-                lock (_worldLock)
-                {
-                    _worldProcessesID.Clear();
-                    TrionLogger.Log("Cleared all ProcessIDs from World Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while clearing the World Process list: {ex.Message}", "ERROR");
-            }
+            lock (_worldLock) { _worldProcessesID.Clear(); }
         }
-
         #endregion
 
         #region "Logon Process ID CRUD"
-
+        // Adds a process ID to the logon process ID list.
         public static void AddToLogonProcessesID(ProcessID processID)
         {
-            try
+            lock (_logonLock)
             {
-                lock (_logonLock)
-                {
-                    _logonProcessesID.Add(processID);
-                    TrionLogger.Log($"Added ProcessID {processID} to Logon Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while adding ProcessID to Logon Process list: {ex.Message}", "ERROR");
+                _logonProcessesID.Add(processID);
             }
         }
 
-        public static bool RemoveFromLogonProcessesID(ProcessID processID)
-        {
-            try
-            {
-                lock (_logonLock)
-                {
-                    bool result = _logonProcessesID.Remove(processID);
-                    if (result)
-                        TrionLogger.Log($"Removed ProcessID {processID} from Logon Process list.", "INFO");
-                    else
-                        TrionLogger.Log($"ProcessID {processID} not found in Logon Process list.", "WARNING");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while removing ProcessID from Logon Process list: {ex.Message}", "ERROR");
-                return false;
-            }
-        }
-
+        // Clears all process IDs from the logon process ID list.
         public static void CleanLogonProcessID()
         {
-            try
+            lock (_logonLock) { _logonProcessesID.Clear(); }
+        }
+
+        // Removes a process ID from the logon process ID list.
+        public static bool RemoveFromLogonProcessesID(ProcessID processID)
+        {
+            lock (_logonLock)
             {
-                lock (_logonLock)
-                {
-                    _logonProcessesID.Clear();
-                    TrionLogger.Log("Cleared all ProcessIDs from Logon Process list.", "INFO");
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while clearing the Logon Process list: {ex.Message}", "ERROR");
+                return _logonProcessesID.Remove(processID);
             }
         }
 
+        // Retrieves a read-only collection of logon process IDs.
         public static ReadOnlyCollection<ProcessID> GetLogonProcessesID()
         {
-            try
+            lock (_logonLock)
             {
-                lock (_logonLock)
-                {
-                    TrionLogger.Log("Fetched Logon Process list.", "INFO");
-                    return _logonProcessesID.AsReadOnly();
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching Logon Process list: {ex.Message}", "ERROR");
-                return new ReadOnlyCollection<ProcessID>(new List<ProcessID>());
+                return _logonProcessesID.AsReadOnly();
             }
         }
 
+        // Retrieves a paginated list of logon process IDs.
         public static List<ProcessID> GetLogonProcessesIDPage(int pageNumber, int pageSize)
         {
-            try
+            lock (_logonLock)
             {
-                lock (_logonLock)
-                {
-                    var result = _logonProcessesID
-                        .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                        .Take(pageSize)                    // Take the number of items per page
-                        .ToList();
-                    TrionLogger.Log($"Fetched page {pageNumber} of Logon Process list with {result.Count} entries.", "INFO");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while fetching a page of Logon Process list: {ex.Message}", "ERROR");
-                return new List<ProcessID>();
+                return _logonProcessesID
+                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
+                    .Take(pageSize)                   // Take the desired number of items
+                    .ToList();
             }
         }
 
+        // Retrieves the total count of logon process IDs.
         public static int GetTotalLogonProcessIDCount()
         {
-            try
+            lock (_logonLock)
             {
-                lock (_logonLock)
-                {
-                    int count = _logonProcessesID.Count;
-                    TrionLogger.Log($"Total ProcessID count in Logon Process list: {count}", "INFO");
-                    return count;
-                }
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error occurred while counting Logon Process IDs: {ex.Message}", "ERROR");
-                return 0;
+                return _logonProcessesID.Count;
             }
         }
-
         #endregion
     }
 }

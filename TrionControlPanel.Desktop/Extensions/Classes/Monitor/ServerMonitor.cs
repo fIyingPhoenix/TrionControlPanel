@@ -1,98 +1,157 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
+using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 {
+    // Monitors the status of various servers (logon and world) and applications.
     public class ServerMonitor
     {
-        // Check if any logon process has started
+        // Checks if any logon server has started.
         public static bool ServerStartedLogon()
         {
-            bool isStarted = FormData.UI.Form.CustLogonStarted ||
-                             FormData.UI.Form.ClassicLogonStarted ||
-                             FormData.UI.Form.TBCLogonStarted ||
-                             FormData.UI.Form.WotLKLogonStarted ||
-                             FormData.UI.Form.CataLogonStarted ||
-                             FormData.UI.Form.MOPLogonStarted;
-
-            TrionLogger.Log($"ServerStartedLogon: {isStarted}", "INFO");
-            return isStarted;
+            return FormData.UI.Form.CustLogonStarted ||
+                   FormData.UI.Form.ClassicLogonStarted ||
+                   FormData.UI.Form.TBCLogonStarted ||
+                   FormData.UI.Form.WotLKLogonStarted ||
+                   FormData.UI.Form.CataLogonStarted ||
+                   FormData.UI.Form.MOPLogonStarted;
         }
 
-        // Check if any logon process is running
+        // Checks if any logon server is running.
         public static bool ServerRunningLogon()
         {
-            bool isRunning = FormData.UI.Form.CustLogonStarted ||
-                             FormData.UI.Form.ClassicLogonStarted ||
-                             FormData.UI.Form.TBCLogonStarted ||
-                             FormData.UI.Form.WotLKLogonStarted ||
-                             FormData.UI.Form.CataLogonStarted ||
-                             FormData.UI.Form.MOPLogonStarted;
-
-            TrionLogger.Log($"ServerRunningLogon: {isRunning}", "INFO");
-            return isRunning;
+            return FormData.UI.Form.CustLogonStarted ||
+                   FormData.UI.Form.ClassicLogonStarted ||
+                   FormData.UI.Form.TBCLogonStarted ||
+                   FormData.UI.Form.WotLKLogonStarted ||
+                   FormData.UI.Form.CataLogonStarted ||
+                   FormData.UI.Form.MOPLogonStarted;
         }
 
-        // Check if any world process has started
+        // Checks if any world server has started.
         public static bool ServerStartedWorld()
         {
-            bool isStarted = FormData.UI.Form.CustWorldStarted ||
-                             FormData.UI.Form.ClassicWorldStarted ||
-                             FormData.UI.Form.TBCWorldStarted ||
-                             FormData.UI.Form.WotLKWorldStarted ||
-                             FormData.UI.Form.CataWorldStarted ||
-                             FormData.UI.Form.MOPWorldStarted;
-
-            TrionLogger.Log($"ServerStartedWorld: {isStarted}", "INFO");
-            return isStarted;
+            return FormData.UI.Form.CustWorldStarted ||
+                   FormData.UI.Form.ClassicWorldStarted ||
+                   FormData.UI.Form.TBCWorldStarted ||
+                   FormData.UI.Form.WotLKWorldStarted ||
+                   FormData.UI.Form.CataWorldStarted ||
+                   FormData.UI.Form.MOPWorldStarted;
         }
 
-        // Check if any world process is running
+        // Checks if any world server is running.
         public static bool ServerRunningWorld()
         {
-            bool isRunning = FormData.UI.Form.CustWorldRunning ||
-                             FormData.UI.Form.ClassicWorldRunning ||
-                             FormData.UI.Form.TBCWorldRunning ||
-                             FormData.UI.Form.WotLKWorldRunning ||
-                             FormData.UI.Form.CataWorldRunning ||
-                             FormData.UI.Form.MOPWorldRunning;
-
-            TrionLogger.Log($"ServerRunningWorld: {isRunning}", "INFO");
-            return isRunning;
+            return FormData.UI.Form.CustWorldRunning ||
+                   FormData.UI.Form.ClassicWorldRunning ||
+                   FormData.UI.Form.TBCWorldRunning ||
+                   FormData.UI.Form.WotLKWorldRunning ||
+                   FormData.UI.Form.CataWorldRunning ||
+                   FormData.UI.Form.MOPWorldRunning;
         }
 
-        // Check if an application with the specified ProcessId is running
-        public static bool IsApplicationRunningById(int ProcessId)
+        // Asynchronously checks if logon servers are running.
+        public static async Task ServerRunningLogonAsync()
+        {
+            var currentRunning = SystemData.GetLogonProcessesID();
+            if (currentRunning.Count > 0)
+            {
+                await Task.WhenAll(currentRunning.Select(item => Task.Run(() =>
+                {
+                    switch (item.Name)
+                    {
+                        case "WoW Classic Logon":
+                            FormData.UI.Form.ClassicLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "The Burning Crusade Logon":
+                            FormData.UI.Form.TBCLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Wrath of the Lich King Logon":
+                            FormData.UI.Form.WotLKLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Cataclysm Logon":
+                            FormData.UI.Form.CataLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Mists of Pandaria Logon":
+                            FormData.UI.Form.MOPLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Custom Core":
+                            FormData.UI.Form.CustLogonRunning = IsApplicationRunning(item.ID);
+                            break;
+                    }
+                })));
+            }
+        }
+
+        // Asynchronously checks if world servers are running.
+        public static async Task ServerRunningWorldAsync()
+        {
+            var currentRunning = SystemData.GetWorldProcessesID();
+            if (currentRunning.Count > 0)
+            {
+                await Task.WhenAll(currentRunning.Select(item => Task.Run(() =>
+                {
+                    switch (item.Name)
+                    {
+                        case "WoW Classic World":
+                            FormData.UI.Form.ClassicWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "The Burning Crusade World":
+                            FormData.UI.Form.TBCWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Wrath of the Lich King World":
+                            FormData.UI.Form.WotLKWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Cataclysm World":
+                            FormData.UI.Form.CataWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Mists of Pandaria World":
+                            FormData.UI.Form.MOPWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                        case "Custom Core":
+                            FormData.UI.Form.CustWorldRunning = IsApplicationRunning(item.ID);
+                            break;
+                    }
+                })));
+            }
+        }
+        public static async Task ServerRunningDatabaseAsync()
+        {
+            var currentRunning = SystemData.GetDatabaseProcessID();
+            if (currentRunning.Count > 0)
+            {
+                await Task.WhenAll(currentRunning.Select(item => Task.Run(() =>
+                {
+                    switch (item.Name)
+                    {
+                        case "mysqld":
+                            FormData.UI.Form.DBRunning = IsApplicationRunning(item.ID);
+                            break;
+                    }
+                })));
+            }
+        }
+
+        // Checks if an application with the specified process ID is running.
+        public static bool IsApplicationRunning(int processId)
         {
             try
             {
-                Process process = Process.GetProcessById(ProcessId);
-                bool isRunning = !process.HasExited;
-                TrionLogger.Log($"IsApplicationRunningById (PID: {ProcessId}): {isRunning}", "INFO");
-                return isRunning;
+                Process process = Process.GetProcessById(processId);
+                return !process.HasExited;
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
-                TrionLogger.Log($"Error in IsApplicationRunningById: {ex.Message}", "ERROR");
-                return false; // Process does not exist
+                return false; // Process with the specified ID does not exist
             }
         }
 
-        // Check if an application with the specified name is running
-        public static bool IsApplicationRunningByName(string ProcessName)
+        // Checks if an application with the specified process name is running.
+        public static bool IsApplicationRunningName(string processName)
         {
-            try
-            {
-                Process[] processes = Process.GetProcessesByName(ProcessName);
-                bool isRunning = processes.Length > 0;
-                TrionLogger.Log($"IsApplicationRunningByName (ProcessName: {ProcessName}): {isRunning}", "INFO");
-                return isRunning;
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"Error in IsApplicationRunningByName: {ex.Message}", "ERROR");
-                return false; // Handle any potential exceptions
-            }
+            return Process.GetProcessesByName(processName).Length > 0;
         }
     }
 }

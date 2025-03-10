@@ -23,6 +23,8 @@
         public string CustomLogonExeLoc { get; set; } = "";
         public string CustomLogonExeName { get; set; } = "worldserver";
         public string CustomWorldExeName { get; set; } = "authserver";
+        public string CustomLogonName { get; set; } = "Custom Core";
+        public string CustomWorldName { get; set; } = "Custom Core";
         public bool LaunchCustomCore { get; set; }
         public bool CustomInstalled { get; set; }
         //Classic Core
@@ -98,7 +100,7 @@
         public bool DDNSRunOnStartup { get; set; }
         public bool ServerCrashDetection { get; set; }
         public Enums.Cores SelectedCore { get; set; } = Enums.Cores.AzerothCore;
-        public Enums.DDNSService DDNSerivce { get; set; } = Enums.DDNSService.DuckDNS;
+        public Enums.DDNSerivce DDNSerivce { get; set; } = Enums.DDNSerivce.DuckDNS;
         public Enums.SPP SelectedSPP { get; set; } = Enums.SPP.WrathOfTheLichKing;
         public Enums.Databases SelectedDatabases { get; set; } = Enums.Databases.WotLK;
         //Account

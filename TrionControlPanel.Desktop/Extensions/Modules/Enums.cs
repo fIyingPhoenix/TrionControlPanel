@@ -2,60 +2,52 @@
 {
     public class Enums
     {
-        // Enum for control events
+        // Enum for control events that can be generated using GenerateConsoleCtrlEvent.
         public enum ConsoleCtrlEvent
         {
-            CTRLC = 0,      // CTRL+C
-            CTRLBREAK = 1,  // CTRL+BREAK
-            CTRLCLOSE = 2,  // Console closing
-            CTRLLOGOFF = 5, // User logoff
-            CTRLSHUTDOWN = 6 // System shutdown
+            CTRLC = 0,      // Represents a CTRL+C signal.
+            CTRLBREAK = 1,  // Represents a CTRL+BREAK signal.
+            CTRLCLOSE = 2,  // Indicates the console is closing.
+            CTRLLOGOFF = 5, // Indicates the user is logging off.
+            CTRLSHUTDOWN = 6 // Indicates the system is shutting down.
         }
 
-        // Enum for control event types
+        // Enum for control event types handled by ConsoleCtrlDelegate.
         public enum CtrlTypes
         {
-            CTRLCEVENT = 0,      // CTRL+C
-            CTRLBREAKEVENT,      // CTRL+BREAK
-            CTRLCLOSEEVENT,      // Console window close
-            CTRLLOGOFFEVENT = 5, // Logoff event
-            CTRLSHUTDOWNEVENT    // Shutdown event
+            CTRLCEVENT = 0,      // CTRL+C event.
+            CTRLBREAKEVENT,      // CTRL+BREAK event.
+            CTRLCLOSEEVENT,      // Console window close event.
+            CTRLLOGOFFEVENT = 5, // User logoff event.
+            CTRLSHUTDOWNEVENT    // System shutdown event.
         }
-
-        // Account operation results
         public enum AccountOpResult
         {
-            Success,
+            Ok,
             NameTooLong,
             PassTooLong,
             EmailTooLong,
-            NameAlreadyExists,
-            EmailAlreadyExists,
+            NameAlreadyExist,
+            EmailAlreadyExist,
             NameNotExist,
-            DatabaseInternalError,
+            DBInternalError,
             BadLink
         }
-
-        // Realm list operation results
         public enum RealmListOpResult
         {
-            Success,
-            DatabaseInternalError,
+            Ok,
+            DBInternalError,
             BadEmulator,
             BadLink
         }
-
-        // Trion UI themes
         public enum TrionTheme
         {
             TrionBlue,
             Purple,
             Green,
-            Orange
+            Orange,
         }
-
-        // Dynamic DNS Services
-        public enum DDNSService
+        public enum DDNSerivce
         {
             Afraid,
             AllInkl,
@@ -63,14 +55,12 @@
             DuckDNS,
             NoIP,
             Dynu,
-            DynDNS,
+            dynDNS,
             Enom,
             Freemyip,
             OVH,
             STRATO
         }
-
-        // Server types
         public enum ServerType
         {
             Database,
@@ -78,14 +68,11 @@
             Logon
         }
 
-        // Server status
         public enum ServerStatus
         {
-            Active,
-            Inactive
+            Running,
+            NotRunning
         }
-
-        // Current control page
         public enum CurrentControl
         {
             Home,
@@ -96,15 +83,11 @@
             Database,
             Notify
         }
-
-        // Website loading status
         public enum LoadWebsite
         {
             True,
             False
         }
-
-        // Core types
         public enum Cores
         {
             AscEmu,
@@ -116,8 +99,6 @@
             TrinityCoreClassic,
             VMaNGOS
         }
-
-        // Server patch versions
         public enum SPP
         {
             Classic,
@@ -126,8 +107,6 @@
             Cataclysm,
             MistOfPandaria
         }
-
-        // Database types
         public enum Databases
         {
             Custom,

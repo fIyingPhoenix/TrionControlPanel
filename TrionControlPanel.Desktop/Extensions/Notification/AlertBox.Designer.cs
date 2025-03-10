@@ -77,8 +77,7 @@
             // 
             // AlertBox
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(400, 150);
             Controls.Add(LBLMessage);
             Controls.Add(PboxIcon);

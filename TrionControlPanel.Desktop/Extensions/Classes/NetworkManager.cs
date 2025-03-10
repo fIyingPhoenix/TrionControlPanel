@@ -11,22 +11,26 @@ using TrionControlPanelDesktop.Extensions.Modules;
 namespace TrionControlPanel.Desktop.Extensions.Classes
 {
 
+    // NetworkManager class for handling network-related operations.
     public class NetworkManager
     {
+        // Sets the API server URL based on the availability of the main and backup hosts.
         public static async Task GetAPIServer()
         {
             if (await IsWebsiteOnlineAsync($"{Links.MainHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.MainHost; }
             if (await IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/GetWebsitePing")) { Links.APIServer = Links.BackupHost; }
             else { Links.APIServer = Links.MainHost; }
         }
+
+        // Checks if the input string is a valid domain name.
         public static bool IsDomainName(string input)
         {
-            // Regular expression pattern to match a domain name
             string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.[A-Za-z]{2,6}(\.[A-Za-z]{2,6})?$";
             Regex regex = new(pattern, RegexOptions.Compiled);
-
             return regex.IsMatch(input);
         }
+
+        // Checks if a specific port is open on the given host.
         public static async Task<bool> IsPortOpen(int Port, string Host)
         {
             try
@@ -40,18 +44,20 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return false;
             }
         }
+
+        // Gets the external IP address from the specified URL.
         public static async Task<string> GetExternalIpAddress(string url)
         {
             try
             {
                 using (HttpClient client = new())
                 {
-                    TrionLogger.Log($"Getting Exter ipv4 address from {url}");
+                    TrionLogger.Log($"Getting external IPv4 address from {url}");
                     HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
-                        TrionLogger.Log($"Loaded Extern ipv4 address: {result.iPv4Address}");
+                        TrionLogger.Log($"Loaded external IPv4 address: {result.iPv4Address}");
                         return result.iPv4Address;
                     }
                     else
@@ -59,8 +65,12 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
                         return "0.0.0.0";
                     }
-
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                TrionLogger.Log($"HTTP request error: {ex.Message}", "ERROR");
+                return "0.0.0.0";
             }
             catch (Exception ex)
             {
@@ -68,14 +78,14 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return "0.0.0.0";
             }
         }
+
+        // Gets the internal IP address of the local machine.
         public static string GetInternalIpAddress()
         {
-
             try
             {
                 foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
                 {
-                    // Filter for active physical network interfaces and exclude virtual ones
                     if (networkInterface.OperationalStatus == OperationalStatus.Up &&
                         networkInterface.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
                         networkInterface.NetworkInterfaceType != NetworkInterfaceType.Tunnel &&
@@ -88,7 +98,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             if (ipAddressInfo.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
-                                TrionLogger.Log($"Loaded Intern ipv4 address {ipAddressInfo.Address}");
+                                TrionLogger.Log($"Loaded internal IPv4 address {ipAddressInfo.Address}");
                                 return ipAddressInfo.Address.ToString();
                             }
                         }
@@ -103,55 +113,48 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 return "0.0.0.0";
             }
         }
+
+        // Checks if a website is online by sending an HTTP GET request.
         public static async Task<bool> IsWebsiteOnlineAsync(string url)
         {
-            TrionLogger.Log($"Website: {url} Ckecking");
+            TrionLogger.Log($"Website: {url} Checking");
             try
             {
                 using HttpClient httpClient = new();
                 var response = await httpClient.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                return response.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                TrionLogger.Log($"Website: {url} HTTP request error: {ex.Message}");
                 return false;
             }
-            catch (HttpRequestException)
+            catch (TaskCanceledException ex)
             {
-                // Handle web exceptions (e.g., network issues)
-                TrionLogger.Log($"Website: {url} Handle web exceptions");
-                return false;
-            }
-            catch (TaskCanceledException)
-            {
-                // Handle timeout exception
-                TrionLogger.Log($"Website: {url} Timeout");
+                TrionLogger.Log($"Website: {url} Timeout: {ex.Message}");
                 return false;
             }
         }
+
+        // Updates the DNS IP address for the specified settings.
         public static bool UpdateDNSIP(AppSettings Settings)
         {
             if (!string.IsNullOrEmpty(Settings.DDNSDomain) && !string.IsNullOrEmpty(Settings.IPAddress))
             {
                 try
                 {
-                    // Create a request for the URL
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Links.DDNSWebsits(Settings.DDNSerivce));
                     request.Method = "GET";
 
-                    // Get the response
                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                     {
-                        // Check the status code
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            // Request succeeded
                             TrionLogger.Log($"DNS update request succeeded! IP{Settings.IPAddress}, Domain: {Settings.DDNSDomain}");
                             return true;
                         }
                         else
                         {
-                            // Request failed
                             TrionLogger.Log($"Response status code: {response.StatusCode}", "ERROR");
                             return false;
                         }
@@ -159,7 +162,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 }
                 catch (WebException webEx)
                 {
-                    // Handle web exceptions, e.g., 404, 500, etc.
                     if (webEx.Response is HttpWebResponse errorResponse)
                     {
                         TrionLogger.Log($"Request failed with status code: {errorResponse.StatusCode}", "ERROR");
@@ -172,14 +174,15 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 }
                 catch (Exception ex)
                 {
-                    // Handle other exceptions
                     TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
                     return false;
                 }
             }
             return false;
         }
-        public static async void DownlaodSeppd() //work in progress
+
+        // Downloads a speed test file to measure download speed.
+        public static async Task DownlaodSeppd(CancellationToken cancellationToken = default)
         {
             string apiUrl = "https://localhost:7107/Trion/DownloadSpeed"; // Replace with your actual server URL
 
@@ -192,16 +195,13 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
             try
             {
-                using HttpResponseMessage response = await client.GetAsync(apiUrl, HttpCompletionOption.ResponseHeadersRead);
+                using HttpResponseMessage response = await client.GetAsync(apiUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                using var stream = await response.Content.ReadAsStreamAsync();
+                using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
-                CancellationTokenSource cts = new();
-                cts.CancelAfter(TimeSpan.FromSeconds(4)); // Stop download after 4 seconds
-
-                while (!cts.Token.IsCancellationRequested && (bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cts.Token)) > 0)
+                while (!cancellationToken.IsCancellationRequested && (bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
                 {
                     totalBytesRead += bytesRead;
                 }
@@ -217,28 +217,33 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             {
                 TrionLogger.Log("Speed test stopped after 4 seconds.");
             }
+            catch (HttpRequestException ex)
+            {
+                TrionLogger.Log($"HTTP request error: {ex.Message}", "ERROR");
+            }
             catch (Exception ex)
             {
                 TrionLogger.Log($"Error: {ex.Message}", "ERROR");
             }
         }
+
+        // Gets a list of server files from the specified URL.
         public static async Task<List<FileList>> GetServerFiles(string URL, IProgress<string>? Count = null)
         {
             try
             {
-                // Use Task.Run to offload work to a background thread
                 var task = Task.Run(async () =>
                 {
                     using HttpClient httpClient = new();
-                    HttpResponseMessage response = await httpClient.GetAsync(URL).ConfigureAwait(false); // Don't capture the UI context here
+                    HttpResponseMessage response = await httpClient.GetAsync(URL).ConfigureAwait(false);
                     TrionLogger.Log($"Getting data from {URL}, Response code: {response.StatusCode}");
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false); // Don't capture UI context
+                        var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                         var filesObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
                         List<FileList> fileList = new List<FileList>();
-                        // Offload the file processing to a background thread using Task.Run
+
                         await Task.Run(() =>
                         {
                             foreach (var file in filesObject!.files)
@@ -251,13 +256,11 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                                     Path = file.path
                                 };
 
-                                // Add the file to the list (no UI interaction here, so it's thread-safe)
                                 lock (fileList)
                                 {
                                     fileList.Add(fileItem);
                                 }
 
-                                // Report progress to the UI thread safely
                                 Count?.Report($"{fileList.Count} / {filesObject!.files.Count}");
                             }
                         });
@@ -272,7 +275,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                     }
                 });
 
-                // Await the task and return the result
                 return await task.ConfigureAwait(false);
             }
             catch (HttpRequestException ex)
