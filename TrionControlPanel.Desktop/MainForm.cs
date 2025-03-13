@@ -923,23 +923,23 @@ namespace TrionControlPanelDesktop
                 switch (_settings.SelectedSPP)
                 {
                     case SPP.Classic:
-                        await InstallExpansionAsync("Classic", "/classic", _settings.ClassicInstalled, v => FormData.Infos.Install.Classic = v);
+                        await InstallExpansionAsync("Classic", "/classic", _settings.ClassicInstalled, v => FormData.Infos.Install.Classic = v, Links.Install.Classic);
                         break;
 
                     case SPP.TheBurningCrusade:
-                        await InstallExpansionAsync("TBC", "/tbc", _settings.TBCInstalled, v => FormData.Infos.Install.TBC = v);
+                        await InstallExpansionAsync("TBC", "/tbc", _settings.TBCInstalled, v => FormData.Infos.Install.TBC = v, Links.Install.TBC);
                         break;
 
                     case SPP.WrathOfTheLichKing:
-                        await InstallExpansionAsync("WotLK", "/wotlk", _settings.WotLKInstalled, v => FormData.Infos.Install.WotLK = v);
+                        await InstallExpansionAsync("WotLK", "/wotlk", _settings.WotLKInstalled, v => FormData.Infos.Install.WotLK = v, Links.Install.WotLK);
                         break;
 
                     case SPP.Cataclysm:
-                        await InstallExpansionAsync("Cata", "/cata", _settings.CataInstalled, v => FormData.Infos.Install.Cata = v);
+                        await InstallExpansionAsync("Cata", "/cata", _settings.CataInstalled, v => FormData.Infos.Install.Cata = v, Links.Install.Cata);
                         break;
 
                     case SPP.MistOfPandaria:
-                        await InstallExpansionAsync("MoP", "/mop", _settings.MOPInstalled, v => FormData.Infos.Install.Mop = v);
+                        await InstallExpansionAsync("MoP", "/mop", _settings.MOPInstalled, v => FormData.Infos.Install.Mop = v, Links.Install.Mop);
                         break;
 
                     default:
@@ -973,7 +973,7 @@ namespace TrionControlPanelDesktop
         /// <summary>
         /// Handles the installation process for different expansions.
         /// </summary>
-        private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus)
+        private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus, string InstalationLocation)
         {
             UpdateLabel(LBLInstallEmulatorTitle, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName} Emulator"));
 
@@ -988,18 +988,18 @@ namespace TrionControlPanelDesktop
             await Task.Delay(1000);
 
             setInstallStatus(true);
-
+            
             // Create progress handlers to ensure UI updates happen on the UI thread
-            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, $"Online Files: {message}"));
-            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, $"Local Files: {message}"));
-            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, $"Files to be removed: {message}"));
-            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, $"Files to be downloaded: {message}"));
-            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, $"Speed: {message:0.##} MB/s"));
+            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"),message)));
+            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message)));
+            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message)));
+            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"),message)));
+            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s")));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Run file and server tasks concurrently
             var serverFilesTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles(expansionName.ToLower(), _settings.SupporterKey), serverFilesProgress));
-            var localFilesTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.WotLK, localFilesProgress));
+            var localFilesTask = Task.Run(() => FileManager.ProcessFilesAsync(InstalationLocation, localFilesProgress));
 
             await Task.WhenAll(serverFilesTask, localFilesTask);
 
@@ -1015,8 +1015,8 @@ namespace TrionControlPanelDesktop
             // **Download missing files one-by-one**
             foreach (var file in missingFiles)
             {
-                UpdateLabel(LBLFileName, $"File Name: {file.Name}");
-                UpdateLabel(LBLFileSize, $"File Size: {file.Size} MB");
+                UpdateLabel(LBLFileName, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}"));
+                UpdateLabel(LBLFileSize, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB"));
 
                 await FileManager.DownloadFileAsync(file, folderPath, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
 
@@ -1097,11 +1097,11 @@ namespace TrionControlPanelDesktop
             await Task.Delay(1000);
 
             // Create progress handlers to ensure UI updates happen on the UI thread
-            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, $"Online Files: {message}"));
-            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, $"Local Files: {message}"));
-            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, $"Files to be removed: {message}"));
-            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, $"Files to be downloaded: {message}"));
-            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, $"Speed: {message:0.##} MB/s"));
+            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message)));
+            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message)));
+            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message)));
+            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message)));
+            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s")));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Run file and server tasks concurrently
@@ -1122,8 +1122,8 @@ namespace TrionControlPanelDesktop
             // **Download missing/corrupt files one-by-one**
             foreach (var file in missingFiles)
             {
-                UpdateLabel(LBLFileName, $"File Name: {file.Name}");
-                UpdateLabel(LBLFileSize, $"File Size: {file.Size} MB");
+                UpdateLabel(LBLFileName, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}"));
+                UpdateLabel(LBLFileSize, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB"));
 
                 await FileManager.DownloadFileAsync(file, folderPath, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
 
@@ -1763,9 +1763,12 @@ namespace TrionControlPanelDesktop
                 _settings.DBExeLoc = FileManager.GetExecutableLocation($@"{Database}\bin", "mysqld");
                 _settings.DBExeName = "mysqld";
                 Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), Database);
-
+                
                 string SQLLocation = $@"{Database}\extra\initDatabase.sql";
-                await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                var initID = await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                while (ServerMonitor.IsApplicationRunning(initID)) {
+                    LBLInitDatabase.Text = _translator.Translate("LBLInitDatabaseInit");
+                }
 
             }
             if (FormData.Infos.Install.Trion == true)
@@ -1775,6 +1778,8 @@ namespace TrionControlPanelDesktop
             }
             if (MainFormTabControler.SelectedTab == TabDownloader)
                 MainFormTabControler.SelectedTab = TabHome;
+
+
         }
         #endregion
         private void TXTOnlyNumbers(object sender, KeyPressEventArgs e)

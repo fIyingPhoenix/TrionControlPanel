@@ -57,7 +57,7 @@ namespace TrionControlPanel.API.Classes
                             var fileData = new FileList
                             {
                                 Name = fileInfo.Name,
-                                Size = fileInfo.Length / 1_000.0, // Size in KB
+                                Size = fileInfo.Length / 1_000_000.0, // Size in MB
                                 Hash = await EncryptManager.GetMd5HashFromFileAsync(file), // Async hash calculation
                                 Path = fileInfo.DirectoryName?.Replace(@"\", "/") // Optional: Normalize path
                             };

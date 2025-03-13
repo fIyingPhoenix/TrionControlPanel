@@ -328,6 +328,9 @@ namespace TrionControlPanelDesktop
             materialCard22 = new MaterialSkin.Controls.MaterialCard();
             LBLInstallEmulatorTitle = new MaterialSkin.Controls.MaterialLabel();
             materialCard21 = new MaterialSkin.Controls.MaterialCard();
+            materialCard30 = new MaterialSkin.Controls.MaterialCard();
+            pictureBox8 = new PictureBox();
+            LBLInitDatabase = new MaterialSkin.Controls.MaterialLabel();
             LBLTotalDownload = new MaterialSkin.Controls.MaterialLabel();
             materialCard29 = new MaterialSkin.Controls.MaterialCard();
             pictureBox7 = new PictureBox();
@@ -339,7 +342,7 @@ namespace TrionControlPanelDesktop
             materialCard27 = new MaterialSkin.Controls.MaterialCard();
             pictureBox5 = new PictureBox();
             LBLDownloadSpeed = new MaterialSkin.Controls.MaterialLabel();
-            materialCard26 = new MaterialSkin.Controls.MaterialCard();
+            DLCardRemoweFiles = new MaterialSkin.Controls.MaterialCard();
             pictureBox4 = new PictureBox();
             LBLFilesToBeRemoved = new MaterialSkin.Controls.MaterialLabel();
             materialCard25 = new MaterialSkin.Controls.MaterialCard();
@@ -458,13 +461,15 @@ namespace TrionControlPanelDesktop
             TabDownloader.SuspendLayout();
             materialCard22.SuspendLayout();
             materialCard21.SuspendLayout();
+            materialCard30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             materialCard29.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             materialCard28.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             materialCard27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            materialCard26.SuspendLayout();
+            DLCardRemoweFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             materialCard25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -5860,12 +5865,13 @@ namespace TrionControlPanelDesktop
             // 
             materialCard21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             materialCard21.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard21.Controls.Add(materialCard30);
             materialCard21.Controls.Add(LBLTotalDownload);
             materialCard21.Controls.Add(materialCard29);
             materialCard21.Controls.Add(LBLCurrentDownload);
             materialCard21.Controls.Add(materialCard28);
             materialCard21.Controls.Add(materialCard27);
-            materialCard21.Controls.Add(materialCard26);
+            materialCard21.Controls.Add(DLCardRemoweFiles);
             materialCard21.Controls.Add(materialCard25);
             materialCard21.Controls.Add(materialCard24);
             materialCard21.Controls.Add(materialCard23);
@@ -5880,6 +5886,44 @@ namespace TrionControlPanelDesktop
             materialCard21.Padding = new Padding(7, 4, 7, 7);
             materialCard21.Size = new Size(758, 327);
             materialCard21.TabIndex = 1;
+            // 
+            // materialCard30
+            // 
+            materialCard30.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard30.Controls.Add(pictureBox8);
+            materialCard30.Controls.Add(LBLInitDatabase);
+            materialCard30.Depth = 0;
+            materialCard30.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard30.Location = new Point(419, 18);
+            materialCard30.Margin = new Padding(14);
+            materialCard30.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard30.Name = "materialCard30";
+            materialCard30.Padding = new Padding(14);
+            materialCard30.Size = new Size(325, 40);
+            materialCard30.TabIndex = 20;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
+            pictureBox8.Location = new Point(5, 5);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(30, 30);
+            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.TabIndex = 21;
+            pictureBox8.TabStop = false;
+            // 
+            // LBLInitDatabase
+            // 
+            LBLInitDatabase.AutoSize = true;
+            LBLInitDatabase.Depth = 0;
+            LBLInitDatabase.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLInitDatabase.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLInitDatabase.Location = new Point(40, 12);
+            LBLInitDatabase.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLInitDatabase.Name = "LBLInitDatabase";
+            LBLInitDatabase.Size = new Size(66, 17);
+            LBLInitDatabase.TabIndex = 10;
+            LBLInitDatabase.Text = "File Nane:";
             // 
             // LBLTotalDownload
             // 
@@ -6023,20 +6067,20 @@ namespace TrionControlPanelDesktop
             LBLDownloadSpeed.TabIndex = 11;
             LBLDownloadSpeed.Text = "Speed:";
             // 
-            // materialCard26
+            // DLCardRemoweFiles
             // 
-            materialCard26.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard26.Controls.Add(pictureBox4);
-            materialCard26.Controls.Add(LBLFilesToBeRemoved);
-            materialCard26.Depth = 0;
-            materialCard26.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard26.Location = new Point(14, 165);
-            materialCard26.Margin = new Padding(14);
-            materialCard26.MouseState = MaterialSkin.MouseState.HOVER;
-            materialCard26.Name = "materialCard26";
-            materialCard26.Padding = new Padding(14);
-            materialCard26.Size = new Size(325, 40);
-            materialCard26.TabIndex = 16;
+            DLCardRemoweFiles.BackColor = Color.FromArgb(255, 255, 255);
+            DLCardRemoweFiles.Controls.Add(pictureBox4);
+            DLCardRemoweFiles.Controls.Add(LBLFilesToBeRemoved);
+            DLCardRemoweFiles.Depth = 0;
+            DLCardRemoweFiles.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            DLCardRemoweFiles.Location = new Point(14, 165);
+            DLCardRemoweFiles.Margin = new Padding(14);
+            DLCardRemoweFiles.MouseState = MaterialSkin.MouseState.HOVER;
+            DLCardRemoweFiles.Name = "DLCardRemoweFiles";
+            DLCardRemoweFiles.Padding = new Padding(14);
+            DLCardRemoweFiles.Size = new Size(325, 40);
+            DLCardRemoweFiles.TabIndex = 16;
             // 
             // pictureBox4
             // 
@@ -6398,6 +6442,9 @@ namespace TrionControlPanelDesktop
             materialCard22.ResumeLayout(false);
             materialCard21.ResumeLayout(false);
             materialCard21.PerformLayout();
+            materialCard30.ResumeLayout(false);
+            materialCard30.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             materialCard29.ResumeLayout(false);
             materialCard29.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
@@ -6407,8 +6454,8 @@ namespace TrionControlPanelDesktop
             materialCard27.ResumeLayout(false);
             materialCard27.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            materialCard26.ResumeLayout(false);
-            materialCard26.PerformLayout();
+            DLCardRemoweFiles.ResumeLayout(false);
+            DLCardRemoweFiles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             materialCard25.ResumeLayout(false);
             materialCard25.PerformLayout();
@@ -6731,7 +6778,7 @@ namespace TrionControlPanelDesktop
         private MaterialSkin.Controls.MaterialLabel LBLCurrentDownload;
         private MaterialSkin.Controls.MaterialCard materialCard28;
         private MaterialSkin.Controls.MaterialCard materialCard27;
-        private MaterialSkin.Controls.MaterialCard materialCard26;
+        private MaterialSkin.Controls.MaterialCard DLCardRemoweFiles;
         private MaterialSkin.Controls.MaterialCard materialCard25;
         private MaterialSkin.Controls.MaterialCard materialCard24;
         private MaterialSkin.Controls.MaterialCard materialCard23;
@@ -6742,5 +6789,8 @@ namespace TrionControlPanelDesktop
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
+        private MaterialSkin.Controls.MaterialCard materialCard30;
+        private PictureBox pictureBox8;
+        private MaterialSkin.Controls.MaterialLabel LBLInitDatabase;
     }
 }

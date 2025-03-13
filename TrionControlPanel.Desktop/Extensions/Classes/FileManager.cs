@@ -156,8 +156,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             var semaphore = new SemaphoreSlim(1000); // Limit concurrent tasks
             var tasks = new List<Task>();
             int processedFiles = 0;
-
-            foreach (var file in Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories))
+            var totalFiles = Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories);
+            foreach (var file in totalFiles)
             {
                 await semaphore.WaitAsync(cancellationToken); // Control concurrency
                 var task = Task.Run(async () =>
@@ -177,11 +177,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             fileList.Add(fileData);
                         }
-
-                        if (Interlocked.Increment(ref processedFiles) % 10 == 0)
-                        {
-                            progress?.Report($"Processing: {processedFiles} files");
-                        }
+                        progress?.Report($"{processedFiles} / {totalFiles.Count()}");
                     }
                     finally
                     {
@@ -200,7 +196,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             }
 
             await Task.WhenAll(tasks);
-            progress?.Report("Processing complete.");
 
             return fileList;
         }
