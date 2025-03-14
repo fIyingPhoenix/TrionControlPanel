@@ -7,13 +7,13 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
     <PackageReference Include="MySql.Data" Version="9.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.CodeDom" Version="9.0.2" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.2" />
-    <PackageReference Include="System.Management" Version="9.0.2" />
-    <PackageReference Include="System.Text.Json" Version="9.0.2" />
+    <PackageReference Include="System.CodeDom" Version="9.0.3" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.3" />
+    <PackageReference Include="System.Management" Version="9.0.3" />
+    <PackageReference Include="System.Text.Json" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>

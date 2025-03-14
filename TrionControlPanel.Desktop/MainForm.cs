@@ -14,6 +14,7 @@ using TrionControlPanel.Desktop.Extensions.Database;
 using System.Diagnostics;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 using TrionControlPanel.Desktop.Extensions.Notification;
+using TrionControlPanel.Desktop;
 
 namespace TrionControlPanelDesktop
 {
@@ -525,6 +526,7 @@ namespace TrionControlPanelDesktop
         #endregion
         private AppSettings _settings;
         private MaterialSkinManager? materialSkinManager;
+        private LoadingScreen loadingForm = new();
         private int AppPageSize { get; } = 1;
         private int _worldCurrentPage { get; set; } = 1;
         private int _logonCurrentPage { get; set; } = 1;
@@ -538,9 +540,18 @@ namespace TrionControlPanelDesktop
         //Loading...
         public MainForm()
         {
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint, true);
+            loadingForm.Show();
+            Opacity = 0;
+            WindowState = FormWindowState.Minimized;
+            ShowInTaskbar = false;
+            Invalidate();
             LoadSettings();
-            InitializeComponent();
             if (File.Exists("update.exe")) { File.Delete("update.exe"); }
+            InitializeComponent();
         }
         private void ToogleButtons()
         {
@@ -613,6 +624,11 @@ namespace TrionControlPanelDesktop
             await NetworkManager.GetAPIServer();
             await UpdateSppVersion();
             SetupDatabaseIfMissing();
+            loadingForm.Close();
+            Opacity = 1;
+            ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
+            Refresh();
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
