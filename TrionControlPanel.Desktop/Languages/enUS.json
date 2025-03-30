@@ -131,6 +131,7 @@
   "LBLCataVersion": "Cata Version: Installed {0} | Current: {1}",
   "LBLMoPVersion": "MoP Version: Installed {0} | Current: {1}",
   "TXTSupporterKeyHint": "Supporter Key",
+  "CBOXTrionIconHint": "Trion Logo",
   //-----------------------------SPP-----------------------
   "LBLCardSPPVersionTitle": "SINGLE PLAYER PROJECT",
   "LBLCardSPPRunTitle": "S.P.P. Emulator Enabled",
@@ -253,7 +254,8 @@
   "LBLFileSize": "File Size: {0}",
   "LBLDownloadSpeedIDLE": "Download Speed: Waiting...",
   "LBLDownloadSpeed": "Download Speed: {0}",
-  "LBLInstallEmulatorTitle": "Installing {0}",
+  "LBLInstallEmulatorTitle": "Installing {0} Emulator",
+  "LBLInstallDatabaseTitle": "Installing Database",
   "LBLTotalDownload": "Total Download Progress",
   "LBLCurrentDownload": "Current Download Progress"
 }

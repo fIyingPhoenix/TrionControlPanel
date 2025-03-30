@@ -1,4 +1,6 @@
-﻿namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
+﻿using System.ComponentModel;
+
+namespace TrionControlPanel.Desktop.Extensions.Modules.Lists
 {
     public class AppSettings
     {
@@ -85,6 +87,7 @@
         public string IPAddress { get; set; } = "";
         //Trion
         public Enums.TrionTheme TrionTheme { get; set; } = Enums.TrionTheme.TrionBlue;
+        public string TrionIcon { get; set; } = "Trion New Logo";
         public string TrionLanguage { get; set; } = "en";
         public string SupporterKey { get; set; } = "null";
         public bool AutoUpdateCore { get; set; } = true;

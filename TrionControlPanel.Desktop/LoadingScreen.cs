@@ -1,15 +1,18 @@
 ﻿
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using TrionControlPanel.Desktop.Properties;
 
 namespace TrionControlPanel.Desktop
 {
     public partial class LoadingScreen : Form
     {
-        private float _angle; // Used for spinner rotation
+        private float scaleFactor = 1.0f;
+        private int direction = 1; // 1 for growing, -1 for shrinking
+        private float minScale = 1.0f;
+        private float maxScale = 1.2f;
+        private float step = 0.02f;
 
-        private const int SpinnerRadius = 15; // Size of the spinner
-        private const int SpinnerThickness = 14; // Thickness of the spinner stroke
         public LoadingScreen()
         {
 
@@ -18,13 +21,13 @@ namespace TrionControlPanel.Desktop
                           ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint, true);
             InitializeComponent();
+            timer1_Tick(null!, null!); // Manually call the first tick
             // Make the form transparent
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false; // Hide from taskbar
             TopMost = true; // Keep on top of other windows
-            Size = new Size(400, 300); // Set the form size
-
+            Size = new Size(300, 300); // Set the form size
             ApplyRoundedEdges(30); // Adjust the corner radius (30px)
         }
         private void ApplyRoundedEdges(int radius)
@@ -36,7 +39,7 @@ namespace TrionControlPanel.Desktop
             path.AddArc(0, this.Height - radius, radius, radius, 90, 90); // Bottom-left
             path.CloseFigure();
 
-            this.Region = new Region(path);
+            Region = new Region(path);
         }
 
         protected override void OnResize(EventArgs e)
@@ -45,5 +48,20 @@ namespace TrionControlPanel.Desktop
             ApplyRoundedEdges(30); // Reapply when resized
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            scaleFactor += direction * step;
+
+            if (scaleFactor >= maxScale || scaleFactor <= minScale)
+            {
+                direction *= -1; // Reverse direction
+            }
+
+            int newWidth = (int)(200 * scaleFactor);
+            int newHeight = (int)(200 * scaleFactor);
+
+            pictureBox1.Size = new Size(newWidth, newHeight);
+            pictureBox1.Location = new Point((this.ClientSize.Width - newWidth) / 2, (this.ClientSize.Height - newHeight) / 2);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Text;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 
@@ -10,6 +11,56 @@ namespace TrionControlPanel.Desktop.Extensions.Database
     // AccessManager class for handling database operations.
     public class AccessManager
     {
+        static void ExecuteSqlFile(string filePath, string connectionString)
+        {
+            long totalBytes = new FileInfo(filePath).Length;
+            long bytesRead = 0;
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var reader = new StreamReader(filePath, Encoding.UTF8))
+                {
+                    StringBuilder batch = new StringBuilder();
+                    string line;
+                    int lastReportedProgress = 0;
+
+                    while ((line = reader.ReadLine()!) != null)
+                    {
+                        bytesRead += Encoding.UTF8.GetByteCount(line) + 2; // +2 for newline characters
+
+                        if (line.Trim().Equals("GO", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (batch.Length > 0)
+                            {
+                                connection.Execute(batch.ToString());  // Execute SQL batch
+                                batch.Clear();
+                            }
+                        }
+                        else
+                        {
+                            batch.AppendLine(line);
+                        }
+
+                        // Report progress every 5%
+                        int progress = (int)((bytesRead * 100) / totalBytes);
+                        if (progress >= lastReportedProgress + 5)
+                        {
+                            Console.WriteLine($"Progress: {progress}%");
+                            lastReportedProgress = progress;
+                        }
+                    }
+
+                    // Execute the remaining SQL statements
+                    if (batch.Length > 0)
+                    {
+                        connection.Execute(batch.ToString());
+                    }
+                }
+            }
+
+            Console.WriteLine("Execution completed!");
+        }
         // Constructs a connection string for the specified database using the provided settings.
         public static string ConnectionString(AppSettings Settings, string Database)
         {

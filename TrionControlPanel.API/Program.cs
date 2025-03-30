@@ -19,7 +19,7 @@ namespace TrionControlPanel.API
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<DatabaseManager>();
             builder.Services.AddSingleton<AccessManager>();
-            builder.Services.AddSingleton<SqlQueryManager>(); 
+            builder.Services.AddSingleton<SqlQueryManager>();
             builder.Services.AddSingleton<Network>();
             var app = builder.Build();
 
@@ -42,10 +42,7 @@ namespace TrionControlPanel.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.MapControllers();
 
             app.Run();
         }

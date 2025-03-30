@@ -34,12 +34,12 @@ namespace TrionControlPanelDesktop
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             TimerWacher = new System.Windows.Forms.Timer(components);
             NIcon = new NotifyIcon(components);
             CMSNotify = new ContextMenuStrip(components);
@@ -220,6 +220,7 @@ namespace TrionControlPanelDesktop
             TabTrion = new TabPage();
             tableLayoutPanel4 = new TableLayoutPanel();
             materialCard6 = new MaterialSkin.Controls.MaterialCard();
+            CBOXTrionIcon = new MaterialSkin.Controls.MaterialComboBox();
             BTNReviveSupporterKey = new MaterialSkin.Controls.MaterialButton();
             BTNDownloadUpdates = new MaterialSkin.Controls.MaterialButton();
             TXTSupporterKey = new MaterialSkin.Controls.MaterialTextBox2();
@@ -328,14 +329,13 @@ namespace TrionControlPanelDesktop
             materialCard22 = new MaterialSkin.Controls.MaterialCard();
             LBLInstallEmulatorTitle = new MaterialSkin.Controls.MaterialLabel();
             materialCard21 = new MaterialSkin.Controls.MaterialCard();
-            materialCard30 = new MaterialSkin.Controls.MaterialCard();
-            pictureBox8 = new PictureBox();
-            LBLInitDatabase = new MaterialSkin.Controls.MaterialLabel();
             LBLTotalDownload = new MaterialSkin.Controls.MaterialLabel();
+            LBLCurrentDownload = new MaterialSkin.Controls.MaterialLabel();
+            PBarCurrentDownlaod = new MaterialSkin.Controls.MaterialProgressBar();
+            PBARTotalDownload = new MaterialSkin.Controls.MaterialProgressBar();
             materialCard29 = new MaterialSkin.Controls.MaterialCard();
             pictureBox7 = new PictureBox();
             LBLFileName = new MaterialSkin.Controls.MaterialLabel();
-            LBLCurrentDownload = new MaterialSkin.Controls.MaterialLabel();
             materialCard28 = new MaterialSkin.Controls.MaterialCard();
             pictureBox6 = new PictureBox();
             LBLFileSize = new MaterialSkin.Controls.MaterialLabel();
@@ -343,6 +343,7 @@ namespace TrionControlPanelDesktop
             pictureBox5 = new PictureBox();
             LBLDownloadSpeed = new MaterialSkin.Controls.MaterialLabel();
             DLCardRemoweFiles = new MaterialSkin.Controls.MaterialCard();
+            INITSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             pictureBox4 = new PictureBox();
             LBLFilesToBeRemoved = new MaterialSkin.Controls.MaterialLabel();
             materialCard25 = new MaterialSkin.Controls.MaterialCard();
@@ -354,14 +355,13 @@ namespace TrionControlPanelDesktop
             materialCard23 = new MaterialSkin.Controls.MaterialCard();
             pictureBox1 = new PictureBox();
             LBLLocalFiles = new MaterialSkin.Controls.MaterialLabel();
-            PBarCurrentDownlaod = new MaterialSkin.Controls.MaterialProgressBar();
-            PBARTotalDownload = new MaterialSkin.Controls.MaterialProgressBar();
             materialCard12 = new MaterialSkin.Controls.MaterialCard();
             IMGListTabControler = new ImageList(components);
             TimerDinamicDNS = new System.Windows.Forms.Timer(components);
             TimerLoading = new System.Windows.Forms.Timer(components);
             TimerUpdate = new System.Windows.Forms.Timer(components);
             TimerPanelAnimation = new System.Windows.Forms.Timer(components);
+            ImageListIcons = new ImageList(components);
             CMSNotify.SuspendLayout();
             LayoutPanelMain.SuspendLayout();
             HomeMenuCard.SuspendLayout();
@@ -461,8 +461,6 @@ namespace TrionControlPanelDesktop
             TabDownloader.SuspendLayout();
             materialCard22.SuspendLayout();
             materialCard21.SuspendLayout();
-            materialCard30.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             materialCard29.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             materialCard28.SuspendLayout();
@@ -656,6 +654,7 @@ namespace TrionControlPanelDesktop
             BTNStartWebsite.Cursor = Cursors.Hand;
             BTNStartWebsite.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             BTNStartWebsite.Depth = 0;
+            BTNStartWebsite.Enabled = false;
             BTNStartWebsite.HighEmphasis = true;
             BTNStartWebsite.Icon = (Image)resources.GetObject("BTNStartWebsite.Icon");
             BTNStartWebsite.Location = new Point(784, 16);
@@ -3745,6 +3744,7 @@ namespace TrionControlPanelDesktop
             // materialCard6
             // 
             materialCard6.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard6.Controls.Add(CBOXTrionIcon);
             materialCard6.Controls.Add(BTNReviveSupporterKey);
             materialCard6.Controls.Add(BTNDownloadUpdates);
             materialCard6.Controls.Add(TXTSupporterKey);
@@ -3763,6 +3763,31 @@ namespace TrionControlPanelDesktop
             materialCard6.Size = new Size(291, 347);
             materialCard6.TabIndex = 5;
             // 
+            // CBOXTrionIcon
+            // 
+            CBOXTrionIcon.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            CBOXTrionIcon.AutoResize = false;
+            CBOXTrionIcon.BackColor = Color.FromArgb(255, 255, 255);
+            CBOXTrionIcon.Depth = 0;
+            CBOXTrionIcon.DrawMode = DrawMode.OwnerDrawVariable;
+            CBOXTrionIcon.DropDownHeight = 174;
+            CBOXTrionIcon.DropDownStyle = ComboBoxStyle.DropDownList;
+            CBOXTrionIcon.DropDownWidth = 121;
+            CBOXTrionIcon.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            CBOXTrionIcon.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            CBOXTrionIcon.FormattingEnabled = true;
+            CBOXTrionIcon.Hint = "ID";
+            CBOXTrionIcon.IntegralHeight = false;
+            CBOXTrionIcon.ItemHeight = 43;
+            CBOXTrionIcon.Location = new Point(7, 180);
+            CBOXTrionIcon.MaxDropDownItems = 4;
+            CBOXTrionIcon.MouseState = MaterialSkin.MouseState.OUT;
+            CBOXTrionIcon.Name = "CBOXTrionIcon";
+            CBOXTrionIcon.Size = new Size(277, 49);
+            CBOXTrionIcon.StartIndex = 0;
+            CBOXTrionIcon.TabIndex = 20;
+            CBOXTrionIcon.SelectedIndexChanged += CBOXTrionIcon_SelectedIndexChanged;
+            // 
             // BTNReviveSupporterKey
             // 
             BTNReviveSupporterKey.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -3773,7 +3798,7 @@ namespace TrionControlPanelDesktop
             BTNReviveSupporterKey.Depth = 0;
             BTNReviveSupporterKey.HighEmphasis = true;
             BTNReviveSupporterKey.Icon = (Image)resources.GetObject("BTNReviveSupporterKey.Icon");
-            BTNReviveSupporterKey.Location = new Point(242, 180);
+            BTNReviveSupporterKey.Location = new Point(242, 238);
             BTNReviveSupporterKey.Margin = new Padding(4, 6, 4, 6);
             BTNReviveSupporterKey.MouseState = MaterialSkin.MouseState.HOVER;
             BTNReviveSupporterKey.Name = "BTNReviveSupporterKey";
@@ -3795,7 +3820,7 @@ namespace TrionControlPanelDesktop
             BTNDownloadUpdates.Depth = 0;
             BTNDownloadUpdates.HighEmphasis = true;
             BTNDownloadUpdates.Icon = (Image)resources.GetObject("BTNDownloadUpdates.Icon");
-            BTNDownloadUpdates.Location = new Point(6, 237);
+            BTNDownloadUpdates.Location = new Point(6, 295);
             BTNDownloadUpdates.Margin = new Padding(4, 6, 4, 6);
             BTNDownloadUpdates.MouseState = MaterialSkin.MouseState.HOVER;
             BTNDownloadUpdates.Name = "BTNDownloadUpdates";
@@ -3819,7 +3844,7 @@ namespace TrionControlPanelDesktop
             TXTSupporterKey.HideSelection = true;
             TXTSupporterKey.Hint = "ID";
             TXTSupporterKey.LeadingIcon = null;
-            TXTSupporterKey.Location = new Point(6, 180);
+            TXTSupporterKey.Location = new Point(7, 238);
             TXTSupporterKey.MaxLength = 32767;
             TXTSupporterKey.MouseState = MaterialSkin.MouseState.OUT;
             TXTSupporterKey.Name = "TXTSupporterKey";
@@ -3831,7 +3856,7 @@ namespace TrionControlPanelDesktop
             TXTSupporterKey.SelectionLength = 0;
             TXTSupporterKey.SelectionStart = 0;
             TXTSupporterKey.ShortcutsEnabled = true;
-            TXTSupporterKey.Size = new Size(229, 48);
+            TXTSupporterKey.Size = new Size(228, 48);
             TXTSupporterKey.TabIndex = 11;
             TXTSupporterKey.TabStop = false;
             TXTSupporterKey.TextAlign = HorizontalAlignment.Left;
@@ -5722,34 +5747,34 @@ namespace TrionControlPanelDesktop
             DGVNotifications.AllowUserToDeleteRows = false;
             DGVNotifications.AllowUserToResizeColumns = false;
             DGVNotifications.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle7.SelectionForeColor = Color.White;
-            DGVNotifications.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            DGVNotifications.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DGVNotifications.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVNotifications.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVNotifications.BackgroundColor = Color.FromArgb(34, 39, 46);
             DGVNotifications.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle8.ForeColor = Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle8.SelectionForeColor = Color.White;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DGVNotifications.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVNotifications.Columns.AddRange(new DataGridViewColumn[] { ID, Message, Time });
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle10.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle10.ForeColor = Color.White;
-            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle10.SelectionForeColor = Color.White;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            DGVNotifications.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            DGVNotifications.DefaultCellStyle = dataGridViewCellStyle4;
             DGVNotifications.Dock = DockStyle.Fill;
             DGVNotifications.EnableHeadersVisualStyles = false;
             DGVNotifications.GridColor = Color.Black;
@@ -5758,24 +5783,24 @@ namespace TrionControlPanelDesktop
             DGVNotifications.ReadOnly = true;
             DGVNotifications.RightToLeft = RightToLeft.No;
             DGVNotifications.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle11.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle11.ForeColor = Color.White;
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle11.SelectionForeColor = Color.White;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             DGVNotifications.RowHeadersVisible = false;
             DGVNotifications.RowHeadersWidth = 50;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle12.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle12.ForeColor = Color.White;
-            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle12.SelectionForeColor = Color.White;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            DGVNotifications.RowsDefaultCellStyle = dataGridViewCellStyle6;
             DGVNotifications.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             DGVNotifications.RowTemplate.ReadOnly = true;
             DGVNotifications.RowTemplate.Resizable = DataGridViewTriState.True;
@@ -5788,13 +5813,13 @@ namespace TrionControlPanelDesktop
             // 
             // ID
             // 
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = Color.White;
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(28, 33, 40);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            ID.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(28, 33, 40);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            ID.DefaultCellStyle = dataGridViewCellStyle3;
             ID.HeaderText = "ID";
             ID.MinimumWidth = 6;
             ID.Name = "ID";
@@ -5826,8 +5851,9 @@ namespace TrionControlPanelDesktop
             TabDownloader.Controls.Add(materialCard12);
             TabDownloader.ImageKey = "cloud-download-53.png";
             TabDownloader.Location = new Point(39, 4);
+            TabDownloader.Margin = new Padding(14);
             TabDownloader.Name = "TabDownloader";
-            TabDownloader.Padding = new Padding(3);
+            TabDownloader.Padding = new Padding(14);
             TabDownloader.Size = new Size(1048, 431);
             TabDownloader.TabIndex = 6;
             TabDownloader.Text = "D";
@@ -5838,13 +5864,13 @@ namespace TrionControlPanelDesktop
             materialCard22.Controls.Add(LBLInstallEmulatorTitle);
             materialCard22.Depth = 0;
             materialCard22.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard22.Location = new Point(17, 17);
+            materialCard22.Location = new Point(28, 28);
             materialCard22.Margin = new Padding(14);
             materialCard22.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard22.Name = "materialCard22";
             materialCard22.Padding = new Padding(14);
             materialCard22.Size = new Size(758, 55);
-            materialCard22.TabIndex = 2;
+            materialCard22.TabIndex = 5;
             // 
             // LBLInstallEmulatorTitle
             // 
@@ -5863,81 +5889,83 @@ namespace TrionControlPanelDesktop
             // 
             // materialCard21
             // 
-            materialCard21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             materialCard21.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard21.Controls.Add(materialCard30);
             materialCard21.Controls.Add(LBLTotalDownload);
-            materialCard21.Controls.Add(materialCard29);
             materialCard21.Controls.Add(LBLCurrentDownload);
+            materialCard21.Controls.Add(PBarCurrentDownlaod);
+            materialCard21.Controls.Add(PBARTotalDownload);
+            materialCard21.Controls.Add(materialCard29);
             materialCard21.Controls.Add(materialCard28);
             materialCard21.Controls.Add(materialCard27);
             materialCard21.Controls.Add(DLCardRemoweFiles);
             materialCard21.Controls.Add(materialCard25);
             materialCard21.Controls.Add(materialCard24);
             materialCard21.Controls.Add(materialCard23);
-            materialCard21.Controls.Add(PBarCurrentDownlaod);
-            materialCard21.Controls.Add(PBARTotalDownload);
             materialCard21.Depth = 0;
             materialCard21.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard21.Location = new Point(17, 86);
-            materialCard21.Margin = new Padding(7, 4, 7, 7);
+            materialCard21.Location = new Point(27, 97);
+            materialCard21.Margin = new Padding(14);
             materialCard21.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard21.Name = "materialCard21";
-            materialCard21.Padding = new Padding(7, 4, 7, 7);
-            materialCard21.Size = new Size(758, 327);
-            materialCard21.TabIndex = 1;
-            // 
-            // materialCard30
-            // 
-            materialCard30.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard30.Controls.Add(pictureBox8);
-            materialCard30.Controls.Add(LBLInitDatabase);
-            materialCard30.Depth = 0;
-            materialCard30.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard30.Location = new Point(419, 18);
-            materialCard30.Margin = new Padding(14);
-            materialCard30.MouseState = MaterialSkin.MouseState.HOVER;
-            materialCard30.Name = "materialCard30";
-            materialCard30.Padding = new Padding(14);
-            materialCard30.Size = new Size(325, 40);
-            materialCard30.TabIndex = 20;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(5, 5);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(30, 30);
-            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox8.TabIndex = 21;
-            pictureBox8.TabStop = false;
-            // 
-            // LBLInitDatabase
-            // 
-            LBLInitDatabase.AutoSize = true;
-            LBLInitDatabase.Depth = 0;
-            LBLInitDatabase.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            LBLInitDatabase.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            LBLInitDatabase.Location = new Point(40, 12);
-            LBLInitDatabase.MouseState = MaterialSkin.MouseState.HOVER;
-            LBLInitDatabase.Name = "LBLInitDatabase";
-            LBLInitDatabase.Size = new Size(66, 17);
-            LBLInitDatabase.TabIndex = 10;
-            LBLInitDatabase.Text = "File Nane:";
+            materialCard21.Padding = new Padding(14);
+            materialCard21.Size = new Size(758, 306);
+            materialCard21.TabIndex = 4;
             // 
             // LBLTotalDownload
             // 
-            LBLTotalDownload.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LBLTotalDownload.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             LBLTotalDownload.AutoSize = true;
             LBLTotalDownload.Depth = 0;
             LBLTotalDownload.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
             LBLTotalDownload.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            LBLTotalDownload.Location = new Point(17, 266);
+            LBLTotalDownload.Location = new Point(28, 252);
             LBLTotalDownload.MouseState = MaterialSkin.MouseState.HOVER;
             LBLTotalDownload.Name = "LBLTotalDownload";
             LBLTotalDownload.Size = new Size(45, 17);
-            LBLTotalDownload.TabIndex = 11;
+            LBLTotalDownload.TabIndex = 23;
             LBLTotalDownload.Text = "Speed:";
+            // 
+            // LBLCurrentDownload
+            // 
+            LBLCurrentDownload.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            LBLCurrentDownload.AutoSize = true;
+            LBLCurrentDownload.Depth = 0;
+            LBLCurrentDownload.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            LBLCurrentDownload.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
+            LBLCurrentDownload.Location = new Point(28, 214);
+            LBLCurrentDownload.MouseState = MaterialSkin.MouseState.HOVER;
+            LBLCurrentDownload.Name = "LBLCurrentDownload";
+            LBLCurrentDownload.Size = new Size(45, 17);
+            LBLCurrentDownload.TabIndex = 24;
+            LBLCurrentDownload.Text = "Speed:";
+            // 
+            // PBarCurrentDownlaod
+            // 
+            PBarCurrentDownlaod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PBarCurrentDownlaod.Depth = 0;
+            PBarCurrentDownlaod.Location = new Point(21, 234);
+            PBarCurrentDownlaod.MouseState = MaterialSkin.MouseState.HOVER;
+            PBarCurrentDownlaod.Name = "PBarCurrentDownlaod";
+            PBarCurrentDownlaod.PbarHeight = 15;
+            PBarCurrentDownlaod.ProgressText = "%";
+            PBarCurrentDownlaod.Size = new Size(712, 15);
+            PBarCurrentDownlaod.TabIndex = 21;
+            PBarCurrentDownlaod.TextColor = Color.White;
+            PBarCurrentDownlaod.UsaeProcentage = true;
+            // 
+            // PBARTotalDownload
+            // 
+            PBARTotalDownload.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PBARTotalDownload.Depth = 0;
+            PBARTotalDownload.Location = new Point(21, 275);
+            PBARTotalDownload.MouseState = MaterialSkin.MouseState.HOVER;
+            PBARTotalDownload.Name = "PBARTotalDownload";
+            PBARTotalDownload.PbarHeight = 15;
+            PBARTotalDownload.ProgressText = "";
+            PBARTotalDownload.Size = new Size(712, 15);
+            PBARTotalDownload.TabIndex = 22;
+            PBARTotalDownload.TextColor = Color.White;
+            PBARTotalDownload.UsaeProcentage = false;
             // 
             // materialCard29
             // 
@@ -5946,7 +5974,7 @@ namespace TrionControlPanelDesktop
             materialCard29.Controls.Add(LBLFileName);
             materialCard29.Depth = 0;
             materialCard29.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard29.Location = new Point(419, 66);
+            materialCard29.Location = new Point(412, 66);
             materialCard29.Margin = new Padding(14);
             materialCard29.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard29.Name = "materialCard29";
@@ -5977,20 +6005,6 @@ namespace TrionControlPanelDesktop
             LBLFileName.TabIndex = 10;
             LBLFileName.Text = "File Nane:";
             // 
-            // LBLCurrentDownload
-            // 
-            LBLCurrentDownload.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            LBLCurrentDownload.AutoSize = true;
-            LBLCurrentDownload.Depth = 0;
-            LBLCurrentDownload.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            LBLCurrentDownload.FontType = MaterialSkin.MaterialSkinManager.fontType.Button;
-            LBLCurrentDownload.Location = new Point(17, 223);
-            LBLCurrentDownload.MouseState = MaterialSkin.MouseState.HOVER;
-            LBLCurrentDownload.Name = "LBLCurrentDownload";
-            LBLCurrentDownload.Size = new Size(45, 17);
-            LBLCurrentDownload.TabIndex = 11;
-            LBLCurrentDownload.Text = "Speed:";
-            // 
             // materialCard28
             // 
             materialCard28.BackColor = Color.FromArgb(255, 255, 255);
@@ -5998,7 +6012,7 @@ namespace TrionControlPanelDesktop
             materialCard28.Controls.Add(LBLFileSize);
             materialCard28.Depth = 0;
             materialCard28.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard28.Location = new Point(419, 114);
+            materialCard28.Location = new Point(412, 114);
             materialCard28.Margin = new Padding(14);
             materialCard28.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard28.Name = "materialCard28";
@@ -6036,7 +6050,7 @@ namespace TrionControlPanelDesktop
             materialCard27.Controls.Add(LBLDownloadSpeed);
             materialCard27.Depth = 0;
             materialCard27.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard27.Location = new Point(419, 165);
+            materialCard27.Location = new Point(412, 161);
             materialCard27.Margin = new Padding(14);
             materialCard27.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard27.Name = "materialCard27";
@@ -6070,17 +6084,33 @@ namespace TrionControlPanelDesktop
             // DLCardRemoweFiles
             // 
             DLCardRemoweFiles.BackColor = Color.FromArgb(255, 255, 255);
+            DLCardRemoweFiles.Controls.Add(INITSpinner);
             DLCardRemoweFiles.Controls.Add(pictureBox4);
             DLCardRemoweFiles.Controls.Add(LBLFilesToBeRemoved);
             DLCardRemoweFiles.Depth = 0;
             DLCardRemoweFiles.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            DLCardRemoweFiles.Location = new Point(14, 165);
+            DLCardRemoweFiles.Location = new Point(21, 161);
             DLCardRemoweFiles.Margin = new Padding(14);
             DLCardRemoweFiles.MouseState = MaterialSkin.MouseState.HOVER;
             DLCardRemoweFiles.Name = "DLCardRemoweFiles";
             DLCardRemoweFiles.Padding = new Padding(14);
             DLCardRemoweFiles.Size = new Size(325, 40);
             DLCardRemoweFiles.TabIndex = 16;
+            // 
+            // INITSpinner
+            // 
+            INITSpinner.CustomBackground = true;
+            INITSpinner.Location = new Point(291, 9);
+            INITSpinner.Maximum = 100;
+            INITSpinner.Name = "INITSpinner";
+            INITSpinner.Size = new Size(25, 25);
+            INITSpinner.Style = MetroFramework.MetroColorStyle.Blue;
+            INITSpinner.StyleManager = null;
+            INITSpinner.TabIndex = 22;
+            INITSpinner.Text = "metroProgressSpinner1";
+            INITSpinner.Theme = MetroFramework.MetroThemeStyle.Dark;
+            INITSpinner.Value = 90;
+            INITSpinner.Visible = false;
             // 
             // pictureBox4
             // 
@@ -6112,7 +6142,7 @@ namespace TrionControlPanelDesktop
             materialCard25.Controls.Add(LBLFilesToBeDownloaded);
             materialCard25.Depth = 0;
             materialCard25.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard25.Location = new Point(14, 114);
+            materialCard25.Location = new Point(21, 114);
             materialCard25.Margin = new Padding(14);
             materialCard25.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard25.Name = "materialCard25";
@@ -6150,7 +6180,7 @@ namespace TrionControlPanelDesktop
             materialCard24.Controls.Add(LBLServerFiles);
             materialCard24.Depth = 0;
             materialCard24.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard24.Location = new Point(14, 66);
+            materialCard24.Location = new Point(21, 66);
             materialCard24.Margin = new Padding(14);
             materialCard24.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard24.Name = "materialCard24";
@@ -6188,7 +6218,7 @@ namespace TrionControlPanelDesktop
             materialCard23.Controls.Add(LBLLocalFiles);
             materialCard23.Depth = 0;
             materialCard23.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard23.Location = new Point(14, 18);
+            materialCard23.Location = new Point(21, 18);
             materialCard23.Margin = new Padding(14);
             materialCard23.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard23.Name = "materialCard23";
@@ -6219,47 +6249,18 @@ namespace TrionControlPanelDesktop
             LBLLocalFiles.TabIndex = 1;
             LBLLocalFiles.Text = "Local Files:";
             // 
-            // PBarCurrentDownlaod
-            // 
-            PBarCurrentDownlaod.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PBarCurrentDownlaod.Depth = 0;
-            PBarCurrentDownlaod.Location = new Point(16, 243);
-            PBarCurrentDownlaod.MouseState = MaterialSkin.MouseState.HOVER;
-            PBarCurrentDownlaod.Name = "PBarCurrentDownlaod";
-            PBarCurrentDownlaod.PbarHeight = 20;
-            PBarCurrentDownlaod.ProgressText = "%";
-            PBarCurrentDownlaod.Size = new Size(728, 20);
-            PBarCurrentDownlaod.TabIndex = 7;
-            PBarCurrentDownlaod.TextColor = Color.White;
-            PBarCurrentDownlaod.UsaeProcentage = true;
-            // 
-            // PBARTotalDownload
-            // 
-            PBARTotalDownload.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PBARTotalDownload.Depth = 0;
-            PBARTotalDownload.Location = new Point(17, 286);
-            PBARTotalDownload.MouseState = MaterialSkin.MouseState.HOVER;
-            PBARTotalDownload.Name = "PBARTotalDownload";
-            PBARTotalDownload.PbarHeight = 20;
-            PBARTotalDownload.ProgressText = "";
-            PBARTotalDownload.Size = new Size(727, 20);
-            PBARTotalDownload.TabIndex = 8;
-            PBARTotalDownload.TextColor = Color.White;
-            PBARTotalDownload.UsaeProcentage = false;
-            // 
             // materialCard12
             // 
-            materialCard12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             materialCard12.BackColor = Color.FromArgb(255, 255, 255);
             materialCard12.Depth = 0;
             materialCard12.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard12.Location = new Point(803, 17);
+            materialCard12.Location = new Point(813, 28);
             materialCard12.Margin = new Padding(14);
             materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard12.Name = "materialCard12";
             materialCard12.Padding = new Padding(14);
-            materialCard12.Size = new Size(231, 397);
-            materialCard12.TabIndex = 0;
+            materialCard12.Size = new Size(209, 375);
+            materialCard12.TabIndex = 3;
             // 
             // IMGListTabControler
             // 
@@ -6290,6 +6291,15 @@ namespace TrionControlPanelDesktop
             TimerPanelAnimation.Enabled = true;
             TimerPanelAnimation.Interval = 1000;
             TimerPanelAnimation.Tick += TimerPanelAnimation_Tick;
+            // 
+            // ImageListIcons
+            // 
+            ImageListIcons.ColorDepth = ColorDepth.Depth32Bit;
+            ImageListIcons.ImageStream = (ImageListStreamer)resources.GetObject("ImageListIcons.ImageStream");
+            ImageListIcons.TransparentColor = Color.Transparent;
+            ImageListIcons.Images.SetKeyName(0, "Trion New Logo");
+            ImageListIcons.Images.SetKeyName(1, "Trion Logo By GHz83");
+            ImageListIcons.Images.SetKeyName(2, "Trion old Logo");
             // 
             // MainForm
             // 
@@ -6442,9 +6452,6 @@ namespace TrionControlPanelDesktop
             materialCard22.ResumeLayout(false);
             materialCard21.ResumeLayout(false);
             materialCard21.PerformLayout();
-            materialCard30.ResumeLayout(false);
-            materialCard30.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             materialCard29.ResumeLayout(false);
             materialCard29.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
@@ -6757,40 +6764,40 @@ namespace TrionControlPanelDesktop
         private System.Windows.Forms.Timer TimerUpdate;
         private System.Windows.Forms.Timer TimerPanelAnimation;
         private TabPage TabDownloader;
-        private MaterialSkin.Controls.MaterialCard materialCard12;
-        private MaterialSkin.Controls.MaterialCard materialCard21;
-        private MaterialSkin.Controls.MaterialCard materialCard22;
-        private MaterialSkin.Controls.MaterialLabel LBLInstallEmulatorTitle;
-        private MaterialSkin.Controls.MaterialLabel LBLServerFiles;
-        private MaterialSkin.Controls.MaterialLabel LBLLocalFiles;
         private MaterialSkin.Controls.MaterialButton BTNReviveSupporterKey;
         private MaterialSkin.Controls.MaterialButton BTNCreateRealmList;
         private MaterialSkin.Controls.MaterialButton BTNDeleteRealmList;
-        private MaterialSkin.Controls.MaterialLabel LBLDownloadSpeed;
+        private MaterialSkin.Controls.MaterialComboBox CBOXTrionIcon;
+        private ImageList ImageListIcons;
+        private MaterialSkin.Controls.MaterialCard materialCard22;
+        private MaterialSkin.Controls.MaterialLabel LBLInstallEmulatorTitle;
+        private MaterialSkin.Controls.MaterialCard materialCard21;
+        private MaterialSkin.Controls.MaterialCard materialCard29;
+        private PictureBox pictureBox7;
         private MaterialSkin.Controls.MaterialLabel LBLFileName;
+        private MaterialSkin.Controls.MaterialCard materialCard28;
+        private PictureBox pictureBox6;
         private MaterialSkin.Controls.MaterialLabel LBLFileSize;
+        private MaterialSkin.Controls.MaterialCard materialCard27;
+        private PictureBox pictureBox5;
+        private MaterialSkin.Controls.MaterialLabel LBLDownloadSpeed;
+        private MaterialSkin.Controls.MaterialCard DLCardRemoweFiles;
+        private PictureBox pictureBox4;
+        private MaterialSkin.Controls.MaterialLabel LBLFilesToBeRemoved;
+        private MaterialSkin.Controls.MaterialCard materialCard25;
+        private PictureBox pictureBox3;
+        private MaterialSkin.Controls.MaterialLabel LBLFilesToBeDownloaded;
+        private MaterialSkin.Controls.MaterialCard materialCard24;
+        private PictureBox pictureBox2;
+        private MaterialSkin.Controls.MaterialLabel LBLServerFiles;
+        private MaterialSkin.Controls.MaterialCard materialCard23;
+        private PictureBox pictureBox1;
+        private MaterialSkin.Controls.MaterialLabel LBLLocalFiles;
+        private MaterialSkin.Controls.MaterialCard materialCard12;
+        private MaterialSkin.Controls.MaterialLabel LBLTotalDownload;
+        private MaterialSkin.Controls.MaterialLabel LBLCurrentDownload;
         private MaterialSkin.Controls.MaterialProgressBar PBarCurrentDownlaod;
         private MaterialSkin.Controls.MaterialProgressBar PBARTotalDownload;
-        private MaterialSkin.Controls.MaterialLabel LBLFilesToBeDownloaded;
-        private MaterialSkin.Controls.MaterialLabel LBLFilesToBeRemoved;
-        private MaterialSkin.Controls.MaterialLabel LBLTotalDownload;
-        private MaterialSkin.Controls.MaterialCard materialCard29;
-        private MaterialSkin.Controls.MaterialLabel LBLCurrentDownload;
-        private MaterialSkin.Controls.MaterialCard materialCard28;
-        private MaterialSkin.Controls.MaterialCard materialCard27;
-        private MaterialSkin.Controls.MaterialCard DLCardRemoweFiles;
-        private MaterialSkin.Controls.MaterialCard materialCard25;
-        private MaterialSkin.Controls.MaterialCard materialCard24;
-        private MaterialSkin.Controls.MaterialCard materialCard23;
-        private PictureBox pictureBox7;
-        private PictureBox pictureBox6;
-        private PictureBox pictureBox5;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
-        private MaterialSkin.Controls.MaterialCard materialCard30;
-        private PictureBox pictureBox8;
-        private MaterialSkin.Controls.MaterialLabel LBLInitDatabase;
+        private MetroFramework.Controls.MetroProgressSpinner INITSpinner;
     }
 }

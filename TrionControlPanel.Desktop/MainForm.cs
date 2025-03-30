@@ -50,6 +50,12 @@ namespace TrionControlPanelDesktop
             CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL3"));
             CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL4"));
             CBOXAccountSecurityAccess.SelectedIndex = 0;
+            CBOXTrionIcon.Items.Clear();
+            foreach (var key in ImageListIcons.Images.Keys)
+            {
+                CBOXTrionIcon.Items.Add(key!);
+            }
+            CBOXTrionIcon.SelectedItem = _settings.TrionIcon;
             CBoxSelectItems();
         }
         private void LoadLangauge()
@@ -61,7 +67,7 @@ namespace TrionControlPanelDesktop
         {
             CBOXLanguageSelect.Items.AddRange([.. Translator.GetAvailableLanguages()]);
             CBOXLanguageSelect.SelectedItem = _settings.TrionLanguage;
-            CBOXColorSelect.Items.AddRange(Enum.GetValues(typeof(Enums.TrionTheme)).Cast<Enums.TrionTheme>().Select(e => e.ToString()).ToArray());
+            CBOXColorSelect.Items.AddRange(System.Enum.GetValues(typeof(Enums.TrionTheme)).Cast<Enums.TrionTheme>().Select(e => e.ToString()).ToArray());
             CBOXColorSelect.SelectedItem = _settings.TrionTheme.ToString();
         }
         private void SetLanguage()
@@ -185,6 +191,7 @@ namespace TrionControlPanelDesktop
             TLTHome.SetToolTip(LBLCardCustomPreferencesInfo, _translator.Translate("LBLCardCustomPreferencesInfo"));
             TLTHome.SetToolTip(LBLCardUpdateDashboardInfo, _translator.Translate("LBLCardUpdateDashboardInfo"));
             TXTSupporterKey.Hint = _translator.Translate("TXTSupporterKeyHint");
+            CBOXTrionIcon.Hint = _translator.Translate("CBOXTrionIconHint");
             #endregion
             #region"Custom Emulators"
             TXTCustomDatabaseLocation.Hint = _translator.Translate("TXTCustomDatabaseLocation");
@@ -385,14 +392,8 @@ namespace TrionControlPanelDesktop
                     break;
             }
         }
-        private void LoadSettings()
+        private void LoadSettingsFromFile()
         {
-            if (!File.Exists("Trion.logs")) { File.Create("Trion.logs").Close(); }
-            else
-            {
-                File.Delete("Trion.logs"); File.Create("Trion.logs").Close();
-            }
-
             if (!File.Exists("Settings.json")) { Settings.CreatSettings("Settings.json"); }
             _settings = Settings.LoadSettings("Settings.json");
         }
@@ -455,6 +456,8 @@ namespace TrionControlPanelDesktop
             TimerDinamicDNS.Interval = _settings.DDNSInterval;
             //SupporterKet
             TXTSupporterKey.Text = _settings.SupporterKey;
+            //Load Trion Icon
+            ChangeFormIcon(_settings.TrionIcon);
         }
         private void LoadSkin()
         {
@@ -549,9 +552,31 @@ namespace TrionControlPanelDesktop
             WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
             Invalidate();
-            LoadSettings();
+            LoadSettingsFromFile();
             if (File.Exists("update.exe")) { File.Delete("update.exe"); }
             InitializeComponent();
+        }
+        private void ChangeFormIcon(string imageName)
+        {
+            if (ImageListIcons.Images.ContainsKey(imageName))
+            {
+                using (Bitmap bitmap = new(ImageListIcons.Images[imageName]!))
+                {
+                    IntPtr hIcon = bitmap.GetHicon(); // Convert to icon
+                    Icon = Icon.FromHandle(hIcon); // Apply icon
+                    NIcon.Icon = Icon;
+                }
+            }
+            else
+            {
+                //if the image is not found in the image list, load a default icon
+                using (Bitmap bitmap = new(ImageListIcons.Images["Trion New Logo"]!))
+                {
+                    IntPtr hIcon = bitmap.GetHicon();
+                    Icon = Icon.FromHandle(hIcon);
+                    NIcon.Icon = Icon;
+                }
+            }
         }
         private void ToogleButtons()
         {
@@ -563,56 +588,59 @@ namespace TrionControlPanelDesktop
         {
             if (!_settings.DBInstalled && !FormData.UI.Form.InstallingEmulator)
             {
-                // Initialize the CancellationTokenSource and token
+                refreshDownloader();
+                LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseWaiting");
+                LBLInstallEmulatorTitle.Text = _translator.Translate("LBLInstallDatabaseTitle");
+                Update();
+
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
-                // Set UI state for the installation process
+
                 FormData.UI.Form.InstallingEmulator = true;
+
                 // Create progress reporting for UI updates
-                var ServerFilesProgress = new Progress<string>(message => LBLServerFiles.Text = $"Online Files: {message}");
-                var LocalFileFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = $"Local Files: {message}");
-                var DownloadSpeed = new Progress<double>(message => LBLDownloadSpeed.Text = $"Speed: {message:0.##} MB/s");
-                var DownloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
-                var FilesToBeDeleted = new Progress<string>(message => LBLFilesToBeRemoved.Text = $"Files to be removed: {message}");
-                var FilesToBeDownlaoded = new Progress<string>(message => LBLFilesToBeDownloaded.Text = $"Files to be downlaoded: {message}");
+                var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
+                var localFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message));
+                var filesToBeDeletedProgress = new Progress<string>();
+                var filesToBeDownloadedProgress = new Progress<string>(message => LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message));
+                var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
+                var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
                 MainFormTabControler.SelectedTab = TabDownloader;
                 await Task.Delay(1000);
                 FormData.Infos.Install.Database = true;
                 // Run file and server tasks concurrently on background threads
-                var serverFilesDatabaseTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("database", _settings.SupporterKey), ServerFilesProgress));
-                var localFilesDatabaseTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.Database, LocalFileFilesProgress));
+                var serverFilesDatabaseTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetServerFiles("database", _settings.SupporterKey), serverFilesProgress));
+                var localFilesDatabaseTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.Database, localFilesProgress));
                 // Wait for both tasks to complete before continuing
                 await Task.WhenAll(serverFilesDatabaseTask, localFilesDatabaseTask);
                 // Now both tasks are complete, retrieve their results
                 var ServerFilesDatabase = await serverFilesDatabaseTask;
                 var LocalFilesDatabase = await localFilesDatabaseTask;
                 // Compare files and get missing ones
-                var (missingFilesDatabase, filesToDeleteDatabase) = await FileManager.CompareFiles(ServerFilesDatabase, LocalFilesDatabase, "/database", FilesToBeDeleted, FilesToBeDownlaoded);
+                var (missingFilesDatabase, filesToDeleteDatabase) = await FileManager.CompareFiles(ServerFilesDatabase, LocalFilesDatabase, "/database", filesToBeDeletedProgress, filesToBeDownloadedProgress);
                 PBARTotalDownload.Maximum = missingFilesDatabase.Count;
                 // **Download missing files one-by-one**
                 foreach (var file in missingFilesDatabase)
                 {
-                    BeginInvoke(new Action(() =>
-                    {
-                        LBLFileName.Text = $"File Name: {file.Name}";
-                        LBLFileSize.Text = $"File Size: {file.Size} Kb";
-                    }));
+                    LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}");
+                    LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB");
 
-                    // **Directly await the download (no Task.Run)**
-                    await FileManager.DownloadFileAsync(
-                        file, "/database", _cancellationToken, DownloadProgress, null, DownloadSpeed
-                    );
+                    await FileManager.DownloadFileAsync(file, "/database", _cancellationToken, downloadProgress, null, downloadSpeedProgress);
                     PBARTotalDownload.Value++;
                 }
-                // await FileManager.DeleteFiles(filesToDeleteDatabase);
-                // Installation Finished!
+
                 InstallFinished();
+
                 FormData.UI.Form.InstallingEmulator = false;
                 FormData.Infos.Install.Database = false;
-
+            }
+            else
+            {
+                BTNStartDatabase_Click(null!, null!);
             }
         }
+
         private async void MainForm_LoadAsync(object sender, EventArgs e)
         {
             LoadSettingsUI();
@@ -632,6 +660,9 @@ namespace TrionControlPanelDesktop
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            await AppExecuteMenager.StopDatabase();
+            await AppExecuteMenager.StopLogon();
+            await AppExecuteMenager.StopWorld();
             await Settings.SaveSettings(_settings, "Settings.json");
         }
         private void TimerPanelAnimation_Tick(object sender, EventArgs e)
@@ -970,29 +1001,16 @@ namespace TrionControlPanelDesktop
                 AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, _settings);
             }
         }
-
-        /// <summary>
-        /// Safely updates a label from any thread.
-        /// </summary>
-        private static void UpdateLabel(Label label, string text)
-        {
-            if (label.InvokeRequired)
-            {
-                label.Invoke(new Action(() => label.Text = text));
-            }
-            else
-            {
-                label.Text = text;
-            }
-        }
-
         /// <summary>
         /// Handles the installation process for different expansions.
         /// </summary>
         private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus, string InstalationLocation)
         {
-            UpdateLabel(LBLInstallEmulatorTitle, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName} Emulator"));
+            DLCardRemoweFiles.Visible = true;
+            Update();
 
+            LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName}");
+            refreshDownloader();
             if (isInstalled)
             {
                 AlertBox.Show(string.Format(CultureInfo.InvariantCulture, _translator.Translate("AlerBoxEmulatroInstalled"), $"{expansionName} Emulator"), NotificationType.Info, _settings);
@@ -1004,13 +1022,13 @@ namespace TrionControlPanelDesktop
             await Task.Delay(1000);
 
             setInstallStatus(true);
-            
+
             // Create progress handlers to ensure UI updates happen on the UI thread
-            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"),message)));
-            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message)));
-            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message)));
-            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"),message)));
-            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s")));
+            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
+            var localFilesProgress = new Progress<string>(message =>LBLLocalFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message));
+            var filesToBeDeletedProgress = new Progress<string>(message => LBLFilesToBeRemoved.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message));
+            var filesToBeDownloadedProgress = new Progress<string>(message => LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message));
+            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Run file and server tasks concurrently
@@ -1031,8 +1049,8 @@ namespace TrionControlPanelDesktop
             // **Download missing files one-by-one**
             foreach (var file in missingFiles)
             {
-                UpdateLabel(LBLFileName, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}"));
-                UpdateLabel(LBLFileSize, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB"));
+                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}");
+                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB");
 
                 await FileManager.DownloadFileAsync(file, folderPath, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
 
@@ -1106,18 +1124,18 @@ namespace TrionControlPanelDesktop
                 FormData.UI.Form.InstallingEmulator = false;
                 return;
             }
-
-            UpdateLabel(LBLInstallEmulatorTitle, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLRepairEmulatorTitle"), $"{expansionName} Emulator"));
+            DLCardRemoweFiles.Visible = true;
+            LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLRepairEmulatorTitle"), $"{expansionName} Emulator");
 
             MainFormTabControler.SelectedTab = TabDownloader;
             await Task.Delay(1000);
 
             // Create progress handlers to ensure UI updates happen on the UI thread
-            var serverFilesProgress = new Progress<string>(message => UpdateLabel(LBLServerFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message)));
-            var localFilesProgress = new Progress<string>(message => UpdateLabel(LBLLocalFiles, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message)));
-            var filesToBeDeletedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeRemoved, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message)));
-            var filesToBeDownloadedProgress = new Progress<string>(message => UpdateLabel(LBLFilesToBeDownloaded, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message)));
-            var downloadSpeedProgress = new Progress<double>(message => UpdateLabel(LBLDownloadSpeed, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s")));
+            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
+            var localFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message));
+            var filesToBeDeletedProgress = new Progress<string>(message => LBLFilesToBeRemoved.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message));
+            var filesToBeDownloadedProgress = new Progress<string>(message => LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message));
+            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Run file and server tasks concurrently
@@ -1138,10 +1156,10 @@ namespace TrionControlPanelDesktop
             // **Download missing/corrupt files one-by-one**
             foreach (var file in missingFiles)
             {
-                UpdateLabel(LBLFileName, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}"));
-                UpdateLabel(LBLFileSize, string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB"));
+                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}");
+                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size} MB");
 
-                await FileManager.DownloadFileAsync(file, folderPath, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
+                //await FileManager.DownloadFileAsync(file, folderPath, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
 
                 PBARTotalDownload.Value++;
             }
@@ -1327,6 +1345,8 @@ namespace TrionControlPanelDesktop
         }
         private async Task LoadRealmList()
         {
+            CBoxGMRealmSelect.Items.Clear();
+            CBOXReamList.Items.Clear(); 
             CBoxGMRealmSelect.Items.Add("All");
             CBoxGMRealmSelect.SelectedIndex = 0;
             try
@@ -1601,6 +1621,22 @@ namespace TrionControlPanelDesktop
             LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
             LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
         }
+        private void refreshDownloader()
+        {
+            LBLServerFiles.Text = _translator.Translate("LBLServerFilesIDLE");
+            LBLLocalFiles.Text = _translator.Translate("LBLLocalFilesIDLE");
+            LBLFilesToBeDownloaded.Text = _translator.Translate("LBLFilesToBeDownloadedIDLE");
+            LBLFilesToBeRemoved.Text = _translator.Translate("LBLFilesToBeRemovedIDLE");
+            LBLFileName.Text = _translator.Translate("LBLFileNameIDLE");
+            LBLFileSize.Text = _translator.Translate("LBLFileSizeIDLE");
+            PBarCurrentDownlaod.Value = 0;
+            PBARTotalDownload.Value = 0;
+        }
+        private void CBOXTrionIcon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _settings.TrionIcon = CBOXTrionIcon.SelectedItem!.ToString()!;
+            ChangeFormIcon(_settings.TrionIcon);
+        }
         private void BTNReviveSupporterKey_Click(object sender, EventArgs e)
         {
             TXTSupporterKey.PasswordChar = TXTSupporterKey.PasswordChar == '⛊' ? '\0' : '⛊';
@@ -1718,6 +1754,7 @@ namespace TrionControlPanelDesktop
                 _settings.ClassicWorldExeName = "mangosd";
                 _settings.ClassicLogonName = "WoW Classic Logon";
                 _settings.ClassicWorldName = "WoW Classic World";
+
             }
             if (FormData.Infos.Install.TBC)
             {
@@ -1779,25 +1816,28 @@ namespace TrionControlPanelDesktop
                 _settings.DBExeLoc = FileManager.GetExecutableLocation($@"{Database}\bin", "mysqld");
                 _settings.DBExeName = "mysqld";
                 Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), Database);
-                
                 string SQLLocation = $@"{Database}\extra\initDatabase.sql";
-                var initID = await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", false, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
-                while (ServerMonitor.IsApplicationRunning(initID)) {
-                    LBLInitDatabase.Text = _translator.Translate("LBLInitDatabaseInit");
+                await Task.Delay(1000);
+                var initID = await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", true, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                INITSpinner.Visible = true;
+                LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseInit");
+                while (await Task.Run(() => ServerMonitor.IsApplicationRunning(initID)))
+                {
+                    INITSpinner.Visible = true;
+                    LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseInit");
                 }
-
             }
             if (FormData.Infos.Install.Trion == true)
             {
-                Process.Start("setup.exe");
+                Process.Start("update.exe");
                 Environment.Exit(0);
             }
+
             if (MainFormTabControler.SelectedTab == TabDownloader)
                 MainFormTabControler.SelectedTab = TabHome;
-
-
         }
         #endregion
+
         private void TXTOnlyNumbers(object sender, KeyPressEventArgs e)
         {
             // Allow control characters like Backspace

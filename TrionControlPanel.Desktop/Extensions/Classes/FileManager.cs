@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿
+using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Cryptography;
@@ -21,80 +23,94 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         public static async Task DownloadFileAsync(FileList file, string marker, CancellationToken cancellationToken,
             IProgress<double>? progress = null, IProgress<double>? elapsedTime = null, IProgress<double>? speed = null)
         {
-            try
+            await Task.Run(async () =>
             {
-                using (HttpClient client = new())
+                try
                 {
                     string url = Links.APIRequests.DownlaodFiles(); // API base URL
                     TrionLogger.Log($"Requesting: {url}", "INFO");
 
-                    // Prepare the JSON request body
-                    var requestObj = new { filePath = $"{file.Path}/{file.Name}" };
+                    using HttpClient client = new();
+
+                    // Ensure that the file path is valid and not too long
+                    string filePath = $"{file.Path}/{file.Name}";
+                    if (filePath.Length > 2000) // Adjust length limit as per your needs
+                    {
+                        TrionLogger.Log("File path is too long!", "ERROR");
+                        return;
+                    }
+
+                    var requestObj = new { filePath };
                     string jsonContent = JsonSerializer.Serialize(requestObj);
                     var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                    // Send POST request with the JSON body
-                    using (HttpResponseMessage response = await client.PostAsync(url, content, cancellationToken))
+                    // Send POST request to get the file
+                    using HttpResponseMessage response = await client.PostAsync(url, content, cancellationToken);
+
+                    if (!response.IsSuccessStatusCode)
                     {
-                        if (response.IsSuccessStatusCode)
+                        string errorMessage = await response.Content.ReadAsStringAsync(cancellationToken);
+                        TrionLogger.Log($"Download Failed: {response.ReasonPhrase}\nDetails: {errorMessage}", "ERROR");
+                        return;
+                    }
+
+                    string downloadPath = $"{Directory.GetCurrentDirectory()}{StringBuilder(file.Path, marker)}";
+                    if (!Directory.Exists(downloadPath)) Directory.CreateDirectory(downloadPath);
+                    string fileDownload = Path.Combine(downloadPath, file.Name);
+
+                    // Save the file to disk
+                    using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                    using (var fileStream = new FileStream(fileDownload, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 8192, useAsync: true))
+                    {
+                        byte[] buffer = new byte[2048];
+                        long totalBytesRead = 0;
+                        long previousBytesRead = 0;
+                        DateTime startTime = DateTime.Now;
+                        Stopwatch stopwatch = Stopwatch.StartNew();
+
+                        int bytesRead;
+                        while ((bytesRead = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)) > 0)
                         {
-                            // Get file size (if available)
-                            long fileSize = response.Content.Headers.ContentLength ?? 0;
-                            string DownloadPath = $"{Directory.GetCurrentDirectory()}{StringBuilder(file.Path, marker)}";
-                            if (!Directory.Exists(DownloadPath)) Directory.CreateDirectory(DownloadPath);
-                            string FileDownload = $"{DownloadPath}/{file.Name}";
+                            await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+                            totalBytesRead += bytesRead;
 
-                            // Save the file to disk
-                            using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-                            using (var fileStream = new FileStream(FileDownload, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 8192, useAsync: true))
+                            // Report progress, elapsed time, and speed every second
+                            if (stopwatch.ElapsedMilliseconds >= 1)
                             {
-                                byte[] buffer = new byte[8192]; // Use a smaller buffer size
-                                long totalBytesRead = 0;
-                                DateTime startTime = DateTime.Now;
+                                double progressValue = (double)totalBytesRead / response.Content.Headers.ContentLength!.Value * 100;
+                                double elapsedTimeValue = (DateTime.Now - startTime).TotalSeconds;
+                                double speedValue = (totalBytesRead - previousBytesRead) / 1024.0 / 1024.0;  // in MB/s
 
-                                int bytesRead;
-                                while ((bytesRead = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)) > 0)
-                                {
-                                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
-                                    totalBytesRead += bytesRead;
+                                progress?.Report(progressValue);
+                                elapsedTime?.Report(elapsedTimeValue);
+                                speed?.Report(speedValue);
 
-                                    // Calculate progress, elapsed time, and speed
-                                    double progressValue = (double)totalBytesRead / fileSize * 100;
-                                    double elapsedTimeValue = (DateTime.Now - startTime).TotalSeconds;
-                                    double speedValue = totalBytesRead / 1024.0 / 1024.0 / elapsedTimeValue;  // in MB/s
-
-                                    progress?.Report(progressValue);
-                                    elapsedTime?.Report(elapsedTimeValue);
-                                    speed?.Report(speedValue);
-                                }
-
-                                TrionLogger.Log("File downloaded successfully!", "SUCCESS");
+                                previousBytesRead = totalBytesRead;
+                                stopwatch.Restart();
                             }
                         }
-                        else
-                        {
-                            string errorMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-                            TrionLogger.Log($"Download Failed: {response.ReasonPhrase}\nDetails: {errorMessage}", "ERROR");
-                        }
+                        bytesRead = 0;
+                        Array.Clear(buffer, 0, buffer.Length);
+
                     }
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                TrionLogger.Log("Download was canceled.", "CANCELED");
-            }
-            catch (HttpRequestException ex)
-            {
-                TrionLogger.Log($"HTTP request error: {ex.Message}", "ERROR");
-            }
-            catch (IOException ex)
-            {
-                TrionLogger.Log($"File I/O error: {ex.Message}", "ERROR");
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log($"An unexpected error occurred: {ex.Message}", "ERROR");
-            }
+                catch (OperationCanceledException)
+                {
+                    TrionLogger.Log("Download was canceled.", "CANCELED");
+                }
+                catch (HttpRequestException ex)
+                {
+                    TrionLogger.Log($"HTTP request error: {ex.Message}", "ERROR");
+                }
+                catch (IOException ex)
+                {
+                    TrionLogger.Log($"File I/O error: {ex.Message}", "ERROR");
+                }
+                catch (Exception ex)
+                {
+                    TrionLogger.Log($"An unexpected error occurred: {ex.Message}", "ERROR");
+                }
+            });
         }
 
         // Asynchronously deletes a list of files.
@@ -159,6 +175,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             var totalFiles = Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories);
             foreach (var file in totalFiles)
             {
+                processedFiles++;
                 await semaphore.WaitAsync(cancellationToken); // Control concurrency
                 var task = Task.Run(async () =>
                 {

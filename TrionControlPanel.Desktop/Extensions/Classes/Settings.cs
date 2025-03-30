@@ -122,6 +122,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 IPAddress = "",
                 TrionTheme = Enums.TrionTheme.TrionBlue,
                 TrionLanguage = "enUS",
+                TrionIcon = "Trion New Logo",
                 AutoUpdateCore = true,
                 AutoUpdateTrion = true,
                 AutoUpdateDatabase = true,
@@ -213,8 +214,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         "\n# Table and Index Cache",
                         "table_open_cache=8000",
                         "table_open_cache_instances=16",
-                        "tmp_table_size=256",
-                        "max_heap_table_size=256",        // increase for large temporary tables
+                        "tmp_table_size=1024",
+                        "max_heap_table_size=16384",        // increase for large temporary tables
                         "join_buffer_size=4M",
                         "sort_buffer_size=4M",
                         "read_buffer_size=4M",

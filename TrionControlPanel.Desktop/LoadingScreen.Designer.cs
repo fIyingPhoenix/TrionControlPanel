@@ -32,46 +32,31 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingScreen));
             timer1 = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
-            metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // timer1
             // 
             timer1.Enabled = true;
-            timer1.Interval = 15;
+            timer1.Interval = 50;
+            timer1.Tick += timer1_Tick;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(100, 19);
+            pictureBox1.Location = new Point(44, 49);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(200, 200);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // metroProgressSpinner1
-            // 
-            metroProgressSpinner1.CustomBackground = false;
-            metroProgressSpinner1.Location = new Point(165, 208);
-            metroProgressSpinner1.Maximum = 100;
-            metroProgressSpinner1.Name = "metroProgressSpinner1";
-            metroProgressSpinner1.Size = new Size(60, 60);
-            metroProgressSpinner1.Style = MetroFramework.MetroColorStyle.Blue;
-            metroProgressSpinner1.StyleManager = null;
-            metroProgressSpinner1.TabIndex = 1;
-            metroProgressSpinner1.Text = "metroProgressSpinner1";
-            metroProgressSpinner1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            metroProgressSpinner1.Value = 80;
-            // 
             // LoadingScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 33, 40);
-            ClientSize = new Size(400, 300);
-            Controls.Add(metroProgressSpinner1);
+            ClientSize = new Size(300, 300);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LoadingScreen";
@@ -85,6 +70,5 @@
 
         private System.Windows.Forms.Timer timer1;
         private PictureBox pictureBox1;
-        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
     }
 }
