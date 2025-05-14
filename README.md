@@ -35,7 +35,7 @@
 
 <div align="center">
   <a href="#">
-    <img src="/Resources/icons/logo/TrionLogo.png" alt="Logo" width="450" height="450">
+    <img src="/Resources/icons/logo/TrionLogoNew.png" alt="Logo" width="450" height="450">
   </a>
 
   <h3 align="center">Trion Control Panel</h3>
