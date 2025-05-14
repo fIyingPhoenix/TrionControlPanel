@@ -1,59 +1,50 @@
 <div id="top"></div>
 
 <div align="center">
-  
   <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
-  </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/forks">
-    <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
-  </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/members">
-    <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
-  </a> 
-  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">
-    <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge" >
+    <img src="https://img.shields.io/github/contributors/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge">
   </a>
-  <a href="https://www.codefactor.io/repository/github/fiyingphoenix/TrionControlPanel/overview/main">
-    <img src="https://img.shields.io/codefactor/grade/github/fIyingPhoenix/TrionControlPanel?style=for-the-badge" alt="CodeFactor" />
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/forks">
+    <img src="https://img.shields.io/github/forks/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge">
+  </a>
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/graphs/members">
+    <img src="https://img.shields.io/github/stars/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge">
+  </a>
+  <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">
+    <img src="https://img.shields.io/github/issues/fIyingPhoenix/TrionControlPanel.svg?style=for-the-badge">
   </a>
 </div>
 
 ----
 
 <div align="center">
-  <a href="#About"title="ABOUT THE PROJECT">
-    <img src="https://user-images.githubusercontent.com/81469821/144743715-bcecee33-a77a-4fb0-b6ed-028a4cb3c4e9.png" >
-  </a> 
-  <a href="#Roadmap"title="ROADMAP">
-    <img src="https://user-images.githubusercontent.com/81469821/144743716-30c72426-73e2-42b9-95f0-95917502bae8.png" >
-  </a> 
-  <a href="#Setup"title="SETUP">
-    <img src="https://user-images.githubusercontent.com/81469821/144743717-8ba5a67e-6a2e-4710-978f-395ae817afe3.png" >
-  </a> 
-  <a href="https://flying-phoenix.dev/TrionControlPanel/"title="DOWNLOAD">
-    <img src="https://user-images.githubusercontent.com/81469821/144743720-7b72dbd2-3807-45ed-b6e2-a58c6159318a.png" >
-  </a> 
-  <br />
-  <br />
-  <br />
-  <br />
- </div>
+  <a href="#About" title="ABOUT THE PROJECT">
+    <img src="/Resources/icons/gitPic/aboutButton.png" width="170" height="55">
+  </a>
+  <a href="#Roadmap" title="ROADMAP">
+    <img src="/Resources/icons/gitPic/roadmapButton.png" width="170" height="55">
+  </a>
+  <a href="#Setup" title="SETUP">
+    <img src="/Resources/icons/gitPic/setupButton.png" width="170" height="55"> </a>
+  
+  <a href="https://flying-phoenix.dev/" title="DOWNLOAD">
+    <img src="/Resources/icons/gitPic/downloadButton.png" width="170" height="55">
+  </a>
+  <br /><br /><br /><br />
+</div>
 
 <div align="center">
-
   <a href="#">
-    <img src="https://user-images.githubusercontent.com/81469821/144727879-3713f924-9922-4c9b-921b-1e47a79adea1.png" alt="Logo" width="200" height="200">
+    <img src="/Resources/icons/logo/TrionLogo.png" alt="Logo" width="450" height="450">
   </a>
 
-  <h3 align="center">Trion Control Pane</h3>
+  <h3 align="center">Trion Control Panel</h3>
 
   <p align="center">
     An awesome Control Panel for WoW Emulator projects! Like TrinityCore, CypherCore, cMangos, ASCemu...
     <br />
     <a href="https://github.com/fIyingPhoenix/TrionControlPanel/"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
+    <br /><br />
     <a href="https://github.com/fIyingPhoenix/TrionControlPanel">View Demo</a>
     ·
     <a href="https://github.com/fIyingPhoenix/TrionControlPanel/issues">Report Bug</a>
@@ -62,94 +53,98 @@
   </p>
 </div>
 
-
-
-
-
-
 <div id="About"></div>
 
 ## About The Project
 
 <div align="center">
-     <h4 align="center"> A Control Panel for WoW Emulator projects. Made for fun and to learn. It's made to have a more cleaner setup for testing and coding. </h4>
-
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856004-ccd5e4e3-196d-4098-ac79-6dfa138d7937.jpg"> 
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856003-f24e775e-0d0d-4212-924f-2a96e4d5aaf5.jpg"> 
-<br />
-<br />
-   <img src="https://user-images.githubusercontent.com/81469821/175856005-b3275017-17b2-4c0c-ae16-d1b8acc64fd8.jpg"> 
+  <h4 align="center">Trion is a powerful and easy-to-use control panel designed for World of Warcraft emulator projects, such as TrinityCore, CypherCore, cMangos, and ASCemu. It simplifies server setup, monitoring, and management, making it ideal for both private server hosts and anyone experimenting with WoW emulators.</h4>
+    <h4 align="center">Trion was created out of a love for coding and emulation, with the goal of making WoW emulation accessible to everyone, whether you're a tech enthusiast or not. It offers a platform for people who want to play with friends without dealing with "pay-to-win" private servers or struggling to find a server they can enjoy. With Trion, you can easily create custom WoW servers to fit your preferences, allowing you to test and have fun with personalized server setups.</h4>
+  <p align="center"> 
+    Click to view each image:
+  </p>
+  <details align="left">
+    <summary>Server Status</summary>
+    <img src="https://github.com/user-attachments/assets/247c830f-5979-4450-ba71-aeda21a9584a" alt="Image 1"/>
+  </details>
+  
+  <details>
+    <summary>Single Player Project Installer</summary>
+    <img src="https://github.com/user-attachments/assets/96d003a4-c6fb-49cc-9757-bf54c7e72e99" alt="Image 2"/> 
+  </details>
+  
+  <details>
+    <summary>RealmList Editor</summary>
+    <img src="https://github.com/user-attachments/assets/1d0ccc72-2363-4a7a-8102-f8558949ed86" alt="Image 3"/>
+  </details>
+  
+  <details>
+    <summary>Account Menager</summary>
+    <img src="https://github.com/user-attachments/assets/efecc311-dedf-4008-885c-1034191ba4c2" alt="Image 4"/>
+  </details>
+  
+  <details>
+    <summary>Dynamci DNS Client</summary>
+    <img src="https://github.com/user-attachments/assets/8fd56af3-2bf7-48e8-9996-cc0500b7d24f" alt="Image 5"/>
+  </details>
+  
+  <details>
+    <summary>Trion Settings</summary>
+    <img src="https://github.com/user-attachments/assets/a9abdda5-5f2c-48ac-bde1-3b3d0219a826" alt="Image 6"/>
+  </details>
+   
+  <details>
+    <summary>Custom Repacks</summary>
+    <img src="https://github.com/user-attachments/assets/a258e974-8d93-4239-8e80-2b589924b71e" alt="Image 7"/>
+  </details>
+    
+  <details>
+    <summary>Database Settings</summary>
+    <img src="https://github.com/user-attachments/assets/a8ca31e9-19ba-4131-9bf8-b94251e911b2" alt="Image 8"/>
+  </details>
+  
+  <br />
+  <br />
+  
 </div>
-<br />
-<br />
 
-https://user-images.githubusercontent.com/81469821/175861632-4c8eefe7-a165-4ca5-a07e-08850f169263.MP4
-
-<br />
-<br />
 <div id="Roadmap"></div>
 
-## Roadmap
+## Trion Control Panel Features
 
-<div align="left">
-<table style="">
-  <tr>
-    <th>Feature</th>
-    <th>Available</th>
-  </tr>
-  <tr>
-    <td>Server Status</td>
-    <td>✔️</td>
-  </tr>
-  <tr>
-    <td>Core Console Hide</td>
-    <td>✔️</td>
-  </tr>
-  <tr>
-    <td>Account Create</td>
-    <td>❌</td>
-  </tr>
-  <tr>
-    <td>Realmlist Name Change.</td>
-    <td>✔️</td>
-  </tr>
-  <tr>
-    <td>Support for Other Cores</td>
-    <td>✔️</td>
-  </tr>
-  <tr>
-    <td>Notification Alerts</td>
-    <td>✔️</td>
-  </tr>
-  <tr>
-    <td>Core CPU and RAM usage</td>
-    <td>✔️</td>
-  </tr>
-    <tr>
-    <td>PC CPU and RAM usage.</td>
-    <td>✔️</td>
-  </tr>
-</table>
-</div>
+| Feature                                   | Description                                                                                                                                                       | Available |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| **System Resource Monitoring**            | Monitors system resources such as RAM and CPU usage for both the app and the server.                                                                              | ✔️         |
+| **Pro App Resource Monitoring**           | Monitors additional resource usage for the Pro version of the app, including RAM and CPU.                                                                        | ✔️         |
+| **Uptime Counter**                        | Tracks the uptime of World, Auth, and Database servers to show how long they have been running.                                                                  | ✔️         |
+| **Multiple Pre-built WoW Emulator Repacks** | Supports popular World of Warcraft emulator repacks like Classic, TBC, WotLK, Cata, and MoP for easy server setup.                                                | ✔️         |
+| **Database Editor**                       | Allows for modifications to realmlist info, account creation/access, and password changes, offering basic server management functionality.                        | ✔️         |
+| **Dynamic DNS Server Support**            | Supports dynamic DNS services like freednbs.afraid.org, all-inkl.com, cloudflare, duckdns.org, noip.com, dynu.com, dyn.com, enom.com, freemyip.com, ovhcloud.com, strato.de. | ✔️         |
+| **Crash Detection**                       | Detects when the World and Auth servers crash and notifies the user, ensuring server health is maintained.                                                        | ✔️         |
+| **Launch Server at Startup**              | Automatically launches the server when the app starts, ensuring the system is always running.                                                                     | ✔️         |
+| **Hide Server Consoles**                  | Keeps the server consoles hidden for a cleaner interface, minimizing unnecessary window clutter.                                                                 | ✔️         |
+| **Notifications with Sound**              | Sends notifications with sound alerts for important events, such as crashes or server issues, ensuring you're always informed.                                      | ✔️         |
+| **Minimize to Tray**                      | Allows the app to minimize to the system tray, reducing clutter on your desktop while keeping the app running in the background.                                   | ✔️         |
+| **Auto Update**                            | Ensures that emulators, servers, databases, and the app itself are always up to date with the latest features and patches, using SHA-1 hashing for updates.         | ✔️         |
+| **Language Support**                      | Provides multi-language support, making the app accessible to users from different regions.                                                                       | ✔️         |
+| **Theme Color Support**                   | Customizable theme colors to personalize the app's interface according to your preferences.                                                                     | ✔️         |
+| **Custom Repacks Support**                | Allows users to upload and use custom repacks, providing flexibility in server setup.                                                                              | ✔️         |
+| **Database Backup**                       | Backs up the database to ensure data integrity and provides recovery options in case of data loss.                                                                | ✔️         |
+| **Web Server & Account Creation**         | Includes a built-in web server with a website for creating accounts, providing an easy way to manage server access for players.                                    | ❌         |
+
+---
 
 
-See the [open issues](https://github.com/fIyingPhoenix/TrionControlPanel/issues) for wishes  (and known issues).
-
-<div id="Setup"></div>
+See the [open issues](https://github.com/fIyingPhoenix/TrionControlPanel/issues) for wishes (and known issues).
 
 <div id="Setup"></div>
 
 ## Setup
 
-<br />
-<br />
+<br /><br />
 
 <div align="right">
-  <a href="#top"title="BACK TO TOP">
+  <a href="#top" title="BACK TO TOP">
     <img src="https://user-images.githubusercontent.com/81469821/144744079-114c852a-56b1-4fe2-a668-3df2140a6cf7.png" alt="Logo" width="80" height="20">
   </a>
 </div>

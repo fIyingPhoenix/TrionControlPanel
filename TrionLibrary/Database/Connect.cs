@@ -20,14 +20,12 @@ namespace TrionLibrary.Database
                     if (conn.State == ConnectionState.Closed)
                     {
                         conn.Open();
-                        Infos.Message = $"The SQL Connection is {conn.State}";
                         status = true;
                         conn.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Infos.Message = ex.Message;
                     status = false;
                 }
                 return status;
@@ -38,6 +36,5 @@ namespace TrionLibrary.Database
         {
             return new($"Server={Setting.Setting.List.DBServerHost};Port={Setting.Setting.List.DBServerPort};User Id={Setting.Setting.List.DBServerUser};Password={Setting.Setting.List.DBServerPassword};Database={Database}");
         }
-
     }
 }

@@ -223,14 +223,14 @@ namespace MetroFramework.Controls
 
         private void DrawProgressContinuous(Graphics graphics)
         {
-            graphics.FillRectangle(MetroPaint.GetStyleBrush(Style), 0, 0, (int)ProgressBarWidth, ClientRectangle.Height);
+            graphics.FillRectangle(MetroPaint.GetStyleBrush(Style)!, 0, 0, (int)ProgressBarWidth, ClientRectangle.Height);
         }
 
         private int marqueeX = 0;
 
         private void DrawProgressMarquee(Graphics graphics)
         {
-            graphics.FillRectangle(MetroPaint.GetStyleBrush(Style), marqueeX, 0, ProgressBarMarqueeWidth, ClientRectangle.Height);
+            graphics.FillRectangle(MetroPaint.GetStyleBrush(Style)!, marqueeX, 0, ProgressBarMarqueeWidth, ClientRectangle.Height);
         }
 
         private void DrawProgressText(Graphics graphics)

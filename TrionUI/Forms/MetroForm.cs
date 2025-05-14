@@ -232,7 +232,7 @@ namespace MetroFramework.Forms
 
             e.Graphics.Clear(backColor);
 
-            using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
+            using (SolidBrush b = MetroPaint.GetStyleBrush(Style)!)
             {
                
                 Rectangle topRect = new(0, 0, Width, borderWidth);

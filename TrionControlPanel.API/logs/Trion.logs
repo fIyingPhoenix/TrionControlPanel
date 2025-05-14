@@ -1,0 +1,5 @@
+2025-03-04 10:15:09 [INFO] TrionController initialized.
+2025-03-04 10:15:09 [INFO] GetExternalIPv4 called.
+2025-03-04 10:15:09 [INFO] Returning IP address: 127.0.0.1
+2025-03-04 10:17:58 [INFO] TrionController initialized.
+2025-03-04 10:17:58 [INFO] GetWebsitePing called.

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using System.Net;
 using TrionLibrary.Models;
 namespace TrionLibrary.Network

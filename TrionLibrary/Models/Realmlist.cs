@@ -1,5 +1,4 @@
-﻿
-namespace TrionLibrary.Models
+﻿namespace TrionLibrary.Models
 {
     public class Realmlist
     {
