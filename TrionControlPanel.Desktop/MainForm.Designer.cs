@@ -52,7 +52,7 @@ namespace TrionControlPanelDesktop
             ExitTSMItem = new ToolStripMenuItem();
             TimerLoadingCheck = new System.Windows.Forms.Timer(components);
             TLTHome = new TrionUI.Controls.CustomToolTip();
-            BTNClean = new UI.Controls.CustomButton();
+            BTNClean = new TrionControlPanelDesktop.UI.Controls.CustomButton();
             TimerCrashDetected = new System.Windows.Forms.Timer(components);
             LayoutPanelMain = new TableLayoutPanel();
             HomeMenuCard = new MaterialSkin.Controls.MaterialCard();

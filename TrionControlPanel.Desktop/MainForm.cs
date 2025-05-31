@@ -754,6 +754,7 @@ namespace TrionControlPanelDesktop
         }
         private async void TimerWacher_Tick(object sender, EventArgs e)
         {
+            EnableLaunchButtonInstalled();
             ToogleButtons();
             ResurceUsage();
             ProcessesIDUpdate();
@@ -938,6 +939,11 @@ namespace TrionControlPanelDesktop
                 //loger.WriteLine($"Page {currentPage}:");
                 foreach (var process in worldProcess)
                 {
+                    if (process.ID == 0)
+                    {
+                        break;
+                    }
+                    TrionLogger.Log($"Processing World: {process.ID}");
                     PbarRAMWordResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationRamUsage(process.ID));
                     PbarCPUWordResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationCpuUsage(process.ID));
                 }
@@ -949,6 +955,11 @@ namespace TrionControlPanelDesktop
                 //loget message here
                 foreach (var process in logonProcess)
                 {
+                    if (process.ID == 0)
+                    {
+                        break;
+                    }
+                    TrionLogger.Log($"Processing Logon: {process.ID}");
                     PbarRAMLogonResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationRamUsage(process.ID));
                     PbarCPULogonResources.Value = await Task.Run(() => PerformanceMonitor.ApplicationCpuUsage(process.ID));
                 }
@@ -1006,6 +1017,9 @@ namespace TrionControlPanelDesktop
         /// </summary>
         private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus, string InstalationLocation)
         {
+
+
+
             DLCardRemoweFiles.Visible = true;
             Update();
 
@@ -1312,6 +1326,14 @@ namespace TrionControlPanelDesktop
                 _settings.MopLogonExeName,
                 _settings.ConsolHide
                 );
+        }
+        private void EnableLaunchButtonInstalled()
+        {
+            TGLClassicLaunch.Enabled = ChecCLASSICInstalled.Checked;
+            TGLTBCLaunch.Enabled = ChecTBCInstalled.Checked;
+            TGLWotLKLaunch.Enabled = ChecWOTLKInstalled.Checked;
+            TGLCataLaunch.Enabled = ChecCATAInstalled.Checked;
+            TGLMoPLaunch.Enabled = ChecMOPInstalled.Checked;
         }
         private void TGLClassicLaunch_CheckedChanged(object sender, EventArgs e)
         {

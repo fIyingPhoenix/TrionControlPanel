@@ -47,9 +47,8 @@ namespace TrionControlPanel.API.api
             return Ok(new { IPv4Address = clientIp });
         }
 
-        // Endpoint to get the list of server files based on the emulator type and key.
-        [HttpGet("GetServerFiles")]
-        public async Task<IActionResult> GetFiles([FromQuery] string Emulator, [FromQuery] string Key)
+        [HttpGet("InstallSPP")]
+        public async Task<IActionResult> InstallSPP([FromQuery] string Emulator, [FromQuery] string Key)
         {
             try
             {
@@ -57,8 +56,6 @@ namespace TrionControlPanel.API.api
                 {
                     return BadRequest("Invalid or missing emulator type.");
                 }
-
-                Console.WriteLine($"Emulator: {Emulator}");
                 TrionLogger.Log($"Request received for Emulator: {Emulator} with Key: {Key}");
 
                 bool isEarlyAccess = !string.IsNullOrEmpty(Key) && await _databaseManager.GetKeyVerified(Key);
@@ -77,13 +74,82 @@ namespace TrionControlPanel.API.api
 
                 string? RepackLocation = Emulator.ToLower() switch
                 {
-                    "classic" => isEarlyAccess ? _configuration["classicSPP:EarlyAccessKey"] : _configuration["classicSPP:Default"],
-                    "tbc" => isEarlyAccess ? _configuration["tbcSPP:EarlyAccessKey"] : _configuration["tbcSPP:Default"],
-                    "wotlk" => isEarlyAccess ? _configuration["wotlkSPP:EarlyAccessKey"] : _configuration["wotlkSPP:Default"],
-                    "cata" => isEarlyAccess ? _configuration["cataSPP:EarlyAccessKey"] : _configuration["cataSPP:Default"],
-                    "mop" => isEarlyAccess ? _configuration["mopSPP:EarlyAccessKey"] : _configuration["mopSPP:Default"],
-                    "trion" => isEarlyAccess ? _configuration["trion:EarlyAccessKey"] : _configuration["trion:Default"],
-                    "database" => isEarlyAccess ? _configuration["database:EarlyAccessKey"] : _configuration["database:Default"],
+                    "classic" => isEarlyAccess ? _configuration["classicSPP:EarlyAccessKey:Install"] : _configuration["classicSPP:Default:Install"],
+                    "tbc" => isEarlyAccess ? _configuration["tbcSPP:EarlyAccessKey:Install"] : _configuration["tbcSPP:Default:Install"],
+                    "wotlk" => isEarlyAccess ? _configuration["wotlkSPP:EarlyAccessKey:Install"] : _configuration["wotlkSPP:Default:Install"],
+                    "cata" => isEarlyAccess ? _configuration["cataSPP:EarlyAccessKey:Install"] : _configuration["cataSPP:Default:Install"],
+                    "mop" => isEarlyAccess ? _configuration["mopSPP:EarlyAccessKey:Install"] : _configuration["mopSPP:Default:Install"],
+                    "trion" => isEarlyAccess ? _configuration["trion:EarlyAccessKey:Install"] : _configuration["trion:Default:Install"],
+                    "database" => isEarlyAccess ? _configuration["database:EarlyAccessKey:Install"] : _configuration["database:Default:Install"],
+                    _ => null
+                };
+
+                TrionLogger.Log($"Repack Location for Emulator '{Emulator}': {RepackLocation}");
+
+                if (string.IsNullOrEmpty(RepackLocation))
+                {
+                    return BadRequest("Invalid emulator type.");
+                }
+
+                TrionLogger.Log($"Fetching files from location: {RepackLocation}");
+
+                files = await FileManager.GetFilesAsync(RepackLocation!);
+
+                TrionLogger.Log($"Fetched {files.Count} files.");
+
+                var fileCacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(1));
+
+                _cache.Set(fileCacheKey, files, fileCacheOptions);
+
+                return Ok(new { Files = files });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                TrionLogger.Log($"Access denied: {ex.Message}");
+                return StatusCode(403, $"Access denied: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                TrionLogger.Log($"Error: {ex.Message}");
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
+        }
+        // Endpoint to get the list of server files based on the emulator type and key.
+        [HttpGet("GetServerFiles")]
+        public async Task<IActionResult> GetFiles([FromQuery] string Emulator, [FromQuery] string Key)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Emulator))
+                {
+                    return BadRequest("Invalid or missing emulator type.");
+                }
+                TrionLogger.Log($"Request received for Emulator: {Emulator} with Key: {Key}");
+
+                bool isEarlyAccess = !string.IsNullOrEmpty(Key) && await _databaseManager.GetKeyVerified(Key);
+
+                TrionLogger.Log($"Early Access: {isEarlyAccess}");
+
+                var fileCacheKey = $"Files_{Emulator}_{isEarlyAccess}";
+
+                TrionLogger.Log($"Checking cache for key: {fileCacheKey}");
+
+                if (_cache.TryGetValue(fileCacheKey, out ConcurrentBag<FileList>? files))
+                {
+                    TrionLogger.Log("Cache hit - Returning files from cache.");
+                    return Ok(new { Files = files });
+                }
+
+                string? RepackLocation = Emulator.ToLower() switch
+                {
+                    "classic" => isEarlyAccess ? _configuration["classicSPP:EarlyAccessKey:Repair"] : _configuration["classicSPP:Default:Repair"],
+                    "tbc" => isEarlyAccess ? _configuration["tbcSPP:EarlyAccessKey:Repair"] : _configuration["tbcSPP:Default:Repair"],
+                    "wotlk" => isEarlyAccess ? _configuration["wotlkSPP:EarlyAccessKey:Repair"] : _configuration["wotlkSPP:Default:Repair"],
+                    "cata" => isEarlyAccess ? _configuration["cataSPP:EarlyAccessKey:Repair"] : _configuration["cataSPP:Default:Repair"],
+                    "mop" => isEarlyAccess ? _configuration["mopSPP:EarlyAccessKey:Repair"] : _configuration["mopSPP:Default:Repair"],
+                    "trion" => isEarlyAccess ? _configuration["trion:EarlyAccessKey:Repair"] : _configuration["trion:Default:Repair"],
+                    "database" => isEarlyAccess ? _configuration["database:EarlyAccessKey:Repair"] : _configuration["database:Default:Repair"],
                     _ => null
                 };
 
