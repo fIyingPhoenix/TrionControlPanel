@@ -1,0 +1,62 @@
+﻿@page "/"
+
+<MudCarousel Class="floating-appbar" Style="height:500px;" ShowArrows="false" ShowBullets="true" EnableSwipeGesture="false" AutoCycle="true" AutoCycleTime="@TimeSpan.FromSeconds(15)" TData="object">
+    <MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="images/img1.jpg" Style="width:100%"></MudImage>
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Fade" Color="@Color.Secondary">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="images/img2.jpg" Style="width:100%"></MudImage>
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Fade">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="images/img3.jpg"  Style="width:100%"></MudImage>
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+<MudGrid Class="floating-appbar" Justify="justification">
+
+        <MudItem xs="8">
+            <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+
+            </MudPaper>
+        </MudItem>
+         <MudItem xs="4">
+        <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+             <MudCardHeader>
+                 
+             </MudCardHeader>
+            <MudChart  ChartOptions="@wowFactionChartOptions"  ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@data" InputLabels="@labels">
+                <CustomGraphics>
+                    <text class="donut-inner-text player-text-color" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="50"> @data.Sum().ToString()</text>
+                </CustomGraphics>
+            </MudChart>
+        </MudPaper>
+        </MudItem>
+    
+</MudGrid>
+
+
+
+
+
+@code{
+
+    Justify justification = Justify.FlexStart;
+    public double[] data = { 25, 77 };
+    public string[] labels = { "Alliance", "Horde" };
+
+    // Define colors with meaningful names
+    private string allianceColor = "#0070DE";
+    private string hordeColor = "#CF202E";
+
+    // Build the options object from the named variables
+    private ChartOptions wowFactionChartOptions => new ChartOptions()
+    {
+        ChartPalette = new string[] { allianceColor, hordeColor }
+    };
+}

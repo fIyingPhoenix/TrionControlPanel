@@ -1,0 +1,40 @@
+﻿
+.floating-appbar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100; /* Standard AppBar z-index */
+    pointer-events: none; /* VERY IMPORTANT: Allows clicks to pass through */
+}
+
+.floating-appbar {
+    /* Re-enable clicks for the bar itself */
+    pointer-events: auto;
+    /* This is your requested styling! */
+    margin: 10px 1% 0 1%;
+    /* Let's give it rounded corners to complete the look */
+    border-radius: 8px;
+    /* Ensures the width is calculated based on the margins */
+    width: auto;
+}
+.mud-appbar {
+    position: relative;
+}
+
+.appbar-title-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.button-menu:hover {
+    background-color: var(--mud-palette-primary) !important;
+}
+.button-menu{
+    margin-left: 5px;
+}
+.player-text-color {
+    
+    fill: white;
+}

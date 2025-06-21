@@ -1,0 +1,93 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+    <div class="floating-appbar-container">
+        <MudAppBar Class="floating-appbar" Elevation="1">
+            <MudButton class="button-menu" href="/" Color="Color.Inherit">Home</MudButton>
+            <MudButton class="button-menu" href="/signin" Color="Color.Inherit">Sign In</MudButton>
+            <MudSpacer />
+            <!-- The container for our absolutely centered title -->
+            <div class="appbar-title-center">
+                <MudText Typo="Typo.h5">@WeSiteName</MudText>
+            </div>
+            <MudSpacer />
+       
+        </MudAppBar>
+    </div>
+
+    <MudMainContent Class="mt-16 pa-4">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+
+    private MudTheme? _theme = null;
+
+    private string WeSiteName = "Trion Client Website";
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
+    }
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = "#00bcd4",
+
+        // The dark, desaturated blue of the login form's card.
+        Surface = "#202c3d",
+
+        // The very dark, almost black, blue of the overall page background.
+        Background = "#111827",
+
+        // The color of the top navigation bar.
+        AppbarBackground = "#1f2937",
+
+        // The main light text color ("Email", "Password", "Features", "Pricing").
+        TextPrimary = "#d1d5db",
+
+        // A slightly dimmer text for secondary information ("Don't have an account?").
+        TextSecondary = "#9ca3af",
+
+        // The color for icons and actions, like the "show password" eye.
+        ActionDefault = "#6b7280",
+
+        // Text on primary-colored backgrounds (e.g., the "Login" button text).
+        PrimaryContrastText = "#ffffff",
+
+        // Color for dividers and the default state of input lines.
+        LinesDefault = "#374151",
+        LinesInputs = "#374151",
+
+        // Standard colors for different states.
+        Error = "#f44336",
+        Info = "#00bcd4", // Using the primary color for Info
+        Success = "#4caf50",
+        Warning = "#ff9800",
+
+        // Setting Drawer colors to match the main theme.
+        DrawerBackground = "#1f2937",
+        DrawerText = "#d1d5db",
+        DrawerIcon = "#d1d5db",
+    };
+
+}
+
+
