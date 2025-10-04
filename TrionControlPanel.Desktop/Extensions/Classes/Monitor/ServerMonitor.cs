@@ -52,70 +52,52 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                    FormData.UI.Form.MOPWorldRunning;
         }
 
-        // Asynchronously checks if logon servers are running.
         public static async Task ServerRunningLogonAsync()
         {
-            var currentRunning = SystemData.GetLogonProcessesID();
-            if (currentRunning.Count > 0)
+            var current = SystemData.GetLogonProcessesID();   
+
+            var runningNames = await Task.Run(() =>
             {
-                await Task.WhenAll(currentRunning.Select(item => Task.Run(() =>
-                {
-                    switch (item.Name)
-                    {
-                        case "WoW Classic Logon":
-                            FormData.UI.Form.ClassicLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "The Burning Crusade Logon":
-                            FormData.UI.Form.TBCLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Wrath of the Lich King Logon":
-                            FormData.UI.Form.WotLKLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Cataclysm Logon":
-                            FormData.UI.Form.CataLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Mists of Pandaria Logon":
-                            FormData.UI.Form.MOPLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Custom Core":
-                            FormData.UI.Form.CustLogonRunning = IsApplicationRunning(item.ID);
-                            break;
-                    }
-                })));
-            }
+                var hs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var item in current)
+                    if (IsApplicationRunning(item.ID))
+                        hs.Add(item.Name);
+                return hs;
+            });
+           
+            await Task.Run(() =>   
+            {
+                FormData.UI.Form.ClassicLogonRunning = runningNames.Contains("WoW Classic Logon");
+                FormData.UI.Form.TBCLogonRunning = runningNames.Contains("The Burning Crusade Logon");
+                FormData.UI.Form.WotLKLogonRunning = runningNames.Contains("Wrath of the Lich King Logon");
+                FormData.UI.Form.CataLogonRunning = runningNames.Contains("Cataclysm Logon");
+                FormData.UI.Form.MOPLogonRunning = runningNames.Contains("Mists of Pandaria Logon");
+                FormData.UI.Form.CustLogonRunning = runningNames.Contains("Custom Core");
+            });
         }
 
-        // Asynchronously checks if world servers are running.
         public static async Task ServerRunningWorldAsync()
         {
-            var currentRunning = SystemData.GetWorldProcessesID();
-            if (currentRunning.Count > 0)
+            var current = SystemData.GetWorldProcessesID();
+
+            var runningNames = await Task.Run(() =>
             {
-                await Task.WhenAll(currentRunning.Select(item => Task.Run(() =>
-                {
-                    switch (item.Name)
-                    {
-                        case "WoW Classic World":
-                            FormData.UI.Form.ClassicWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "The Burning Crusade World":
-                            FormData.UI.Form.TBCWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Wrath of the Lich King World":
-                            FormData.UI.Form.WotLKWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Cataclysm World":
-                            FormData.UI.Form.CataWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Mists of Pandaria World":
-                            FormData.UI.Form.MOPWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                        case "Custom Core":
-                            FormData.UI.Form.CustWorldRunning = IsApplicationRunning(item.ID);
-                            break;
-                    }
-                })));
-            }
+                var hs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var item in current)
+                    if (IsApplicationRunning(item.ID))
+                        hs.Add(item.Name);
+                return hs;
+            });
+
+            await Task.Run(() =>
+            {
+                FormData.UI.Form.ClassicWorldRunning = runningNames.Contains("WoW Classic World");
+                FormData.UI.Form.TBCWorldRunning = runningNames.Contains("The Burning Crusade World");
+                FormData.UI.Form.WotLKWorldRunning = runningNames.Contains("Wrath of the Lich King World");
+                FormData.UI.Form.CataWorldRunning = runningNames.Contains("Cataclysm World");
+                FormData.UI.Form.MOPWorldRunning = runningNames.Contains("Mists of Pandaria World");
+                FormData.UI.Form.CustWorldRunning = runningNames.Contains("Custom Core");
+            });
         }
         public static async Task ServerRunningDatabaseAsync()
         {

@@ -77,6 +77,147 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
         {
             return RandomNumberGenerator.GetBytes(32);
         }
+        public class CMaNGosSRP6
+        {
+            // SRP6 constants from CMaNGOS
+            private const int GENERATOR = 7;
+            private const int SALT_BYTE_SIZE = 32;
+            private const int VERIFIER_BYTE_SIZE = 32;
+
+            // Large safe prime N (from CMaNGOS SRP6.cpp)
+            private static readonly BigInteger N = BigInteger.Parse("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", NumberStyles.HexNumber);
+
+            public static byte[] GenerateSalt()
+            {
+                return RandomNumberGenerator.GetBytes(SALT_BYTE_SIZE);
+            }
+
+
+            public static byte[] CreateVerifier(string username, string password, byte[] salt)
+            {
+                if (salt == null || salt.Length != SALT_BYTE_SIZE)
+                    throw new ArgumentException($"Salt must be exactly {SALT_BYTE_SIZE} bytes", nameof(salt));
+
+                // Normalize username and password (CMaNGOS normalizeString function)
+                username = NormalizeString(username);
+                password = NormalizeString(password);
+
+                //Calculate SHA1 hash of "USERNAME:PASSWORD" (CalculateShaPassHash)
+                string credentials = $"{username}:{password}";
+                byte[] credentialsHash = SHA1.HashData(Encoding.UTF8.GetBytes(credentials));
+
+                //Reverse the salt (CMaNGOS uses little-endian byte order)
+                byte[] reversedSalt = new byte[salt.Length];
+                Array.Copy(salt, reversedSalt, salt.Length);
+                Array.Reverse(reversedSalt);
+
+                //Reverse the credentials hash
+                byte[] reversedCredsHash = new byte[credentialsHash.Length];
+                Array.Copy(credentialsHash, reversedCredsHash, credentialsHash.Length);
+                Array.Reverse(reversedCredsHash);
+
+                //Calculate x = SHA1(salt | credentials_hash)
+                byte[] combined = new byte[reversedSalt.Length + reversedCredsHash.Length];
+                Array.Copy(reversedSalt, 0, combined, 0, reversedSalt.Length);
+                Array.Copy(reversedCredsHash, 0, combined, reversedSalt.Length, reversedCredsHash.Length);
+
+                byte[] xBytes = SHA1.HashData(combined);
+
+                //Convert x to BigInteger (little-endian, unsigned)
+                BigInteger x = new BigInteger(xBytes, isUnsigned: true, isBigEndian: false);
+
+                // Calculate verifier v = g^x mod N
+                BigInteger verifier = BigInteger.ModPow(GENERATOR, x, N);
+
+                // Convert verifier to byte array (32 bytes, big-endian for storage)
+                byte[] verifierBytes = verifier.ToByteArray(isUnsigned: true, isBigEndian: true);
+
+                // Pad to 32 bytes if necessary
+                if (verifierBytes.Length < VERIFIER_BYTE_SIZE)
+                {
+                    byte[] padded = new byte[VERIFIER_BYTE_SIZE];
+                    Array.Copy(verifierBytes, 0, padded, VERIFIER_BYTE_SIZE - verifierBytes.Length, verifierBytes.Length);
+                    return padded;
+                }
+                else if (verifierBytes.Length > VERIFIER_BYTE_SIZE)
+                {
+                    // Take the last 32 bytes
+                    byte[] trimmed = new byte[VERIFIER_BYTE_SIZE];
+                    Array.Copy(verifierBytes, verifierBytes.Length - VERIFIER_BYTE_SIZE, trimmed, 0, VERIFIER_BYTE_SIZE);
+                    return trimmed;
+                }
+
+                return verifierBytes;
+            }
+
+            public static bool VerifyPassword(string username, string password, byte[] salt, byte[] storedVerifier)
+            {
+                if (salt == null || salt.Length != SALT_BYTE_SIZE)
+                    return false;
+
+                if (storedVerifier == null || storedVerifier.Length != VERIFIER_BYTE_SIZE)
+                    return false;
+
+                byte[] calculatedVerifier = CreateVerifier(username, password, salt);
+
+                return calculatedVerifier.SequenceEqual(storedVerifier);
+            }
+
+            public static string BytesToHexString(byte[] bytes)
+            {
+                if (bytes == null)
+                    throw new ArgumentNullException(nameof(bytes));
+
+                return BitConverter.ToString(bytes).Replace("-", "");
+            }
+
+            public static byte[] HexStringToBytes(string hex)
+            {
+                if (string.IsNullOrEmpty(hex))
+                    throw new ArgumentException("Hex string cannot be null or empty", nameof(hex));
+
+                if (hex.Length % 2 != 0)
+                    throw new ArgumentException("Hex string must have an even number of characters", nameof(hex));
+
+                byte[] bytes = new byte[hex.Length / 2];
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    bytes[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+                }
+                return bytes;
+            }
+
+            private static string NormalizeString(string input)
+            {
+                if (string.IsNullOrEmpty(input))
+                    return input;
+
+                StringBuilder result = new StringBuilder(input.Length);
+
+                foreach (char c in input)
+                {
+                    // Only uppercase ASCII letters a-z (0x61-0x7A -> 0x41-0x5A)
+                    if (c >= 'a' && c <= 'z')
+                    {
+                        result.Append((char)(c - 32));
+                    }
+                    else
+                    {
+                        result.Append(c);
+                    }
+                }
+
+                return result.ToString();
+            }
+
+            public static (string SaltHex, string VerifierHex) CreateAccountCredentials(string username, string password)
+            {
+                byte[] salt = GenerateSalt();
+                byte[] verifier = CreateVerifier(username, password, salt);
+
+                return (BytesToHexString(salt), BytesToHexString(verifier));
+            }
+        }
 
     }
 }

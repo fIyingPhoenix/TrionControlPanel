@@ -1,7 +1,7 @@
-﻿using System.Text;
-using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+﻿using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Cryptography;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+using static TrionControlPanel.Desktop.Extensions.Cryptography.SRP6;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
@@ -71,16 +71,12 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             // --- Validation ---
             if (string.IsNullOrEmpty(username) || username.Length > MaxAccountLength)
                 return AccountOpResult.NameTooLong;
-
             if (string.IsNullOrEmpty(password) || password.Length > MaxPasswordLength)
                 return AccountOpResult.PassTooLong;
-
             if (string.IsNullOrEmpty(email) || email.Length > MaxEmailLength)
-                return AccountOpResult.EmailTooLong; // Corrected from NameTooLong
-
+                return AccountOpResult.EmailTooLong;
             if (await GetUser(username, settings) > 0)
                 return AccountOpResult.NameAlreadyExist;
-
             if (await GetEmail(email, settings) > 0)
                 return AccountOpResult.EmailAlreadyExist;
 
@@ -93,8 +89,6 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             {
                 case Cores.AzerothCore:
                 case Cores.TrinityCore335:
-                case Cores.CMaNGOS:
-                case Cores.VMaNGOS:
                     byte[] legacySalt = SRP6.GenerateSalt();
                     byte[] legacyVerifier = SRP6.LegecySHA1.CreateVerifier(username, password, legacySalt);
                     sql = SqlQueryManager.CreateAccount(settings.SelectedCore);
@@ -109,16 +103,23 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                     };
                     break;
 
-                case Cores.AscEmu:
-                    var passhash = AscEmuSHA1.GetPasswordHash(username, password);
+                case Cores.CMaNGOS:
+                case Cores.VMaNGOS:
+                    // Use CMaNGOS-specific SRP6 implementation
+                    var (saltHex, verifierHex) = CMaNGosSRP6.CreateAccountCredentials(username, password);
+
                     sql = SqlQueryManager.CreateAccount(settings.SelectedCore);
                     parameters = new
                     {
-                        Username = username,
-                        EncryptedPassword = passhash,
+                        Username = username.ToUpper(), // CMaNGOS stores username in uppercase
+                        Salt = saltHex,
+                        Verifier = verifierHex,
                         Email = email,
+                        RegMail = email,
                         JoinDate = DateTime.Now,
                     };
+
+                    TrionLogger.Log($"CMaNGOS account credentials generated - Salt: {saltHex.Substring(0, 8)}..., Verifier: {verifierHex.Substring(0, 8)}...", "DEBUG");
                     break;
 
                 case Cores.TrinityCore:
@@ -157,7 +158,6 @@ namespace TrionControlPanel.Desktop.Extensions.Database
                 return AccountOpResult.DBInternalError;
             }
         }
-
         /// <summary>
         /// Checks if a username already exists.
         /// </summary>
@@ -215,6 +215,25 @@ namespace TrionControlPanel.Desktop.Extensions.Database
             {
                 TrionLogger.Log($"DB lookup for user ID of '{username}' failed. Exception: {ex.Message}", "ERROR");
                 return 0; // Return 0 or -1 to indicate failure
+            }
+        }
+
+        public static async Task<AccountOpResult> SetGMLevel(int AccountId, int GmLevel, int RealmID, AppSettings settings)
+        {
+            try
+            {
+                object parameters = new
+                {
+                    AccountId,
+                    GmLevel,
+                    RealmID,
+                };
+                await AccessManager.SaveData(SqlQueryManager.GrantGmLevel(settings.SelectedCore), parameters, AccessManager.ConnectionString(settings, settings.AuthDatabase));
+                return AccountOpResult.GMSet;
+            }
+            catch (Exception ex)
+            {
+                return AccountOpResult.Faild;
             }
         }
     }

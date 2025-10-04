@@ -31,7 +31,9 @@
             EmailAlreadyExist,
             NameNotExist,
             DBInternalError,
-            BadLink
+            BadLink,
+            Faild,
+            GMSet
         }
         public enum RealmListOpResult
         {
@@ -90,7 +92,6 @@
         }
         public enum Cores
         {
-            AscEmu,
             AzerothCore,
             CMaNGOS,
             CypherCore,

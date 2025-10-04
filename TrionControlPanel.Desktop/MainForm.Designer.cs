@@ -133,6 +133,7 @@ namespace TrionControlPanelDesktop
             LBLCardElulatorsInfo = new PictureBox();
             LBLCardSPPRunTitle = new MaterialSkin.Controls.MaterialLabel();
             materialCard14 = new MaterialSkin.Controls.MaterialCard();
+            BTNShowSupport = new MaterialSkin.Controls.MaterialButton();
             BTNUninstallSPP = new MaterialSkin.Controls.MaterialButton();
             BTNRepairSPP = new MaterialSkin.Controls.MaterialButton();
             BTNInstallSPP = new MaterialSkin.Controls.MaterialButton();
@@ -1938,6 +1939,28 @@ namespace TrionControlPanelDesktop
             materialCard14.Size = new Size(359, 423);
             materialCard14.TabIndex = 0;
             // 
+            // BTNShowSupport
+            // 
+            BTNShowSupport.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BTNShowSupport.AutoSize = false;
+            BTNShowSupport.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BTNShowSupport.Cursor = Cursors.Hand;
+            BTNShowSupport.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            BTNShowSupport.Depth = 0;
+            BTNShowSupport.HighEmphasis = true;
+            BTNShowSupport.Icon = (Image)resources.GetObject("BTNShowSupport.Icon");
+            BTNShowSupport.Location = new Point(9, 229);
+            BTNShowSupport.Margin = new Padding(4, 6, 4, 6);
+            BTNShowSupport.MouseState = MaterialSkin.MouseState.HOVER;
+            BTNShowSupport.Name = "BTNShowSupport";
+            BTNShowSupport.NoAccentTextColor = Color.Empty;
+            BTNShowSupport.Size = new Size(341, 36);
+            BTNShowSupport.TabIndex = 17;
+            BTNShowSupport.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            BTNShowSupport.UseAccentColor = false;
+            BTNShowSupport.UseVisualStyleBackColor = true;
+            BTNShowSupport.Click += BTNShowSupport_Click;
+            // 
             // BTNUninstallSPP
             // 
             BTNUninstallSPP.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -2281,6 +2304,7 @@ namespace TrionControlPanelDesktop
             BTNOpenIntern.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNOpenIntern.UseAccentColor = false;
             BTNOpenIntern.UseVisualStyleBackColor = true;
+            BTNOpenIntern.Click += BTNOpenIntern_Click;
             // 
             // BTNOpenPublic
             // 
@@ -3055,6 +3079,7 @@ namespace TrionControlPanelDesktop
             CBOXAccountSecurityAccess.Size = new Size(307, 49);
             CBOXAccountSecurityAccess.StartIndex = 0;
             CBOXAccountSecurityAccess.TabIndex = 19;
+            CBOXAccountSecurityAccess.SelectedIndexChanged += CBOXAccountSecurityAccess_SelectedIndexChanged;
             // 
             // BTNGMCreate
             // 
@@ -3076,6 +3101,7 @@ namespace TrionControlPanelDesktop
             BTNGMCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNGMCreate.UseAccentColor = false;
             BTNGMCreate.UseVisualStyleBackColor = true;
+            BTNGMCreate.Click += BTNGMCreate_Click;
             // 
             // TXTBoxGMUsername
             // 
@@ -4922,6 +4948,7 @@ namespace TrionControlPanelDesktop
             BTNEmulatorLocation.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNEmulatorLocation.UseAccentColor = false;
             BTNEmulatorLocation.UseVisualStyleBackColor = true;
+            BTNEmulatorLocation.Click += BTNEmulatorLocation_Click;
             // 
             // BTNDatabaseLocation
             // 
@@ -4943,6 +4970,7 @@ namespace TrionControlPanelDesktop
             BTNDatabaseLocation.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTNDatabaseLocation.UseAccentColor = false;
             BTNDatabaseLocation.UseVisualStyleBackColor = true;
+            BTNDatabaseLocation.Click += BTNDatabaseLocation_Click;
             // 
             // CBOXSelectedEmulators
             // 
@@ -4960,7 +4988,7 @@ namespace TrionControlPanelDesktop
             CBOXSelectedEmulators.Hint = "ID";
             CBOXSelectedEmulators.IntegralHeight = false;
             CBOXSelectedEmulators.ItemHeight = 43;
-            CBOXSelectedEmulators.Items.AddRange(new object[] { "AscEmu", "AzerothCore", "CMaNGOS", "CypherCore", "TrinityCore", "CypherCore", "TrinityCore Classic", "VMaNGOS" });
+            CBOXSelectedEmulators.Items.AddRange(new object[] { "AzerothCore", "CMaNGOS", "CypherCore", "TrinityCore", "CypherCore", "TrinityCore Classic", "VMaNGOS" });
             CBOXSelectedEmulators.Location = new Point(17, 55);
             CBOXSelectedEmulators.MaxDropDownItems = 4;
             CBOXSelectedEmulators.MouseState = MaterialSkin.MouseState.OUT;
@@ -4968,6 +4996,7 @@ namespace TrionControlPanelDesktop
             CBOXSelectedEmulators.Size = new Size(290, 49);
             CBOXSelectedEmulators.StartIndex = 0;
             CBOXSelectedEmulators.TabIndex = 9;
+            CBOXSelectedEmulators.SelectedIndexChanged += CBOXSelectedEmulators_SelectedIndexChanged;
             // 
             // LBLCardCustomEmulatorTitle
             // 

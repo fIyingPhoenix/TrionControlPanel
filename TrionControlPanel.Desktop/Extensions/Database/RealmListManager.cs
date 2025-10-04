@@ -5,82 +5,81 @@ using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
 {
-    public class RealmListMenager
+    public static class RealmListManager  
     {
-        public static async Task<List<T>> GetRealmLists<T>(AppSettings Settings)
-        {
-            return await AccessManager.LodaDataList<T, dynamic>(
-                SqlQueryManager.GetRealmList(Settings.SelectedCore),
+        /*----------------------------------------------------------
+         *  READ
+         *--------------------------------------------------------*/
+        public static Task<List<T>> GetRealmListsAsync<T>(AppSettings settings)
+            => AccessManager.LodaDataList<T, dynamic>(
+                SqlQueryManager.GetRealmList(settings.SelectedCore),
                 new { },
-                AccessManager.ConnectionString(Settings, Settings.AuthDatabase)
-            );
-        }
-        public static async Task<RealmListOpResult> UpdateTealmListAddress(int ID, string Address, AppSettings Settings)
-        {
-            if (Settings.SelectedCore == Cores.AscEmu)
-            {
-                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
-                return RealmListOpResult.BadEmulator;
-            }
-            try
-            {
-                await AccessManager.SaveData(SqlQueryManager.UpdateRealmListAddress(Settings.SelectedCore), new
-                {
-                    ID,
-                    Address,
-                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                TrionLogger.Log($"Address update for ID: {ID} Emulatro: {Settings.SelectedCore} Address:{Address}");
-                return RealmListOpResult.Ok;
-                
+                AccessManager.ConnectionString(settings, settings.AuthDatabase));
 
-            } catch (Exception ex)
-            {
-               TrionLogger.Log(ex.Message, "ERROR");
-                return RealmListOpResult.DBInternalError;
-            }
-        }
+        /*----------------------------------------------------------
+         *  UPDATE
+         *--------------------------------------------------------*/
+        public static Task<RealmListOpResult> UpdateRealmListAddressAsync(
+            int id, string address, AppSettings settings)
+            => ExecuteAsync(
+                SqlQueryManager.UpdateRealmListAddress(settings.SelectedCore),
+                new { ID = id, Address = address },
+                settings,
+                $"Address updated  ID:{id}  Core:{settings.SelectedCore}  Address:{address}");
 
-        public static async Task<RealmListOpResult> CreateRealmList(AppSettings Settings, string Name, string Address, string LocalAddress, string SubnetMask, int Port, int Gamebuild)
+        /*----------------------------------------------------------
+         *  CREATE
+         *--------------------------------------------------------*/
+        public static Task<RealmListOpResult> CreateRealmListAsync(
+            AppSettings settings,
+            string name,
+            string address,
+            string localAddress,
+            string subnetMask,
+            int port,
+            int gameBuild)
+            => ExecuteAsync(
+                SqlQueryManager.CreateRealmList(settings.SelectedCore),
+                new
+                {
+                    Name = name,
+                    Address = address,
+                    LocalAddress = localAddress,
+                    LocalSubnetMask = subnetMask,
+                    Port = port,
+                    GameBuild = gameBuild
+                },
+                settings,
+                $"Realm created  Name:{name}  Core:{settings.SelectedCore}  Address:{address}");
+
+        /*----------------------------------------------------------
+         *  DELETE
+         *--------------------------------------------------------*/
+        public static Task<RealmListOpResult> DeleteRealmListAsync(
+            AppSettings settings, int id)
+            => ExecuteAsync(
+                SqlQueryManager.DeleteRealmList(settings.SelectedCore),
+                new { ID = id },
+                settings,
+                $"Realm deleted  ID:{id}  Core:{settings.SelectedCore}");
+
+        /*----------------------------------------------------------
+         *  Private helper
+         *--------------------------------------------------------*/
+        private static async Task<RealmListOpResult> ExecuteAsync(
+            string sql,
+            object parameters,
+            AppSettings settings,
+            string successMessage)
         {
-            if (Settings.SelectedCore == Cores.AscEmu)
-            {
-                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
-                return RealmListOpResult.BadEmulator;
-            }
             try
             {
-                await AccessManager.SaveData(SqlQueryManager.CreateRealmList(Settings.SelectedCore), new
-                {
-                   Name,
-                   Address,
-                   LocalAddress,
-                   SubnetMask,
-                   Port,
-                   Gamebuild
-                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                TrionLogger.Log($"Realmilst Created: {Name} Emulatro: {Settings.SelectedCore} Address:{Address}");
-                return RealmListOpResult.Ok;
-            }
-            catch (Exception ex)
-            {
-                TrionLogger.Log(ex.Message, "ERROR");
-                return RealmListOpResult.DBInternalError;
-            }
-        }
-        public static async Task<RealmListOpResult> DeleteRealmList(AppSettings Settings, int ID)
-        {
-            if (Settings.SelectedCore == Cores.AscEmu)
-            {
-                TrionLogger.Log("AscEmu does not use a database for storing the realmlist address.", "ERROR");
-                return RealmListOpResult.BadEmulator;
-            }
-            try
-            {
-                await AccessManager.SaveData(SqlQueryManager.DeleteRealmList(Settings.SelectedCore), new
-                {
-                    ID
-                }, AccessManager.ConnectionString(Settings, Settings.AuthDatabase));
-                TrionLogger.Log($"Realmilst Deleted: {ID} Emulatro: {Settings.SelectedCore}");
+                await AccessManager.SaveData(
+                    sql,
+                    parameters,
+                    AccessManager.ConnectionString(settings, settings.AuthDatabase));
+
+                TrionLogger.Log(successMessage);
                 return RealmListOpResult.Ok;
             }
             catch (Exception ex)
