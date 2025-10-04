@@ -42,11 +42,18 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         // Gets the current PC RAM usage in megabytes.
         public static int GetCurentPcRamUsage()
         {
-            string categoryName = "Memory";
-            string counterName = "Available MBytes";
-            PerformanceCounter performanceCounter = new(categoryName, counterName);
-            float memoryUsageMB = performanceCounter.NextValue();
-            return Convert.ToInt32(memoryUsageMB);
+            try
+            {
+                string categoryName = "Memory";
+                string counterName = "Available MBytes";
+                PerformanceCounter performanceCounter = new(categoryName, counterName);
+                float memoryUsageMB = performanceCounter.NextValue();
+                return Convert.ToInt32(memoryUsageMB);
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         // Monitors RAM usage percentage and triggers an alert if it exceeds 80%.

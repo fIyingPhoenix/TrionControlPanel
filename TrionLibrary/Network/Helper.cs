@@ -21,7 +21,7 @@ namespace TrionLibrary.Network
         {
             string Message;
             bool PortInUse;
-            if (Watcher.OSRuinning() == "Widnows")
+            if (Watcher.OSRuinning() == "Windows")
             {
                 try
                 {

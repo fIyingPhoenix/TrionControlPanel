@@ -51,7 +51,7 @@ namespace TrionLibrary.Sys
         public static string OSRuinning()
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix) return "Unix";
-            else if (Environment.OSVersion.Platform == PlatformID.Win32NT) return "Widnows";
+            else if (Environment.OSVersion.Platform == PlatformID.Win32NT) return "Windows";
             else return "Unknown";
         }
         public static int MachineTotalRam()
@@ -59,7 +59,7 @@ namespace TrionLibrary.Sys
             double totalRamInMB = 0;
             try
             {
-                if (OSRuinning() == "Widnows")
+                if (OSRuinning() == "Windows")
                 {
                     // Create a new instance of the ManagementClass
                     ManagementClass managementClass = new("Win32_ComputerSystem");
@@ -133,20 +133,28 @@ namespace TrionLibrary.Sys
         }
         public static int MachineCpuUtilization()
         {
-            if (OSRuinning() == "Widnows") {
-                // Initialize PerformanceCounters for each CPU core
-                // int coreCount = Environment.ProcessorCount;
-                // Create an instance of PerformanceCounter to monitor the total CPU usage
-                PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
+            if (OSRuinning() == "Windows")
+            {
+                try
+                {
+                    // Initialize PerformanceCounters for each CPU core
+                    // int coreCount = Environment.ProcessorCount;
+                    // Create an instance of PerformanceCounter to monitor the total CPU usage
+                    PerformanceCounter cpuCounters = new("Processor Information", "% Processor Utility", "_Total");
 
-                // Discard the first value
-                dynamic firstValue = cpuCounters.NextValue();
-                // Give some time to initialize
-                Thread.Sleep(500);
-                //report
-                dynamic SecValue = cpuCounters.NextValue();
-                if (SecValue > 100) { SecValue = 100; }
-                return (int)SecValue;
+                    // Discard the first value
+                    dynamic firstValue = cpuCounters.NextValue();
+                    // Give some time to initialize
+                    Thread.Sleep(500);
+                    //report
+                    dynamic SecValue = cpuCounters.NextValue();
+                    if (SecValue > 100) { SecValue = 100; }
+                    return (int)SecValue;
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             else if (OSRuinning() == "Unix")
             {
@@ -176,7 +184,7 @@ namespace TrionLibrary.Sys
         }
         public static int CurentPcRamUsage()
         {
-            if (OSRuinning() == "Widnows")
+            if (OSRuinning() == "Windows")
             {
                 // Specify the category and counter for memory usage
                 string categoryName = "Memory";
