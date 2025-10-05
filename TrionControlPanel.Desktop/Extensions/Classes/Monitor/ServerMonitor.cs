@@ -54,7 +54,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
 
         public static async Task ServerRunningLogonAsync()
         {
-            var current = SystemData.GetLogonProcessesID();   
+            var current = SystemData.GetLogonProcessesID();
 
             var runningNames = await Task.Run(() =>
             {
@@ -64,8 +64,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
                         hs.Add(item.Name);
                 return hs;
             });
-           
-            await Task.Run(() =>   
+
+            await Task.Run(() =>
             {
                 FormData.UI.Form.ClassicLogonRunning = runningNames.Contains("WoW Classic Logon");
                 FormData.UI.Form.TBCLogonRunning = runningNames.Contains("The Burning Crusade Logon");

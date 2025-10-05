@@ -35,7 +35,7 @@ public sealed class TrionController : ControllerBase
         => GetAndCacheFileListAsync(emulator, key, "Install", true);
 
     [HttpPost("DownloadFile")]
-    public async Task<IActionResult> DownloadFile([FromQuery] string emulator,[FromQuery] string key,[FromBody] FileRequest request)
+    public async Task<IActionResult> DownloadFile([FromQuery] string emulator, [FromQuery] string key, [FromBody] FileRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.FilePath))
             return BadRequest("filePath missing");
@@ -63,7 +63,7 @@ public sealed class TrionController : ControllerBase
     }
 
     [HttpPost("SendSupporterKey")]
-    public async Task<IActionResult> SendSupporterKey([FromBody] SupporterKey dto,[FromHeader(Name = "APIKey")] string? headerKey)
+    public async Task<IActionResult> SendSupporterKey([FromBody] SupporterKey dto, [FromHeader(Name = "APIKey")] string? headerKey)
     {
         var configuredKey = _cfg["APIKey"];
         if (string.IsNullOrEmpty(headerKey) || headerKey != configuredKey)
@@ -131,7 +131,7 @@ public sealed class TrionController : ControllerBase
 
     #region Helpers
 
-    private async Task<IActionResult> GetAndCacheFileListAsync(string emulator,string key,string operation, bool install)
+    private async Task<IActionResult> GetAndCacheFileListAsync(string emulator, string key, string operation, bool install)
     {
         if (string.IsNullOrWhiteSpace(emulator))
             return BadRequest("Invalid emulator.");

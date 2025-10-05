@@ -1,11 +1,7 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
-using MetroFramework;
-using Mysqlx.Resultset;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
-using System.Threading.Tasks;
 using TrionControlPanel.Desktop;
 using TrionControlPanel.Desktop.Extensions.Application;
 using TrionControlPanel.Desktop.Extensions.Classes;
@@ -18,7 +14,6 @@ using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanel.Desktop.Extensions.Notification;
 using TrionControlPanel.Desktop.Properties;
 using TrionControlPanelDesktop.Extensions.Modules;
-using ZstdSharp.Unsafe;
 using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 using static TrionControlPanel.Desktop.Extensions.Notification.AlertBox;
 
@@ -296,6 +291,7 @@ namespace TrionControlPanelDesktop
             BTNLogonWotLKStart.Text = _translator.Translate("BTNLogonSeparateStart");
             BTNLogonCataStart.Text = _translator.Translate("BTNLogonSeparateStart");
             BTNLogonMoPStart.Text = _translator.Translate("BTNLogonSeparateStart");
+            BTNShowSupport.Text = _translator.Translate("BTNShowSupport");
             TLTHome.SetToolTip(LBLCardSPPversionInfo, _translator.Translate("LBLCardSPPversionInfo"));
             TLTHome.SetToolTip(LBLCardElulatorsInfo, _translator.Translate("LBLCardElulatorsInfo"));
             #endregion
@@ -650,9 +646,7 @@ namespace TrionControlPanelDesktop
             await AppExecuteMenager.StopLogon();
             await AppExecuteMenager.StopWorld();
             while (FormData.UI.Form.DBRunning && ServerMonitor.ServerRunningLogon() && ServerMonitor.ServerRunningWorld())
-            {
-
-            }
+            {}
             Environment.Exit(0);
         }
         private void TimerPanelAnimation_Tick(object sender, EventArgs e)
@@ -771,8 +765,7 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-<<<<<<< Updated upstream
-=======
+
                 stopDatabase = true;
 
                 if (SystemData.GetWorldProcessesID().Count > 0 || SystemData.GetLogonProcessesID().Count > 0)
@@ -795,7 +788,7 @@ namespace TrionControlPanelDesktop
 
             if (stopDatabase)
             {
->>>>>>> Stashed changes
+
                 await AppExecuteMenager.StopDatabase();
             }
         }
@@ -1602,6 +1595,7 @@ namespace TrionControlPanelDesktop
             if (string.IsNullOrEmpty(_settings.DDNSDomain) && !string.IsNullOrEmpty(TXTPublicIP.Text) || TXTPublicIP.Text != "0.0.0.0")
             {
                 await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), TXTPublicIP.Text, _settings);
+                await LoadRealmList();
                 return;
             }
             else
@@ -1611,12 +1605,14 @@ namespace TrionControlPanelDesktop
             if (!string.IsNullOrEmpty(_settings.DDNSDomain) && NetworkManager.IsDomainName(_settings.DDNSDomain))
             {
                 await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), _settings.DDNSDomain, _settings);
+                await LoadRealmList();
                 return;
             }
             else
             {
                 MaterialMessageBox.Show("");
             }
+            
         }
         private async void BTNForceRefresh_Click(object sender, EventArgs e)
         {
@@ -1785,6 +1781,9 @@ namespace TrionControlPanelDesktop
             {
                 AlertBox.Show(_translator.Translate("AccountFaildCreate"), NotificationType.Info, _settings);
             }
+            TXTBoxCreateUserUsername.Text = string.Empty;
+            TXTBoxCreateUserPassword.Text = string.Empty;
+            TXTBoxCreateUserEmail.Text = string.Empty;
         }
         #endregion
         #endregion
@@ -2255,13 +2254,17 @@ namespace TrionControlPanelDesktop
             }
             else
             {
-                AlertBox.Show("Faild", NotificationType.Info, _settings);   
+                AlertBox.Show("Faild", NotificationType.Info, _settings);
             }
+            TXTBoxGMUsername.Text = string.Empty;
         }
-
-        private void CBOXAccountSecurityAccess_SelectedIndexChanged(object sender, EventArgs e)
+        private void BTNShowSupport_Click(object sender, EventArgs e)
         {
-
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://flying-phoenix.dev/support.php",
+                UseShellExecute = true
+            });
         }
     }
 }

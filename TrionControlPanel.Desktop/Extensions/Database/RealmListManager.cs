@@ -5,7 +5,7 @@ using static TrionControlPanel.Desktop.Extensions.Modules.Enums;
 
 namespace TrionControlPanel.Desktop.Extensions.Database
 {
-    public static class RealmListManager  
+    public static class RealmListManager
     {
         /*----------------------------------------------------------
          *  READ
