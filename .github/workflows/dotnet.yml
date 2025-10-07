@@ -1,25 +1,58 @@
-name: .NET
+name: Trion CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - dev
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        dotnet-version: [9.0]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 9.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore --warnaserror
+
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Publish Artifacts
+        if: success()
+        run: |
+          mkdir -p artifacts
+          dotnet publish Trion.Desktop/Trion.Desktop.csproj -c Release -o artifacts/desktop
+          dotnet publish Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
+
+      - name: Upload Test Results
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: '**/*.trx'
+
+      - name: Upload Build Artifacts
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Trion-Build
+          path: artifacts/
