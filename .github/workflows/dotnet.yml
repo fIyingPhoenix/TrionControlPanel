@@ -2,13 +2,9 @@ name: Trion CI
 
 on:
   push:
-    branches:
-      - main
-      - dev
+    branches: [ main, dev ]
   pull_request:
-    branches:
-      - main
-      - dev
+    branches: [ main, dev ]
 
 jobs:
   build:
@@ -16,43 +12,62 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        dotnet-version: [9.0]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET 9 
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 9.0.x
 
-      - name: Restore dependencies
+      - name: Restore
         run: dotnet restore
 
-      - name: Build solution
-        run: dotnet build --configuration Release --no-restore --warnaserror
+      - name: Build
+        run: dotnet build -c Release --no-restore --warnaserror
 
-      - name: Run tests
-        run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+      - name: Test
+        run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
-      - name: Publish Artifacts
-        if: success()
+      - name: Publish desktop (single-file, self-contained)
         run: |
-          mkdir -p artifacts
-          dotnet publish Trion.Desktop/Trion.Desktop.csproj -c Release -o artifacts/desktop
+          dotnet publish Trion.Desktop/Trion.Desktop.csproj \
+            -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
+
+      - name: Publish headless service (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          dotnet publish Trion.Service/Trion.Service.csproj \
+            -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/service-linux
+
+      - name: Publish headless service (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet publish Trion.Service/Trion.Service.csproj \
+            -c Release -r win-x64   --self-contained true -p:PublishSingleFile=true -o artifacts/service-win
+
+      - name: Publish web (portable)
+        run: |
           dotnet publish Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
-      - name: Upload Test Results
-        if: success()
-        uses: actions/upload-artifact@v3
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ matrix.os }}
           path: '**/*.trx'
 
-      - name: Upload Build Artifacts
-        if: success()
-        uses: actions/upload-artifact@v3
+      - name: Upload coverage
+        if: matrix.os == 'ubuntu-latest'
+        uses: codecov/codecov-action@v4
         with:
-          name: Trion-Build
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: '**/coverage.cobertura.xml'
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trion-Build-${{ matrix.os }}
           path: artifacts/

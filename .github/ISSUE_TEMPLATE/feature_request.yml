@@ -1,0 +1,24 @@
+name: ✨ Feature Request
+description: Suggest an idea
+title: "[FEAT] <title>"
+labels: ["kind/feature"]
+body:
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User story
+      description: As a <type of user> I want <goal> so that <benefit>.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: proposed solution
+    validations:
+      required: true
+  - type: checkboxes
+    id: volunteer
+    attributes:
+      label: Volunteer to work on this?
+      options:
+        - label: I want to submit a PR for this feature

@@ -1,0 +1,17 @@
+name: 🔧 Task
+description: Internal or small engineering task
+title: "[TASK] <title>"
+labels: ["kind/task"]
+body:
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What needs to be done?
+    validations:
+      required: true
+  - type: input
+    id: milestone
+    attributes:
+      label: Milestone
+      placeholder: e.g. M1, v1.0
