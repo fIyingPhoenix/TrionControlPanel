@@ -31,14 +31,16 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
-      - name: Publish desktop (single-file, self-contained)
-        run: |
-          dotnet publish Trion.Desktop/Trion.Desktop.csproj \
-            -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
+      - name: Publish desktop (Windows)
+        if: matrix.os == 'windows-latest'
+        run: dotnet publish Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
+
+      - name: Publish desktop (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet publish Trion.Desktop/Trion.Desktop.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
 
       - name: Publish web (portable)
-        run: |
-          dotnet publish Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
+        run: dotnet publish Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
       - name: Upload test results
         if: always()
