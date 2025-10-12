@@ -1,0 +1,6 @@
+@Trion.API_HostAddress = http://localhost:5121
+
+GET {{Trion.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
