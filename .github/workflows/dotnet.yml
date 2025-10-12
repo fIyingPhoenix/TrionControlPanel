@@ -38,10 +38,6 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
 
-      - name: Publish desktop (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
-
       - name: Publish web (portable)
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
