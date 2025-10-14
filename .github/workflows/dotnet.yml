@@ -23,10 +23,9 @@ jobs:
         with:
           dotnet-version: 9.0.x
       
-      # MAUI workload is only needed on Windows for net9.0-windows target
-      # Linux build uses net9.0 target with community GTK bindings instead
-      - name: Install MAUI workload (Windows only)
-        if: runner.os == 'Windows'
+      # MAUI workload needed on both platforms for multi-targeted project
+      # Windows uses it for net9.0-windows, Linux needs it to restore all targets
+      - name: Install MAUI workload
         run: dotnet workload install maui
       
       - name: Restore
