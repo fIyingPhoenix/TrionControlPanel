@@ -23,17 +23,33 @@ jobs:
         with:
           dotnet-version: 9.0.x
       
-      # MAUI workload needed on both platforms for multi-targeted project
-      # Windows uses it for net9.0-windows, Linux needs it to restore all targets
-      - name: Install MAUI workload
+      # MAUI workload is only available on Windows
+      # Linux will build only the net9.0 target with GTK bindings
+      - name: Install MAUI workload (Windows only)
+        if: runner.os == 'Windows'
         run: dotnet workload install maui
       
-      - name: Restore
+      # Restore with framework-specific filters to avoid MAUI dependencies on Linux
+      - name: Restore (Windows)
+        if: runner.os == 'Windows'
         run: dotnet restore
       
-      # Build everything with warnings as errors to catch issues early
-      - name: Build
-        run: dotnet build -c Release --no-restore --warnaserror
+      - name: Restore (Linux)
+        if: runner.os == 'Linux'
+        run: dotnet restore src/Trion.Desktop/Trion.Desktop.csproj -f net9.0
+      
+      # Build only the target framework appropriate for each OS
+      - name: Build desktop (Windows)
+        if: runner.os == 'Windows'
+        run: dotnet build src/Trion.Desktop/Trion.Desktop.csproj -c Release -f net9.0-windows10.0.19041.0 --no-restore --warnaserror
+      
+      - name: Build desktop (Linux)
+        if: runner.os == 'Linux'
+        run: dotnet build src/Trion.Desktop/Trion.Desktop.csproj -c Release -f net9.0 --no-restore --warnaserror
+      
+      # Build web and test projects (framework-independent)
+      - name: Build web
+        run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
       
       # Run tests with coverage collection for CodeCov integration
       - name: Test
