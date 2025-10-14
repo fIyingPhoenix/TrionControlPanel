@@ -44,11 +44,11 @@ jobs:
         run: dotnet restore src/Trion.Web/Trion.Web.csproj
 
       # BUILD: Windows builds all projects (Desktop + Web)
-      # Use --runtime win-x64 to ensure desktop runtime pack is available
+      # Do NOT use --no-restore for Desktop as it needs runtime pack resolution
       # Linux builds Web only to avoid MAUI compilation errors
       - name: Build (Windows - all projects)
         if: matrix.os == 'windows-latest'
-        run: dotnet build -c Release --no-restore --warnaserror --runtime win-x64
+        run: dotnet build -c Release --warnaserror
 
       - name: Build (Linux - Web only)
         if: matrix.os == 'ubuntu-latest'
