@@ -32,8 +32,12 @@ jobs:
       # Restore all projects
       # Linux restore will warn about net9.0-windows target but won't fail
       - name: Restore
-        run: dotnet restore
-      
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            dotnet restore src/Trion.Desktop/Trion.Desktop.csproj -f net9.0
+          else
+            dotnet restore
+          fi
       # Build only the target framework appropriate for each OS
       - name: Build desktop (Windows)
         if: runner.os == 'Windows'
