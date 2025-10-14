@@ -29,14 +29,10 @@ jobs:
         if: runner.os == 'Windows'
         run: dotnet workload install maui
       
-      # Restore with framework-specific filters to avoid MAUI dependencies on Linux
-      - name: Restore (Windows)
-        if: runner.os == 'Windows'
+      # Restore all projects
+      # Linux restore will warn about net9.0-windows target but won't fail
+      - name: Restore
         run: dotnet restore
-      
-      - name: Restore (Linux)
-        if: runner.os == 'Linux'
-        run: dotnet restore src/Trion.Desktop/Trion.Desktop.csproj -f net9.0
       
       # Build only the target framework appropriate for each OS
       - name: Build desktop (Windows)
