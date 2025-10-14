@@ -58,9 +58,9 @@ jobs:
         run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-win -f net9.0-windows10.0.19041.0
       
       # Linux: Single-file executable using GTK bindings
-      - name: Publish desktop (Linux)
-        if: runner.os == 'Linux'
-        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-linux -f net9.0
+      #- name: Publish desktop (Linux)
+      # if: runner.os == 'Linux'
+      # run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-linux -f net9.0
       
       # Web app: Framework-dependent, publish on both OS to verify cross-platform compatibility
       - name: Publish web
