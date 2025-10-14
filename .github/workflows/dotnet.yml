@@ -34,7 +34,7 @@ jobs:
       - name: Restore
         run: |
           if [ "$RUNNER_OS" = "Linux" ]; then
-            dotnet restore src/Trion.Desktop/Trion.Desktop.csproj -f net9.0
+            dotnet restore -f net9.0 src/Trion.Desktop/Trion.Desktop.csproj 
           else
             dotnet restore
           fi
