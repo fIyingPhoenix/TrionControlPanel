@@ -30,32 +30,36 @@ jobs:
       - name: Install wasm-tools workload
         run: dotnet workload install wasm-tools
 
-      # RESTORE: Windows restores everything, Linux only restores Web project
-      # This prevents MAUI-tizen dependency errors on Linux runners
+      # RESTORE: Windows restores all projects with win-x64 RID for Desktop publishing
+      # Also restore MAUI runtime pack explicitly to avoid CI caching issues
+      # Linux only restores Web project to avoid MAUI-tizen dependency errors
       - name: Restore (Windows - all projects)
         if: matrix.os == 'windows-latest'
-        run: dotnet restore
+        run: |
+          dotnet restore
+          dotnet workload restore
 
-      - name: Restore (Linux - web only)
+      - name: Restore (Linux - Web only)
         if: matrix.os == 'ubuntu-latest'
         run: dotnet restore src/Trion.Web/Trion.Web.csproj
 
-      # BUILD: Split build steps by OS to avoid Desktop project compilation on Linux
-      # Windows builds Desktop (MAUI) + Web, Linux builds Web only
+      # BUILD: Windows builds all projects (Desktop + Web)
+      # Use --runtime win-x64 to ensure desktop runtime pack is available
+      # Linux builds Web only to avoid MAUI compilation errors
       - name: Build (Windows - all projects)
         if: matrix.os == 'windows-latest'
-        run: dotnet build -c Release --no-restore --warnaserror
+        run: dotnet build -c Release --no-restore --warnaserror --runtime win-x64
 
-      - name: Build (Linux - web only)
+      - name: Build (Linux - Web only)
         if: matrix.os == 'ubuntu-latest'
         run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
 
-      # TEST: Run unit tests only on relevant projects per platform
-      - name: Test (Windows - all)
+      # TEST: Windows tests all projects, Linux tests Web only
+      - name: Test (Windows - all projects)
         if: matrix.os == 'windows-latest'
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
-      - name: Test (Linux - web only)
+      - name: Test (Linux - Web only)
         if: matrix.os == 'ubuntu-latest'
         run: dotnet test src/Trion.Web/Trion.Web.csproj -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
