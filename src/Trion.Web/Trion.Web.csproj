@@ -8,6 +8,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="8.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.1" />
+    <PackageReference Include="MudBlazor" Version="8.13.0" />
   </ItemGroup>
 </Project>

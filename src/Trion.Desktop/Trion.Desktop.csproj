@@ -1,20 +1,49 @@
-<Project Sdk="Microsoft.NET.Sdk.razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net9.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+  <PropertyGroup>
+    <!-- 1.  Windows (official) + Linux-community GTK -->
+    <TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net9.0</TargetFrameworks>
 
-	<ItemGroup>
-		<Content Update="wwwroot\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
+    <!-- 2.  No mobile runtimes -->
+    <OutputType>WinExe</OutputType>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
-	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="8.13.0" />
-		<PackageReference Include="Photino.Blazor" Version="4.0.13" />
-	</ItemGroup>
+    <!-- 3.  App metadata -->
+    <ApplicationTitle>Trion Control Panel</ApplicationTitle>
+    <ApplicationId>dev.flying-phoenix.trion.desktop</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <WindowsPackageType>None</WindowsPackageType>
+
+    <!-- 4.  Minimum OS versions -->
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net9.0'">6.5</SupportedOSPlatformVersion>   <!-- Linux GTK -->
+  </PropertyGroup>
+
+  <!-- 5.  Forbid Android / iOS / MacCatalyst runtime packs -->
+  <ItemGroup>
+    <KnownRuntimePack Remove="Microsoft.Android.Runtime" />
+    <KnownRuntimePack Remove="Microsoft.iOS.Runtime" />
+    <KnownRuntimePack Remove="Microsoft.MacCatalyst.Runtime" />
+  </ItemGroup>
+
+  <!-- 6.  MAUI base packages (Windows + Linux) -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+  </ItemGroup>
+
+  <!-- 7.  NuGet packages -->
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="8.*" />
+
+  </ItemGroup>
+
 </Project>
