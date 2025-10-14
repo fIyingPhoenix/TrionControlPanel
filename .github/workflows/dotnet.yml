@@ -11,7 +11,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Run on both Windows (for MAUI desktop) and Linux (for cross-platform validation)
         os: [ubuntu-latest, windows-latest]
     
     steps:
@@ -23,54 +22,38 @@ jobs:
         with:
           dotnet-version: 9.0.x
       
-      # MAUI workload is only available on Windows
-      # Linux will build only the net9.0 target with GTK bindings
+      # Install MAUI workload only on Windows
       - name: Install MAUI workload (Windows only)
         if: runner.os == 'Windows'
         run: dotnet workload install maui
       
-      # Restore all projects
-      # Linux restore will warn about net9.0-windows target but won't fail
+      # Restore
       - name: Restore
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            dotnet restore -f net9.0 src/Trion.Desktop/Trion.Desktop.csproj 
-          else
-            dotnet restore
-          fi
-      # Build only the target framework appropriate for each OS
+        run: dotnet restore
+      
+      # Windows-only: Build desktop
       - name: Build desktop (Windows)
         if: runner.os == 'Windows'
         run: dotnet build src/Trion.Desktop/Trion.Desktop.csproj -c Release -f net9.0-windows10.0.19041.0 --no-restore --warnaserror
       
-      - name: Build desktop (Linux)
-        if: runner.os == 'Linux'
-        run: dotnet build src/Trion.Desktop/Trion.Desktop.csproj -c Release -f net9.0 --no-restore --warnaserror
-      
-      # Build web and test projects (framework-independent)
+      # Build web (both OS)
       - name: Build web
         run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
       
-      # Run tests with coverage collection for CodeCov integration
+      # Run tests (both OS)
       - name: Test
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
       
-      # Desktop app: Build for both platforms
-      # Windows: Single-file .exe with embedded runtime (no .NET install needed)
+      # Windows-only: Publish desktop
       - name: Publish desktop (Windows)
         if: runner.os == 'Windows'
         run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-win -f net9.0-windows10.0.19041.0
       
-      # Linux: Single-file executable using GTK bindings
-      #- name: Publish desktop (Linux)
-      # if: runner.os == 'Linux'
-      # run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-linux -f net9.0
-      
-      # Web app: Framework-dependent, publish on both OS to verify cross-platform compatibility
+      # Publish web (both OS)
       - name: Publish web
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
       
-      # Always upload test results even if tests fail (for debugging)
+      # Always upload test results (both OS)
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,7 +61,7 @@ jobs:
           name: test-results-${{ matrix.os }}
           path: '**/*.trx'
       
-      # Only need coverage from one OS, Linux is faster
+      # Upload coverage (only from Linux)
       - name: Upload coverage
         if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v4
@@ -86,7 +69,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: '**/coverage.cobertura.xml'
       
-      # Upload Windows desktop build artifact
+      # Upload Windows desktop artifact
       - name: Upload desktop artifact (Windows)
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
@@ -94,15 +77,7 @@ jobs:
           name: Trion-Desktop-Win
           path: artifacts/desktop-win/
       
-      # Upload Linux desktop build artifact
-      - name: Upload desktop artifact (Linux)
-        if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
-        with:
-          name: Trion-Desktop-Linux
-          path: artifacts/desktop-linux/
-      
-      # Upload web artifacts from both OS (helps catch platform-specific issues)
+      # Upload web artifact (both OS)
       - name: Upload web artifact
         uses: actions/upload-artifact@v4
         with:
