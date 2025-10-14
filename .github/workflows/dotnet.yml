@@ -12,74 +12,51 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Setup .NET 9
+
+      - name: Setup .NET 9 
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-      
-      # Install MAUI workload only on Windows
-      - name: Install MAUI workload (Windows only)
-        if: runner.os == 'Windows'
-        run: dotnet workload install maui
-      
-      # Restore
+
+      - name: Install .NET workloads
+        run: dotnet workload install aspire wasm-tools
+
       - name: Restore
         run: dotnet restore
-      
-      # Windows-only: Build desktop
-      - name: Build desktop (Windows)
-        if: runner.os == 'Windows'
-        run: dotnet build src/Trion.Desktop/Trion.Desktop.csproj -c Release -f net9.0-windows10.0.19041.0 --no-restore --warnaserror
-      
-      # Build web (both OS)
-      - name: Build web
-        run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
-      
-      # Run tests (both OS)
+
+      - name: Build
+        run: dotnet build -c Release --no-restore --warnaserror
+
       - name: Test
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
-      
-      # Windows-only: Publish desktop
+
       - name: Publish desktop (Windows)
-        if: runner.os == 'Windows'
-        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/desktop-win -f net9.0-windows10.0.19041.0
-      
-      # Publish web (both OS)
-      - name: Publish web
+        if: matrix.os == 'windows-latest'
+        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
+
+      - name: Publish web (portable)
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
-      
-      # Always upload test results (both OS)
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.os }}
           path: '**/*.trx'
-      
-      # Upload coverage (only from Linux)
+
       - name: Upload coverage
         if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: '**/coverage.cobertura.xml'
-      
-      # Upload Windows desktop artifact
-      - name: Upload desktop artifact (Windows)
-        if: runner.os == 'Windows'
+
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Trion-Desktop-Win
-          path: artifacts/desktop-win/
-      
-      # Upload web artifact (both OS)
-      - name: Upload web artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Trion-Web-${{ matrix.os }}
-          path: artifacts/web/
+          name: Trion-Build-${{ matrix.os }}
+          path: artifacts/
