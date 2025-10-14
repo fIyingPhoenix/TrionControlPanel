@@ -26,7 +26,6 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: dotnet workload install maui
 
-      # optional, ensures analyzer consistency
       - name: Enable strict analyzers
         run: |
           echo "DOTNET_CLI_TELEMETRY_OPTOUT=1" >> $GITHUB_ENV
@@ -37,7 +36,13 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build -c Release --no-restore --warnaserror
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
+          else
+            dotnet build -c Release --no-restore --warnaserror
+          fi
+        shell: bash
 
       - name: Test
         run: |
@@ -47,6 +52,7 @@ jobs:
 
       - name: Publish MAUI desktop (Windows)
         if: matrix.os == 'windows-latest'
+        shell: pwsh
         run: |
           dotnet publish src/Trion.Desktop/Trion.Desktop.csproj `
             -c Release `
