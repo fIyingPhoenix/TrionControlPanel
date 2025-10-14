@@ -3,3 +3,17 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@inject TrionLogger Log
+
+<Button class="btn btn-primary" @onclick="Fire">Log something</Button>
+
+@code{
+    private void Fire()
+    {
+        Log.Info("MAUI Hybrid info");
+        Log.Success("MAUI Hybrid success");
+        Log.Warning("MAUI Hybrid warning");
+        Log.Error(new Exception("MAUI Hybrid error"));
+    }
+}

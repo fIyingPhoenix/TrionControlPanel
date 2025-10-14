@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+  </ItemGroup>
+
 </Project>

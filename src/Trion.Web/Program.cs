@@ -1,7 +1,15 @@
 using MudBlazor.Services;
+using Trion.Core.Logging;
 using Trion.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// bind options from appsettings.json
+builder.Services.Configure<LoggerOptions>(
+    builder.Configuration.GetSection("Logging:Trion"));
+
+// register singleton logger
+builder.Services.AddTrionLogger();
 
 // Add MudBlazor services
 builder.Services.AddMudServices();
