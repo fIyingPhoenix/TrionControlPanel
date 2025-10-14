@@ -15,38 +15,61 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Setup .NET 9 runtime
       - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
 
-      # Only install MAUI on Windows
+      # MAUI is Windows-only, skip on Linux to avoid workload installation errors
       - name: Install MAUI workload (Windows)
         if: matrix.os == 'windows-latest'
         run: dotnet workload install maui
 
-      # Install wasm-tools on both platforms
+      # wasm-tools needed for web projects on all platforms
       - name: Install wasm-tools workload
         run: dotnet workload install wasm-tools
 
-      - name: Restore
+      # RESTORE: Windows restores everything, Linux only restores Web project
+      # This prevents MAUI-tizen dependency errors on Linux runners
+      - name: Restore (Windows - all projects)
+        if: matrix.os == 'windows-latest'
         run: dotnet restore
 
-      - name: Build
+      - name: Restore (Linux - web only)
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet restore src/Trion.Web/Trion.Web.csproj
+
+      # BUILD: Split build steps by OS to avoid Desktop project compilation on Linux
+      # Windows builds Desktop (MAUI) + Web, Linux builds Web only
+      - name: Build (Windows - all projects)
+        if: matrix.os == 'windows-latest'
         run: dotnet build -c Release --no-restore --warnaserror
 
-      - name: Test
+      - name: Build (Linux - web only)
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
+
+      # TEST: Run unit tests only on relevant projects per platform
+      - name: Test (Windows - all)
+        if: matrix.os == 'windows-latest'
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
-      # Publish Desktop - Windows only
+      - name: Test (Linux - web only)
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet test src/Trion.Web/Trion.Web.csproj -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
+
+      # PUBLISH DESKTOP: Windows only - creates self-contained single-file exe
       - name: Publish desktop (Windows)
         if: matrix.os == 'windows-latest'
         run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
 
-      # Publish Web - Both platforms
+      # PUBLISH WEB: Both platforms - portable web app deployment
       - name: Publish web (portable)
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
+      # ARTIFACT UPLOADS
+      # Upload test results from both platforms
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -54,6 +77,7 @@ jobs:
           name: test-results-${{ matrix.os }}
           path: '**/*.trx'
 
+      # Upload code coverage to codecov (Linux only to avoid duplicates)
       - name: Upload coverage
         if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v4
@@ -61,6 +85,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: '**/coverage.cobertura.xml'
 
+      # Upload all build artifacts (desktop exe on Windows, web files on both)
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
