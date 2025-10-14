@@ -1,5 +1,4 @@
 name: Trion CI
-
 on:
   push:
     branches: [ main, dev ]
@@ -12,18 +11,23 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET 9 
+      - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
 
-      - name: Install .NET workloads
-        run: dotnet workload install aspire wasm-tools
+      # Only install MAUI on Windows
+      - name: Install MAUI workload (Windows)
+        if: matrix.os == 'windows-latest'
+        run: dotnet workload install maui
+
+      # Install wasm-tools on both platforms
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
 
       - name: Restore
         run: dotnet restore
@@ -34,10 +38,12 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
+      # Publish Desktop - Windows only
       - name: Publish desktop (Windows)
         if: matrix.os == 'windows-latest'
         run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
 
+      # Publish Web - Both platforms
       - name: Publish web (portable)
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
