@@ -16,4 +16,12 @@
     <PackageReference Include="MudBlazor" Version="8.13.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+  </ItemGroup>
+
 </Project>

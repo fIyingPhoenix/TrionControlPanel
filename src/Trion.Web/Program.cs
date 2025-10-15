@@ -1,5 +1,6 @@
 using MudBlazor.Services;
 using Trion.Core.Logging;
+using Trion.Core.Monitoring;
 using Trion.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,12 @@ builder.Services.AddMudServices();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.Configure<ProcessMonitorOptions>(
+    builder.Configuration.GetSection("Monitoring"));
+builder.Services.AddSingleton<IMachineMetricsProvider, MachineMetricsProvider>();
+builder.Services.AddSingleton<ProcessStore>();
+builder.Services.AddHostedService<ProcessMonitor>();
 
 var app = builder.Build();
 
