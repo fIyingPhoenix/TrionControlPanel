@@ -1,0 +1,86 @@
+﻿@rendermode InteractiveServer
+@using MudBlazor
+@using System.Globalization
+@using Microsoft.AspNetCore.Http
+@inject NavigationManager Nav
+@inject IHttpContextAccessor Http
+
+<MudMenu Dense="true"
+         AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <div style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+            <span class="fi @($"fi-{GetFlagCode(CurrentLang)}")" style="font-size:1.4rem;"></span>
+            <span style="font-size:0.9rem;">@GetDisplayName(CurrentLang)</span>
+        </div>
+    </ActivatorContent>
+
+    <ChildContent>
+        @foreach (var lang in _available)
+        {
+            <MudMenuItem OnClick="() => ChangeLanguage(lang)">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="fi @($"fi-{GetFlagCode(lang)}")" style="font-size:1.2rem;"></span>
+                    <span>@GetDisplayName(lang)</span>
+                </div>
+            </MudMenuItem>
+        }
+    </ChildContent>
+</MudMenu>
+
+@code {
+    private string[] _available = new[] { "en", "de", "ro" };
+    private string CurrentLang => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    private async Task ChangeLanguage(string lang)
+    {
+        if (Http?.HttpContext != null)
+        {
+            var relative = Nav.ToBaseRelativePath(Nav.Uri);
+            if (string.IsNullOrWhiteSpace(relative)) relative = "/";
+            Nav.NavigateTo($"/Culture/Set?culture={lang}&redirectUri=/{relative}", forceLoad: true);
+        }
+        await Task.CompletedTask;
+    }
+
+    private static string GetDisplayName(string lang)
+    {
+        try
+        {
+            var c = new CultureInfo(lang);
+            return char.ToUpper(c.NativeName[0]) + c.NativeName[1..];
+        }
+        catch
+        {
+            return lang.ToUpper();
+        }
+    }
+
+    private static string GetFlagCode(string lang)
+    {
+        try
+        {
+            var culture = new CultureInfo(lang);
+
+            // Case 1: specific culture like de-DE or fr-FR
+            if (culture.Name.Contains('-'))
+            {
+                var region = culture.Name.Split('-').Last();
+                return region.ToLower();
+            }
+
+            // Case 2: neutral languages (no region)
+            return culture.TwoLetterISOLanguageName.ToLower() switch
+            {
+                "en" => "us",  // 🇺🇸 English (change to "gb" for 🇬🇧)
+                "pt" => "pt",
+                "es" => "es",
+                "zh" => "cn",
+                _ => culture.TwoLetterISOLanguageName.ToLower()
+            };
+        }
+        catch
+        {
+            return "xx";
+        }
+    }
+}
