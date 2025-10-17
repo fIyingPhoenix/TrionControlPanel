@@ -1,4 +1,15 @@
+# ============================================================
+#  Trion Continuous Integration (CI) Workflow
+# ------------------------------------------------------------
+#  This workflow builds and publishes the Trion.Web project
+#  on every push or pull request to `main` or `dev` branches.
+#
+#  The legacy Trion.Desktop (MAUI) project has been removed.
+#  Only the Blazor Server build is now maintained and deployed.
+# ============================================================
+
 name: Trion CI
+
 on:
   push:
     branches: [ main, dev ]
@@ -7,91 +18,68 @@ on:
 
 jobs:
   build:
+    # ---------------------------------------------------------
+    # Run build matrix on both Windows and Linux
+    # - Ubuntu ensures Linux compatibility for hosting
+    # - Windows ensures cross-platform consistency
+    # ---------------------------------------------------------
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
+
     steps:
-      - name: Checkout
+      # -------------------------------------------------------
+      # Step 1: Checkout repository
+      # -------------------------------------------------------
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup .NET 9 runtime
+      # -------------------------------------------------------
+      # Step 2: Setup .NET 9 SDK
+      # -------------------------------------------------------
       - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
 
-      # MAUI is Windows-only, skip on Linux to avoid workload installation errors
-      - name: Install MAUI workload (Windows)
-        if: matrix.os == 'windows-latest'
-        run: dotnet workload install maui
-
-      # wasm-tools needed for web projects on all platforms
-      - name: Install wasm-tools workload
-        run: dotnet workload install wasm-tools
-
-      # RESTORE: Windows restores all projects with win-x64 RID for Desktop publishing
-      # Also restore MAUI runtime pack explicitly to avoid CI caching issues
-      # Linux only restores Web project to avoid MAUI-tizen dependency errors
-      - name: Restore (Windows - all projects)
-        if: matrix.os == 'windows-latest'
+      # -------------------------------------------------------
+      # Step 3: Global build environment config
+      #   - Disable telemetry
+      #   - Disable GUI popups for build errors
+      #   - Treat warnings as errors to enforce code quality
+      # -------------------------------------------------------
+      - name: Configure build environment
         run: |
-          dotnet restore
-          dotnet workload restore
+          echo "DOTNET_CLI_TELEMETRY_OPTOUT=1" >> $GITHUB_ENV
+          echo "DOTNET_DISABLE_GUI_ERRORS=1" >> $GITHUB_ENV
+          echo "TreatWarningsAsErrors=true" >> Directory.Build.props
 
-      - name: Restore (Linux - Web only)
-        if: matrix.os == 'ubuntu-latest'
-        run: dotnet restore src/Trion.Web/Trion.Web.csproj
+      # -------------------------------------------------------
+      # Step 4: Restore NuGet dependencies
+      # -------------------------------------------------------
+      - name: Restore dependencies
+        run: dotnet restore
 
-      # BUILD: Windows builds all projects (Desktop + Web)
-      # Do NOT use --no-restore for Desktop as it needs runtime pack resolution
-      # Linux builds Web only to avoid MAUI compilation errors
-      - name: Build (Windows - all projects)
-        if: matrix.os == 'windows-latest'
-        run: dotnet build -c Release --warnaserror
+      # -------------------------------------------------------
+      # Step 5: Build all projects in Release mode
+      # -------------------------------------------------------
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Build (Linux - Web only)
-        if: matrix.os == 'ubuntu-latest'
-        run: dotnet build src/Trion.Web/Trion.Web.csproj -c Release --no-restore --warnaserror
+      # -------------------------------------------------------
+      # Step 6: Publish only the Trion.Web project
+      # -------------------------------------------------------
+      - name: Publish Trion.Web (Blazor Server)
+        run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web --no-restore
 
-      # TEST: Windows tests all projects, Linux tests Web only
-      - name: Test (Windows - all projects)
-        if: matrix.os == 'windows-latest'
-        run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
-
-      - name: Test (Linux - Web only)
-        if: matrix.os == 'ubuntu-latest'
-        run: dotnet test src/Trion.Web/Trion.Web.csproj -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
-
-      # PUBLISH DESKTOP: Windows only - creates self-contained single-file exe
-      - name: Publish desktop (Windows)
-        if: matrix.os == 'windows-latest'
-        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/desktop
-
-      # PUBLISH WEB: Both platforms - portable web app deployment
-      - name: Publish web (portable)
-        run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
-
-      # ARTIFACT UPLOADS
-      # Upload test results from both platforms
-      - name: Upload test results
-        if: always()
+      # -------------------------------------------------------
+      # Step 7: Upload the published Web build as an artifact
+      #   - This makes it downloadable in GitHub Actions
+      #   - Useful for testing, staging, or manual deployments
+      # -------------------------------------------------------
+      - name: Upload published web artifact
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.os }}
-          path: '**/*.trx'
-
-      # Upload code coverage to codecov (Linux only to avoid duplicates)
-      - name: Upload coverage
-        if: matrix.os == 'ubuntu-latest'
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: '**/coverage.cobertura.xml'
-
-      # Upload all build artifacts (desktop exe on Windows, web files on both)
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Trion-Build-${{ matrix.os }}
-          path: artifacts/
+          name: trion-web
+          path: artifacts/web
