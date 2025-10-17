@@ -98,12 +98,8 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
                 if (salt == null || salt.Length != SALT_BYTE_SIZE)
                     throw new ArgumentException($"Salt must be exactly {SALT_BYTE_SIZE} bytes", nameof(salt));
 
-                // Normalize username and password (CMaNGOS normalizeString function)
-                username = NormalizeString(username);
-                password = NormalizeString(password);
-
                 //Calculate SHA1 hash of "USERNAME:PASSWORD" (CalculateShaPassHash)
-                string credentials = $"{username}:{password}";
+                string credentials = $"{username.ToUpper()}:{password.ToUpper()}";
                 byte[] credentialsHash = SHA1.HashData(Encoding.UTF8.GetBytes(credentials));
 
                 //Reverse the salt (CMaNGOS uses little-endian byte order)
@@ -130,7 +126,7 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
                 BigInteger verifier = BigInteger.ModPow(GENERATOR, x, N);
 
                 // Convert verifier to byte array (32 bytes, big-endian for storage)
-                byte[] verifierBytes = verifier.ToByteArray(isUnsigned: true, isBigEndian: true);
+                byte[] verifierBytes = verifier.ToByteArray(isUnsigned: true, isBigEndian: false);
 
                 // Pad to 32 bytes if necessary
                 if (verifierBytes.Length < VERIFIER_BYTE_SIZE)
@@ -187,28 +183,6 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
                 return bytes;
             }
 
-            private static string NormalizeString(string input)
-            {
-                if (string.IsNullOrEmpty(input))
-                    return input;
-
-                StringBuilder result = new StringBuilder(input.Length);
-
-                foreach (char c in input)
-                {
-                    // Only uppercase ASCII letters a-z (0x61-0x7A -> 0x41-0x5A)
-                    if (c >= 'a' && c <= 'z')
-                    {
-                        result.Append((char)(c - 32));
-                    }
-                    else
-                    {
-                        result.Append(c);
-                    }
-                }
-
-                return result.ToString();
-            }
 
             public static (string SaltHex, string VerifierHex) CreateAccountCredentials(string username, string password)
             {

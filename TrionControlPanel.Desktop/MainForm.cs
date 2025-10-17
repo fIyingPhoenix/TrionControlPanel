@@ -2241,7 +2241,7 @@ namespace TrionControlPanelDesktop
         {
             int userID = await AccountManager.GetUserID(TXTBoxGMUsername.Text, _settings);
             int gmLevel = CBOXAccountSecurityAccess.SelectedIndex;
-            int RealmId = CBOXAccountSecurityAccess.SelectedItem?.ToString() switch
+            int RealmId = CBoxGMRealmSelect.SelectedItem?.ToString() switch
             {
                 "ALL" => -1,
                 string s when int.TryParse(s, out var id) => id,
