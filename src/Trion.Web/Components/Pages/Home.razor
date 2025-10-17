@@ -1,1 +1,4 @@
 ﻿@page "/"
+@inject Trion.UI.Localization.GlobalLocalizer L
+<h1>@L["H_World"]</h1>
+<p>Culture: @System.Globalization.CultureInfo.CurrentUICulture.Name</p>

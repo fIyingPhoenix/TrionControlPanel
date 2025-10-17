@@ -37,10 +37,11 @@
 
 	<!-- Core MAUI packages (supports both Windows and Linux GTK) -->
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.120" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.10" />
 	</ItemGroup>
 
 	<!-- UI framework -->
@@ -49,5 +50,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+	  <ProjectReference Include="..\Trion.UI\Trion.UI.csproj" />
 	</ItemGroup>
 </Project>

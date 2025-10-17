@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
+using System.Globalization;
 using Trion.Core.Logging;
 using Trion.Core.Monitoring;
+using Trion.UI.Localization;
 
 namespace Trion.Desktop
 {
@@ -39,6 +41,19 @@ namespace Trion.Desktop
             builder.Services.AddSingleton<IMachineMetricsProvider, MachineMetricsProvider>();
             builder.Services.AddSingleton<ProcessStore>();
             builder.Services.AddHostedService<ProcessMonitor>();
+
+            /* Localization */
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Localization/Resources");
+            builder.Services.AddSingleton<GlobalLocalizer>();
+
+            // Load the last selected language (saved by LanguageSelector)
+            var savedLang = Preferences.Get("trion_lang", "en");
+            var culture = new CultureInfo(savedLang);
+
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             return builder.Build();
         }
