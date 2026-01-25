@@ -11,19 +11,22 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         {
             try
             {
-                // Delete all files in the target directory.
-                string[] files = Directory.GetFiles(targetDirectory);
-                foreach (string file in files)
+                await Task.Run(() =>
                 {
-                    await Task.Run(() => File.Delete(file));
-                }
+                    // Delete all files in the target directory.
+                    string[] files = Directory.GetFiles(targetDirectory);
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                    }
 
-                // Delete all directories in the target directory.
-                string[] directories = Directory.GetDirectories(targetDirectory);
-                foreach (string directory in directories)
-                {
-                    await Task.Run(() => Directory.Delete(directory, true));
-                }
+                    // Delete all directories in the target directory.
+                    string[] directories = Directory.GetDirectories(targetDirectory);
+                    foreach (string directory in directories)
+                    {
+                        Directory.Delete(directory, true);
+                    }
+                });
             }
             catch (Exception ex)
             {

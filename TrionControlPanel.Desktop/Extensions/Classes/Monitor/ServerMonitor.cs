@@ -56,23 +56,21 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         {
             var current = SystemData.GetLogonProcessesID();
 
-            var runningNames = await Task.Run(() =>
+            await Task.Run(() =>
             {
                 var hs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 foreach (var item in current)
+                {
                     if (IsApplicationRunning(item.ID))
                         hs.Add(item.Name);
-                return hs;
-            });
+                }
 
-            await Task.Run(() =>
-            {
-                FormData.UI.Form.ClassicLogonRunning = runningNames.Contains("WoW Classic Logon");
-                FormData.UI.Form.TBCLogonRunning = runningNames.Contains("The Burning Crusade Logon");
-                FormData.UI.Form.WotLKLogonRunning = runningNames.Contains("Wrath of the Lich King Logon");
-                FormData.UI.Form.CataLogonRunning = runningNames.Contains("Cataclysm Logon");
-                FormData.UI.Form.MOPLogonRunning = runningNames.Contains("Mists of Pandaria Logon");
-                FormData.UI.Form.CustLogonRunning = runningNames.Contains("Custom Core");
+                FormData.UI.Form.ClassicLogonRunning = hs.Contains("WoW Classic Logon");
+                FormData.UI.Form.TBCLogonRunning = hs.Contains("The Burning Crusade Logon");
+                FormData.UI.Form.WotLKLogonRunning = hs.Contains("Wrath of the Lich King Logon");
+                FormData.UI.Form.CataLogonRunning = hs.Contains("Cataclysm Logon");
+                FormData.UI.Form.MOPLogonRunning = hs.Contains("Mists of Pandaria Logon");
+                FormData.UI.Form.CustLogonRunning = hs.Contains("Custom Core");
             });
         }
 
@@ -80,23 +78,21 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Monitor
         {
             var current = SystemData.GetWorldProcessesID();
 
-            var runningNames = await Task.Run(() =>
+            await Task.Run(() =>
             {
                 var hs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 foreach (var item in current)
+                {
                     if (IsApplicationRunning(item.ID))
                         hs.Add(item.Name);
-                return hs;
-            });
+                }
 
-            await Task.Run(() =>
-            {
-                FormData.UI.Form.ClassicWorldRunning = runningNames.Contains("WoW Classic World");
-                FormData.UI.Form.TBCWorldRunning = runningNames.Contains("The Burning Crusade World");
-                FormData.UI.Form.WotLKWorldRunning = runningNames.Contains("Wrath of the Lich King World");
-                FormData.UI.Form.CataWorldRunning = runningNames.Contains("Cataclysm World");
-                FormData.UI.Form.MOPWorldRunning = runningNames.Contains("Mists of Pandaria World");
-                FormData.UI.Form.CustWorldRunning = runningNames.Contains("Custom Core");
+                FormData.UI.Form.ClassicWorldRunning = hs.Contains("WoW Classic World");
+                FormData.UI.Form.TBCWorldRunning = hs.Contains("The Burning Crusade World");
+                FormData.UI.Form.WotLKWorldRunning = hs.Contains("Wrath of the Lich King World");
+                FormData.UI.Form.CataWorldRunning = hs.Contains("Cataclysm World");
+                FormData.UI.Form.MOPWorldRunning = hs.Contains("Mists of Pandaria World");
+                FormData.UI.Form.CustWorldRunning = hs.Contains("Custom Core");
             });
         }
         public static async Task ServerRunningDatabaseAsync()

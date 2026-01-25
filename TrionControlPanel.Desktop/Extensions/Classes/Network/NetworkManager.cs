@@ -13,23 +13,66 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
     // NetworkManager class for handling network-related operations.
     public class NetworkManager
     {
-        // Sets the API server URL based on the availability of the main and backup hosts.
+        // Shared HttpClient instance to prevent socket exhaustion and improve performance.
+        public static readonly HttpClient SharedClient = new() { Timeout = TimeSpan.FromSeconds(100) }; // Default timeout
+
+        // Indicates if the application is currently running in offline mode.
+        public static bool IsOffline { get; private set; } = true;
+
+        // Sets the API server URL based on the availability of the main and backup hosts using parallel checks.
         public static async Task GetAPIServer()
         {
-            var main = await IsWebsiteOnlineAsync($"{Links.MainHost}/Trion/Ping");
-            if (main)
+            // Create a CTS for the connection check timeout (e.g., 5 seconds)
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+
+            var mainTask = CheckHost(Links.MainHost, cts.Token);
+            var backupTask = CheckHost(Links.BackupHost, cts.Token);
+
+            // Wait for the first one to succeed, or all to complete/fail
+            var completedTask = await Task.WhenAny(mainTask, backupTask);
+
+            if (await completedTask)
             {
-                Links.APIServer = Links.MainHost;
-                return;
-            }
-            var backup = await IsWebsiteOnlineAsync($"{Links.BackupHost}/Trion/Ping");
-            if (backup)
-            {
-                Links.APIServer = Links.BackupHost;
+                // One of them succeeded. The helper method already set Links.APIServer
+                IsOffline = false;
                 return;
             }
 
-             Links.APIServer = null!; 
+            // If the first one failed/timed out, check the other one (it might have finished or failed by now)
+            if (mainTask != completedTask && await mainTask)
+            {
+                 IsOffline = false;
+                 return;
+            }
+            if (backupTask != completedTask && await backupTask)
+            {
+                 IsOffline = false;
+                 return;
+            }
+
+            // Both failed
+            Links.APIServer = null!;
+            IsOffline = true;
+            TrionLogger.Log("Unable to connect to any API server. Switching to Offline Mode.", "WARNING");
+        }
+
+        private static async Task<bool> CheckHost(string host, CancellationToken token)
+        {
+            try
+            {
+                // Use a dedicated request to respect the short timeout token
+                var response = await SharedClient.GetAsync($"{host}/Trion/Ping", token);
+                if (response.IsSuccessStatusCode)
+                {
+                    Links.APIServer = host;
+                    return true;
+                }
+            }
+            catch
+            {
+                // Ignore errors during ping (timeout, network unreachable, etc.)
+            }
+            return false;
         }
 
         // Checks if the input string is a valid domain name.
@@ -60,21 +103,18 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         {
             try
             {
-                using (HttpClient client = new())
+                TrionLogger.Log($"Getting external IPv4 address from {url}");
+                HttpResponseMessage response = await SharedClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
                 {
-                    TrionLogger.Log($"Getting external IPv4 address from {url}");
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsAsync<dynamic>();
-                        TrionLogger.Log($"Loaded external IPv4 address: {result.iPv4Address}");
-                        return result.iPv4Address;
-                    }
-                    else
-                    {
-                        TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
-                        return "0.0.0.0";
-                    }
+                    var result = await response.Content.ReadAsAsync<dynamic>();
+                    TrionLogger.Log($"Loaded external IPv4 address: {result.iPv4Address}");
+                    return result.iPv4Address;
+                }
+                else
+                {
+                    TrionLogger.Log($"Error fetching IP {response.StatusCode} ,Url {url}", "ERROR");
+                    return "0.0.0.0";
                 }
             }
             catch (HttpRequestException ex)
@@ -130,8 +170,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             TrionLogger.Log($"Website: {url} Checking");
             try
             {
-                using HttpClient httpClient = new();
-                var response = await httpClient.GetAsync(url);
+                // Use SharedClient but with a specific shorter timeout if needed? 
+                // For general usage, the default timeout is fine, but for pings we prefer GetAPIServer logic.
+                // Keeping this for backward compat with other calls.
+                var response = await SharedClient.GetAsync(url);
                 return response.IsSuccessStatusCode;
             }
             catch (HttpRequestException ex)
@@ -241,8 +283,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             {
                 var task = Task.Run(async () =>
                 {
-                    using HttpClient httpClient = new();
-                    HttpResponseMessage response = await httpClient.GetAsync(URL).ConfigureAwait(false);
+                    // Use SharedClient instead of creating new one
+                    HttpResponseMessage response = await SharedClient.GetAsync(URL).ConfigureAwait(false);
                     TrionLogger.Log($"Getting data from {URL}, Response code: {response.StatusCode}");
 
                     if (response.IsSuccessStatusCode)

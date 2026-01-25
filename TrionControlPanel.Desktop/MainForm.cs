@@ -22,55 +22,10 @@ namespace TrionControlPanelDesktop
     public partial class MainForm : MaterialForm
     {
         #region "Load Language"
-        private Translator _translator = new();
-        private void PopulateComboBoxes()
-        {
-            CBOXSPPVersion.Items.Clear();
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver1"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver2"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver3"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver4"));
-            CBOXSPPVersion.Items.Add(_translator.Translate("SPPver5"));
-            CBOXSPPVersion.SelectedIndex = (int)_settings.SelectedSPP;
-            CBOXAccountExpansion.Items.Clear();
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion0"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion1"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion2"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion3"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion4"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion5"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion6"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion7"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion8"));
-            CBOXAccountExpansion.Items.Add(_translator.Translate("AccountExpansion9"));
-            CBOXAccountExpansion.SelectedIndex = 2;
-            CBOXAccountSecurityAccess.Items.Clear();
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL0"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL1"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL2"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL3"));
-            CBOXAccountSecurityAccess.Items.Add(_translator.Translate("AccountAccessLvL4"));
-            CBOXAccountSecurityAccess.SelectedIndex = 0;
-            CBOXTrionIcon.Items.Clear();
-            foreach (var key in ImageListIcons.Images.Keys)
-            {
-                CBOXTrionIcon.Items.Add(key!);
-            }
-            CBOXTrionIcon.SelectedItem = _settings.TrionIcon;
-            CBoxSelectItems();
-        }
-        private void LoadLangauge()
-        {
-            _translator.LoadLanguage(_settings.TrionLanguage);
-            SetLanguage();
-        }
-        private void GetAllLanguages()
-        {
-            CBOXLanguageSelect.Items.AddRange([.. Translator.GetAvailableLanguages()]);
-            CBOXLanguageSelect.SelectedItem = _settings.TrionLanguage;
-            CBOXColorSelect.Items.AddRange(Enum.GetValues(typeof(Enums.TrionTheme)).Cast<Enums.TrionTheme>().Select(e => e.ToString()).ToArray());
-            CBOXColorSelect.SelectedItem = _settings.TrionTheme.ToString();
-        }
+        private Translator translator = new();
+
+
+
         private void SetLanguage()
         {
             if (InvokeRequired)
@@ -80,239 +35,239 @@ namespace TrionControlPanelDesktop
             }
             PopulateComboBoxes();
             #region "MainForm"  
-            TLTHome.SetToolTip(BTNStartDatabase, _translator.Translate("BTNStartDatabaseToolTip"));
-            TLTHome.SetToolTip(BTNStartLogon, _translator.Translate("BTNStartLogonToolTip"));
-            TLTHome.SetToolTip(BTNStartWorld, _translator.Translate("BTNStartWorldToolTip"));
-            TLTHome.SetToolTip(InfoMachineResources, _translator.Translate("InfoMachineResources"));
-            TLTHome.SetToolTip(InfoLogonResorces, _translator.Translate("InfoLogonResorces"));
-            TLTHome.SetToolTip(InfoWorldResorces, _translator.Translate("InfoWorldResorces"));
-            BTNStartDatabase.Text = _translator.Translate("BTNStartDatabaseTextOFF");
-            BTNStartLogon.Text = _translator.Translate("BTNStartLogonTextOFF");
-            BTNStartWorld.Text = _translator.Translate("BTNStartWorldTextOFF");
-            BTNStartWebsite.Text = _translator.Translate("BTNStartWebsiteTextOFF");
-            NIcon.BalloonTipText = _translator.Translate("NIconBalloonTipText");
-            NIcon.BalloonTipTitle = _translator.Translate("NIconBalloonTipTitle");
-            NIcon.Text = _translator.Translate("NIconBalloonTipTitle");
-            TabSettings.Text = _translator.Translate("TabSettingsTitle");
-            TabHome.Text = _translator.Translate("TabHomeTitle");
-            TabDatabaseEditor.Text = _translator.Translate("TabDatabaseEditorTitle");
-            TabSPP.Text = _translator.Translate("TabSPPTitle");
-            TabNotification.Text = _translator.Translate("TabNotification");
-            TabDDNS.Text = _translator.Translate("TabDDNS");
-            TabDownloader.Text = _translator.Translate("TabDownloader");
-            Text = _translator.Translate("TrionFormText");
+            TLTHome.SetToolTip(BTNStartDatabase, translator.Translate("BTNStartDatabaseToolTip"));
+            TLTHome.SetToolTip(BTNStartLogon, translator.Translate("BTNStartLogonToolTip"));
+            TLTHome.SetToolTip(BTNStartWorld, translator.Translate("BTNStartWorldToolTip"));
+            TLTHome.SetToolTip(InfoMachineResources, translator.Translate("InfoMachineResources"));
+            TLTHome.SetToolTip(InfoLogonResorces, translator.Translate("InfoLogonResorces"));
+            TLTHome.SetToolTip(InfoWorldResorces, translator.Translate("InfoWorldResorces"));
+            BTNStartDatabase.Text = translator.Translate("BTNStartDatabaseTextOFF");
+            BTNStartLogon.Text = translator.Translate("BTNStartLogonTextOFF");
+            BTNStartWorld.Text = translator.Translate("BTNStartWorldTextOFF");
+            BTNStartWebsite.Text = translator.Translate("BTNStartWebsiteTextOFF");
+            NIcon.BalloonTipText = translator.Translate("NIconBalloonTipText");
+            NIcon.BalloonTipTitle = translator.Translate("NIconBalloonTipTitle");
+            NIcon.Text = translator.Translate("NIconBalloonTipTitle");
+            TabSettings.Text = translator.Translate("TabSettingsTitle");
+            TabHome.Text = translator.Translate("TabHomeTitle");
+            TabDatabaseEditor.Text = translator.Translate("TabDatabaseEditorTitle");
+            TabSPP.Text = translator.Translate("TabSPPTitle");
+            TabNotification.Text = translator.Translate("TabNotification");
+            TabDDNS.Text = translator.Translate("TabDDNS");
+            TabDownloader.Text = translator.Translate("TabDownloader");
+            Text = translator.Translate("TrionFormText");
             #endregion
             #region "Home Page"
-            LBLCardMachineResourcesTitle.Text = _translator.Translate("LBLCardMachineResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardWorldResourcesTitle.Text = _translator.Translate("LBLCardWorldResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardLogonResourcesTitle.Text = _translator.Translate("LBLCardLogonResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLRAMTextMachineResources.Text = _translator.Translate("LBLRAMTextMachineResources");
-            LBLCPUTextMachineResources.Text = _translator.Translate("LBLCPUTextMachineResources");
-            LBLRAMTextWorldResources.Text = _translator.Translate("LBLRAMTextMachineResources");
-            LBLCPUTextWorldResources.Text = _translator.Translate("LBLCPUTextMachineResources");
-            LBLRAMTextLogonResources.Text = _translator.Translate("LBLRAMTextMachineResources");
-            LBLCPUTextLogonResources.Text = _translator.Translate("LBLCPUTextMachineResources");
-            LBLDatabaseProcessID.Text = _translator.Translate("LBLProcessID");
-            LBLWorldProcessID.Text = _translator.Translate("LBLProcessID");
-            LBLLogonProcessID.Text = _translator.Translate("LBLProcessID");
-            LBLUpTimeDatabase.Text = _translator.Translate("LBLUpTime");
-            LBLUpTimeWorld.Text = _translator.Translate("LBLUpTime");
-            LBLUpTimeLogon.Text = _translator.Translate("LBLUpTime");
+            LBLCardMachineResourcesTitle.Text = translator.Translate("LBLCardMachineResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardWorldResourcesTitle.Text = translator.Translate("LBLCardWorldResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardLogonResourcesTitle.Text = translator.Translate("LBLCardLogonResourcesTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLRAMTextMachineResources.Text = translator.Translate("LBLRAMTextMachineResources");
+            LBLCPUTextMachineResources.Text = translator.Translate("LBLCPUTextMachineResources");
+            LBLRAMTextWorldResources.Text = translator.Translate("LBLRAMTextMachineResources");
+            LBLCPUTextWorldResources.Text = translator.Translate("LBLCPUTextMachineResources");
+            LBLRAMTextLogonResources.Text = translator.Translate("LBLRAMTextMachineResources");
+            LBLCPUTextLogonResources.Text = translator.Translate("LBLCPUTextMachineResources");
+            LBLDatabaseProcessID.Text = translator.Translate("LBLProcessID");
+            LBLWorldProcessID.Text = translator.Translate("LBLProcessID");
+            LBLLogonProcessID.Text = translator.Translate("LBLProcessID");
+            LBLUpTimeDatabase.Text = translator.Translate("LBLUpTime");
+            LBLUpTimeWorld.Text = translator.Translate("LBLUpTime");
+            LBLUpTimeLogon.Text = translator.Translate("LBLUpTime");
             #endregion
             #region "Datebase Edior"
             #region "Reamlist"
-            TXTRealmID.Hint = _translator.Translate("TXTRealmID");
-            TXTRealmName.Hint = _translator.Translate("TXTRealmName");
-            TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
-            TXTRealmLocalAddress.Hint = _translator.Translate("TXTRealmLocalAddress");
-            TXTRealmSubnetMask.Hint = _translator.Translate("TXTRealmSubnetMask");
-            TXTRealmPort.Hint = _translator.Translate("TXTRealmPort");
-            TXTRealmGameBuild.Hint = _translator.Translate("TXTRealmGameBuild");
-            CBOXReamList.Hint = _translator.Translate("CBOXReamList");
-            TXTDomainName.Hint = _translator.Translate("TXTDomainName");
-            TXTInternIP.Hint = _translator.Translate("TXTInternIP");
-            TXTPublicIP.Hint = _translator.Translate("TXTPublicIP");
-            BTNOpenPublic.Text = _translator.Translate("BTNOpenPublic");
-            BTNOpenIntern.Text = _translator.Translate("BTNOpenIntern");
-            BTNEditRealmlistData.Text = _translator.Translate("BTNEditRealmlistDataON");
-            BTNCreateRealmList.Text = _translator.Translate("BTNCreateRealmList");
-            BTNDeleteRealmList.Text = _translator.Translate("BTNDeleteRealmList");
-            BTNForceRefresh.Text = _translator.Translate("BTNForceRefresh");
-            LBLCardRealmDataTitle.Text = _translator.Translate("LBLCardRealmDataTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardRealmOptionTitle.Text = _translator.Translate("LBLCardRealmOptionTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardRealmActionTitle.Text = _translator.Translate("LBLCardRealmActionTitle").ToUpper(CultureInfo.InvariantCulture);
-            TLTHome.SetToolTip(LBLCardRealmDataInfo, _translator.Translate("LBLCardRealmDataInfo"));
-            TLTHome.SetToolTip(LBLCardRealmOptionInfo, _translator.Translate("LBLCardRealmOptionInfo"));
-            TLTHome.SetToolTip(LBLCardRealmActionInfo, _translator.Translate("LBLCardRealmActionInfo"));
-            TabRealmList.Text = _translator.Translate("TabRealmList");
-            TabAccount.Text = _translator.Translate("TabAccount");
+            TXTRealmID.Hint = translator.Translate("TXTRealmID");
+            TXTRealmName.Hint = translator.Translate("TXTRealmName");
+            TXTRealmAddress.Hint = translator.Translate("TXTRealmAddress");
+            TXTRealmLocalAddress.Hint = translator.Translate("TXTRealmLocalAddress");
+            TXTRealmSubnetMask.Hint = translator.Translate("TXTRealmSubnetMask");
+            TXTRealmPort.Hint = translator.Translate("TXTRealmPort");
+            TXTRealmGameBuild.Hint = translator.Translate("TXTRealmGameBuild");
+            CBOXReamList.Hint = translator.Translate("CBOXReamList");
+            TXTDomainName.Hint = translator.Translate("TXTDomainName");
+            TXTInternIP.Hint = translator.Translate("TXTInternIP");
+            TXTPublicIP.Hint = translator.Translate("TXTPublicIP");
+            BTNOpenPublic.Text = translator.Translate("BTNOpenPublic");
+            BTNOpenIntern.Text = translator.Translate("BTNOpenIntern");
+            BTNEditRealmlistData.Text = translator.Translate("BTNEditRealmlistDataON");
+            BTNCreateRealmList.Text = translator.Translate("BTNCreateRealmList");
+            BTNDeleteRealmList.Text = translator.Translate("BTNDeleteRealmList");
+            BTNForceRefresh.Text = translator.Translate("BTNForceRefresh");
+            LBLCardRealmDataTitle.Text = translator.Translate("LBLCardRealmDataTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardRealmOptionTitle.Text = translator.Translate("LBLCardRealmOptionTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardRealmActionTitle.Text = translator.Translate("LBLCardRealmActionTitle").ToUpper(CultureInfo.InvariantCulture);
+            TLTHome.SetToolTip(LBLCardRealmDataInfo, translator.Translate("LBLCardRealmDataInfo"));
+            TLTHome.SetToolTip(LBLCardRealmOptionInfo, translator.Translate("LBLCardRealmOptionInfo"));
+            TLTHome.SetToolTip(LBLCardRealmActionInfo, translator.Translate("LBLCardRealmActionInfo"));
+            TabRealmList.Text = translator.Translate("TabRealmList");
+            TabAccount.Text = translator.Translate("TabAccount");
             #endregion
             #region"Account Editor"
-            TLTHome.SetToolTip(LBLCardAccountCreateInfo, _translator.Translate("LBLCardAccountCreateInfo"));
-            TLTHome.SetToolTip(LBLCardAccountAccessInfo, _translator.Translate("LBLCardAccountAccessInfo"));
-            TLTHome.SetToolTip(LBLCardPasswordResetInfo, _translator.Translate("LBLCardPasswordResetInfo"));
-            TXTBoxCreateUserUsername.Hint = _translator.Translate("TXTBoxCreateUserUsername");
-            TXTBoxCreateUserPassword.Hint = _translator.Translate("TXTBoxCreateUserPassword");
-            TXTBoxCreateUserEmail.Hint = _translator.Translate("TXTBoxCreateUserEmail");
-            CBOXAccountExpansion.Hint = _translator.Translate("CBOXAccountExpansion");
-            BTNAccountCreate.Text = _translator.Translate("BTNAccountCreate");
-            LBLCardAccountCreate.Text = _translator.Translate("LBLCardAccountCreate").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardAccountAdmin.Text = _translator.Translate("LBLCardAccountAdmin").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardAccountPassword.Text = _translator.Translate("LBLCardAccountPassword").ToUpper(CultureInfo.InvariantCulture);
-            TXTBoxGMUsername.Hint = _translator.Translate("TXTBoxGMUsername");
-            CBoxGMRealmSelect.Hint = _translator.Translate("CBoxGMRealmSelect");
-            CBOXAccountSecurityAccess.Hint = _translator.Translate("CBOXAccountSecurityAccess");
-            TXTBoxPassUsername.Hint = _translator.Translate("TXTBoxPassUsername");
-            TXTBoxPassPassword.Hint = _translator.Translate("TXTBoxPassPassword");
-            TXTBoxPassRePassword.Hint = _translator.Translate("TXTBoxPassRePassword");
-            BTNTBoxPassResset.Text = _translator.Translate("BTNTBoxPassResset");
-            BTNGMCreate.Text = _translator.Translate("BTNGMCreate");
-            TGLAccountShowPassword.Text = _translator.Translate("TGLAccountShowPassword");
+            TLTHome.SetToolTip(LBLCardAccountCreateInfo, translator.Translate("LBLCardAccountCreateInfo"));
+            TLTHome.SetToolTip(LBLCardAccountAccessInfo, translator.Translate("LBLCardAccountAccessInfo"));
+            TLTHome.SetToolTip(LBLCardPasswordResetInfo, translator.Translate("LBLCardPasswordResetInfo"));
+            TXTBoxCreateUserUsername.Hint = translator.Translate("TXTBoxCreateUserUsername");
+            TXTBoxCreateUserPassword.Hint = translator.Translate("TXTBoxCreateUserPassword");
+            TXTBoxCreateUserEmail.Hint = translator.Translate("TXTBoxCreateUserEmail");
+            CBOXAccountExpansion.Hint = translator.Translate("CBOXAccountExpansion");
+            BTNAccountCreate.Text = translator.Translate("BTNAccountCreate");
+            LBLCardAccountCreate.Text = translator.Translate("LBLCardAccountCreate").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardAccountAdmin.Text = translator.Translate("LBLCardAccountAdmin").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardAccountPassword.Text = translator.Translate("LBLCardAccountPassword").ToUpper(CultureInfo.InvariantCulture);
+            TXTBoxGMUsername.Hint = translator.Translate("TXTBoxGMUsername");
+            CBoxGMRealmSelect.Hint = translator.Translate("CBoxGMRealmSelect");
+            CBOXAccountSecurityAccess.Hint = translator.Translate("CBOXAccountSecurityAccess");
+            TXTBoxPassUsername.Hint = translator.Translate("TXTBoxPassUsername");
+            TXTBoxPassPassword.Hint = translator.Translate("TXTBoxPassPassword");
+            TXTBoxPassRePassword.Hint = translator.Translate("TXTBoxPassRePassword");
+            BTNTBoxPassResset.Text = translator.Translate("BTNTBoxPassResset");
+            BTNGMCreate.Text = translator.Translate("BTNGMCreate");
+            TGLAccountShowPassword.Text = translator.Translate("TGLAccountShowPassword");
             #endregion
             #endregion
             #region"Settings"
-            TabDatabase.Text = _translator.Translate("TabDatabase");
-            TabCustom.Text = _translator.Translate("TabCustom");
-            TabTrion.Text = _translator.Translate("TabTrion");
+            TabDatabase.Text = translator.Translate("TabDatabase");
+            TabCustom.Text = translator.Translate("TabCustom");
+            TabTrion.Text = translator.Translate("TabTrion");
             #region "Trion"
-            BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
-            TGLServerCrashDetection.Text = _translator.Translate("TGLServerCrashDetection");
-            TGLServerStartup.Text = _translator.Translate("TGLServerStartup");
-            TGLRunTrionStartup.Text = _translator.Translate("TGLRunTrionStartup");
-            TGLHideConsole.Text = _translator.Translate("TGLHideConsole");
-            TGLNotificationSound.Text = _translator.Translate("TGLNotificationSound");
-            TGLStayInTray.Text = _translator.Translate("TGLStayInTray");
-            TGLAutoUpdateTrion.Text = _translator.Translate("TGLAutoUpdateTrion");
-            TGLAutoUpdateCore.Text = _translator.Translate("TGLAutoUpdateCore");
-            TGLAutoUpdateDatabase.Text = _translator.Translate("TGLAutoUpdateDatabase");
-            LBLCardCustomPreferencesTitle.Text = _translator.Translate("LBLCardCustomPreferencesTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardUpdateDashboardTitle.Text = _translator.Translate("LBLCardUpdateDashboardTitle").ToUpper(CultureInfo.InvariantCulture);
-            CBOXColorSelect.Hint = _translator.Translate("CBOXColorSelect");
-            CBOXLanguageSelect.Hint = _translator.Translate("CBOXLanguageSelect");
-            TLTHome.SetToolTip(LBLCardCustomPreferencesInfo, _translator.Translate("LBLCardCustomPreferencesInfo"));
-            TLTHome.SetToolTip(LBLCardUpdateDashboardInfo, _translator.Translate("LBLCardUpdateDashboardInfo"));
-            TXTSupporterKey.Hint = _translator.Translate("TXTSupporterKeyHint");
-            CBOXTrionIcon.Hint = _translator.Translate("CBOXTrionIconHint");
+            BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
+            TGLServerCrashDetection.Text = translator.Translate("TGLServerCrashDetection");
+            TGLServerStartup.Text = translator.Translate("TGLServerStartup");
+            TGLRunTrionStartup.Text = translator.Translate("TGLRunTrionStartup");
+            TGLHideConsole.Text = translator.Translate("TGLHideConsole");
+            TGLNotificationSound.Text = translator.Translate("TGLNotificationSound");
+            TGLStayInTray.Text = translator.Translate("TGLStayInTray");
+            TGLAutoUpdateTrion.Text = translator.Translate("TGLAutoUpdateTrion");
+            TGLAutoUpdateCore.Text = translator.Translate("TGLAutoUpdateCore");
+            TGLAutoUpdateDatabase.Text = translator.Translate("TGLAutoUpdateDatabase");
+            LBLCardCustomPreferencesTitle.Text = translator.Translate("LBLCardCustomPreferencesTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardUpdateDashboardTitle.Text = translator.Translate("LBLCardUpdateDashboardTitle").ToUpper(CultureInfo.InvariantCulture);
+            CBOXColorSelect.Hint = translator.Translate("CBOXColorSelect");
+            CBOXLanguageSelect.Hint = translator.Translate("CBOXLanguageSelect");
+            TLTHome.SetToolTip(LBLCardCustomPreferencesInfo, translator.Translate("LBLCardCustomPreferencesInfo"));
+            TLTHome.SetToolTip(LBLCardUpdateDashboardInfo, translator.Translate("LBLCardUpdateDashboardInfo"));
+            TXTSupporterKey.Hint = translator.Translate("TXTSupporterKeyHint");
+            CBOXTrionIcon.Hint = translator.Translate("CBOXTrionIconHint");
             #endregion
             #region"Custom Emulators"
-            TXTCustomDatabaseLocation.Hint = _translator.Translate("TXTCustomDatabaseLocation");
-            TXTCustomRepackLocation.Hint = _translator.Translate("TXTCustomRepackLocation");
-            LBLCardCustomEmulatorTitle.Text = _translator.Translate("LBLCardCustomEmulatorTitle").ToUpper(CultureInfo.InvariantCulture);
-            CBOXSelectedEmulators.Hint = _translator.Translate("CBOXSelectedEmulators");
-            BTNEmulatorLocation.Text = _translator.Translate("BTNEmulatorLocation");
-            BTNDatabaseLocation.Text = _translator.Translate("BTNDatabaseLocation");
-            TGLUseCustomServer.Text = _translator.Translate("TGLUseCustomServer");
-            LBLCardCustomNamesTitle.Text = _translator.Translate("LBLCardCustomNamesTitle").ToUpper(CultureInfo.InvariantCulture);
-            TXTCustomAuthName.Hint = _translator.Translate("TXTCustomAuthName");
-            TXTCustomWorldName.Hint = _translator.Translate("TXTCustomWorldName");
-            TXTCustomDatabaseName.Hint = _translator.Translate("TxtCustomDatabaseName");
-            TGLCustomNames.Text = _translator.Translate("TGLCustomNames");
-            BTNAscEmuWebsite.Text = _translator.Translate("BTNAscEmuWebsite");
-            BTNACoreWebsite.Text = _translator.Translate("BTNACoreWebsite");
-            BTNCMangosWebsite.Text = _translator.Translate("BTNCMangosWebsite");
-            BTNCypherWebsite.Text = _translator.Translate("BTNCypherWebsite");
-            BTNTrinityCoreWebsite.Text = _translator.Translate("BTNTrinityCoreWebsite");
-            BTNSkyFireWebsite.Text = _translator.Translate("BTNSkyFireWebsite");
-            TLTHome.SetToolTip(LBLCardCustomEmulatorInfo, _translator.Translate("LBLCardCustomEmulatorInfo"));
-            TLTHome.SetToolTip(LBLCardCustomNamesInfo, _translator.Translate("LBLCardCustomNamesInfo"));
+            TXTCustomDatabaseLocation.Hint = translator.Translate("TXTCustomDatabaseLocation");
+            TXTCustomRepackLocation.Hint = translator.Translate("TXTCustomRepackLocation");
+            LBLCardCustomEmulatorTitle.Text = translator.Translate("LBLCardCustomEmulatorTitle").ToUpper(CultureInfo.InvariantCulture);
+            CBOXSelectedEmulators.Hint = translator.Translate("CBOXSelectedEmulators");
+            BTNEmulatorLocation.Text = translator.Translate("BTNEmulatorLocation");
+            BTNDatabaseLocation.Text = translator.Translate("BTNDatabaseLocation");
+            TGLUseCustomServer.Text = translator.Translate("TGLUseCustomServer");
+            LBLCardCustomNamesTitle.Text = translator.Translate("LBLCardCustomNamesTitle").ToUpper(CultureInfo.InvariantCulture);
+            TXTCustomAuthName.Hint = translator.Translate("TXTCustomAuthName");
+            TXTCustomWorldName.Hint = translator.Translate("TXTCustomWorldName");
+            TXTCustomDatabaseName.Hint = translator.Translate("TxtCustomDatabaseName");
+            TGLCustomNames.Text = translator.Translate("TGLCustomNames");
+            BTNAscEmuWebsite.Text = translator.Translate("BTNAscEmuWebsite");
+            BTNACoreWebsite.Text = translator.Translate("BTNACoreWebsite");
+            BTNCMangosWebsite.Text = translator.Translate("BTNCMangosWebsite");
+            BTNCypherWebsite.Text = translator.Translate("BTNCypherWebsite");
+            BTNTrinityCoreWebsite.Text = translator.Translate("BTNTrinityCoreWebsite");
+            BTNSkyFireWebsite.Text = translator.Translate("BTNSkyFireWebsite");
+            TLTHome.SetToolTip(LBLCardCustomEmulatorInfo, translator.Translate("LBLCardCustomEmulatorInfo"));
+            TLTHome.SetToolTip(LBLCardCustomNamesInfo, translator.Translate("LBLCardCustomNamesInfo"));
             #endregion
             #region"Database"
-            LBLCardDatabaseCredencialsTitle.Text = _translator.Translate("LBLCardDatabaseCredencialsTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardTableNameTitle.Text = _translator.Translate("LBLCardTableNameTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardPreconfiguredDBTitle.Text = _translator.Translate("LBLCardPreconfiguredDBTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardDatabaseBCTitle.Text = _translator.Translate("LBLCardDatabaseBCTitle").ToUpper(CultureInfo.InvariantCulture);
-            TXTDatabaseHost.Hint = _translator.Translate("TXTDatabaseHost");
-            TXTDatabasePort.Hint = _translator.Translate("TXTDatabasePorta");
-            TXTDatabaseUser.Hint = _translator.Translate("TXTDatabaseUser");
-            TXTDatabasePassword.Hint = _translator.Translate("TXTDatabasePassword");
-            BTNTestConnection.Text = _translator.Translate("BTNTestConnection");
-            TXTAuthDatabase.Hint = _translator.Translate("TXTAuthDatabase");
-            TXTCharDatabase.Hint = _translator.Translate("TXTCharDatabase");
-            TXTWorldDatabase.Hint = _translator.Translate("TXTWorldDatabase");
-            BTNDeleteAuth.Text = _translator.Translate("BTNDeleteAuth");
-            BTNDeleteChar.Text = _translator.Translate("BTNDeleteChar");
-            BTNDeleteWorld.Text = _translator.Translate("BTNDeleteWorld");
-            TGLClassicDB.Text = _translator.Translate("TGLClassicDB");
-            TGLTbcDB.Text = _translator.Translate("TGLTbcDB");
-            TGLWotlkDB.Text = _translator.Translate("TGLWotlkDB");
-            TGLCataDB.Text = _translator.Translate("TGLCataDB");
-            TGLMopDB.Text = _translator.Translate("TGLMopDB");
-            TGLCustomDB.Text = _translator.Translate("TGLCustomDB");
-            TGLAuthBackup.Text = _translator.Translate("TGLAuthBackup");
-            TGLCharBackup.Text = _translator.Translate("TGLCharBackup");
-            TGLWorldBackup.Text = _translator.Translate("TGLWorldBackup");
-            BTNDatabaseBackup.Text = _translator.Translate("BTNDatabaseBackup");
-            BTNLoadBackup.Text = _translator.Translate("BTNLoadBackup");
-            BTNFixDatabase.Text = _translator.Translate("BTNFixDatabase");
-            TLTHome.SetToolTip(LBLCardDatabaseCredencialsInfo, _translator.Translate("LBLCardDatabaseCredencialsInfo"));
-            TLTHome.SetToolTip(LBLCardTableNameInfo, _translator.Translate("LBLCardTableNameInfo"));
-            TLTHome.SetToolTip(LBLCardPreconfiguredDBInfo, _translator.Translate("LBLCardPreconfiguredDBInfo"));
-            TLTHome.SetToolTip(LBLCardDatabaseBCInfo, _translator.Translate("LBLCardDatabaseBCInfo"));
+            LBLCardDatabaseCredencialsTitle.Text = translator.Translate("LBLCardDatabaseCredencialsTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardTableNameTitle.Text = translator.Translate("LBLCardTableNameTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardPreconfiguredDBTitle.Text = translator.Translate("LBLCardPreconfiguredDBTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardDatabaseBCTitle.Text = translator.Translate("LBLCardDatabaseBCTitle").ToUpper(CultureInfo.InvariantCulture);
+            TXTDatabaseHost.Hint = translator.Translate("TXTDatabaseHost");
+            TXTDatabasePort.Hint = translator.Translate("TXTDatabasePorta");
+            TXTDatabaseUser.Hint = translator.Translate("TXTDatabaseUser");
+            TXTDatabasePassword.Hint = translator.Translate("TXTDatabasePassword");
+            BTNTestConnection.Text = translator.Translate("BTNTestConnection");
+            TXTAuthDatabase.Hint = translator.Translate("TXTAuthDatabase");
+            TXTCharDatabase.Hint = translator.Translate("TXTCharDatabase");
+            TXTWorldDatabase.Hint = translator.Translate("TXTWorldDatabase");
+            BTNDeleteAuth.Text = translator.Translate("BTNDeleteAuth");
+            BTNDeleteChar.Text = translator.Translate("BTNDeleteChar");
+            BTNDeleteWorld.Text = translator.Translate("BTNDeleteWorld");
+            TGLClassicDB.Text = translator.Translate("TGLClassicDB");
+            TGLTbcDB.Text = translator.Translate("TGLTbcDB");
+            TGLWotlkDB.Text = translator.Translate("TGLWotlkDB");
+            TGLCataDB.Text = translator.Translate("TGLCataDB");
+            TGLMopDB.Text = translator.Translate("TGLMopDB");
+            TGLCustomDB.Text = translator.Translate("TGLCustomDB");
+            TGLAuthBackup.Text = translator.Translate("TGLAuthBackup");
+            TGLCharBackup.Text = translator.Translate("TGLCharBackup");
+            TGLWorldBackup.Text = translator.Translate("TGLWorldBackup");
+            BTNDatabaseBackup.Text = translator.Translate("BTNDatabaseBackup");
+            BTNLoadBackup.Text = translator.Translate("BTNLoadBackup");
+            BTNFixDatabase.Text = translator.Translate("BTNFixDatabase");
+            TLTHome.SetToolTip(LBLCardDatabaseCredencialsInfo, translator.Translate("LBLCardDatabaseCredencialsInfo"));
+            TLTHome.SetToolTip(LBLCardTableNameInfo, translator.Translate("LBLCardTableNameInfo"));
+            TLTHome.SetToolTip(LBLCardPreconfiguredDBInfo, translator.Translate("LBLCardPreconfiguredDBInfo"));
+            TLTHome.SetToolTip(LBLCardDatabaseBCInfo, translator.Translate("LBLCardDatabaseBCInfo"));
             #endregion
             #region"DDNS"
-            TLTHome.SetToolTip(LBLCardDDNSSettingsInfo, _translator.Translate("LBLCardDDNSSettingsInfo"));
-            TLTHome.SetToolTip(LBLCardDDNSTimerInfos, _translator.Translate("LBLCardDDNSTimerInfos"));
-            LBLCardDDNSSettingsTitle.Text = _translator.Translate("LBLCardDDNSSettingsTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardDDNSTimerTitle.Text = _translator.Translate("LBLCardDDNSTimerTitle").ToUpper(CultureInfo.InvariantCulture);
-            CBOXDDNService.Hint = _translator.Translate("CBOXDDNService");
-            TXTDDNSDomain.Hint = _translator.Translate("TXTDDNSDomain");
-            TXTDDNSUsername.Hint = _translator.Translate("TXTDDNSUsername");
-            TXTDDNSPassword.Hint = _translator.Translate("TXTDDNSPassword");
-            TXTDDNSInterval.Hint = _translator.Translate("TXTDDNSInterval");
-            TGLDDNSRunOnStartup.Text = _translator.Translate("TGLDDNSRunOnStartup");
-            BTNDDNSServiceWebiste.Text = _translator.Translate("BTNDDNSServiceWebiste");
-            BTNDDNSTimerStart.Text = _translator.Translate("BTNDDNSTimerStart");
+            TLTHome.SetToolTip(LBLCardDDNSSettingsInfo, translator.Translate("LBLCardDDNSSettingsInfo"));
+            TLTHome.SetToolTip(LBLCardDDNSTimerInfos, translator.Translate("LBLCardDDNSTimerInfos"));
+            LBLCardDDNSSettingsTitle.Text = translator.Translate("LBLCardDDNSSettingsTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardDDNSTimerTitle.Text = translator.Translate("LBLCardDDNSTimerTitle").ToUpper(CultureInfo.InvariantCulture);
+            CBOXDDNService.Hint = translator.Translate("CBOXDDNService");
+            TXTDDNSDomain.Hint = translator.Translate("TXTDDNSDomain");
+            TXTDDNSUsername.Hint = translator.Translate("TXTDDNSUsername");
+            TXTDDNSPassword.Hint = translator.Translate("TXTDDNSPassword");
+            TXTDDNSInterval.Hint = translator.Translate("TXTDDNSInterval");
+            TGLDDNSRunOnStartup.Text = translator.Translate("TGLDDNSRunOnStartup");
+            BTNDDNSServiceWebiste.Text = translator.Translate("BTNDDNSServiceWebiste");
+            BTNDDNSTimerStart.Text = translator.Translate("BTNDDNSTimerStart");
             #endregion
             #endregion
             #region"SPP"
-            LBLCardSPPVersionTitle.Text = _translator.Translate("LBLCardSPPVersionTitle").ToUpper(CultureInfo.InvariantCulture);
-            LBLCardSPPRunTitle.Text = _translator.Translate("LBLCardSPPRunTitle").ToUpper(CultureInfo.InvariantCulture);
-            BTNInstallSPP.Text = _translator.Translate("BTNInstallSPP");
-            BTNRepairSPP.Text = _translator.Translate("BTNRepairSPP");
-            BTNUninstallSPP.Text = _translator.Translate("BTNUninstallSPP");
-            TGLClassicLaunch.Text = _translator.Translate("TGLClassicLaunch");
-            TGLTBCLaunch.Text = _translator.Translate("TGLTBCLaunch");
-            TGLWotLKLaunch.Text = _translator.Translate("TGLWotLKLaunch");
-            TGLCataLaunch.Text = _translator.Translate("TGLCataLaunch");
-            TGLMoPLaunch.Text = _translator.Translate("TGLMoPLaunch");
-            CBOXSPPVersion.Hint = _translator.Translate("CBOXSPPVersion");
-            ChecCLASSICInstalled.Text = _translator.Translate("CheckBoxInstalled");
-            ChecTBCInstalled.Text = _translator.Translate("CheckBoxInstalled");
-            ChecWOTLKInstalled.Text = _translator.Translate("CheckBoxInstalled");
-            ChecCATAInstalled.Text = _translator.Translate("CheckBoxInstalled");
-            ChecMOPInstalled.Text = _translator.Translate("CheckBoxInstalled");
-            BTNWorldClassicStart.Text = _translator.Translate("BTNWorldSeparateStart");
-            BTNWorldTBCStart.Text = _translator.Translate("BTNWorldSeparateStart");
-            BTNWorldWotLKStart.Text = _translator.Translate("BTNWorldSeparateStart");
-            BTNWorldCataStart.Text = _translator.Translate("BTNWorldSeparateStart");
-            BTNWorldMoPStart.Text = _translator.Translate("BTNWorldSeparateStart");
-            BTNLogonClassicStart.Text = _translator.Translate("BTNLogonSeparateStart");
-            BTNLogonTBCStart.Text = _translator.Translate("BTNLogonSeparateStart");
-            BTNLogonWotLKStart.Text = _translator.Translate("BTNLogonSeparateStart");
-            BTNLogonCataStart.Text = _translator.Translate("BTNLogonSeparateStart");
-            BTNLogonMoPStart.Text = _translator.Translate("BTNLogonSeparateStart");
-            BTNShowSupport.Text = _translator.Translate("BTNShowSupport");
-            TLTHome.SetToolTip(LBLCardSPPversionInfo, _translator.Translate("LBLCardSPPversionInfo"));
-            TLTHome.SetToolTip(LBLCardElulatorsInfo, _translator.Translate("LBLCardElulatorsInfo"));
+            LBLCardSPPVersionTitle.Text = translator.Translate("LBLCardSPPVersionTitle").ToUpper(CultureInfo.InvariantCulture);
+            LBLCardSPPRunTitle.Text = translator.Translate("LBLCardSPPRunTitle").ToUpper(CultureInfo.InvariantCulture);
+            BTNInstallSPP.Text = translator.Translate("BTNInstallSPP");
+            BTNRepairSPP.Text = translator.Translate("BTNRepairSPP");
+            BTNUninstallSPP.Text = translator.Translate("BTNUninstallSPP");
+            TGLClassicLaunch.Text = translator.Translate("TGLClassicLaunch");
+            TGLTBCLaunch.Text = translator.Translate("TGLTBCLaunch");
+            TGLWotLKLaunch.Text = translator.Translate("TGLWotLKLaunch");
+            TGLCataLaunch.Text = translator.Translate("TGLCataLaunch");
+            TGLMoPLaunch.Text = translator.Translate("TGLMoPLaunch");
+            CBOXSPPVersion.Hint = translator.Translate("CBOXSPPVersion");
+            ChecCLASSICInstalled.Text = translator.Translate("CheckBoxInstalled");
+            ChecTBCInstalled.Text = translator.Translate("CheckBoxInstalled");
+            ChecWOTLKInstalled.Text = translator.Translate("CheckBoxInstalled");
+            ChecCATAInstalled.Text = translator.Translate("CheckBoxInstalled");
+            ChecMOPInstalled.Text = translator.Translate("CheckBoxInstalled");
+            BTNWorldClassicStart.Text = translator.Translate("BTNWorldSeparateStart");
+            BTNWorldTBCStart.Text = translator.Translate("BTNWorldSeparateStart");
+            BTNWorldWotLKStart.Text = translator.Translate("BTNWorldSeparateStart");
+            BTNWorldCataStart.Text = translator.Translate("BTNWorldSeparateStart");
+            BTNWorldMoPStart.Text = translator.Translate("BTNWorldSeparateStart");
+            BTNLogonClassicStart.Text = translator.Translate("BTNLogonSeparateStart");
+            BTNLogonTBCStart.Text = translator.Translate("BTNLogonSeparateStart");
+            BTNLogonWotLKStart.Text = translator.Translate("BTNLogonSeparateStart");
+            BTNLogonCataStart.Text = translator.Translate("BTNLogonSeparateStart");
+            BTNLogonMoPStart.Text = translator.Translate("BTNLogonSeparateStart");
+            BTNShowSupport.Text = translator.Translate("BTNShowSupport");
+            TLTHome.SetToolTip(LBLCardSPPversionInfo, translator.Translate("LBLCardSPPversionInfo"));
+            TLTHome.SetToolTip(LBLCardElulatorsInfo, translator.Translate("LBLCardElulatorsInfo"));
             #endregion
             #region"Downloader"
-            LBLDownloadSpeed.Text = _translator.Translate("LBLDownloadSpeedIDLE");
-            LBLInstallEmulatorTitle.Text = _translator.Translate("LBLInstallEmulatorTitle");
-            LBLServerFiles.Text = _translator.Translate("LBLServerFilesIDLE");
-            LBLLocalFiles.Text = _translator.Translate("LBLLocalFilesIDLE");
-            LBLFilesToBeDownloaded.Text = _translator.Translate("LBLFilesToBeDownloadedIDLE");
-            LBLFilesToBeRemoved.Text = _translator.Translate("LBLFilesToBeRemovedIDLE");
-            LBLFileName.Text = _translator.Translate("LBLFileNameIDLE");
-            LBLFileSize.Text = _translator.Translate("LBLFileSizeIDLE");
-            LBLCurrentDownload.Text = _translator.Translate("LBLCurrentDownload");
-            LBLTotalDownload.Text = _translator.Translate("LBLTotalDownload");
+            LBLDownloadSpeed.Text = translator.Translate("LBLDownloadSpeedIDLE");
+            LBLInstallEmulatorTitle.Text = translator.Translate("LBLInstallEmulatorTitle");
+            LBLServerFiles.Text = translator.Translate("LBLServerFilesIDLE");
+            LBLLocalFiles.Text = translator.Translate("LBLLocalFilesIDLE");
+            LBLFilesToBeDownloaded.Text = translator.Translate("LBLFilesToBeDownloadedIDLE");
+            LBLFilesToBeRemoved.Text = translator.Translate("LBLFilesToBeRemovedIDLE");
+            LBLFileName.Text = translator.Translate("LBLFileNameIDLE");
+            LBLFileSize.Text = translator.Translate("LBLFileSizeIDLE");
+            LBLCurrentDownload.Text = translator.Translate("LBLCurrentDownload");
+            LBLTotalDownload.Text = translator.Translate("LBLTotalDownload");
             #endregion
         }
         #endregion
         #region "Load Settings"
         private void CBoxSelectItems()
         {
-            switch (_settings.SelectedCore)
+            switch (settings.SelectedCore)
             {
                 case Cores.AzerothCore:
                     CBOXSelectedEmulators.SelectedItem = "AzerothCore";
@@ -336,25 +291,25 @@ namespace TrionControlPanelDesktop
                     CBOXSelectedEmulators.SelectedItem = "VMaNGOS";
                     break;
             }
-            switch (_settings.SelectedSPP)
+            switch (settings.SelectedSPP)
             {
                 case SPP.Classic:
-                    CBOXSPPVersion.SelectedItem = _translator.Translate("SPPver1");
+                    CBOXSPPVersion.SelectedItem = translator.Translate("SPPver1");
                     break;
                 case SPP.TheBurningCrusade:
-                    CBOXSPPVersion.SelectedItem = _translator.Translate("SPPver2");
+                    CBOXSPPVersion.SelectedItem = translator.Translate("SPPver2");
                     break;
                 case SPP.WrathOfTheLichKing:
-                    CBOXSPPVersion.SelectedItem = _translator.Translate("SPPver3");
+                    CBOXSPPVersion.SelectedItem = translator.Translate("SPPver3");
                     break;
                 case SPP.Cataclysm:
-                    CBOXSPPVersion.SelectedItem = _translator.Translate("SPPver4");
+                    CBOXSPPVersion.SelectedItem = translator.Translate("SPPver4");
                     break;
                 case SPP.MistOfPandaria:
-                    CBOXSPPVersion.SelectedItem = _translator.Translate("SPPver5");
+                    CBOXSPPVersion.SelectedItem = translator.Translate("SPPver5");
                     break;
             }
-            switch (_settings.DDNSerivce)
+            switch (settings.DDNSerivce)
             {
                 case DDNSerivce.Afraid:
                     CBOXDDNService.SelectedItem = "freedns.afraid.org";
@@ -394,69 +349,69 @@ namespace TrionControlPanelDesktop
         private void LoadSettingsFromFile()
         {
             if (!File.Exists("Settings.json")) { Settings.CreatSettings("Settings.json"); }
-            _settings = Settings.LoadSettings("Settings.json");
+            settings = Settings.LoadSettings("Settings.json");
         }
         private void LoadSettingsUI()
         {
 
             CBoxSelectItems();
             //Load Installed Emulators
-            TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
-            TGLTBCLaunch.Checked = _settings.LaunchTBCCore;
-            TGLWotLKLaunch.Checked = _settings.LaunchWotLKCore;
-            TGLCataLaunch.Checked = _settings.LaunchCataCore;
-            TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
-            TGLUseCustomServer.Checked = _settings.LaunchCustomCore;
+            TGLClassicLaunch.Checked = settings.LaunchClassicCore;
+            TGLTBCLaunch.Checked = settings.LaunchTBCCore;
+            TGLWotLKLaunch.Checked = settings.LaunchWotLKCore;
+            TGLCataLaunch.Checked = settings.LaunchCataCore;
+            TGLMoPLaunch.Checked = settings.LaunchMoPCore;
+            TGLUseCustomServer.Checked = settings.LaunchCustomCore;
             //Load Names
-            TXTCustomAuthName.Text = _settings.CustomLogonExeName;
-            TXTCustomWorldName.Text = _settings.CustomWorldExeName;
-            TXTCustomDatabaseName.Text = _settings.DBExeName;
+            TXTCustomAuthName.Text = settings.CustomLogonExeName;
+            TXTCustomWorldName.Text = settings.CustomWorldExeName;
+            TXTCustomDatabaseName.Text = settings.DBExeName;
             //Working Directory
-            TXTCustomRepackLocation.Text = _settings.CustomWorkingDirectory;
-            TXTCustomDatabaseLocation.Text = _settings.DBLocation;
+            TXTCustomRepackLocation.Text = settings.CustomWorkingDirectory;
+            TXTCustomDatabaseLocation.Text = settings.DBLocation;
             //Database Host Data
-            TXTDatabaseHost.Text = _settings.DBServerHost;
-            TXTDatabasePort.Text = _settings.DBServerPort;
-            TXTDatabaseUser.Text = _settings.DBServerUser;
-            TXTDatabasePassword.Text = _settings.DBServerPassword;
+            TXTDatabaseHost.Text = settings.DBServerHost;
+            TXTDatabasePort.Text = settings.DBServerPort;
+            TXTDatabaseUser.Text = settings.DBServerUser;
+            TXTDatabasePassword.Text = settings.DBServerPassword;
             //Databases Tabels
-            TXTCharDatabase.Text = _settings.CharactersDatabase;
-            TXTAuthDatabase.Text = _settings.AuthDatabase;
-            TXTWorldDatabase.Text = _settings.WorldDatabase;
+            TXTCharDatabase.Text = settings.CharactersDatabase;
+            TXTAuthDatabase.Text = settings.AuthDatabase;
+            TXTWorldDatabase.Text = settings.WorldDatabase;
             //ToggleButtons
-            TGLAutoUpdateTrion.Checked = _settings.AutoUpdateTrion;
-            TGLAutoUpdateCore.Checked = _settings.AutoUpdateCore;
-            TGLHideConsole.Checked = _settings.ConsolHide;
-            TGLNotificationSound.Checked = _settings.NotificationSound;
-            TGLStayInTray.Checked = _settings.StayInTray;
-            TGLCustomNames.Checked = _settings.CustomNames;
-            TGLRunTrionStartup.Checked = _settings.RunWithWindows;
-            TGLServerCrashDetection.Checked = _settings.ServerCrashDetection;
-            TGLClassicLaunch.Checked = _settings.LaunchClassicCore;
-            TGLTBCLaunch.Checked = _settings.LaunchTBCCore;
-            TGLWotLKLaunch.Checked = _settings.LaunchWotLKCore;
-            TGLCataLaunch.Checked = _settings.LaunchCataCore;
-            TGLMoPLaunch.Checked = _settings.LaunchMoPCore;
-            TGLServerStartup.Checked = _settings.RunServerWithWindows;
-            TGLAutoUpdateDatabase.Checked = _settings.AutoUpdateDatabase;
+            TGLAutoUpdateTrion.Checked = settings.AutoUpdateTrion;
+            TGLAutoUpdateCore.Checked = settings.AutoUpdateCore;
+            TGLHideConsole.Checked = settings.ConsolHide;
+            TGLNotificationSound.Checked = settings.NotificationSound;
+            TGLStayInTray.Checked = settings.StayInTray;
+            TGLCustomNames.Checked = settings.CustomNames;
+            TGLRunTrionStartup.Checked = settings.RunWithWindows;
+            TGLServerCrashDetection.Checked = settings.ServerCrashDetection;
+            TGLClassicLaunch.Checked = settings.LaunchClassicCore;
+            TGLTBCLaunch.Checked = settings.LaunchTBCCore;
+            TGLWotLKLaunch.Checked = settings.LaunchWotLKCore;
+            TGLCataLaunch.Checked = settings.LaunchCataCore;
+            TGLMoPLaunch.Checked = settings.LaunchMoPCore;
+            TGLServerStartup.Checked = settings.RunServerWithWindows;
+            TGLAutoUpdateDatabase.Checked = settings.AutoUpdateDatabase;
             //CheckBoxes
-            ChecCLASSICInstalled.Checked = _settings.ClassicInstalled;
-            ChecTBCInstalled.Checked = _settings.TBCInstalled;
-            ChecWOTLKInstalled.Checked = _settings.WotLKInstalled;
-            ChecCATAInstalled.Checked = _settings.CataInstalled;
-            ChecMOPInstalled.Checked = _settings.MOPInstalled;
+            ChecCLASSICInstalled.Checked = settings.ClassicInstalled;
+            ChecTBCInstalled.Checked = settings.TBCInstalled;
+            ChecWOTLKInstalled.Checked = settings.WotLKInstalled;
+            ChecCATAInstalled.Checked = settings.CataInstalled;
+            ChecMOPInstalled.Checked = settings.MOPInstalled;
             //DDNS
-            TXTDDNSDomain.Text = _settings.DDNSDomain;
-            TXTDDNSUsername.Text = _settings.DDNSUsername;
-            TXTDDNSPassword.Text = _settings.DDNSPassword;
-            TXTDDNSInterval.Text = _settings.DDNSInterval.ToString(CultureInfo.InvariantCulture);
-            TGLDDNSRunOnStartup.Checked = _settings.DDNSRunOnStartup;
-            TimerDinamicDNS.Enabled = _settings.DDNSRunOnStartup;
-            TimerDinamicDNS.Interval = _settings.DDNSInterval;
+            TXTDDNSDomain.Text = settings.DDNSDomain;
+            TXTDDNSUsername.Text = settings.DDNSUsername;
+            TXTDDNSPassword.Text = settings.DDNSPassword;
+            TXTDDNSInterval.Text = settings.DDNSInterval.ToString(CultureInfo.InvariantCulture);
+            TGLDDNSRunOnStartup.Checked = settings.DDNSRunOnStartup;
+            TimerDinamicDNS.Enabled = settings.DDNSRunOnStartup;
+            TimerDinamicDNS.Interval = settings.DDNSInterval;
             //SupporterKet
-            TXTSupporterKey.Text = _settings.SupporterKey;
+            TXTSupporterKey.Text = settings.SupporterKey;
             //Load Trion Icon
-            ChangeFormIcon(_settings.TrionIcon);
+            ChangeFormIcon(settings.TrionIcon);
         }
         private void LoadSkin()
         {
@@ -468,7 +423,7 @@ namespace TrionControlPanelDesktop
             // MaterialSkinManager properties
             materialSkinManager!.AddFormToManage(this);
             materialSkinManager!.Theme = MaterialSkinManager.Themes.TRION;
-            switch (_settings.TrionTheme)
+            switch (settings.TrionTheme)
             {
                 case TrionTheme.TrionBlue:
                     materialSkinManager!.ColorScheme = new ColorScheme(
@@ -526,7 +481,7 @@ namespace TrionControlPanelDesktop
             Refresh();
         }
         #endregion
-        private AppSettings _settings;
+        private AppSettings settings;
         private MaterialSkinManager? materialSkinManager;
         private LoadingScreen loadingForm = new();
         private int AppPageSize { get; } = 1;
@@ -554,38 +509,13 @@ namespace TrionControlPanelDesktop
             LoadSettingsFromFile();
             if (File.Exists("update.exe")) { File.Delete("update.exe"); }
             InitializeComponent();
+            InitializeCustomUX();
         }
-        private void ChangeFormIcon(string imageName)
-        {
-            if (ImageListIcons.Images.ContainsKey(imageName))
-            {
-                using (Bitmap bitmap = new(ImageListIcons.Images[imageName]!))
-                {
-                    IntPtr hIcon = bitmap.GetHicon(); // Convert to icon
-                    Icon = Icon.FromHandle(hIcon); // Apply icon
-                    NIcon.Icon = Icon;
-                }
-            }
-            else
-            {
-                //if the image is not found in the image list, load a default icon
-                using (Bitmap bitmap = new(ImageListIcons.Images["Trion New Logo"]!))
-                {
-                    IntPtr hIcon = bitmap.GetHicon();
-                    Icon = Icon.FromHandle(hIcon);
-                    NIcon.Icon = Icon;
-                }
-            }
-        }
-        private void ToogleButtons()
-        {
-            BTNInstallSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
-            BTNUninstallSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
-            BTNRepairSPP.Enabled = !FormData.UI.Form.InstallingEmulator;
-        }
+
+
         private async void SetupDatabaseIfMissing()
         {
-            if (_settings.DBInstalled || FormData.UI.Form.InstallingEmulator)
+            if (settings.DBInstalled || FormData.UI.Form.InstallingEmulator)
             {
                 if (!FormData.UI.Form.InstallingEmulator)
                 {
@@ -593,13 +523,20 @@ namespace TrionControlPanelDesktop
                 }
                 return;
             }
-            AlertBox.Show(_translator.Translate("InstallingMysqlDatabase"), NotificationType.Info, _settings);
+
+            if (NetworkManager.IsOffline)
+            {
+                AlertBox.Show(translator.Translate("Database missing but cannot download in Offline Mode."), NotificationType.Error, settings);
+                return;
+            }
+
+            AlertBox.Show(translator.Translate("InstallingMysqlDatabase"), NotificationType.Info, settings);
             await Task.Delay(1000);
             _cancellationTokenSource = new CancellationTokenSource();
-            refreshDownloader();
+            RefreshDownloader();
             CardLocalFiles.Visible = false;
-            LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseWaiting");
-            LBLInstallEmulatorTitle.Text = _translator.Translate("LBLInstallDatabaseTitle");
+            LBLFilesToBeRemoved.Text = translator.Translate("LBLInitDatabaseWaiting");
+            LBLInstallEmulatorTitle.Text = translator.Translate("LBLInstallDatabaseTitle");
             Update();
 
             Action<bool> setDbInstallingStatus = (isInstalling) =>
@@ -608,13 +545,13 @@ namespace TrionControlPanelDesktop
                 FormData.Infos.Install.Database = isInstalling;
             };
 
-            LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseWaiting");
+            LBLFilesToBeRemoved.Text = translator.Translate("LBLInitDatabaseWaiting");
             MainFormTabControler.SelectedTab = TabDownloader;
             await PerformInstallationAsync(
                 installationName: "database",
                 apiKeyIdentifier: "database",
                 destinationFolder: "/database",
-                title: _translator.Translate("LBLInstallDatabaseTitle"),
+                title: translator.Translate("LBLInstallDatabaseTitle"),
                 setInstallingStatus: setDbInstallingStatus,
                 cancellationToken: _cancellationTokenSource.Token,
                 deleteFilesAfterUnzip: false
@@ -627,24 +564,35 @@ namespace TrionControlPanelDesktop
             LoadSkin();
             LoadLangauge();
             PbarRAMMachineResources.Maximum = PerformanceMonitor.GetTotalRamInMB();
+            
+            // Perform connection check (parallelized and fast)
             await NetworkManager.GetAPIServer();
-            await UpdateSppVersion();
+
+            if (NetworkManager.IsOffline)
+            {
+                SetOfflineState();
+            }
+            else
+            {
+                await UpdateSppVersion();
+                await StartAutoUpdate();
+            }
+
             loadingForm.Close();
             Opacity = 1;
             ShowInTaskbar = true;
             WindowState = FormWindowState.Normal;
             Refresh();
-            await StartAutoUpdate();
             SetupDatabaseIfMissing();
         }
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            AlertBox.Show(_translator.Translate("AlerBoxShuttingDown"), NotificationType.Info, _settings);
-            await Settings.SaveSettings(_settings, "Settings.json");
-            await AppExecuteMenager.StopDatabase();
-            await AppExecuteMenager.StopLogon();
-            await AppExecuteMenager.StopWorld();
+            AlertBox.Show(translator.Translate("AlerBoxShuttingDown"), NotificationType.Info, settings);
+            await Settings.SaveSettings(settings, "Settings.json");
+            await AppExecuteManager.StopDatabase();
+            await AppExecuteManager.StopLogon();
+            await AppExecuteManager.StopWorld();
             while (FormData.UI.Form.DBRunning && ServerMonitor.ServerRunningLogon() && ServerMonitor.ServerRunningWorld())
             {}
             Environment.Exit(0);
@@ -655,11 +603,11 @@ namespace TrionControlPanelDesktop
             {
                 PNLUpdateTrion.BorderColor = PNLUpdateTrion.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateTrion.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
                 PNLUpdateTrion.BorderColor = Color.Black;
                 PNLUpdateTrion.Refresh();
             }
@@ -667,73 +615,73 @@ namespace TrionControlPanelDesktop
             {
                 PNLUpdateDatabase.BorderColor = PNLUpdateDatabase.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateDatabase.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateDatabase.BorderColor = Color.Black;
                 PNLUpdateDatabase.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.Classic)
             {
                 PNLUpdateClassicSPP.BorderColor = PNLUpdateClassicSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateClassicSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateClassicSPP.BorderColor = Color.Black;
                 PNLUpdateClassicSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.TBC)
             {
                 PNLUpdateTbcSPP.BorderColor = PNLUpdateTbcSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateTbcSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateTbcSPP.BorderColor = Color.Black;
                 PNLUpdateTbcSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.WotLK)
             {
                 PNLUpdateWotlkSpp.BorderColor = PNLUpdateWotlkSpp.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateWotlkSpp.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateWotlkSpp.BorderColor = Color.Black;
                 PNLUpdateWotlkSpp.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.Cata)
             {
                 PNLUpdateWotlkSpp.BorderColor = PNLUpdateCataSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateCataSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateCataSPP.BorderColor = Color.Black;
                 PNLUpdateCataSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
             if (FormData.UI.Version.Update.Mop)
             {
                 PNLUpdateMopSPP.BorderColor = PNLUpdateMopSPP.BorderColor == Color.LimeGreen ? Color.Black : Color.LimeGreen;
                 PNLUpdateMopSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOn");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOn");
             }
             else
             {
                 PNLUpdateMopSPP.BorderColor = Color.Black;
                 PNLUpdateMopSPP.Refresh();
-                BTNDownloadUpdates.Text = _translator.Translate("BTNDownloadUpdatesOff");
+                BTNDownloadUpdates.Text = translator.Translate("BTNDownloadUpdatesOff");
             }
         }
         private async void TimerWacher_Tick(object sender, EventArgs e)
@@ -746,22 +694,29 @@ namespace TrionControlPanelDesktop
             await ServerMonitor.ServerRunningLogonAsync();
             await ServerMonitor.ServerRunningWorldAsync();
             await ServerMonitor.ServerRunningDatabaseAsync();
+
+            if (settings.ServerCrashDetection)
+            {
+                await AppExecuteManager.CheckAndRestartServers(settings);
+            }
         }
         private async void TimerUpdate_Tick(object sender, EventArgs e)
         {
+            if (NetworkManager.IsOffline) return;
+
             await UpdateSppVersion();
-            AppUpdateManager.CheckForUpdate(_settings);
+            AppUpdateManager.CheckForUpdate(settings);
             await StartAutoUpdate();
         }
         private async void BTNStartDatabase_Click(object sender, EventArgs e)
         {
             var stopDatabase = false;
-            Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), _settings.DBLocation);
+            Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), settings.DBLocation);
             SystemData.DatabaseStartTime = DateTime.Now;
             if (!FormData.UI.Form.DBRunning && !FormData.UI.Form.DBStarted)
             {
                 string arg = $"--defaults-file=\"{Directory.GetCurrentDirectory()}/my.ini\" --console";
-                await AppExecuteMenager.StartDatabase(_settings, arg);
+                await AppExecuteManager.StartDatabase(settings, arg);
             }
             else
             {
@@ -772,8 +727,8 @@ namespace TrionControlPanelDesktop
                 {
                     var result = MaterialMessageBox.Show(
                         this,
-                        _translator.Translate("UnsafeMysqlTurnOffQuestionMbox"),
-                        _translator.Translate("UnsafeMysqlTurnOffQuestionMboxTitle"),
+                        translator.Translate("UnsafeMysqlTurnOffQuestionMbox"),
+                        translator.Translate("UnsafeMysqlTurnOffQuestionMboxTitle"),
                         MessageBoxButtons.YesNo,
                         true,
                         FlexibleMaterialForm.ButtonsPosition.Center
@@ -789,29 +744,29 @@ namespace TrionControlPanelDesktop
             if (stopDatabase)
             {
 
-                await AppExecuteMenager.StopDatabase();
+                await AppExecuteManager.StopDatabase();
             }
         }
         private async void BTNStartLogon_Click(object sender, EventArgs e)
         {
             if (!ServerMonitor.ServerStartedLogon() && !ServerMonitor.ServerRunningLogon())
             {
-                await AppExecuteMenager.StartLogon(_settings);
+                await AppExecuteManager.StartLogon(settings);
             }
             else
             {
-                await AppExecuteMenager.StopLogon();
+                await AppExecuteManager.StopLogon();
             }
         }
         private async void BTNStartWorld_Click(object sender, EventArgs e)
         {
             if (!ServerMonitor.ServerStartedWorld() && !ServerMonitor.ServerRunningWorld())
             {
-                await AppExecuteMenager.StartWorld(_settings);
+                await AppExecuteManager.StartWorld(settings);
             }
             else
             {
-                await AppExecuteMenager.StopWorld();
+                await AppExecuteManager.StopWorld();
             }
         }
         private void StartWorldTSMItem_Click(object sender, EventArgs e)
@@ -842,8 +797,8 @@ namespace TrionControlPanelDesktop
             {
                 var result = MaterialMessageBox.Show(
                     this,
-                    _translator.Translate("DatabaseNotRunningErrorMbox"),
-                    _translator.Translate("MessageBoxTitleInfo"),
+                    translator.Translate("DatabaseNotRunningErrorMbox"),
+                    translator.Translate("MessageBoxTitleInfo"),
                     MessageBoxButtons.OKCancel,
                     true,
                     FlexibleMaterialForm.ButtonsPosition.Center
@@ -878,13 +833,13 @@ namespace TrionControlPanelDesktop
         private void ProcessesIDUpdate()
         {
             var DatabaseProcessIDs = SystemData.GetTotalDatabaseProcessIDCount() > 0 ? string.Join(", ", SystemData.GetDatabaseProcessID().Select(p => p.ID)) : "0";
-            LBLDatabaseProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {DatabaseProcessIDs}";
+            LBLDatabaseProcessID.Text = $"{translator.Translate("LBLProcessID")}: {DatabaseProcessIDs}";
             //
             var WorldProcessIDs = SystemData.GetTotalWorldProcessIDCount() > 0 ? string.Join(", ", SystemData.GetWorldProcessesID().Select(p => p.ID)) : "0";
-            LBLWorldProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {WorldProcessIDs}";
+            LBLWorldProcessID.Text = $"{translator.Translate("LBLProcessID")}: {WorldProcessIDs}";
             //
             var LogonProcessIDs = SystemData.GetTotalLogonProcessIDCount() > 0 ? string.Join(", ", SystemData.GetLogonProcessesID().Select(p => p.ID)) : "0";
-            LBLLogonProcessID.Text = $"{_translator.Translate("LBLProcessID")}: {LogonProcessIDs}";
+            LBLLogonProcessID.Text = $"{translator.Translate("LBLProcessID")}: {LogonProcessIDs}";
 
         }
         private void RunServerUpdate()
@@ -892,53 +847,53 @@ namespace TrionControlPanelDesktop
             if (ServerMonitor.ServerStartedWorld() && ServerMonitor.ServerRunningWorld())
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.WorldStartTime;
-                LBLUpTimeWorld.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeWorld.Text = $"{translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
                 PNLWorldServerStatus.BorderColor = Color.LimeGreen;
                 PNLWorldServerStatus.Refresh();
                 PICWorldServerStatus.Image = Resources.cloud_online_64;
-                BTNStartWorld.Text = _translator.Translate("BTNStartWorldTextON");
+                BTNStartWorld.Text = translator.Translate("BTNStartWorldTextON");
             }
             else
             {
-                LBLUpTimeWorld.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
+                LBLUpTimeWorld.Text = $"{translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
                 PNLWorldServerStatus.BorderColor = Color.DarkRed;
                 PNLWorldServerStatus.Refresh();
                 PICWorldServerStatus.Image = Resources.cloud_offline_64;
-                BTNStartWorld.Text = _translator.Translate("BTNStartWorldTextOFF");
+                BTNStartWorld.Text = translator.Translate("BTNStartWorldTextOFF");
             }
             if (ServerMonitor.ServerStartedLogon() && ServerMonitor.ServerRunningLogon())
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.LogonStartTime;
-                LBLUpTimeLogon.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeLogon.Text = $"{translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
                 PNLLogonServerStatus.BorderColor = Color.LimeGreen;
                 PNLLogonServerStatus.Refresh();
                 PICLogonServerStatus.Image = Resources.cloud_online_64;
-                BTNStartLogon.Text = _translator.Translate("BTNStartLogonTextON");
+                BTNStartLogon.Text = translator.Translate("BTNStartLogonTextON");
             }
             else
             {
-                LBLUpTimeLogon.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
+                LBLUpTimeLogon.Text = $"{translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
                 PNLLogonServerStatus.BorderColor = Color.DarkRed;
                 PNLLogonServerStatus.Refresh();
                 PICLogonServerStatus.Image = Resources.cloud_offline_64;
-                BTNStartLogon.Text = _translator.Translate("BTNStartLogonTextOFF");
+                BTNStartLogon.Text = translator.Translate("BTNStartLogonTextOFF");
             }
             if (FormData.UI.Form.DBRunning && FormData.UI.Form.DBStarted)
             {
                 TimeSpan elapsedTime = DateTime.Now - SystemData.DatabaseStartTime;
-                LBLUpTimeDatabase.Text = $"{_translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
+                LBLUpTimeDatabase.Text = $"{translator.Translate("LBLUpTime")}: {elapsedTime.Days}D : {elapsedTime.Hours}H : {elapsedTime.Minutes}M : {elapsedTime.Seconds}S";
                 PNLDatanasServerStatus.BorderColor = Color.LimeGreen;
                 PNLDatanasServerStatus.Refresh();
                 PICDatabaseServerStatus.Image = Resources.cloud_online_64;
-                BTNStartDatabase.Text = _translator.Translate("BTNStartDatabaseTextON");
+                BTNStartDatabase.Text = translator.Translate("BTNStartDatabaseTextON");
             }
             else
             {
-                LBLUpTimeDatabase.Text = $"{_translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
+                LBLUpTimeDatabase.Text = $"{translator.Translate("LBLUpTime")}:  0D : 0H : 0M : 0S";
                 PNLDatanasServerStatus.BorderColor = Color.DarkRed;
                 PNLDatanasServerStatus.Refresh();
                 PICDatabaseServerStatus.Image = Resources.cloud_offline_64;
-                BTNStartDatabase.Text = _translator.Translate("BTNStartDatabaseTextOFF");
+                BTNStartDatabase.Text = translator.Translate("BTNStartDatabaseTextOFF");
             }
         }
         private async void ResurceUsage()
@@ -984,7 +939,7 @@ namespace TrionControlPanelDesktop
         {
             MainFormTabControler.SelectedTab = TabDownloader;
             // Initialize the CancellationTokenSource and token
-            refreshDownloader();
+            RefreshDownloader();
             // Set UI state for the installation process
             FormData.UI.Form.InstallingEmulator = true;
 
@@ -996,24 +951,24 @@ namespace TrionControlPanelDesktop
 
             try
             {
-                switch (_settings.SelectedSPP)
+                switch (settings.SelectedSPP)
                 {
                     case SPP.Classic:
                         if (!FormData.Infos.Install.Classic)
                         {
                             if (FormData.UI.Version.Online.Classic.Contains("N/A"))
                             {
-                                AlertBox.Show(_translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, _settings);
+                                AlertBox.Show(translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, settings);
                                 FormData.UI.Form.InstallingEmulator = false;
                                 return;
                             }
 
                             MainFormTabControler.SelectedTab = TabDownloader;
-                            await InstallExpansionAsync("Classic", "/classic", _settings.ClassicInstalled, v => FormData.Infos.Install.Classic = v, Links.Install.Classic);
+                            await InstallExpansionAsync("Classic", "/classic", settings.ClassicInstalled, v => FormData.Infos.Install.Classic = v);
                         }
                         else
                         {
-                            AlertBox.Show(_translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, _settings);
+                            AlertBox.Show(translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, settings);
                             FormData.UI.Form.InstallingEmulator = false;
                             return;
                         }
@@ -1025,17 +980,17 @@ namespace TrionControlPanelDesktop
                         {
                             if (FormData.UI.Version.Online.TBC.Contains("N/A"))
                             {
-                                AlertBox.Show(_translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, _settings);
+                                AlertBox.Show(translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, settings);
                                 FormData.UI.Form.InstallingEmulator = false;
                                 return;
                             }
 
                             MainFormTabControler.SelectedTab = TabDownloader;
-                            await InstallExpansionAsync("TBC", "/tbc", _settings.TBCInstalled, v => FormData.Infos.Install.TBC = v, Links.Install.TBC);
+                            await InstallExpansionAsync("TBC", "/tbc", settings.TBCInstalled, v => FormData.Infos.Install.TBC = v);
                         }
                         else
                         {
-                            AlertBox.Show(_translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, _settings);
+                            AlertBox.Show(translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, settings);
                             FormData.UI.Form.InstallingEmulator = false;
                             return;
                         }
@@ -1046,17 +1001,17 @@ namespace TrionControlPanelDesktop
                         {
                             if (FormData.UI.Version.Online.WotLK.Contains("N/A"))
                             {
-                                AlertBox.Show(_translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, _settings);
+                                AlertBox.Show(translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, settings);
                                 FormData.UI.Form.InstallingEmulator = false;
                                 return;
                             }
 
                             MainFormTabControler.SelectedTab = TabDownloader;
-                            await InstallExpansionAsync("WotLK", "/wotlk", _settings.WotLKInstalled, v => FormData.Infos.Install.WotLK = v, Links.Install.WotLK);
+                            await InstallExpansionAsync("WotLK", "/wotlk", settings.WotLKInstalled, v => FormData.Infos.Install.WotLK = v);
                         }
                         else
                         {
-                            AlertBox.Show(_translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, _settings);
+                            AlertBox.Show(translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, settings);
                             FormData.UI.Form.InstallingEmulator = false;
                             return;
                         }
@@ -1067,17 +1022,17 @@ namespace TrionControlPanelDesktop
                         {
                             if (FormData.UI.Version.Online.Cata.Contains("N/A"))
                             {
-                                AlertBox.Show(_translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, _settings);
+                                AlertBox.Show(translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, settings);
                                 FormData.UI.Form.InstallingEmulator = false;
                                 return;
                             }
 
                             MainFormTabControler.SelectedTab = TabDownloader;
-                            await InstallExpansionAsync("Cata", "/cata", _settings.CataInstalled, v => FormData.Infos.Install.Cata = v, Links.Install.Cata);
+                            await InstallExpansionAsync("Cata", "/cata", settings.CataInstalled, v => FormData.Infos.Install.Cata = v);
                         }
                         else
                         {
-                            AlertBox.Show(_translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, _settings);
+                            AlertBox.Show(translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, settings);
                             FormData.UI.Form.InstallingEmulator = false;
                             return;
                         }
@@ -1088,32 +1043,32 @@ namespace TrionControlPanelDesktop
                         {
                             if (FormData.UI.Version.Online.Mop.Contains("N/A"))
                             {
-                                AlertBox.Show(_translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, _settings);
+                                AlertBox.Show(translator.Translate("AlerBoxEmulatorNotFound"), NotificationType.Info, settings);
                                 FormData.UI.Form.InstallingEmulator = false;
                                 return;
                             }
 
                             MainFormTabControler.SelectedTab = TabDownloader;
-                            await InstallExpansionAsync("MoP", "/mop", _settings.MOPInstalled, v => FormData.Infos.Install.Mop = v, Links.Install.Mop);
+                            await InstallExpansionAsync("MoP", "/mop", settings.MOPInstalled, v => FormData.Infos.Install.Mop = v);
                         }
                         else
                         {
-                            AlertBox.Show(_translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, _settings);
+                            AlertBox.Show(translator.Translate("AlerBoxEmulatorInstalled"), NotificationType.Info, settings);
                             FormData.UI.Form.InstallingEmulator = false;
                             return;
                         }
                         break;
 
                     default:
-                        AlertBox.Show(_translator.Translate("AlerBoxFailedGettingEmulator"), NotificationType.Info, _settings);
+                        AlertBox.Show(translator.Translate("AlerBoxFailedGettingEmulator"), NotificationType.Info, settings);
                         break;
                 }
 
-                AlertBox.Show(_translator.Translate("SPPInstalationSucces"), NotificationType.Info, _settings);
+                AlertBox.Show(translator.Translate("SPPInstalationSucces"), NotificationType.Info, settings);
             }
             catch (Exception ex)
             {
-                AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, _settings);
+                AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, settings);
             }
         }
         /// <summary>
@@ -1130,7 +1085,7 @@ namespace TrionControlPanelDesktop
             bool showRemoveFilesCard = false)
         {
             // Prepare the Downloader UI
-            refreshDownloader();
+            RefreshDownloader();
             CardLocalFiles.Visible = false;
             DLCardRemoweFiles.Visible = showRemoveFilesCard;
             LBLInstallEmulatorTitle.Text = title;
@@ -1138,7 +1093,7 @@ namespace TrionControlPanelDesktop
 
             if (installationName.Contains("database"))
             {
-                LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseWaiting");
+                LBLFilesToBeRemoved.Text = translator.Translate("LBLInitDatabaseWaiting");
                 DLCardRemoweFiles.Visible = true;
             }
 
@@ -1147,37 +1102,37 @@ namespace TrionControlPanelDesktop
             setInstallingStatus(true);
 
             // Create progress handlers for UI updates
-            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
-            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
+            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLServerFiles"), message));
+            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Get the list of files to download from the server
             var serverFiles = await Task.Run(() =>
-                NetworkManager.GetServerFiles(Links.APIRequests.GetInstallFiles(apiKeyIdentifier, _settings.SupporterKey), serverFilesProgress)
+                NetworkManager.GetServerFiles(Links.APIRequests.GetInstallFiles(apiKeyIdentifier, settings.SupporterKey), serverFilesProgress)
             );
 
             // Configure the total progress bar and labels
             // Each file has two steps: Download (1) and Unzip (1) = 2
             PBARTotalDownload.Maximum = serverFiles.Count * 2;
-            LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), serverFiles.Count);
+            LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFilesToBeDownloaded"), serverFiles.Count);
 
             // Download and Unzip each file sequentially
             foreach (var file in serverFiles)
             {
                 if (cancellationToken.IsCancellationRequested) break;
 
-                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}");
-                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size:0.##} MB");
+                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFileName"), $"{file.Name}");
+                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFileSize"), $"{file.Size:0.##} MB");
 
                 // Download step
-                LBLCurrentDownload.Text = _translator.Translate("LBLCurrentDownload");
-                await FileManager.DownloadFileAsync(file, destinationFolder, installationName, _settings.SupporterKey, cancellationToken, downloadProgress, null, downloadSpeedProgress);
+                LBLCurrentDownload.Text = translator.Translate("LBLCurrentDownload");
+                await FileManager.DownloadFileAsync(file, destinationFolder, installationName, settings.SupporterKey, cancellationToken, downloadProgress, null, downloadSpeedProgress);
                 PBARTotalDownload.Value++;
 
                 if (cancellationToken.IsCancellationRequested) break;
 
                 // Unzip step
-                LBLCurrentDownload.Text = _translator.Translate("LBLCurrenInstall");
+                LBLCurrentDownload.Text = translator.Translate("LBLCurrenInstall");
                 await FileManager.UnzipFileAsync(file, destinationFolder, cancellationToken, downloadProgress, null, downloadSpeedProgress);
                 PBARTotalDownload.Value++;
             }
@@ -1201,49 +1156,49 @@ namespace TrionControlPanelDesktop
 
             try
             {
-                switch (_settings.SelectedSPP)
+                switch (settings.SelectedSPP)
                 {
                     case SPP.Classic:
-                        await RepairExpansionAsync("Classic", "/classic", _settings.ClassicInstalled);
+                        await RepairExpansionAsync("Classic", "/classic", settings.ClassicInstalled);
                         break;
 
                     case SPP.TheBurningCrusade:
-                        await RepairExpansionAsync("TBC", "/tbc", _settings.TBCInstalled);
+                        await RepairExpansionAsync("TBC", "/tbc", settings.TBCInstalled);
                         break;
 
                     case SPP.WrathOfTheLichKing:
-                        await RepairExpansionAsync("WotLK", "/wotlk", _settings.WotLKInstalled);
+                        await RepairExpansionAsync("WotLK", "/wotlk", settings.WotLKInstalled);
                         break;
 
                     case SPP.Cataclysm:
-                        await RepairExpansionAsync("Cata", "/cata", _settings.CataInstalled);
+                        await RepairExpansionAsync("Cata", "/cata", settings.CataInstalled);
                         break;
 
                     case SPP.MistOfPandaria:
-                        await RepairExpansionAsync("MoP", "/mop", _settings.MOPInstalled);
+                        await RepairExpansionAsync("MoP", "/mop", settings.MOPInstalled);
                         break;
 
                     default:
-                        AlertBox.Show(_translator.Translate("AlerBoxFailedGettingEmulator"), NotificationType.Info, _settings);
+                        AlertBox.Show(translator.Translate("AlerBoxFailedGettingEmulator"), NotificationType.Info, settings);
                         break;
                 }
 
-                AlertBox.Show(_translator.Translate("SPPRepairSuccess"), NotificationType.Info, _settings);
+                AlertBox.Show(translator.Translate("SPPRepairSuccess"), NotificationType.Info, settings);
             }
             catch (Exception ex)
             {
-                AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, _settings);
+                AlertBox.Show($"An error occurred: {ex.Message}", NotificationType.Error, settings);
             }
             finally
             {
                 FormData.UI.Form.InstallingEmulator = false;
             }
         }
-        private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus, string InstalationLocation)
+        private async Task InstallExpansionAsync(string expansionName, string folderPath, bool isInstalled, Action<bool> setInstallStatus)
         {
             if (isInstalled)
             {
-                AlertBox.Show(string.Format(CultureInfo.InvariantCulture, _translator.Translate("AlerBoxEmulatroInstalled"), $"{expansionName} Emulator"), NotificationType.Info, _settings);
+                AlertBox.Show(string.Format(CultureInfo.InvariantCulture, translator.Translate("AlerBoxEmulatroInstalled"), $"{expansionName} Emulator"), NotificationType.Info, settings);
                 return;
             }
             _cancellationTokenSource = new CancellationTokenSource();
@@ -1255,13 +1210,13 @@ namespace TrionControlPanelDesktop
                 setInstallStatus(isInstalling); // Call the original delegate
             };
             TrionLogger.Log($"installationName {expansionName}, apiKeyIdentifier: {expansionName.ToLower()}, destinationFolder: {folderPath}," +
-                $"title: {string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName}")}, ");
+                $"title: {string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName}")}, ");
 
             await PerformInstallationAsync(
                 installationName: expansionName,
                 apiKeyIdentifier: expansionName.ToLower(),
                 destinationFolder: folderPath,
-                title: string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName}"),
+                title: string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLInstallEmulatorTitle"), $"{expansionName}"),
                 setInstallingStatus: setExpansionInstallingStatus,
                 cancellationToken: _cancellationTokenSource.Token,
                 deleteFilesAfterUnzip: true, // Expansions delete the zips after install
@@ -1275,26 +1230,26 @@ namespace TrionControlPanelDesktop
         {
             if (!isInstalled)
             {
-                AlertBox.Show(string.Format(CultureInfo.InvariantCulture, _translator.Translate("AlerBoxEmulatroNotInstalled"), $"{expansionName} Emulator"), NotificationType.Info, _settings);
+                AlertBox.Show(string.Format(CultureInfo.InvariantCulture, translator.Translate("AlerBoxEmulatroNotInstalled"), $"{expansionName} Emulator"), NotificationType.Info, settings);
                 FormData.UI.Form.InstallingEmulator = false;
                 return;
             }
             DLCardRemoweFiles.Visible = true;
-            LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLRepairEmulatorTitle"), $"{expansionName} Emulator");
+            LBLInstallEmulatorTitle.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLRepairEmulatorTitle"), $"{expansionName} Emulator");
 
             MainFormTabControler.SelectedTab = TabDownloader;
             await Task.Delay(1000);
 
             // Create progress handlers to ensure UI updates happen on the UI thread
-            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
-            var localFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLLocalFiles"), message));
-            var filesToBeDeletedProgress = new Progress<string>(message => LBLFilesToBeRemoved.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeRemoved"), message));
-            var filesToBeDownloadedProgress = new Progress<string>(message => LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFilesToBeDownloaded"), message));
-            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
+            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLServerFiles"), message));
+            var localFilesProgress = new Progress<string>(message => LBLLocalFiles.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLLocalFiles"), message));
+            var filesToBeDeletedProgress = new Progress<string>(message => LBLFilesToBeRemoved.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFilesToBeRemoved"), message));
+            var filesToBeDownloadedProgress = new Progress<string>(message => LBLFilesToBeDownloaded.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFilesToBeDownloaded"), message));
+            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
 
             // Run file and server tasks concurrently
-            var serverFilesTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetReapirFiles(expansionName.ToLower(), _settings.SupporterKey), serverFilesProgress));
+            var serverFilesTask = Task.Run(() => NetworkManager.GetServerFiles(Links.APIRequests.GetReapirFiles(expansionName.ToLower(), settings.SupporterKey), serverFilesProgress));
             var localFilesTask = Task.Run(() => FileManager.ProcessFilesAsync(Links.Install.WotLK, localFilesProgress));
 
             await Task.WhenAll(serverFilesTask, localFilesTask);
@@ -1311,160 +1266,160 @@ namespace TrionControlPanelDesktop
             // **Download missing/corrupt files one-by-one**
             foreach (var file in missingFiles)
             {
-                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileName"), $"{file.Name}");
-                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLFileSize"), $"{file.Size:0.##} MB");
+                LBLFileName.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFileName"), $"{file.Name}");
+                LBLFileSize.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLFileSize"), $"{file.Size:0.##} MB");
 
-                await FileManager.DownloadFileAsync(file, folderPath, expansionName, _settings.SupporterKey, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
+                await FileManager.DownloadFileAsync(file, folderPath, expansionName, settings.SupporterKey, _cancellationToken, downloadProgress, null, downloadSpeedProgress);
                 PBARTotalDownload.Value++;
             }
 
-            AlertBox.Show($"{expansionName} Repair Completed!", NotificationType.Success, _settings);
+            AlertBox.Show($"{expansionName} Repair Completed!", NotificationType.Success, settings);
         }
         // Uninstalls the selected SPP based on the provided app settings.
         private async void BTNUninstallSPP_Click(object sender, EventArgs e)
         {
-            AlertBox.Show(_translator.Translate("SPPUninstall"), NotificationType.Info, _settings);
-            switch (_settings.SelectedSPP)
+            AlertBox.Show(translator.Translate("SPPUninstall"), NotificationType.Info, settings);
+            switch (settings.SelectedSPP)
             {
                 case Enums.SPP.Classic:
-                    await AppServiceManager.StartUninstall(_settings.ClassicWorkingDirectory);
-                    _settings.ClassicInstalled = false;
-                    _settings.LaunchClassicCore = false;
+                    await AppServiceManager.StartUninstall(settings.ClassicWorkingDirectory);
+                    settings.ClassicInstalled = false;
+                    settings.LaunchClassicCore = false;
                     break;
                 case Enums.SPP.TheBurningCrusade:
-                    await AppServiceManager.StartUninstall(_settings.TBCWorkingDirectory);
-                    _settings.TBCInstalled = false;
-                    _settings.LaunchTBCCore = false;
+                    await AppServiceManager.StartUninstall(settings.TBCWorkingDirectory);
+                    settings.TBCInstalled = false;
+                    settings.LaunchTBCCore = false;
                     break;
                 case Enums.SPP.WrathOfTheLichKing:
-                    await AppServiceManager.StartUninstall(_settings.WotLKWorkingDirectory);
-                    _settings.WotLKInstalled = false;
-                    _settings.LaunchWotLKCore = false;
+                    await AppServiceManager.StartUninstall(settings.WotLKWorkingDirectory);
+                    settings.WotLKInstalled = false;
+                    settings.LaunchWotLKCore = false;
                     break;
                 case Enums.SPP.Cataclysm:
-                    await AppServiceManager.StartUninstall(_settings.CataWorkingDirectory);
-                    _settings.CataInstalled = false;
-                    _settings.LaunchCataCore = false;
+                    await AppServiceManager.StartUninstall(settings.CataWorkingDirectory);
+                    settings.CataInstalled = false;
+                    settings.LaunchCataCore = false;
                     break;
                 case Enums.SPP.MistOfPandaria:
-                    await AppServiceManager.StartUninstall(_settings.MopWorkingDirectory);
-                    _settings.MOPInstalled = false;
-                    _settings.LaunchMoPCore = false;
+                    await AppServiceManager.StartUninstall(settings.MopWorkingDirectory);
+                    settings.MOPInstalled = false;
+                    settings.LaunchMoPCore = false;
                     break;
             }
 
         }
         private void CBOXSPPVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CBOXSPPVersion.SelectedItem!.ToString() == _translator.Translate("SPPver1"))
+            if (CBOXSPPVersion.SelectedItem!.ToString() == translator.Translate("SPPver1"))
             {
-                _settings.SelectedSPP = SPP.Classic;
+                settings.SelectedSPP = SPP.Classic;
             }
-            if (CBOXSPPVersion.SelectedItem.ToString() == _translator.Translate("SPPver2"))
+            if (CBOXSPPVersion.SelectedItem.ToString() == translator.Translate("SPPver2"))
             {
-                _settings.SelectedSPP = SPP.TheBurningCrusade;
+                settings.SelectedSPP = SPP.TheBurningCrusade;
             }
-            if (CBOXSPPVersion.SelectedItem.ToString() == _translator.Translate("SPPver3"))
+            if (CBOXSPPVersion.SelectedItem.ToString() == translator.Translate("SPPver3"))
             {
-                _settings.SelectedSPP = SPP.WrathOfTheLichKing;
+                settings.SelectedSPP = SPP.WrathOfTheLichKing;
             }
-            if (CBOXSPPVersion.SelectedItem.ToString() == _translator.Translate("SPPver4"))
+            if (CBOXSPPVersion.SelectedItem.ToString() == translator.Translate("SPPver4"))
             {
-                _settings.SelectedSPP = SPP.Cataclysm;
+                settings.SelectedSPP = SPP.Cataclysm;
             }
-            if (CBOXSPPVersion.SelectedItem.ToString() == _translator.Translate("SPPver5"))
+            if (CBOXSPPVersion.SelectedItem.ToString() == translator.Translate("SPPver5"))
             {
-                _settings.SelectedSPP = SPP.MistOfPandaria;
+                settings.SelectedSPP = SPP.MistOfPandaria;
             }
         }
         private async void BTNWorldClassicStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate(
-                _settings.ClassicWorldExeLoc,
-                _settings.ClassicWorkingDirectory,
-                _settings.ClassicWorldExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartWorldSeparate(
+                settings.ClassicWorldExeLoc,
+                settings.ClassicWorkingDirectory,
+                settings.ClassicWorldExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNLogonClassicStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate(
-                _settings.ClassicLogonExeLoc,
-                _settings.ClassicWorkingDirectory,
-                _settings.ClassicLogonExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartLogonSeparate(
+                settings.ClassicLogonExeLoc,
+                settings.ClassicWorkingDirectory,
+                settings.ClassicLogonExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNWorldTBCStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate(
-                _settings.TBCWorldExeLoc,
-                _settings.TBCWorkingDirectory,
-                _settings.TBCWorldExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartWorldSeparate(
+                settings.TBCWorldExeLoc,
+                settings.TBCWorkingDirectory,
+                settings.TBCWorldExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNLogonTBCStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate(
-                _settings.TBCLogonExeLoc,
-                _settings.TBCWorkingDirectory,
-                _settings.TBCLogonExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartLogonSeparate(
+                settings.TBCLogonExeLoc,
+                settings.TBCWorkingDirectory,
+                settings.TBCLogonExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNWorldWotLKStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate(
-                _settings.WotLKWorldExeLoc,
-                _settings.WotLKWorkingDirectory,
-                _settings.WotLKWorldExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartWorldSeparate(
+                settings.WotLKWorldExeLoc,
+                settings.WotLKWorkingDirectory,
+                settings.WotLKWorldExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNLogonWotLKStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate(
-                _settings.WotLKLogonExeLoc,
-                _settings.WotLKWorkingDirectory,
-                _settings.WotLKLogonExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartLogonSeparate(
+                settings.WotLKLogonExeLoc,
+                settings.WotLKWorkingDirectory,
+                settings.WotLKLogonExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNWorldCataStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate(
-                _settings.CataWorldExeLoc,
-                _settings.CataWorkingDirectory,
-                _settings.CataWorldExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartWorldSeparate(
+                settings.CataWorldExeLoc,
+                settings.CataWorkingDirectory,
+                settings.CataWorldExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNLogonCataStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate(
-                _settings.CataLogonExeLoc,
-                _settings.CataWorkingDirectory,
-                _settings.CataLogonExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartLogonSeparate(
+                settings.CataLogonExeLoc,
+                settings.CataWorkingDirectory,
+                settings.CataLogonExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNWorldMoPStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartWorldSeparate(
-                _settings.MopWorldExeLoc,
-                _settings.MopWorkingDirectory,
-                _settings.MopWorldExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartWorldSeparate(
+                settings.MopWorldExeLoc,
+                settings.MopWorkingDirectory,
+                settings.MopWorldExeName,
+                settings.ConsolHide
                 );
         }
         private async void BTNLogonMoPStart_Click(object sender, EventArgs e)
         {
-            await AppExecuteMenager.StartLogonSeparate(
-                _settings.MopLogonExeLoc,
-                _settings.MopWorkingDirectory,
-                _settings.MopLogonExeName,
-                _settings.ConsolHide
+            await AppExecuteManager.StartLogonSeparate(
+                settings.MopLogonExeLoc,
+                settings.MopWorkingDirectory,
+                settings.MopLogonExeName,
+                settings.ConsolHide
                 );
         }
         private void EnableLaunchButtonInstalled()
@@ -1477,26 +1432,26 @@ namespace TrionControlPanelDesktop
         }
         private void TGLClassicLaunch_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchClassicCore = TGLClassicLaunch.Checked;
+            settings.LaunchClassicCore = TGLClassicLaunch.Checked;
         }
         private void TGLTBCLaunch_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchTBCCore = TGLTBCLaunch.Checked;
+            settings.LaunchTBCCore = TGLTBCLaunch.Checked;
         }
 
         private void TGLWotLKLaunch_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchWotLKCore = TGLWotLKLaunch.Checked;
+            settings.LaunchWotLKCore = TGLWotLKLaunch.Checked;
         }
 
         private void TGLCataLaunch_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchCataCore = TGLCataLaunch.Checked;
+            settings.LaunchCataCore = TGLCataLaunch.Checked;
         }
 
         private void TGLMoPLaunch_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchMoPCore = TGLMoPLaunch.Checked;
+            settings.LaunchMoPCore = TGLMoPLaunch.Checked;
         }
         #endregion
         #region"DatabaseEditor"
@@ -1513,13 +1468,13 @@ namespace TrionControlPanelDesktop
             CBoxGMRealmSelect.SelectedIndex = 0;
             try
             {
-                if (_settings.SelectedCore == Cores.TrinityCore ||
-                    _settings.SelectedCore == Cores.TrinityCore335 ||
-                    _settings.SelectedCore == Cores.TrinityCoreClassic ||
-                    _settings.SelectedCore == Cores.AzerothCore ||
-                    _settings.SelectedCore == Cores.CypherCore)
+                if (settings.SelectedCore == Cores.TrinityCore ||
+                    settings.SelectedCore == Cores.TrinityCore335 ||
+                    settings.SelectedCore == Cores.TrinityCoreClassic ||
+                    settings.SelectedCore == Cores.AzerothCore ||
+                    settings.SelectedCore == Cores.CypherCore)
                 {
-                    var RealmLists = await RealmListManager.GetRealmListsAsync<Realmlist.TrinityBased>(_settings);
+                    var RealmLists = await RealmListManager.GetRealmListsAsync<Realmlist.TrinityBased>(settings);
                     foreach (var RealmList in RealmLists)
                     {
                         CBoxGMRealmSelect.Items.Add(RealmList.ID);
@@ -1529,10 +1484,10 @@ namespace TrionControlPanelDesktop
                         TrionLogger.Log($"Realm List Loaded {RealmList.Name}");
                     }
                 }
-                if (_settings.SelectedCore == Cores.CMaNGOS ||
-                    _settings.SelectedCore == Cores.VMaNGOS)
+                if (settings.SelectedCore == Cores.CMaNGOS ||
+                    settings.SelectedCore == Cores.VMaNGOS)
                 {
-                    var RealmLists = await RealmListManager.GetRealmListsAsync<Realmlist.MangosBased>(_settings);
+                    var RealmLists = await RealmListManager.GetRealmListsAsync<Realmlist.MangosBased>(settings);
                     foreach (var RealmList in RealmLists)
                     {
                         CBoxGMRealmSelect.Items.Add(RealmList.ID);
@@ -1553,7 +1508,7 @@ namespace TrionControlPanelDesktop
             if (_editRealmList == true)
             {
                 await CreateRealmListData();
-                BTNCreateRealmList.Text = _translator.Translate("BTNCreateRealmlistDataON");
+                BTNCreateRealmList.Text = translator.Translate("BTNCreateRealmlistDataON");
                 BTNCreateRealmList.Refresh();
                 TXTRealmName.ReadOnly = true;
                 TXTRealmLocalAddress.ReadOnly = true;
@@ -1572,7 +1527,7 @@ namespace TrionControlPanelDesktop
                 TXTRealmLocalAddress.Text = string.Empty;
                 TXTRealmPort.Text = string.Empty;
                 TXTRealmAddress.Text = string.Empty;
-                BTNCreateRealmList.Text = _translator.Translate("BTNCreateRealmlistDataOFF");
+                BTNCreateRealmList.Text = translator.Translate("BTNCreateRealmlistDataOFF");
                 BTNCreateRealmList.Refresh();
                 TXTRealmName.ReadOnly = false;
                 TXTRealmLocalAddress.ReadOnly = false;
@@ -1587,14 +1542,14 @@ namespace TrionControlPanelDesktop
         private async void BTNDeleteRealmList_Click(object sender, EventArgs e)
         {
             var id = Convert.ToInt32(TXTRealmID.Text, CultureInfo.InvariantCulture);
-            await RealmListManager.DeleteRealmListAsync(_settings, id);
+            await RealmListManager.DeleteRealmListAsync(settings, id);
             await LoadRealmList();
         }
         private async void BTNOpenPublic_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_settings.DDNSDomain) && !string.IsNullOrEmpty(TXTPublicIP.Text) || TXTPublicIP.Text != "0.0.0.0")
+            if (string.IsNullOrEmpty(settings.DDNSDomain) && !string.IsNullOrEmpty(TXTPublicIP.Text) || TXTPublicIP.Text != "0.0.0.0")
             {
-                await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), TXTPublicIP.Text, _settings);
+                await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), TXTPublicIP.Text, settings);
                 await LoadRealmList();
                 return;
             }
@@ -1602,9 +1557,9 @@ namespace TrionControlPanelDesktop
             {
                 MaterialMessageBox.Show("");
             }
-            if (!string.IsNullOrEmpty(_settings.DDNSDomain) && NetworkManager.IsDomainName(_settings.DDNSDomain))
+            if (!string.IsNullOrEmpty(settings.DDNSDomain) && NetworkManager.IsDomainName(settings.DDNSDomain))
             {
-                await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), _settings.DDNSDomain, _settings);
+                await RealmListManager.UpdateRealmListAddressAsync(int.Parse(TXTRealmID!.Text, CultureInfo.InvariantCulture), settings.DDNSDomain, settings);
                 await LoadRealmList();
                 return;
             }
@@ -1624,13 +1579,13 @@ namespace TrionControlPanelDesktop
         }
         private async void SelectRealmList()
         {
-            if (_settings.SelectedCore == Cores.TrinityCore ||
-                _settings.SelectedCore == Cores.TrinityCore335 ||
-                _settings.SelectedCore == Cores.TrinityCoreClassic ||
-                _settings.SelectedCore == Cores.AzerothCore ||
-                _settings.SelectedCore == Cores.CypherCore)
+            if (settings.SelectedCore == Cores.TrinityCore ||
+                settings.SelectedCore == Cores.TrinityCore335 ||
+                settings.SelectedCore == Cores.TrinityCoreClassic ||
+                settings.SelectedCore == Cores.AzerothCore ||
+                settings.SelectedCore == Cores.CypherCore)
             {
-                var realmLists = await RealmListManager.GetRealmListsAsync<Realmlist.TrinityBased>(_settings);
+                var realmLists = await RealmListManager.GetRealmListsAsync<Realmlist.TrinityBased>(settings);
                 var SearchList = realmLists.Find(obj =>
                 obj.Name.ToString(CultureInfo.InvariantCulture) == CBOXReamList.SelectedItem!.ToString());
                 TXTRealmID.Text = SearchList!.ID.ToString(CultureInfo.InvariantCulture);
@@ -1640,7 +1595,7 @@ namespace TrionControlPanelDesktop
                 TXTRealmPort.Text = SearchList!.Port.ToString(CultureInfo.InvariantCulture);
                 TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
                 TXTRealmAddress.Text = SearchList!.Address;
-                TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
+                TXTRealmAddress.Hint = translator.Translate("TXTRealmAddress");
                 TXTRealmName.Enabled = true;
                 TXTRealmLocalAddress.Enabled = true;
                 TXTRealmSubnetMask.Enabled = true;
@@ -1648,10 +1603,10 @@ namespace TrionControlPanelDesktop
                 TXTRealmGameBuild.Enabled = true;
                 TXTRealmAddress.Enabled = true;
             }
-            if (_settings.SelectedCore == Cores.CMaNGOS ||
-                _settings.SelectedCore == Cores.VMaNGOS)
+            if (settings.SelectedCore == Cores.CMaNGOS ||
+                settings.SelectedCore == Cores.VMaNGOS)
             {
-                var realmLists = await RealmListManager.GetRealmListsAsync<Realmlist.MangosBased>(_settings);
+                var realmLists = await RealmListManager.GetRealmListsAsync<Realmlist.MangosBased>(settings);
                 var SearchList = realmLists.Find(obj =>
                 obj.Name.ToString(CultureInfo.InvariantCulture) == CBOXReamList.SelectedItem!.ToString());
                 TXTRealmName.Text = SearchList!.Name;
@@ -1660,7 +1615,7 @@ namespace TrionControlPanelDesktop
                 TXTRealmPort.Text = SearchList!.Port.ToString(CultureInfo.InvariantCulture);
                 TXTRealmGameBuild.Text = SearchList!.GameBuild.ToString(CultureInfo.InvariantCulture);
                 TXTRealmAddress.Text = SearchList!.Address;
-                TXTRealmAddress.Hint = _translator.Translate("TXTRealmAddress");
+                TXTRealmAddress.Hint = translator.Translate("TXTRealmAddress");
                 TXTRealmName.Enabled = true;
                 TXTRealmLocalAddress.Enabled = false;
                 TXTRealmSubnetMask.Enabled = false;
@@ -1677,13 +1632,13 @@ namespace TrionControlPanelDesktop
         private async Task SaveRealmListData()
         {
 
-            if (_settings.SelectedCore == Cores.TrinityCore ||
-                _settings.SelectedCore == Cores.TrinityCore335 ||
-                _settings.SelectedCore == Cores.TrinityCoreClassic ||
-                _settings.SelectedCore == Cores.AzerothCore ||
-                _settings.SelectedCore == Cores.CypherCore)
+            if (settings.SelectedCore == Cores.TrinityCore ||
+                settings.SelectedCore == Cores.TrinityCore335 ||
+                settings.SelectedCore == Cores.TrinityCoreClassic ||
+                settings.SelectedCore == Cores.AzerothCore ||
+                settings.SelectedCore == Cores.CypherCore)
             {
-                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(_settings.SelectedCore), new
+                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(settings.SelectedCore), new
                 {
                     ID = TXTRealmID.Text,
                     Name = TXTRealmName.Text,
@@ -1692,31 +1647,31 @@ namespace TrionControlPanelDesktop
                     LocalSubnetMask = TXTRealmSubnetMask.Text,
                     Port = TXTRealmPort.Text,
                     GameBuild = TXTRealmGameBuild.Text
-                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+                }, AccessManager.ConnectionString(settings, settings.AuthDatabase));
             }
-            if (_settings.SelectedCore == Cores.CMaNGOS ||
-                _settings.SelectedCore == Cores.VMaNGOS)
+            if (settings.SelectedCore == Cores.CMaNGOS ||
+                settings.SelectedCore == Cores.VMaNGOS)
             {
-                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(_settings.SelectedCore), new
+                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(settings.SelectedCore), new
                 {
                     ID = TXTRealmID.Text,
                     Name = TXTRealmName.Text,
                     Address = TXTRealmAddress.Text,
                     Port = TXTRealmPort.Text,
                     GameBuild = TXTRealmGameBuild.Text
-                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+                }, AccessManager.ConnectionString(settings, settings.AuthDatabase));
             }
         }
         private async Task CreateRealmListData()
         {
 
-            if (_settings.SelectedCore == Cores.TrinityCore ||
-                _settings.SelectedCore == Cores.TrinityCore335 ||
-                _settings.SelectedCore == Cores.TrinityCoreClassic ||
-                _settings.SelectedCore == Cores.AzerothCore ||
-                _settings.SelectedCore == Cores.CypherCore)
+            if (settings.SelectedCore == Cores.TrinityCore ||
+                settings.SelectedCore == Cores.TrinityCore335 ||
+                settings.SelectedCore == Cores.TrinityCoreClassic ||
+                settings.SelectedCore == Cores.AzerothCore ||
+                settings.SelectedCore == Cores.CypherCore)
             {
-                await AccessManager.SaveData(SqlQueryManager.CreateRealmList(_settings.SelectedCore), new
+                await AccessManager.SaveData(SqlQueryManager.CreateRealmList(settings.SelectedCore), new
                 {
                     Name = TXTRealmName.Text,
                     Address = TXTRealmAddress.Text,
@@ -1724,18 +1679,18 @@ namespace TrionControlPanelDesktop
                     LocalSubnetMask = TXTRealmSubnetMask.Text,
                     Port = TXTRealmPort.Text,
                     GameBuild = TXTRealmGameBuild.Text
-                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+                }, AccessManager.ConnectionString(settings, settings.AuthDatabase));
             }
-            if (_settings.SelectedCore == Cores.CMaNGOS ||
-                _settings.SelectedCore == Cores.VMaNGOS)
+            if (settings.SelectedCore == Cores.CMaNGOS ||
+                settings.SelectedCore == Cores.VMaNGOS)
             {
-                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(_settings.SelectedCore), new
+                await AccessManager.SaveData(SqlQueryManager.UpdateRealmList(settings.SelectedCore), new
                 {
                     Name = TXTRealmName.Text,
                     Address = TXTRealmAddress.Text,
                     Port = TXTRealmPort.Text,
                     GameBuild = TXTRealmGameBuild.Text
-                }, AccessManager.ConnectionString(_settings, _settings.AuthDatabase));
+                }, AccessManager.ConnectionString(settings, settings.AuthDatabase));
             }
         }
 
@@ -1744,7 +1699,7 @@ namespace TrionControlPanelDesktop
             if (_editRealmList == true)
             {
                 await SaveRealmListData();
-                BTNEditRealmlistData.Text = _translator.Translate("BTNEditRealmlistDataON");
+                BTNEditRealmlistData.Text = translator.Translate("BTNEditRealmlistDataON");
                 BTNEditRealmlistData.Refresh();
                 TXTRealmName.ReadOnly = true;
                 TXTRealmLocalAddress.ReadOnly = true;
@@ -1756,7 +1711,7 @@ namespace TrionControlPanelDesktop
             }
             else if (_editRealmList == false)
             {
-                BTNEditRealmlistData.Text = _translator.Translate("BTNEditRealmlistDataOFF");
+                BTNEditRealmlistData.Text = translator.Translate("BTNEditRealmlistDataOFF");
                 BTNEditRealmlistData.Refresh();
                 TXTRealmName.ReadOnly = false;
                 TXTRealmLocalAddress.ReadOnly = false;
@@ -1772,14 +1727,14 @@ namespace TrionControlPanelDesktop
 
         private async void BTNAccountCreate_Click(object sender, EventArgs e)
         {
-            var result = await AccountManager.CreateAccount(TXTBoxCreateUserUsername.Text, TXTBoxCreateUserPassword.Text, TXTBoxCreateUserEmail.Text, _settings);
+            var result = await AccountManager.CreateAccount(TXTBoxCreateUserUsername.Text, TXTBoxCreateUserPassword.Text, TXTBoxCreateUserEmail.Text, settings);
             if (result == AccountOpResult.Ok)
             {
-                AlertBox.Show(_translator.Translate("AccountSuccessCreate"), NotificationType.Info, _settings);
+                AlertBox.Show(translator.Translate("AccountSuccessCreate"), NotificationType.Info, settings);
             }
             else
             {
-                AlertBox.Show(_translator.Translate("AccountFaildCreate"), NotificationType.Info, _settings);
+                AlertBox.Show(translator.Translate("AccountFaildCreate"), NotificationType.Info, settings);
             }
             TXTBoxCreateUserUsername.Text = string.Empty;
             TXTBoxCreateUserPassword.Text = string.Empty;
@@ -1794,62 +1749,62 @@ namespace TrionControlPanelDesktop
         }
         private void TImerDinamicDNS_Tick(object sender, EventArgs e)
         {
-            if (_settings.IPAddress != TXTPublicIP.Text)
+            if (settings.IPAddress != TXTPublicIP.Text)
             {
-                _settings.IPAddress = TXTPublicIP.Text;
-                NetworkManager.UpdateDNSIP(_settings);
+                settings.IPAddress = TXTPublicIP.Text;
+                NetworkManager.UpdateDNSIP(settings);
             }
         }
         private void BTNDDNSServiceWebiste_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Links.DDNSWebsits(_settings.DDNSerivce));
+            Process.Start("explorer.exe", Links.DDNSWebsits(settings.DDNSerivce));
         }
         #endregion
         #region "Settings Page"
         #region"CustomRepack"
         private void TGLUseCustomServer_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.LaunchCustomCore = TGLUseCustomServer.Checked;
+            settings.LaunchCustomCore = TGLUseCustomServer.Checked;
         }
         private void TGLCustomNames_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.CustomNames = TGLCustomNames.Checked;
-            TXTCustomWorldName.ReadOnly = !_settings.CustomNames;
-            TXTCustomDatabaseName.ReadOnly = !_settings.CustomNames;
-            TXTCustomAuthName.ReadOnly = !_settings.CustomNames;
+            settings.CustomNames = TGLCustomNames.Checked;
+            TXTCustomWorldName.ReadOnly = !settings.CustomNames;
+            TXTCustomDatabaseName.ReadOnly = !settings.CustomNames;
+            TXTCustomAuthName.ReadOnly = !settings.CustomNames;
         }
         #endregion
         #region"Trion"
         private async Task UpdateSppVersion()
         {
-            AppUpdateManager.GetSPPVersionOffline(_settings);
-            await AppUpdateManager.GetSPPVersionOnline(_settings);
-            LBLTrionVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTrionVersion"), FormData.UI.Version.Local.Trion, FormData.UI.Version.Online.Trion);
-            LBLDBVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDBVersion"), FormData.UI.Version.Local.Database, FormData.UI.Version.Online.Database);
-            LBLClassicVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLClassicVersion"), FormData.UI.Version.Local.Classic, FormData.UI.Version.Online.Classic);
-            LBLTBCVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLTBCVersion"), FormData.UI.Version.Local.TBC, FormData.UI.Version.Online.TBC);
-            LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLWotLKVersion"), FormData.UI.Version.Local.WotLK, FormData.UI.Version.Online.WotLK);
-            LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
-            LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
+            AppUpdateManager.GetSPPVersionOffline(settings);
+            await AppUpdateManager.GetSPPVersionOnline(settings);
+            LBLTrionVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLTrionVersion"), FormData.UI.Version.Local.Trion, FormData.UI.Version.Online.Trion);
+            LBLDBVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLDBVersion"), FormData.UI.Version.Local.Database, FormData.UI.Version.Online.Database);
+            LBLClassicVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLClassicVersion"), FormData.UI.Version.Local.Classic, FormData.UI.Version.Online.Classic);
+            LBLTBCVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLTBCVersion"), FormData.UI.Version.Local.TBC, FormData.UI.Version.Online.TBC);
+            LBLWotLKVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLWotLKVersion"), FormData.UI.Version.Local.WotLK, FormData.UI.Version.Online.WotLK);
+            LBLCataVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLCataVersion"), FormData.UI.Version.Local.Cata, FormData.UI.Version.Online.Cata);
+            LBLMoPVersion.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLMoPVersion"), FormData.UI.Version.Local.Mop, FormData.UI.Version.Online.Mop);
         }
-        private void refreshDownloader()
+        private void RefreshDownloader()
         {
             CardLocalFiles.Visible = true;
-            LBLCurrentDownload.Text = _translator.Translate("LBLCurrentDownload");
-            LBLServerFiles.Text = _translator.Translate("LBLServerFilesIDLE");
-            LBLLocalFiles.Text = _translator.Translate("LBLLocalFilesIDLE");
-            LBLFilesToBeDownloaded.Text = _translator.Translate("LBLFilesToBeDownloadedIDLE");
-            LBLFilesToBeRemoved.Text = _translator.Translate("LBLFilesToBeRemovedIDLE");
-            LBLFileName.Text = _translator.Translate("LBLFileNameIDLE");
-            LBLFileSize.Text = _translator.Translate("LBLFileSizeIDLE");
+            LBLCurrentDownload.Text = translator.Translate("LBLCurrentDownload");
+            LBLServerFiles.Text = translator.Translate("LBLServerFilesIDLE");
+            LBLLocalFiles.Text = translator.Translate("LBLLocalFilesIDLE");
+            LBLFilesToBeDownloaded.Text = translator.Translate("LBLFilesToBeDownloadedIDLE");
+            LBLFilesToBeRemoved.Text = translator.Translate("LBLFilesToBeRemovedIDLE");
+            LBLFileName.Text = translator.Translate("LBLFileNameIDLE");
+            LBLFileSize.Text = translator.Translate("LBLFileSizeIDLE");
             INITSpinner.Visible = false;
             PBarCurrentDownlaod.Value = 0;
             PBARTotalDownload.Value = 0;
         }
         private void CBOXTrionIcon_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _settings.TrionIcon = CBOXTrionIcon.SelectedItem!.ToString()!;
-            ChangeFormIcon(_settings.TrionIcon);
+            settings.TrionIcon = CBOXTrionIcon.SelectedItem!.ToString()!;
+            ChangeFormIcon(settings.TrionIcon);
         }
         private void BTNReviveSupporterKey_Click(object sender, EventArgs e)
         {
@@ -1857,62 +1812,62 @@ namespace TrionControlPanelDesktop
         }
         private async Task StartAutoUpdate()
         {
-            if (FormData.UI.Version.Update.Trion && _settings.AutoUpdateTrion)
+            if (FormData.UI.Version.Update.Trion && settings.AutoUpdateTrion)
             {
-                await InstallExpansionAsync("trion", "", _settings.ClassicInstalled, v => FormData.Infos.Install.Trion = v, Links.Install.Trion);
+                await InstallExpansionAsync("trion", "", settings.ClassicInstalled, v => FormData.Infos.Install.Trion = v);
             }
-            if (FormData.UI.Version.Update.Database && _settings.AutoUpdateTrion)
+            if (FormData.UI.Version.Update.Database && settings.AutoUpdateTrion)
             {
                 if (FormData.UI.Form.DBRunning)
                 {
-                    await AppExecuteMenager.StopDatabase();
+                    await AppExecuteManager.StopDatabase();
                 }
-                await RepairExpansionAsync("database", "/database", _settings.DBInstalled);
+                await RepairExpansionAsync("database", "/database", settings.DBInstalled);
             }
-            if (FormData.UI.Version.Update.Classic && _settings.AutoUpdateCore)
+            if (FormData.UI.Version.Update.Classic && settings.AutoUpdateCore)
             {
                 if (FormData.UI.Form.ClassicLogonRunning || FormData.UI.Form.ClassicWorldRunning)
                 {
-                    await AppExecuteMenager.StopLogon();
-                    await AppExecuteMenager.StopWorld();
+                    await AppExecuteManager.StopLogon();
+                    await AppExecuteManager.StopWorld();
                 }
-                await RepairExpansionAsync("classic", "/classic", _settings.ClassicInstalled);
+                await RepairExpansionAsync("classic", "/classic", settings.ClassicInstalled);
             }
-            if (FormData.UI.Version.Update.TBC && _settings.AutoUpdateCore)
+            if (FormData.UI.Version.Update.TBC && settings.AutoUpdateCore)
             {
                 if (FormData.UI.Form.TBCLogonRunning || FormData.UI.Form.TBCWorldRunning)
                 {
-                    await AppExecuteMenager.StopLogon();
-                    await AppExecuteMenager.StopWorld();
+                    await AppExecuteManager.StopLogon();
+                    await AppExecuteManager.StopWorld();
                 }
-                await RepairExpansionAsync("tbc", "/tbc", _settings.TBCInstalled);
+                await RepairExpansionAsync("tbc", "/tbc", settings.TBCInstalled);
             }
-            if (FormData.UI.Version.Update.WotLK && _settings.AutoUpdateCore)
+            if (FormData.UI.Version.Update.WotLK && settings.AutoUpdateCore)
             {
                 if (FormData.UI.Form.WotLKLogonRunning || FormData.UI.Form.WotLKWorldRunning)
                 {
-                    await AppExecuteMenager.StopLogon();
-                    await AppExecuteMenager.StopWorld();
+                    await AppExecuteManager.StopLogon();
+                    await AppExecuteManager.StopWorld();
                 }
-                await RepairExpansionAsync("wotlk", "/wotlk", _settings.WotLKInstalled);
+                await RepairExpansionAsync("wotlk", "/wotlk", settings.WotLKInstalled);
             }
-            if (FormData.UI.Version.Update.Cata && _settings.AutoUpdateCore)
+            if (FormData.UI.Version.Update.Cata && settings.AutoUpdateCore)
             {
                 if (FormData.UI.Form.CataLogonRunning || FormData.UI.Form.CataWorldRunning)
                 {
-                    await AppExecuteMenager.StopLogon();
-                    await AppExecuteMenager.StopWorld();
+                    await AppExecuteManager.StopLogon();
+                    await AppExecuteManager.StopWorld();
                 }
-                await RepairExpansionAsync("cata", "/cata", _settings.CataInstalled);
+                await RepairExpansionAsync("cata", "/cata", settings.CataInstalled);
             }
-            if (FormData.UI.Version.Update.Mop && _settings.AutoUpdateCore)
+            if (FormData.UI.Version.Update.Mop && settings.AutoUpdateCore)
             {
                 if (FormData.UI.Form.MOPLogonRunning || FormData.UI.Form.MOPWorldRunning)
                 {
-                    await AppExecuteMenager.StopLogon();
-                    await AppExecuteMenager.StopWorld();
+                    await AppExecuteManager.StopLogon();
+                    await AppExecuteManager.StopWorld();
                 }
-                await RepairExpansionAsync("mop", "/mop", _settings.CataInstalled);
+                await RepairExpansionAsync("mop", "/mop", settings.CataInstalled);
             }
         }
         private void CBOXColorSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -1920,65 +1875,68 @@ namespace TrionControlPanelDesktop
             switch (CBOXColorSelect.SelectedItem)
             {
                 case "TrionBlue":
-                    _settings.TrionTheme = TrionTheme.TrionBlue;
+                    settings.TrionTheme = TrionTheme.TrionBlue;
                     LoadSkin();
                     break;
                 case "Purple":
-                    _settings.TrionTheme = TrionTheme.Purple;
+                    settings.TrionTheme = TrionTheme.Purple;
                     LoadSkin();
                     break;
                 case "Orange":
-                    _settings.TrionTheme = TrionTheme.Orange;
+                    settings.TrionTheme = TrionTheme.Orange;
                     LoadSkin();
                     break;
                 case "Green":
-                    _settings.TrionTheme = TrionTheme.Green;
+                    settings.TrionTheme = TrionTheme.Green;
                     LoadSkin();
+                    break;
+                default:
+                    // Default to TrionBlue or keep current
                     break;
             }
 
         }
         private void CBOXLanguageSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _settings.TrionLanguage = CBOXLanguageSelect.SelectedItem!.ToString() ?? "en";
+            settings.TrionLanguage = CBOXLanguageSelect.SelectedItem!.ToString() ?? "en";
             LoadLangauge();
             Refresh();
         }
         private void TGLServerCrashDetection_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.ServerCrashDetection = TGLServerCrashDetection.Checked;
+            settings.ServerCrashDetection = TGLServerCrashDetection.Checked;
         }
         private void TGLServerStartup_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.RunServerWithWindows = TGLServerStartup.Checked;
+            settings.RunServerWithWindows = TGLServerStartup.Checked;
         }
         private void TGLRunTrionStartup_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.RunWithWindows = TGLRunTrionStartup.Checked;
+            settings.RunWithWindows = TGLRunTrionStartup.Checked;
         }
         private void TGLHideConsole_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.ConsolHide = TGLHideConsole.Checked;
+            settings.ConsolHide = TGLHideConsole.Checked;
         }
         private void TGLNotificationSound_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.NotificationSound = TGLNotificationSound.Checked;
+            settings.NotificationSound = TGLNotificationSound.Checked;
         }
         private void TGLStayInTray_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.StayInTray = TGLStayInTray.Checked;
+            settings.StayInTray = TGLStayInTray.Checked;
         }
         private void TGLAutoUpdateTrion_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
+            settings.AutoUpdateTrion = TGLAutoUpdateTrion.Checked;
         }
         private void TGLAutoUpdateCore_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
+            settings.AutoUpdateCore = TGLAutoUpdateCore.Checked;
         }
         private void TGLAutoUpdateDatabase_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.AutoUpdateDatabase = TGLAutoUpdateDatabase.Checked;
+            settings.AutoUpdateDatabase = TGLAutoUpdateDatabase.Checked;
         }
         #endregion
         #region "Database"
@@ -1989,7 +1947,7 @@ namespace TrionControlPanelDesktop
             string SQLLocation = $@"{Database}\extra\initSTDDatabase.sql";
             string folderPath = $@"{Database}\data";
             await FileManager.DeleteFolderAsync(folderPath);
-            await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", true, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+            await AppExecuteManager.ApplicationStart(settings.DBExeLoc, settings.DBWorkingDir, "initialize MySQL", true, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
         }
         private void HandleDatabaseToggle(string dbPrefix, CheckBox toggled)
         {
@@ -2008,9 +1966,9 @@ namespace TrionControlPanelDesktop
 
             if (!isCustom)
             {
-                _settings.AuthDatabase = $"{dbPrefix}_auth";
-                _settings.CharactersDatabase = $"{dbPrefix}_characters";
-                _settings.WorldDatabase = $"{dbPrefix}_world";
+                settings.AuthDatabase = $"{dbPrefix}_auth";
+                settings.CharactersDatabase = $"{dbPrefix}_characters";
+                settings.WorldDatabase = $"{dbPrefix}_world";
                 LoadSettingsUI();
             }
         }
@@ -2028,8 +1986,8 @@ namespace TrionControlPanelDesktop
         private async void InstallFinished()
         {
             // 2. Create progress handlers for UI updates
-            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLServerFiles"), message));
-            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, _translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
+            var serverFilesProgress = new Progress<string>(message => LBLServerFiles.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLServerFiles"), message));
+            var downloadSpeedProgress = new Progress<double>(message => LBLDownloadSpeed.Text = string.Format(CultureInfo.InvariantCulture, translator.Translate("LBLDownloadSpeed"), $"{message:0.##} MB/s"));
             var downloadProgress = new Progress<double>(message => PBarCurrentDownlaod.Value = (int)message);
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
@@ -2037,100 +1995,100 @@ namespace TrionControlPanelDesktop
             {
 
                 string classic = Links.Install.Classic.Replace("/", @"\");
-                await AccessManager.ExecuteSqlFileAsync($"{classic}/database/full/classicDB.sql", AccessManager.ConnectionString(_settings), _cancellationToken, downloadProgress, null, downloadSpeedProgress);
-                _settings.ClassicInstalled = true;
-                _settings.LaunchClassicCore = true;
-                _settings.ClassicWorkingDirectory = classic;
-                _settings.ClassicLogonExeLoc = FileManager.GetExecutableLocation(classic, "realmd");
-                _settings.ClassicLogonExeName = "realmd";
-                _settings.ClassicWorldExeLoc = FileManager.GetExecutableLocation(classic, "mangosd");
-                _settings.ClassicWorldExeName = "mangosd";
-                _settings.ClassicLogonName = "WoW Classic Logon";
-                _settings.ClassicWorldName = "WoW Classic World";
-                _settings.SelectedCore = Cores.CMaNGOS;
+                await AccessManager.ExecuteSqlFileAsync($"{classic}/database/full/classicDB.sql", AccessManager.ConnectionString(settings), _cancellationToken, downloadProgress, null, downloadSpeedProgress);
+                settings.ClassicInstalled = true;
+                settings.LaunchClassicCore = true;
+                settings.ClassicWorkingDirectory = classic;
+                settings.ClassicLogonExeLoc = FileManager.GetExecutableLocation(classic, "realmd");
+                settings.ClassicLogonExeName = "realmd";
+                settings.ClassicWorldExeLoc = FileManager.GetExecutableLocation(classic, "mangosd");
+                settings.ClassicWorldExeName = "mangosd";
+                settings.ClassicLogonName = "WoW Classic Logon";
+                settings.ClassicWorldName = "WoW Classic World";
+                settings.SelectedCore = Cores.CMaNGOS;
                 Directory.CreateDirectory("logs/classic");
             }
             if (FormData.Infos.Install.TBC)
             {
                 string TBC = Links.Install.TBC.Replace("/", @"\");
-                _settings.TBCInstalled = true;
-                _settings.LaunchTBCCore = true;
-                _settings.TBCWorkingDirectory = TBC;
-                _settings.TBCLogonExeLoc = FileManager.GetExecutableLocation(TBC, "realmd");
-                _settings.TBCLogonExeName = "realmd";
-                _settings.TBCWorldExeLoc = FileManager.GetExecutableLocation(TBC, "mangosd");
-                _settings.TBCWorldExeName = "mangosd";
-                _settings.TBCLogonName = "The Burning Crusade Logon";
-                _settings.TBCWorldName = "The Burning Crusade World";
-                await AccessManager.ExecuteSqlFileAsync($"{TBC}/database/full/tbcDB.sql", AccessManager.ConnectionString(_settings), _cancellationToken, downloadProgress, null, downloadSpeedProgress);
-                _settings.SelectedCore = Cores.CMaNGOS;
+                settings.TBCInstalled = true;
+                settings.LaunchTBCCore = true;
+                settings.TBCWorkingDirectory = TBC;
+                settings.TBCLogonExeLoc = FileManager.GetExecutableLocation(TBC, "realmd");
+                settings.TBCLogonExeName = "realmd";
+                settings.TBCWorldExeLoc = FileManager.GetExecutableLocation(TBC, "mangosd");
+                settings.TBCWorldExeName = "mangosd";
+                settings.TBCLogonName = "The Burning Crusade Logon";
+                settings.TBCWorldName = "The Burning Crusade World";
+                await AccessManager.ExecuteSqlFileAsync($"{TBC}/database/full/tbcDB.sql", AccessManager.ConnectionString(settings), _cancellationToken, downloadProgress, null, downloadSpeedProgress);
+                settings.SelectedCore = Cores.CMaNGOS;
                 Directory.CreateDirectory("logs/tbc");
             }
             if (FormData.Infos.Install.WotLK)
             {
                 TrionLogger.Log("Finishing WotLK Installation");
                 string WotLK = Links.Install.WotLK.Replace("/", @"\");
-                _settings.WotLKInstalled = true;
-                _settings.LaunchWotLKCore = true;
-                _settings.WotLKWorkingDirectory = WotLK;
-                _settings.WotLKLogonExeLoc = FileManager.GetExecutableLocation(WotLK, "authserver");
-                _settings.WotLKLogonExeName = "authserver";
-                _settings.WotLKWorldExeLoc = FileManager.GetExecutableLocation(WotLK, "worldserver");
-                _settings.WotLKLogonName = "Wrath of the Lich King Logon";
-                _settings.WotLKWorldName = "Wrath of the Lich King World";
-                _settings.SelectedCore = Cores.AzerothCore;
+                settings.WotLKInstalled = true;
+                settings.LaunchWotLKCore = true;
+                settings.WotLKWorkingDirectory = WotLK;
+                settings.WotLKLogonExeLoc = FileManager.GetExecutableLocation(WotLK, "authserver");
+                settings.WotLKLogonExeName = "authserver";
+                settings.WotLKWorldExeLoc = FileManager.GetExecutableLocation(WotLK, "worldserver");
+                settings.WotLKLogonName = "Wrath of the Lich King Logon";
+                settings.WotLKWorldName = "Wrath of the Lich King World";
+                settings.SelectedCore = Cores.AzerothCore;
                 Directory.CreateDirectory("logs/wotlk");
             }
             if (FormData.Infos.Install.Cata)
             {
                 string cata = Links.Install.Cata.Replace("/", @"\");
-                _settings.CataInstalled = true;
-                _settings.LaunchCataCore = true;
-                _settings.CataWorkingDirectory = cata;
-                _settings.CataLogonExeLoc = FileManager.GetExecutableLocation(cata, "authserver");
-                _settings.CataLogonExeName = "authserver";
-                _settings.CataWorldExeLoc = FileManager.GetExecutableLocation(cata, "worldserver");
-                _settings.CataWorldExeName = "worldserver";
-                _settings.CataLogonName = "Cataclysm Logon";
-                _settings.CataWorldName = "Cataclysm World";
-                _settings.SelectedCore = Cores.TrinityCore;
+                settings.CataInstalled = true;
+                settings.LaunchCataCore = true;
+                settings.CataWorkingDirectory = cata;
+                settings.CataLogonExeLoc = FileManager.GetExecutableLocation(cata, "authserver");
+                settings.CataLogonExeName = "authserver";
+                settings.CataWorldExeLoc = FileManager.GetExecutableLocation(cata, "worldserver");
+                settings.CataWorldExeName = "worldserver";
+                settings.CataLogonName = "Cataclysm Logon";
+                settings.CataWorldName = "Cataclysm World";
+                settings.SelectedCore = Cores.TrinityCore;
                 Directory.CreateDirectory("logs/cata");
             }
             if (FormData.Infos.Install.Mop)
             {
                 string Mop = Links.Install.Mop.Replace("/", @"\");
-                _settings.MOPInstalled = true;
-                _settings.LaunchMoPCore = true;
-                _settings.MopWorkingDirectory = Mop;
-                _settings.MopLogonExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
-                _settings.MopLogonExeName = "authserver";
-                _settings.MopWorldExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
-                _settings.MopWorldExeName = "worldserver";
-                _settings.MoPLogonName = "Mists of Pandaria Logon";
-                _settings.MoPWorldName = "Mists of Pandaria World";
-                _settings.SelectedCore = Cores.TrinityCore;
+                settings.MOPInstalled = true;
+                settings.LaunchMoPCore = true;
+                settings.MopWorkingDirectory = Mop;
+                settings.MopLogonExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
+                settings.MopLogonExeName = "authserver";
+                settings.MopWorldExeLoc = FileManager.GetExecutableLocation(Mop, "authserver");
+                settings.MopWorldExeName = "worldserver";
+                settings.MoPLogonName = "Mists of Pandaria Logon";
+                settings.MoPWorldName = "Mists of Pandaria World";
+                settings.SelectedCore = Cores.TrinityCore;
                 Directory.CreateDirectory("logs/mop");
             }
             if (FormData.Infos.Install.Database == true)
             {
                 string Database = Links.Install.Database.Replace("/", @"\");
-                _settings.DBInstalled = true;
-                _settings.DBLocation = $@"{Database}";
-                _settings.DBWorkingDir = $@"{Database}\bin";
-                _settings.DBExeLoc = FileManager.GetExecutableLocation($@"{Database}\bin", "mysqld");
-                _settings.DBExeName = "mysqld";
+                settings.DBInstalled = true;
+                settings.DBLocation = $@"{Database}";
+                settings.DBWorkingDir = $@"{Database}\bin";
+                settings.DBExeLoc = FileManager.GetExecutableLocation($@"{Database}\bin", "mysqld");
+                settings.DBExeName = "mysqld";
                 Settings.CreateMySQLConfigFile(Directory.GetCurrentDirectory(), Database);
                 string SQLLocation = $@"{Database}\extra\initSTDDatabase.sql";
                 await Task.Delay(1000);
-                var initID = await AppExecuteMenager.ApplicationStart(_settings.DBExeLoc, _settings.DBWorkingDir, "initialize MySQL", true, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
+                var initID = await AppExecuteManager.ApplicationStart(settings.DBExeLoc, settings.DBWorkingDir, "initialize MySQL", true, $"--initialize-insecure --init-file=\"{SQLLocation}\" --console");
                 INITSpinner.Visible = true;
-                LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseInit");
+                LBLFilesToBeRemoved.Text = translator.Translate("LBLInitDatabaseInit");
                 while (await Task.Run(() => ServerMonitor.IsApplicationRunning(initID)))
                 {
                     INITSpinner.Visible = true;
-                    LBLFilesToBeRemoved.Text = _translator.Translate("LBLInitDatabaseInit");
+                    LBLFilesToBeRemoved.Text = translator.Translate("LBLInitDatabaseInit");
                 }
-                File.Delete($"{_settings.DBWorkingDir}/mysql-8.4.5-winx64.zip");
+                File.Delete($"{settings.DBWorkingDir}/mysql-8.4.5-winx64.zip");
                 BTNStartDatabase_Click(null!, null!);
                 Directory.CreateDirectory("logs/database");
             }
@@ -2163,25 +2121,25 @@ namespace TrionControlPanelDesktop
         }
         private void SaveDataFormTextbox(object state)
         {
-            _settings.DDNSDomain = TXTDDNSDomain.Text;
-            _settings.DDNSPassword = TXTDDNSPassword.Text;
-            _settings.DDNSInterval = int.Parse(TXTDDNSInterval.Text, CultureInfo.InvariantCulture);
-            _settings.DDNSUsername = TXTDDNSUsername.Text;
-            _settings.SupporterKey = TXTSupporterKey.Text;
-            _settings.AuthDatabase = TXTAuthDatabase.Text;
-            _settings.CharactersDatabase = TXTCharDatabase.Text;
-            _settings.WorldDatabase = TXTWorldDatabase.Text;
-            _settings.DBServerHost = TXTDatabaseHost.Text;
-            _settings.DBServerPassword = TXTDatabasePassword.Text;
-            _settings.DBServerPort = TXTDatabasePort.Text;
-            _settings.DBServerUser = TXTDatabaseUser.Text;
-            _settings.CustomWorldExeName = TXTCustomWorldName.Text;
-            _settings.CustomLogonExeName = TXTCustomAuthName.Text;
-            _settings.DBExeName = TXTCustomDatabaseName.Text;
+            settings.DDNSDomain = TXTDDNSDomain.Text;
+            settings.DDNSPassword = TXTDDNSPassword.Text;
+            settings.DDNSInterval = int.Parse(TXTDDNSInterval.Text, CultureInfo.InvariantCulture);
+            settings.DDNSUsername = TXTDDNSUsername.Text;
+            settings.SupporterKey = TXTSupporterKey.Text;
+            settings.AuthDatabase = TXTAuthDatabase.Text;
+            settings.CharactersDatabase = TXTCharDatabase.Text;
+            settings.WorldDatabase = TXTWorldDatabase.Text;
+            settings.DBServerHost = TXTDatabaseHost.Text;
+            settings.DBServerPassword = TXTDatabasePassword.Text;
+            settings.DBServerPort = TXTDatabasePort.Text;
+            settings.DBServerUser = TXTDatabaseUser.Text;
+            settings.CustomWorldExeName = TXTCustomWorldName.Text;
+            settings.CustomLogonExeName = TXTCustomAuthName.Text;
+            settings.DBExeName = TXTCustomDatabaseName.Text;
         }
         private void CBOXSelectedEmulators_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _settings.SelectedCore = CBOXSelectedEmulators.SelectedItem?.ToString() switch
+            settings.SelectedCore = CBOXSelectedEmulators.SelectedItem?.ToString() switch
             {
                 "AzerothCore" => Cores.AzerothCore,
                 "CMaNGOS" => Cores.CMaNGOS,
@@ -2189,20 +2147,20 @@ namespace TrionControlPanelDesktop
                 "TrinityCore" => Cores.TrinityCore,
                 "TrinityCore Classic" => Cores.TrinityCoreClassic,
                 "VMaNGOS" => Cores.VMaNGOS,
-                _ => _settings.SelectedCore // keep current if unknown
+                _ => settings.SelectedCore // keep current if unknown
             };
 
         }
         private void BTNEmulatorLocation_Click(object sender, EventArgs e)
         {
-            string? path = _settings.SelectedCore switch
+            string? path = settings.SelectedCore switch
             {
 
             };
 
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
             {
-                AlertBox.Show("Emulator folder not found.", NotificationType.Info, _settings);
+                AlertBox.Show("Emulator folder not found.", NotificationType.Info, settings);
                 return;
             }
 
@@ -2216,10 +2174,10 @@ namespace TrionControlPanelDesktop
 
         private void BTNDatabaseLocation_Click(object sender, EventArgs e)
         {
-            string path = _settings.DBLocation;
+            string path = settings.DBLocation;
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
             {
-                AlertBox.Show("Database folder not found.", NotificationType.Info, _settings);
+                AlertBox.Show("Database folder not found.", NotificationType.Info, settings);
                 return;
             }
 
@@ -2239,7 +2197,7 @@ namespace TrionControlPanelDesktop
 
         private async void BTNGMCreate_Click(object sender, EventArgs e)
         {
-            int userID = await AccountManager.GetUserID(TXTBoxGMUsername.Text, _settings);
+            int userID = await AccountManager.GetUserID(TXTBoxGMUsername.Text, settings);
             int gmLevel = CBOXAccountSecurityAccess.SelectedIndex;
             int RealmId = CBoxGMRealmSelect.SelectedItem?.ToString() switch
             {
@@ -2247,14 +2205,14 @@ namespace TrionControlPanelDesktop
                 string s when int.TryParse(s, out var id) => id,
                 _ => 0
             };
-            var result = await AccountManager.SetGMLevel(userID, gmLevel, RealmId, _settings);
+            var result = await AccountManager.SetGMLevel(userID, gmLevel, RealmId, settings);
             if (result == AccountOpResult.GMSet)
             {
-                AlertBox.Show("Set", NotificationType.Info, _settings);
+                AlertBox.Show("Set", NotificationType.Info, settings);
             }
             else
             {
-                AlertBox.Show("Faild", NotificationType.Info, _settings);
+                AlertBox.Show("Faild", NotificationType.Info, settings);
             }
             TXTBoxGMUsername.Text = string.Empty;
         }

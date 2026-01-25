@@ -9,7 +9,7 @@ using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 namespace TrionControlPanel.Desktop.Extensions.Application
 {
     // Manages the execution of applications, including starting, stopping, and killing processes.
-    public class AppExecuteMenager
+    public class AppExecuteManager
     {
         // Detaches the calling process from its associated console.
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
@@ -287,13 +287,80 @@ namespace TrionControlPanel.Desktop.Extensions.Application
             {
                 int ID = await StartApplication(LogonExecutabel, LogonWorkingDirectory, LogonExecutabeName, HideConsol, null);
                 SystemData.AddToLogonProcessesID(new ProcessID() { ID = ID, Name = LogonExecutabeName });
-                FormData.UI.Form.MOPLogonStarted = true;
                 return true;
             }
             catch (Exception ex)
             {
                 TrionLogger.Log($"Failed to start logon application: {ex.Message}");
                 return false;
+            }
+        }
+
+        // Checks for crashed servers (Started but not Running) and restarts them.
+        public static async Task CheckAndRestartServers(AppSettings Settings)
+        {
+            // World Servers
+            if (FormData.UI.Form.CustWorldStarted && !FormData.UI.Form.CustWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: Custom World. Restarting...");
+                await StartWorldSeparate(Settings.CustomWorldExeLoc, Settings.CustomWorkingDirectory, Settings.CustomWorldExeName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.ClassicWorldStarted && !FormData.UI.Form.ClassicWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: Classic World. Restarting...");
+                await StartWorldSeparate(Settings.ClassicWorldExeLoc, Settings.ClassicWorkingDirectory, Settings.ClassicWorldName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.TBCWorldStarted && !FormData.UI.Form.TBCWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: TBC World. Restarting...");
+                await StartWorldSeparate(Settings.TBCWorldExeLoc, Settings.TBCWorkingDirectory, Settings.TBCWorldName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.WotLKWorldStarted && !FormData.UI.Form.WotLKWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: WotLK World. Restarting...");
+                await StartWorldSeparate(Settings.WotLKWorldExeLoc, Settings.WotLKWorkingDirectory, Settings.WotLKWorldName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.CataWorldStarted && !FormData.UI.Form.CataWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: Cata World. Restarting...");
+                await StartWorldSeparate(Settings.CataWorldExeLoc, Settings.CataWorkingDirectory, Settings.CataWorldName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.MOPWorldStarted && !FormData.UI.Form.MOPWorldRunning)
+            {
+                TrionLogger.Log("Crash detected: MoP World. Restarting...");
+                await StartWorldSeparate(Settings.MopWorldExeLoc, Settings.MopWorkingDirectory, Settings.MoPWorldName, Settings.ConsolHide);
+            }
+
+            // Logon Servers
+            if (FormData.UI.Form.CustLogonStarted && !FormData.UI.Form.CustLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: Custom Logon. Restarting...");
+                await StartLogonSeparate(Settings.CustomLogonExeLoc, Settings.CustomWorkingDirectory, Settings.CustomWorldExeName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.ClassicLogonStarted && !FormData.UI.Form.ClassicLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: Classic Logon. Restarting...");
+                await StartLogonSeparate(Settings.ClassicLogonExeLoc, Settings.ClassicWorkingDirectory, Settings.ClassicLogonName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.TBCLogonStarted && !FormData.UI.Form.TBCLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: TBC Logon. Restarting...");
+                await StartLogonSeparate(Settings.TBCLogonExeLoc, Settings.TBCWorkingDirectory, Settings.TBCLogonName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.WotLKLogonStarted && !FormData.UI.Form.WotLKLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: WotLK Logon. Restarting...");
+                await StartLogonSeparate(Settings.WotLKLogonExeLoc, Settings.WotLKWorkingDirectory, Settings.WotLKLogonName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.CataLogonStarted && !FormData.UI.Form.CataLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: Cata Logon. Restarting...");
+                await StartLogonSeparate(Settings.CataLogonExeLoc, Settings.CataWorkingDirectory, Settings.CataLogonName, Settings.ConsolHide);
+            }
+            if (FormData.UI.Form.MOPLogonStarted && !FormData.UI.Form.MOPLogonRunning)
+            {
+                TrionLogger.Log("Crash detected: MoP Logon. Restarting...");
+                await StartLogonSeparate(Settings.MopLogonExeLoc, Settings.MopWorkingDirectory, Settings.MoPLogonName, Settings.ConsolHide);
             }
         }
     }
