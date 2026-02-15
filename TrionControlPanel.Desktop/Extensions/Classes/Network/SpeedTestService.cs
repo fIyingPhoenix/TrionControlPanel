@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 
 namespace TrionControlPanel.Desktop.Extensions.Classes.Network
 {
@@ -25,10 +26,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         private readonly HttpClient _httpClient;
         private readonly string _baseApiUrl;
 
-        public SpeedTestService(string baseApiUrl)
+        public SpeedTestService(string baseApiUrl, HttpClient? httpClient = null)
         {
-            _httpClient = new HttpClient();
-            // Example: "http://your-api.com/Trion"
+            _httpClient = httpClient ?? NetworkManager.SharedClient;
             _baseApiUrl = baseApiUrl.TrimEnd('/');
         }
 
@@ -36,20 +36,29 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         /// Runs a full speed test, measuring both latency and download speed.
         /// </summary>
         /// <param name="downloadSizeInMB">The size of the file to use for the download test.</param>
-        public async Task<SpeedTestResult> RunTestAsync(int downloadSizeInMB = 25)
+        /// <param name="cancellationToken">Token for cancelling the operation.</param>
+        public async Task<SpeedTestResult> RunTestAsync(int downloadSizeInMB = 25, CancellationToken cancellationToken = default)
         {
             var result = new SpeedTestResult();
             try
             {
                 // 1. Measure Latency
-                result.LatencyMs = await MeasureLatencyAsync();
+                result.LatencyMs = await MeasureLatencyAsync(cancellationToken).ConfigureAwait(false);
 
                 // 2. Measure Download Speed
-                result.DownloadSpeedMbps = await MeasureDownloadSpeedAsync(downloadSizeInMB);
+                result.DownloadSpeedMbps = await MeasureDownloadSpeedAsync(downloadSizeInMB, cancellationToken).ConfigureAwait(false);
+
+                TrionLogger.Info($"Speed test complete: Latency={result.LatencyMs}ms, Download={result.DownloadSpeedMbps}Mbps");
+            }
+            catch (OperationCanceledException)
+            {
+                result.ErrorMessage = "Speed test was canceled.";
+                TrionLogger.Warning("Speed test was canceled.");
             }
             catch (Exception ex)
             {
                 result.ErrorMessage = $"Test failed: {ex.Message}";
+                TrionLogger.LogException(ex, "SpeedTest");
             }
             return result;
         }
@@ -57,7 +66,8 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         /// <summary>
         /// Measures the Time to First Byte (TTFB) by hitting a minimal endpoint.
         /// </summary>
-        private async Task<long> MeasureLatencyAsync()
+        /// <param name="cancellationToken">Token for cancelling the operation.</param>
+        private async Task<long> MeasureLatencyAsync(CancellationToken cancellationToken)
         {
             var stopwatch = new Stopwatch();
             var requestUrl = $"{_baseApiUrl}/Ping";
@@ -66,7 +76,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
 
             // HttpCompletionOption.ResponseHeadersRead is CRITICAL for accurate latency.
             // It ensures the 'await' completes as soon as headers are received, not after the body downloads.
-            using (var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead))
+            using (var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
             {
                 stopwatch.Stop();
                 response.EnsureSuccessStatusCode(); // Ensure we got a 2xx response
@@ -77,20 +87,22 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         /// <summary>
         /// Measures download throughput by timing the download of a file of known size.
         /// </summary>
-        private async Task<double> MeasureDownloadSpeedAsync(int sizeInMB)
+        /// <param name="sizeInMB">The size of the test file in megabytes.</param>
+        /// <param name="cancellationToken">Token for cancelling the operation.</param>
+        private async Task<double> MeasureDownloadSpeedAsync(int sizeInMB, CancellationToken cancellationToken)
         {
             var stopwatch = new Stopwatch();
             var requestUrl = $"{_baseApiUrl}/DownloadSpeedTest?sizeInMB={sizeInMB}";
 
             // Make the request and start the timer
-            using (var response = await _httpClient.GetAsync(requestUrl))
+            using (var response = await _httpClient.GetAsync(requestUrl, cancellationToken).ConfigureAwait(false))
             {
                 response.EnsureSuccessStatusCode();
 
                 stopwatch.Start();
 
                 // Download the entire response body
-                var content = await response.Content.ReadAsByteArrayAsync();
+                var content = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
 
                 stopwatch.Stop();
 

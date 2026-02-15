@@ -1,9 +1,9 @@
-﻿
+
 using System.Security.Cryptography;
 
 namespace TrionControlPanel.Desktop.Extensions.Cryptography
 {
-    public class MD5FileHasah
+    public class MD5FileHash
     {
         public static string GetMd5HashFromFile(string filePath)
         {
@@ -11,14 +11,14 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
             using (var stream = File.OpenRead(filePath))
             {
                 var hash = md5.ComputeHash(stream);
-                return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                return BitConverter.ToString(hash).Replace("-", "").ToUpperInvariant();
             }
         }
         public static string GetMd5HashFromStream(Stream stream)
         {
-            using var md5 = MD5.Create(); // Create an MD5 hash instance
-            var hashBytes = md5.ComputeHash(stream); // Compute the hash of the stream
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToUpperInvariant(); // Convert to hex string
+            using var md5 = MD5.Create();
+            var hashBytes = md5.ComputeHash(stream);
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToUpperInvariant();
         }
 
         public static async Task<string> GetMd5HashFromFileAsync(string filePath)
@@ -28,7 +28,7 @@ namespace TrionControlPanel.Desktop.Extensions.Cryptography
                 using (var md5 = MD5.Create())
                 {
                     var hash = await md5.ComputeHashAsync(fileStream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToUpper();
+                    return BitConverter.ToString(hash).Replace("-", "").ToUpperInvariant();
                 }
             }
         }

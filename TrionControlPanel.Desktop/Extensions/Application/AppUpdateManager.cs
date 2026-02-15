@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+using TrionControlPanel.Desktop.Extensions.Classes.Network;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
 
@@ -12,16 +13,15 @@ namespace TrionControlPanel.Desktop.Extensions.Application
     public class AppUpdateManager
     {
         // Retrieves the SPP version from an online source based on the provided settings.
-        public static async Task GetSPPVersionOnline(AppSettings Settings)
+        public static async Task GetSPPVersionOnline(AppSettings Settings, CancellationToken cancellationToken = default)
         {
             try
             {
-                using HttpClient httpClient = new();
-                HttpResponseMessage response = await httpClient.GetAsync(Links.APIRequests.GetSPPVersion(Settings.SupporterKey));
+                HttpResponseMessage response = await NetworkManager.SharedClient.GetAsync(Links.APIRequests.GetSPPVersion(Settings.SupporterKey), cancellationToken).ConfigureAwait(false);
                 TrionLogger.Log($"Getting data from {Links.APIRequests.GetSPPVersion(Settings.SupporterKey)}, Response code : {response.StatusCode}");
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<dynamic>();
+                    var result = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
 
                     TrionLogger.Log($"Repack Versions updated!", "SUCCESS");
                     FormData.UI.Version.Online.Trion = result.trion;
@@ -36,18 +36,20 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                 }
                 else
                 {
-                    string error = await response.Content.ReadAsStringAsync();
+                    string error = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     TrionLogger.Log($"GetSPPVersionOnline API Error: {response.StatusCode} - {error}", "ERROR");
                 }
             }
+            catch (OperationCanceledException)
+            {
+                TrionLogger.Log("GetSPPVersionOnline was canceled.", "INFO");
+            }
             catch (HttpRequestException ex)
             {
-                // Log or rethrow the exception
                 TrionLogger.Log($"GetSPPVersionOnline Network error: {ex.Message}", "ERROR");
             }
             catch (Exception ex)
             {
-                // Log or rethrow the exception
                 TrionLogger.Log($"Unexpected error: {ex.Message}", "ERROR");
             }
         }

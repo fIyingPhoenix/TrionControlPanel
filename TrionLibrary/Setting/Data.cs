@@ -47,7 +47,7 @@ namespace TrionLibrary.Setting
                 List.IPAddress = "127.0.0.1";
                 List.ServerCrashDetection = false;
                 List.NotificationSound = true;
-                List.ConsolHide = false;
+                List.ConsoleHide = false;
                 List.StayInTray = false;
                 List.RunWithWindows = false;
                 List.CustomNames = false;
@@ -62,7 +62,7 @@ namespace TrionLibrary.Setting
                 List.CataInstalled = false;
                 List.MOPInstalled = false;
                 List.SelectedCore = Enums.Cores.AzerothCore;
-                List.DDNSerivce = Enums.DDNSerivce.DuckDNS;
+                List.DDNSService = Enums.DDNSService.DuckDNS;
                 List.SelectedSPP = Enums.SPP.WrathOfTheLichKing;
                 WriteData(List, SettingsDataFile);
             }

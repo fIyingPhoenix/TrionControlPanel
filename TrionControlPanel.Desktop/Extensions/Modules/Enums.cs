@@ -49,7 +49,10 @@
             Green,
             Orange,
         }
-        public enum DDNSerivce
+        /// <summary>
+        /// Supported Dynamic DNS service providers.
+        /// </summary>
+        public enum DDNSService
         {
             Afraid,
             AllInkl,
@@ -57,7 +60,7 @@
             DuckDNS,
             NoIP,
             Dynu,
-            dynDNS,
+            DynDNS,
             Enom,
             Freemyip,
             OVH,
@@ -100,13 +103,17 @@
             TrinityCoreClassic,
             VMaNGOS
         }
+        /// <summary>
+        /// World of Warcraft expansion types (Single Player Project).
+        /// </summary>
         public enum SPP
         {
+            Custom,
             Classic,
             TheBurningCrusade,
             WrathOfTheLichKing,
             Cataclysm,
-            MistOfPandaria
+            MistsOfPandaria
         }
         public enum Databases
         {

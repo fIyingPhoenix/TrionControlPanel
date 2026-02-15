@@ -1,3 +1,9 @@
+// =============================================================================
+// Program.cs
+// Purpose: Application entry point and global exception handling
+// Step 14 of IMPROVEMENTS.md - Add Logging Throughout with Context
+// =============================================================================
+
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 
 namespace TrionControlPanelDesktop
@@ -5,37 +11,65 @@ namespace TrionControlPanelDesktop
     internal static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            // Log application startup (Step 14)
+            TrionLogger.LogAppLifecycle("Starting", $"Version: {Application.ProductVersion}");
+
             // Set up global exception handling
             Application.ThreadException += new ThreadExceptionEventHandler(GlobalThreadExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalDomainExceptionHandler);
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            //DPI Fix Try
+            // Configure high DPI settings
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             ApplicationConfiguration.Initialize();
+
+            TrionLogger.LogAppLifecycle("Initialized", "Configuration complete, launching MainForm");
+
             Application.Run(new MainForm());
+
+            // Log application shutdown (Step 14)
+            TrionLogger.LogAppLifecycle("Stopped", "Application exited normally");
         }
 
+        /// <summary>
+        /// Handles unhandled exceptions on UI threads.
+        /// </summary>
         private static void GlobalThreadExceptionHandler(object sender, ThreadExceptionEventArgs e)
         {
-            TrionLogger.Log($"Unhandled Thread Exception: {e.Exception.Message}\n{e.Exception.StackTrace}", "CRITICAL");
-            MessageBox.Show("An unexpected error occurred. Please check the logs.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // Use enhanced logging with full exception details (Step 14)
+            TrionLogger.Critical($"Unhandled Thread Exception occurred");
+            TrionLogger.LogException(e.Exception, "GlobalThreadException");
+
+            MessageBox.Show(
+                "An unexpected error occurred. Please check the logs for details.",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Handles unhandled exceptions on non-UI threads.
+        /// </summary>
         private static void GlobalDomainExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
-            TrionLogger.Log($"Unhandled Domain Exception: {ex.Message}\n{ex.StackTrace}", "CRITICAL");
-            // This is often fatal, but we log it first.
+
+            // Use enhanced logging with full exception details (Step 14)
+            TrionLogger.Critical($"Unhandled Domain Exception occurred (IsTerminating: {e.IsTerminating})");
+            TrionLogger.LogException(ex, "GlobalDomainException");
+
+            // This is often fatal, but we log it first
+            if (e.IsTerminating)
+            {
+                TrionLogger.LogAppLifecycle("Crashed", "Application terminated due to unhandled exception");
+            }
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

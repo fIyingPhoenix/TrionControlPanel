@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
+using TrionControlPanel.Desktop.Extensions.Classes.Network;
 using TrionControlPanel.Desktop.Extensions.Cryptography;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
@@ -12,6 +13,44 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 {
     public class FileManager
     {
+        #region Constants
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>Buffer size for FileStream operations during extraction.</summary>
+        private const int ExtractionStreamBufferSize = 8192;
+
+        /// <summary>Buffer size for reading zip entry data chunks.</summary>
+        private const int ExtractionReadBufferSize = 2048;
+
+        /// <summary>Buffer size for download stream operations (80 KB).</summary>
+        private const int DownloadBufferSize = 81920;
+
+        /// <summary>Minimum interval in milliseconds between progress reports during extraction.</summary>
+        private const int ExtractionProgressIntervalMs = 100;
+
+        /// <summary>Minimum interval in milliseconds between progress reports during download.</summary>
+        private const int DownloadProgressIntervalMs = 250;
+
+        /// <summary>Maximum allowed file path length.</summary>
+        private const int MaxPathLength = 2000;
+
+        /// <summary>Delay in milliseconds between folder deletion retries.</summary>
+        private const int DeletionRetryDelayMs = 50;
+
+        /// <summary>Maximum number of concurrent file hashing tasks.</summary>
+        private const int MaxConcurrentHashTasks = 1000;
+
+        /// <summary>Threshold for batch-draining pending tasks during file processing.</summary>
+        private const int PendingTaskDrainThreshold = 100;
+
+        /// <summary>Number of bytes in one megabyte (for speed/size calculations).</summary>
+        private const double BytesPerMB = 1024.0 * 1024.0;
+
+        /// <summary>Milliseconds per second (for speed calculations).</summary>
+        private const double MsPerSecond = 1000.0;
+
+        #endregion
+
         /// <summary>
         /// Returns the substring of 'input' starting from the first occurrence of 'marker'.
         /// If 'marker' isn't found, returns the original string.
@@ -71,7 +110,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                             Directory.CreateDirectory(destinationDir);
 
                         // Skip files with paths that are too long
-                        if (destinationPath.Length > 2000)
+                        if (destinationPath.Length > MaxPathLength)
                         {
                             TrionLogger.Log($"Destination path too long, skipping: {entry.FullName}", "WARNING");
                             continue;
@@ -79,21 +118,21 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                         // Extract the file in buffered chunks
                         using (Stream entryStream = entry.Open())
-                        using (var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 8192, useAsync: true))
+                        using (var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: ExtractionStreamBufferSize, useAsync: true))
                         {
-                            byte[] buffer = new byte[2048];
+                            byte[] buffer = new byte[ExtractionReadBufferSize];
                             int bytesRead;
-                            while ((bytesRead = await entryStream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)) > 0)
+                            while ((bytesRead = await entryStream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false)) > 0)
                             {
-                                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+                                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
                                 totalBytesExtracted += bytesRead;
 
                                 // Every 100ms, report progress, elapsed time, and speed
-                                if (stopwatch.ElapsedMilliseconds >= 100)
+                                if (stopwatch.ElapsedMilliseconds >= ExtractionProgressIntervalMs)
                                 {
                                     double progressValue = totalUncompressedSize > 0 ? (double)totalBytesExtracted / totalUncompressedSize * 100 : 0;
                                     double elapsedTimeValue = (DateTime.Now - startTime).TotalSeconds;
-                                    double speedValue = elapsedTimeValue > 0 ? (totalBytesExtracted - previousBytesExtracted) / 1024.0 / 1024.0 / (stopwatch.ElapsedMilliseconds / 1000.0) : 0;
+                                    double speedValue = elapsedTimeValue > 0 ? (totalBytesExtracted - previousBytesExtracted) / BytesPerMB / (stopwatch.ElapsedMilliseconds / MsPerSecond) : 0;
 
                                     progress?.Report(progressValue);
                                     elapsedTime?.Report(elapsedTimeValue);
@@ -113,12 +152,12 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                     // Final report after extraction
                     double finalElapsedTimeValue = (DateTime.Now - startTime).TotalSeconds;
-                    double finalSpeedValue = finalElapsedTimeValue > 0 ? totalBytesExtracted / 1024.0 / 1024.0 / finalElapsedTimeValue : 0;
+                    double finalSpeedValue = finalElapsedTimeValue > 0 ? totalBytesExtracted / BytesPerMB / finalElapsedTimeValue : 0;
                     progress?.Report(100.0);
                     elapsedTime?.Report(finalElapsedTimeValue);
                     speed?.Report(finalSpeedValue);
 
-                    TrionLogger.Log($"Extraction completed successfully. Extracted {totalBytesExtracted / 1024.0 / 1024.0:F2} MB in {finalElapsedTimeValue:F2} seconds", "INFO");
+                    TrionLogger.Log($"Extraction completed successfully. Extracted {totalBytesExtracted / BytesPerMB:F2} MB in {finalElapsedTimeValue:F2} seconds", "INFO");
                 }
                 catch (OperationCanceledException)
                 {
@@ -150,10 +189,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
         public static async Task DownloadFileAsync(FileList file, string marker, string emulator, string key, CancellationToken cancellationToken,
      IProgress<double>? progress = null, IProgress<double>? elapsedTime = null, IProgress<double>? speed = null)
         {
-            // It is highly recommended to reuse HttpClient instances. 
-            // Consider making it static or using IHttpClientFactory for better performance and resource management.
-            using HttpClient client = new();
-
             try
             {
                 string url = Links.APIRequests.DownlaodFiles(emulator, key); // API base URL
@@ -161,7 +196,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                 // Ensure that the file path is valid
                 string filePath = $"{file.Path}/{file.Name}";
-                if (filePath.Length > 2000)
+                if (filePath.Length > MaxPathLength)
                 {
                     TrionLogger.Log("File path is too long!", "ERROR");
                     return;
@@ -171,7 +206,6 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 string jsonContent = JsonSerializer.Serialize(requestObj);
                 using var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                // *** CORRECTION IS HERE: Manually create HttpRequestMessage to use SendAsync ***
                 using var request = new HttpRequestMessage(HttpMethod.Post, url)
                 {
                     Content = content
@@ -179,7 +213,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                 // Use SendAsync with HttpCompletionOption.ResponseHeadersRead
                 // This is the key to preventing the large file from being buffered in memory.
-                using HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+                using HttpResponseMessage response = await NetworkManager.SharedClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
                 response.EnsureSuccessStatusCode();
 
@@ -187,27 +221,23 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 Directory.CreateDirectory(downloadPath);
                 string fileDownload = Path.Combine(downloadPath, file.Name);
 
-                // Use a larger buffer (e.g., 80KB) for potentially better I/O performance.
-                const int bufferSize = 81920;
-
-                // The 'using' declarations can be simplified in modern C#
-                await using var downloadStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-                await using var fileStream = new FileStream(fileDownload, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, useAsync: true);
+                await using var downloadStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                await using var fileStream = new FileStream(fileDownload, FileMode.Create, FileAccess.Write, FileShare.None, DownloadBufferSize, useAsync: true);
 
                 long totalBytesRead = 0;
-                var buffer = new byte[bufferSize];
+                var buffer = new byte[DownloadBufferSize];
                 int bytesRead;
 
                 var stopwatch = Stopwatch.StartNew();
                 long previousBytesRead = 0;
 
-                while ((bytesRead = await downloadStream.ReadAsync(buffer, cancellationToken)) > 0)
+                while ((bytesRead = await downloadStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
                 {
-                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
                     totalBytesRead += bytesRead;
 
                     // Report progress at reasonable intervals to avoid excessive UI updates.
-                    if (stopwatch.ElapsedMilliseconds > 250) // Report every 250ms
+                    if (stopwatch.ElapsedMilliseconds > DownloadProgressIntervalMs)
                     {
                         // Only calculate progress if the total size is known
                         if (response.Content.Headers.ContentLength.HasValue)
@@ -217,7 +247,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                         double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
                         // Calculate speed in MB/s since the last report
-                        double speedValue = (totalBytesRead - previousBytesRead) / 1024.0 / 1024.0 / elapsedSeconds;
+                        double speedValue = (totalBytesRead - previousBytesRead) / BytesPerMB / elapsedSeconds;
                         speed?.Report(speedValue);
 
                         elapsedTime?.Report((DateTime.Now - stopwatch.Elapsed).Second); // This seems incorrect, maybe you want total elapsed time
@@ -265,7 +295,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
 
                 while (Directory.Exists(folderPath))
                 {
-                    await Task.Delay(50); // non-blocking, keeps UI responsive
+                    await Task.Delay(DeletionRetryDelayMs).ConfigureAwait(false);
                 }
             }
         }
@@ -335,7 +365,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
             var fileList = new List<FileList>();
-            var semaphore = new SemaphoreSlim(1000); // Limit concurrent tasks
+            var semaphore = new SemaphoreSlim(MaxConcurrentHashTasks);
             var tasks = new List<Task>();
             int processedFiles = 0;
             var totalFiles = Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories);
@@ -343,7 +373,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
             foreach (var file in totalFiles)
             {
                 processedFiles++;
-                await semaphore.WaitAsync(cancellationToken);
+                await semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
                 var task = Task.Run(async () =>
                 {
                     try
@@ -353,7 +383,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                         {
                             Name = fileInfo.Name,
                             Size = fileInfo.Length / 1_000.0,
-                            Hash = await MD5FileHasah.GetMd5HashFromFileAsync(file),
+                            Hash = await MD5FileHash.GetMd5HashFromFileAsync(file).ConfigureAwait(false),
                             Path = fileInfo.DirectoryName?.Replace(@"\", "/")!
                         };
 
@@ -372,14 +402,14 @@ namespace TrionControlPanel.Desktop.Extensions.Classes
                 tasks.Add(task);
 
                 // Prevent too many pending tasks in memory
-                if (tasks.Count >= 100)
+                if (tasks.Count >= PendingTaskDrainThreshold)
                 {
-                    await Task.WhenAny(tasks);
+                    await Task.WhenAny(tasks).ConfigureAwait(false);
                     tasks.RemoveAll(t => t.IsCompleted);
                 }
             }
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
             return fileList;
         }

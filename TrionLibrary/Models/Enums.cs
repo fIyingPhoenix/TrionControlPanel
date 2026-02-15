@@ -26,7 +26,7 @@
             TCP_TABLE_OWNER_MODULE_CONNECTIONS,
             TCP_TABLE_OWNER_MODULE_ALL
         }
-        public enum DDNSerivce
+        public enum DDNSService
         {
             Afraid,
             AllInkl,
@@ -34,7 +34,7 @@
             DuckDNS,
             NoIP,
             Dynu,
-            dynDNS,
+            DynDNS,
             Enom,
             Freemyip,
             OVH,
@@ -84,7 +84,7 @@
             TheBurningCrusade,
             WrathOfTheLichKing,
             Cataclysm,
-            MistOfPandaria
+            MistsOfPandaria
         }
         public enum Databases
         {

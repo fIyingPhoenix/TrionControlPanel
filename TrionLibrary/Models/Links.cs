@@ -52,21 +52,21 @@ namespace TrionControlPanelDesktop.Data
             public static string Mop { get => $"{Directory.GetCurrentDirectory()}/mop"; }
         }
         public static string Discord { get => "https://discord.gg/By4nkETRXS"; }
-        public static string DDNSWebsits()
+        public static string DDNSWebsites()
         {
-            return Setting.List.DDNSerivce switch
+            return Setting.List.DDNSService switch
             {
-                Enums.DDNSerivce.DuckDNS => $"https://www.duckdns.org/",
-                Enums.DDNSerivce.NoIP => $"https://www.noip.com/sign-up",
-                Enums.DDNSerivce.Dynu => $"https://www.dynu.com",
-                Enums.DDNSerivce.Enom => $"https://www.enom.com/",
-                Enums.DDNSerivce.AllInkl => $"https://all-inkl.com/",
-                Enums.DDNSerivce.dynDNS => $"https://account.dyn.com/",
-                Enums.DDNSerivce.STRATO => $"https://www.strato.de/",
-                Enums.DDNSerivce.Freemyip => $"https://freemyip.com/",
-                Enums.DDNSerivce.Afraid => $"https://freedns.afraid.org/",
-                Enums.DDNSerivce.OVH => $"https://www.ovhcloud.com/",
-                Enums.DDNSerivce.Cloudflare => $"https://www.cloudflare.com/",
+                Enums.DDNSService.DuckDNS => "https://www.duckdns.org/",
+                Enums.DDNSService.NoIP => "https://www.noip.com/sign-up",
+                Enums.DDNSService.Dynu => "https://www.dynu.com",
+                Enums.DDNSService.Enom => "https://www.enom.com/",
+                Enums.DDNSService.AllInkl => "https://all-inkl.com/",
+                Enums.DDNSService.DynDNS => "https://account.dyn.com/",
+                Enums.DDNSService.STRATO => "https://www.strato.de/",
+                Enums.DDNSService.Freemyip => "https://freemyip.com/",
+                Enums.DDNSService.Afraid => "https://freedns.afraid.org/",
+                Enums.DDNSService.OVH => "https://www.ovhcloud.com/",
+                Enums.DDNSService.Cloudflare => "https://www.cloudflare.com/",
                 _ => "",
             };
         }

@@ -27,7 +27,7 @@ namespace TrionLibrary.Models
             public string AuthDatabase;
             public string CharactersDatabase;
             public string HotfixDatabase;
-            //Dataabase Settings
+            //Database Settings
             public string DBExeLoc;
             public string DBWorkingDir;
             public string DBLocation;
@@ -105,7 +105,7 @@ namespace TrionLibrary.Models
             public bool AutoUpdateTrion;
             public bool AutoUpdateMySQL;
             public bool NotificationSound;
-            public bool ConsolHide;
+            public bool ConsoleHide;
             public bool StayInTray;
             public bool RunWithWindows;
             public bool CustomNames;
@@ -115,7 +115,7 @@ namespace TrionLibrary.Models
             public bool ServerCrashDetection;
             public int DDNSInterval;
             public Enums.Cores SelectedCore;
-            public Enums.DDNSerivce DDNSerivce;
+            public Enums.DDNSService DDNSService;
             public Enums.SPP SelectedSPP;
             public Enums.Databases SelectedDatabases;
         }

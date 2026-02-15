@@ -1,15 +1,8 @@
-using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using TrionControlPanel.Desktop.Extensions.Application;
 using TrionControlPanel.Desktop.Extensions.Classes.Data.Form;
 using TrionControlPanel.Desktop.Extensions.Classes.Monitor;
 using TrionControlPanel.Desktop.Extensions.Classes;
 using TrionControlPanel.Desktop.Extensions.Modules;
-using TrionControlPanel.Desktop.Extensions.Modules.Lists;
 using TrionControlPanelDesktop.Extensions.Modules;
 
 namespace TrionControlPanelDesktop
@@ -19,6 +12,7 @@ namespace TrionControlPanelDesktop
         private void PopulateComboBoxes()
         {
             CBOXSPPVersion.Items.Clear();
+            CBOXSPPVersion.Items.Add(translator.Translate("SPPver0"));
             CBOXSPPVersion.Items.Add(translator.Translate("SPPver1"));
             CBOXSPPVersion.Items.Add(translator.Translate("SPPver2"));
             CBOXSPPVersion.Items.Add(translator.Translate("SPPver3"));
@@ -56,12 +50,20 @@ namespace TrionControlPanelDesktop
         private void LoadLangauge()
         {
             translator.LoadLanguage(settings.TrionLanguage);
+
+            // Initialize LocalizationService if not already created (Step 4)
+            if (_localization == null)
+            {
+                _localization = new LocalizationService(translator);
+                InitializeLocalizationBindings();
+            }
+
             SetLanguage();
         }
 
         private void GetAllLanguages()
         {
-            CBOXLanguageSelect.Items.AddRange([.. TrionControlPanelDesktop.Extensions.Modules.Translator.GetAvailableLanguages()]);
+            CBOXLanguageSelect.Items.AddRange([.. Translator.GetAvailableLanguages()]);
             CBOXLanguageSelect.SelectedItem = settings.TrionLanguage;
             CBOXColorSelect.Items.AddRange(Enum.GetValues(typeof(Enums.TrionTheme)).Cast<Enums.TrionTheme>().Select(e => e.ToString()).ToArray());
             CBOXColorSelect.SelectedItem = settings.TrionTheme.ToString();

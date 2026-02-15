@@ -609,6 +609,7 @@ namespace TrionControlPanelDesktop
             BTNClean.TextColor = Color.White;
             TLTHome.SetToolTip(BTNClean, "Clear notification history.");
             BTNClean.UseVisualStyleBackColor = false;
+            BTNClean.Click += BTNClean_Click;
             // 
             // TimerCrashDetected
             // 

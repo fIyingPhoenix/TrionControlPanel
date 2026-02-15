@@ -1,189 +1,252 @@
-﻿
+// =============================================================================
+// SystemData.cs
+// Purpose: Manages system data related to process IDs for database, world, and logon processes
+// Dependencies: ProcessID model, ConcurrentDictionary
+// Step 7 of IMPROVEMENTS2.md - Replace lock-based collections with ConcurrentCollections
+// =============================================================================
+
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using TrionControlPanel.Desktop.Extensions.Modules.Lists;
+
 namespace TrionControlPanel.Desktop.Extensions.Classes.Data.Form
 {
-    // Manages system data related to process IDs for database, world, and logon processes.
+    /// <summary>
+    /// Manages system data related to process IDs for database, world, and logon processes.
+    /// Provides thread-safe CRUD operations for tracking server processes using ConcurrentDictionary.
+    /// </summary>
     public class SystemData
     {
-        private static readonly object _databaseLock = new(); // Lock object for database process ID operations.
-        private static readonly object _worldLock = new(); // Lock object for world process ID operations.
-        private static readonly object _logonLock = new(); // Lock object for logon process ID operations.
+        #region Properties - Start Times
+        // ─────────────────────────────────────────────────────────────────────
 
-        public static DateTime DatabaseStartTime { get; set; } // Stores the start time of the database process.
-        public static DateTime WorldStartTime { get; set; } // Stores the start time of the world process.
-        public static DateTime LogonStartTime { get; set; } // Stores the start time of the logon process.
+        /// <summary>
+        /// Gets or sets the start time of the database process.
+        /// </summary>
+        public static DateTime DatabaseStartTime { get; set; }
 
-        private static List<ProcessID> _databaseProcessID = new(); // List to store database process IDs.
-        private static List<ProcessID> _worldProcessesID = new(); // List to store world process IDs.
-        private static List<ProcessID> _logonProcessesID = new(); // List to store logon process IDs.
+        /// <summary>
+        /// Gets or sets the start time of the world process.
+        /// </summary>
+        public static DateTime WorldStartTime { get; set; }
 
-        #region "Database Process ID CRUD"
-        // Adds a process ID to the database process ID list.
+        /// <summary>
+        /// Gets or sets the start time of the logon process.
+        /// </summary>
+        public static DateTime LogonStartTime { get; set; }
+
+        #endregion
+
+        #region Fields - Process Collections
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Thread-safe dictionary to store database process IDs, keyed by process ID.
+        /// </summary>
+        private static readonly ConcurrentDictionary<int, ProcessID> _databaseProcesses = new();
+
+        /// <summary>
+        /// Thread-safe dictionary to store world process IDs, keyed by process ID.
+        /// </summary>
+        private static readonly ConcurrentDictionary<int, ProcessID> _worldProcesses = new();
+
+        /// <summary>
+        /// Thread-safe dictionary to store logon process IDs, keyed by process ID.
+        /// </summary>
+        private static readonly ConcurrentDictionary<int, ProcessID> _logonProcesses = new();
+
+        #endregion
+
+        #region Public Methods - Database Process ID CRUD
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Adds a process ID to the database process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to add.</param>
         public static void AddToDatabaseProcessID(ProcessID processID)
         {
-            lock (_databaseLock)
-            {
-                _databaseProcessID.Add(processID);
-            }
+            _databaseProcesses.TryAdd(processID.ID, processID);
         }
 
-        // Removes a process ID from the database process ID list.
+        /// <summary>
+        /// Removes a process ID from the database process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to remove.</param>
+        /// <returns>True if the item was removed, false otherwise.</returns>
         public static bool RemoveFromDatabaseProcessID(ProcessID processID)
         {
-            lock (_databaseLock)
-            {
-                return _databaseProcessID.Remove(processID);
-            }
+            return _databaseProcesses.TryRemove(processID.ID, out _);
         }
 
-        // Clears all process IDs from the database process ID list.
+        /// <summary>
+        /// Clears all process IDs from the database process tracking.
+        /// </summary>
         public static void CleanDatabaseProcessID()
         {
-            lock (_databaseLock) { _databaseProcessID.Clear(); }
+            _databaseProcesses.Clear();
         }
 
-        // Retrieves a read-only collection of database process IDs.
+        /// <summary>
+        /// Retrieves a read-only collection of database process IDs.
+        /// </summary>
+        /// <returns>A read-only snapshot of database process IDs.</returns>
         public static ReadOnlyCollection<ProcessID> GetDatabaseProcessID()
         {
-            lock (_databaseLock)
-            {
-                return _databaseProcessID.AsReadOnly();
-            }
+            return _databaseProcesses.Values.ToList().AsReadOnly();
         }
 
-        // Retrieves a paginated list of database process IDs.
+        /// <summary>
+        /// Retrieves a paginated list of database process IDs.
+        /// </summary>
+        /// <param name="pageNumber">The page number (1-based).</param>
+        /// <param name="pageSize">The number of items per page.</param>
+        /// <returns>A list of process IDs for the specified page.</returns>
         public static List<ProcessID> GetDatabaseProcessIDPage(int pageNumber, int pageSize)
         {
-            lock (_databaseLock)
-            {
-                return _databaseProcessID
-                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                    .Take(pageSize)                   // Take the desired number of items
-                    .ToList();
-            }
+            return _databaseProcesses.Values
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
 
-        // Retrieves the total count of database process IDs.
+        /// <summary>
+        /// Retrieves the total count of database process IDs.
+        /// </summary>
+        /// <returns>The count of database process IDs.</returns>
         public static int GetTotalDatabaseProcessIDCount()
         {
-            lock (_databaseLock)
-            {
-                return _databaseProcessID.Count;
-            }
+            return _databaseProcesses.Count;
         }
+
         #endregion
 
-        #region "World Process ID CRUD"
-        // Adds a process ID to the world process ID list.
+        #region Public Methods - World Process ID CRUD
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Adds a process ID to the world process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to add.</param>
         public static void AddToWorldProcessesID(ProcessID processID)
         {
-            lock (_worldLock)
-            {
-                _worldProcessesID.Add(processID);
-            }
+            _worldProcesses.TryAdd(processID.ID, processID);
         }
 
-        // Removes a process ID from the world process ID list.
+        /// <summary>
+        /// Removes a process ID from the world process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to remove.</param>
+        /// <returns>True if the item was removed, false otherwise.</returns>
         public static bool RemoveFromWorldProcessesID(ProcessID processID)
         {
-            lock (_worldLock)
-            {
-                return _worldProcessesID.Remove(processID);
-            }
+            return _worldProcesses.TryRemove(processID.ID, out _);
         }
 
-        // Retrieves a read-only collection of world process IDs.
+        /// <summary>
+        /// Retrieves a read-only collection of world process IDs.
+        /// </summary>
+        /// <returns>A read-only snapshot of world process IDs.</returns>
         public static ReadOnlyCollection<ProcessID> GetWorldProcessesID()
         {
-            lock (_worldLock)
-            {
-                return _worldProcessesID.AsReadOnly();
-            }
+            return _worldProcesses.Values.ToList().AsReadOnly();
         }
 
-        // Retrieves a paginated list of world process IDs.
+        /// <summary>
+        /// Retrieves a paginated list of world process IDs.
+        /// </summary>
+        /// <param name="pageNumber">The page number (1-based).</param>
+        /// <param name="pageSize">The number of items per page.</param>
+        /// <returns>A list of process IDs for the specified page.</returns>
         public static List<ProcessID> GetWorldProcessesIDPage(int pageNumber, int pageSize)
         {
-            lock (_worldLock)
-            {
-                return _worldProcessesID
-                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                    .Take(pageSize)                   // Take the desired number of items
-                    .ToList();
-            }
+            return _worldProcesses.Values
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
 
-        // Retrieves the total count of world process IDs.
+        /// <summary>
+        /// Retrieves the total count of world process IDs.
+        /// </summary>
+        /// <returns>The count of world process IDs.</returns>
         public static int GetTotalWorldProcessIDCount()
         {
-            lock (_worldLock)
-            {
-                return _worldProcessesID.Count;
-            }
+            return _worldProcesses.Count;
         }
 
-        // Clears all process IDs from the world process ID list.
-        public static void CleanWolrdProcessID()
+        /// <summary>
+        /// Clears all tracked world server process IDs.
+        /// </summary>
+        public static void ClearWorldProcessIds()
         {
-            lock (_worldLock) { _worldProcessesID.Clear(); }
+            _worldProcesses.Clear();
         }
+
         #endregion
 
-        #region "Logon Process ID CRUD"
-        // Adds a process ID to the logon process ID list.
+        #region Public Methods - Logon Process ID CRUD
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Adds a process ID to the logon process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to add.</param>
         public static void AddToLogonProcessesID(ProcessID processID)
         {
-            lock (_logonLock)
-            {
-                _logonProcessesID.Add(processID);
-            }
+            _logonProcesses.TryAdd(processID.ID, processID);
         }
 
-        // Clears all process IDs from the logon process ID list.
+        /// <summary>
+        /// Clears all process IDs from the logon process tracking.
+        /// </summary>
         public static void CleanLogonProcessID()
         {
-            lock (_logonLock) { _logonProcessesID.Clear(); }
+            _logonProcesses.Clear();
         }
 
-        // Removes a process ID from the logon process ID list.
+        /// <summary>
+        /// Removes a process ID from the logon process tracking.
+        /// </summary>
+        /// <param name="processID">The process ID to remove.</param>
+        /// <returns>True if the item was removed, false otherwise.</returns>
         public static bool RemoveFromLogonProcessesID(ProcessID processID)
         {
-            lock (_logonLock)
-            {
-                return _logonProcessesID.Remove(processID);
-            }
+            return _logonProcesses.TryRemove(processID.ID, out _);
         }
 
-        // Retrieves a read-only collection of logon process IDs.
+        /// <summary>
+        /// Retrieves a read-only collection of logon process IDs.
+        /// </summary>
+        /// <returns>A read-only snapshot of logon process IDs.</returns>
         public static ReadOnlyCollection<ProcessID> GetLogonProcessesID()
         {
-            lock (_logonLock)
-            {
-                return _logonProcessesID.AsReadOnly();
-            }
+            return _logonProcesses.Values.ToList().AsReadOnly();
         }
 
-        // Retrieves a paginated list of logon process IDs.
+        /// <summary>
+        /// Retrieves a paginated list of logon process IDs.
+        /// </summary>
+        /// <param name="pageNumber">The page number (1-based).</param>
+        /// <param name="pageSize">The number of items per page.</param>
+        /// <returns>A list of process IDs for the specified page.</returns>
         public static List<ProcessID> GetLogonProcessesIDPage(int pageNumber, int pageSize)
         {
-            lock (_logonLock)
-            {
-                return _logonProcessesID
-                    .Skip((pageNumber - 1) * pageSize) // Skip items from previous pages
-                    .Take(pageSize)                   // Take the desired number of items
-                    .ToList();
-            }
+            return _logonProcesses.Values
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
 
-        // Retrieves the total count of logon process IDs.
+        /// <summary>
+        /// Retrieves the total count of logon process IDs.
+        /// </summary>
+        /// <returns>The count of logon process IDs.</returns>
         public static int GetTotalLogonProcessIDCount()
         {
-            lock (_logonLock)
-            {
-                return _logonProcessesID.Count;
-            }
+            return _logonProcesses.Count;
         }
+
         #endregion
     }
 }

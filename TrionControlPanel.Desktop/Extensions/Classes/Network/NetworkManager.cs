@@ -29,9 +29,9 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             var backupTask = CheckHost(Links.BackupHost, cts.Token);
 
             // Wait for the first one to succeed, or all to complete/fail
-            var completedTask = await Task.WhenAny(mainTask, backupTask);
+            var completedTask = await Task.WhenAny(mainTask, backupTask).ConfigureAwait(false);
 
-            if (await completedTask)
+            if (await completedTask.ConfigureAwait(false))
             {
                 // One of them succeeded. The helper method already set Links.APIServer
                 IsOffline = false;
@@ -39,12 +39,12 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             }
 
             // If the first one failed/timed out, check the other one (it might have finished or failed by now)
-            if (mainTask != completedTask && await mainTask)
+            if (mainTask != completedTask && await mainTask.ConfigureAwait(false))
             {
                  IsOffline = false;
                  return;
             }
-            if (backupTask != completedTask && await backupTask)
+            if (backupTask != completedTask && await backupTask.ConfigureAwait(false))
             {
                  IsOffline = false;
                  return;
@@ -61,7 +61,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             try
             {
                 // Use a dedicated request to respect the short timeout token
-                var response = await SharedClient.GetAsync($"{host}/Trion/Ping", token);
+                var response = await SharedClient.GetAsync($"{host}/Trion/Ping", token).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     Links.APIServer = host;
@@ -89,7 +89,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             try
             {
                 using TcpClient tcpClient = new();
-                await tcpClient.ConnectAsync(Host, Port);
+                await tcpClient.ConnectAsync(Host, Port).ConfigureAwait(false);
                 return true;
             }
             catch (Exception)
@@ -104,10 +104,10 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             try
             {
                 TrionLogger.Log($"Getting external IPv4 address from {url}");
-                HttpResponseMessage response = await SharedClient.GetAsync(url);
+                HttpResponseMessage response = await SharedClient.GetAsync(url).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<dynamic>();
+                    var result = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
                     TrionLogger.Log($"Loaded external IPv4 address: {result.iPv4Address}");
                     return result.iPv4Address;
                 }
@@ -173,7 +173,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
                 // Use SharedClient but with a specific shorter timeout if needed? 
                 // For general usage, the default timeout is fine, but for pings we prefer GetAPIServer logic.
                 // Keeping this for backward compat with other calls.
-                var response = await SharedClient.GetAsync(url);
+                var response = await SharedClient.GetAsync(url).ConfigureAwait(false);
                 return response.IsSuccessStatusCode;
             }
             catch (HttpRequestException ex)
@@ -195,7 +195,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             {
                 try
                 {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Links.DDNSWebsits(Settings.DDNSerivce));
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Links.DDNSWebsites(Settings.DDNSService));
                     request.Method = "GET";
 
                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -237,7 +237,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
         /// Performs a full speed test (latency and download) against the API
         /// and logs the results.
         /// </summary>
-        public static async Task DownlaodSpeed(string url, int downloadSizeMB)
+        public static async Task DownlaodSpeed(string url, int downloadSizeMB, CancellationToken cancellationToken = default)
         {
             TrionLogger.Log("Starting speed test...");
 
@@ -247,7 +247,7 @@ namespace TrionControlPanel.Desktop.Extensions.Classes.Network
             try
             {
                 //  Run the test.
-                SpeedTestResult result = await speedTester.RunTestAsync(downloadSizeMB);
+                SpeedTestResult result = await speedTester.RunTestAsync(downloadSizeMB, cancellationToken).ConfigureAwait(false);
 
                 // 3. Log the results from the result object.
                 if (!string.IsNullOrEmpty(result.ErrorMessage))

@@ -13,6 +13,8 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
         private const int AlertWidth = 400;
         private const int AlertHeight = 150;
         private const int AlertSpacing = 10;
+        private const int AlertVisibleDurationMs = 5000;
+        private const int AlertFadeIntervalMs = 50;
         private Translator _translator = new();
 
         private static readonly List<AlertBox> ActiveAlerts = new(); // Tracks active alerts
@@ -43,7 +45,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
             }
             else
             {
-                TimerAnimation.Interval = 5000; // Stay visible for 5 seconds
+                TimerAnimation.Interval = AlertVisibleDurationMs;
                 TimerAnimation.Tick -= TimerAnimation_Tick; // Remove fade-in handler
                 TimerAnimation.Tick += (_, _) => StartFadeOut(sender, e);
             }
@@ -58,7 +60,7 @@ namespace TrionControlPanel.Desktop.Extensions.Notification
                 Opacity -= 0.1; // Fade-out effect
                 if (Opacity <= 0.0) CloseAlert();
             };
-            TimerAnimation.Interval = 50; // Fade-out interval
+            TimerAnimation.Interval = AlertFadeIntervalMs; // Fade-out interval
         }
 
         // Gets the icon based on the notification type.

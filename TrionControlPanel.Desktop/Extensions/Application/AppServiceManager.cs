@@ -9,6 +9,7 @@ namespace TrionControlPanel.Desktop.Extensions.Application
         // Helper method to start the uninstallation process for the specified directory.
         public async static Task StartUninstall(string targetDirectory)
         {
+            TrionLogger.Info($"Starting uninstall: {targetDirectory}");
             try
             {
                 await Task.Run(() =>
@@ -27,10 +28,11 @@ namespace TrionControlPanel.Desktop.Extensions.Application
                         Directory.Delete(directory, true);
                     }
                 });
+                TrionLogger.Info($"Uninstall completed: {targetDirectory}");
             }
             catch (Exception ex)
             {
-                TrionLogger.Log($"An error occurred: {ex.Message}", "ERROR");
+                TrionLogger.LogException(ex, "Uninstall");
             }
         }
     }
