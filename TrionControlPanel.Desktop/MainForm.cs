@@ -145,6 +145,9 @@ namespace TrionControlPanelDesktop
             // Check network connectivity
             await NetworkManager.GetAPIServer();
 
+            // Auto-detect previously installed components
+            await CheckAndMarkInstalled();
+
             if (NetworkManager.IsOffline)
             {
                 SetOfflineState();
