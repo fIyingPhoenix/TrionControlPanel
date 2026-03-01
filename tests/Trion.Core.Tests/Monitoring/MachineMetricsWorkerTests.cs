@@ -1,7 +1,7 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Monitoring;
 using Trion.Core.Monitoring;
+using Trion.Core.Tests;
 
 namespace Trion.Core.Tests.Monitoring;
 
@@ -22,7 +22,7 @@ public sealed class MachineMetricsWorkerTests
         var accessor = new MetricsChannelAccessor();
         var worker   = new MachineMetricsWorker(
             provider, accessor, CreateOpts(),
-            NullLogger<MachineMetricsWorker>.Instance);
+            TestLogger.Instance);
 
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
         _ = worker.StartAsync(cts.Token);
@@ -48,7 +48,7 @@ public sealed class MachineMetricsWorkerTests
             {
                 RefreshInterval = TimeSpan.FromMilliseconds(20)
             }),
-            NullLogger<MachineMetricsWorker>.Instance);
+            TestLogger.Instance);
 
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
         _ = worker.StartAsync(cts.Token);

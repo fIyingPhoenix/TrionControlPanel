@@ -128,19 +128,31 @@ public sealed class CommandAllowlistTests
         => Assert.False(_sut.IsPermitted(path, args));
 
     // ── msiexec (Windows silent install) ─────────────────────────────────────
+    // [InlineData] cannot pass a string[] as the sole argument (CS0182);
+    // use [MemberData] with TheoryData<string[]> instead.
+
+    public static TheoryData<string[]> ValidMsiExecArgs => new()
+    {
+        { new[] { "/i", @"C:\Temp\mysql.msi", "/quiet", "/norestart" } },
+        { new[] { "/i", @"C:\Temp\mysql.msi", "/passive" } },
+        { new[] { "/i", @"C:\Temp\mysql.msi" } },
+    };
 
     [Theory]
-    [InlineData(new[] { "/i", @"C:\Temp\mysql.msi", "/quiet", "/norestart" })]
-    [InlineData(new[] { "/i", @"C:\Temp\mysql.msi", "/passive" })]
-    [InlineData(new[] { "/i", @"C:\Temp\mysql.msi" })]
+    [MemberData(nameof(ValidMsiExecArgs))]
     public void MsiExec_ValidInstall_IsPermitted(string[] args)
         => Assert.True(_sut.IsPermitted(@"C:\Windows\System32\msiexec.exe", args));
 
+    public static TheoryData<string[]> InvalidMsiExecArgs => new()
+    {
+        { new[] { "/x", @"C:\Temp\mysql.msi" } },              // /x = uninstall
+        { new[] { "/i", @"C:\Temp\mysql.txt" } },              // not an MSI
+        { new[] { "/i", "mysql.msi" } },                        // relative path
+        { new[] { "/i", @"C:\Temp\mysql.msi", "/force" } },   // unknown flag
+    };
+
     [Theory]
-    [InlineData(new[] { "/x", @"C:\Temp\mysql.msi" })]              // /x = uninstall
-    [InlineData(new[] { "/i", @"C:\Temp\mysql.txt" })]              // not an MSI
-    [InlineData(new[] { "/i", "mysql.msi" })]                       // relative path
-    [InlineData(new[] { "/i", @"C:\Temp\mysql.msi", "/force" })]   // unknown flag
+    [MemberData(nameof(InvalidMsiExecArgs))]
     public void MsiExec_InvalidArgs_IsRejected(string[] args)
         => Assert.False(_sut.IsPermitted(@"C:\Windows\System32\msiexec.exe", args));
 

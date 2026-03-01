@@ -1,21 +1,22 @@
 using System.Diagnostics;
 using System.Runtime.Versioning;
 using Microsoft.Extensions.Logging;
+using Trion.Core.Logging;
 
 namespace Trion.Platform.Windows;
 
 [SupportedOSPlatform("windows")]
 public sealed class WindowsNetworkReader : IDisposable
 {
-    private readonly ILogger<WindowsNetworkReader> _logger;
+    private readonly ILogger _log;
 
     // Cached per-interface counter pairs — created once, reused on every poll
     private readonly List<(PerformanceCounter Rx, PerformanceCounter Tx)> _counters = [];
     private bool _initialized;
 
-    public WindowsNetworkReader(ILogger<WindowsNetworkReader> logger)
+    public WindowsNetworkReader(TrionLogger trionLogger)
     {
-        _logger = logger;
+        _log = trionLogger.CreateLogger(nameof(WindowsNetworkReader));
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public sealed class WindowsNetworkReader : IDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Network Interface PerformanceCounters unavailable.");
+            _log.LogWarning(ex, "Network Interface PerformanceCounters unavailable.");
         }
     }
 

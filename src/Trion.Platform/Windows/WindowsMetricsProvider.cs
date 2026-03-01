@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using Microsoft.Extensions.Logging;
 using Trion.Core.Abstractions.Monitoring;
+using Trion.Core.Logging;
 using Trion.Core.Monitoring;
 
 namespace Trion.Platform.Windows;
@@ -10,7 +11,7 @@ namespace Trion.Platform.Windows;
 [SupportedOSPlatform("windows")]
 public sealed class WindowsMetricsProvider : IMachineMetricsProvider, IDisposable
 {
-    private readonly ILogger<WindowsMetricsProvider> _logger;
+    private readonly ILogger              _log;
     private readonly WindowsDiskReader    _disk;
     private readonly WindowsNetworkReader _net;
 
@@ -18,13 +19,13 @@ public sealed class WindowsMetricsProvider : IMachineMetricsProvider, IDisposabl
     private long _totalRamBytes;
 
     public WindowsMetricsProvider(
-        ILogger<WindowsMetricsProvider> logger,
+        TrionLogger          trionLogger,
         WindowsDiskReader    disk,
         WindowsNetworkReader net)
     {
-        _logger = logger;
-        _disk   = disk;
-        _net    = net;
+        _log  = trionLogger.CreateLogger(nameof(WindowsMetricsProvider));
+        _disk = disk;
+        _net  = net;
 
         InitCpuCounter();
         InitTotalRam();
@@ -57,7 +58,7 @@ public sealed class WindowsMetricsProvider : IMachineMetricsProvider, IDisposabl
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "CPU PerformanceCounter unavailable.");
+            _log.LogWarning(ex, "CPU PerformanceCounter unavailable.");
             _cpuCounter = null;
         }
     }
@@ -73,7 +74,7 @@ public sealed class WindowsMetricsProvider : IMachineMetricsProvider, IDisposabl
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "GlobalMemoryStatusEx unavailable.");
+            _log.LogWarning(ex, "GlobalMemoryStatusEx unavailable.");
             _totalRamBytes = 0;
         }
     }

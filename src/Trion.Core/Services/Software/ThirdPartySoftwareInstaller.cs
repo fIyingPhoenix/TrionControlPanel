@@ -45,21 +45,15 @@ public sealed class ThirdPartySoftwareInstaller
     private const string AptGetPath  = "/usr/bin/apt-get";
     private const string DnfPath     = "/usr/bin/dnf";
 
-    private readonly IAgentClient  _agent;
-    private readonly HttpClient    _http;
-    private readonly AuditLogger   _audit;
-    private readonly ILogger<ThirdPartySoftwareInstaller> _logger;
+    private readonly IAgentClient _agent;
+    private readonly HttpClient   _http;
+    private readonly ILogger      _log;
 
-    public ThirdPartySoftwareInstaller(
-        IAgentClient  agent,
-        HttpClient    http,
-        AuditLogger   audit,
-        ILogger<ThirdPartySoftwareInstaller> logger)
+    public ThirdPartySoftwareInstaller(IAgentClient agent, HttpClient http, TrionLogger trionLogger)
     {
-        _agent  = agent;
-        _http   = http;
-        _audit  = audit;
-        _logger = logger;
+        _agent = agent;
+        _http  = http;
+        _log   = trionLogger.CreateLogger(nameof(ThirdPartySoftwareInstaller));
     }
 
     public Task InstallMySqlAsync(
@@ -84,14 +78,14 @@ public sealed class ThirdPartySoftwareInstaller
         ChannelWriter<InstallProgressEvent> progress,
         CancellationToken ct)
     {
-        _audit.WriteInfo($"ThirdPartySoftwareInstaller: starting {displayName} installation");
+        _log.LogInformation("Starting {Name} installation", displayName);
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             await InstallWindowsMsiAsync(displayName, windowsUrl, windowsSha256, progress, ct);
         else
             await InstallLinuxPackageAsync(displayName, linuxPackageName, progress, ct);
 
-        _audit.WriteInfo($"ThirdPartySoftwareInstaller: {displayName} installation complete");
+        _log.LogInformation("{Name} installation complete", displayName);
         progress.TryComplete();
     }
 
@@ -110,7 +104,7 @@ public sealed class ThirdPartySoftwareInstaller
         {
             // Download
             await Report(progress, "Downloading", 10, $"Downloading {displayName} installer…", ct);
-            _logger.LogInformation("Downloading {Name} from {Url}", displayName, msiUrl);
+            _log.LogInformation("Downloading {Name} from {Url}", displayName, msiUrl);
 
             await using (var responseStream = await _http.GetStreamAsync(msiUrl, ct))
             await using (var fileStream = File.Create(tempPath))
@@ -129,8 +123,7 @@ public sealed class ThirdPartySoftwareInstaller
             if (!actualHash.Equals(expectedSha256, StringComparison.OrdinalIgnoreCase))
             {
                 var msg = $"SHA-256 mismatch for {displayName}: expected {expectedSha256}, got {actualHash}";
-                _logger.LogError("{Msg}", msg);
-                _audit.WriteError($"ThirdPartySoftwareInstaller: {msg}");
+                _log.LogError("{Msg}", msg);
                 await Report(progress, "Verification failed", -1, msg, ct);
                 progress.TryComplete(new InvalidOperationException(msg));
                 return;
@@ -191,7 +184,7 @@ public sealed class ThirdPartySoftwareInstaller
         await Report(progress, "Installing", 20,
             $"Running {pkgManager} install {packageName}…", ct);
 
-        _logger.LogInformation("Installing {Name} via {Mgr}", displayName, pkgManager);
+        _log.LogInformation("Installing {Name} via {Mgr}", displayName, pkgManager);
 
         var result = await _agent.LaunchProcessAsync(
             new LaunchRequest(pkgManager, ["install", "-y", packageName], null),

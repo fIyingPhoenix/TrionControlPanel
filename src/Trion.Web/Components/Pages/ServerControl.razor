@@ -40,13 +40,13 @@ else
                 <MudIconButton Icon="@Icons.Material.Filled.Stop"
                                Color="Color.Error"
                                Size="Size.Small"
-                               Title="Stop"
+                               title="Stop"
                                Disabled="@(context.State is not ProcessState.Running and not ProcessState.Starting)"
                                OnClick="@(() => StopProfileAsync(context.ProfileId))" />
                 <MudIconButton Icon="@Icons.Material.Filled.Refresh"
                                Color="Color.Warning"
                                Size="Size.Small"
-                               Title="Restart"
+                               title="Restart"
                                OnClick="@(() => RestartProfileAsync(context.ProfileId))" />
             </MudTd>
         </RowTemplate>

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Trion.Agent.Handlers;
 using Trion.Agent.Security;
 using Trion.Core.Agent;
@@ -16,8 +15,8 @@ public sealed class ServiceControlHandlerTests
         new(
             new ProcessLaunchHandler(
                 new CommandAllowlist(),
-                NullLogger<ProcessLaunchHandler>.Instance),
-            NullLogger<ServiceControlHandler>.Instance);
+                TestLogger.Instance),
+            TestLogger.Instance);
 
     // ── Action routing ────────────────────────────────────────────────────────
 

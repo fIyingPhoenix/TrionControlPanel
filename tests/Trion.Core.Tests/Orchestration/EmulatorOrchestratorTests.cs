@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Trion.Core.Abstractions.Services;
+using Trion.Core.Tests;
 using Trion.Core.Agent;
 using Trion.Core.Services.Orchestration;
 
@@ -18,7 +18,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task StartAsync_SuccessfulLaunch_StateIsRunning()
     {
         var client = new FakeAgentClient { LaunchSucceeds = true };
-        var sut    = new EmulatorOrchestrator(client, NullLogger<EmulatorOrchestrator>.Instance);
+        var sut    = new EmulatorOrchestrator(client, TestLogger.Instance);
 
         await sut.StartAsync(MakeProfile());
 
@@ -32,7 +32,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task StartAsync_LaunchFails_StateIsCrashed()
     {
         var client = new FakeAgentClient { LaunchSucceeds = false };
-        var sut    = new EmulatorOrchestrator(client, NullLogger<EmulatorOrchestrator>.Instance);
+        var sut    = new EmulatorOrchestrator(client, TestLogger.Instance);
 
         await sut.StartAsync(MakeProfile());
 
@@ -46,7 +46,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task StartAsync_AlreadyRunning_SecondCallIsNoOp()
     {
         var client = new FakeAgentClient { LaunchSucceeds = true };
-        var sut    = new EmulatorOrchestrator(client, NullLogger<EmulatorOrchestrator>.Instance);
+        var sut    = new EmulatorOrchestrator(client, TestLogger.Instance);
 
         await sut.StartAsync(MakeProfile());
         await sut.StartAsync(MakeProfile());   // should be ignored
@@ -61,7 +61,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task StopAsync_WhileRunning_StateIsStopped()
     {
         var client = new FakeAgentClient { LaunchSucceeds = true, KillSucceeds = true };
-        var sut    = new EmulatorOrchestrator(client, NullLogger<EmulatorOrchestrator>.Instance);
+        var sut    = new EmulatorOrchestrator(client, TestLogger.Instance);
 
         await sut.StartAsync(MakeProfile());
         await sut.StopAsync("test");
@@ -75,7 +75,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task StopAsync_UnknownProfile_DoesNotThrow()
     {
         var sut = new EmulatorOrchestrator(
-            new FakeAgentClient(), NullLogger<EmulatorOrchestrator>.Instance);
+            new FakeAgentClient(), TestLogger.Instance);
 
         // Should not throw
         await sut.StopAsync("nonexistent");
@@ -87,7 +87,7 @@ public sealed class EmulatorOrchestratorTests
     public async Task GetStatusAsync_UnknownProfile_ReturnsStopped()
     {
         var sut    = new EmulatorOrchestrator(
-            new FakeAgentClient(), NullLogger<EmulatorOrchestrator>.Instance);
+            new FakeAgentClient(), TestLogger.Instance);
         var status = await sut.GetStatusAsync("ghost");
 
         Assert.Equal(ProcessState.Stopped, status.State);
@@ -100,7 +100,7 @@ public sealed class EmulatorOrchestratorTests
     public void GetAllStatuses_EmptyOrchestrator_ReturnsEmptyList()
     {
         var sut = new EmulatorOrchestrator(
-            new FakeAgentClient(), NullLogger<EmulatorOrchestrator>.Instance);
+            new FakeAgentClient(), TestLogger.Instance);
 
         Assert.Empty(sut.GetAllStatuses());
     }
@@ -110,7 +110,7 @@ public sealed class EmulatorOrchestratorTests
     {
         var sut = new EmulatorOrchestrator(
             new FakeAgentClient { LaunchSucceeds = true },
-            NullLogger<EmulatorOrchestrator>.Instance);
+            TestLogger.Instance);
 
         await sut.StartAsync(MakeProfile("alpha"));
         await sut.StartAsync(MakeProfile("beta"));

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Trion.Agent.Handlers;
 using Trion.Agent.Security;
 using Trion.Core.Agent;
@@ -9,7 +8,7 @@ namespace Trion.Agent.Tests.Handlers;
 public sealed class ProcessLaunchHandlerTests
 {
     private readonly ProcessLaunchHandler _sut =
-        new(new CommandAllowlist(), NullLogger<ProcessLaunchHandler>.Instance);
+        new(new CommandAllowlist(), TestLogger.Instance);
 
     // ── Allowlist enforcement ──────────────────────────────────────────────────
 

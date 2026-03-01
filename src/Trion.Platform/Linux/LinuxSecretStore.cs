@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Trion.Core.Abstractions.Settings;
+using Trion.Core.Logging;
 
 namespace Trion.Platform.Linux;
 
@@ -14,16 +15,16 @@ public sealed class LinuxSecretStore : ISecretStore
     private const int    NonceSIze    = 12; // AES-GCM standard nonce
     private const int    TagSize      = 16; // AES-GCM authentication tag
 
-    private readonly ILogger<LinuxSecretStore> _logger;
-    private readonly Lazy<byte[]>              _machineKey;
+    private readonly ILogger       _log;
+    private readonly Lazy<byte[]>  _machineKey;
 
     // In-memory cache so we don't open the file on every read
     private Dictionary<string, string>? _cache;
     private readonly object              _lock = new();
 
-    public LinuxSecretStore(ILogger<LinuxSecretStore> logger)
+    public LinuxSecretStore(TrionLogger trionLogger)
     {
-        _logger     = logger;
+        _log        = trionLogger.CreateLogger(nameof(LinuxSecretStore));
         _machineKey = new Lazy<byte[]>(DeriveMachineKey);
     }
 
@@ -82,7 +83,7 @@ public sealed class LinuxSecretStore : ISecretStore
 
         if (!File.Exists(FallbackPath))
         {
-            _logger.LogWarning("Linux secret store file not found — starting empty.");
+            _log.LogWarning("Linux secret store file not found — starting empty.");
             _cache = [];
             return _cache;
         }
@@ -95,7 +96,7 @@ public sealed class LinuxSecretStore : ISecretStore
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Failed to load Linux secret store — starting empty.");
+            _log.LogWarning(ex, "Failed to load Linux secret store — starting empty.");
             _cache = [];
         }
 

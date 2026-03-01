@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Services;
 using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Platform.Shared;
 
@@ -21,16 +22,16 @@ namespace Trion.Platform.Shared;
 /// </summary>
 public sealed class AgentClient : IAgentClient, IDisposable
 {
-    private readonly AgentClientOptions         _opts;
-    private readonly ILogger<AgentClient>       _logger;
-    private readonly SemaphoreSlim              _gate = new(1, 1);
-    private static readonly TimeSpan            ConnectTimeout = TimeSpan.FromSeconds(5);
-    private const int                           MaxRetries = 3;
+    private readonly AgentClientOptions _opts;
+    private readonly ILogger            _log;
+    private readonly SemaphoreSlim      _gate = new(1, 1);
+    private static readonly TimeSpan    ConnectTimeout = TimeSpan.FromSeconds(5);
+    private const int                   MaxRetries = 3;
 
-    public AgentClient(IOptions<AgentClientOptions> opts, ILogger<AgentClient> logger)
+    public AgentClient(IOptions<AgentClientOptions> opts, TrionLogger trionLogger)
     {
-        _opts   = opts.Value;
-        _logger = logger;
+        _opts = opts.Value;
+        _log  = trionLogger.CreateLogger(nameof(AgentClient));
     }
 
     // ── IAgentClient ──────────────────────────────────────────────────────────
@@ -44,8 +45,8 @@ public sealed class AgentClient : IAgentClient, IDisposable
             AgentCommandType.LaunchProcess, cmd, pnToken, ct);
 
         return resp is null
-            ? new LaunchResult(false, null, "No response from agent")
-            : new LaunchResult(resp.Success, resp.Pid, resp.ErrorMessage);
+            ? LaunchResult.Fail("No response from agent")
+            : new LaunchResult(resp.Success, resp.Pid, resp.StartTime, resp.ErrorMessage);
     }
 
     public async Task<bool> KillProcessAsync(
@@ -138,7 +139,7 @@ public sealed class AgentClient : IAgentClient, IDisposable
 
             if (envelope is null || !envelope.Success || envelope.Payload is null)
             {
-                _logger.LogWarning("Agent returned failure for {Type}: {Error}",
+                _log.LogWarning("Agent returned failure for {Type}: {Error}",
                     commandType, envelope?.Error ?? "null envelope");
                 return null;
             }
@@ -168,12 +169,12 @@ public sealed class AgentClient : IAgentClient, IDisposable
             catch (IOException ex)
             {
                 last = ex;
-                _logger.LogWarning("Agent IPC attempt {N} failed: {Msg}", attempt + 1, ex.Message);
+                _log.LogWarning("Agent IPC attempt {N} failed: {Msg}", attempt + 1, ex.Message);
             }
             catch (SocketException ex)
             {
                 last = ex;
-                _logger.LogWarning("Agent socket attempt {N} failed: {Msg}", attempt + 1, ex.Message);
+                _log.LogWarning("Agent socket attempt {N} failed: {Msg}", attempt + 1, ex.Message);
             }
         }
 

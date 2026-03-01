@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Trion.Core.Abstractions.Services;
 using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Core.Services.Orchestration;
 
@@ -15,14 +16,14 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
     private static readonly TimeSpan HealthCheckInterval = TimeSpan.FromSeconds(10);
 
     private readonly IAgentClient _agent;
-    private readonly ILogger<EmulatorOrchestrator> _logger;
+    private readonly ILogger      _log;
 
     private readonly ConcurrentDictionary<string, ProfileEntry> _entries = new();
 
-    public EmulatorOrchestrator(IAgentClient agent, ILogger<EmulatorOrchestrator> logger)
+    public EmulatorOrchestrator(IAgentClient agent, TrionLogger trionLogger)
     {
-        _agent  = agent;
-        _logger = logger;
+        _agent = agent;
+        _log   = trionLogger.CreateLogger(nameof(EmulatorOrchestrator));
     }
 
     // ── IEmulatorOrchestrator ──────────────────────────────────────────────────
@@ -36,7 +37,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
         {
             if (entry.State is ProcessState.Running or ProcessState.Starting)
             {
-                _logger.LogWarning("Profile {Id} is already {State}; ignoring Start.", profile.Id, entry.State);
+                _log.LogWarning("Profile {Id} is already {State}; ignoring Start.", profile.Id, entry.State);
                 return;
             }
 
@@ -53,13 +54,13 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
                 entry.State     = ProcessState.Running;
                 entry.Pid       = result.Pid;
                 entry.StartedAt = result.StartTime;
-                _logger.LogInformation("Started profile {Id} (PID {Pid}).", profile.Id, result.Pid);
+                _log.LogInformation("Started profile {Id} (PID {Pid}).", profile.Id, result.Pid);
             }
             else
             {
                 entry.State     = ProcessState.Crashed;
                 entry.LastError = result.ErrorMessage;
-                _logger.LogError("Failed to start profile {Id}: {Error}", profile.Id, result.ErrorMessage);
+                _log.LogError("Failed to start profile {Id}: {Error}", profile.Id, result.ErrorMessage);
             }
         }
         finally
@@ -72,7 +73,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
     {
         if (!_entries.TryGetValue(profileId, out var entry))
         {
-            _logger.LogWarning("StopAsync: profile {Id} not found.", profileId);
+            _log.LogWarning("StopAsync: profile {Id} not found.", profileId);
             return;
         }
 
@@ -87,7 +88,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
             if (entry.Pid is { } pid && entry.StartedAt is { } startedAt)
             {
                 var killed = await _agent.KillProcessAsync(pid, startedAt, ct);
-                _logger.LogInformation(
+                _log.LogInformation(
                     "Kill PID {Pid} for profile {Id}: {Result}.",
                     pid, profileId, killed ? "ok" : "failed/already exited");
             }
@@ -106,7 +107,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
     {
         if (!_entries.TryGetValue(profileId, out var entry))
         {
-            _logger.LogWarning("RestartAsync: profile {Id} not found.", profileId);
+            _log.LogWarning("RestartAsync: profile {Id} not found.", profileId);
             return;
         }
 
@@ -129,7 +130,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Emulator orchestrator health-check loop started.");
+        _log.LogInformation("Emulator orchestrator health-check loop started.");
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -156,7 +157,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Health check for profile {Id} failed.", entry.Profile.Id);
+                    _log.LogError(ex, "Health check for profile {Id} failed.", entry.Profile.Id);
                     continue;
                 }
 
@@ -172,7 +173,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
                     if (entry.State != ProcessState.Running)
                         continue;   // already being acted upon
 
-                    _logger.LogWarning("Profile {Id} process is no longer alive.", entry.Profile.Id);
+                    _log.LogWarning("Profile {Id} process is no longer alive.", entry.Profile.Id);
 
                     if (entry.Profile.AutoRestart &&
                         entry.RestartCount < entry.Profile.MaxRestartAttempts)
@@ -180,7 +181,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
                         entry.RestartCount++;
                         entry.State   = ProcessState.Restarting;
                         shouldRestart = true;
-                        _logger.LogInformation(
+                        _log.LogInformation(
                             "Scheduling auto-restart for profile {Id} (attempt {N}/{Max}).",
                             entry.Profile.Id, entry.RestartCount, entry.Profile.MaxRestartAttempts);
                     }
@@ -207,7 +208,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Auto-restart of profile {Id} failed.", entry.Profile.Id);
+                        _log.LogError(ex, "Auto-restart of profile {Id} failed.", entry.Profile.Id);
                         entry.State     = ProcessState.Crashed;
                         entry.LastError = ex.Message;
                     }
@@ -215,7 +216,7 @@ public sealed class EmulatorOrchestrator : BackgroundService, IEmulatorOrchestra
             }
         }
 
-        _logger.LogInformation("Emulator orchestrator health-check loop stopped.");
+        _log.LogInformation("Emulator orchestrator health-check loop stopped.");
     }
 
     // ── Private state holder ───────────────────────────────────────────────────

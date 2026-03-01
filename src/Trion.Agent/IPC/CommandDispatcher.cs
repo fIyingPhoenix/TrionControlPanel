@@ -5,6 +5,7 @@ using Trion.Agent.Handlers;
 using Trion.Agent.Json;
 using Trion.Agent.Security;
 using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Agent.IPC;
 
@@ -14,27 +15,27 @@ namespace Trion.Agent.IPC;
 /// </summary>
 public sealed class CommandDispatcher
 {
-    private readonly HmacValidator            _hmac;
-    private readonly string                   _sharedKey;
-    private readonly ProcessLaunchHandler     _launch;
-    private readonly ServiceControlHandler    _service;
-    private readonly ProcessKillHandler       _kill;
-    private readonly ILogger<CommandDispatcher> _logger;
+    private readonly HmacValidator         _hmac;
+    private readonly string                _sharedKey;
+    private readonly ProcessLaunchHandler  _launch;
+    private readonly ServiceControlHandler _service;
+    private readonly ProcessKillHandler    _kill;
+    private readonly ILogger               _log;
 
     public CommandDispatcher(
-        HmacValidator              hmac,
-        IOptions<AgentOptions>     opts,
-        ProcessLaunchHandler       launch,
-        ServiceControlHandler      service,
-        ProcessKillHandler         kill,
-        ILogger<CommandDispatcher> logger)
+        HmacValidator          hmac,
+        IOptions<AgentOptions> opts,
+        ProcessLaunchHandler   launch,
+        ServiceControlHandler  service,
+        ProcessKillHandler     kill,
+        TrionLogger            trionLogger)
     {
         _hmac       = hmac;
         _sharedKey  = opts.Value.HmacSharedKey;
         _launch     = launch;
         _service    = service;
         _kill       = kill;
-        _logger     = logger;
+        _log        = trionLogger.CreateLogger(nameof(CommandDispatcher));
     }
 
     /// <summary>
@@ -51,7 +52,7 @@ public sealed class CommandDispatcher
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Failed to deserialize AgentCommand");
+            _log.LogWarning(ex, "Failed to deserialize AgentCommand");
             return Fail("INVALID_JSON");
         }
 
@@ -62,7 +63,7 @@ public sealed class CommandDispatcher
         var signedData = command.CommandType + command.Payload;
         if (!_hmac.Validate(signedData, command.Hmac, _sharedKey))
         {
-            _logger.LogWarning("HMAC validation failed for command type: {Type}", command.CommandType);
+            _log.LogWarning("HMAC validation failed for command type: {Type}", command.CommandType);
             return Fail("INVALID_HMAC");
         }
 
@@ -81,7 +82,7 @@ public sealed class CommandDispatcher
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled error dispatching {Type}", command.CommandType);
+            _log.LogError(ex, "Unhandled error dispatching {Type}", command.CommandType);
             return Fail($"INTERNAL_ERROR:{ex.GetType().Name}");
         }
     }

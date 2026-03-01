@@ -1,19 +1,20 @@
 using System.Diagnostics;
 using System.Runtime.Versioning;
 using Microsoft.Extensions.Logging;
+using Trion.Core.Logging;
 
 namespace Trion.Platform.Windows;
 
 [SupportedOSPlatform("windows")]
 public sealed class WindowsDiskReader : IDisposable
 {
-    private readonly ILogger<WindowsDiskReader> _logger;
+    private readonly ILogger _log;
     private PerformanceCounter? _readCounter;
     private PerformanceCounter? _writeCounter;
 
-    public WindowsDiskReader(ILogger<WindowsDiskReader> logger)
+    public WindowsDiskReader(TrionLogger trionLogger)
     {
-        _logger = logger;
+        _log = trionLogger.CreateLogger(nameof(WindowsDiskReader));
         try
         {
             _readCounter  = new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec",  "_Total");
@@ -24,7 +25,7 @@ public sealed class WindowsDiskReader : IDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Disk PerformanceCounters unavailable.");
+            _log.LogWarning(ex, "Disk PerformanceCounters unavailable.");
             _readCounter  = null;
             _writeCounter = null;
         }

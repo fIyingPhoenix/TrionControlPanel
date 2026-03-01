@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Agent.Handlers;
 
@@ -11,11 +12,11 @@ namespace Trion.Agent.Handlers;
 /// </summary>
 public sealed class ProcessKillHandler
 {
-    private readonly ILogger<ProcessKillHandler> _logger;
+    private readonly ILogger _log;
 
-    public ProcessKillHandler(ILogger<ProcessKillHandler> logger)
+    public ProcessKillHandler(TrionLogger trionLogger)
     {
-        _logger = logger;
+        _log = trionLogger.CreateLogger(nameof(ProcessKillHandler));
     }
 
     // ── Kill ─────────────────────────────────────────────────────────────────
@@ -43,7 +44,7 @@ public sealed class ProcessKillHandler
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Cannot read StartTime for PID {Pid}", cmd.Pid);
+                _log.LogWarning(ex, "Cannot read StartTime for PID {Pid}", cmd.Pid);
                 return Task.FromResult(new KillProcessResponse(
                     Success: false, ErrorMessage: "Cannot verify process start time"));
             }
@@ -52,7 +53,7 @@ public sealed class ProcessKillHandler
             var diff = Math.Abs((actualStart - cmd.ExpectedStartTime).TotalSeconds);
             if (diff > 1.0)
             {
-                _logger.LogWarning(
+                _log.LogWarning(
                     "PID {Pid} start-time mismatch: expected {Expected}, actual {Actual}",
                     cmd.Pid, cmd.ExpectedStartTime, actualStart);
                 return Task.FromResult(new KillProcessResponse(
@@ -62,12 +63,12 @@ public sealed class ProcessKillHandler
             try
             {
                 process.Kill(entireProcessTree: true);
-                _logger.LogInformation("Killed PID {Pid}", cmd.Pid);
+                _log.LogInformation("Killed PID {Pid}", cmd.Pid);
                 return Task.FromResult(new KillProcessResponse(Success: true, ErrorMessage: null));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to kill PID {Pid}", cmd.Pid);
+                _log.LogError(ex, "Failed to kill PID {Pid}", cmd.Pid);
                 return Task.FromResult(new KillProcessResponse(Success: false, ErrorMessage: ex.Message));
             }
         }

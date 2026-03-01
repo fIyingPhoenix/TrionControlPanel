@@ -1,5 +1,5 @@
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Logging.Abstractions;
+using Trion.Core.Tests;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Auth;
 using Trion.Core.Abstractions.Database;
@@ -62,7 +62,7 @@ public sealed class EmulatorAuthServiceTests : IAsyncLifetime
             _settings,
             _audit,
             new FakeOptionsMonitor<EmulatorAuthOptions>(opts),
-            NullLogger<EmulatorAuthService>.Instance);
+            TestLogger.Instance);
     }
 
     // ── Bootstrap account ────────────────────────────────────────────────────

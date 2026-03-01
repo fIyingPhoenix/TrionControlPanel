@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Trion.Agent.Security;
 using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Agent.Handlers;
 
@@ -14,13 +15,13 @@ namespace Trion.Agent.Handlers;
 /// </summary>
 public sealed class ProcessLaunchHandler
 {
-    private readonly CommandAllowlist          _allowlist;
-    private readonly ILogger<ProcessLaunchHandler> _logger;
+    private readonly CommandAllowlist _allowlist;
+    private readonly ILogger          _log;
 
-    public ProcessLaunchHandler(CommandAllowlist allowlist, ILogger<ProcessLaunchHandler> logger)
+    public ProcessLaunchHandler(CommandAllowlist allowlist, TrionLogger trionLogger)
     {
         _allowlist = allowlist;
-        _logger    = logger;
+        _log       = trionLogger.CreateLogger(nameof(ProcessLaunchHandler));
     }
 
     public Task<LaunchProcessResponse> HandleAsync(LaunchProcessCommand cmd, CancellationToken ct = default)
@@ -28,7 +29,7 @@ public sealed class ProcessLaunchHandler
         // ── Security gate ────────────────────────────────────────────────────
         if (!_allowlist.IsPermitted(cmd.ExecutablePath, cmd.Arguments))
         {
-            _logger.LogWarning("Launch rejected — not in allowlist: {Path}", cmd.ExecutablePath);
+            _log.LogWarning("Launch rejected — not in allowlist: {Path}", cmd.ExecutablePath);
             return Task.FromResult(new LaunchProcessResponse(
                 Success: false, Pid: null, StartTime: null,
                 ErrorMessage: "Executable or arguments not permitted"));
@@ -60,7 +61,7 @@ public sealed class ProcessLaunchHandler
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to start process: {Path}", cmd.ExecutablePath);
+            _log.LogError(ex, "Failed to start process: {Path}", cmd.ExecutablePath);
             return Task.FromResult(new LaunchProcessResponse(
                 Success: false, Pid: null, StartTime: null,
                 ErrorMessage: ex.Message));
@@ -71,7 +72,7 @@ public sealed class ProcessLaunchHandler
         _ = RelayStreamAsync(process.StandardOutput, procName, isError: false);
         _ = RelayStreamAsync(process.StandardError,  procName, isError: true);
 
-        _logger.LogInformation("Launched {Name} (PID {Pid})", procName, process.Id);
+        _log.LogInformation("Launched {Name} (PID {Pid})", procName, process.Id);
 
         return Task.FromResult(new LaunchProcessResponse(
             Success:      true,
@@ -88,14 +89,14 @@ public sealed class ProcessLaunchHandler
             while ((line = await reader.ReadLineAsync()) is not null)
             {
                 if (isError)
-                    _logger.LogError("[{Name}] {Line}", name, line);
+                    _log.LogError("[{Name}] {Line}", name, line);
                 else
-                    _logger.LogInformation("[{Name}] {Line}", name, line);
+                    _log.LogInformation("[{Name}] {Line}", name, line);
             }
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Stream relay ended for {Name}", name);
+            _log.LogDebug(ex, "Stream relay ended for {Name}", name);
         }
     }
 }

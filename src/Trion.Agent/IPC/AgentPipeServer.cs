@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Trion.Core.Logging;
 
 namespace Trion.Agent.IPC;
 
@@ -21,18 +22,18 @@ namespace Trion.Agent.IPC;
 /// </summary>
 public sealed class AgentPipeServer : BackgroundService
 {
-    private readonly AgentOptions           _options;
-    private readonly CommandDispatcher      _dispatcher;
-    private readonly ILogger<AgentPipeServer> _logger;
+    private readonly AgentOptions      _options;
+    private readonly CommandDispatcher _dispatcher;
+    private readonly ILogger           _log;
 
     public AgentPipeServer(
-        IOptions<AgentOptions>      options,
-        CommandDispatcher           dispatcher,
-        ILogger<AgentPipeServer>    logger)
+        IOptions<AgentOptions> options,
+        CommandDispatcher      dispatcher,
+        TrionLogger            trionLogger)
     {
         _options    = options.Value;
         _dispatcher = dispatcher;
-        _logger     = logger;
+        _log        = trionLogger.CreateLogger(nameof(AgentPipeServer));
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -43,7 +44,7 @@ public sealed class AgentPipeServer : BackgroundService
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             return RunLinuxSocketAsync(stoppingToken);
 
-        _logger.LogError("AgentPipeServer: unsupported platform — agent will not accept connections");
+        _log.LogError("AgentPipeServer: unsupported platform — agent will not accept connections");
         return Task.Delay(Timeout.Infinite, stoppingToken);
     }
 
@@ -51,7 +52,7 @@ public sealed class AgentPipeServer : BackgroundService
 
     private async Task RunWindowsPipeAsync(CancellationToken ct)
     {
-        _logger.LogInformation("AgentPipeServer listening on named pipe: {Name}", _options.PipeName);
+        _log.LogInformation("AgentPipeServer listening on named pipe: {Name}", _options.PipeName);
 
         while (!ct.IsCancellationRequested)
         {
@@ -74,7 +75,7 @@ public sealed class AgentPipeServer : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error accepting named pipe connection");
+                _log.LogError(ex, "Error accepting named pipe connection");
                 await pipe.DisposeAsync();
             }
         }
@@ -92,7 +93,7 @@ public sealed class AgentPipeServer : BackgroundService
                 await WriteMessageAsync(pipe, Encoding.UTF8.GetBytes(resp), ct);
             }
             catch (OperationCanceledException) when (ct.IsCancellationRequested) { }
-            catch (Exception ex) { _logger.LogError(ex, "Error handling pipe connection"); }
+            catch (Exception ex) { _log.LogError(ex, "Error handling pipe connection"); }
         }
     }
 
@@ -116,11 +117,13 @@ public sealed class AgentPipeServer : BackgroundService
         server.Listen(backlog: 10);
 
         // Allow group read/write (0660) — both agent and web service share a group in production
+#pragma warning disable CA1416  // This method is only called on Linux (see ExecuteAsync)
         File.SetUnixFileMode(socketPath,
             UnixFileMode.UserRead  | UnixFileMode.UserWrite |
             UnixFileMode.GroupRead | UnixFileMode.GroupWrite);
+#pragma warning restore CA1416
 
-        _logger.LogInformation("AgentPipeServer listening on socket: {Path}", socketPath);
+        _log.LogInformation("AgentPipeServer listening on socket: {Path}", socketPath);
 
         while (!ct.IsCancellationRequested)
         {
@@ -135,7 +138,7 @@ public sealed class AgentPipeServer : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error accepting Unix socket connection");
+                _log.LogError(ex, "Error accepting Unix socket connection");
                 continue;
             }
 
@@ -158,7 +161,7 @@ public sealed class AgentPipeServer : BackgroundService
             await WriteMessageAsync(ns, Encoding.UTF8.GetBytes(resp), ct);
         }
         catch (OperationCanceledException) when (ct.IsCancellationRequested) { }
-        catch (Exception ex) { _logger.LogError(ex, "Error handling socket connection"); }
+        catch (Exception ex) { _log.LogError(ex, "Error handling socket connection"); }
     }
 
     // ── Wire-protocol helpers ─────────────────────────────────────────────────

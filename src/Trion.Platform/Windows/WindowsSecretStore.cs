@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Trion.Core.Abstractions.Settings;
+using Trion.Core.Logging;
 
 namespace Trion.Platform.Windows;
 
@@ -12,11 +13,11 @@ public sealed class WindowsSecretStore : ISecretStore
 {
     private const string KeyPrefix = "Trion/";
 
-    private readonly ILogger<WindowsSecretStore> _logger;
+    private readonly ILogger _log;
 
-    public WindowsSecretStore(ILogger<WindowsSecretStore> logger)
+    public WindowsSecretStore(TrionLogger trionLogger)
     {
-        _logger = logger;
+        _log = trionLogger.CreateLogger(nameof(WindowsSecretStore));
     }
 
     public string? GetSecret(string key)
@@ -27,7 +28,7 @@ public sealed class WindowsSecretStore : ISecretStore
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Credential Manager unavailable for key {Key}, trying fallback.", key);
+            _log.LogWarning(ex, "Credential Manager unavailable for key {Key}, trying fallback.", key);
             return DpapiFileGet(key);
         }
     }
@@ -40,7 +41,7 @@ public sealed class WindowsSecretStore : ISecretStore
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Credential Manager unavailable for key {Key}, using fallback.", key);
+            _log.LogWarning(ex, "Credential Manager unavailable for key {Key}, using fallback.", key);
             DpapiFileSet(key, value);
         }
     }

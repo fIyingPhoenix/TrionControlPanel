@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Logging.Abstractions;
+using Trion.Core.Tests;
 using Microsoft.IdentityModel.Tokens;
 using Trion.Core.Abstractions.Auth;
 using Trion.Core.Abstractions.Settings;
@@ -49,7 +49,7 @@ public sealed class TokenServiceTests : IAsyncLifetime
     }
 
     private TokenService CreateSut() =>
-        new(_secrets, _tokenStore, _audit, NullLogger<TokenService>.Instance);
+        new(_secrets, _tokenStore, _audit, TestLogger.Instance);
 
     private static AuthenticatedUser MakeUser(int gmLevel = 2) =>
         new("testuser", gmLevel, "127.0.0.1");

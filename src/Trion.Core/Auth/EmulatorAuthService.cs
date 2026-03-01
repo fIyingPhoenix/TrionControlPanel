@@ -20,20 +20,20 @@ public sealed class EmulatorAuthService : IEmulatorAuthService
     private readonly ISettingsRepository        _settings;
     private readonly AuditLogger                _audit;
     private readonly IOptionsMonitor<EmulatorAuthOptions> _opts;
-    private readonly ILogger<EmulatorAuthService> _logger;
+    private readonly ILogger                    _log;
 
     public EmulatorAuthService(
         IEmulatorRepositoryFactory           repoFactory,
         ISettingsRepository                  settings,
         AuditLogger                          audit,
         IOptionsMonitor<EmulatorAuthOptions> opts,
-        ILogger<EmulatorAuthService>         logger)
+        TrionLogger                          trionLogger)
     {
         _repoFactory = repoFactory;
         _settings    = settings;
         _audit       = audit;
         _opts        = opts;
-        _logger      = logger;
+        _log         = trionLogger.CreateLogger(nameof(EmulatorAuthService));
     }
 
     public async Task<AuthResult> AuthenticateAsync(
@@ -85,7 +85,7 @@ public sealed class EmulatorAuthService : IEmulatorAuthService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to query emulator repository for user {Username}.", username);
+            _log.LogError(ex, "Failed to query emulator repository for user {Username}.", username);
             return AuthResult.Fail("Authentication service unavailable.");
         }
 
@@ -105,7 +105,7 @@ public sealed class EmulatorAuthService : IEmulatorAuthService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to get GM level for {Username}.", username);
+            _log.LogError(ex, "Failed to get GM level for {Username}.", username);
             return AuthResult.Fail("Authentication service unavailable.");
         }
 

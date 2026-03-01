@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Services;
 using Trion.Core.Abstractions.Settings;
+using Trion.Core.Logging;
 
 namespace Trion.Core.Services.Ddns;
 
@@ -15,21 +16,21 @@ public sealed class DdnsUpdater : IDdnsUpdater
     private static readonly Uri IpifyUri =
         new("https://api.ipify.org?format=text");
 
-    private readonly HttpClient          _http;
+    private readonly HttpClient              _http;
     private readonly IOptions<DdnsOptions>   _options;
-    private readonly ISettingsRepository _settings;
-    private readonly ILogger<DdnsUpdater>    _logger;
+    private readonly ISettingsRepository     _settings;
+    private readonly ILogger                 _log;
 
     public DdnsUpdater(
-        HttpClient          http,
-        IOptions<DdnsOptions>   options,
-        ISettingsRepository settings,
-        ILogger<DdnsUpdater>    logger)
+        HttpClient            http,
+        IOptions<DdnsOptions> options,
+        ISettingsRepository   settings,
+        TrionLogger           trionLogger)
     {
         _http     = http;
         _options  = options;
         _settings = settings;
-        _logger   = logger;
+        _log      = trionLogger.CreateLogger(nameof(DdnsUpdater));
     }
 
     public async Task UpdateNowAsync(CancellationToken ct = default)
@@ -53,16 +54,16 @@ public sealed class DdnsUpdater : IDdnsUpdater
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "DDNS update failed.");
+            _log.LogError(ex, "DDNS update failed.");
             result = new DdnsUpdateResult(false, null, DateTimeOffset.UtcNow, ex.Message);
         }
 
         await _settings.SetAsync(LastResultKey, result, ct);
 
         if (result.Success)
-            _logger.LogInformation("DDNS updated to {Ip}.", result.NewIp);
+            _log.LogInformation("DDNS updated to {Ip}.", result.NewIp);
         else
-            _logger.LogWarning("DDNS update failed: {Error}", result.ErrorMessage);
+            _log.LogWarning("DDNS update failed: {Error}", result.ErrorMessage);
     }
 
     public Task<DdnsUpdateResult?> GetLastResultAsync() =>

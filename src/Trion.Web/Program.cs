@@ -85,8 +85,7 @@ builder.Services.AddSingleton<ThirdPartySoftwareInstaller>(sp =>
     new ThirdPartySoftwareInstaller(
         sp.GetRequiredService<IAgentClient>(),
         new HttpClient(),
-        sp.GetRequiredService<AuditLogger>(),
-        sp.GetRequiredService<ILogger<ThirdPartySoftwareInstaller>>()));
+        sp.GetRequiredService<TrionLogger>()));
 
 // ── Server Orchestration ───────────────────────────────────────────────────
 // Register as singleton so the same instance is resolved via IEmulatorOrchestrator
@@ -104,7 +103,7 @@ builder.Services.AddSingleton<IDdnsUpdater>(sp =>
         new HttpClient(),
         sp.GetRequiredService<IOptions<DdnsOptions>>(),
         sp.GetRequiredService<ISettingsRepository>(),
-        sp.GetRequiredService<ILogger<DdnsUpdater>>()));
+        sp.GetRequiredService<TrionLogger>()));
 builder.Services.AddHostedService<DdnsPollingWorker>();
 
 // ── JWT Authentication ─────────────────────────────────────────────────────

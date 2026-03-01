@@ -2,6 +2,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Services;
+using Trion.Core.Logging;
 
 namespace Trion.Core.Services.Ddns;
 
@@ -9,27 +10,27 @@ public sealed class DdnsPollingWorker : BackgroundService
 {
     private readonly IDdnsUpdater          _updater;
     private readonly IOptions<DdnsOptions> _options;
-    private readonly ILogger<DdnsPollingWorker> _logger;
+    private readonly ILogger               _log;
 
     public DdnsPollingWorker(
-        IDdnsUpdater              updater,
-        IOptions<DdnsOptions>     options,
-        ILogger<DdnsPollingWorker> logger)
+        IDdnsUpdater          updater,
+        IOptions<DdnsOptions> options,
+        TrionLogger           trionLogger)
     {
         _updater = updater;
         _options = options;
-        _logger  = logger;
+        _log     = trionLogger.CreateLogger(nameof(DdnsPollingWorker));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         if (_options.Value.Provider == DdnsProvider.None)
         {
-            _logger.LogDebug("DDNS provider is None — polling worker is idle.");
+            _log.LogDebug("DDNS provider is None — polling worker is idle.");
             return;
         }
 
-        _logger.LogInformation(
+        _log.LogInformation(
             "DDNS polling worker started (provider: {Provider}, interval: {Interval}).",
             _options.Value.Provider, _options.Value.PollInterval);
 
@@ -45,7 +46,7 @@ public sealed class DdnsPollingWorker : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "DDNS polling worker encountered an unexpected error.");
+                _log.LogError(ex, "DDNS polling worker encountered an unexpected error.");
             }
 
             try

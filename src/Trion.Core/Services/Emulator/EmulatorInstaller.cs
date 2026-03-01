@@ -31,18 +31,13 @@ public sealed class EmulatorInstaller
         ? ["WoW.exe", "Wow.exe"]
         : ["wow", "Wow"];
 
-    private readonly IAgentClient  _agent;
-    private readonly AuditLogger   _audit;
-    private readonly ILogger<EmulatorInstaller> _logger;
+    private readonly IAgentClient _agent;
+    private readonly ILogger      _log;
 
-    public EmulatorInstaller(
-        IAgentClient              agent,
-        AuditLogger               audit,
-        ILogger<EmulatorInstaller> logger)
+    public EmulatorInstaller(IAgentClient agent, TrionLogger trionLogger)
     {
-        _agent  = agent;
-        _audit  = audit;
-        _logger = logger;
+        _agent = agent;
+        _log   = trionLogger.CreateLogger(nameof(EmulatorInstaller));
     }
 
     /// <summary>
@@ -57,7 +52,7 @@ public sealed class EmulatorInstaller
         CancellationToken         ct = default)
     {
         // ── Step 1: Validate WoW client path ──────────────────────────────────
-        await Report(progress, "Validating client path", 5, ct);
+        await Report(progress, "Validating client path", 5, null, ct);
 
         var (valid, reason) = ValidateWowClientPath(wowClientPath, installDirectory);
         if (!valid)
@@ -66,8 +61,7 @@ public sealed class EmulatorInstaller
             return;
         }
 
-        _logger.LogInformation("WoW client path validated: {Path}", wowClientPath);
-        _audit.WriteInfo($"EmulatorInstaller: WoW client path validated — {wowClientPath}");
+        _log.LogInformation("WoW client path validated: {Path}", wowClientPath);
 
         // ── Step 2: Clone emulator repository via agent ───────────────────────
         var repoUrl = type switch
@@ -81,7 +75,7 @@ public sealed class EmulatorInstaller
         await Report(progress, "Cloning repository", 10,
             $"git clone {repoUrl} → {installDirectory}", ct);
 
-        _audit.WriteInfo($"EmulatorInstaller: starting git clone {repoUrl}");
+        _log.LogInformation("Starting git clone {Url}", repoUrl);
 
         var launch = await _agent.LaunchProcessAsync(
             new LaunchRequest(GitPath, ["clone", repoUrl, installDirectory], null),
@@ -89,13 +83,13 @@ public sealed class EmulatorInstaller
 
         if (!launch.Success)
         {
+            _log.LogError("git clone failed: {Err}", launch.ErrorMessage);
             await ReportError(progress, "Clone failed", launch.ErrorMessage, ct);
-            _audit.WriteError($"EmulatorInstaller: git clone failed — {launch.ErrorMessage}");
             return;
         }
 
         // ── Step 3: Poll until git clone finishes ────────────────────────────
-        _logger.LogInformation("git clone started (PID {Pid}); waiting for completion.", launch.Pid);
+        _log.LogInformation("git clone started (PID {Pid}); waiting for completion.", launch.Pid);
 
         int pollPercent = 10;
         while (launch.Pid is { } pid && launch.StartTime is { } startTime
@@ -110,19 +104,19 @@ public sealed class EmulatorInstaller
         // Verify the target directory exists (basic success check)
         if (!Directory.Exists(installDirectory))
         {
+            _log.LogError("Post-clone directory missing: {Dir}", installDirectory);
             await ReportError(progress, "Clone failed",
                 $"Expected directory '{installDirectory}' not found after clone.", ct);
-            _audit.WriteError($"EmulatorInstaller: post-clone directory missing — {installDirectory}");
             return;
         }
 
-        _audit.WriteInfo($"EmulatorInstaller: git clone complete — {installDirectory}");
+        _log.LogInformation("git clone complete: {Dir}", installDirectory);
         await Report(progress, "Repository cloned", 50,
             $"{type} cloned successfully into {installDirectory}", ct);
 
-        // ── Step 4: Final audit + completion ─────────────────────────────────
+        // ── Step 4: Final completion ──────────────────────────────────────────
+        _log.LogInformation("Installation complete for {Type}", type);
         await Report(progress, "Installation complete", 100, null, ct);
-        _audit.WriteInfo($"EmulatorInstaller: installation complete for {type}");
     }
 
     // ── Validation ─────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Trion.Core.Monitoring;
+using Trion.Core.Tests;
 
 namespace Trion.Core.Tests.Monitoring;
 
@@ -22,7 +22,7 @@ public sealed class ProcessMonitorTests
                 ProcessNameFilter = [],
                 RefreshInterval   = TimeSpan.FromMilliseconds(50)
             }),
-            NullLogger<ProcessMonitor>.Instance);
+            TestLogger.Instance);
 
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(200));
         await monitor.StartAsync(cts.Token);
@@ -40,7 +40,7 @@ public sealed class ProcessMonitorTests
         var monitor  = new ProcessMonitor(
             accessor,
             CreateOpts(new ProcessMonitorOptions { RefreshInterval = TimeSpan.FromSeconds(5) }),
-            NullLogger<ProcessMonitor>.Instance);
+            TestLogger.Instance);
 
         var currentPid = Environment.ProcessId;
         monitor.Track(currentPid);
@@ -65,7 +65,7 @@ public sealed class ProcessMonitorTests
                 ProcessNameFilter = [currentProcessName],
                 RefreshInterval   = TimeSpan.FromMilliseconds(50)
             }),
-            NullLogger<ProcessMonitor>.Instance);
+            TestLogger.Instance);
 
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
         _ = monitor.StartAsync(cts.Token);
@@ -97,7 +97,7 @@ public sealed class ProcessMonitorTests
                 ProcessNameFilter = ["__unlikely_to_exist_process_xyz__"],
                 RefreshInterval   = TimeSpan.FromMilliseconds(30)
             }),
-            NullLogger<ProcessMonitor>.Instance);
+            TestLogger.Instance);
 
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(300));
         await monitor.StartAsync(cts.Token);

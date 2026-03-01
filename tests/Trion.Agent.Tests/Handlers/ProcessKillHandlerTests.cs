@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Microsoft.Extensions.Logging.Abstractions;
 using Trion.Agent.Handlers;
 using Trion.Core.Agent;
 using Xunit;
@@ -9,7 +8,7 @@ namespace Trion.Agent.Tests.Handlers;
 public sealed class ProcessKillHandlerTests
 {
     private readonly ProcessKillHandler _sut =
-        new(NullLogger<ProcessKillHandler>.Instance);
+        new(TestLogger.Instance);
 
     // ── Kill: PID not found ───────────────────────────────────────────────────
 

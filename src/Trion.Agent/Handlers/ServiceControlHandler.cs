@@ -1,7 +1,8 @@
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
-using Trion.Core.Agent;
 using Trion.Core.Abstractions.Services;
+using Trion.Core.Agent;
+using Trion.Core.Logging;
 
 namespace Trion.Agent.Handlers;
 
@@ -12,13 +13,13 @@ namespace Trion.Agent.Handlers;
 /// </summary>
 public sealed class ServiceControlHandler
 {
-    private readonly ProcessLaunchHandler      _launcher;
-    private readonly ILogger<ServiceControlHandler> _logger;
+    private readonly ProcessLaunchHandler _launcher;
+    private readonly ILogger              _log;
 
-    public ServiceControlHandler(ProcessLaunchHandler launcher, ILogger<ServiceControlHandler> logger)
+    public ServiceControlHandler(ProcessLaunchHandler launcher, TrionLogger trionLogger)
     {
         _launcher = launcher;
-        _logger   = logger;
+        _log      = trionLogger.CreateLogger(nameof(ServiceControlHandler));
     }
 
     public async Task<ServiceControlResponse> HandleAsync(
@@ -82,7 +83,7 @@ public sealed class ServiceControlHandler
         await Task.Delay(500, ct);
         var newState = await QueryLinuxStateAsync(serviceName, ct);
 
-        _logger.LogInformation("Service {Name}: {Action} → {State}", serviceName, action, newState);
+        _log.LogInformation("Service {Name}: {Action} → {State}", serviceName, action, newState);
 
         return new ServiceControlResponse(
             Success:       true,

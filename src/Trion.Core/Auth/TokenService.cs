@@ -17,25 +17,25 @@ public sealed class TokenService : ITokenService
     private const int    AccessTokenMinutes   = 15;
     private const string RefreshCookieName    = "trion_refresh";
 
-    private readonly ISecretStore    _secrets;
+    private readonly ISecretStore      _secrets;
     private readonly RefreshTokenStore _tokenStore;
-    private readonly AuditLogger     _audit;
-    private readonly ILogger<TokenService> _logger;
+    private readonly AuditLogger       _audit;
+    private readonly ILogger           _log;
 
     // Lazily initialised RSA key — created or loaded on first use
     private RSA?     _rsa;
     private readonly Lock _rsaLock = new();
 
     public TokenService(
-        ISecretStore          secrets,
-        RefreshTokenStore     tokenStore,
-        AuditLogger           audit,
-        ILogger<TokenService> logger)
+        ISecretStore      secrets,
+        RefreshTokenStore tokenStore,
+        AuditLogger       audit,
+        TrionLogger       trionLogger)
     {
         _secrets    = secrets;
         _tokenStore = tokenStore;
         _audit      = audit;
-        _logger     = logger;
+        _log        = trionLogger.CreateLogger(nameof(TokenService));
     }
 
     // ── ITokenService ──────────────────────────────────────────────────────
@@ -139,11 +139,11 @@ public sealed class TokenService : ITokenService
                 var rsa = RSA.Create();
                 rsa.ImportFromPem(pem);
                 _rsa = rsa;
-                _logger.LogInformation("JWT signing key loaded from secret store.");
+                _log.LogInformation("JWT signing key loaded from secret store.");
             }
             else
             {
-                _logger.LogInformation("Generating new RSA-2048 JWT signing key.");
+                _log.LogInformation("Generating new RSA-2048 JWT signing key.");
                 var rsa = RSA.Create(keySizeInBits: 2048);
                 _secrets.SetSecret(PrivateKeySecretName, rsa.ExportPkcs8PrivateKeyPem());
                 _secrets.SetSecret(PublicKeySecretName,  rsa.ExportSubjectPublicKeyInfoPem());

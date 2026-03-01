@@ -17,17 +17,12 @@ public sealed class ClientDataExtractor
     private static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(5);
 
     private readonly IAgentClient _agent;
-    private readonly AuditLogger  _audit;
-    private readonly ILogger<ClientDataExtractor> _logger;
+    private readonly ILogger      _log;
 
-    public ClientDataExtractor(
-        IAgentClient              agent,
-        AuditLogger               audit,
-        ILogger<ClientDataExtractor> logger)
+    public ClientDataExtractor(IAgentClient agent, TrionLogger trionLogger)
     {
-        _agent  = agent;
-        _audit  = audit;
-        _logger = logger;
+        _agent = agent;
+        _log   = trionLogger.CreateLogger(nameof(ClientDataExtractor));
     }
 
     /// <summary>
@@ -62,8 +57,8 @@ public sealed class ClientDataExtractor
             "MMap generation", 70, 98,
             ValidateMmapOutput, progress, ct);
 
+        _log.LogInformation("ClientDataExtractor: all phases complete.");
         await progress.WriteAsync(new ExtractProgressEvent("Complete", 100, "All data extracted."), ct);
-        _audit.WriteInfo("ClientDataExtractor: all phases complete.");
         progress.TryComplete();
     }
 
@@ -82,8 +77,7 @@ public sealed class ClientDataExtractor
         CancellationToken ct)
     {
         var executablePath = Path.Combine(toolsPath, toolName);
-        _logger.LogInformation("Extraction step '{Step}': {Exe}", stepLabel, executablePath);
-        _audit.WriteInfo($"ClientDataExtractor: starting {stepLabel}");
+        _log.LogInformation("Extraction step '{Step}': {Exe}", stepLabel, executablePath);
 
         for (int attempt = 1; attempt <= MaxRetries; attempt++)
         {
@@ -96,7 +90,7 @@ public sealed class ClientDataExtractor
 
             if (!launch.Success)
             {
-                _logger.LogWarning("{Step} attempt {N} failed to launch: {Err}",
+                _log.LogWarning("{Step} attempt {N} failed to launch: {Err}",
                     stepLabel, attempt, launch.ErrorMessage);
 
                 if (attempt == MaxRetries)
@@ -124,13 +118,13 @@ public sealed class ClientDataExtractor
             // Validate output
             if (outputValidator(outputPath))
             {
-                _audit.WriteInfo($"ClientDataExtractor: {stepLabel} complete.");
+                _log.LogInformation("{Step} complete.", stepLabel);
                 await progress.WriteAsync(
                     new ExtractProgressEvent(stepLabel, endPct, $"{stepLabel} complete."), ct);
                 return;   // success
             }
 
-            _logger.LogWarning("{Step} output validation failed on attempt {N}.", stepLabel, attempt);
+            _log.LogWarning("{Step} output validation failed on attempt {N}.", stepLabel, attempt);
             if (attempt == MaxRetries)
             {
                 await progress.WriteAsync(new ExtractProgressEvent(

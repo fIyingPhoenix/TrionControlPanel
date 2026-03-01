@@ -2,6 +2,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Monitoring;
+using Trion.Core.Logging;
 
 namespace Trion.Core.Monitoring;
 
@@ -17,23 +18,23 @@ public sealed class MachineMetricsWorker : BackgroundService
     private readonly IMachineMetricsProvider     _provider;
     private readonly MetricsChannelAccessor      _accessor;
     private readonly IOptionsMonitor<ProcessMonitorOptions> _opts;
-    private readonly ILogger<MachineMetricsWorker> _logger;
+    private readonly ILogger                     _log;
 
     public MachineMetricsWorker(
-        IMachineMetricsProvider             provider,
-        MetricsChannelAccessor              accessor,
+        IMachineMetricsProvider               provider,
+        MetricsChannelAccessor                accessor,
         IOptionsMonitor<ProcessMonitorOptions> opts,
-        ILogger<MachineMetricsWorker>       logger)
+        TrionLogger                           trionLogger)
     {
         _provider = provider;
         _accessor = accessor;
         _opts     = opts;
-        _logger   = logger;
+        _log      = trionLogger.CreateLogger(nameof(MachineMetricsWorker));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("MachineMetricsWorker started.");
+        _log.LogInformation("MachineMetricsWorker started.");
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -49,7 +50,7 @@ public sealed class MachineMetricsWorker : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "MachineMetricsWorker poll failed — retrying in {Delay}s.", RetryDelay.TotalSeconds);
+                _log.LogError(ex, "MachineMetricsWorker poll failed — retrying in {Delay}s.", RetryDelay.TotalSeconds);
                 await Task.Delay(RetryDelay, stoppingToken);
                 continue;
             }
@@ -57,6 +58,6 @@ public sealed class MachineMetricsWorker : BackgroundService
             await Task.Delay(_opts.CurrentValue.RefreshInterval, stoppingToken);
         }
 
-        _logger.LogInformation("MachineMetricsWorker stopped.");
+        _log.LogInformation("MachineMetricsWorker stopped.");
     }
 }

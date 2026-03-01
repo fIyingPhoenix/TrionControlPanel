@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trion.Core.Abstractions.Monitoring;
+using Trion.Core.Logging;
 
 namespace Trion.Core.Monitoring;
 
@@ -19,7 +20,7 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
 
     private readonly MetricsChannelAccessor              _accessor;
     private readonly IOptionsMonitor<ProcessMonitorOptions> _opts;
-    private readonly ILogger<ProcessMonitor>             _logger;
+    private readonly ILogger                             _log;
 
     // Runtime-tracked PIDs — replaces the config-level ExplicitPids array
     private readonly ConcurrentDictionary<int, byte> _trackedPids = new();
@@ -33,13 +34,13 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
     public event Action<int>? OnProcessExited;
 
     public ProcessMonitor(
-        MetricsChannelAccessor              accessor,
+        MetricsChannelAccessor                accessor,
         IOptionsMonitor<ProcessMonitorOptions> opts,
-        ILogger<ProcessMonitor>             logger)
+        TrionLogger                           trionLogger)
     {
         _accessor = accessor;
         _opts     = opts;
-        _logger   = logger;
+        _log      = trionLogger.CreateLogger(nameof(ProcessMonitor));
     }
 
     /// <summary>Adds a PID to the live tracking set.</summary>
@@ -57,11 +58,11 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
         var opts = _opts.CurrentValue;
 
         if (opts.ProcessNameFilter.Length == 0 && _trackedPids.IsEmpty)
-            _logger.LogWarning(
+            _log.LogWarning(
                 "ProcessMonitor: ProcessNameFilter is empty and no PIDs tracked — " +
                 "no processes will be monitored until Track() is called.");
 
-        _logger.LogInformation("ProcessMonitor started.");
+        _log.LogInformation("ProcessMonitor started.");
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -77,7 +78,7 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "ProcessMonitor poll failed — retrying in {Delay}s.", RetryDelay.TotalSeconds);
+                _log.LogError(ex, "ProcessMonitor poll failed — retrying in {Delay}s.", RetryDelay.TotalSeconds);
                 await Task.Delay(RetryDelay, stoppingToken);
                 continue;
             }
@@ -85,7 +86,7 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
             await Task.Delay(_opts.CurrentValue.RefreshInterval, stoppingToken);
         }
 
-        _logger.LogInformation("ProcessMonitor stopped.");
+        _log.LogInformation("ProcessMonitor stopped.");
     }
 
     private ProcessMetrics[] Poll(CancellationToken ct)
@@ -236,7 +237,7 @@ public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
         try { OnProcessExited?.Invoke(pid); }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "OnProcessExited handler threw for PID {Pid}.", pid);
+            _log.LogWarning(ex, "OnProcessExited handler threw for PID {Pid}.", pid);
         }
     }
 }
