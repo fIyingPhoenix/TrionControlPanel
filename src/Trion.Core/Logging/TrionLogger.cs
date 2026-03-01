@@ -1,147 +1,159 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.IO.Compression;
-using System.Runtime.CompilerServices;
 using System.Text;
-
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MsLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Trion.Core.Logging;
 
-public sealed class TrionLogger : IAsyncDisposable
+/// <summary>
+/// Custom ILoggerProvider that writes to dated, auto-compressed log files.
+/// Backed by a bounded BlockingCollection on a dedicated background thread.
+/// </summary>
+public sealed class TrionLogger : ILoggerProvider, IAsyncDisposable
 {
-    private readonly LoggerOptions _opts;
-    private readonly BlockingCollection<LogEntry> _queue = new();
-    private readonly CancellationTokenSource _cts = new();
-    private readonly Task _writerTask;
-    private readonly SemaphoreSlim _fileGate = new(1, 1);
+    private readonly IOptionsMonitor<LoggerOptions> _optsMon;
+    private readonly BlockingCollection<LogEntry>   _queue = new(boundedCapacity: 1000);
+    private readonly CancellationTokenSource        _cts   = new();
+    private readonly Thread                         _writerThread;
+    private readonly SemaphoreSlim                  _fileGate = new(1, 1);
 
+    private long          _droppedCount;
+    private DateTimeOffset _lastDropLogTime;
     private StreamWriter? _todayWriter;
-    private DateTime _todayDate;
+    private DateTime      _todayDate;
 
-    public TrionLogger(LoggerOptions? opts = null)
+    public TrionLogger(IOptionsMonitor<LoggerOptions> optsMon)
     {
-        _opts = opts ?? new LoggerOptions();
-        Directory.CreateDirectory(_opts.Folder);
+        _optsMon = optsMon;
+        Directory.CreateDirectory(ResolveFolder());
         OpenTodayFile();
-        _writerTask = Task.Run(WritePump);
+
+        _writerThread = new Thread(WritePump)
+        {
+            IsBackground = true,
+            Name         = "TrionLogWriter"
+        };
+        _writerThread.Start();
+
         _ = Task.Run(HouseKeepingLoop);
     }
 
-    /* ------------- public API ------------- */
-    public void Info(string message, string category = "",
-        [CallerMemberName] string member = "",
-        [CallerFilePath] string file = "",
-        [CallerLineNumber] int line = 0)
-        => Write(LogLevel.Info, message, category, member, file, line);
+    // ── ILoggerProvider ──────────────────────────────────────────────────────
 
-    public void Success(string message, string category = "",
-        [CallerMemberName] string member = "",
-        [CallerFilePath] string file = "",
-        [CallerLineNumber] int line = 0)
-        => Write(LogLevel.Success, message, category, member, file, line);
+    public ILogger CreateLogger(string categoryName)
+        => new TrionLoggerCategory(this, categoryName);
 
-    public void Warning(string message, string category = "",
-        [CallerMemberName] string member = "",
-        [CallerFilePath] string file = "",
-        [CallerLineNumber] int line = 0)
-        => Write(LogLevel.Warning, message, category, member, file, line);
+    // ── Internal enqueue called by TrionLoggerCategory ───────────────────────
 
-    public void Error(string message, string category = "",
-        [CallerMemberName] string member = "",
-        [CallerFilePath] string file = "",
-        [CallerLineNumber] int line = 0)
-        => Write(LogLevel.Error, message, category, member, file, line);
-
-    public void Error(Exception ex, string category = "",
-        [CallerMemberName] string member = "",
-        [CallerFilePath] string file = "",
-        [CallerLineNumber] int line = 0)
-        => Error(ex.ToString(), category, member, file, line);
-
-    /* ------------- private ------------- */
-    private void Write(LogLevel lvl, string msg, string cat,
-                       string member, string file, int line)
+    internal void Enqueue(MsLogLevel level, string category, string message, Exception? exception)
     {
-        bool allowed = lvl switch
+        var opts      = _optsMon.CurrentValue;
+        var trionLevel = MapLevel(level);
+
+        bool allowed = trionLevel switch
         {
-            LogLevel.Info => _opts.ShowInfo,
-            LogLevel.Success => _opts.ShowSuccess,
-            LogLevel.Warning => _opts.ShowWarning,
-            LogLevel.Error => _opts.ShowError,
-            _ => false
+            LogLevel.Info    => opts.ShowInfo,
+            LogLevel.Success => opts.ShowSuccess,
+            LogLevel.Warning => opts.ShowWarning,
+            LogLevel.Error   => opts.ShowError,
+            _                => false
         };
 
         if (!allowed) return;
 
+        var text = exception is null ? message : $"{message}\n{exception}";
         var entry = new LogEntry(
             Timestamp: DateTimeOffset.UtcNow,
-            Level: lvl,
-            Message: msg,
-            Category: cat,
-            Member: member,
-            FilePath: Path.GetFileName(file),
-            Line: line);
+            Level:     trionLevel,
+            Message:   text,
+            Category:  category,
+            Member:    string.Empty,
+            FilePath:  string.Empty,
+            Line:      0);
 
-        _queue.Add(entry);
+        if (!_queue.TryAdd(entry))
+            Interlocked.Increment(ref _droppedCount);
     }
 
-    private async Task WritePump()
+    // ── Background writer ────────────────────────────────────────────────────
+
+    private void WritePump()
     {
-        await Task.Run(() =>
+        try
         {
             foreach (var entry in _queue.GetConsumingEnumerable(_cts.Token))
             {
-                var line = Format(entry);
-                if (_opts.WriteToConsole) WriteConsole(line, entry.Level);
-                if (_opts.WriteToFile) WriteFileAsync(line).GetAwaiter().GetResult();
+                FlushDropCountIfNeeded();
+                WriteEntry(entry);
             }
-        }, _cts.Token);
-    }
-
-    private static string Format(LogEntry e) =>
-        $"{e.Timestamp:O}|{e.Level,-7}|{e.Category,-15}|{e.Member}({e.FilePath}:{e.Line})|{e.Message}";
-
-    private static void WriteConsole(string text, LogLevel lvl)
-    {
-        var color = lvl switch
-        {
-            LogLevel.Info => ConsoleColor.Cyan,
-            LogLevel.Success => ConsoleColor.Green,
-            LogLevel.Warning => ConsoleColor.Yellow,
-            LogLevel.Error => ConsoleColor.Red,
-            _ => ConsoleColor.Gray
-        };
-        lock (Console.Out)
-        {
-            var prev = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-            Console.ForegroundColor = prev;
         }
+        catch (OperationCanceledException) { /* graceful shutdown */ }
+        catch { /* best effort — writer thread must not crash the process */ }
     }
 
-    private async ValueTask WriteFileAsync(string line)
+    private void FlushDropCountIfNeeded()
     {
-        await _fileGate.WaitAsync();
+        var dropped = Interlocked.Exchange(ref _droppedCount, 0);
+        if (dropped == 0) return;
+        if ((DateTimeOffset.UtcNow - _lastDropLogTime).TotalMinutes < 1)
+        {
+            // Not time yet — put the count back
+            Interlocked.Add(ref _droppedCount, dropped);
+            return;
+        }
+
+        _lastDropLogTime = DateTimeOffset.UtcNow;
+        var warn = new LogEntry(DateTimeOffset.UtcNow, LogLevel.Warning,
+            $"Log queue overflow: {dropped} entries dropped.",
+            "TrionLogger", string.Empty, string.Empty, 0);
+        WriteEntry(warn);
+    }
+
+    private void WriteEntry(LogEntry entry)
+    {
+        var opts = _optsMon.CurrentValue;
+        var line = Format(entry);
+        if (opts.WriteToConsole) WriteConsole(line, entry.Level);
+        if (opts.WriteToFile)    WriteFileSafe(line);
+    }
+
+    private void WriteFileSafe(string line)
+    {
+        _fileGate.Wait();
         try
         {
-            var now = DateTime.UtcNow;
-            if (now.Date != _todayDate)
+            if (DateTime.UtcNow.Date != _todayDate)
             {
                 _todayWriter?.Dispose();
                 OpenTodayFile();
             }
-            await _todayWriter!.WriteLineAsync(line);
-            await _todayWriter.FlushAsync();
+            _todayWriter!.WriteLine(line);
+            _todayWriter.Flush();
         }
+        catch { /* best effort */ }
         finally { _fileGate.Release(); }
     }
 
     private void OpenTodayFile()
     {
-        _todayDate = DateTime.UtcNow.Date;
-        var path = Path.Combine(_opts.Folder, $"trion-{_todayDate:yyyyMMdd}.log");
+        _todayDate  = DateTime.UtcNow.Date;
+        var folder  = ResolveFolder();
+        Directory.CreateDirectory(folder);
+        var path    = Path.Combine(folder, $"trion-{_todayDate:yyyyMMdd}.log");
         _todayWriter = new StreamWriter(path, append: true, Encoding.UTF8) { AutoFlush = false };
     }
+
+    private string ResolveFolder()
+    {
+        var folder = _optsMon.CurrentValue.Folder;
+        return string.IsNullOrWhiteSpace(folder)
+            ? Path.Combine(AppContext.BaseDirectory, "Logs")
+            : folder;
+    }
+
+    // ── Housekeeping ──────────────────────────────────────────────────────────
 
     private async Task HouseKeepingLoop()
     {
@@ -152,48 +164,135 @@ public sealed class TrionLogger : IAsyncDisposable
                 await Task.Delay(TimeSpan.FromHours(6), _cts.Token);
                 HouseKeeping();
             }
+            catch (OperationCanceledException) { break; }
             catch { /* best effort */ }
         }
     }
 
     private void HouseKeeping()
     {
-        var now = DateTime.UtcNow;
-        var compressDate = now.AddDays(-_opts.DaysToCompress);
-        var deleteDate = now.AddDays(-_opts.DaysToKeep);
+        var opts       = _optsMon.CurrentValue;
+        var folder     = ResolveFolder();
+        var now        = DateTime.UtcNow;
+        var compress   = now.AddDays(-opts.DaysToCompress);
+        var deleteDate = now.AddDays(-opts.DaysToKeep);
 
-        foreach (var f in Directory.GetFiles(_opts.Folder, "trion-*.log"))
+        foreach (var f in Directory.GetFiles(folder, "trion-*.log"))
         {
             var fi = new FileInfo(f);
             if (fi.LastWriteTimeUtc < deleteDate)
             {
                 fi.Delete();
             }
-            else if (fi.LastWriteTimeUtc < compressDate &&
-                     !f.EndsWith(".gz", StringComparison.OrdinalIgnoreCase))
+            else if (fi.LastWriteTimeUtc < compress)
             {
                 var gz = f + ".gz";
-                if (!File.Exists(gz))
+                if (File.Exists(gz)) continue;
+                try
                 {
-                    using var original = fi.OpenRead();
-                    using var compressed = File.Create(gz);
-                    using var gzip = new GZipStream(compressed, CompressionMode.Compress);
-                    original.CopyTo(gzip);
+                    // Compress
+                    using (var src  = fi.OpenRead())
+                    using (var dst  = File.Create(gz))
+                    using (var gzip = new GZipStream(dst, CompressionLevel.Optimal))
+                        src.CopyTo(gzip);
+
+                    // Verify compressed file is readable before removing original
+                    using (var verify    = File.OpenRead(gz))
+                    using (var gzipRead  = new GZipStream(verify, CompressionMode.Decompress))
+                    {
+                        if (gzipRead.ReadByte() == -1)
+                            throw new InvalidDataException("Compressed file is empty.");
+                    }
+
+                    fi.Delete();
                 }
-                fi.Delete();
+                catch
+                {
+                    // Keep original — compressed file may be corrupt
+                    try { File.Delete(gz); } catch { /* ignore */ }
+                }
             }
         }
     }
 
+    // ── Formatting ────────────────────────────────────────────────────────────
+
+    private static string Format(LogEntry e)
+        => $"{e.Timestamp:O}|{e.Level,-7}|{e.Category,-20}|{e.Message}";
+
+    private static void WriteConsole(string text, LogLevel lvl)
+    {
+        var color = lvl switch
+        {
+            LogLevel.Info    => ConsoleColor.Cyan,
+            LogLevel.Success => ConsoleColor.Green,
+            LogLevel.Warning => ConsoleColor.Yellow,
+            LogLevel.Error   => ConsoleColor.Red,
+            _                => ConsoleColor.Gray
+        };
+        lock (Console.Out)
+        {
+            var prev = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ForegroundColor = prev;
+        }
+    }
+
+    private static LogLevel MapLevel(MsLogLevel level) => level switch
+    {
+        MsLogLevel.Trace       => LogLevel.Info,
+        MsLogLevel.Debug       => LogLevel.Info,
+        MsLogLevel.Information => LogLevel.Info,
+        MsLogLevel.Warning     => LogLevel.Warning,
+        MsLogLevel.Error       => LogLevel.Error,
+        MsLogLevel.Critical    => LogLevel.Error,
+        _                      => LogLevel.Info
+    };
+
+    // ── Disposal ──────────────────────────────────────────────────────────────
+
     public async ValueTask DisposeAsync()
     {
         _queue.CompleteAdding();
-        _cts.Cancel();
-        await _writerTask;
+        await _cts.CancelAsync();
+        _writerThread.Join(TimeSpan.FromSeconds(5));
         _cts.Dispose();
         _queue.Dispose();
-        await _fileGate.WaitAsync();
+        _fileGate.Wait();
         _todayWriter?.Dispose();
         _fileGate.Dispose();
+    }
+
+    void IDisposable.Dispose() => DisposeAsync().AsTask().GetAwaiter().GetResult();
+}
+
+// ── Per-category ILogger wrapper ─────────────────────────────────────────────
+
+internal sealed class TrionLoggerCategory : ILogger
+{
+    private readonly TrionLogger _parent;
+    private readonly string      _category;
+
+    internal TrionLoggerCategory(TrionLogger parent, string category)
+    {
+        _parent   = parent;
+        _category = category;
+    }
+
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+    public bool IsEnabled(MsLogLevel logLevel)
+        => logLevel is not MsLogLevel.None;
+
+    public void Log<TState>(
+        MsLogLevel logLevel,
+        EventId    eventId,
+        TState     state,
+        Exception? exception,
+        Func<TState, Exception?, string> formatter)
+    {
+        if (!IsEnabled(logLevel)) return;
+        _parent.Enqueue(logLevel, _category, formatter(state, exception), exception);
     }
 }

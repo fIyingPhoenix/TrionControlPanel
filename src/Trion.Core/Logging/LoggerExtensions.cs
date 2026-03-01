@@ -12,7 +12,7 @@ public static class LoggerExtensions
         if (configure != null) services.Configure(configure);
         return services.AddSingleton(sp =>
         {
-            var opts = sp.GetRequiredService<IOptions<LoggerOptions>>().Value;
+            var opts = sp.GetRequiredService<IOptionsMonitor<LoggerOptions>>();
             return new TrionLogger(opts);
         });
     }

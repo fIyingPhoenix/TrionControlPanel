@@ -8,13 +8,14 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
     <PackageReference Include="MudBlazor" Version="8.13.0" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+    <ProjectReference Include="..\Trion.Platform\Trion.Platform.csproj" />
     <ProjectReference Include="..\Trion.UI\Trion.UI.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,135 @@
+@using System.Threading.Channels
+@using Trion.Core.Abstractions.Services
+@using Trion.Core.Services.Emulator
+
+@inject IFeatureGate FeatureGate
+@inject EmulatorInstaller Installer
+@inject ISnackbar Snackbar
+
+@if (!FeatureGate.IsEnabled(TrionFeature.EmulatorInstaller))
+{
+    <UpgradePrompt FeatureName="Emulator Installer" />
+    return;
+}
+
+<MudGrid>
+    <MudItem xs="12" md="5">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Install Emulator</MudText>
+
+            <MudSelect @bind-Value="_emulatorType"
+                       Label="Emulator"
+                       Variant="Variant.Outlined"
+                       Class="mb-3">
+                <MudSelectItem Value="EmulatorType.TrinityCore">TrinityCore</MudSelectItem>
+                <MudSelectItem Value="EmulatorType.AzerothCore">AzerothCore</MudSelectItem>
+                <MudSelectItem Value="EmulatorType.CMaNGOS">CMaNGOS</MudSelectItem>
+            </MudSelect>
+
+            <MudTextField @bind-Value="_wowClientPath"
+                          Label="WoW Client Directory"
+                          Variant="Variant.Outlined"
+                          Placeholder="/opt/wow-client"
+                          HelperText="Absolute path to the WoW game client directory"
+                          Class="mb-3" />
+
+            <MudTextField @bind-Value="_installDir"
+                          Label="Install Directory"
+                          Variant="Variant.Outlined"
+                          Placeholder="/opt/trinitycore"
+                          HelperText="Where the emulator will be cloned"
+                          Class="mb-3" />
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       FullWidth="true"
+                       StartIcon="@Icons.Material.Filled.Download"
+                       OnClick="StartInstallAsync"
+                       Disabled="@(_installing || string.IsNullOrWhiteSpace(_wowClientPath) || string.IsNullOrWhiteSpace(_installDir))">
+                @if (_installing)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                }
+                Install
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" md="7">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Progress</MudText>
+
+            @if (_events.Count > 0)
+            {
+                var last = _events[^1];
+
+                <MudProgressLinear Value="@(last.PercentComplete < 0 ? 0 : last.PercentComplete)"
+                                   Color="@(last.IsError ? Color.Error : Color.Primary)"
+                                   Rounded="true"
+                                   Class="mb-3" />
+
+                <MudText Typo="Typo.subtitle2">@last.StepName</MudText>
+            }
+            else
+            {
+                <MudProgressLinear Value="0" Rounded="true" Class="mb-3" />
+            }
+
+            <MudPaper Elevation="0" Class="pa-2" Style="background:#1a1a1a; max-height:280px; overflow-y:auto; font-family:monospace; font-size:0.8rem;">
+                @foreach (var ev in _events)
+                {
+                    <div style="color:@(ev.IsError ? "#ff6b6b" : "#aaffaa")">
+                        [@ev.PercentComplete%] @ev.StepName @(ev.Message is not null ? $"— {ev.Message}" : string.Empty)
+                    </div>
+                }
+            </MudPaper>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private EmulatorType _emulatorType = EmulatorType.TrinityCore;
+    private string       _wowClientPath = string.Empty;
+    private string       _installDir    = string.Empty;
+    private bool         _installing;
+
+    private readonly List<InstallProgressEvent> _events = [];
+
+    private async Task StartInstallAsync()
+    {
+        _events.Clear();
+        _installing = true;
+
+        var channel = Channel.CreateUnbounded<InstallProgressEvent>(
+            new UnboundedChannelOptions { SingleWriter = true });
+
+        // Read events in the background and update UI
+        var uiTask = Task.Run(async () =>
+        {
+            await foreach (var ev in channel.Reader.ReadAllAsync())
+            {
+                _events.Add(ev);
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        try
+        {
+            await Installer.InstallAsync(
+                _emulatorType, _wowClientPath, _installDir, channel.Writer);
+
+            await uiTask;
+            Snackbar.Add("Installation complete!", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Installation failed: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            channel.Writer.TryComplete();
+            _installing = false;
+            StateHasChanged();
+        }
+    }
+}

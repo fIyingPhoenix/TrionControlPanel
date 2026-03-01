@@ -1,0 +1,128 @@
+@page "/login"
+@layout BlankLayout
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Trion.Core.Auth
+@using Trion.Core.Abstractions.Auth
+@using Trion.Core.Abstractions.Services
+
+@inject EmulatorAuthService       AuthService
+@inject TokenService              TokenSvc
+@inject NavigationManager         Nav
+@inject ProtectedSessionStorage   SessionStorage
+
+<PageTitle>Sign In – Trion</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex justify-center align-center" Style="min-height:100vh;">
+    <MudPaper Elevation="4" Class="pa-8" Style="width:100%;max-width:420px;">
+
+        <div class="d-flex justify-center mb-6">
+            <MudText Typo="Typo.h4" Align="Align.Center">
+                <b>Trion</b>
+            </MudText>
+        </div>
+
+        <MudText Typo="Typo.subtitle1" Align="Align.Center" Class="mb-6" Color="Color.Secondary">
+            Sign in with your GM account
+        </MudText>
+
+        @if (!string.IsNullOrEmpty(_error))
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4" Dense="true">@_error</MudAlert>
+        }
+
+        <MudTextField @bind-Value="_username"
+                      Label="Username"
+                      Variant="Variant.Outlined"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Person"
+                      Immediate="false"
+                      Class="mb-4" />
+
+        <MudTextField @bind-Value="_password"
+                      Label="Password"
+                      Variant="Variant.Outlined"
+                      InputType="@_passwordInputType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@_passwordIcon"
+                      OnAdornmentClick="TogglePasswordVisibility"
+                      Immediate="false"
+                      Class="mb-4" />
+
+        <MudSelect @bind-Value="_emulatorType"
+                   Label="Emulator"
+                   Variant="Variant.Outlined"
+                   Class="mb-6">
+            <MudSelectItem Value="EmulatorType.TrinityCore">TrinityCore</MudSelectItem>
+            <MudSelectItem Value="EmulatorType.AzerothCore">AzerothCore</MudSelectItem>
+            <MudSelectItem Value="EmulatorType.CMaNGOS">CMaNGOS</MudSelectItem>
+        </MudSelect>
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   FullWidth="true"
+                   Size="Size.Large"
+                   OnClick="HandleLoginAsync"
+                   Disabled="_loading">
+            @if (_loading)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+            }
+            Sign In
+        </MudButton>
+
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string       _username     = string.Empty;
+    private string       _password     = string.Empty;
+    private EmulatorType _emulatorType = EmulatorType.TrinityCore;
+    private string?      _error        = null;
+    private bool         _loading      = false;
+
+    private bool      _showPassword   = false;
+    private InputType _passwordInputType => _showPassword ? InputType.Text : InputType.Password;
+    private string    _passwordIcon      => _showPassword
+        ? Icons.Material.Filled.VisibilityOff
+        : Icons.Material.Filled.Visibility;
+
+    private void TogglePasswordVisibility() => _showPassword = !_showPassword;
+
+    private async Task HandleLoginAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password))
+        {
+            _error = "Username and password are required.";
+            return;
+        }
+
+        _error   = null;
+        _loading = true;
+
+        try
+        {
+            var authResult = await AuthService.AuthenticateAsync(
+                _username, _password, _emulatorType);
+
+            if (!authResult.Success)
+            {
+                _error = authResult.FailureReason ?? "Login failed.";
+                return;
+            }
+
+            var user   = new AuthenticatedUser(authResult.Username!, authResult.GmLevel, "browser");
+            var tokens = await TokenSvc.IssueTokensAsync(user);
+
+            await SessionStorage.SetAsync("trion_access_token", tokens.AccessToken);
+            Nav.NavigateTo("/");
+        }
+        catch (Exception)
+        {
+            _error = "An unexpected error occurred. Please try again.";
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

@@ -1,14 +1,19 @@
-﻿namespace Trion.Core.Monitoring;
+namespace Trion.Core.Monitoring;
 
 public sealed class ProcessMonitorOptions
 {
+    /// <summary>How often the monitor polls for new metrics.</summary>
     public TimeSpan RefreshInterval { get; set; } = TimeSpan.FromSeconds(5);
+
+    /// <summary>
+    /// Only track processes whose name contains one of these strings (case-insensitive).
+    /// If empty, no automatic discovery occurs — use <see cref="ProcessMonitor.Track"/> instead.
+    /// </summary>
+    public string[] ProcessNameFilter { get; set; } = [];
+
+    /// <summary>Whether to collect per-process disk I/O (reads /proc/{pid}/io on Linux).</summary>
     public bool EnableDisk { get; set; } = true;
-    public bool EnableNetwork { get; set; } = true;
 
-    //discover by name (empty = all) 
-    public string[] ProcessNameFilter { get; set; } = Array.Empty<string>();
-
-    // track by PID (set in code) 
-    public int[] ExplicitPids { get; set; } = Array.Empty<int>();
+    // ExplicitPids removed — use ProcessMonitor.Track(pid) / Untrack(pid) at runtime.
+    // Config-level PIDs were unreliable because PIDs are ephemeral and not stable across restarts.
 }

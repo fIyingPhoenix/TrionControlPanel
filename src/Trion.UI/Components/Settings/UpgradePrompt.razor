@@ -1,0 +1,12 @@
+@* Shown when a TrionFeature is disabled (requires a higher licence tier). *@
+<MudAlert Severity="Severity.Warning" Icon="@Icons.Material.Filled.Lock" Class="mt-2">
+    <MudText><b>This feature requires a Supporter licence.</b></MudText>
+    <MudText Typo="Typo.body2" Class="mt-1">
+        Upgrade your licence at the Phoenix Network portal to unlock
+        <strong>@FeatureName</strong>.
+    </MudText>
+</MudAlert>
+
+@code {
+    [Parameter, EditorRequired] public string FeatureName { get; set; } = string.Empty;
+}

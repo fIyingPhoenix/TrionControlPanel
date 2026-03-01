@@ -1,0 +1,29 @@
+[Unit]
+Description=Trion Agent (privileged IPC process)
+Documentation=https://github.com/fIyingPhoenix/TrionControlPanel
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/trion/Trion.Agent
+Restart=on-failure
+RestartSec=5
+
+# Runtime socket directory — creates /run/trion/ with 0700 permissions
+RuntimeDirectory=trion
+RuntimeDirectoryMode=0750
+
+# Read the HMAC shared key from a secrets file (mode 0600 owned by root)
+EnvironmentFile=-/etc/trion/agent-secrets
+
+# Hardening
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+NoNewPrivileges=yes
+RestrictNamespaces=yes
+# Allow tracing child processes and sending signals
+CapabilityBoundingSet=CAP_SYS_PTRACE CAP_KILL
+
+[Install]
+WantedBy=multi-user.target

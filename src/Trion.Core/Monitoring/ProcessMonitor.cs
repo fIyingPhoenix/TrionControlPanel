@@ -1,123 +1,189 @@
-﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-#if WINDOWS
-using System.Diagnostics.PerformanceCounter;
-#endif
+using Trion.Core.Abstractions.Monitoring;
 
 namespace Trion.Core.Monitoring;
 
-public sealed class ProcessMonitor : BackgroundService
+/// <summary>
+/// Background service that tracks a set of processes and writes
+/// <see cref="ProcessMetrics"/> arrays into <see cref="MetricsChannelAccessor"/>.
+/// PIDs are tracked at runtime via <see cref="Track"/>/<see cref="Untrack"/>.
+/// No event Action callbacks — channel-only writes.
+/// </summary>
+public sealed class ProcessMonitor : BackgroundService, IProcessMonitor
 {
-    private readonly ProcessMonitorOptions _opts;
-    private readonly IMachineMetricsProvider _machine;
+    private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(5);
+
+    private readonly MetricsChannelAccessor              _accessor;
+    private readonly IOptionsMonitor<ProcessMonitorOptions> _opts;
+    private readonly ILogger<ProcessMonitor>             _logger;
+
+    // Runtime-tracked PIDs — replaces the config-level ExplicitPids array
+    private readonly ConcurrentDictionary<int, byte> _trackedPids = new();
+
+    // Previous snapshot per PID
     private readonly ConcurrentDictionary<int, ProcessMetricsSnapshot> _previous = new();
 
-    public event Action<IReadOnlyList<ProcessMetrics>>? OnSnapshot;
-    public event Action<MachineMetrics>? OnMachineSnapshot;
+    /// <summary>
+    /// Raised when a tracked process exits. Low-frequency event — OK to use here.
+    /// </summary>
+    public event Action<int>? OnProcessExited;
 
-    public ProcessMonitor(IOptions<ProcessMonitorOptions> opts,
-                          IMachineMetricsProvider? machine = null)
+    public ProcessMonitor(
+        MetricsChannelAccessor              accessor,
+        IOptionsMonitor<ProcessMonitorOptions> opts,
+        ILogger<ProcessMonitor>             logger)
     {
-        _opts = opts.Value;
-        _machine = machine ?? new MachineMetricsProvider();
+        _accessor = accessor;
+        _opts     = opts;
+        _logger   = logger;
     }
 
-    /* ------------ public API ------------ */
-    public void TrackProcess(int pid) => SeedPid(pid);
+    /// <summary>Adds a PID to the live tracking set.</summary>
+    public void Track(int pid)   => _trackedPids.TryAdd(pid, 0);
 
-    /* ------------ background loop ------------ */
+    /// <summary>Removes a PID from the live tracking set.</summary>
+    public void Untrack(int pid)
+    {
+        _trackedPids.TryRemove(pid, out _);
+        _previous.TryRemove(pid, out _);
+    }
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        var opts = _opts.CurrentValue;
+
+        if (opts.ProcessNameFilter.Length == 0 && _trackedPids.IsEmpty)
+            _logger.LogWarning(
+                "ProcessMonitor: ProcessNameFilter is empty and no PIDs tracked — " +
+                "no processes will be monitored until Track() is called.");
+
+        _logger.LogInformation("ProcessMonitor started.");
+
         while (!stoppingToken.IsCancellationRequested)
-        {
-            var sw = Stopwatch.StartNew();
-            var procs = Poll();
-            var machine = _machine.GetSnapshot();
-            OnSnapshot?.Invoke(procs);
-            OnMachineSnapshot?.Invoke(machine);
-            var delay = _opts.RefreshInterval - sw.Elapsed;
-            if (delay > TimeSpan.Zero)
-                await Task.Delay(delay, stoppingToken);
-        }
-    }
-
-    /* ------------ single poll ------------ */
-    private IReadOnlyList<ProcessMetrics> Poll()
-    {
-        var now = DateTimeOffset.UtcNow;
-
-        /* 1. explicit PIDs (TrackProcess) */
-        foreach (var pid in _opts.ExplicitPids)
-            SeedPid(pid);
-
-        /* 2. name-filter discovery */
-        var alive = DiscoverAliveProcesses(now);
-
-        /* 3. remove dead */
-        foreach (var dead in _previous.Keys.Except(alive.Select(p => p.Id)
-                                                        .Union(_opts.ExplicitPids)))
-            _previous.TryRemove(dead, out _);
-
-        /* 4. build metrics */
-        var list = new List<ProcessMetrics>(alive.Count + _opts.ExplicitPids.Length);
-        foreach (var p in alive.Union(_opts.ExplicitPids
-                                        .Select(pid => SafeGetProcess(pid))
-                                        .Where(p => p != null))!)
         {
             try
             {
-                if (_previous.TryGetValue(p!.Id, out var prev))
+                var metrics = Poll(stoppingToken);
+                _accessor.ProcessWriter.TryWrite(metrics);
+                _accessor.SetLastProcess(metrics);
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+            {
+                break;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "ProcessMonitor poll failed — retrying in {Delay}s.", RetryDelay.TotalSeconds);
+                await Task.Delay(RetryDelay, stoppingToken);
+                continue;
+            }
+
+            await Task.Delay(_opts.CurrentValue.RefreshInterval, stoppingToken);
+        }
+
+        _logger.LogInformation("ProcessMonitor stopped.");
+    }
+
+    private ProcessMetrics[] Poll(CancellationToken ct)
+    {
+        var now  = DateTimeOffset.UtcNow;
+        var opts = _opts.CurrentValue;
+
+        // Discover processes matching name filter
+        var discovered = DiscoverByFilter(opts.ProcessNameFilter);
+
+        // Merge with runtime-tracked PIDs
+        foreach (var pid in _trackedPids.Keys)
+        {
+            var p = SafeGetProcess(pid);
+            if (p is not null && discovered.All(x => x.Id != pid))
+                discovered.Add(p);
+        }
+
+        var alivePids = new HashSet<int>(discovered.Select(p => p.Id));
+
+        // Remove dead entries and raise exit events
+        foreach (var pid in _previous.Keys.ToArray())
+        {
+            if (!alivePids.Contains(pid))
+            {
+                _previous.TryRemove(pid, out _);
+                _trackedPids.TryRemove(pid, out _);
+                RaiseExited(pid);
+            }
+        }
+
+        var results = new List<ProcessMetrics>(discovered.Count);
+
+        foreach (var p in discovered)
+        {
+            if (ct.IsCancellationRequested) break;
+            try
+            {
+                if (_previous.TryGetValue(p.Id, out var prev))
                 {
-                    var deltaMs = (now - prev.Time).TotalMilliseconds;
-                    var cpu = deltaMs > 0
-                        ? (p.TotalProcessorTime - TimeSpan.FromMilliseconds(prev.CpuPercent)).TotalMilliseconds
-                          / Environment.ProcessorCount / deltaMs * 100d
-                        : 0d;
-                    if (cpu < 0) cpu = 0; if (cpu > 100) cpu = 100;
+                    // PID reuse guard — if start time changed, treat as new process
+                    DateTime startTime;
+                    try { startTime = p.StartTime; }
+                    catch { startTime = prev.StartTime; }
 
-                    var ram = p.WorkingSet64;
-                    var (read, write) = _opts.EnableDisk ? GetDiskBytes(p.Id) : (prev.DiskReadBytes, prev.DiskWriteBytes);
-                    var (recv, sent) = _opts.EnableNetwork ? GetNetworkBytes(p.Id) : (prev.NetRecvBytes, prev.NetSentBytes);
+                    if (startTime != prev.StartTime)
+                    {
+                        _previous.TryRemove(p.Id, out _);
+                        SeedProcess(p);
+                        continue;
+                    }
 
-                    list.Add(new ProcessMetrics(p.Id, p.ProcessName, cpu, ram / 1024 / 1024,
-                                                read, write, recv, sent, now));
+                    var deltaWall = (now - prev.Time).TotalMilliseconds;
+                    var deltaCpu  = p.TotalProcessorTime.TotalMilliseconds - prev.PrevCpuMs;
 
-                    prev.CpuPercent = p.TotalProcessorTime.TotalMilliseconds;
-                    prev.RamBytes = ram;
-                    prev.DiskReadBytes = read;
-                    prev.DiskWriteBytes = write;
-                    prev.NetRecvBytes = recv;
-                    prev.NetSentBytes = sent;
-                    prev.Time = now;
+                    var cpu = deltaWall > 0
+                        ? Math.Clamp(deltaCpu / Environment.ProcessorCount / deltaWall * 100.0, 0.0, 100.0)
+                        : 0.0;
+
+                    var (diskRead, diskWrite) = opts.EnableDisk
+                        ? ReadProcIo(p.Id)
+                        : (prev.DiskReadBytes, prev.DiskWriteBytes);
+
+                    results.Add(new ProcessMetrics(
+                        Pid:            p.Id,
+                        Name:           p.ProcessName,
+                        CpuPercent:     Math.Round(cpu, 1),
+                        RamMb:          p.WorkingSet64 / 1024 / 1024,
+                        DiskReadBytes:  diskRead,
+                        DiskWriteBytes: diskWrite,
+                        NetRecvBytes:   prev.NetRecvBytes,
+                        NetSentBytes:   prev.NetSentBytes,
+                        Timestamp:      now));
+
+                    prev.PrevCpuMs      = p.TotalProcessorTime.TotalMilliseconds;
+                    prev.RamBytes       = p.WorkingSet64;
+                    prev.DiskReadBytes  = diskRead;
+                    prev.DiskWriteBytes = diskWrite;
+                    prev.Time           = now;
                 }
                 else
                 {
                     SeedProcess(p);
                 }
             }
-            catch { /* gone */ }
+            catch { /* process exited between discovery and metrics read */ }
         }
-        return list;
+
+        return [.. results];
     }
 
-    /* ------------ helpers ------------ */
-    private IReadOnlyList<Process> DiscoverAliveProcesses(DateTimeOffset now)
+    private static List<Process> DiscoverByFilter(string[] nameFilter)
     {
-        if (!_opts.ProcessNameFilter.Any())
-            return Process.GetProcesses();
+        if (nameFilter.Length == 0) return [];
 
         return Process.GetProcesses()
-            .Where(pr => _opts.ProcessNameFilter.Any(f =>
-                pr.ProcessName.Contains(f, StringComparison.OrdinalIgnoreCase)))
+            .Where(p => nameFilter.Any(f =>
+                p.ProcessName.Contains(f, StringComparison.OrdinalIgnoreCase)))
             .ToList();
     }
 
@@ -127,96 +193,50 @@ public sealed class ProcessMonitor : BackgroundService
         catch { return null; }
     }
 
-    private void SeedPid(int pid)
-    {
-        if (_previous.ContainsKey(pid)) return;
-        var p = SafeGetProcess(pid);
-        if (p != null) SeedProcess(p);
-    }
-
     private void SeedProcess(Process p)
     {
+        DateTime startTime;
+        try { startTime = p.StartTime; }
+        catch { startTime = DateTime.MinValue; }
+
         _previous[p.Id] = new ProcessMetricsSnapshot
         {
-            Pid = p.Id,
-            Name = p.ProcessName,
-            CpuPercent = p.TotalProcessorTime.TotalMilliseconds,
-            RamBytes = p.WorkingSet64,
-            DiskReadBytes = 0,
-            DiskWriteBytes = 0,
-            NetRecvBytes = 0,
-            NetSentBytes = 0,
-            Time = DateTimeOffset.UtcNow
+            Pid       = p.Id,
+            Name      = p.ProcessName,
+            PrevCpuMs = p.TotalProcessorTime.TotalMilliseconds,
+            StartTime = startTime,
+            RamBytes  = p.WorkingSet64,
+            Time      = DateTimeOffset.UtcNow
         };
     }
 
-    private static (long read, long write) GetDiskBytes(int pid)
+    private static (long Read, long Write) ReadProcIo(int pid)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            return WindowsIO.GetDiskBytes(pid);
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            return LinuxIO.GetDiskBytes(pid);
-        return (0, 0);
-    }
-
-    private static (long recv, long sent) GetNetworkBytes(int pid)
-    {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            return WindowsIO.GetNetworkBytes(pid);
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            return LinuxIO.GetNetworkBytes(pid);
-        return (0, 0);
-    }
-}
-
-/* ------------- platform IO stubs ------------- */
-file static class WindowsIO
-{
-    public static (long read, long write) GetDiskBytes(int pid)
-    {
-#if WINDOWS
-        var name = GetInstanceName(pid);
-        using var r = new PerformanceCounter("Process", "IO Read Bytes/sec", name);
-        using var w = new PerformanceCounter("Process", "IO Write Bytes/sec", name);
-        return ((long)r.RawValue, (long)w.RawValue);
-#else
-        return (0, 0);
-#endif
-    }
-
-    public static (long recv, long sent) GetNetworkBytes(int pid) => (0, 0); // stub
-
-#if WINDOWS
-    private static string GetInstanceName(int pid)
-    {
-        var cat = new PerformanceCounterCategory("Process");
-        foreach (var inst in cat.GetInstanceNames())
-        {
-            using var cnt = new PerformanceCounter("Process", "ID Process", inst, true);
-            if ((int)cnt.RawValue == pid) return inst;
-        }
-        return string.Empty;
-    }
-#endif
-}
-
-file static class LinuxIO
-{
-    public static (long read, long write) GetDiskBytes(int pid)
-    {
+        // Linux: /proc/{pid}/io  (no-op on Windows — returns zeros)
         try
         {
-            var io = File.ReadAllText($"/proc/{pid}/io");
+            var path = $"/proc/{pid}/io";
+            if (!File.Exists(path)) return (0, 0);
+
             long read = 0, write = 0;
-            foreach (var line in io.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+            foreach (var line in File.ReadLines(path))
             {
-                if (line.StartsWith("read_bytes:")) read = long.Parse(line.Split()[1]);
-                if (line.StartsWith("write_bytes:")) write = long.Parse(line.Split()[1]);
+                if (line.StartsWith("read_bytes:", StringComparison.Ordinal))
+                    read = long.Parse(line.AsSpan("read_bytes:".Length).Trim());
+                else if (line.StartsWith("write_bytes:", StringComparison.Ordinal))
+                    write = long.Parse(line.AsSpan("write_bytes:".Length).Trim());
             }
             return (read, write);
         }
         catch { return (0, 0); }
     }
 
-    public static (long recv, long sent) GetNetworkBytes(int pid) => (0, 0); // stub
+    private void RaiseExited(int pid)
+    {
+        try { OnProcessExited?.Invoke(pid); }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "OnProcessExited handler threw for PID {Pid}.", pid);
+        }
+    }
 }

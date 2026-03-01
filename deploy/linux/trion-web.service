@@ -1,0 +1,29 @@
+[Unit]
+Description=Trion Control Panel Web Server
+Documentation=https://github.com/fIyingPhoenix/TrionControlPanel
+After=network.target trion-agent.service
+Wants=trion-agent.service
+
+[Service]
+Type=simple
+User=trion
+Group=trion
+WorkingDirectory=/opt/trion
+
+ExecStart=/opt/trion/Trion.Web
+# Read ASPNETCORE_ENVIRONMENT, connection strings, etc.
+EnvironmentFile=-/etc/trion/environment
+
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+NoNewPrivileges=yes
+# Allow access to /run/trion/agent.sock
+ReadWritePaths=/run/trion
+
+[Install]
+WantedBy=multi-user.target

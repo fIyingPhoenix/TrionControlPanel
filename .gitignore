@@ -96,3 +96,9 @@ settings.db
 *.zip
 *.7z
 *.rar
+architecture.md
+issues_with_milestones.csv
+milestones_with_description.csv
+newplan.md
+plan.md
+.claude/settings.local.json

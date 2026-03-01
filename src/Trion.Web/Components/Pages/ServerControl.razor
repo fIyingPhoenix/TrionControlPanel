@@ -1,0 +1,119 @@
+@page "/server-control"
+@using Trion.Core.Abstractions.Services
+@implements IDisposable
+
+@inject IEmulatorOrchestrator Orchestrator
+
+<PageTitle>Server Control – Trion</PageTitle>
+
+<MudText Typo="Typo.h5" Class="mb-4">Server Control</MudText>
+
+@if (_statuses.Count == 0)
+{
+    <MudAlert Severity="Severity.Info">
+        No server profiles are currently registered. Use the API or configure profiles in
+        <code>appsettings.json</code> to add them.
+    </MudAlert>
+}
+else
+{
+    <MudTable Items="_statuses" Dense="true" Hover="true" Striped="true">
+        <HeaderContent>
+            <MudTh>Profile</MudTh>
+            <MudTh>State</MudTh>
+            <MudTh>PID</MudTh>
+            <MudTh>Started</MudTh>
+            <MudTh>Restarts</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Profile">@context.ProfileId</MudTd>
+            <MudTd DataLabel="State">
+                <MudChip T="string" Color="@StateColor(context.State)" Size="Size.Small">
+                    @context.State
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="PID">@(context.Pid?.ToString() ?? "—")</MudTd>
+            <MudTd DataLabel="Started">@(context.StartedAt?.ToString("HH:mm:ss") ?? "—")</MudTd>
+            <MudTd DataLabel="Restarts">@context.RestartCount</MudTd>
+            <MudTd DataLabel="Actions">
+                <MudIconButton Icon="@Icons.Material.Filled.Stop"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               Title="Stop"
+                               Disabled="@(context.State is not ProcessState.Running and not ProcessState.Starting)"
+                               OnClick="@(() => StopProfileAsync(context.ProfileId))" />
+                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                               Color="Color.Warning"
+                               Size="Size.Small"
+                               Title="Restart"
+                               OnClick="@(() => RestartProfileAsync(context.ProfileId))" />
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">@_error</MudAlert>
+}
+
+@code {
+    private List<OrchestratorStatus> _statuses = [];
+    private string?                  _error;
+    private System.Threading.Timer?  _refreshTimer;
+
+    protected override void OnInitialized()
+    {
+        RefreshStatuses();
+        _refreshTimer = new System.Threading.Timer(
+            _ => InvokeAsync(() => { RefreshStatuses(); StateHasChanged(); }),
+            null,
+            TimeSpan.FromSeconds(5),
+            TimeSpan.FromSeconds(5));
+    }
+
+    private void RefreshStatuses() =>
+        _statuses = Orchestrator.GetAllStatuses().ToList();
+
+    private async Task StopProfileAsync(string id)
+    {
+        _error = null;
+        try
+        {
+            await Orchestrator.StopAsync(id);
+            RefreshStatuses();
+        }
+        catch (Exception ex)
+        {
+            _error = $"Stop failed: {ex.Message}";
+        }
+    }
+
+    private async Task RestartProfileAsync(string id)
+    {
+        _error = null;
+        try
+        {
+            await Orchestrator.RestartAsync(id);
+            RefreshStatuses();
+        }
+        catch (Exception ex)
+        {
+            _error = $"Restart failed: {ex.Message}";
+        }
+    }
+
+    private static Color StateColor(ProcessState state) => state switch
+    {
+        ProcessState.Running    => Color.Success,
+        ProcessState.Crashed    => Color.Error,
+        ProcessState.Stopped    => Color.Default,
+        ProcessState.Starting   => Color.Info,
+        ProcessState.Stopping   => Color.Warning,
+        ProcessState.Restarting => Color.Warning,
+        _                       => Color.Default
+    };
+
+    public void Dispose() => _refreshTimer?.Dispose();
+}

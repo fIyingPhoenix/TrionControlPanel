@@ -1,0 +1,104 @@
+@page "/ddns-settings"
+@using Trion.Core.Abstractions.Services
+@using Trion.Core.Services.Ddns
+
+@inject IDdnsUpdater   DdnsUpdater
+@inject ISnackbar      Snackbar
+
+<PageTitle>DDNS Settings – Trion</PageTitle>
+
+<MudText Typo="Typo.h5" Class="mb-4">Dynamic DNS Settings</MudText>
+
+<MudGrid>
+    <MudItem xs="12" md="6">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Last Update Result</MudText>
+
+            @if (_lastResult is null)
+            {
+                <MudText Color="Color.Secondary">No update has been performed yet.</MudText>
+            }
+            else
+            {
+                <MudList T="string" Dense="true">
+                    <MudListItem Icon="@(_lastResult.Success ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Error)"
+                                 IconColor="@(_lastResult.Success ? Color.Success : Color.Error)">
+                        Status: @(_lastResult.Success ? "Success" : "Failed")
+                    </MudListItem>
+                    @if (_lastResult.NewIp is not null)
+                    {
+                        <MudListItem Icon="@Icons.Material.Filled.Dns">
+                            IP: @_lastResult.NewIp
+                        </MudListItem>
+                    }
+                    <MudListItem Icon="@Icons.Material.Filled.Schedule">
+                        Time: @_lastResult.Timestamp.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")
+                    </MudListItem>
+                    @if (!string.IsNullOrEmpty(_lastResult.ErrorMessage))
+                    {
+                        <MudListItem Icon="@Icons.Material.Filled.Warning" IconColor="Color.Warning">
+                            Error: @_lastResult.ErrorMessage
+                        </MudListItem>
+                    }
+                </MudList>
+            }
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Refresh"
+                       OnClick="ForceUpdateAsync"
+                       Disabled="_updating"
+                       Class="mt-3">
+                @if (_updating)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                }
+                Update Now
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" md="6">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Configuration</MudText>
+            <MudText Color="Color.Secondary">
+                DDNS settings are configured via <code>appsettings.json</code> under the
+                <code>"Ddns"</code> section or via environment variables.
+                Supported providers: <strong>No-IP</strong>, <strong>DuckDNS</strong>,
+                <strong>Cloudflare</strong>.
+            </MudText>
+            <MudText Class="mt-2" Color="Color.Secondary">
+                The polling worker updates automatically at the configured interval.
+            </MudText>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private DdnsUpdateResult? _lastResult;
+    private bool              _updating;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _lastResult = await DdnsUpdater.GetLastResultAsync();
+    }
+
+    private async Task ForceUpdateAsync()
+    {
+        _updating = true;
+        try
+        {
+            await DdnsUpdater.UpdateNowAsync();
+            _lastResult = await DdnsUpdater.GetLastResultAsync();
+            Snackbar.Add("DDNS update triggered.", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Update failed: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _updating = false;
+        }
+    }
+}
