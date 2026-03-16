@@ -1,0 +1,20 @@
+<Application x:Class="Trion.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Active theme (swapped at runtime by ThemeService) -->
+                <ResourceDictionary Source="pack://application:,,,/Resources/Themes/TrionBlueDarkTheme.xaml" />
+                <!-- Static styles -->
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/BaseStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/TextStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/CardStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/NavigationStyles.xaml" />
+                <!-- Icons -->
+                <ResourceDictionary Source="pack://application:,,,/Resources/Icons/AppIcons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

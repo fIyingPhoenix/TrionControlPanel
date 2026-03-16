@@ -4,14 +4,22 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Trion.API</RootNamespace>
   </PropertyGroup>
 
+  <!-- Remove scaffold template files -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
+    <Compile Remove="WeatherForecast.cs" />
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+    <PackageReference Include="BCrypt.Net-Next"                              Version="4.0.3"  />
+    <PackageReference Include="Dapper"                                       Version="2.1.66" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"                 Version="9.0.9"  />
+    <PackageReference Include="MySqlConnector"                               Version="2.4.0"  />
+    <PackageReference Include="Swashbuckle.AspNetCore"                       Version="7.3.2"  />
   </ItemGroup>
 
 </Project>

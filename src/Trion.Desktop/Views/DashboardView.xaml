@@ -1,0 +1,436 @@
+﻿<UserControl x:Class="Trion.Desktop.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Trion.Desktop.Controls"
+             xmlns:local="clr-namespace:Trion.Desktop.Models"
+             mc:Ignorable="d"
+             Background="{DynamicResource Background.Primary}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- ══ MySQL setup banner ═══════════════════════════════════════════════
+             Visible only while IMySqlSetupService.IsRunning = true.
+             Download progress is shown via the blinking title-bar icon.     -->
+        <Border Grid.Row="0"
+                Visibility="{Binding IsSetupRunning, Converter={StaticResource BoolToVisibility}}"
+                Background="{DynamicResource Accent.Subtle}"
+                BorderBrush="{DynamicResource Accent.Primary}"
+                BorderThickness="0,0,0,1"
+                Padding="18,10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Path Data="{StaticResource Icon.Install}"
+                      Fill="{DynamicResource Accent.Primary}"
+                      Width="14" Height="14" Stretch="Uniform"
+                      Margin="0,0,10,0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding SetupStatusMessage}"
+                           Foreground="{DynamicResource Foreground.Primary}"
+                           FontSize="13" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="28,24,28,28">
+
+            <!-- ── Page header ── -->
+            <Grid Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding Loc[TabHomeTitle]}" Style="{StaticResource H1Style}" />
+                    <TextBlock Text="{Binding Loc[DashboardCaption]}"
+                               Style="{StaticResource CaptionStyle}"
+                               Margin="0,3,0,0" />
+                </StackPanel>
+                <!-- Refresh indicator / timestamp could go here -->
+            </Grid>
+
+            <!-- ── Server Status Cards ── -->
+            <TextBlock Text="{Binding Loc[LBLServerStatus]}"
+                       Style="{StaticResource SectionLabelStyle}"
+                       Margin="0,0,0,10" />
+
+            <UniformGrid Rows="1" Columns="3">
+                <controls:ServerStatusCard
+                    Title="{Binding Loc[BTNStartDatabaseToolTip]}"
+                    IsRunning="{Binding IsDatabaseRunning}"
+                    Uptime="{Binding DatabaseUptime}"
+                    ProcessId="{Binding DatabasePid}"
+                    IconData="{StaticResource Icon.Database}"
+                    IconAccent="{DynamicResource Accent.Primary}"
+                    Margin="0,0,10,0" />
+
+                <controls:ServerStatusCard
+                    Title="{Binding Loc[BTNStartWorldToolTip]}"
+                    IsRunning="{Binding IsWorldRunning}"
+                    Uptime="{Binding WorldUptime}"
+                    ProcessId="{Binding WorldPid}"
+                    IconData="{StaticResource Icon.Server}"
+                    IconAccent="{DynamicResource Accent.Primary}"
+                    Margin="5,0" />
+
+                <controls:ServerStatusCard
+                    Title="{Binding Loc[BTNStartLogonToolTip]}"
+                    IsRunning="{Binding IsLogonRunning}"
+                    Uptime="{Binding LogonUptime}"
+                    ProcessId="{Binding LogonPid}"
+                    IconData="{StaticResource Icon.Server}"
+                    IconAccent="{DynamicResource Accent.Primary}"
+                    Margin="10,0,0,0" />
+            </UniformGrid>
+
+            <!-- ── Machine Resources ── -->
+            <TextBlock Text="{Binding Loc[LBLCardMachineResourcesTitle]}"
+                       Style="{StaticResource SectionLabelStyle}"
+                       Margin="0,28,0,10" />
+
+            <UniformGrid Rows="2" Columns="2">
+
+                <!-- ── CPU ─────────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,8,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="16,18,16,18">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Cpu}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLMetricCPU]}"
+                                           Style="{StaticResource H4Style}" VerticalAlignment="Center" />
+                            </Grid>
+                            <Separator Margin="0,12,0,10" />
+                            <TextBlock Style="{StaticResource MetricValueStyle}"
+                                       Foreground="{DynamicResource Accent.Primary}">
+                                <TextBlock.Text>
+                                    <Binding Path="CpuPercent" StringFormat="{}{0:F1}%" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Text="{Binding Loc[LBLMetricUsage]}"
+                                       Style="{StaticResource CaptionStyle}" Margin="0,4,0,10" />
+                            <ProgressBar Minimum="0" Maximum="100" Height="6"
+                                         Value="{Binding CpuPercent}"
+                                         Foreground="{DynamicResource Accent.Primary}"
+                                         Background="{DynamicResource Background.Elevated}"
+                                         BorderThickness="0"
+                                         Style="{StaticResource ModernProgressBarStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ── RAM ─────────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="8,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="16,18,16,18">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Ram}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLMetricRAM]}"
+                                           Style="{StaticResource H4Style}" VerticalAlignment="Center" />
+                            </Grid>
+                            <Separator Margin="0,12,0,10" />
+                            <TextBlock Style="{StaticResource MetricValueStyle}"
+                                       Foreground="{DynamicResource Accent.Primary}">
+                                <TextBlock.Text>
+                                    <Binding Path="RamPercent" StringFormat="{}{0:F1}%" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource CaptionStyle}" Margin="0,4,0,10">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} / {1}">
+                                        <Binding Path="RamUsed" />
+                                        <Binding Path="RamTotal" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <ProgressBar Minimum="0" Maximum="100" Height="6"
+                                         Value="{Binding RamPercent}"
+                                         Foreground="{DynamicResource Accent.Primary}"
+                                         Background="{DynamicResource Background.Elevated}"
+                                         BorderThickness="0"
+                                         Style="{StaticResource ModernProgressBarStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ── Disk I/O ─────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,8,8,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="16,18,16,18">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Drive}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLMetricDisk]}"
+                                           Style="{StaticResource H4Style}" VerticalAlignment="Center" />
+                            </Grid>
+                            <Separator Margin="0,12,0,10" />
+                            <!-- Read row -->
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Loc[LBLMetricRead]}"
+                                           Style="{StaticResource CaptionStyle}"
+                                           VerticalAlignment="Center" Margin="0,0,8,0" />
+                                <controls:SparklineChart Grid.Column="1"
+                                                         Values="{Binding DiskReadHistory}"
+                                                         Stroke="{DynamicResource Accent.Primary}"
+                                                         Fill="{DynamicResource Accent.Subtle}"
+                                                         Height="32" />
+                                <TextBlock Grid.Column="2" Text="{Binding DiskRead}"
+                                           Style="{StaticResource MonoStyle}"
+                                           Foreground="{DynamicResource Foreground.Secondary}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                            <!-- Write row -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Loc[LBLMetricWrite]}"
+                                           Style="{StaticResource CaptionStyle}"
+                                           VerticalAlignment="Center" Margin="0,0,8,0" />
+                                <controls:SparklineChart Grid.Column="1"
+                                                         Values="{Binding DiskWriteHistory}"
+                                                         Stroke="{DynamicResource Accent.Primary}"
+                                                         Fill="{DynamicResource Accent.Subtle}"
+                                                         Height="32" />
+                                <TextBlock Grid.Column="2" Text="{Binding DiskWrite}"
+                                           Style="{StaticResource MonoStyle}"
+                                           Foreground="{DynamicResource Foreground.Secondary}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ── Network ─────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="8,8,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="16,18,16,18">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Transfer}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLMetricNetwork]}"
+                                           Style="{StaticResource H4Style}" VerticalAlignment="Center" />
+                            </Grid>
+                            <Separator Margin="0,12,0,10" />
+                            <!-- Download row -->
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="↓"
+                                           Foreground="{DynamicResource Accent.Primary}"
+                                           FontSize="14" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" Margin="0,0,8,0" />
+                                <controls:SparklineChart Grid.Column="1"
+                                                         Values="{Binding NetRecvHistory}"
+                                                         Stroke="{DynamicResource Accent.Primary}"
+                                                         Fill="{DynamicResource Accent.Subtle}"
+                                                         Height="32" />
+                                <TextBlock Grid.Column="2" Text="{Binding NetworkRx}"
+                                           Style="{StaticResource MonoStyle}"
+                                           Foreground="{DynamicResource Foreground.Secondary}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                            <!-- Upload row -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="↑"
+                                           Foreground="{DynamicResource Foreground.Secondary}"
+                                           FontSize="14" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" Margin="0,0,8,0" />
+                                <controls:SparklineChart Grid.Column="1"
+                                                         Values="{Binding NetSendHistory}"
+                                                         Stroke="{DynamicResource Accent.Primary}"
+                                                         Fill="{DynamicResource Accent.Subtle}"
+                                                         Height="32" />
+                                <TextBlock Grid.Column="2" Text="{Binding NetworkTx}"
+                                           Style="{StaticResource MonoStyle}"
+                                           Foreground="{DynamicResource Foreground.Secondary}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </UniformGrid>
+
+            <!-- ── Trion News ── -->
+            <TextBlock Text="Trion News"
+                       Style="{StaticResource SectionLabelStyle}"
+                       Margin="0,28,0,10" />
+
+            <!-- Loading shimmer -->
+            <Border Visibility="{Binding IsNewsLoading, Converter={StaticResource BoolToVisibility}}"
+                    Style="{StaticResource ElevatedCardStyle}"
+                    Height="60" Opacity="0.5">
+                <TextBlock Text="Loading news…"
+                           Style="{StaticResource CaptionStyle}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </Border>
+
+            <!-- Empty state -->
+            <Border Visibility="{Binding IsNewsEmpty, Converter={StaticResource BoolToVisibility}}"
+                    Style="{StaticResource ElevatedCardStyle}"
+                    Padding="20">
+                <TextBlock Text="No news available. Check back later."
+                           Style="{StaticResource CaptionStyle}"
+                           HorizontalAlignment="Center" />
+            </Border>
+
+            <!-- News list -->
+            <ItemsControl ItemsSource="{Binding NewsItems}"
+                          Visibility="{Binding IsNewsLoading, Converter={StaticResource InverseBoolToVisibility}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:NewsItem}">
+                        <Border Style="{StaticResource ElevatedCardStyle}"
+                                Padding="0"
+                                Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Accent strip -->
+                                <Border Grid.Column="0"
+                                        CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+
+                                <!-- Content -->
+                                <StackPanel Grid.Column="1" Margin="16,14,16,14">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Category badge -->
+                                        <Border Grid.Column="0"
+                                                Background="{DynamicResource Accent.Subtle}"
+                                                BorderBrush="{DynamicResource Accent.Primary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="6,2"
+                                                Margin="0,0,10,0"
+                                                VerticalAlignment="Center"
+                                                Visibility="{Binding Category, Converter={StaticResource NullToVisibility}}">
+                                            <TextBlock Text="{Binding Category}"
+                                                       Foreground="{DynamicResource Accent.Primary}"
+                                                       FontSize="10" FontWeight="SemiBold" />
+                                        </Border>
+
+                                        <!-- Title -->
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Title}"
+                                                   Style="{StaticResource H4Style}"
+                                                   VerticalAlignment="Center"
+                                                   TextTrimming="CharacterEllipsis" />
+
+                                        <!-- Date -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding PublishedAt}"
+                                                   Style="{StaticResource CaptionStyle}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="12,0,0,0" />
+                                    </Grid>
+
+                                    <!-- Summary -->
+                                    <TextBlock Text="{Binding Summary}"
+                                               Style="{StaticResource CaptionStyle}"
+                                               TextWrapping="Wrap"
+                                               Margin="0,6,0,0"
+                                               Visibility="{Binding Summary, Converter={StaticResource NullToVisibility}}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
+    </Grid>
+</UserControl>

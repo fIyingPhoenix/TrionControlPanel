@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Backgrounds -->
+    <SolidColorBrush x:Key="Background.Primary"   Color="#16120E" />
+    <SolidColorBrush x:Key="Background.Secondary" Color="#1F1912" />
+    <SolidColorBrush x:Key="Background.Tertiary"  Color="#282015" />
+    <SolidColorBrush x:Key="Background.Elevated"  Color="#322818" />
+
+    <!-- Foregrounds -->
+    <SolidColorBrush x:Key="Foreground.Primary"   Color="#F5EDE0" />
+    <SolidColorBrush x:Key="Foreground.Secondary" Color="#A08060" />
+    <SolidColorBrush x:Key="Foreground.Muted"     Color="#705040" />
+    <SolidColorBrush x:Key="Foreground.Disabled"  Color="#4A3020" />
+
+    <!-- Accent — Amber Orange -->
+    <SolidColorBrush x:Key="Accent.Primary"    Color="#FF9800" />
+    <SolidColorBrush x:Key="Accent.Hover"      Color="#FFB74D" />
+    <SolidColorBrush x:Key="Accent.Pressed"    Color="#E65100" />
+    <SolidColorBrush x:Key="Accent.Foreground" Color="#16120E" />
+    <SolidColorBrush x:Key="Accent.Subtle"     Color="#1AFF9800" />
+
+    <!-- Borders -->
+    <SolidColorBrush x:Key="Border.Default"    Color="#322818" />
+    <SolidColorBrush x:Key="Border.Subtle"     Color="#201810" />
+    <SolidColorBrush x:Key="Border.Focus"      Color="#FF9800" />
+
+    <!-- Status -->
+    <SolidColorBrush x:Key="Status.Running"    Color="#4CAF50" />
+    <SolidColorBrush x:Key="Status.Stopped"    Color="#4A3820" />
+    <SolidColorBrush x:Key="Status.Warning"    Color="#FFB347" />
+    <SolidColorBrush x:Key="Status.Error"      Color="#FF4757" />
+
+    <!-- Danger -->
+    <SolidColorBrush x:Key="Danger.Primary"    Color="#FF4757" />
+    <SolidColorBrush x:Key="Danger.Hover"      Color="#FF6B78" />
+
+    <!-- Cards -->
+    <SolidColorBrush x:Key="Card.Background"   Color="#1F1912" />
+    <SolidColorBrush x:Key="Card.Border"       Color="#322818" />
+
+    <!-- Sidebar -->
+    <SolidColorBrush x:Key="Sidebar.Background"     Color="#100E08" />
+    <SolidColorBrush x:Key="Sidebar.Selected"       Color="#1AFF9800" />
+    <SolidColorBrush x:Key="Sidebar.SelectedBorder" Color="#FF9800" />
+    <SolidColorBrush x:Key="Sidebar.SelectedText"   Color="#FF9800" />
+    <SolidColorBrush x:Key="Sidebar.HoverBg"        Color="#181208" />
+
+    <!-- Inputs -->
+    <SolidColorBrush x:Key="Input.Background"  Color="#282015" />
+    <SolidColorBrush x:Key="Input.Border"      Color="#3A2C18" />
+
+    <!-- Focus glow -->
+    <Color x:Key="Glow.Color">#FF9800</Color>
+
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollBar.Thumb"   Color="#3A2C18" />
+    <SolidColorBrush x:Key="ScrollBar.Track"   Color="#110E08" />
+
+    <!-- Tab underline -->
+    <SolidColorBrush x:Key="Tab.Underline"     Color="#FF9800" />
+
+</ResourceDictionary>

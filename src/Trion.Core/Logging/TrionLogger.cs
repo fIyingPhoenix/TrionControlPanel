@@ -54,8 +54,8 @@ public sealed class TrionLogger : ILoggerProvider, IAsyncDisposable
 
         bool allowed = trionLevel switch
         {
+            LogLevel.Debug   => opts.ShowDebug,
             LogLevel.Info    => opts.ShowInfo,
-            LogLevel.Success => opts.ShowSuccess,
             LogLevel.Warning => opts.ShowWarning,
             LogLevel.Error   => opts.ShowError,
             _                => false
@@ -224,11 +224,11 @@ public sealed class TrionLogger : ILoggerProvider, IAsyncDisposable
     {
         var color = lvl switch
         {
+            LogLevel.Debug   => ConsoleColor.Gray,
             LogLevel.Info    => ConsoleColor.Cyan,
-            LogLevel.Success => ConsoleColor.Green,
             LogLevel.Warning => ConsoleColor.Yellow,
             LogLevel.Error   => ConsoleColor.Red,
-            _                => ConsoleColor.Gray
+            _                => ConsoleColor.White
         };
         lock (Console.Out)
         {
@@ -241,8 +241,8 @@ public sealed class TrionLogger : ILoggerProvider, IAsyncDisposable
 
     private static LogLevel MapLevel(MsLogLevel level) => level switch
     {
-        MsLogLevel.Trace       => LogLevel.Info,
-        MsLogLevel.Debug       => LogLevel.Info,
+        MsLogLevel.Trace       => LogLevel.Debug,
+        MsLogLevel.Debug       => LogLevel.Debug,
         MsLogLevel.Information => LogLevel.Info,
         MsLogLevel.Warning     => LogLevel.Warning,
         MsLogLevel.Error       => LogLevel.Error,

@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Trion.Desktop</AssemblyName>
+    <RootNamespace>Trion.Desktop</RootNamespace>
+    <Product>Trion Control Panel</Product>
+    <Version>0.5.0.0</Version>
+    <Authors>FlyingPhoenix</Authors>
+    <Company>FlyingPhoenix</Company>
+    <Description>Trion Control Panel — WPF rewrite with MVVM, DI, and custom theming.</Description>
+    <PackageProjectUrl>https://flying-phoenix.dev/</PackageProjectUrl>
+    <Title>Trion Control Panel</Title>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <ApplicationIcon>..\Trion.Web\wwwroot\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trion.Core\Trion.Core.csproj" />
+  </ItemGroup>
+
+  <!-- After build: build TrionUpdater (any TFM) then copy exe + dll to output -->
+  <Target Name="CopyTrionUpdater" AfterTargets="Build">
+    <MSBuild Projects="..\Trion.Updater\Trion.Updater.csproj"
+             Properties="Configuration=$(Configuration)"
+             Targets="Build" />
+    <MSBuild Projects="..\Trion.Updater\Trion.Updater.csproj"
+             Properties="Configuration=$(Configuration)"
+             Targets="GetTargetPath">
+      <Output TaskParameter="TargetOutputs" ItemName="_TrionUpdaterDll" />
+    </MSBuild>
+    <PropertyGroup>
+      <_TrionUpdaterDir>@(_TrionUpdaterDll->'%(RootDir)%(Directory)')</_TrionUpdaterDir>
+      <_TrionUpdaterStem>@(_TrionUpdaterDll->'%(Filename)')</_TrionUpdaterStem>
+    </PropertyGroup>
+    <ItemGroup>
+      <_TrionUpdaterFiles Include="$(_TrionUpdaterDir)$(_TrionUpdaterStem).exe" Condition="Exists('$(_TrionUpdaterDir)$(_TrionUpdaterStem).exe')" />
+      <_TrionUpdaterFiles Include="$(_TrionUpdaterDir)$(_TrionUpdaterStem).dll" Condition="Exists('$(_TrionUpdaterDir)$(_TrionUpdaterStem).dll')" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_TrionUpdaterFiles)"
+          DestinationFolder="$(OutputPath)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- All Strings.*.json files are copied automatically; just drop a new file to add a language -->
+  <ItemGroup>
+    <None Update="Resources\Localization\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Shared logo assets — linked from the repo, embedded as WPF resources -->
+  <ItemGroup>
+    <Resource Include="..\Trion.Web\wwwroot\favicon.ico">
+      <Link>Resources\Images\favicon.ico</Link>
+    </Resource>
+    <Resource Include="..\..\res\icons\trion-logo\TrionLogoNew.png">
+      <Link>Resources\Images\TrionLogoNew.png</Link>
+    </Resource>
+    <Resource Include="..\..\res\icons\trion-logo\TrionLogoNew250.png">
+      <Link>Resources\Images\TrionLogoNew250.png</Link>
+    </Resource>
+  </ItemGroup>
+
+</Project>

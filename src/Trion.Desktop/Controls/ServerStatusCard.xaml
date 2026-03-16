@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="Trion.Desktop.Controls.ServerStatusCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:Trion.Desktop.Infrastructure.Converters"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <conv:StatusToColorConverter x:Key="StatusToColor" />
+        <conv:BoolToStringConverter x:Key="BoolToString" />
+    </UserControl.Resources>
+
+    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <!-- Coloured left accent strip -->
+                <ColumnDefinition Width="5" />
+                <!-- Card content -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ── Left accent strip (always the server-type colour) ── -->
+            <Border Grid.Column="0"
+                    Background="{Binding IconAccent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CornerRadius="10,0,0,10" />
+
+            <!-- ── Content ── -->
+            <StackPanel Grid.Column="1" Margin="18,20,20,20">
+
+                <!-- Header: icon square + title + pulse dot -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Frosted icon square: semi-transparent bg + icon on top -->
+                    <Grid Grid.Column="0" Width="42" Height="42">
+                        <Border CornerRadius="10"
+                                Background="{Binding IconAccent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Opacity="0.15" />
+                        <Path Data="{Binding IconData, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              Fill="{Binding IconAccent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              Width="22" Height="22" Stretch="Uniform" />
+                    </Grid>
+
+                    <!-- Title -->
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               Style="{StaticResource H3Style}"
+                               VerticalAlignment="Center"
+                               TextWrapping="NoWrap" />
+
+                    <!-- Pulse dot (green = running, grey = stopped) -->
+                    <Grid Grid.Column="3" VerticalAlignment="Center">
+                        <!-- Halo: pulses when running -->
+                        <Ellipse Width="18" Height="18"
+                                 Fill="{Binding IsRunning,
+                                        RelativeSource={RelativeSource AncestorType=UserControl},
+                                        Converter={StaticResource StatusToColor}}">
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Opacity" Value="0.2" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRunning, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="CardHaloPulse">
+                                                    <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                         From="0.15" To="0.65"
+                                                                         Duration="0:0:0.9" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <RemoveStoryboard BeginStoryboardName="CardHaloPulse" />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
+                        <!-- Core dot -->
+                        <Ellipse Width="10" Height="10"
+                                 Fill="{Binding IsRunning,
+                                        RelativeSource={RelativeSource AncestorType=UserControl},
+                                        Converter={StaticResource StatusToColor}}" />
+                    </Grid>
+                </Grid>
+
+                <Rectangle Height="14" Fill="Transparent" />
+
+                <!-- Status pill + PID row -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Pill badge -->
+                    <Border Grid.Column="0" CornerRadius="20" Padding="10,4">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource Background.Elevated}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsRunning, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource Status.Running}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock FontSize="10" FontWeight="SemiBold">
+                            <TextBlock.Text>
+                                <Binding Path="IsRunning"
+                                         RelativeSource="{RelativeSource AncestorType=UserControl}">
+                                    <Binding.Converter>
+                                        <conv:BoolToStringConverter TrueValue="● RUNNING" FalseValue="● OFFLINE" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </TextBlock.Text>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{DynamicResource Foreground.Secondary}" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsRunning, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            Value="True">
+                                            <Setter Property="Foreground" Value="White" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Border>
+
+                    <!-- PID (right-aligned) -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="PID " Style="{StaticResource CaptionStyle}" />
+                        <TextBlock Text="{Binding ProcessId, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                   FontFamily="Cascadia Code, Consolas, Courier New"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource Foreground.Secondary}" />
+                    </StackPanel>
+                </Grid>
+
+                <Rectangle Height="14" Fill="Transparent" />
+                <Separator />
+                <Rectangle Height="14" Fill="Transparent" />
+
+                <!-- Uptime (large monospace number — the hero metric) -->
+                <TextBlock Text="{Binding Uptime, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           FontFamily="Cascadia Code, Consolas, Courier New"
+                           FontSize="28"
+                           FontWeight="Light"
+                           Foreground="{Binding IconAccent, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <TextBlock Text="Uptime"
+                           Style="{StaticResource CaptionStyle}"
+                           Margin="0,4,0,0" />
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,134 @@
+﻿<Window x:Class="Trion.Desktop.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Trion — Sign In"
+        Width="420" Height="520"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Background.Primary}">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="0" GlassFrameThickness="0" />
+    </WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Border.Default}" BorderThickness="1" CornerRadius="12">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="8" Opacity="0.5" Color="#000000" Direction="270" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />  <!-- close button row -->
+                <RowDefinition Height="*"    />  <!-- content -->
+            </Grid.RowDefinitions>
+
+            <!-- Close button -->
+            <Button Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    Margin="0,8,8,0"
+                    Style="{StaticResource ChromeCloseButtonStyle}"
+                    Click="CloseButton_Click"
+                    WindowChrome.IsHitTestVisibleInChrome="True">
+                <Path Data="M 6,6 L 18,18 M 18,6 L 6,18"
+                      Stroke="{DynamicResource Foreground.Secondary}"
+                      StrokeThickness="1.8" Width="14" Height="14" Stretch="Uniform" />
+            </Button>
+
+            <!-- Content -->
+            <StackPanel Grid.Row="1" Margin="40,8,40,40">
+
+                <!-- Logo -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,28">
+                    <Rectangle Width="32" Height="32" Margin="0,0,10,0"
+                               Fill="{DynamicResource Accent.Primary}">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/TrionLogoNew.png"
+                                        Stretch="Uniform" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="TRION"
+                               Style="{StaticResource H2Style}"
+                               Foreground="{DynamicResource Accent.Primary}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Headline -->
+                <TextBlock Text="Sign in with your username"
+                           Style="{StaticResource H3Style}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,6" />
+                <TextBlock Text="Access premium features and server downloads"
+                           Style="{StaticResource CaptionStyle}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,32" />
+
+                <!-- Username -->
+                <TextBlock Text="Username" Style="{StaticResource CaptionStyle}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource InputStyle}"
+                         Tag="your username"
+                         Margin="0,0,0,16"
+                         WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                <!-- Password -->
+                <TextBlock Text="Password" Style="{StaticResource CaptionStyle}" Margin="0,0,0,6" />
+                <PasswordBox x:Name="PasswordInput"
+                             Style="{StaticResource PasswordInputStyle}"
+                             Margin="0,0,0,6"
+                             WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                <!-- Remember me -->
+                <CheckBox IsChecked="{Binding RememberMe, Mode=TwoWay}"
+                          Foreground="{DynamicResource Foreground.Secondary}"
+                          FontSize="12"
+                          Margin="0,8,0,16"
+                          WindowChrome.IsHitTestVisibleInChrome="True">
+                    <TextBlock Text="Remember me" Foreground="{DynamicResource Foreground.Secondary}" FontSize="12" />
+                </CheckBox>
+
+                <!-- Error message -->
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="{DynamicResource Danger.Primary}"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,20"
+                           Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibility}}" />
+
+                <!-- Login button -->
+                <Button Content="Sign In"
+                        Command="{Binding LoginCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        HorizontalAlignment="Stretch"
+                        Height="40"
+                        Margin="0,0,0,12"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                <!-- Spinner while logging in -->
+                <TextBlock Text="Signing in…"
+                           Style="{StaticResource CaptionStyle}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8"
+                           Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}" />
+
+                <Separator Margin="0,4,0,12" />
+
+                <!-- Continue offline -->
+                <Button Content="Continue without account"
+                        Command="{Binding ContinueOfflineCommand}"
+                        Style="{StaticResource GhostButtonStyle}"
+                        HorizontalAlignment="Center"
+                        FontSize="12"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                <!-- Version -->
+                <TextBlock Text="{Binding AppVersion, StringFormat='Trion v{0}'}"
+                           Style="{StaticResource CaptionStyle}"
+                           HorizontalAlignment="Center"
+                           Margin="0,16,0,0"
+                           Opacity="0.45" />
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

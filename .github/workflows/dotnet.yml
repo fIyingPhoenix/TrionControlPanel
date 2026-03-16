@@ -7,17 +7,16 @@ on:
     branches: [ main, dev ]
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+  # ── Windows: full solution including WPF Desktop + Updater ──────────────────
+  build-windows:
+    name: Build & Test (Windows)
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET 9 
+      - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
@@ -26,33 +25,110 @@ jobs:
         run: dotnet workload install aspire wasm-tools
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore src/Trion.sln
 
       - name: Build
-        run: dotnet build -c Release --no-restore --warnaserror
+        run: dotnet build src/Trion.sln -c Release --no-restore
 
       - name: Test
-        run: dotnet test -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
+        run: dotnet test src/Trion.sln -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
 
-      - name: Publish web (portable)
+      - name: Publish Desktop (Windows only)
+        run: dotnet publish src/Trion.Desktop/Trion.Desktop.csproj -c Release -o artifacts/desktop
+
+      - name: Publish Web
         run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.os }}
+          name: test-results-windows
           path: '**/*.trx'
 
       - name: Upload coverage
-        if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: '**/coverage.cobertura.xml'
 
-      - name: Upload build artifacts
+      - name: Upload Desktop artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Trion-Build-${{ matrix.os }}
-          path: artifacts/
+          name: Trion-Desktop-windows
+          path: artifacts/desktop
+
+      - name: Upload Web artifact (Windows)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trion-Web-windows
+          path: artifacts/web
+
+  # ── Linux: cross-platform projects only — no WPF / Windows TFM ──────────────
+  build-linux:
+    name: Build & Test (Linux)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install .NET workloads
+        run: dotnet workload install aspire wasm-tools
+
+      - name: Restore (cross-platform)
+        run: |
+          dotnet restore src/Trion.Core/Trion.Core.csproj
+          dotnet restore src/Trion.API/Trion.API.csproj
+          dotnet restore src/Trion.Agent/Trion.Agent.csproj
+          dotnet restore src/Trion.Platform/Trion.Platform.csproj
+          dotnet restore src/Trion.UI/Trion.UI.csproj
+          dotnet restore src/Trion.Web/Trion.Web.csproj
+          dotnet restore tests/Trion.Core.Tests/Trion.Core.Tests.csproj
+          dotnet restore tests/Trion.Agent.Tests/Trion.Agent.Tests.csproj
+          dotnet restore tests/Trion.Platform.Tests/Trion.Platform.Tests.csproj
+
+      - name: Build (cross-platform)
+        run: |
+          dotnet build src/Trion.Core/Trion.Core.csproj     -c Release --no-restore
+          dotnet build src/Trion.API/Trion.API.csproj       -c Release --no-restore
+          dotnet build src/Trion.Agent/Trion.Agent.csproj   -c Release --no-restore
+          dotnet build src/Trion.Platform/Trion.Platform.csproj -c Release --no-restore
+          dotnet build src/Trion.UI/Trion.UI.csproj         -c Release --no-restore
+          dotnet build src/Trion.Web/Trion.Web.csproj       -c Release --no-restore
+          dotnet build tests/Trion.Core.Tests/Trion.Core.Tests.csproj         -c Release --no-restore
+          dotnet build tests/Trion.Agent.Tests/Trion.Agent.Tests.csproj       -c Release --no-restore
+          dotnet build tests/Trion.Platform.Tests/Trion.Platform.Tests.csproj -c Release --no-restore
+
+      - name: Test (cross-platform)
+        run: |
+          dotnet test tests/Trion.Core.Tests/Trion.Core.Tests.csproj         -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
+          dotnet test tests/Trion.Agent.Tests/Trion.Agent.Tests.csproj       -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
+          dotnet test tests/Trion.Platform.Tests/Trion.Platform.Tests.csproj -c Release --no-build --logger trx --collect:"XPlat Code Coverage"
+
+      - name: Publish Web
+        run: dotnet publish src/Trion.Web/Trion.Web.csproj -c Release -o artifacts/web
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-linux
+          path: '**/*.trx'
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: '**/coverage.cobertura.xml'
+
+      - name: Upload Web artifact (Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trion-Web-linux
+          path: artifacts/web

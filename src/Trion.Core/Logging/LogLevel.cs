@@ -1,10 +1,9 @@
-﻿namespace Trion.Core.Logging
+namespace Trion.Core.Logging;
+
+public enum LogLevel
 {
-    public enum LogLevel
-    {
-        Info,
-        Success,
-        Warning,
-        Error
-    }
+    Debug,
+    Info,
+    Warning,
+    Error
 }

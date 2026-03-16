@@ -2,30 +2,23 @@
 # Visual Studio / JetBrains Rider
 # ================================
 
-## Visual Studio
 .vs/
+.idea/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
-*.pdb
-*.opendb
-*.VC.db
-*.VC.VC.opendb
-TestResults/
-_ReSharper*/
-*.DotSettings.user
-*.DotSettings
-*.ide
-
-## Rider
-.idea/
 *.sln.iml
 *.ipr
 *.iws
 *.DotSettings
+*.DotSettings.user
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+*.ide
 
-## VS Code
+# VS Code
 .vscode/
 .history/
 *.code-workspace
@@ -42,6 +35,8 @@ x64/
 x86/
 publish/
 artifacts/
+
+# Compiled outputs
 *.dll
 *.exe
 *.app
@@ -49,24 +44,26 @@ artifacts/
 *.dylib
 *.pdb
 
-# ================================
-# Temporary Files
-# ================================
+# Publish profiles (user-local overrides only — keep *.pubxml)
+*.pubxml.user
 
-*.log
-*.tmp
-*.temp
-*.cache
-*.bak
-*.swp
-*.swo
-*.DS_Store
-*.Thumbs.db
-*.idea
-*.class
+# Blazor WASM compiled output
+wwwroot/dist/
 
 # ================================
-# Packages
+# Test Results & Coverage
+# ================================
+
+TestResults/
+*.trx
+*.coverage
+coverage*.xml
+coverage*.json
+*.cobertura.xml
+*.opencover.xml
+
+# ================================
+# NuGet / Node Packages
 # ================================
 
 *.nupkg
@@ -78,7 +75,30 @@ node_modules/
 bower_components/
 
 # ================================
-# SQLite / Database / Local Data
+# Runtime Artifacts (app-generated)
+# ================================
+
+# TrionLogger output
+Logs/
+logs/
+
+# MySQL portable install + config (created by MySqlSetupService at runtime)
+database/
+my.ini
+
+# ================================
+# Secrets & Local Config
+# ================================
+
+.env
+.env.*
+*.env
+secrets.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# ================================
+# SQLite / Database
 # ================================
 
 *.db
@@ -87,18 +107,43 @@ bower_components/
 settings.db
 
 # ================================
-# Misc
+# Temporary Files
 # ================================
 
-*.pid
-*.seed
+*.tmp
+*.temp
+*.cache
+*.bak
+*.swp
+*.swo
+*.log
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# Archive Files
+# ================================
+
 *.tar.gz
 *.zip
 *.7z
 *.rar
+
+# ================================
+# Claude Code
+# ================================
+
+.claude/
+
+# ================================
+# Project-specific scratch files
+# ================================
+
 architecture.md
 issues_with_milestones.csv
 milestones_with_description.csv
 newplan.md
 plan.md
-.claude/settings.local.json

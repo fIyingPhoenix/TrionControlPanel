@@ -1,0 +1,114 @@
+<Window x:Class="TrionUpdater.UpdaterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Trion Updater"
+        Width="440" Height="220"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        FontFamily="Segoe UI Variable Text, Segoe UI"
+        FontSize="13">
+
+    <!-- Outer drop-shadow container -->
+    <Border Margin="12">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" ShadowDepth="6"
+                              Color="#000000" Opacity="0.55" />
+        </Border.Effect>
+
+        <!-- Main card — #1C1C1C background, 10px radius, 1px border -->
+        <Border Background="#1C1C1C"
+                BorderBrush="#2E2E2E"
+                BorderThickness="1"
+                CornerRadius="10">
+
+            <Grid Margin="28,24,28,24">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />  <!-- header row      -->
+                    <RowDefinition Height="20"   />  <!-- spacer          -->
+                    <RowDefinition Height="Auto" />  <!-- progress bar    -->
+                    <RowDefinition Height="10"   />  <!-- spacer          -->
+                    <RowDefinition Height="Auto" />  <!-- status text     -->
+                    <RowDefinition Height="*"    />  <!-- flex spacer     -->
+                    <RowDefinition Height="Auto" />  <!-- version footer  -->
+                </Grid.RowDefinitions>
+
+                <!-- ── Header: logo dot + title + phase label ── -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="10"   />
+                        <ColumnDefinition Width="*"    />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Trion logo — tinted with Accent cyan via OpacityMask -->
+                    <Rectangle Grid.Column="0"
+                               Width="18" Height="18"
+                               Fill="#00D4FF"
+                               VerticalAlignment="Center">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/TrionLogoNew.png"
+                                        Stretch="Uniform" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <!-- App name -->
+                    <TextBlock Grid.Column="2"
+                               Text="Trion Control Panel"
+                               Foreground="#E8E8E8"
+                               FontFamily="Segoe UI Variable Display, Segoe UI"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+
+                    <!-- Phase label (e.g. "Updating…") -->
+                    <TextBlock Grid.Column="3"
+                               x:Name="PhaseLabel"
+                               Text="Updating…"
+                               Foreground="#9A9A9A"
+                               FontSize="11"
+                               VerticalAlignment="Center" />
+                </Grid>
+
+                <!-- ── Progress bar ── -->
+                <Grid Grid.Row="2">
+                    <!-- Track -->
+                    <Border Background="#2C2C2C"
+                            CornerRadius="3"
+                            Height="6" />
+
+                    <!-- Fill — width driven by ProgressFill ScaleTransform -->
+                    <Border x:Name="ProgressFill"
+                            Background="#00D4FF"
+                            CornerRadius="3"
+                            Height="6"
+                            HorizontalAlignment="Left"
+                            Width="0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="6" ShadowDepth="0"
+                                              Color="#00D4FF" Opacity="0.5" />
+                        </Border.Effect>
+                    </Border>
+                </Grid>
+
+                <!-- ── Status text ── -->
+                <TextBlock Grid.Row="4"
+                           x:Name="StatusLabel"
+                           Text="Waiting for Trion to close…"
+                           Foreground="#9A9A9A"
+                           FontSize="11"
+                           TextTrimming="CharacterEllipsis" />
+
+                <!-- ── Version footer ── -->
+                <TextBlock Grid.Row="6"
+                           x:Name="VersionLabel"
+                           Text=""
+                           Foreground="#6A6A6A"
+                           FontSize="11" />
+            </Grid>
+        </Border>
+    </Border>
+</Window>

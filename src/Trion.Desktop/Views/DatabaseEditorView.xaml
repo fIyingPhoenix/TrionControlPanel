@@ -1,0 +1,554 @@
+﻿<UserControl x:Class="Trion.Desktop.Views.DatabaseEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Trion.Desktop.ViewModels"
+             xmlns:helpers="clr-namespace:Trion.Desktop.Infrastructure.Helpers"
+             mc:Ignorable="d"
+             Background="{DynamicResource Background.Primary}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />   <!-- Tab bar  -->
+            <RowDefinition Height="*" />      <!-- Content  -->
+            <RowDefinition Height="Auto" />   <!-- Footer   -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Sub-tab bar ── -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource Background.Secondary}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Margin="16,0">
+                <Button Content="{Binding Loc[TabRealmList]}"
+                        Command="{Binding SwitchTabCommand}"
+                        CommandParameter="{x:Static vm:DatabaseEditorTab.RealmList}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SubTabStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActiveTab}"
+                                             Value="{x:Static vm:DatabaseEditorTab.RealmList}">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+                                    <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="{Binding Loc[TabAccount]}"
+                        Command="{Binding SwitchTabCommand}"
+                        CommandParameter="{x:Static vm:DatabaseEditorTab.Accounts}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SubTabStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActiveTab}"
+                                             Value="{x:Static vm:DatabaseEditorTab.Accounts}">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+                                    <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Tab content ── -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,24,28,16">
+
+                <!-- ══════════════════════════════════════════════════════════════
+                     REALM LIST TAB
+                     ══════════════════════════════════════════════════════════════ -->
+                <StackPanel Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:DatabaseEditorTab.RealmList}}">
+
+                    <!-- Page header -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="{Binding Loc[LBLCardRealmDataTitle]}" Style="{StaticResource H1Style}" />
+                        <TextBlock Text="{Binding Loc[DbEditorRealmCaption]}"
+                                   Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- ── REALM DATA ── -->
+                        <Border Grid.Column="0" Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLCardRealmDataTitle]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <!-- Realm ID -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[TXTRealmID]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding RealmId, Mode=TwoWay}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="Read-only"
+                                             IsReadOnly="True"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Realm Name -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[TXTRealmName]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding RealmName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="e.g. My WoW Server"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Public Address -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[TXTRealmAddress]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding RealmAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="0.0.0.0"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Local Address -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[TXTRealmLocalAddress]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding RealmLocalAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="192.168.x.x"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Port + Game Build -->
+                                <StackPanel Margin="20,14">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding Loc[TXTRealmPort]}" Style="{StaticResource CaptionStyle}" />
+                                            <TextBox Text="{Binding RealmPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource InputStyle}"
+                                                     Tag="8085" Margin="0,6,0,0" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="{Binding Loc[TXTRealmGameBuild]}" Style="{StaticResource CaptionStyle}" />
+                                            <TextBox Text="{Binding RealmGameBuild, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource InputStyle}"
+                                                     Tag="12340" Margin="0,6,0,0" />
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Right column: Network Options + Actions -->
+                        <StackPanel Grid.Column="2">
+
+                            <!-- ── NETWORK OPTIONS ── -->
+                            <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,0,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <StackPanel Grid.Column="1">
+                                        <Border Padding="20,16,20,14">
+                                            <TextBlock Text="{Binding Loc[LBLCardRealmOptionTitle]}" Style="{StaticResource H4Style}" />
+                                        </Border>
+                                        <Separator />
+
+                                    <!-- Domain Name -->
+                                    <StackPanel Margin="20,14">
+                                        <TextBlock Text="{Binding Loc[TXTDomainName]}" Style="{StaticResource CaptionStyle}" />
+                                        <TextBox Text="{Binding DomainName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InputStyle}"
+                                                 Tag="yourdomain.ddns.net"
+                                                 Margin="0,6,0,0" />
+                                    </StackPanel>
+                                    <Separator Margin="20,0" />
+
+                                    <!-- Internal IP -->
+                                    <StackPanel Margin="20,14">
+                                        <TextBlock Text="{Binding Loc[TXTInternIP]}" Style="{StaticResource CaptionStyle}" />
+                                        <ComboBox ItemsSource="{Binding InternalIps}"
+                                                  SelectedItem="{Binding InternalIp, Mode=TwoWay}"
+                                                  Style="{StaticResource ComboBoxStyle}"
+                                                  Margin="0,6,0,0" />
+                                    </StackPanel>
+                                    <Separator Margin="20,0" />
+
+                                    <!-- Public IP -->
+                                    <StackPanel Margin="20,14">
+                                        <TextBlock Text="{Binding Loc[TXTPublicIP]}" Style="{StaticResource CaptionStyle}" />
+                                        <Grid Margin="0,6,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Masked (shield) — visible when IsIpVisible = false -->
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsIpVisible}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <Path Data="{StaticResource Icon.Shield}"
+                                                      Fill="{DynamicResource Foreground.Muted}"
+                                                      Width="14" Height="14" Stretch="Uniform"
+                                                      VerticalAlignment="Center" Margin="0,0,6,0" />
+                                                <TextBlock Text="{Binding Loc[LBLHidden]}"
+                                                           Style="{StaticResource CaptionStyle}"
+                                                           VerticalAlignment="Center" />
+                                            </StackPanel>
+
+                                            <!-- Real IP — visible when IsIpVisible = true -->
+                                            <TextBox Grid.Column="0"
+                                                     Text="{Binding PublicIp}"
+                                                     Style="{StaticResource InputStyle}"
+                                                     IsReadOnly="True"
+                                                     Visibility="{Binding IsIpVisible, Converter={StaticResource BoolToVisibility}}" />
+
+                                            <!-- Eye toggle -->
+                                            <Button Grid.Column="1"
+                                                    Style="{StaticResource IconButtonStyle}"
+                                                    Command="{Binding ToggleIpVisibilityCommand}"
+                                                    Margin="6,0,0,0"
+                                                    ToolTip="{Binding Loc[TooltipEyeToggle]}">
+                                                <Path Width="16" Height="16" Stretch="Uniform"
+                                                      Fill="{DynamicResource Foreground.Secondary}">
+                                                    <Path.Style>
+                                                        <Style TargetType="Path">
+                                                            <Setter Property="Data" Value="{StaticResource Icon.Eye}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsIpVisible}" Value="True">
+                                                                    <Setter Property="Data" Value="{StaticResource Icon.EyeOff}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Path.Style>
+                                                </Path>
+                                            </Button>
+                                        </Grid>
+                                    </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- ── ACTIONS ── -->
+                            <Border Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <StackPanel Grid.Column="1">
+                                        <Border Padding="20,16,20,14">
+                                            <TextBlock Text="{Binding Loc[LBLCardRealmActionTitle]}" Style="{StaticResource H4Style}" />
+                                        </Border>
+                                        <Separator />
+
+                                    <!-- Unleash to Public -->
+                                    <Border Padding="20,11">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Loc[BTNOpenPublic]}"
+                                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                                <TextBlock Text="{Binding Loc[DescOpenPublic]}"
+                                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                            </StackPanel>
+                                            <Button Grid.Column="1"
+                                                    Content="{Binding Loc[BTNOpenPublic]}"
+                                                    Command="{Binding OpenPublicCommand}"
+                                                    Style="{StaticResource SecondaryButtonStyle}"
+                                                    VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                    <Separator Margin="20,0" />
+
+                                    <!-- Open for LAN -->
+                                    <Border Padding="20,11">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Loc[BTNOpenIntern]}"
+                                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                                <TextBlock Text="{Binding Loc[DescOpenLocal]}"
+                                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                            </StackPanel>
+                                            <Button Grid.Column="1"
+                                                    Content="{Binding Loc[BTNOpenIntern]}"
+                                                    Command="{Binding OpenLocalCommand}"
+                                                    Style="{StaticResource SecondaryButtonStyle}"
+                                                    VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                    <Separator Margin="20,0" />
+
+                                    <!-- Refresh -->
+                                    <Border Padding="20,11">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Loc[BtnReload]}"
+                                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                                <TextBlock Text="{Binding Loc[DescReload]}"
+                                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                            </StackPanel>
+                                            <Button Grid.Column="1"
+                                                    Content="{Binding Loc[BtnRefresh]}"
+                                                    Command="{Binding RefreshRealmCommand}"
+                                                    Style="{StaticResource SecondaryButtonStyle}"
+                                                    VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- ══════════════════════════════════════════════════════════════
+                     ACCOUNTS TAB
+                     ══════════════════════════════════════════════════════════════ -->
+                <StackPanel Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:DatabaseEditorTab.Accounts}}">
+
+                    <!-- Page header -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="{Binding Loc[TabAccount]}" Style="{StaticResource H1Style}" />
+                        <TextBlock Text="{Binding Loc[DbEditorAccountCaption]}"
+                                   Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <UniformGrid Rows="1" Columns="3">
+
+                        <!-- ── CREATE ACCOUNT ── -->
+                        <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,8,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLCardAccountCreate]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLUsername]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding CreateUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}" Tag="{Binding Loc[LBLUsername]}"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLPassword]}" Style="{StaticResource CaptionStyle}" />
+                                    <PasswordBox Style="{StaticResource PasswordInputStyle}"
+                                                 helpers:PasswordBoxHelper.BoundPassword="{Binding CreatePassword, Mode=TwoWay}"
+                                                 Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLEMail]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding CreateEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}" Tag="user@example.com"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLExpansion]}" Style="{StaticResource CaptionStyle}" />
+                                    <ComboBox ItemsSource="{Binding Expansions}"
+                                              SelectedIndex="{Binding CreateExpansion, Mode=TwoWay}"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                              Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <Border Padding="20,11">
+                                    <Button Content="{Binding Loc[BTNAccountCreate]}"
+                                            Command="{Binding CreateAccountCommand}"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            HorizontalAlignment="Stretch" />
+                                </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- ── GM ACCESS ── -->
+                        <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="4,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLCardAccountAdmin]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLUsername]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding GmUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}" Tag="{Binding Loc[PlaceholderAccountName]}"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLAccessLevel]}" Style="{StaticResource CaptionStyle}" />
+                                    <ComboBox ItemsSource="{Binding AccessLevels}"
+                                              SelectedIndex="{Binding GmLevel, Mode=TwoWay}"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                              Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <Border Padding="20,11">
+                                    <Button Content="{Binding Loc[BTNGMCreate]}"
+                                            Command="{Binding SetGmAccessCommand}"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            HorizontalAlignment="Stretch" />
+                                </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- ── CHANGE PASSWORD ── -->
+                        <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="8,0,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLCardAccountPassword]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLUsername]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding PassUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}" Tag="{Binding Loc[PlaceholderAccountName]}"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLNewPassword]}" Style="{StaticResource CaptionStyle}" />
+                                    <PasswordBox Style="{StaticResource PasswordInputStyle}"
+                                                 helpers:PasswordBoxHelper.BoundPassword="{Binding PassNewPassword, Mode=TwoWay}"
+                                                 Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLConfirmPassword]}" Style="{StaticResource CaptionStyle}" />
+                                    <PasswordBox Style="{StaticResource PasswordInputStyle}"
+                                                 helpers:PasswordBoxHelper.BoundPassword="{Binding PassConfirm, Mode=TwoWay}"
+                                                 Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <Border Padding="20,11">
+                                    <Button Content="{Binding Loc[BTNTBoxPassResset]}"
+                                            Command="{Binding ChangePasswordCommand}"
+                                            Style="{StaticResource DangerButtonStyle}"
+                                            HorizontalAlignment="Stretch" />
+                                </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                    </UniformGrid>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ── Footer: status + actions ── -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource Background.Secondary}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="0,1,0,0"
+                Padding="28,12">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}"
+                           Style="{StaticResource HintStyle}"
+                           VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="{Binding Loc[BtnDetectIPs]}"
+                            Command="{Binding DetectNetworkCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Width="100"
+                            Margin="0,0,8,0"
+                            Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:DatabaseEditorTab.RealmList}}" />
+                    <Button Content="{Binding Loc[BTNEditRealmlistDataOFF]}"
+                            Command="{Binding SaveRealmCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Width="120"
+                            Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:DatabaseEditorTab.RealmList}}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

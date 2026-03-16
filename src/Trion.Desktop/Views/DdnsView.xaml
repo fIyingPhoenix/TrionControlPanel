@@ -1,0 +1,331 @@
+﻿<UserControl x:Class="Trion.Desktop.Views.DdnsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Trion.Desktop.ViewModels"
+             xmlns:helpers="clr-namespace:Trion.Desktop.Infrastructure.Helpers"
+             mc:Ignorable="d"
+             Background="{DynamicResource Background.Primary}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />      <!-- Content -->
+            <RowDefinition Height="Auto" />   <!-- Footer  -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Content ── -->
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,24,28,16">
+
+                <!-- Page header -->
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="{Binding Loc[TabDDNS]}" Style="{StaticResource H1Style}" />
+                    <TextBlock Text="{Binding Loc[DdnsCaption]}"
+                               Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                </StackPanel>
+
+                <!-- ── Public IP hero card ── -->
+                <Border Style="{StaticResource AccentCardStyle}" Padding="24" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="{Binding Loc[LBLDdnsYourPublicIp]}" Style="{StaticResource SectionLabelStyle}" Margin="0,0,0,8" />
+
+                            <!-- Masked (shield) — visible when IsIpVisible = false -->
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsIpVisible}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <Path Data="{StaticResource Icon.Shield}"
+                                      Fill="{DynamicResource Accent.Primary}"
+                                      Width="26" Height="26" Stretch="Uniform"
+                                      VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="●●●.●●●.●●.●●"
+                                           FontFamily="Cascadia Code, Consolas"
+                                           FontSize="28" FontWeight="Light"
+                                           Foreground="{DynamicResource Accent.Primary}" />
+                            </StackPanel>
+
+                            <!-- Real IP — visible when IsIpVisible = true -->
+                            <TextBlock Text="{Binding PublicIp}"
+                                       FontFamily="Cascadia Code, Consolas"
+                                       FontSize="28" FontWeight="Light"
+                                       Foreground="{DynamicResource Accent.Primary}"
+                                       Visibility="{Binding IsIpVisible, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+
+                        <!-- Eye toggle -->
+                        <Button Grid.Column="1"
+                                Style="{StaticResource IconButtonStyle}"
+                                Command="{Binding ToggleIpVisibilityCommand}"
+                                VerticalAlignment="Center"
+                                ToolTip="{Binding Loc[TooltipEyeToggle]}">
+                            <Path Width="20" Height="20" Stretch="Uniform"
+                                  Fill="{DynamicResource Foreground.Secondary}">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Data" Value="{StaticResource Icon.Eye}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsIpVisible}" Value="True">
+                                                <Setter Property="Data" Value="{StaticResource Icon.EyeOff}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- ── Main content: credentials + timer ── -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ── CREDENTIALS ── -->
+                    <Border Grid.Column="0" Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLCardDDNSSettingsTitle]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Service Provider -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[CBOXDDNService]}" Style="{StaticResource CaptionStyle}" />
+                                <ComboBox ItemsSource="{x:Static vm:DdnsViewModel.Services}"
+                                          SelectedItem="{Binding SelectedService, Mode=TwoWay}"
+                                          Style="{StaticResource ComboBoxStyle}"
+                                          Margin="0,6,0,0" />
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Domain -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTDDNSDomain]}" Style="{StaticResource CaptionStyle}" />
+                                <TextBox Text="{Binding Domain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputStyle}"
+                                         Tag="yourdomain.ddns.net"
+                                         Margin="0,6,0,0" />
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Username -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTDDNSUsername]}" Style="{StaticResource CaptionStyle}" />
+                                <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputStyle}"
+                                         Tag="{Binding Loc[DDNSPlaceholderUsername]}"
+                                         Margin="0,6,0,0" />
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Password / Token -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTDDNSPassword]}" Style="{StaticResource CaptionStyle}" />
+                                <PasswordBox Style="{StaticResource PasswordInputStyle}"
+                                             helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
+                                             Margin="0,6,0,0" />
+                            </StackPanel>
+
+                            <!-- Cloudflare-specific hint (only shown when Cloudflare is selected) -->
+                            <Border Padding="20,0,20,14">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedService}" Value="Cloudflare">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Border CornerRadius="6" Padding="12,8"
+                                        Background="{DynamicResource Background.Tertiary}">
+                                    <TextBlock Text="{Binding Loc[DdnsCloudflareHint]}"
+                                               Style="{StaticResource HintStyle}"
+                                               TextWrapping="Wrap" />
+                                </Border>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── UPDATE TIMER ── -->
+                    <Border Grid.Column="2" Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLCardDDNSTimerTitle]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Interval -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTDDNSInterval]}" Style="{StaticResource CaptionStyle}" />
+                                <TextBox Text="{Binding Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputStyle}"
+                                         Tag="300"
+                                         Margin="0,6,0,0" />
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Launch on startup -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLDDNSRunOnStartup]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[TGLDDNSRunOnStartupDesc]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding RunOnStartup, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Next update countdown -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[LBLDdnsNextUpdate]}" Style="{StaticResource CaptionStyle}" Margin="0,0,0,8" />
+                                <Border CornerRadius="8" Padding="16,12"
+                                        Background="{DynamicResource Background.Tertiary}"
+                                        HorizontalAlignment="Stretch">
+                                    <Grid>
+                                        <TextBlock Text="{Binding Loc[LBLDdnsCountdown]}" Style="{StaticResource SectionLabelStyle}"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding TimerDisplay}"
+                                                   FontFamily="Cascadia Code, Consolas"
+                                                   FontSize="22" FontWeight="Light"
+                                                   Foreground="{DynamicResource Accent.Primary}"
+                                                   HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Start / Stop -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0"
+                                            Content="{Binding Loc[BTNDdnsStartTimer]}"
+                                            Command="{Binding StartTimerCommand}"
+                                            Style="{StaticResource PrimaryButtonStyle}" />
+                                    <Button Grid.Column="2"
+                                            Content="{Binding Loc[BTNDdnsStop]}"
+                                            Command="{Binding StopTimerCommand}"
+                                            Style="{StaticResource DangerButtonStyle}" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Update Now (manual trigger) -->
+                            <Border Padding="20,11">
+                                <Button Content="{Binding Loc[BTNDdnsUpdateNow]}"
+                                        Command="{Binding UpdateNowCommand}"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        HorizontalAlignment="Stretch" />
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Last update status -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Loc[LBLDdnsLastUpdate]}"
+                                               Style="{StaticResource SectionLabelStyle}"
+                                               VerticalAlignment="Center" />
+
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <!-- Status dot: green = ok, red = failed -->
+                                        <Ellipse Width="8" Height="8" Margin="0,0,8,0" VerticalAlignment="Center">
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Setter Property="Fill" Value="{DynamicResource Status.Stopped}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding LastUpdateOk}" Value="True">
+                                                            <Setter Property="Fill" Value="{DynamicResource Status.Running}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+                                        <TextBlock Text="{Binding LastUpdated}"
+                                                   FontFamily="Cascadia Code, Consolas"
+                                                   FontSize="13"
+                                                   Foreground="{DynamicResource Foreground.Secondary}"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ── Footer: status + save ── -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource Background.Secondary}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="0,1,0,0"
+                Padding="28,12">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}"
+                           Style="{StaticResource HintStyle}"
+                           VerticalAlignment="Center" />
+                <Button Content="{Binding Loc[BtnSave]}"
+                        Command="{Binding SaveSettingsCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        HorizontalAlignment="Right"
+                        Width="140" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

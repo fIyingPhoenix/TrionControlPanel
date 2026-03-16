@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ══════════════════════════════════════════════════════════
+         TYPOGRAPHY — Segoe UI scale
+         Display › H1 › H2 › H3 › H4 › Body › Small › Caption › Mono
+         ══════════════════════════════════════════════════════════ -->
+
+    <Style x:Key="DisplayStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"   Value="Segoe UI Variable Display, Segoe UI" />
+        <Setter Property="FontSize"     Value="32" />
+        <Setter Property="FontWeight"   Value="Bold" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="H1Style" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"   Value="Segoe UI Variable Display, Segoe UI" />
+        <Setter Property="FontSize"     Value="24" />
+        <Setter Property="FontWeight"   Value="SemiBold" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="H2Style" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"   Value="Segoe UI Variable Text, Segoe UI" />
+        <Setter Property="FontSize"     Value="20" />
+        <Setter Property="FontWeight"   Value="SemiBold" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="H3Style" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"   Value="Segoe UI Variable Text, Segoe UI" />
+        <Setter Property="FontSize"     Value="15" />
+        <Setter Property="FontWeight"   Value="SemiBold" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="H4Style" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"   Value="Segoe UI Variable Text, Segoe UI" />
+        <Setter Property="FontSize"     Value="13" />
+        <Setter Property="FontWeight"   Value="SemiBold" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="BodyStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontSize"     Value="13" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="SmallStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Secondary}" />
+        <Setter Property="FontSize"     Value="12" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="CaptionStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Secondary}" />
+        <Setter Property="FontSize"     Value="11" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="HintStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Accent.Primary}" />
+        <Setter Property="FontSize"     Value="12" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="MonoStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Secondary}" />
+        <Setter Property="FontFamily"   Value="Cascadia Code, Consolas, Courier New" />
+        <Setter Property="FontSize"     Value="12" />
+    </Style>
+
+    <!-- Section label (uppercase tracking) -->
+    <Style x:Key="SectionLabelStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"   Value="{DynamicResource Foreground.Muted}" />
+        <Setter Property="FontSize"     Value="10" />
+        <Setter Property="FontWeight"   Value="SemiBold" />
+    </Style>
+
+    <!-- Status text: running -->
+    <Style x:Key="StatusRunningStyle" TargetType="TextBlock" BasedOn="{StaticResource SmallStyle}">
+        <Setter Property="Foreground" Value="{DynamicResource Status.Running}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <!-- Status text: stopped -->
+    <Style x:Key="StatusStoppedStyle" TargetType="TextBlock" BasedOn="{StaticResource SmallStyle}">
+        <Setter Property="Foreground" Value="{DynamicResource Foreground.Muted}" />
+    </Style>
+
+    <!-- Large metric number -->
+    <Style x:Key="MetricValueStyle" TargetType="TextBlock">
+        <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FontFamily"  Value="Segoe UI Variable Display, Segoe UI" />
+        <Setter Property="FontSize"    Value="28" />
+        <Setter Property="FontWeight"  Value="Light" />
+    </Style>
+
+</ResourceDictionary>

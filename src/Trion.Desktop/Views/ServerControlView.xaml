@@ -1,0 +1,290 @@
+﻿<UserControl x:Class="Trion.Desktop.Views.ServerControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:Trion.Desktop.Infrastructure.Converters"
+             mc:Ignorable="d"
+             Background="{DynamicResource Background.Primary}">
+
+    <UserControl.Resources>
+        <conv:StatusToColorConverter x:Key="StatusToColor" />
+        <conv:InverseBoolConverter   x:Key="InverseBool" />
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="28,24,28,28">
+
+            <!-- ── Page header + quick actions ── -->
+            <Grid Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding Loc[NavServerControl]}" Style="{StaticResource H1Style}" />
+                    <TextBlock Text="{Binding Loc[ServerControlCaption]}"
+                               Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="{Binding Loc[BtnStartAll]}"
+                            Command="{Binding StartAllCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Margin="0,0,8,0" Width="100" />
+                    <Button Content="{Binding Loc[BtnStopAll]}"
+                            Command="{Binding StopAllCommand}"
+                            Style="{StaticResource DangerButtonStyle}"
+                            Margin="0,0,8,0" Width="100" />
+                    <Button Command="{Binding RefreshCommand}"
+                            Style="{StaticResource IconButtonStyle}"
+                            ToolTip="{Binding Loc[TooltipRefreshStatus]}">
+                        <Path Data="M 17.65,6.35 C 16.2,4.9 14.21,4 12,4
+                                   A 8,8 0 0,0 4,12 A 8,8 0 0,0 12,20
+                                   C 15.73,20 18.84,17.45 19.73,14 H 17.65
+                                   C 16.83,16.33 14.61,18 12,18
+                                   A 6,6 0 0,1 6,12 A 6,6 0 0,1 12,6
+                                   C 13.66,6 15.14,6.69 16.22,7.78 L 13,11 H 20 V 4 Z"
+                              Fill="{DynamicResource Foreground.Secondary}"
+                              Width="16" Height="16" Stretch="Uniform" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- ── Status message ── -->
+            <TextBlock Text="{Binding StatusMessage}"
+                       Style="{StaticResource HintStyle}"
+                       Margin="0,0,0,20"
+                       Visibility="{Binding StatusMessage,
+                                    Converter={StaticResource NullToVisibility}}" />
+
+            <!-- ── Server cards (3-column) ── -->
+            <TextBlock Text="{Binding Loc[LBLServers]}" Style="{StaticResource SectionLabelStyle}" Margin="0,0,0,10" />
+            <UniformGrid Rows="1" Columns="3">
+
+                <!-- ── Database ───────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="18,20,20,20">
+                            <!-- Icon + title + pulse dot -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Database}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLServerNameDatabase]}"
+                                           Style="{StaticResource H3Style}" VerticalAlignment="Center" />
+                                <Grid Grid.Column="3" VerticalAlignment="Center">
+                                    <Ellipse Width="18" Height="18"
+                                             Fill="{Binding IsDatabaseRunning, Converter={StaticResource StatusToColor}}">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Opacity" Value="0.2" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDatabaseRunning}" Value="True">
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard x:Name="DbHaloPulse">
+                                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                     From="0.15" To="0.65"
+                                                                                     Duration="0:0:0.9" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <RemoveStoryboard BeginStoryboardName="DbHaloPulse" />
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                    <Ellipse Width="10" Height="10"
+                                             Fill="{Binding IsDatabaseRunning, Converter={StaticResource StatusToColor}}" />
+                                </Grid>
+                            </Grid>
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <TextBlock Style="{StaticResource CaptionStyle}">
+                                <TextBlock.Text>
+                                    <Binding Path="IsDatabaseRunning" StringFormat="mysqld   •   {0}" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Rectangle Height="12" Fill="Transparent" />
+                            <Separator />
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <Button HorizontalAlignment="Stretch"
+                                    Content="{Binding Loc[BtnStop]}"
+                                    Command="{Binding ToggleDatabaseCommand}"
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    Visibility="{Binding IsDatabaseRunning, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ── World ───────────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="5,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="18,20,20,20">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Server}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLServerNameWorld]}"
+                                           Style="{StaticResource H3Style}" VerticalAlignment="Center" />
+                                <Grid Grid.Column="3" VerticalAlignment="Center">
+                                    <Ellipse Width="18" Height="18"
+                                             Fill="{Binding IsWorldRunning, Converter={StaticResource StatusToColor}}">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Opacity" Value="0.2" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsWorldRunning}" Value="True">
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard x:Name="WorldHaloPulse">
+                                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                     From="0.15" To="0.65"
+                                                                                     Duration="0:0:0.9" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <RemoveStoryboard BeginStoryboardName="WorldHaloPulse" />
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                    <Ellipse Width="10" Height="10"
+                                             Fill="{Binding IsWorldRunning, Converter={StaticResource StatusToColor}}" />
+                                </Grid>
+                            </Grid>
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <TextBlock Style="{StaticResource CaptionStyle}">
+                                <TextBlock.Text>
+                                    <Binding Path="IsWorldRunning" StringFormat="worldserver   •   {0}" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Rectangle Height="12" Fill="Transparent" />
+                            <Separator />
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <Button HorizontalAlignment="Stretch"
+                                    Content="{Binding Loc[BtnStop]}"
+                                    Command="{Binding ToggleWorldCommand}"
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    Visibility="{Binding IsWorldRunning, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ── Logon ───────────────────────────────────────────────── -->
+                <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="10,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                Background="{DynamicResource Accent.Primary}" />
+                        <StackPanel Grid.Column="1" Margin="18,20,20,20">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Width="36" Height="36">
+                                    <Border CornerRadius="8" Opacity="0.12"
+                                            Background="{DynamicResource Accent.Primary}" />
+                                    <Path Data="{StaticResource Icon.Server}"
+                                          Fill="{DynamicResource Accent.Primary}"
+                                          Width="18" Height="18" Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Loc[LBLServerNameLogon]}"
+                                           Style="{StaticResource H3Style}" VerticalAlignment="Center" />
+                                <Grid Grid.Column="3" VerticalAlignment="Center">
+                                    <Ellipse Width="18" Height="18"
+                                             Fill="{Binding IsLogonRunning, Converter={StaticResource StatusToColor}}">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Opacity" Value="0.2" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsLogonRunning}" Value="True">
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard x:Name="LogonHaloPulse">
+                                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                     From="0.15" To="0.65"
+                                                                                     Duration="0:0:0.9" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <RemoveStoryboard BeginStoryboardName="LogonHaloPulse" />
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                    <Ellipse Width="10" Height="10"
+                                             Fill="{Binding IsLogonRunning, Converter={StaticResource StatusToColor}}" />
+                                </Grid>
+                            </Grid>
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <TextBlock Style="{StaticResource CaptionStyle}">
+                                <TextBlock.Text>
+                                    <Binding Path="IsLogonRunning" StringFormat="authserver   •   {0}" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Rectangle Height="12" Fill="Transparent" />
+                            <Separator />
+                            <Rectangle Height="14" Fill="Transparent" />
+                            <Button HorizontalAlignment="Stretch"
+                                    Content="{Binding Loc[BtnStop]}"
+                                    Command="{Binding ToggleLogonCommand}"
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    Visibility="{Binding IsLogonRunning, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </UniformGrid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

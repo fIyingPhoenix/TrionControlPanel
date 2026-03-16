@@ -1,0 +1,813 @@
+﻿<UserControl x:Class="Trion.Desktop.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Trion.Desktop.ViewModels"
+             xmlns:conv="clr-namespace:Trion.Desktop.Infrastructure.Converters"
+             xmlns:helpers="clr-namespace:Trion.Desktop.Infrastructure.Helpers"
+             mc:Ignorable="d"
+             Background="{DynamicResource Background.Primary}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ── Sub-tab bar ── -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource Background.Secondary}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Margin="16,0">
+                <Button Content="{Binding Loc[TabTrion]}"
+                        Command="{Binding SwitchTabCommand}"
+                        CommandParameter="{x:Static vm:SettingsTab.Trion}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SubTabStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActiveTab}" Value="{x:Static vm:SettingsTab.Trion}">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+                                    <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="{Binding Loc[TabCustom]}"
+                        Command="{Binding SwitchTabCommand}"
+                        CommandParameter="{x:Static vm:SettingsTab.Custom}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SubTabStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActiveTab}" Value="{x:Static vm:SettingsTab.Custom}">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+                                    <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="{Binding Loc[TabDatabase]}"
+                        Command="{Binding SwitchTabCommand}"
+                        CommandParameter="{x:Static vm:SettingsTab.Database}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SubTabStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActiveTab}" Value="{x:Static vm:SettingsTab.Database}">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+                                    <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Tab content ── -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,24,28,16">
+
+                <!-- ══════════════════════════════════════════════════════════════
+                     TRION TAB
+                     ══════════════════════════════════════════════════════════════ -->
+                <StackPanel Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:SettingsTab.Trion}}">
+
+                    <!-- Page header -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="{Binding Loc[TabTrion]}" Style="{StaticResource H1Style}" />
+                        <TextBlock Text="{Binding Loc[SettingsTrionCaption]}"
+                                   Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <!-- ── BEHAVIOR ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLBehavior]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Server crash detection -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLServerCrashDetection]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescCrashDetection]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding ServerCrashDetection, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Launch servers with Windows -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLServerStartup]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescServerStartup]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding RunServerWithWindows, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Launch Trion with Windows -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLRunTrionStartup]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescTrionStartup]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding RunTrionWithWindows, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Hide server console -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLHideConsole]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescHideConsole]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding HideConsole, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Notification sound -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLNotificationSound]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescNotificationSound]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding NotificationSound, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Minimize to tray -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLStayInTray]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescStayInTray]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding StayInTray, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── APPEARANCE ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLAppearance]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Language -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[CBOXLanguageSelect]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescLanguage]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <ComboBox Grid.Column="1"
+                                              ItemsSource="{Binding Languages}"
+                                              SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                              Width="120"
+                                              VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── AUTO-UPDATE ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLAutoUpdate]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Auto-update Trion -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLAutoUpdateTrion]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescAutoUpdateTrion]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding AutoUpdateTrion, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Auto-update Core -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLAutoUpdateCore]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescAutoUpdateCore]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding AutoUpdateCore, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Auto-update Database -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLAutoUpdateDatabase]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescAutoUpdateDatabase]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding AutoUpdateDatabase, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── API &amp; NETWORK ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLApiNetwork]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Metrics update interval -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TXTMetricsInterval]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescMetricsInterval]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <ComboBox ItemsSource="{x:Static vm:SettingsViewModel.MetricsIntervals}"
+                                                  SelectedItem="{Binding MetricsInterval, Mode=TwoWay}"
+                                                  Style="{StaticResource ComboBoxStyle}"
+                                                  Width="72" />
+                                        <TextBlock Text="{Binding Loc[UnitSeconds]}"
+                                                   Style="{StaticResource CaptionStyle}"
+                                                   Margin="8,0,0,0"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+
+                <!-- ══════════════════════════════════════════════════════════════
+                     CUSTOM REPACKS TAB
+                     ══════════════════════════════════════════════════════════════ -->
+                <StackPanel Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:SettingsTab.Custom}}">
+
+                    <!-- Page header -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="{Binding Loc[TabCustom]}" Style="{StaticResource H1Style}" />
+                        <TextBlock Text="{Binding Loc[SettingsCustomCaption]}"
+                                   Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <!-- ── CUSTOM EMULATOR ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="{Binding Loc[LBLCustomEmulator]}" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Enable custom emulator -->
+                            <Border Padding="20,11">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Loc[TGLUseCustomServer]}"
+                                                   Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                        <TextBlock Text="{Binding Loc[DescCustomEmulator]}"
+                                                   Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1"
+                                              IsChecked="{Binding UseCustomServer, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              Content="" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                            <Separator Margin="20,0" />
+
+                            <!-- Core type -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTCoreType]}"
+                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                <TextBlock Text="{Binding Loc[DescCoreType]}"
+                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,8" />
+                                <ComboBox ItemsSource="{Binding CustomCoreTypes}"
+                                          SelectedIndex="{Binding CustomCoreType, Mode=TwoWay}"
+                                          Style="{StaticResource ComboBoxStyle}" />
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Emulator directory -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTEmulatorDirectory]}"
+                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                <TextBlock Text="{Binding Loc[DescEmulatorDirectory]}"
+                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,8" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"
+                                             Text="{Binding CustomEmulatorLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="C:\Emulators\MyServer\" />
+                                    <Button Grid.Column="2"
+                                            Content="{Binding Loc[BtnBrowseDots]}"
+                                            Command="{Binding BrowseEmulatorLocationCommand}"
+                                            Style="{StaticResource SecondaryButtonStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <Separator Margin="20,0" />
+
+                            <!-- Executable names -->
+                            <StackPanel Margin="20,14">
+                                <TextBlock Text="{Binding Loc[TXTExecutableNames]}"
+                                           Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                <TextBlock Text="{Binding Loc[DescExecutableNames]}"
+                                           Style="{StaticResource CaptionStyle}" Margin="0,2,0,12" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Loc[LBLWorldServer]}" Style="{StaticResource CaptionStyle}" />
+                                        <TextBox Text="{Binding CustomWorldExeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InputStyle}"
+                                                 Tag="worldserver.exe"
+                                                 Margin="0,6,0,0" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="{Binding Loc[LBLLogonServer]}" Style="{StaticResource CaptionStyle}" />
+                                        <TextBox Text="{Binding CustomLogonExeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InputStyle}"
+                                                 Tag="authserver.exe"
+                                                 Margin="0,6,0,0" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="4">
+                                        <TextBlock Text="{Binding Loc[LBLDatabase]}" Style="{StaticResource CaptionStyle}" />
+                                        <TextBox Text="{Binding CustomDatabaseExeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource InputStyle}"
+                                                 Tag="mysqld.exe"
+                                                 Margin="0,6,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+
+                <!-- ══════════════════════════════════════════════════════════════
+                     DATABASE TAB
+                     ══════════════════════════════════════════════════════════════ -->
+                <StackPanel Visibility="{Binding ActiveTab,
+                                Converter={StaticResource EnumToVisibility},
+                                ConverterParameter={x:Static vm:SettingsTab.Database}}">
+
+                    <!-- Page header -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="{Binding Loc[LBLCardDatabaseCredencialsTitle]}" Style="{StaticResource H1Style}" />
+                        <TextBlock Text="{Binding Loc[SettingsDatabaseCaption]}"
+                                   Style="{StaticResource CaptionStyle}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- ── CONNECTION ── -->
+                        <Border Grid.Column="0" Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLConnection]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <!-- Host + Port -->
+                                <StackPanel Margin="20,14">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="86" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding Loc[LBLHost]}" Style="{StaticResource CaptionStyle}" />
+                                            <TextBox Text="{Binding DbHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource InputStyle}"
+                                                     Tag="localhost"
+                                                     Margin="0,6,0,0" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="{Binding Loc[LBLPort]}" Style="{StaticResource CaptionStyle}" />
+                                            <TextBox Text="{Binding DbPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{StaticResource InputStyle}"
+                                                     Tag="3306"
+                                                     Margin="0,6,0,0" />
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Username -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLUsername]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding DbUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="root"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Password -->
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLPassword]}" Style="{StaticResource CaptionStyle}" />
+                                    <PasswordBox Style="{StaticResource PasswordInputStyle}"
+                                                 helpers:PasswordBoxHelper.BoundPassword="{Binding DbPassword, Mode=TwoWay}"
+                                                 Margin="0,6,0,0" />
+                                </StackPanel>
+                                <Separator Margin="20,0" />
+
+                                <!-- Test connection row -->
+                                <Border Padding="20,11">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Loc[TXTConnectionTest]}"
+                                                       Foreground="{DynamicResource Foreground.Primary}" FontSize="13" />
+                                            <TextBlock Text="{Binding Loc[DescConnectionTest]}"
+                                                       Style="{StaticResource CaptionStyle}" Margin="0,2,0,0" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1"
+                                                Content="{Binding Loc[BTNTestConnection]}"
+                                                Command="{Binding TestConnectionCommand}"
+                                                Style="{StaticResource SecondaryButtonStyle}"
+                                                VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- ── DATABASE NAMES ── -->
+                        <Border Grid.Column="2" Style="{StaticResource ElevatedCardStyle}" Padding="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                        Background="{DynamicResource Accent.Primary}" />
+                                <StackPanel Grid.Column="1">
+                                    <Border Padding="20,16,20,14">
+                                        <TextBlock Text="{Binding Loc[LBLDatabaseNames]}" Style="{StaticResource H4Style}" />
+                                    </Border>
+                                    <Separator />
+
+                                <StackPanel Margin="20,14">
+                                    <TextBlock Text="{Binding Loc[LBLWorldDatabase]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding WorldDb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="wotlk_world"
+                                             Margin="0,6,0,14" />
+
+                                    <TextBlock Text="{Binding Loc[LBLAuthDatabase]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding AuthDb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="wotlk_auth"
+                                             Margin="0,6,0,14" />
+
+                                    <TextBlock Text="{Binding Loc[LBLCharactersDatabase]}" Style="{StaticResource CaptionStyle}" />
+                                    <TextBox Text="{Binding CharDb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource InputStyle}"
+                                             Tag="wotlk_characters"
+                                             Margin="0,6,0,0" />
+                                </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+
+                    <!-- ── MySQL ENGINE ── -->
+                    <Border Style="{StaticResource ElevatedCardStyle}" Padding="0" Margin="0,12,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" CornerRadius="10,0,0,10"
+                                    Background="{DynamicResource Accent.Primary}" />
+                            <StackPanel Grid.Column="1">
+                                <Border Padding="20,16,20,14">
+                                    <TextBlock Text="MySQL Engine" Style="{StaticResource H4Style}" />
+                                </Border>
+                                <Separator />
+
+                            <!-- Status row -->
+                            <Border Padding="20,14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Status indicator dot -->
+                                    <Ellipse Grid.Column="0"
+                                             Width="10" Height="10"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,10,0"
+                                             Fill="{Binding IsMySqlInstalled, Converter={StaticResource StatusToColor}}" />
+
+                                    <!-- Info block -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding MySqlVersionInfo}"
+                                                       Foreground="{DynamicResource Foreground.Primary}"
+                                                       FontSize="13" FontWeight="SemiBold" />
+                                            <Border Margin="10,0,0,0" CornerRadius="3" Padding="6,1"
+                                                    Background="{Binding IsMySqlInstalled, Converter={StaticResource StatusToColor}}">
+                                                <TextBlock FontSize="11" Foreground="White">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="IsMySqlInstalled">
+                                                            <Binding.Converter>
+                                                                <conv:BoolToStringConverter TrueValue="Installed" FalseValue="Not installed" />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Border>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding MySqlInstallPath}"
+                                                   Style="{StaticResource CaptionStyle}"
+                                                   Margin="0,3,0,0" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+
+                                    <!-- Running badge -->
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                Visibility="{Binding IsMySqlInstalled, Converter={StaticResource BoolToVisibility}}">
+                                        <Border CornerRadius="3" Padding="8,2"
+                                                Background="{DynamicResource Status.Running}"
+                                                Visibility="{Binding IsMySqlRunning, Converter={StaticResource BoolToVisibility}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Ellipse Width="6" Height="6"
+                                                         Fill="White"
+                                                         VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                                <TextBlock Text="Running" FontSize="11" Foreground="White" />
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="{Binding MySqlProcessInfo}"
+                                                   Style="{StaticResource CaptionStyle}"
+                                                   HorizontalAlignment="Right"
+                                                   Margin="0,3,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Progress bar — visible while an operation is running -->
+                            <Border Padding="20,0,20,12"
+                                    Visibility="{Binding IsMySqlBusy, Converter={StaticResource BoolToVisibility}}">
+                                <StackPanel>
+                                    <ProgressBar IsIndeterminate="True"
+                                                 Style="{StaticResource ModernProgressBarStyle}"
+                                                 Foreground="{DynamicResource Accent.Primary}"
+                                                 Height="4" Margin="0,0,0,6" />
+                                    <TextBlock Text="{Binding MySqlStatusMessage}"
+                                               Style="{StaticResource CaptionStyle}"
+                                               TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </Border>
+
+                            <Separator Margin="20,0" />
+
+                            <!-- Action buttons -->
+                            <Border Padding="20,12">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Repair config"
+                                            Command="{Binding RepairMySqlCommand}"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Width="120" Margin="0,0,8,0"
+                                            ToolTip="Regenerate my.ini for current hardware and restart MySQL" />
+                                    <Button Content="Reinstall"
+                                            Command="{Binding ReinstallMySqlCommand}"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Width="100" Margin="0,0,8,0"
+                                            ToolTip="Delete current installation and download a fresh copy" />
+                                    <Button Content="Uninstall"
+                                            Command="{Binding UninstallMySqlCommand}"
+                                            Style="{StaticResource DangerButtonStyle}"
+                                            Width="100"
+                                            ToolTip="Stop MySQL and permanently delete all database files" />
+                                </StackPanel>
+                            </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ── Footer: status + save ── -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource Background.Secondary}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="0,1,0,0"
+                Padding="28,12">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}"
+                           Style="{StaticResource HintStyle}"
+                           VerticalAlignment="Center" />
+                <Button Content="{Binding Loc[BtnSave]}"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        HorizontalAlignment="Right"
+                        Width="140" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

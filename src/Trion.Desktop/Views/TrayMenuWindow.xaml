@@ -1,0 +1,96 @@
+﻿<Window x:Class="Trion.Desktop.Views.TrayMenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        Topmost="True"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Themed item button — hover uses Sidebar.HoverBg + Accent.Primary text -->
+        <Style x:Key="TrayItemStyle" TargetType="Button">
+            <Setter Property="Background"                 Value="Transparent"/>
+            <Setter Property="Foreground"                 Value="{DynamicResource Foreground.Primary}"/>
+            <Setter Property="BorderThickness"            Value="0"/>
+            <Setter Property="Padding"                    Value="14,9"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor"                     Value="Hand"/>
+            <Setter Property="FontSize"                   Value="13"/>
+            <Setter Property="FontFamily"                 Value="Segoe UI"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background"
+                                        Value="{DynamicResource Sidebar.HoverBg}"/>
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource Accent.Primary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bg" Property="Background"
+                                        Value="{DynamicResource Accent.Subtle}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Margin creates room for the drop shadow -->
+    <Grid Margin="12">
+        <Border Background="{DynamicResource Background.Elevated}"
+                BorderBrush="{DynamicResource Border.Default}"
+                BorderThickness="1"
+                CornerRadius="10"
+                ClipToBounds="True">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000"
+                                  BlurRadius="20"
+                                  Opacity="0.45"
+                                  ShadowDepth="4"
+                                  Direction="270"/>
+            </Border.Effect>
+
+            <StackPanel MinWidth="190" Margin="5">
+
+                <!-- App name header -->
+                <TextBlock Text="Trion Control Panel"
+                           Foreground="{DynamicResource Foreground.Secondary}"
+                           FontFamily="Segoe UI"
+                           FontSize="10"
+                           Margin="14,10,14,6"/>
+
+                <Border Height="1"
+                        Background="{DynamicResource Border.Default}"
+                        Margin="8,0,8,4"/>
+
+                <Button Content="Open Trion"
+                        Style="{StaticResource TrayItemStyle}"
+                        Click="OpenButton_Click"
+                        Margin="4,0"/>
+
+                <Border Height="1"
+                        Background="{DynamicResource Border.Default}"
+                        Margin="8,4"/>
+
+                <Button Content="Exit"
+                        Style="{StaticResource TrayItemStyle}"
+                        Click="ExitButton_Click"
+                        Margin="4,0,4,4"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ══════════════════════════════════════════════════════════
+         CARDS — Elevated and flat variants
+         ══════════════════════════════════════════════════════════ -->
+
+    <!-- Elevated card with soft shadow -->
+    <Style x:Key="ElevatedCardStyle" TargetType="Border">
+        <Setter Property="Background"      Value="{DynamicResource Card.Background}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource Card.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius"    Value="10" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="16" ShadowDepth="4"
+                                  Direction="270" Color="#000000" Opacity="0.18" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Flat card (no shadow) -->
+    <Style x:Key="FlatCardStyle" TargetType="Border">
+        <Setter Property="Background"      Value="{DynamicResource Card.Background}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource Card.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius"    Value="10" />
+    </Style>
+
+    <!-- Accent-bordered info card -->
+    <Style x:Key="AccentCardStyle" TargetType="Border">
+        <Setter Property="Background"      Value="{DynamicResource Card.Background}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource Accent.Primary}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius"    Value="10" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="12" ShadowDepth="0"
+                                  Color="#000000" Opacity="0.12" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Inner section card (lighter padding, used inside elevated cards) -->
+    <Style x:Key="InnerCardStyle" TargetType="Border">
+        <Setter Property="Background"      Value="{DynamicResource Background.Tertiary}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource Border.Default}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius"    Value="6" />
+    </Style>
+
+    <!-- Status running card variant -->
+    <Style x:Key="RunningCardStyle" TargetType="Border" BasedOn="{StaticResource ElevatedCardStyle}">
+        <Setter Property="BorderBrush" Value="{DynamicResource Status.Running}" />
+    </Style>
+
+</ResourceDictionary>

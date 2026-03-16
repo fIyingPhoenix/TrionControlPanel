@@ -1,0 +1,338 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ══════════════════════════════════════════════════════════
+         BUTTON SYSTEM
+         Base → Primary | Secondary | Ghost | Danger | Icon | Chrome | ServerBar
+         ══════════════════════════════════════════════════════════ -->
+
+    <!-- ── Base (shared template) ── -->
+    <Style x:Key="BaseButtonStyle" TargetType="Button">
+        <Setter Property="Height"             Value="36" />
+        <Setter Property="Padding"            Value="16,0" />
+        <Setter Property="Cursor"             Value="Hand" />
+        <Setter Property="FontSize"           Value="13" />
+        <Setter Property="FontWeight"         Value="SemiBold" />
+        <Setter Property="BorderThickness"    Value="0" />
+        <Setter Property="FocusVisualStyle"   Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0.86" Duration="0:0:0.12" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1.0" Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.72" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.55" />
+                            <Setter Property="Foreground" Value="{DynamicResource Foreground.Secondary}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ── Primary ── -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="{DynamicResource Accent.Primary}" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent.Foreground}" />
+    </Style>
+
+    <!-- ── Secondary (outlined) ── -->
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Height"           Value="36" />
+        <Setter Property="Padding"          Value="16,0" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FontSize"         Value="13" />
+        <Setter Property="FontWeight"       Value="SemiBold" />
+        <Setter Property="Background"       Value="Transparent" />
+        <Setter Property="Foreground"       Value="{DynamicResource Foreground.Primary}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource Border.Default}"
+                            BorderThickness="1"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0.80" Duration="0:0:0.12" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1.0" Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Background.Tertiary}" />
+                            <Setter TargetName="Root" Property="BorderBrush"
+                                    Value="{DynamicResource Foreground.Muted}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.65" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.55" />
+                            <Setter Property="Foreground" Value="{DynamicResource Foreground.Secondary}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ── Ghost (text only) ── -->
+    <Style x:Key="GhostButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent.Primary}" />
+    </Style>
+
+    <!-- ── Danger ── -->
+    <Style x:Key="DangerButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="{DynamicResource Danger.Primary}" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+        <Style.Triggers>
+            <!-- Keep white text when disabled; base style would replace it with Foreground.Secondary -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ── Icon button (square, no background) ── -->
+    <Style x:Key="IconButtonStyle" TargetType="Button">
+        <Setter Property="Width"            Value="36" />
+        <Setter Property="Height"           Value="36" />
+        <Setter Property="Padding"          Value="8" />
+        <Setter Property="Background"       Value="Transparent" />
+        <Setter Property="BorderThickness"  Value="0" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Background.Elevated}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ── Window chrome buttons (same shape as IconButtonStyle) ── -->
+    <Style x:Key="ChromeButtonStyle" TargetType="Button">
+        <Setter Property="Width"            Value="36" />
+        <Setter Property="Height"           Value="36" />
+        <Setter Property="Padding"          Value="8" />
+        <Setter Property="Background"       Value="Transparent" />
+        <Setter Property="BorderThickness"  Value="0" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin"           Value="1,0" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Background.Elevated}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Close button — same shape, red hover -->
+    <Style x:Key="ChromeCloseButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource ChromeButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="#C42B1C" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ── Server bar button (bottom panel) ── -->
+    <!-- Tag="{Binding IsXRunning}" switches the background to running-green -->
+    <Style x:Key="ServerBarButtonStyle" TargetType="Button">
+        <Setter Property="Background"       Value="{DynamicResource Accent.Primary}" />
+        <Setter Property="Foreground"       Value="{DynamicResource Accent.Foreground}" />
+        <Setter Property="BorderThickness"  Value="0,0,1,0" />
+        <Setter Property="BorderBrush"      Value="{DynamicResource Border.Subtle}" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FontSize"         Value="11" />
+        <Setter Property="FontWeight"       Value="Bold" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0.82" Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Root"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1.0" Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.68" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Background.Tertiary}" />
+                            <Setter TargetName="Root" Property="Opacity" Value="0.55" />
+                            <Setter Property="Foreground" Value="{DynamicResource Foreground.Secondary}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!-- Server running: switch to green via DataTrigger (Tag is object; needs DataTrigger for proper bool coercion) -->
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Status.Running}" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ── Small secondary (used inside cards) ── -->
+    <Style x:Key="SmallSecondaryButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource SecondaryButtonStyle}">
+        <Setter Property="Height"   Value="28" />
+        <Setter Property="Padding"  Value="10,0" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <!-- ── Color swatch (theme picker circles — no chrome, just content) ── -->
+    <Style x:Key="ColorSwatchStyle" TargetType="Button">
+        <Setter Property="Background"       Value="Transparent" />
+        <Setter Property="BorderThickness"  Value="0" />
+        <Setter Property="Padding"          Value="0" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.80" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.60" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

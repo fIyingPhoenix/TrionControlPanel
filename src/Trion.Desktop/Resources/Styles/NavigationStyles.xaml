@@ -1,0 +1,96 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ══════════════════════════════════════════════════════════
+         SIDEBAR NAV ITEM
+         Binds DataContext.IsSelected to highlight state.
+         ══════════════════════════════════════════════════════════ -->
+    <Style x:Key="NavItemStyle" TargetType="Button">
+        <Setter Property="Height"                    Value="46" />
+        <Setter Property="HorizontalAlignment"       Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Background"                Value="Transparent" />
+        <Setter Property="Foreground"                Value="{DynamicResource Foreground.Secondary}" />
+        <Setter Property="BorderThickness"           Value="0" />
+        <Setter Property="Cursor"                    Value="Hand" />
+        <Setter Property="FocusVisualStyle"          Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            BorderThickness="3,0,0,0">
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Sidebar.HoverBg}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.75" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Sidebar.Selected}" />
+                <Setter Property="Foreground" Value="{DynamicResource Sidebar.SelectedText}" />
+                <!-- The 3px left-border highlight is simulated in XAML below via the
+                     SelectedIndicator approach — here we rely on the parent container. -->
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SUB-TAB BUTTON (top of content panes)
+         ══════════════════════════════════════════════════════════ -->
+    <Style x:Key="SubTabStyle" TargetType="Button">
+        <Setter Property="Height"           Value="40" />
+        <Setter Property="Padding"          Value="18,0" />
+        <Setter Property="Background"       Value="Transparent" />
+        <Setter Property="BorderThickness"  Value="0,0,0,2" />
+        <Setter Property="BorderBrush"      Value="Transparent" />
+        <Setter Property="Foreground"       Value="{DynamicResource Foreground.Secondary}" />
+        <Setter Property="FontSize"         Value="13" />
+        <Setter Property="FontWeight"       Value="SemiBold" />
+        <Setter Property="Cursor"           Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background"
+                                    Value="{DynamicResource Background.Tertiary}" />
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource Foreground.Primary}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Opacity" Value="0.75" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Active sub-tab variant — apply directly or via DataTrigger in VM binding -->
+    <Style x:Key="ActiveSubTabStyle" TargetType="Button"
+           BasedOn="{StaticResource SubTabStyle}">
+        <Setter Property="BorderBrush" Value="{DynamicResource Tab.Underline}" />
+        <Setter Property="Foreground"  Value="{DynamicResource Foreground.Primary}" />
+    </Style>
+
+</ResourceDictionary>

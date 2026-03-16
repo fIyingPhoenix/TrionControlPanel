@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ══════════════════════════════════════════════════════════
+         TRION BLUE — Deep navy with Trion-cyan accent
+         ══════════════════════════════════════════════════════════ -->
+
+    <!-- Backgrounds -->
+    <SolidColorBrush x:Key="Background.Primary"   Color="#0E0E1A" />
+    <SolidColorBrush x:Key="Background.Secondary" Color="#161624" />
+    <SolidColorBrush x:Key="Background.Tertiary"  Color="#1E1E35" />
+    <SolidColorBrush x:Key="Background.Elevated"  Color="#252542" />
+
+    <!-- Foregrounds -->
+    <SolidColorBrush x:Key="Foreground.Primary"   Color="#E8E8F5" />
+    <SolidColorBrush x:Key="Foreground.Secondary" Color="#7878A0" />
+    <SolidColorBrush x:Key="Foreground.Muted"     Color="#484870" />
+    <SolidColorBrush x:Key="Foreground.Disabled"  Color="#30304E" />
+
+    <!-- Accent — Trion Cyan -->
+    <SolidColorBrush x:Key="Accent.Primary"    Color="#00D4FF" />
+    <SolidColorBrush x:Key="Accent.Hover"      Color="#33DBFF" />
+    <SolidColorBrush x:Key="Accent.Pressed"    Color="#00AACC" />
+    <SolidColorBrush x:Key="Accent.Foreground" Color="#001E2E" />
+    <SolidColorBrush x:Key="Accent.Subtle"     Color="#1400D4FF" />
+
+    <!-- Borders -->
+    <SolidColorBrush x:Key="Border.Default"    Color="#252542" />
+    <SolidColorBrush x:Key="Border.Subtle"     Color="#1A1A2E" />
+    <SolidColorBrush x:Key="Border.Focus"      Color="#00D4FF" />
+
+    <!-- Status -->
+    <SolidColorBrush x:Key="Status.Running"    Color="#00E676" />
+    <SolidColorBrush x:Key="Status.Stopped"    Color="#404060" />
+    <SolidColorBrush x:Key="Status.Warning"    Color="#FFB347" />
+    <SolidColorBrush x:Key="Status.Error"      Color="#FF4757" />
+
+    <!-- Danger -->
+    <SolidColorBrush x:Key="Danger.Primary"    Color="#FF4757" />
+    <SolidColorBrush x:Key="Danger.Hover"      Color="#FF6B78" />
+
+    <!-- Cards -->
+    <SolidColorBrush x:Key="Card.Background"   Color="#161624" />
+    <SolidColorBrush x:Key="Card.Border"       Color="#252542" />
+
+    <!-- Sidebar -->
+    <SolidColorBrush x:Key="Sidebar.Background"     Color="#0A0A12" />
+    <SolidColorBrush x:Key="Sidebar.Selected"       Color="#1400D4FF" />
+    <SolidColorBrush x:Key="Sidebar.SelectedBorder" Color="#00D4FF" />
+    <SolidColorBrush x:Key="Sidebar.SelectedText"   Color="#00D4FF" />
+    <SolidColorBrush x:Key="Sidebar.HoverBg"        Color="#0D0D1F" />
+
+    <!-- Inputs -->
+    <SolidColorBrush x:Key="Input.Background"  Color="#1E1E35" />
+    <SolidColorBrush x:Key="Input.Border"      Color="#2A2A46" />
+
+    <!-- Focus glow (Color scalar — used in DropShadowEffect) -->
+    <Color x:Key="Glow.Color">#00D4FF</Color>
+
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollBar.Thumb"   Color="#2A2A4A" />
+    <SolidColorBrush x:Key="ScrollBar.Track"   Color="#12121E" />
+
+    <!-- Tab accent underline -->
+    <SolidColorBrush x:Key="Tab.Underline"     Color="#00D4FF" />
+
+</ResourceDictionary>
